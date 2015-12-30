@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		453383E11C3174E200915668 /* VZTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 453383E01C3174E200915668 /* VZTest.mm */; };
+		45ABE1CF1C33A3F100DDB80A /* VZFNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ABE1CE1C33A3F100DDB80A /* VZFNode.m */; };
 		45C9874C1C2D0F2800D17A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874B1C2D0F2800D17A1D /* main.m */; };
 		45C9874F1C2D0F2800D17A1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874E1C2D0F2800D17A1D /* AppDelegate.m */; };
 		45C987521C2D0F2800D17A1D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C987511C2D0F2800D17A1D /* ViewController.m */; };
 		45C987551C2D0F2800D17A1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987531C2D0F2800D17A1D /* Main.storyboard */; };
 		45C987571C2D0F2800D17A1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45C987561C2D0F2800D17A1D /* Assets.xcassets */; };
 		45C9875A1C2D0F2800D17A1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */; };
-		45C987631C2D115500D17A1D /* VZFlexCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C987621C2D115500D17A1D /* VZFlexCell.m */; };
+		45C987631C2D115500D17A1D /* VZFlexCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C987621C2D115500D17A1D /* VZFlexCell.mm */; };
 		45C987681C2D12BE00D17A1D /* Layout.c in Sources */ = {isa = PBXBuildFile; fileRef = 45C987661C2D12BE00D17A1D /* Layout.c */; };
-		45C9876B1C2D309800D17A1D /* VZFlexNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9876A1C2D309800D17A1D /* VZFlexNode.m */; };
+		45C9876B1C2D309800D17A1D /* VZFlexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C9876A1C2D309800D17A1D /* VZFlexNode.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		453383DF1C3174E200915668 /* VZTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZTest.h; sourceTree = "<group>"; };
-		453383E01C3174E200915668 /* VZTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZTest.mm; sourceTree = "<group>"; };
+		45ABE1CD1C33A3F100DDB80A /* VZFNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNode.h; sourceTree = "<group>"; };
+		45ABE1CE1C33A3F100DDB80A /* VZFNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFNode.m; sourceTree = "<group>"; };
 		45C987471C2D0F2800D17A1D /* VZFlexLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZFlexLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C9874B1C2D0F2800D17A1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C9874D1C2D0F2800D17A1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -33,11 +33,11 @@
 		45C987591C2D0F2800D17A1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45C9875B1C2D0F2800D17A1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45C987611C2D115500D17A1D /* VZFlexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFlexCell.h; sourceTree = "<group>"; };
-		45C987621C2D115500D17A1D /* VZFlexCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFlexCell.m; sourceTree = "<group>"; };
+		45C987621C2D115500D17A1D /* VZFlexCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFlexCell.mm; sourceTree = "<group>"; };
 		45C987661C2D12BE00D17A1D /* Layout.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Layout.c; sourceTree = "<group>"; };
 		45C987671C2D12BE00D17A1D /* Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layout.h; sourceTree = "<group>"; };
 		45C987691C2D309800D17A1D /* VZFlexNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFlexNode.h; sourceTree = "<group>"; };
-		45C9876A1C2D309800D17A1D /* VZFlexNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFlexNode.m; sourceTree = "<group>"; };
+		45C9876A1C2D309800D17A1D /* VZFlexNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFlexNode.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,21 +71,21 @@
 			isa = PBXGroup;
 			children = (
 				45C987691C2D309800D17A1D /* VZFlexNode.h */,
-				45C9876A1C2D309800D17A1D /* VZFlexNode.m */,
+				45C9876A1C2D309800D17A1D /* VZFlexNode.mm */,
 				45C987651C2D12BE00D17A1D /* css_layout */,
 				45C987611C2D115500D17A1D /* VZFlexCell.h */,
-				45C987621C2D115500D17A1D /* VZFlexCell.m */,
+				45C987621C2D115500D17A1D /* VZFlexCell.mm */,
 				45C9874D1C2D0F2800D17A1D /* AppDelegate.h */,
 				45C9874E1C2D0F2800D17A1D /* AppDelegate.m */,
 				45C987501C2D0F2800D17A1D /* ViewController.h */,
 				45C987511C2D0F2800D17A1D /* ViewController.m */,
+				45ABE1CD1C33A3F100DDB80A /* VZFNode.h */,
+				45ABE1CE1C33A3F100DDB80A /* VZFNode.m */,
 				45C987531C2D0F2800D17A1D /* Main.storyboard */,
 				45C987561C2D0F2800D17A1D /* Assets.xcassets */,
 				45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */,
 				45C9875B1C2D0F2800D17A1D /* Info.plist */,
 				45C9874A1C2D0F2800D17A1D /* Supporting Files */,
-				453383DF1C3174E200915668 /* VZTest.h */,
-				453383E01C3174E200915668 /* VZTest.mm */,
 			);
 			path = VZFlexLayout;
 			sourceTree = "<group>";
@@ -177,12 +177,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45C9876B1C2D309800D17A1D /* VZFlexNode.m in Sources */,
+				45ABE1CF1C33A3F100DDB80A /* VZFNode.m in Sources */,
+				45C9876B1C2D309800D17A1D /* VZFlexNode.mm in Sources */,
 				45C987521C2D0F2800D17A1D /* ViewController.m in Sources */,
-				453383E11C3174E200915668 /* VZTest.mm in Sources */,
 				45C987681C2D12BE00D17A1D /* Layout.c in Sources */,
 				45C9874F1C2D0F2800D17A1D /* AppDelegate.m in Sources */,
-				45C987631C2D115500D17A1D /* VZFlexCell.m in Sources */,
+				45C987631C2D115500D17A1D /* VZFlexCell.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

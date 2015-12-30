@@ -7,17 +7,18 @@
 //
 
 #import "VZFlexNode.h"
-
 #import "Layout.h"
-//#endif
-#import "VZTest.h"
+
 
 
 @interface VZFlexNode()
 {
     css_node_t* _css_node;
     NSMutableArray* _childNodes;
+
 }
+
+@property(nonatomic,strong)UIView* internalView;
 
 @end
 
@@ -57,12 +58,33 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - getters
+
+- (UIView* )internalView{
+    if (!_internalView) {
+        _internalView = [[UIView alloc]initWithFrame:CGRectZero];
+        UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 50, 14)];
+        label.tag = 100;
+        label.text = @"";
+        label.font = [UIFont systemFontOfSize:12.0f];
+        [_internalView addSubview:label];
+    }
+    return _internalView;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - setters
 
 - (void)setSize:(CGSize)size{
     _size = size;
     _css_node -> style.dimensions[CSS_WIDTH] = size.width;
     _css_node -> style.dimensions[CSS_HEIGHT] = size.height;
+}
+
+- (void)setPosition:(CGPoint)position{
+    _position = position;
+    _css_node -> style.dimensions[CSS_LEFT] = position.x;
+    _css_node -> style.dimensions[CSS_TOP] = position.y;
 }
 
 - (void)setMargin:(UIEdgeInsets)margin
@@ -115,6 +137,10 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - life cycle
 
+- (NSString* )description{
+    return self.name;
+}
+
 - (id)init
 {
     self = [super init];
@@ -128,6 +154,7 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
         
         _flexDirection  = VZFLEX_DIRECTION_ROW;
         _alignItems     = VZFLEX_ALIGN_ITEMS_START;
+        _alignSelf      = VZFLEX_ALIGN_SELF_STRETCH;
         _alignContent   = VZFLEX_ALIGN_CONTENT_START;
         _justifyContent = VZFLEX_JC_START;
         _margin = UIEdgeInsetsZero;
@@ -174,19 +201,51 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
     //prepare layout递归
     [self prepareLayout];
     
-    _css_node -> children_count = (int)self.childNodes.count;
+
     layoutNode(_css_node, width, CSS_DIRECTION_LTR);
-    
 }
+
+- (void)renderRecursively
+{
+    for (VZFlexNode* node in self.childNodes) {
+        [node renderRecursively];
+    }
+    [self render];
+}
+
+- (UIView* )view{
+    return _internalView;
+}
+
+- (void)render{
+
+    self.internalView.frame = [self frame];
+    UILabel* label = [self.internalView viewWithTag:100];
+    label.text = self.name;
+    self.internalView.backgroundColor = [UIColor colorWithRed:(arc4random()%255)/255.0
+                                                        green:(arc4random()%255)/255.0
+                                                         blue:(arc4random()%255)/255.0 alpha:1.0];
+
+    for(VZFlexNode* node in self.childNodes)
+    {
+        [self.internalView addSubview:node.internalView];
+        
+    }
+}
+
+
 
 - (void)addSubNode:(VZFlexNode* )node{
     
+    
     [_childNodes addObject:node];
+    _css_node -> children_count = (int)self.childNodes.count;
 }
 
 - (void)removeSubNode:(VZFlexNode* )node{
     
     [_childNodes removeObject:node];
+    _css_node -> children_count = (int)self.childNodes.count;
 
 }
 

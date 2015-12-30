@@ -19,10 +19,19 @@ typedef NS_ENUM(NSInteger,VZFlexNodeDirection){
 
 typedef NS_ENUM(NSInteger,VZFlexNodeAlignItems)
 {
-    VZFLEX_ALIGN_ITEMS_START=0,
-    VZFLEX_ALIGN_ITEmCENTER,
-    VZFLEX_ALIGN_FLEX_END,
-    VZFLEX_ALIGN_STRETCH
+    VZFLEX_ALIGN_ITEMS_START,
+    VZFLEX_ALIGN_ITEMS_CENTER,
+    VZFLEX_ALIGN_ITEMS_END,
+    VZFLEX_ALIGN_ITEMS_STRETCH
+};
+
+typedef NS_ENUM(NSInteger,VZFlexNodeAlignSelf)
+{
+    VZFLEX_ALIGN_SELF_AUTO = 0,
+    VZFLEX_ALIGN_SELF_START,
+    VZFLEX_ALIGN_SELF_CENTER,
+    VZFLEX_ALIGN_SELF_END,
+    VZFLEX_ALIGN_SELF_STRETCH
 };
 typedef NS_ENUM(NSInteger,VZFlexNodeAlignContent)
 {
@@ -56,19 +65,21 @@ typedef CGFloat VZFlexNodeFlexValue;
 
 @property (nonatomic,strong)NSString* name;
 @property (nonatomic,assign)CGSize size;
+@property (nonatomic,assign)CGPoint position;
 @property (nonatomic,assign)UIEdgeInsets margin;
 @property (nonatomic,assign)UIEdgeInsets padding;
 @property (nonatomic,assign)VZFlexNodeDirection flexDirection;
 @property (nonatomic,assign)VZFlexNodeAlignItems alignItems;
+@property (nonatomic,assign)VZFlexNodeAlignSelf alignSelf;
 @property (nonatomic,assign)VZFlexNodeAlignContent alignContent;
 @property (nonatomic,assign)VZFlexNodeJustifyContent justifyContent;
 @property (nonatomic,assign)VZFlexNodeFlexValue flexValue;
 
 - (void)layout:(CGFloat)width;
-
+- (void)renderRecursively;//for test only
 - (void)addSubNode:(VZFlexNode* )node;
 - (void)removeSubNode:(VZFlexNode* )node;
-- (void)removeSubNodeByName:(NSString* )name;
+- (void)printCSSNode;
 
 
 @end

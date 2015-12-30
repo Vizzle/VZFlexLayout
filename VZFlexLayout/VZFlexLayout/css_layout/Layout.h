@@ -10,6 +10,11 @@
 #ifndef __LAYOUT_H
 #define __LAYOUT_H
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
+
 #include <math.h>
 #ifndef __cplusplus
 #include <stdbool.h>
@@ -160,4 +165,8 @@ void print_css_node(css_node_t *node, css_print_options_t options);
 void layoutNode(css_node_t *node, float maxWidth, css_direction_t parentDirection);
 bool isUndefined(float value);
 
+#endif
+    
+#ifdef __cplusplus
+}
 #endif
