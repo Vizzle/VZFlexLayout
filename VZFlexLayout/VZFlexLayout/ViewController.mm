@@ -9,11 +9,8 @@
 #import "ViewController.h"
 #import "VZFlexCell.h"
 #import "VZFlexNode.h"
+#import "FNode.h"
 
-struct A
-{
-
-};
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -31,10 +28,11 @@ struct A
     self.tableView.dataSource  = self;
    // [self.view addSubview:self.tableView];
 
-   [self testFlexHorizontal];
+//   [self testFlexHorizontal];
 
 //    [self testLayout];
-
+    
+    [self testFlexLayout];
     
     
     
@@ -46,26 +44,122 @@ struct A
     // Dispose of any resources that can be recreated.
 }
 
+- (void)testFlexLayout{
+
+    flex::FlexLayout layout = {
+    
+        .content = flex::TextNode{
+            
+            .text = ""
+        
+        },
+        .direction = flex::FlexDirection::Horizontal,
+        .backColor = "yellow",
+        .children = {
+            
+            {
+                .content = flex::ImageNode{
+                
+                
+                },
+                .width = 100,
+//                .height = 100,
+                .backColor = "red"
+            },
+            {
+                .width = 100,
+                .height = 100,
+                .backColor = "aqua"
+            },
+            {
+                .width = 100,
+//                .height = 100,
+                .backColor = "green"
+            },
+        
+        },
+  
+    };
+    
+    flex::layout(layout, {CGRectGetWidth(self.view.bounds),flex::Infinite});
+
+    UIView* view = [self childrenView:layout];
+    
+    [self.view addSubview:view];
+
+    
+    
+}
+
+- (UIView* )childrenView:(const flex::FlexLayout&)layout
+{
+    
+    OSView *view;
+    
+    if (layout.content.node) {
+        view = layout.content.node->createView();
+    } else {
+        view = layout.viewClass.cls ? [[layout.viewClass.cls alloc] init] : [[OSView alloc] init];
+    }
+    
+    view.frame = CGRectMake(layout.result.left, layout.result.top, layout.result.width, layout.result.height);
+    view.layer.borderColor = ((OSColor*)layout.borderColor).CGColor;
+    view.layer.borderWidth = layout.borderWidth;
+    view.layer.cornerRadius = layout.cornerRadius;
+    view.backgroundColor = layout.backColor;
+    view.clipsToBounds = layout.cornerRadius > 0;
+#if FLEX_OSX
+    view.flipped = YES;
+#endif
+    
+    for (const auto& child : layout.children) {
+        OSView *subview = [self childrenView:child];
+        subview.frame = CGRectMake(subview.frame.origin.x + layout.result.paddingLeft + layout.borderWidth, subview.frame.origin.y + layout.result.paddingTop + layout.borderWidth, subview.frame.size.width, subview.frame.size.height);
+        [view addSubview:subview];
+    }
+    
+    for (const auto& attr : layout.attrs) {
+        attr.first.setter(view, attr.second);
+    }
+    
+    return view;
+
+}
+
 
 - (void)testFlexHorizontal{
     
     VZFlexNode* parentNode = [VZFlexNode new];
     parentNode.flexDirection = VZFLEX_DIRECTION_ROW;
-    parentNode.justifyContent= VZFLEX_JC_SPACE_AROUND;
-    parentNode.position = CGPointMake(250, 250);
-    parentNode.size = CGSizeMake(CGRectGetWidth(self.view.bounds), 120);
+//    parentNode.justifyContent= VZFLEX_JC_SPACE_BETWEEN;
+    parentNode.alignContent = VZFLEX_ALIGN_CONTENT_START;
+//    parentNode.position = CGPointMake(250, 250);
+    parentNode.size = CGSizeMake(CGRectGetWidth(self.view.bounds), NAN);
     VZFlexNode* childNode1 = [VZFlexNode new];
-    childNode1.size = CGSizeMake(100, NAN);
+    childNode1.size = CGSizeMake(50, 100);
+
 //    childNode1.flexValue = 1;
     VZFlexNode* childNode2 = [VZFlexNode new];
-        childNode2.size = CGSizeMake(100, NAN);
+    childNode2.size = CGSizeMake(80, 100);
+
 //    childNode2.flexValue = 1;
     VZFlexNode* childNode3 = [VZFlexNode new];
-        childNode3.size = CGSizeMake(100, NAN);
+    childNode3.size = CGSizeMake(100, 100);
+   
+    VZFlexNode* childNode4 = [VZFlexNode new];
+    childNode4.size = CGSizeMake(60, 80);
+    
+    VZFlexNode* childNode5 = [VZFlexNode new];
+    childNode5.size = CGSizeMake(70, 120);
+    VZFlexNode* childNode6 = [VZFlexNode new];
+    childNode6.size = CGSizeMake(80, 100);
 //    childNode3.flexValue = 1;
     [parentNode addSubNode:childNode1];
     [parentNode addSubNode:childNode2];
     [parentNode addSubNode:childNode3];
+    [parentNode addSubNode:childNode4];
+    [parentNode addSubNode:childNode5];
+    [parentNode addSubNode:childNode6];
     [parentNode layout:0];
     [parentNode renderRecursively];
     [self.view addSubview:parentNode.view];
@@ -76,21 +170,24 @@ struct A
 
     VZFlexNode* parentNode = [VZFlexNode new];
     parentNode.flexDirection = VZFLEX_DIRECTION_ROW;
-    parentNode.justifyContent= VZFLEX_JC_SPACE_AROUND;
+//    parentNode.justifyContent= VZFLEX_JC_SPACE_BETWEEN;
+//    parentNode.alignContent = VZFLEX_ALIGN_CONTENT_START;
+//    parentNode.margin = UIEdgeInsetsMake(10, 10, 10, 10);
     parentNode.size = CGSizeMake(CGRectGetWidth(self.view.bounds), 120);
     VZFlexNode* childNode1 = [VZFlexNode new];
-    childNode1.size = CGSizeMake(100, NAN);
+    childNode1.size = CGSizeMake(50, NAN);
     //    childNode1.flexValue = 1;
     VZFlexNode* childNode2 = [VZFlexNode new];
-    childNode2.size = CGSizeMake(100, NAN);
+    childNode2.size = CGSizeMake(60, NAN);
     //    childNode2.flexValue = 1;
     VZFlexNode* childNode3 = [VZFlexNode new];
-    childNode3.size = CGSizeMake(100, NAN);
+    childNode3.size = CGSizeMake(30, NAN);
     //    childNode3.flexValue = 1;
     [parentNode addSubNode:childNode1];
     [parentNode addSubNode:childNode2];
     [parentNode addSubNode:childNode3];
     [parentNode layout:0];
+    
     [parentNode renderRecursively];
     [self.view addSubview:parentNode.view];
 }

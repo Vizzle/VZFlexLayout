@@ -1,0 +1,36 @@
+#pragma once
+
+#include <string>
+#include <vector>
+
+class StringHelper{
+public:
+    
+    static std::vector<std::string> Split(const std::string& str, char splitChar){
+        std::vector<std::string> ret;
+        size_t start = 0;
+        for (size_t i = 0, len = str.length(); i < len; i++){
+            if (str[i] == splitChar){
+                if (i > start) {
+                    ret.push_back(str.substr(start, i - start));
+                }
+                start = i + 1;
+            }
+        }
+        if (start < str.size()) {
+            ret.push_back(str.substr(start));
+        }
+        return ret;
+    }
+    
+    static std::string RemoveSpaces(const std::string& str){
+        std::vector<char> ret;
+        for (size_t i = 0, len = str.length(); i < len; i++){
+            char c = str[i];
+            if (c != ' ' && c != '\t' && c != '\n'&& c != '\r')
+                ret.push_back(c);
+        }
+        return std::string(ret.begin(), ret.end());
+    }
+    
+};

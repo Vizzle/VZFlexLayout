@@ -43,6 +43,7 @@ void init_css_node(css_node_t *node) {
 
   node->style.direction = CSS_DIRECTION_INHERIT;
   node->style.flex_direction = CSS_FLEX_DIRECTION_COLUMN;
+    node ->style.flex_wrap = CSS_WRAP;
 
   // Some of the fields default to undefined and not 0
   node->style.dimensions[CSS_WIDTH] = CSS_UNDEFINED;

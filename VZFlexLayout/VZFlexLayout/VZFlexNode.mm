@@ -152,13 +152,13 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
         _css_node -> is_dirty = vz_flexnode_is_dirty;
         _css_node -> get_child = vz_flexnode_child_at_index;
         
-        _flexDirection  = VZFLEX_DIRECTION_ROW;
-        _alignItems     = VZFLEX_ALIGN_ITEMS_START;
-        _alignSelf      = VZFLEX_ALIGN_SELF_STRETCH;
-        _alignContent   = VZFLEX_ALIGN_CONTENT_START;
-        _justifyContent = VZFLEX_JC_START;
-        _margin = UIEdgeInsetsZero;
-        _padding = UIEdgeInsetsZero;
+//        _flexDirection  = VZFLEX_DIRECTION_ROW;
+//        _alignItems     = VZFLEX_ALIGN_ITEMS_START;
+//        _alignSelf      = VZFLEX_ALIGN_SELF_STRETCH;
+//        _alignContent   = VZFLEX_ALIGN_CONTENT_START;
+//        _justifyContent = VZFLEX_JC_START;
+//        _margin = UIEdgeInsetsZero;
+//        _padding = UIEdgeInsetsZero;
         _childNodes = [NSMutableArray new];
         
     }
@@ -203,6 +203,8 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
     
 
     layoutNode(_css_node, width, CSS_DIRECTION_LTR);
+    
+    [self printCSSNode];
 }
 
 - (void)renderRecursively
@@ -212,6 +214,7 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
     }
     [self render];
 }
+
 
 - (UIView* )view{
     return _internalView;
@@ -233,10 +236,16 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
     }
 }
 
+- (void)printCSSNode{
+
+    for (VZFlexNode* node in self.childNodes) {
+        [node printCSSNode];
+    }
+    print_css_node(_css_node, CSS_PRINT_LAYOUT);
+}
 
 
 - (void)addSubNode:(VZFlexNode* )node{
-    
     
     [_childNodes addObject:node];
     _css_node -> children_count = (int)self.childNodes.count;

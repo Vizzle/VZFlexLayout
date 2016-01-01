@@ -7,10 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		456E62031C35290300240D64 /* ButtonNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61E51C35290300240D64 /* ButtonNode.mm */; };
+		456E62041C35290300240D64 /* Color.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61E71C35290300240D64 /* Color.mm */; };
+		456E62051C35290300240D64 /* Enum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 456E61E81C35290300240D64 /* Enum.cpp */; };
+		456E62061C35290300240D64 /* FlexLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61EB1C35290300240D64 /* FlexLayout.mm */; };
+		456E62071C35290300240D64 /* FNViewAttribute.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61EE1C35290300240D64 /* FNViewAttribute.mm */; };
+		456E62081C35290300240D64 /* Font.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61F01C35290300240D64 /* Font.mm */; };
+		456E62091C35290300240D64 /* ImageNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61F31C35290300240D64 /* ImageNode.mm */; };
+		456E620B1C35290300240D64 /* Length.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61F71C35290300240D64 /* Length.mm */; };
+		456E620C1C35290300240D64 /* TestLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61FD1C35290300240D64 /* TestLayout.mm */; };
+		456E620E1C35290300240D64 /* TextNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E62011C35290300240D64 /* TextNode.mm */; };
 		45ABE1CF1C33A3F100DDB80A /* VZFNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ABE1CE1C33A3F100DDB80A /* VZFNode.m */; };
 		45C9874C1C2D0F2800D17A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874B1C2D0F2800D17A1D /* main.m */; };
 		45C9874F1C2D0F2800D17A1D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874E1C2D0F2800D17A1D /* AppDelegate.m */; };
-		45C987521C2D0F2800D17A1D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C987511C2D0F2800D17A1D /* ViewController.m */; };
+		45C987521C2D0F2800D17A1D /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C987511C2D0F2800D17A1D /* ViewController.mm */; };
 		45C987551C2D0F2800D17A1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987531C2D0F2800D17A1D /* Main.storyboard */; };
 		45C987571C2D0F2800D17A1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45C987561C2D0F2800D17A1D /* Assets.xcassets */; };
 		45C9875A1C2D0F2800D17A1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */; };
@@ -20,6 +30,35 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		456E61E41C35290300240D64 /* ButtonNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonNode.h; sourceTree = "<group>"; };
+		456E61E51C35290300240D64 /* ButtonNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ButtonNode.mm; sourceTree = "<group>"; };
+		456E61E61C35290300240D64 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		456E61E71C35290300240D64 /* Color.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Color.mm; sourceTree = "<group>"; };
+		456E61E81C35290300240D64 /* Enum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enum.cpp; sourceTree = "<group>"; };
+		456E61E91C35290300240D64 /* Enum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enum.h; sourceTree = "<group>"; };
+		456E61EA1C35290300240D64 /* FlexLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlexLayout.h; sourceTree = "<group>"; };
+		456E61EB1C35290300240D64 /* FlexLayout.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FlexLayout.mm; sourceTree = "<group>"; };
+		456E61EC1C35290300240D64 /* FNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNode.h; sourceTree = "<group>"; };
+		456E61ED1C35290300240D64 /* FNViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNViewAttribute.h; sourceTree = "<group>"; };
+		456E61EE1C35290300240D64 /* FNViewAttribute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FNViewAttribute.mm; sourceTree = "<group>"; };
+		456E61EF1C35290300240D64 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
+		456E61F01C35290300240D64 /* Font.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Font.mm; sourceTree = "<group>"; };
+		456E61F11C35290300240D64 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		456E61F21C35290300240D64 /* ImageNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageNode.h; sourceTree = "<group>"; };
+		456E61F31C35290300240D64 /* ImageNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageNode.mm; sourceTree = "<group>"; };
+		456E61F51C35290300240D64 /* Inset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inset.h; sourceTree = "<group>"; };
+		456E61F61C35290300240D64 /* Length.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Length.h; sourceTree = "<group>"; };
+		456E61F71C35290300240D64 /* Length.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Length.mm; sourceTree = "<group>"; };
+		456E61F81C35290300240D64 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
+		456E61F91C35290300240D64 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		456E61FA1C35290300240D64 /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
+		456E61FB1C35290300240D64 /* StringHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringHelper.h; sourceTree = "<group>"; };
+		456E61FC1C35290300240D64 /* TestLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLayout.h; sourceTree = "<group>"; };
+		456E61FD1C35290300240D64 /* TestLayout.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TestLayout.mm; sourceTree = "<group>"; };
+		456E62001C35290300240D64 /* TextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextNode.h; sourceTree = "<group>"; };
+		456E62011C35290300240D64 /* TextNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextNode.mm; sourceTree = "<group>"; };
+		456E62021C35290300240D64 /* Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Value.h; sourceTree = "<group>"; };
+		456E620F1C35293000240D64 /* FNode-iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FNode-iOS.h"; sourceTree = "<group>"; };
 		45ABE1CD1C33A3F100DDB80A /* VZFNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNode.h; sourceTree = "<group>"; };
 		45ABE1CE1C33A3F100DDB80A /* VZFNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFNode.m; sourceTree = "<group>"; };
 		45C987471C2D0F2800D17A1D /* VZFlexLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZFlexLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -27,7 +66,7 @@
 		45C9874D1C2D0F2800D17A1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		45C9874E1C2D0F2800D17A1D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		45C987501C2D0F2800D17A1D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		45C987511C2D0F2800D17A1D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		45C987511C2D0F2800D17A1D /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		45C987541C2D0F2800D17A1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		45C987561C2D0F2800D17A1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45C987591C2D0F2800D17A1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +90,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		456E61E31C35290300240D64 /* flex_layout */ = {
+			isa = PBXGroup;
+			children = (
+				456E620F1C35293000240D64 /* FNode-iOS.h */,
+				456E61E41C35290300240D64 /* ButtonNode.h */,
+				456E61E51C35290300240D64 /* ButtonNode.mm */,
+				456E61E61C35290300240D64 /* Color.h */,
+				456E61E71C35290300240D64 /* Color.mm */,
+				456E61E81C35290300240D64 /* Enum.cpp */,
+				456E61E91C35290300240D64 /* Enum.h */,
+				456E61EA1C35290300240D64 /* FlexLayout.h */,
+				456E61EB1C35290300240D64 /* FlexLayout.mm */,
+				456E61EC1C35290300240D64 /* FNode.h */,
+				456E61ED1C35290300240D64 /* FNViewAttribute.h */,
+				456E61EE1C35290300240D64 /* FNViewAttribute.mm */,
+				456E61EF1C35290300240D64 /* Font.h */,
+				456E61F01C35290300240D64 /* Font.mm */,
+				456E61F11C35290300240D64 /* Image.h */,
+				456E61F21C35290300240D64 /* ImageNode.h */,
+				456E61F31C35290300240D64 /* ImageNode.mm */,
+				456E61F51C35290300240D64 /* Inset.h */,
+				456E61F61C35290300240D64 /* Length.h */,
+				456E61F71C35290300240D64 /* Length.mm */,
+				456E61F81C35290300240D64 /* Macros.h */,
+				456E61F91C35290300240D64 /* Node.h */,
+				456E61FA1C35290300240D64 /* Property.h */,
+				456E61FB1C35290300240D64 /* StringHelper.h */,
+				456E61FC1C35290300240D64 /* TestLayout.h */,
+				456E61FD1C35290300240D64 /* TestLayout.mm */,
+				456E62001C35290300240D64 /* TextNode.h */,
+				456E62011C35290300240D64 /* TextNode.mm */,
+				456E62021C35290300240D64 /* Value.h */,
+			);
+			path = flex_layout;
+			sourceTree = "<group>";
+		};
 		45C9873E1C2D0F2800D17A1D = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +145,7 @@
 		45C987491C2D0F2800D17A1D /* VZFlexLayout */ = {
 			isa = PBXGroup;
 			children = (
+				456E61E31C35290300240D64 /* flex_layout */,
 				45C987691C2D309800D17A1D /* VZFlexNode.h */,
 				45C9876A1C2D309800D17A1D /* VZFlexNode.mm */,
 				45C987651C2D12BE00D17A1D /* css_layout */,
@@ -78,7 +154,7 @@
 				45C9874D1C2D0F2800D17A1D /* AppDelegate.h */,
 				45C9874E1C2D0F2800D17A1D /* AppDelegate.m */,
 				45C987501C2D0F2800D17A1D /* ViewController.h */,
-				45C987511C2D0F2800D17A1D /* ViewController.m */,
+				45C987511C2D0F2800D17A1D /* ViewController.mm */,
 				45ABE1CD1C33A3F100DDB80A /* VZFNode.h */,
 				45ABE1CE1C33A3F100DDB80A /* VZFNode.m */,
 				45C987531C2D0F2800D17A1D /* Main.storyboard */,
@@ -178,12 +254,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				45ABE1CF1C33A3F100DDB80A /* VZFNode.m in Sources */,
+				456E62091C35290300240D64 /* ImageNode.mm in Sources */,
+				456E62071C35290300240D64 /* FNViewAttribute.mm in Sources */,
+				456E620E1C35290300240D64 /* TextNode.mm in Sources */,
+				456E620C1C35290300240D64 /* TestLayout.mm in Sources */,
+				456E62041C35290300240D64 /* Color.mm in Sources */,
 				45C9876B1C2D309800D17A1D /* VZFlexNode.mm in Sources */,
-				45C987521C2D0F2800D17A1D /* ViewController.m in Sources */,
+				45C987521C2D0F2800D17A1D /* ViewController.mm in Sources */,
+				456E62051C35290300240D64 /* Enum.cpp in Sources */,
 				45C987681C2D12BE00D17A1D /* Layout.c in Sources */,
 				45C9874F1C2D0F2800D17A1D /* AppDelegate.m in Sources */,
+				456E620B1C35290300240D64 /* Length.mm in Sources */,
 				45C987631C2D115500D17A1D /* VZFlexCell.mm in Sources */,
+				456E62081C35290300240D64 /* Font.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
+				456E62061C35290300240D64 /* FlexLayout.mm in Sources */,
+				456E62031C35290300240D64 /* ButtonNode.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
