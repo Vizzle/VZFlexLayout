@@ -7,6 +7,10 @@
 //
 
 #import "AppDelegate.h"
+#import "VZFNode.h"
+#import "VZFStackNode.h"
+#import "VZFNodeViewConfig.h"
+
 
 @interface AppDelegate ()
 
@@ -14,9 +18,31 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+
+    
+//    
+    VZFNode* fnode = [VZFNode newWithClass:[UIView class]
+                            ViewAttributes:{ {@selector(setBackgroundColor:), [UIColor redColor]}  }
+                           LayerAttributes:{ {@selector(setCornerRadius:),@(10)}}
+                            FlexAttributes:{ .marginLeft = 10,}];
+//
+//    
+//    VZFStackNode* stackhNode = [VZFStackNode nodeWithStackLayout:{
+//    
+//        .direction = VZFStackLayoutDirectionHorizontal,
+//        .alignItems = VZFStackLayoutAlignItemsStretch,
+//        .justifyContent = VZFStackLayoutJustifyContentSpaceBetween,
+//    
+//    } Children:{
+//    
+//        {.node = fnode},
+//    }];
+    
+    
+    
     return YES;
 }
 

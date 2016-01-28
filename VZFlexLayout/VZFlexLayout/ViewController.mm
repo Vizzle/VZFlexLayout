@@ -28,11 +28,11 @@
     self.tableView.dataSource  = self;
    // [self.view addSubview:self.tableView];
 
-//   [self testFlexHorizontal];
+   [self testFlexHorizontal];
 
 //    [self testLayout];
     
-    [self testFlexLayout];
+//    [self testFlexLayout];
     
     
     
@@ -134,7 +134,7 @@
 //    parentNode.justifyContent= VZFLEX_JC_SPACE_BETWEEN;
     parentNode.alignContent = VZFLEX_ALIGN_CONTENT_START;
 //    parentNode.position = CGPointMake(250, 250);
-    parentNode.size = CGSizeMake(CGRectGetWidth(self.view.bounds), NAN);
+    parentNode.size = CGSizeMake(CGRectGetWidth(self.view.bounds), 400);
     VZFlexNode* childNode1 = [VZFlexNode new];
     childNode1.size = CGSizeMake(50, 100);
 
