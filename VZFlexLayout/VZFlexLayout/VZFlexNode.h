@@ -8,13 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger,VZFlexValue)
+{
+    VZFLEX_UNDEFINED = 0,
+    VZFLEX_INFINITE  = 1,
+    VZFLEX_AUTO = 2
+};
+
 
 typedef NS_ENUM(NSInteger,VZFlexNodeDirection){
     
-    VZFLEX_DIRECTION_COLUMN = 0,
-    VZFLEX_DIRECTION_COLUMN_REVERSE,
-    VZFLEX_DIRECTION_ROW,
-    VZFLEX_DIRECTION_ROW_REVERSE
+    VZFLEX_DIRECTION_HORIZONTAL = 0,
+    VZFLEX_DIRECTION_VERTICAL = 1
 };
 
 typedef NS_ENUM(NSInteger,VZFlexNodeAlignItems)
@@ -48,12 +53,19 @@ typedef NS_ENUM(NSInteger,VZFlexNodeJustifyContent)
     VZFLEX_JC_END,
     VZFLEX_JC_SPACE_BETWEEN,
     VZFLEX_JC_SPACE_AROUND
+
+    
 };
 
 
 typedef CGFloat VZFlexNodeFlexValue;
 
-
+typedef NS_OPTIONS(NSUInteger, NodeDescriptionOption) {
+    NodeDescriptionOptionDefault = 0,
+    NodeDescriptionOptionHideResult = 1 << 0,
+    NodeDescriptionOptionHideUnspecified = 1 << 1,
+    NodeDescriptionOptionHideChildren = 1 << 2,
+};
 
 @interface VZFlexNode : NSObject
 
@@ -68,18 +80,24 @@ typedef CGFloat VZFlexNodeFlexValue;
 @property (nonatomic,assign)CGPoint position;
 @property (nonatomic,assign)UIEdgeInsets margin;
 @property (nonatomic,assign)UIEdgeInsets padding;
+@property (nonatomic,assign) BOOL fixed;
+@property (nonatomic,assign) BOOL wrap;
 @property (nonatomic,assign)VZFlexNodeDirection flexDirection;
 @property (nonatomic,assign)VZFlexNodeAlignItems alignItems;
 @property (nonatomic,assign)VZFlexNodeAlignSelf alignSelf;
 @property (nonatomic,assign)VZFlexNodeAlignContent alignContent;
 @property (nonatomic,assign)VZFlexNodeJustifyContent justifyContent;
-@property (nonatomic,assign)VZFlexNodeFlexValue flexValue;
+@property (nonatomic,assign)VZFlexNodeFlexValue flexGrow;
+@property (nonatomic,assign)VZFlexNodeFlexValue flexShrink;
 
-- (void)layout:(CGFloat)width;
+- (void)layout:(CGSize)constrainedSize;
+- (CGSize)sizeThatFits:(CGSize)constraintedSize;
 - (void)renderRecursively;//for test only
 - (void)addSubNode:(VZFlexNode* )node;
 - (void)removeSubNode:(VZFlexNode* )node;
 - (void)printCSSNode;
+//- (NSString *)propertiesDescription:(NodeDescriptionOption)option;
+//- (NSString *)recursiveDescription:(NodeDescriptionOption)option;
 
 
 @end

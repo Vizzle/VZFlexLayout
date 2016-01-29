@@ -130,7 +130,7 @@
 - (void)testFlexHorizontal{
     
     VZFlexNode* parentNode = [VZFlexNode new];
-    parentNode.flexDirection = VZFLEX_DIRECTION_ROW;
+    parentNode.flexDirection = VZFLEX_DIRECTION_HORIZONTAL;
 //    parentNode.justifyContent= VZFLEX_JC_SPACE_BETWEEN;
     parentNode.alignContent = VZFLEX_ALIGN_CONTENT_START;
 //    parentNode.position = CGPointMake(250, 250);
@@ -160,7 +160,7 @@
     [parentNode addSubNode:childNode4];
     [parentNode addSubNode:childNode5];
     [parentNode addSubNode:childNode6];
-    [parentNode layout:0];
+    [parentNode layout:CGSizeMake(CGRectGetWidth(self.view.bounds), VZFLEX_INFINITE)];
     [parentNode renderRecursively];
     [self.view addSubview:parentNode.view];
 }
@@ -169,7 +169,7 @@
 - (void)testVertical{
 
     VZFlexNode* parentNode = [VZFlexNode new];
-    parentNode.flexDirection = VZFLEX_DIRECTION_ROW;
+    parentNode.flexDirection = VZFLEX_DIRECTION_HORIZONTAL;
 //    parentNode.justifyContent= VZFLEX_JC_SPACE_BETWEEN;
 //    parentNode.alignContent = VZFLEX_ALIGN_CONTENT_START;
 //    parentNode.margin = UIEdgeInsetsMake(10, 10, 10, 10);
@@ -186,7 +186,7 @@
     [parentNode addSubNode:childNode1];
     [parentNode addSubNode:childNode2];
     [parentNode addSubNode:childNode3];
-    [parentNode layout:0];
+    [parentNode layout:CGSizeMake(CGRectGetWidth(self.view.bounds), VZFLEX_INFINITE)];
     
     [parentNode renderRecursively];
     [self.view addSubview:parentNode.view];
@@ -197,7 +197,7 @@
     
     VZFlexNode* containerNode = [VZFlexNode new];
     containerNode.name = @"0";
-    containerNode.flexDirection = VZFLEX_DIRECTION_COLUMN;
+    containerNode.flexDirection = VZFLEX_DIRECTION_VERTICAL;
     containerNode.margin = UIEdgeInsetsMake(0, 0, 10, 0);
     containerNode.size = CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
     
@@ -206,7 +206,7 @@
     VZFlexNode* node1 = [VZFlexNode new];
     node1.name = @"1";
     node1.size = CGSizeMake(CGRectGetWidth(self.view.bounds), 100);
-    node1.flexDirection = VZFLEX_DIRECTION_ROW;
+    node1.flexDirection = VZFLEX_DIRECTION_HORIZONTAL;
     
     VZFlexNode* imageNode = [VZFlexNode new];
     imageNode.name = @"1-1";
@@ -215,8 +215,8 @@
     
     VZFlexNode* rightParentNode = [VZFlexNode new];
     rightParentNode.name = @"1-2";
-    rightParentNode.flexValue = 1;
-    rightParentNode.flexDirection = VZFLEX_DIRECTION_COLUMN;
+    rightParentNode.flexGrow = 1;
+    rightParentNode.flexDirection = VZFLEX_DIRECTION_VERTICAL;
     
     [node1 addSubNode:rightParentNode];
     
@@ -224,17 +224,17 @@
     VZFlexNode* rightSubNode1 = [VZFlexNode new];
     rightSubNode1.name = @"1-2-1";
     //    rightSubNode1.size = CGSizeMake(100, NAN);
-    rightSubNode1.flexDirection = VZFLEX_DIRECTION_ROW;
+    rightSubNode1.flexDirection = VZFLEX_DIRECTION_HORIZONTAL;
     rightSubNode1.justifyContent = VZFLEX_JC_SPACE_BETWEEN;
     VZFlexNode* nameNode = [VZFlexNode new];
     nameNode.name = @"name";
-    nameNode.flexValue = 1;
+    nameNode.flexGrow = 1;
     [rightSubNode1 addSubNode:nameNode];
     VZFlexNode* timeNode = [VZFlexNode new];
     //    timeNode.size = CGSizeMake(100, NAN);
     timeNode.alignSelf = VZFLEX_ALIGN_SELF_STRETCH;
     timeNode.name = @"time";
-    timeNode.flexValue = 1;
+    timeNode.flexGrow = 1;
     [rightSubNode1 addSubNode:timeNode];
     [rightParentNode addSubNode:rightSubNode1];
     
@@ -249,7 +249,7 @@
     
     
     [containerNode addSubNode:node1];
-    [containerNode layout:CGRectGetWidth(self.view.bounds)];
+    [containerNode layout:CGSizeMake(CGRectGetWidth(self.view.bounds), VZFLEX_INFINITE)];
     [containerNode renderRecursively];
     [self.view addSubview:containerNode.view];
 }
@@ -261,6 +261,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
     return 20;
 }
 

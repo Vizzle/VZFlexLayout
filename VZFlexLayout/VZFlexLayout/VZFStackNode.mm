@@ -17,7 +17,7 @@
 + (instancetype)nodeWithStackLayout:(const VZFStackLayout& )layout Children:(const std::vector<VZFStackChildNode> &)children
 {
     //create an empty node
-    VZFStackNode* stacknode = [super newWithClass:nil ViewAttributes:{} FlexAttributes:{}];
+    VZFStackNode* stacknode = [super newWithClass:{} ViewAttributes:{} FlexAttributes:{}];
     
     if (stacknode) {
         

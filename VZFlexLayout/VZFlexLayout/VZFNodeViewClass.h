@@ -9,20 +9,33 @@
 #import <UIKit/UIKit.h>
 #import <string>
 
-
 namespace VZ {
     
-    struct VZFNodeViewClass{
+    struct ViewClass{
         
-        VZFNodeViewClass();
-        VZFNodeViewClass(Class viewClass);
-        VZFNodeViewClass(UIView*(*factory)(void));
+        ViewClass();
+        ViewClass(Class clz);
+        ViewClass(UIView*(*factory)(void));
+        
+        const std::string &getIdentifier() const { return identifier; }
+        UIView* createView() const{ return factory?factory():nil; }
+        bool hasView() const {return factory; }
         
     private:
         UIView* (^factory)();
+        std::string identifier;
     };
 }
 
+namespace std {
+    template<>
+    struct hash<VZ::ViewClass>{
+        size_t operator()(const VZ::ViewClass &cl) const
+        {
+            return hash<std::string>()(cl.getIdentifier());
+        }
+    };
+}
 
 
 

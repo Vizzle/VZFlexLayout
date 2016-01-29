@@ -10,10 +10,70 @@
 #import "Layout.h"
 
 
+#import "FlexLayout.h"
+//
+//static const FlexNode* defaultFlexNode() {
+//    
+//    static dispatch_once_t onceToken;
+//    static FlexNode node;
+//    dispatch_once(&onceToken, ^{
+//        initFlexNode(&node);
+//    });
+//    return &node;
+//}
+//
+//
+//
+//static inline NSString *floatToNSString(float value) {
+//    if (value == FlexAuto) {
+//        return @"auto";
+//    }
+//    else if (value == FlexContent) {
+//        return @"content";
+//    }
+//    else if (value == FlexUndefined) {
+//        return @"undefined";
+//    }
+//    else if (value == FlexInfinite) {
+//        return @"infinite";
+//    }
+//    
+//    NSString *s = [NSString stringWithFormat:@"%f", value];
+//    int i = (int)s.length - 1;
+//    for (;i>=0;i--) {
+//        if ([s characterAtIndex:i] != '0') {
+//            break;
+//        }
+//    }
+//    if (i >= 0 && [s characterAtIndex:i] == '.') i--;
+//    return [s substringToIndex:i + 1];
+//}
+//
+//static inline NSString *alignToNSString(FlexAlign align) {
+//    switch (align) {
+//        case FlexInherit:
+//            return @"auto";
+//        case FlexStretch:
+//            return @"stretch";
+//        case FlexStart:
+//            return @"flex-start";
+//        case FlexCenter:
+//            return @"center";
+//        case FlexEnd:
+//            return @"flex-end";
+//        case FlexSpaceBetween:
+//            return @"space-between";
+//        case FlexSpaceAround:
+//            return @"space-around";
+//    }
+//}
+//
+
 
 @interface VZFlexNode()
 {
     css_node_t* _css_node;
+    FlexNode* _flex_node;
     NSMutableArray* _childNodes;
 
 }
@@ -25,11 +85,11 @@
 @implementation VZFlexNode
 
 
-bool vz_flexnode_is_dirty(void* _this){
+bool vz_css_node_is_dirty(void* _this){
     return true;
 }
 
-css_node_t* vz_flexnode_child_at_index(void* _this, int i){
+css_node_t* vz_css_node_child_at_index(void* _this, int i){
     VZFlexNode* node = (__bridge VZFlexNode* )_this;
     if (i<node.childNodes.count) {
         VZFlexNode* childNode = node.childNodes[i];
@@ -41,7 +101,7 @@ css_node_t* vz_flexnode_child_at_index(void* _this, int i){
     
 }
 
-css_dim_t vz_flexnode_measure(void* _this, float width)
+css_dim_t vz_css_node_measure(void* _this, float width)
 {
     VZFlexNode* node = (__bridge VZFlexNode* )_this;
     if (node.measureBlock) {
@@ -56,6 +116,22 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
     }
     
 }
+
+FlexSize flexNodeMeasure(void* context, FlexSize constraintedSize) {
+    VZFlexNode* node = (__bridge VZFlexNode*)context;
+    CGSize size = [node sizeThatFits:CGSizeMake(constraintedSize.size[FLEX_WIDTH], constraintedSize.size[FLEX_HEIGHT])];
+    FlexSize ret;
+    ret.size[FLEX_WIDTH] = size.width;
+    ret.size[FLEX_HEIGHT] = size.height;
+    return ret;
+}
+
+FlexNode* flexNodeChildAt(void* context, int index) {
+    VZFlexNode* node = (__bridge VZFlexNode*)context;
+    VZFlexNode* child = node.childNodes[index];
+    return child -> _flex_node;
+}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - getters
@@ -75,62 +151,166 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - setters
 
+- (void)setWrap:(BOOL)wrap{
+    _wrap = wrap;
+    _flex_node -> wrap = wrap;
+}
+
+- (void)setFixed:(BOOL)fixed{
+    _fixed = fixed;
+    _flex_node -> fixed = fixed;
+}
+
 - (void)setSize:(CGSize)size{
     _size = size;
-    _css_node -> style.dimensions[CSS_WIDTH] = size.width;
-    _css_node -> style.dimensions[CSS_HEIGHT] = size.height;
+    _flex_node -> size[0] = size.width;
+    _flex_node -> size[1] = size.height;
+//    _css_node -> style.dimensions[CSS_WIDTH] = size.width;
+//    _css_node -> style.dimensions[CSS_HEIGHT] = size.height;
 }
 
 - (void)setPosition:(CGPoint)position{
     _position = position;
-    _css_node -> style.dimensions[CSS_LEFT] = position.x;
-    _css_node -> style.dimensions[CSS_TOP] = position.y;
+//    _css_node -> style.dimensions[CSS_LEFT] = position.x;
+//    _css_node -> style.dimensions[CSS_TOP] = position.y;
 }
 
 - (void)setMargin:(UIEdgeInsets)margin
 {
     _margin = margin;
-    _css_node->style.margin[CSS_LEFT] = margin.left;
-    _css_node->style.margin[CSS_TOP] = margin.top;
-    _css_node->style.margin[CSS_RIGHT] = margin.right;
-    _css_node->style.margin[CSS_BOTTOM] = margin.bottom;
+    
+    _flex_node -> margin[FLEX_LEFT] = margin.left;
+    _flex_node -> margin[FLEX_TOP] = margin.top;
+    _flex_node -> margin[FLEX_RIGHT] = margin.right;
+    _flex_node -> margin[FLEX_BOTTOM] = margin.bottom;
+    
+//    _css_node->style.margin[CSS_LEFT] = margin.left;
+//    _css_node->style.margin[CSS_TOP] = margin.top;
+//    _css_node->style.margin[CSS_RIGHT] = margin.right;
+//    _css_node->style.margin[CSS_BOTTOM] = margin.bottom;
 }
 
 - (void)setPadding:(UIEdgeInsets)padding
 {
     _padding = padding;
-    _css_node->style.padding[CSS_LEFT] = padding.left;
-    _css_node->style.padding[CSS_TOP] = padding.top;
-    _css_node->style.padding[CSS_RIGHT] = padding.right;
-    _css_node->style.padding[CSS_BOTTOM] = padding.bottom;
+    
+    _flex_node -> padding[FLEX_LEFT] = padding.left;
+    _flex_node -> padding[FLEX_TOP] = padding.top;
+    _flex_node -> padding[FLEX_RIGHT] = padding.right;
+    _flex_node -> padding[FLEX_BOTTOM] = padding.bottom;
+    
+//    _css_node->style.padding[CSS_LEFT] = padding.left;
+//    _css_node->style.padding[CSS_TOP] = padding.top;
+//    _css_node->style.padding[CSS_RIGHT] = padding.right;
+//    _css_node->style.padding[CSS_BOTTOM] = padding.bottom;
 }
 
 
-- (void)setFlexValue:(VZFlexNodeFlexValue)flexValue{
+- (void)setFlexGrow:(VZFlexNodeFlexValue)flexGrow{
 
-    _flexValue = flexValue;
-    _css_node -> style.flex = flexValue;
+    _flexGrow = flexGrow;
+//    _css_node -> style.flex = flexGrow;
+    _flex_node -> flexGrow = flexGrow;
+}
+
+- (void)setFlexShrink:(VZFlexNodeFlexValue)flexShrink{
+    _flexShrink = flexShrink;
+    _flex_node -> flexShrink = flexShrink;
 }
 
 - (void)setJustifyContent:(VZFlexNodeJustifyContent)justifyContent
 {
     _justifyContent = justifyContent;
-    _css_node->style.justify_content = (css_justify_t)justifyContent;
+//    _css_node->style.justify_content = (css_justify_t)justifyContent;
+    
+
+    FlexAlign value = FlexInherit;
+    switch (justifyContent) {
+        case VZFLEX_JC_START:
+            value = FlexStart;
+            break;
+        case VZFLEX_JC_CENTER:
+            value = FlexCenter;
+            break;
+        case VZFLEX_JC_END:
+            value = FlexEnd;
+            break;
+        case VZFLEX_JC_SPACE_AROUND:
+            value = FlexSpaceAround;
+            break;
+            
+        case VZFLEX_JC_SPACE_BETWEEN:
+            value = FlexSpaceBetween;
+            break;
+            
+        default:
+            break;
+    }
+    
+    _flex_node -> justifyContent = value;
 }
 
 - (void)setFlexDirection:(VZFlexNodeDirection)flexDirection{
     _flexDirection = flexDirection;
-    _css_node ->style.flex_direction = (css_flex_direction_t)flexDirection;
+//    _css_node ->style.flex_direction = (css_flex_direction_t)flexDirection;
+    _flex_node -> direction = (FlexDirection)flexDirection;
 }
 
 - (void)setAlignContent:(VZFlexNodeAlignContent)alignContent{
     _alignContent = alignContent;
-    _css_node ->style.align_content = (css_align_t)alignContent;
+//    _css_node ->style.align_content = (css_align_t)alignContent;
+    
+
+    FlexAlign value = FlexStretch;
+    switch (alignContent) {
+        case VZFLEX_ALIGN_CONTENT_START:
+            value = FlexStart;
+            break;
+            
+        case VZFLEX_ALIGN_CONTENT_CENTER:
+            value = FlexCenter;
+            break;
+            
+        case VZFLEX_ALIGN_CONTENT_END:
+            value = FlexEnd;
+            break;
+        
+        case VZFLEX_ALIGN_CONTENT_STRETCH:
+            value = FlexStretch;
+            break;
+            
+        default:
+            break;
+    }
+    _flex_node -> alignContent = (FlexAlign)value;
 }
 
 - (void)setAlignItems:(VZFlexNodeAlignItems)alignItems{
     _alignItems = alignItems;
-    _css_node -> style.align_items = (css_align_t)alignItems;
+//    _css_node -> style.align_items = (css_align_t)alignItems;
+    
+    FlexAlign value = FlexStretch;
+    switch (alignItems) {
+        case VZFLEX_ALIGN_CONTENT_START:
+            value = FlexStart;
+            break;
+            
+        case VZFLEX_ALIGN_CONTENT_CENTER:
+            value = FlexCenter;
+            break;
+            
+        case VZFLEX_ALIGN_CONTENT_END:
+            value = FlexEnd;
+            break;
+            
+        case VZFLEX_ALIGN_CONTENT_STRETCH:
+            value = FlexStretch;
+            break;
+            
+        default:
+            break;
+    }
+    _flex_node -> alignItems = (FlexAlign)value;
 }
 
 
@@ -146,19 +326,17 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
     self = [super init];
     if (self) {
         
-        _css_node = new_css_node();
-        _css_node -> measure = vz_flexnode_measure;
-        _css_node -> context = (__bridge void*)self;
-        _css_node -> is_dirty = vz_flexnode_is_dirty;
-        _css_node -> get_child = vz_flexnode_child_at_index;
+        _flex_node = (FlexNode* )calloc(1, sizeof(*_flex_node));
+        initFlexNode(_flex_node);
+        _flex_node->context = (__bridge void* )self;
+        _flex_node->measure = flexNodeMeasure;
+        _flex_node->childAt = flexNodeChildAt;
         
-//        _flexDirection  = VZFLEX_DIRECTION_ROW;
-//        _alignItems     = VZFLEX_ALIGN_ITEMS_START;
-//        _alignSelf      = VZFLEX_ALIGN_SELF_STRETCH;
-//        _alignContent   = VZFLEX_ALIGN_CONTENT_START;
-//        _justifyContent = VZFLEX_JC_START;
-//        _margin = UIEdgeInsetsZero;
-//        _padding = UIEdgeInsetsZero;
+//        _css_node = new_css_node();
+//        _css_node -> measure = vz_css_node_measure;
+//        _css_node -> context = (__bridge void*)self;
+//        _css_node -> is_dirty = vz_css_node_is_dirty;
+//        _css_node -> get_child = vz_css_node_child_at_index;
         _childNodes = [NSMutableArray new];
         
     }
@@ -167,44 +345,67 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
 
 - (void)dealloc{
     
-    free(_css_node);
-    _css_node = NULL;
+//    free(_css_node);
+//    _css_node = NULL;
+    
+    free(_flex_node);
+    _flex_node = NULL;
 }
 
 - (CGRect)frame
 {
     return (CGRect) {
-        .origin.x = _css_node->layout.position[CSS_LEFT],
-        .origin.y = _css_node->layout.position[CSS_TOP],
-        .size.width = _css_node->layout.dimensions[CSS_WIDTH],
-        .size.height = _css_node->layout.dimensions[CSS_HEIGHT]
+//        .origin.x = _css_node->layout.position[CSS_LEFT],
+//        .origin.y = _css_node->layout.position[CSS_TOP],
+//        .size.width = _css_node->layout.dimensions[CSS_WIDTH],
+//        .size.height = _css_node->layout.dimensions[CSS_HEIGHT]
+        
+        .origin.x = _flex_node -> result.position[0],
+        .origin.y = _flex_node ->result.position[1],
+        .size.width = _flex_node->result.size[FLEX_WIDTH],
+        .size.height = _flex_node->result.size[FLEX_HEIGHT]
     };
 }
 
 
 - (void)prepareLayout
 {
+    _flex_node -> childrenCount = (int)self.childNodes.count;
     for(VZFlexNode* node in self.childNodes)
     {
         [node prepareLayout];
     }
     
-    _css_node ->layout.position[CSS_LEFT] = 0;
-    _css_node ->layout.position[CSS_TOP] = 0;
-    _css_node ->layout.dimensions[CSS_WIDTH] = CSS_UNDEFINED;
-    _css_node ->layout.dimensions[CSS_HEIGHT] = CSS_UNDEFINED;
+    _flex_node -> result.size[0] = 0;
+    _flex_node -> result.size[1] = 0;
+    _flex_node -> result.position[0] = 0;
+    _flex_node -> result.position[1] = 0;
+    _flex_node -> result.margin[0] = 0;
+    _flex_node -> result.margin[1] = 0;
+    _flex_node -> result.margin[2] = 0;
+    _flex_node -> result.margin[3] = 0;
+    
+//    
+//    _css_node ->layout.position[CSS_LEFT] = 0;
+//    _css_node ->layout.position[CSS_TOP] = 0;
+//    _css_node ->layout.dimensions[CSS_WIDTH] = CSS_UNDEFINED;
+//    _css_node ->layout.dimensions[CSS_HEIGHT] = CSS_UNDEFINED;
     
 }
 
-- (void)layout:(CGFloat)width{
-
+- (void)layout:(CGSize)constrainedSize{
+    
     //prepare layout递归
     [self prepareLayout];
     
-
-    layoutNode(_css_node, width, CSS_DIRECTION_LTR);
+    layoutFlexNode(_flex_node, constrainedSize.width, constrainedSize.height);
+//    layoutNode(_css_node, constrainedSize.width, CSS_DIRECTION_LTR);
     
-    [self printCSSNode];
+//    [self printCSSNode];
+}
+
+- (CGSize)sizeThatFits:(CGSize)constraintedSize{
+    return CGSizeZero;
 }
 
 - (void)renderRecursively
@@ -248,14 +449,20 @@ css_dim_t vz_flexnode_measure(void* _this, float width)
 - (void)addSubNode:(VZFlexNode* )node{
     
     [_childNodes addObject:node];
-    _css_node -> children_count = (int)self.childNodes.count;
+    _flex_node -> childrenCount = (int)self.childNodes.count;
+//    _css_node -> children_count = (int)self.childNodes.count;
 }
 
 - (void)removeSubNode:(VZFlexNode* )node{
     
     [_childNodes removeObject:node];
-    _css_node -> children_count = (int)self.childNodes.count;
+    _flex_node -> childrenCount = (int)self.childNodes.count;
+//    _css_node -> children_count = (int)self.childNodes.count;
 
 }
+
+
+
+
 
 @end

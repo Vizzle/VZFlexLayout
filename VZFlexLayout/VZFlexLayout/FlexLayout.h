@@ -8,6 +8,10 @@
 
 #pragma once
 
+#ifdef __cplusplus
+extern "C"{
+#endif
+
 #ifndef __cplusplus
 #   include <stdbool.h>
 #endif
@@ -82,3 +86,7 @@ typedef struct FlexNode {
 
 void initFlexNode(FlexNode* node);
 void layoutFlexNode(FlexNode* node, float constraintedWidth, float constraintedHeight);
+    
+#ifdef __cplusplus
+}
+#endif

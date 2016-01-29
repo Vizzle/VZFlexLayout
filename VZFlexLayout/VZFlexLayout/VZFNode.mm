@@ -7,42 +7,57 @@
 //
 
 #import "VZFNode.h"
-#import "VZFNodeInternal.h"
 #import "VZFMacros.h"
 #import "VZFNodeLayout.h"
+#import "VZFlexNode.h"
 
 @implementation VZFNode
 {
-    VZFNodeInternal* _node;
+    VZFlexNode* _node;
     ViewAttributes _viewConfiguration;
     LayerAttributes _layerConfiguration;
+    FlexAttributes _flexConfiguration;
 }
 
 + (id)initialState{
     return nil;
 }
 
-+(instancetype)newWithClass:(Class)clz
++(instancetype)newWithClass:(const ViewClass &)clz
              ViewAttributes:(const ViewAttributes &)view
-             FlexAttributes:(const VZFlexAttributes &)flex{
+             FlexAttributes:(const FlexAttributes &)flex{
 
-    return [self newWithClass:clz ViewAttributes:view LayerAttributes:{} FlexAttributes:flex];
+    return [self newWithClass:{} ViewAttributes:view LayerAttributes:{} FlexAttributes:flex];
 }
 
-+(instancetype)newWithClass:(Class)clz
++(instancetype)newWithClass:(const ViewClass &)clz
              ViewAttributes:(const ViewAttributes &)view
             LayerAttributes:(const LayerAttributes &)layer
-             FlexAttributes:(const VZFlexAttributes &)flex{
+             FlexAttributes:(const FlexAttributes &)flex{
     
-    VZFNode* fnode = [VZFNode new];
-    fnode -> _node = [VZFNodeInternal new];
-    return fnode;
-
+    return [[self alloc] initWithView:clz ViewAttributes:view LayerAttributes:layer FlexAttributes:flex];
 }
 
 + (instancetype)new
 {
-    return [self newWithClass:nil ViewAttributes:{} FlexAttributes:{}];
+    return [self newWithClass:{} ViewAttributes:{} FlexAttributes:{}];
+}
+
+- (instancetype)initWithView:(const ViewClass& )clz
+              ViewAttributes:(const ViewAttributes &)view
+             LayerAttributes:(const LayerAttributes &)layer
+              FlexAttributes:(const FlexAttributes &)flex
+{
+    self = [super init];
+    if (self) {
+        
+        _node = [VZFlexNode new];
+        _viewConfiguration = view;
+        _layerConfiguration = layer;
+        _flexConfiguration = flex;
+        
+    }
+    return self;
 }
 
 - (instancetype)init
@@ -52,11 +67,18 @@
 
 - (void)updateState:(id (^)(id))updateBlock{
 
-    
+
 }
 
-- (VZFNodeLayout)layoutThatFits:(CGSize)sz{
-    return {};
+- (void)computeLayoutThatFits:(CGSize)sz{
+    
+    [_node layout:sz];
+//    return {};
+}
+
+- (void)render{
+
+    [_node renderRecursively];
 }
 
 

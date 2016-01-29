@@ -18,16 +18,16 @@
 
 @implementation AppDelegate
 
+
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-
-    
-//    
-    VZFNode* fnode = [VZFNode newWithClass:[UIView class]
-                            ViewAttributes:{ {@selector(setBackgroundColor:), [UIColor redColor]}  }
+    VZFNode* fnode = [VZFNode newWithClass:{[UIView class]}
+                            ViewAttributes:{ {@selector(setBackgroundColor:), [UIColor redColor]}}
                            LayerAttributes:{ {@selector(setCornerRadius:),@(10)}}
-                            FlexAttributes:{ .marginLeft = 10,}];
+                            FlexAttributes:{ .marginLeft = 10,
+                                             .marginRight = 10,}];
 //
 //    
 //    VZFStackNode* stackhNode = [VZFStackNode nodeWithStackLayout:{

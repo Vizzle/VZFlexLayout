@@ -48,7 +48,6 @@ namespace VZ {
         float marginBottom;
         bool flexGrow;
         bool flexShrink;
-        int32_t flex;
     };
 }
 

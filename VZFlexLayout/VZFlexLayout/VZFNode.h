@@ -9,28 +9,34 @@
 #import <Foundation/Foundation.h>
 #import "VZFNodeAttribute.h"
 #import "VZFNodeLayout.h"
+#import "VZFNodeViewClass.h"
 #import <unordered_map>
 
 typedef std::unordered_map<VZ::UIAttribute<UIView>, id> ViewAttributes;
 typedef std::unordered_map<VZ::UIAttribute<CALayer>, id> LayerAttributes;
-typedef VZ::FlexAttribute VZFlexAttributes;
-typedef VZ::NodeLayout VZFNodeLayout;
+typedef VZ::ViewClass ViewClass;
+typedef VZ::FlexAttribute FlexAttributes;
+typedef VZ::NodeLayout NodeLayout;
 
 @interface VZFNode : NSObject
 
-+(instancetype)newWithClass:(Class)clz
++(instancetype)newWithClass:(const ViewClass &)clz
             ViewAttributes:(const ViewAttributes &)view
-             FlexAttributes:(const VZFlexAttributes &)flex;
+             FlexAttributes:(const FlexAttributes &)flex;
 
-+(instancetype)newWithClass:(Class)clz
++(instancetype)newWithClass:(const ViewClass &)clz
              ViewAttributes:(const ViewAttributes &)view
             LayerAttributes:(const LayerAttributes &)layer
-             FlexAttributes:(const VZFlexAttributes &)flex;
+             FlexAttributes:(const FlexAttributes &)flex;
 
 + (id)initialState;
 
 - (void)updateState:(id(^)(id))updateBlock;
 
-- (VZFNodeLayout)layoutThatFits:(CGSize)sz;
+- (void)computeLayoutThatFits:(CGSize)sz;
+
+- (void)render;
+
+
 
 @end

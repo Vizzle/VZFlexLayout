@@ -7,3 +7,10 @@
 //
 
 #include "VZFNodeViewClass.h"
+
+
+#pragma-mark Constructor
+
+VZ::ViewClass::ViewClass():factory(nil){}
+VZ::ViewClass::ViewClass(Class clz):factory(^{return [[clz alloc] init];}){}
+
