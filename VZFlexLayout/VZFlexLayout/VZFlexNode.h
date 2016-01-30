@@ -10,9 +10,9 @@
 
 typedef NS_ENUM(NSInteger,VZFlexValue)
 {
-    VZFLEX_UNDEFINED = 0,
-    VZFLEX_INFINITE  = 1,
-    VZFLEX_AUTO = 2
+    VZFLEX_UNDEFINED = -999999,
+    VZFLEX_INFINITE  = -999998,
+    VZFLEX_AUTO = -999997
 };
 
 
@@ -77,7 +77,8 @@ typedef NS_OPTIONS(NSUInteger, NodeDescriptionOption) {
 
 @property (nonatomic,strong)NSString* name;
 @property (nonatomic,assign)CGSize size;
-@property (nonatomic,assign)CGPoint position;
+@property (nonatomic,assign)CGSize minSize;
+@property (nonatomic,assign)CGSize maxSize;
 @property (nonatomic,assign)UIEdgeInsets margin;
 @property (nonatomic,assign)UIEdgeInsets padding;
 @property (nonatomic,assign) BOOL fixed;

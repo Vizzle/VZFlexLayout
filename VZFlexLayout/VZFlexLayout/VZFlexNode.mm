@@ -161,18 +161,22 @@ FlexNode* flexNodeChildAt(void* context, int index) {
     _flex_node -> fixed = fixed;
 }
 
-- (void)setSize:(CGSize)size{
-    _size = size;
-    _flex_node -> size[0] = size.width;
-    _flex_node -> size[1] = size.height;
-//    _css_node -> style.dimensions[CSS_WIDTH] = size.width;
-//    _css_node -> style.dimensions[CSS_HEIGHT] = size.height;
+- (void)setMaxSize:(CGSize)maxSize{
+    _maxSize = maxSize;
+    _flex_node -> maxSize[FLEX_WIDTH] = maxSize.width;
+    _flex_node -> maxSize[FLEX_HEIGHT] = maxSize.height;
 }
 
-- (void)setPosition:(CGPoint)position{
-    _position = position;
-//    _css_node -> style.dimensions[CSS_LEFT] = position.x;
-//    _css_node -> style.dimensions[CSS_TOP] = position.y;
+- (void)setMinSize:(CGSize)minSize{
+    _minSize = minSize;
+    _flex_node -> minSize[FLEX_WIDTH] = minSize.width;
+    _flex_node -> maxSize[FLEX_HEIGHT] = minSize.height;
+}
+
+- (void)setSize:(CGSize)size{
+    _size = size;
+    _flex_node -> size[FLEX_WIDTH] = size.width;
+    _flex_node -> size[FLEX_HEIGHT] = size.height;
 }
 
 - (void)setMargin:(UIEdgeInsets)margin
@@ -254,6 +258,34 @@ FlexNode* flexNodeChildAt(void* context, int index) {
     _flexDirection = flexDirection;
 //    _css_node ->style.flex_direction = (css_flex_direction_t)flexDirection;
     _flex_node -> direction = (FlexDirection)flexDirection;
+}
+
+- (void)setAlignSelf:(VZFlexNodeAlignSelf)alignSelf{
+    _alignSelf = alignSelf;
+    
+    FlexAlign value = FlexStretch;
+    
+    switch (alignSelf) {
+        case VZFLEX_ALIGN_CONTENT_START:
+            value = FlexStart;
+            break;
+            
+        case VZFLEX_ALIGN_CONTENT_CENTER:
+            value = FlexCenter;
+            break;
+            
+        case VZFLEX_ALIGN_CONTENT_END:
+            value = FlexEnd;
+            break;
+            
+        case VZFLEX_ALIGN_CONTENT_STRETCH:
+            value = FlexStretch;
+            break;
+            
+        default:
+            break;
+    }
+    _flex_node -> alignSelf = value;
 }
 
 - (void)setAlignContent:(VZFlexNodeAlignContent)alignContent{
@@ -436,14 +468,14 @@ FlexNode* flexNodeChildAt(void* context, int index) {
         
     }
 }
-
-- (void)printCSSNode{
-
-    for (VZFlexNode* node in self.childNodes) {
-        [node printCSSNode];
-    }
-    print_css_node(_css_node, CSS_PRINT_LAYOUT);
-}
+//
+//- (void)printCSSNode{
+//
+//    for (VZFlexNode* node in self.childNodes) {
+//        [node printCSSNode];
+//    }
+//    print_css_node(_css_node, CSS_PRINT_LAYOUT);
+//}
 
 
 - (void)addSubNode:(VZFlexNode* )node{
