@@ -17,7 +17,7 @@
 + (instancetype)nodeWithStackLayout:(const VZFStackLayout& )layout Children:(const std::vector<VZFStackChildNode> &)children
 {
     //create an empty node
-    VZFStackNode* stacknode = [super newWithClass:{} ViewAttributes:{} FlexAttributes:{}];
+    VZFStackNode* stacknode = [super nodeWithSpecs:{} FlexAttributes:{}];
     
     if (stacknode) {
         
@@ -26,6 +26,16 @@
     }
 
     return stacknode;
+}
+
+
+- (void)willMount{
+    
+    auto l =  _children.begin();
+    for(;l != _children.end(); ++l){
+        
+    }
+
 }
 
 

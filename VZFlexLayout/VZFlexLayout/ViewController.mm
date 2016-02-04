@@ -10,7 +10,8 @@
 #import "VZFlexCell.h"
 #import "VZFlexNode.h"
 #import "FNode.h"
-
+#import "VZFNode.h"
+#import "VZFStackNode.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -31,6 +32,7 @@
    // [self.view addSubview:self.tableView];
 
     [self headerNodes];
+    [self headerNodesCSS];
     
     
 }
@@ -60,6 +62,11 @@
     cell.textLabel.text = [NSString stringWithFormat:@"%ld",indexPath.row];
     return cell;
 
+}
+
+- (void)headerNodesCSS{
+
+    
 }
 
 
@@ -108,7 +115,7 @@
     
     
     [rightNode addSubNode:rightTopPlaceHolder];
-      [rightNode addSubNode:starNode];
+    [rightNode addSubNode:starNode];
     [parentNode addSubNode:rightNode];
     
     
@@ -116,6 +123,59 @@
     [parentNode renderRecursively];
     [self.view addSubview:parentNode.view];
 //    parentNode
+
+}
+
+- (void)stackNodes{
+
+    
+//    VZFNode* imageNode = [VZFNode newWithClass:{[UIImageView class]}
+//                                ViewAttributes:{{@selector(setBackgroundColor:),[UIColor redColor]}}
+//                               LayerAttributes:{{@selector(setCornerRadius:),@(20)}}
+//                                FlexAttributes:{
+//                                    .width = 20,
+//                                    .height = 20
+//                                }];
+  
+    VZFNode* imageNode = [VZFNode nodeWithSpecs:{[UIImageView class],{{@selector(setBackgroundColor:),[UIColor redColor]}}}
+                                 FlexAttributes:{
+                                     .width = 100,
+                                     .height = 100,
+                                     .marginTop = 10,
+                                     .marginLeft = 10,
+                                 }];
+    
+    
+    VZFNode* label = [VZFNode nodeWithSpecs:{[UILabel class],{{@selector(setBackgroundColor:),[UIColor redColor]}}}
+                                 FlexAttributes:{
+                                     .width = 300,
+                                     .marginTop = 10,
+                                     .marginLeft = 10,
+                                 }];
+    
+    //stack node
+    VZFStackNode* stackNode = [VZFStackNode nodeWithStackLayout:{
+                                                                    .direction = VZFStackLayoutDirectionHorizontal,
+                                                                    .flexAttributes = {
+                                                                    
+                                                                        .marginTop = 10
+                                                                    }
+                                                                    
+                                                                }
+                                                       Children:{
+    
+        //image node
+        {.node = imageNode},
+        
+        //label
+        {
+            .node = label,
+            .spacingBefore = 10
+        }
+        
+    
+    
+    }];
 
 }
 

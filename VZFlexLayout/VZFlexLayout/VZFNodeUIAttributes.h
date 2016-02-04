@@ -10,12 +10,15 @@
 
 #import <UIKit/UIKit.h>
 #include <string>
+#import <unordered_map>
 #import <objc/runtime.h>
+#import "VZFNodeViewClass.h"
+
 
 //支持UIView和CALayer
 namespace VZ {
     
-    template<class T>
+    template<typename T>
     struct UIAttribute{
         
         SEL selector;
@@ -37,20 +40,11 @@ namespace VZ {
         };
     
     };
-    
-    struct FlexAttribute{
-        
-        float width;
-        float height;
-        float marginLeft;
-        float marginRight;
-        float marginTop;
-        float marginBottom;
-        bool flexGrow;
-        bool flexShrink;
-    };
 }
 
+//unorded_map is not thread safe!
+typedef std::unordered_map<VZ::UIAttribute<UIView>, id> VZViewAttributes;
+typedef std::unordered_map<VZ::UIAttribute<CALayer>, id> VZLayerAttributes;
 
 //支持hash
 namespace std {

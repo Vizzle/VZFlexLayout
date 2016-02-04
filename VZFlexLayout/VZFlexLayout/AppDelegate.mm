@@ -23,11 +23,22 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    VZFNode* fnode = [VZFNode newWithClass:{[UIView class]}
-                            ViewAttributes:{ {@selector(setBackgroundColor:), [UIColor redColor]}}
-                           LayerAttributes:{ {@selector(setCornerRadius:),@(10)}}
-                            FlexAttributes:{ .marginLeft = 10,
-                                             .marginRight = 10,}];
+    
+    VZ::ViewClass v = { ^{
+        return nil;
+    }};
+    
+    VZFNode* node = [VZFNode nodeWithSpecs:{} FlexAttributes:{}];
+
+    
+//    VZFNode* node = [VZFNode nodeWithSpecs:{[UIView class],{
+//    
+//        {@selector(setBackgroundColor:),[UIColor redColor]}
+//    },
+//    {
+//        .width =100,
+//        .height=101
+//    }}];
 //
 //    
 //    VZFStackNode* stackhNode = [VZFStackNode nodeWithStackLayout:{

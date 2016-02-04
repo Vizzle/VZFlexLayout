@@ -6,5 +6,5 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "VZFNodeAttribute.h"
+#import "VZFNodeUIAttributes.h"
 

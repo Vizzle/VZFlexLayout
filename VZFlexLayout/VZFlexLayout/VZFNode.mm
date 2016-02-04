@@ -14,47 +14,32 @@
 @implementation VZFNode
 {
     VZFlexNode* _node;
-    ViewAttributes _viewConfiguration;
-    LayerAttributes _layerConfiguration;
-    FlexAttributes _flexConfiguration;
+//    ViewAttributes _viewConfiguration;
+//    LayerAttributes _layerConfiguration;
+//    FlexAttributes _flexConfiguration;
 }
 
 + (id)initialState{
     return nil;
 }
 
-+(instancetype)newWithClass:(const ViewClass &)clz
-             ViewAttributes:(const ViewAttributes &)view
-             FlexAttributes:(const FlexAttributes &)flex{
-
-    return [self newWithClass:{} ViewAttributes:view LayerAttributes:{} FlexAttributes:flex];
-}
-
-+(instancetype)newWithClass:(const ViewClass &)clz
-             ViewAttributes:(const ViewAttributes &)view
-            LayerAttributes:(const LayerAttributes &)layer
-             FlexAttributes:(const FlexAttributes &)flex{
++(instancetype)nodeWithSpecs:(const VZ::UISpecs &)specs FlexAttributes:(const VZ::FlexAttribute &)attr{
     
-    return [[self alloc] initWithView:clz ViewAttributes:view LayerAttributes:layer FlexAttributes:flex];
+    return  [[self alloc] initWithSpecs:specs FlexAttributes:attr];
 }
+
 
 + (instancetype)new
 {
-    return [self newWithClass:{} ViewAttributes:{} FlexAttributes:{}];
+    return [self nodeWithSpecs:{} FlexAttributes:{}];
 }
 
-- (instancetype)initWithView:(const ViewClass& )clz
-              ViewAttributes:(const ViewAttributes &)view
-             LayerAttributes:(const LayerAttributes &)layer
-              FlexAttributes:(const FlexAttributes &)flex
+- (instancetype)initWithSpecs:(const VZ::UISpecs& )specs FlexAttributes:(const VZ::FlexAttribute &)attr
 {
     self = [super init];
     if (self) {
         
         _node = [VZFlexNode new];
-        _viewConfiguration = view;
-        _layerConfiguration = layer;
-        _flexConfiguration = flex;
         
     }
     return self;

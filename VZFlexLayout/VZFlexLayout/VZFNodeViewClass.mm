@@ -13,4 +13,4 @@
 
 VZ::ViewClass::ViewClass():factory(nil){}
 VZ::ViewClass::ViewClass(Class clz):factory(^{return [[clz alloc] init];}){}
-
+VZ::ViewClass::ViewClass(UIView*(^function)(void)):factory(function){};

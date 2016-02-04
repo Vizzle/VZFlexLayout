@@ -7,6 +7,7 @@
 //
 
 #import "VZFNode.h"
+#import "VZFNodeFlexAttributes.h"
 #import <vector>
 
 typedef NS_ENUM(NSUInteger, VZFStackLayoutDirection) {
@@ -47,7 +48,7 @@ struct VZFStackLayout{
     VZFStackLayoutDirection direction;
     VZFStackLayoutAlignItems alignItems;
     VZFStackLayoutJustifyContent justifyContent;
-    CGFloat spacing;
+    VZFlexAttributes flexAttributes;
 };
 
 @interface VZFStackNode : VZFNode

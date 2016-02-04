@@ -285,6 +285,8 @@ FlexNode* flexNodeChildAt(void* context, int index) {
         default:
             break;
     }
+
+    
     _flex_node -> alignSelf = value;
 }
 
