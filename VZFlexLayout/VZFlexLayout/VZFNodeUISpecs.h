@@ -16,6 +16,7 @@ namespace VZ {
     struct UISpecs{
         
         UISpecs();
+        //使用右值，支持初始化赋值，减少拷贝
         UISpecs(VZViewClass&& clz, VZViewAttributes&& vattrs);
         UISpecs(VZViewClass&& clz, VZViewAttributes&& vattrs, VZLayerAttributes&& lattrs);
     
