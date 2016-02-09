@@ -12,16 +12,12 @@
 
 @interface VZFNode : NSObject
 
+/**
+ *  通过UISpecs来描述node
+ *
+ *  @return node instance
+ */
 +(instancetype)nodeWithSpecs:(const VZ::UISpecs &)specs FlexAttributes:(const VZ::FlexAttribute &)attr;
-
-+ (id)initialState;
-
-- (void)updateState:(id(^)(id))updateBlock;
-
-- (void)computeLayoutThatFits:(CGSize)sz;
-
-- (void)render;
-
-
+//+(instancetype)nodeWithSpecs:(const VZ::UISpecs &)specs FlexAttributes:(const VZ::FlexAttribute &)attr State:(id)state;
 
 @end

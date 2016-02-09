@@ -12,7 +12,7 @@
 #import "FNode.h"
 #import "VZFNode.h"
 #import "VZFStackNode.h"
-
+#import "VZFNodeViewManager.h"
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView* tableView;
@@ -32,7 +32,11 @@
    // [self.view addSubview:self.tableView];
 
     [self headerNodes];
-    [self headerNodesCSS];
+    
+    
+    
+    VZ::UISpecs spec = {[UIView class], {{@selector(setBackgroundColor:),[UIColor redColor]}},{{@selector(setCornerRadius:),@(10)}}};
+    UIView* view = [VZFNodeViewManager viewForConfiguration:spec];
     
     
 }
@@ -120,8 +124,8 @@
     
     
     [parentNode layout: {float(w),VZFLEX_INFINITE}];
-    [parentNode renderRecursively];
-    [self.view addSubview:parentNode.view];
+//    [parentNode renderRecursively];
+//    [self.view addSubview:parentNode.view];
 //    parentNode
 
 }
@@ -129,13 +133,6 @@
 - (void)stackNodes{
 
     
-//    VZFNode* imageNode = [VZFNode newWithClass:{[UIImageView class]}
-//                                ViewAttributes:{{@selector(setBackgroundColor:),[UIColor redColor]}}
-//                               LayerAttributes:{{@selector(setCornerRadius:),@(20)}}
-//                                FlexAttributes:{
-//                                    .width = 20,
-//                                    .height = 20
-//                                }];
   
     VZFNode* imageNode = [VZFNode nodeWithSpecs:{[UIImageView class],{{@selector(setBackgroundColor:),[UIColor redColor]}}}
                                  FlexAttributes:{

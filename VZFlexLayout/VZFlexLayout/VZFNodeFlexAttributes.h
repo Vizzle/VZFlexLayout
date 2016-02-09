@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#pragma once
 
 namespace VZ
 {
@@ -18,9 +18,23 @@ namespace VZ
         float marginRight;
         float marginTop;
         float marginBottom;
-        bool flexGrow;
-        bool flexShrink;
+        
+        float flexGrow;
+        float flexShrink;
     };
+    
+//    FlexAttribute defaultFlexAttributes(){
+//        return {
+//            .width = 0,
+//            .height = 0,
+//            .marginLeft = 0,
+//            .marginRight = 0,
+//            .marginTop = 0,
+//            .marginBottom = 0,
+//            .flexGrow = 1,
+//            .flexShrink = 0
+//        };
+//    }
 }
 
 typedef VZ::FlexAttribute VZFlexAttributes;

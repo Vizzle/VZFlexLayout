@@ -11,12 +11,31 @@
 
 namespace VZ {
     
+//    struct NodeLayout;
+    
+//    struct ChildNodeLayout{
+//        CGPoint position;
+//        NodeLayout layout;
+//        
+//    };
+
     struct NodeLayout{
         CGSize size;
-        CGPoint position;
+        CGPoint origin;
+        UIEdgeInsets margin;
+        std::shared_ptr<const std::vector<NodeLayout>> children;
     };
     
-    struct StackNodeLayout{
-        std::vector<NodeLayout>children = {};
-    };
+//    struct ChildNodeLayout;
+//    struct NodeLayout{
+//        CGSize size;
+//        CGPoint position;
+//        std::shared_ptr<const std::vector<ChildNodeLayout>> children;
+//        NodeLayout(CGSize sz, std::vector<ChildNodeLayout> ch = {}):size(sz),children(new std::vector<ChildNodeLayout>(std::move(ch))){}
+//        
+//
+//    };
+//    
 }
+
+typedef VZ::NodeLayout VZFNodeLayout;

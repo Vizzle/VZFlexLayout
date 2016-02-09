@@ -6,13 +6,15 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "VZFNode.h"
+#import <Foundation/Foundation.h>
 #import "VZFNodeFlexAttributes.h"
+#import "VZFNode.h"
 #import <vector>
 
 typedef NS_ENUM(NSUInteger, VZFStackLayoutDirection) {
-    VZFStackLayoutDirectionVertical,
+   
     VZFStackLayoutDirectionHorizontal,
+    VZFStackLayoutDirectionVertical,
 };
 
 typedef NS_ENUM(NSUInteger, VZFStackLayoutAlignItems) {

@@ -27,6 +27,10 @@ namespace VZ {
         UIAttribute():selector(NULL){};
         UIAttribute(SEL sel):selector(sel),setter(^(T* obj ,id value){
             id oc_object = (id)obj;
+            
+            NSMethodSignature *sig = [(id)obj methodSignatureForSelector:selector];
+            // If the setter actually takes an NSValue id as the argument, we shouldn't unbox to the primitive type.
+            const char *argumentType = [sig getArgumentTypeAtIndex:2];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [oc_object performSelector:selector withObject:value];

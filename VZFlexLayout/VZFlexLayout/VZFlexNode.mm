@@ -238,11 +238,7 @@ FlexNode* flexNodeChildAt(void* context, int index) {
             break;
         case VZFLEX_JC_END:
             value = FlexEnd;
-            break;
-        case VZFLEX_JC_SPACE_AROUND:
-            value = FlexSpaceAround;
-            break;
-            
+            break;            
         case VZFLEX_JC_SPACE_BETWEEN:
             value = FlexSpaceBetween;
             break;
@@ -433,9 +429,7 @@ FlexNode* flexNodeChildAt(void* context, int index) {
     [self prepareLayout];
     
     layoutFlexNode(_flex_node, constrainedSize.width, constrainedSize.height);
-//    layoutNode(_css_node, constrainedSize.width, CSS_DIRECTION_LTR);
     
-//    [self printCSSNode];
 }
 
 - (CGSize)sizeThatFits:(CGSize)constraintedSize{

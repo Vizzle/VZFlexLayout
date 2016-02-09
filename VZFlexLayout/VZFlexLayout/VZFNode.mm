@@ -11,12 +11,16 @@
 #import "VZFNodeLayout.h"
 #import "VZFlexNode.h"
 
+struct
+{
+    VZFNodeLayout layout;
+    
+
+}VZFNodeMountedContext;
+
 @implementation VZFNode
 {
-    VZFlexNode* _node;
-//    ViewAttributes _viewConfiguration;
-//    LayerAttributes _layerConfiguration;
-//    FlexAttributes _flexConfiguration;
+    VZFlexNode* _flexNode;
 }
 
 + (id)initialState{
@@ -39,7 +43,11 @@
     self = [super init];
     if (self) {
         
-        _node = [VZFlexNode new];
+        _flexNode = [VZFlexNode new];
+        _flexNode.size          = CGSizeMake(attr.width, attr.height);
+        _flexNode.margin        = UIEdgeInsetsMake(attr.marginTop, attr.marginLeft, attr.marginBottom, attr.marginRight);
+        _flexNode.flexGrow      = attr.flexGrow;
+        _flexNode.flexShrink    = attr.flexShrink;
         
     }
     return self;
@@ -55,16 +63,19 @@
 
 }
 
-- (void)computeLayoutThatFits:(CGSize)sz{
+- (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz{
     
-    [_node layout:sz];
-//    return {};
+    [_flexNode layout:sz];
+    VZFNodeLayout layout = {
+    
+        .origin = _flexNode.frame.origin,
+        .size   = _flexNode.frame.size,
+        .margin = UIEdgeInsetsZero,
+        .children = {}
+    };
+    return layout;
 }
 
-- (void)render{
-
-    [_node renderRecursively];
-}
 
 
 @end

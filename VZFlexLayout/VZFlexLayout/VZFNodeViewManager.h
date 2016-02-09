@@ -7,18 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VZFNodeUISpecs.h"
+#import "VZFNodeMountContext.h"
 
-namespace VZ {
-    
-    struct ViewReusePool{
-    
-        
-    };
-    
-    
-    struct ViewManager{
-    
-        
-    };
-    
-}
+@interface VZFNodeViewManager : NSObject
+
++ (void)registerNodeWithMountedContext:(const VZ::NodeMountedContext &)context;
+
++ (UIView* )viewForConfiguration:(const VZ::UISpecs &)specs;
+
+@end

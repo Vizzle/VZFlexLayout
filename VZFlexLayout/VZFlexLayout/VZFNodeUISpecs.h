@@ -19,6 +19,20 @@ namespace VZ {
         //使用右值，支持初始化赋值，减少拷贝
         UISpecs(VZViewClass&& clz, VZViewAttributes&& vattrs);
         UISpecs(VZViewClass&& clz, VZViewAttributes&& vattrs, VZLayerAttributes&& lattrs);
+        ~UISpecs();
+        
+        const ViewClass& getViewClass() const;
+        std::shared_ptr<const VZViewAttributes> getViewAttributes() const;
+        std::shared_ptr<const VZLayerAttributes> getLayerAttributes() const;
     
-    };    
+    private:
+        struct States{
+        
+            VZViewClass clz;
+            std::shared_ptr<const VZViewAttributes> viewAttributes;
+            std::shared_ptr<const VZLayerAttributes> layerAttributes;
+        };
+   
+        std::shared_ptr<const States> state;
+    };
 }
