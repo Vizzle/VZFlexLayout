@@ -10,15 +10,15 @@
 
 VZ::UISpecs::~UISpecs(){};
 VZ::UISpecs::UISpecs(){};
-VZ::UISpecs::UISpecs(VZUISpec&& spec){
+VZ::UISpecs::UISpecs(VZUISpecs&& specs){
     
     auto t = new State{
-        .spec = std::make_shared<VZUISpec>(std::move(spec))
+        .specs = std::make_shared<VZUISpecs>(std::move(specs))
     };
     state.reset(t);
 }
-const std::shared_ptr<const VZUISpec>VZ::UISpecs:: getSpec() const {
-    return state->spec;
+const std::shared_ptr<const VZUISpecs>VZ::UISpecs:: getSpecs() const {
+    return state->specs;
 }
 
 

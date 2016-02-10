@@ -14,12 +14,15 @@
 namespace VZ {
     
     struct NodeLayout{
-        CGSize size;
-        CGPoint origin;
-        std::shared_ptr<const std::vector<NodeLayout>> children;
+        
+
+        std::string name = "undefined";
+        
+        //constructor
         NodeLayout():size({0,0}),origin({0,0}),children(new std::vector<NodeLayout>()){}
         NodeLayout(CGSize sz, CGPoint pt):size(sz),origin(pt),children(new std::vector<NodeLayout>()){};
         NodeLayout(CGSize sz, CGPoint pt, std::vector<NodeLayout> childs):size(sz),origin(pt),children(new std::vector<NodeLayout>(std::move(childs))){};
+        
         const std::string nodeDesc() const{
             
             auto print = [this]() -> std::string{
@@ -37,6 +40,13 @@ namespace VZ {
             }
             return desc;
         };
+        const CGSize getNodeSize() const{ return size ; };
+        const CGPoint getNodeOriginPoint() const {return origin;};
+    private:
+
+        CGSize size = {0,0};
+        CGPoint origin = {0,0};
+        std::shared_ptr<const std::vector<NodeLayout>> children;
     };
 }
 

@@ -12,12 +12,6 @@
 
 @interface VZFNode : NSObject
 
-/**
- *  通过UISpecs来描述node
- *
- *  @return node instance
- */
-+(instancetype)nodeWithSpecs:(const VZ::UISpecs &)specs FlexAttributes:(const VZ::FlexAttribute &)attr;
-//+(instancetype)nodeWithSpecs:(const VZ::UISpecs &)specs FlexAttributes:(const VZ::FlexAttribute &)attr State:(id)state;
++(instancetype)nodeWithUISpecs:(const VZ::UISpecs &)specs;
 
 @end

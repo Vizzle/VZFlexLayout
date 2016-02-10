@@ -10,28 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VZFlexLayout/ViewController.mm"
-            timestampString = "476806721.943796"
+            timestampString = "476813041.832789"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
             landmarkName = "-stackNodes"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/VZFStackNode.mm"
-            timestampString = "476807292.435567"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
-            landmarkName = "+nodeWithStackLayout:Children:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

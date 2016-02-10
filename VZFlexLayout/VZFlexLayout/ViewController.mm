@@ -148,9 +148,7 @@
     
     
     [parentNode layout: {float(w),VZFLEX_INFINITE}];
-    CGRect rightNodeResult = [rightNode frame];
-    CGRect result = [parentNode frame];
-    int a = 0;
+
 //    [parentNode renderRecursively];
 //    [self.view addSubview:parentNode.view];
 //    parentNode
@@ -159,7 +157,7 @@
 
 - (void)stackNodes{
 
-    VZFNode* imageNode = [VZFNode nodeWithSpecs:{
+    VZFNode* imageNode = [VZFNode nodeWithUISpecs:{
         {
             .clz = [UIImageView class],
             .view = {
@@ -170,32 +168,31 @@
                     .cornerRadius = 10,
                     .borderColor = [UIColor whiteColor]
                 }
+            },
+            .flex = {
+                .width  = 100,
+                .height = 100,
+                .marginTop = 10,
+                .marginLeft = 10
             }
         }
     
     
-    } FlexAttributes:{
-        
-        .width  = 100,
-        .height = 100,
-        .marginTop = 10,
-        .marginLeft = 10
-    
     }];
     
-    VZFNode* textNode = [VZFNode nodeWithSpecs:{
+    VZFNode* textNode = [VZFNode nodeWithUISpecs:{
         {
             .clz = [UILabel class],
             .view = {
                 .backgroundColor = [UIColor yellowColor]
+            },
+            .flex={
+                .marginTop = 10,
+                .marginLeft = 10,
+                .width = 100,
+                .height = 14
             }
         }
-    
-    } FlexAttributes:{
-        .marginTop = 10,
-        .marginLeft = 10,
-        .height = 14,
-        .flexGrow = 1
     
     }];
     
@@ -206,7 +203,7 @@
         
         
         {.node = imageNode},
-        {.node = textNode,.spacingBefore = 10},
+        {.node = textNode,},
         
     }];
 
@@ -214,6 +211,23 @@
     VZFNodeLayout layout = [stackNode  computeLayoutThatFits:sz];
     NSLog(@"%s",layout.nodeDesc().c_str());
     
+    VZFlexNode* stackFlexNode= [VZFlexNode new];
+    stackFlexNode.flexDirection = VZFLEX_DIRECTION_HORIZONTAL;
+    
+    VZFlexNode* imageFlexNode = [VZFlexNode new];
+    imageFlexNode.size = {100,100};
+    imageFlexNode.margin = UIEdgeInsetsMake(10, 10, 0, 0);
+    [stackFlexNode addSubNode:imageFlexNode];
+    
+    VZFlexNode* textFlexNode = [VZFlexNode new];
+    textFlexNode.size = {VZFLEX_AUTO,14};
+    textFlexNode.margin = UIEdgeInsetsMake(10, 10, 0, 0);
+    [stackFlexNode addSubNode:textFlexNode];
+    
+    [stackFlexNode layout:sz];
+    CGRect stackResult = [stackFlexNode frame];
+    CGRect imageResult = [imageFlexNode frame];
+    CGRect textResult  = [textFlexNode frame];
 
 }
 

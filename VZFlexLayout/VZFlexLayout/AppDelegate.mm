@@ -21,37 +21,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    
-    
-    VZ::ViewClass v = { ^{
-        return nil;
-    }};
-    
-    VZFNode* node = [VZFNode nodeWithSpecs:{} FlexAttributes:{}];
 
-    
-//    VZFNode* node = [VZFNode nodeWithSpecs:{[UIView class],{
-//    
-//        {@selector(setBackgroundColor:),[UIColor redColor]}
-//    },
-//    {
-//        .width =100,
-//        .height=101
-//    }}];
-//
-//    
-//    VZFStackNode* stackhNode = [VZFStackNode nodeWithStackLayout:{
-//    
-//        .direction = VZFStackLayoutDirectionHorizontal,
-//        .alignItems = VZFStackLayoutAlignItemsStretch,
-//        .justifyContent = VZFStackLayoutJustifyContentSpaceBetween,
-//    
-//    } Children:{
-//    
-//        {.node = fnode},
-//    }];
-    
     
     
     return YES;

@@ -72,7 +72,6 @@
 
 @interface VZFlexNode()
 {
-    css_node_t* _css_node;
     FlexNode* _flex_node;
     NSMutableArray* _childNodes;
 
@@ -85,37 +84,7 @@
 @implementation VZFlexNode
 
 
-bool vz_css_node_is_dirty(void* _this){
-    return true;
-}
 
-css_node_t* vz_css_node_child_at_index(void* _this, int i){
-    VZFlexNode* node = (__bridge VZFlexNode* )_this;
-    if (i<node.childNodes.count) {
-        VZFlexNode* childNode = node.childNodes[i];
-        return childNode -> _css_node;
-    }
-    else{
-        return NULL;
-    }
-    
-}
-
-css_dim_t vz_css_node_measure(void* _this, float width)
-{
-    VZFlexNode* node = (__bridge VZFlexNode* )_this;
-    if (node.measureBlock) {
-        CGSize sz = node.measureBlock(width);
-        css_dim_t ret;
-        ret.dimensions[CSS_WIDTH] = sz.width;
-        ret.dimensions[CSS_HEIGHT] = sz.height;
-        return ret;
-    }
-    else{
-        return (css_dim_t){};
-    }
-    
-}
 
 FlexSize flexNodeMeasure(void* context, FlexSize constraintedSize) {
     VZFlexNode* node = (__bridge VZFlexNode*)context;
@@ -188,10 +157,6 @@ FlexNode* flexNodeChildAt(void* context, int index) {
     _flex_node -> margin[FLEX_RIGHT] = margin.right;
     _flex_node -> margin[FLEX_BOTTOM] = margin.bottom;
     
-//    _css_node->style.margin[CSS_LEFT] = margin.left;
-//    _css_node->style.margin[CSS_TOP] = margin.top;
-//    _css_node->style.margin[CSS_RIGHT] = margin.right;
-//    _css_node->style.margin[CSS_BOTTOM] = margin.bottom;
 }
 
 - (void)setPadding:(UIEdgeInsets)padding
@@ -202,18 +167,12 @@ FlexNode* flexNodeChildAt(void* context, int index) {
     _flex_node -> padding[FLEX_TOP] = padding.top;
     _flex_node -> padding[FLEX_RIGHT] = padding.right;
     _flex_node -> padding[FLEX_BOTTOM] = padding.bottom;
-    
-//    _css_node->style.padding[CSS_LEFT] = padding.left;
-//    _css_node->style.padding[CSS_TOP] = padding.top;
-//    _css_node->style.padding[CSS_RIGHT] = padding.right;
-//    _css_node->style.padding[CSS_BOTTOM] = padding.bottom;
 }
 
 
 - (void)setFlexGrow:(VZFlexNodeFlexValue)flexGrow{
 
     _flexGrow = flexGrow;
-//    _css_node -> style.flex = flexGrow;
     _flex_node -> flexGrow = flexGrow;
 }
 
@@ -225,8 +184,6 @@ FlexNode* flexNodeChildAt(void* context, int index) {
 - (void)setJustifyContent:(VZFlexNodeJustifyContent)justifyContent
 {
     _justifyContent = justifyContent;
-//    _css_node->style.justify_content = (css_justify_t)justifyContent;
-    
 
     FlexAlign value = FlexInherit;
     switch (justifyContent) {
@@ -252,7 +209,6 @@ FlexNode* flexNodeChildAt(void* context, int index) {
 
 - (void)setFlexDirection:(VZFlexNodeDirection)flexDirection{
     _flexDirection = flexDirection;
-//    _css_node ->style.flex_direction = (css_flex_direction_t)flexDirection;
     _flex_node -> direction = (FlexDirection)flexDirection;
 }
 
@@ -288,9 +244,6 @@ FlexNode* flexNodeChildAt(void* context, int index) {
 
 - (void)setAlignContent:(VZFlexNodeAlignContent)alignContent{
     _alignContent = alignContent;
-//    _css_node ->style.align_content = (css_align_t)alignContent;
-    
-
     FlexAlign value = FlexStretch;
     switch (alignContent) {
         case VZFLEX_ALIGN_CONTENT_START:
@@ -317,7 +270,6 @@ FlexNode* flexNodeChildAt(void* context, int index) {
 
 - (void)setAlignItems:(VZFlexNodeAlignItems)alignItems{
     _alignItems = alignItems;
-//    _css_node -> style.align_items = (css_align_t)alignItems;
     
     FlexAlign value = FlexStretch;
     switch (alignItems) {
@@ -347,9 +299,6 @@ FlexNode* flexNodeChildAt(void* context, int index) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - life cycle
 
-- (NSString* )description{
-    return self.name;
-}
 
 - (id)init
 {
@@ -361,12 +310,6 @@ FlexNode* flexNodeChildAt(void* context, int index) {
         _flex_node->context = (__bridge void* )self;
         _flex_node->measure = flexNodeMeasure;
         _flex_node->childAt = flexNodeChildAt;
-        
-//        _css_node = new_css_node();
-//        _css_node -> measure = vz_css_node_measure;
-//        _css_node -> context = (__bridge void*)self;
-//        _css_node -> is_dirty = vz_css_node_is_dirty;
-//        _css_node -> get_child = vz_css_node_child_at_index;
         _childNodes = [NSMutableArray new];
         
     }
@@ -375,20 +318,15 @@ FlexNode* flexNodeChildAt(void* context, int index) {
 
 - (void)dealloc{
     
-//    free(_css_node);
-//    _css_node = NULL;
-    
     free(_flex_node);
     _flex_node = NULL;
 }
 
+
+
 - (CGRect)frame
 {
     return (CGRect) {
-//        .origin.x = _css_node->layout.position[CSS_LEFT],
-//        .origin.y = _css_node->layout.position[CSS_TOP],
-//        .size.width = _css_node->layout.dimensions[CSS_WIDTH],
-//        .size.height = _css_node->layout.dimensions[CSS_HEIGHT]
         
         .origin.x = _flex_node -> result.position[0],
         .origin.y = _flex_node ->result.position[1],
@@ -414,12 +352,6 @@ FlexNode* flexNodeChildAt(void* context, int index) {
     _flex_node -> result.margin[1] = 0;
     _flex_node -> result.margin[2] = 0;
     _flex_node -> result.margin[3] = 0;
-    
-//    
-//    _css_node ->layout.position[CSS_LEFT] = 0;
-//    _css_node ->layout.position[CSS_TOP] = 0;
-//    _css_node ->layout.dimensions[CSS_WIDTH] = CSS_UNDEFINED;
-//    _css_node ->layout.dimensions[CSS_HEIGHT] = CSS_UNDEFINED;
     
 }
 
@@ -464,28 +396,19 @@ FlexNode* flexNodeChildAt(void* context, int index) {
         
     }
 }
-//
-//- (void)printCSSNode{
-//
-//    for (VZFlexNode* node in self.childNodes) {
-//        [node printCSSNode];
-//    }
-//    print_css_node(_css_node, CSS_PRINT_LAYOUT);
-//}
+
 
 
 - (void)addSubNode:(VZFlexNode* )node{
     
     [_childNodes addObject:node];
     _flex_node -> childrenCount = (int)self.childNodes.count;
-//    _css_node -> children_count = (int)self.childNodes.count;
 }
 
 - (void)removeSubNode:(VZFlexNode* )node{
     
     [_childNodes removeObject:node];
     _flex_node -> childrenCount = (int)self.childNodes.count;
-//    _css_node -> children_count = (int)self.childNodes.count;
 
 }
 

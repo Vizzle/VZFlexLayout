@@ -17,14 +17,14 @@ namespace VZ {
         
         UISpecs();
         //使用右值，支持初始化赋值
-        UISpecs(VZUISpec&& spec);
+        UISpecs(VZUISpecs&& spec);
         ~UISpecs();
         
-        const std::shared_ptr<const VZUISpec> getSpec() const;
+        const std::shared_ptr<const VZUISpecs> getSpecs() const;
     
     private:
         struct State{
-            std::shared_ptr<const VZUISpec> spec;
+            std::shared_ptr<const VZUISpecs> specs;
         };
    
         std::shared_ptr<const State> state;

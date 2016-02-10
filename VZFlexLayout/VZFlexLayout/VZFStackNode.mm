@@ -28,18 +28,19 @@
 @synthesize flexNode = _flexNode;
 
 
-+ (instancetype)nodeWithSpecs:(const VZ::UISpecs &)specs FlexAttributes:(const VZ::FlexAttribute &)attr{
++ (instancetype)nodeWithUISpecs:(const VZ::UISpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 + (instancetype)nodeWithStackLayout:(const VZFStackLayout& )layout Children:(const std::vector<VZFStackChildNode> &)children
 {
     //create an empty node
-    VZFStackNode* stacknode =  [super nodeWithSpecs:{} FlexAttributes:{}];
+    VZFStackNode* stacknode =  [super nodeWithUISpecs:{}];
     if (stacknode) {
         
         stacknode -> _layout = layout;
         stacknode -> _children = children;
         stacknode -> _flexNode                = [VZFlexNode new];
+        stacknode -> _flexNode.name           = @"stackNode";
         stacknode -> _flexNode.flexDirection  = (VZFlexNodeDirection)layout.direction;
         stacknode -> _flexNode.justifyContent = (VZFlexNodeJustifyContent)layout.justifyContent;
         stacknode -> _flexNode.alignItems     = (VZFlexNodeAlignItems)layout.alignItems;
@@ -79,9 +80,6 @@
     }
     
     VZFNodeLayout layout = { _flexNode.frame.size, _flexNode.frame.origin, childrenLayouts};
-    
-
-
     return layout;
 }
 

@@ -22,7 +22,7 @@
 
 + (UIView* )viewForConfiguration:(const VZ::UISpecs &)specs;
 {
-    std::shared_ptr<const VZUISpec> spec = specs.getSpec();
+    std::shared_ptr<const VZUISpecs> spec = specs.getSpecs();
     
     VZ::ViewClass viewClass = (*spec.get()).clz;
     UIView* view = viewClass.createView();

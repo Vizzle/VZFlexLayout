@@ -34,6 +34,19 @@ namespace VZ {
         LayerAttrs layer;
     };
     
+    struct FlexAttrs{
+    
+        float width;
+        float height;
+        float marginLeft;
+        float marginRight;
+        float marginTop;
+        float marginBottom;
+        
+        float flexGrow;
+        float flexShrink;
+    };
+    
     enum class GestureType{
         
         Tap = 0,
@@ -94,8 +107,12 @@ namespace VZ {
         //view / layer properties
         struct ViewAttrs view;
         
+        //flex
+        struct FlexAttrs flex;
+        
         //gesture
-        VZ::Gesture gesture;
+        NSArray<NSDictionary* >* gestures;
+//        VZ::Gesture gesture;
 //        std::unordered_map<Gesture, gestureBlock> gesture;
         
         
@@ -110,7 +127,7 @@ namespace VZ {
 //    }
 }
 
-typedef VZ::UIAttributesSpecs VZUISpec;
+typedef VZ::UIAttributesSpecs VZUISpecs;
 
 namespace std {
     

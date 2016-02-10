@@ -30,27 +30,32 @@
     return nil;
 }
 
-+(instancetype)nodeWithSpecs:(const VZ::UISpecs &)specs FlexAttributes:(const VZ::FlexAttribute &)attr{
++(instancetype)nodeWithUISpecs:(const VZ::UISpecs &)specs{
     
-    return  [[self alloc] initWithSpecs:specs FlexAttributes:attr];
+    return [[self alloc] initWithUISpecs:specs];
 }
+
 
 
 + (instancetype)new
 {
-    return [self nodeWithSpecs:{} FlexAttributes:{}];
+    return [self nodeWithUISpecs:{}];
 }
 
-- (instancetype)initWithSpecs:(const VZ::UISpecs& )specs FlexAttributes:(const VZ::FlexAttribute &)attr
-{
+- (instancetype)initWithUISpecs:(const VZ::UISpecs& )specs{
     self = [super init];
     if (self) {
         
         _flexNode = [VZFlexNode new];
-        _flexNode.size          = CGSizeMake(attr.width, attr.height);
-        _flexNode.margin        = UIEdgeInsetsMake(attr.marginTop, attr.marginLeft, attr.marginBottom, attr.marginRight);
-        _flexNode.flexGrow      = attr.flexGrow;
-        _flexNode.flexShrink    = attr.flexShrink;
+        
+        std::shared_ptr<const VZUISpecs> specptr = specs.getSpecs();
+        
+        VZ::FlexAttrs flexAttributes = (*specptr).flex;
+        
+        _flexNode.size          = CGSizeMake(flexAttributes.width, flexAttributes.height);
+        _flexNode.margin        = UIEdgeInsetsMake(flexAttributes.marginTop, flexAttributes.marginLeft, flexAttributes.marginBottom, flexAttributes.marginRight);
+        _flexNode.flexGrow      = flexAttributes.flexGrow;
+        _flexNode.flexShrink    = flexAttributes.flexShrink;
         
     }
     return self;
