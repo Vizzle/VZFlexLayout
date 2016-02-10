@@ -10,18 +10,21 @@
 #import "VZFMacros.h"
 #import "VZFNodeLayout.h"
 #import "VZFlexNode.h"
+#import "VZFNodeInternal.h"
 
-struct
-{
-    VZFNodeLayout layout;
-    
 
-}VZFNodeMountedContext;
+@interface VZFlexNode()
+
+@property(nonatomic,strong)VZFlexNode* flexNode;
+
+@end
 
 @implementation VZFNode
 {
-    VZFlexNode* _flexNode;
+    
 }
+
+@synthesize flexNode = _flexNode;
 
 + (id)initialState{
     return nil;
@@ -66,13 +69,7 @@ struct
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz{
     
     [_flexNode layout:sz];
-    VZFNodeLayout layout = {
-    
-        .origin = _flexNode.frame.origin,
-        .size   = _flexNode.frame.size,
-        .margin = UIEdgeInsetsZero,
-        .children = {}
-    };
+    VZFNodeLayout layout = { _flexNode.frame.size,_flexNode.frame.origin };
     return layout;
 }
 

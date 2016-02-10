@@ -12,6 +12,7 @@
 #import "FNode.h"
 #import "VZFNode.h"
 #import "VZFStackNode.h"
+#import "VZFNodeSubclass.h"
 #import "VZFNodeViewManager.h"
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -28,16 +29,39 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
     self.tableView.delegate = self;
+    
     self.tableView.dataSource  = self;
    // [self.view addSubview:self.tableView];
 
     [self headerNodes];
+    [self stackNodes];
+    
+//    void (^block)(id sender) = ^(id sender){};
+    VZ::UISpecs specs(
+        {
+        
+            .clz = {[UIView class]},
+            .view = {
+                .backgroundColor = [UIColor redColor],
+                .layer = {
+                    .cornerRadius = 50
+                }
+            },
+        
+        }
+ );
+    
+
+    UIView* view = [VZFNodeViewManager viewForConfiguration:specs];
+    view.frame = CGRectMake(0, 0, 100, 100);
+    [self.view addSubview:view];
     
     
     
-    VZ::UISpecs spec = {[UIView class], {{@selector(setBackgroundColor:),[UIColor redColor]}},{{@selector(setCornerRadius:),@(10)}}};
-    UIView* view = [VZFNodeViewManager viewForConfiguration:spec];
+
     
+
+
     
 }
 
@@ -124,6 +148,9 @@
     
     
     [parentNode layout: {float(w),VZFLEX_INFINITE}];
+    CGRect rightNodeResult = [rightNode frame];
+    CGRect result = [parentNode frame];
+    int a = 0;
 //    [parentNode renderRecursively];
 //    [self.view addSubview:parentNode.view];
 //    parentNode
@@ -132,47 +159,61 @@
 
 - (void)stackNodes{
 
-    
-  
-    VZFNode* imageNode = [VZFNode nodeWithSpecs:{[UIImageView class],{{@selector(setBackgroundColor:),[UIColor redColor]}}}
-                                 FlexAttributes:{
-                                     .width = 100,
-                                     .height = 100,
-                                     .marginTop = 10,
-                                     .marginLeft = 10,
-                                 }];
-    
-    
-    VZFNode* label = [VZFNode nodeWithSpecs:{[UILabel class],{{@selector(setBackgroundColor:),[UIColor redColor]}}}
-                                 FlexAttributes:{
-                                     .width = 300,
-                                     .marginTop = 10,
-                                     .marginLeft = 10,
-                                 }];
-    
-    //stack node
-    VZFStackNode* stackNode = [VZFStackNode nodeWithStackLayout:{
-                                                                    .direction = VZFStackLayoutDirectionHorizontal,
-                                                                    .flexAttributes = {
-                                                                    
-                                                                        .marginTop = 10
-                                                                    }
-                                                                    
-                                                                }
-                                                       Children:{
-    
-        //image node
-        {.node = imageNode},
-        
-        //label
+    VZFNode* imageNode = [VZFNode nodeWithSpecs:{
         {
-            .node = label,
-            .spacingBefore = 10
+            .clz = [UIImageView class],
+            .view = {
+                .backgroundColor = [UIColor redColor],
+                .clipToBounds = YES,
+                .layer = {
+                
+                    .cornerRadius = 10,
+                    .borderColor = [UIColor whiteColor]
+                }
+            }
         }
-        
     
+    
+    } FlexAttributes:{
+        
+        .width  = 100,
+        .height = 100,
+        .marginTop = 10,
+        .marginLeft = 10
     
     }];
+    
+    VZFNode* textNode = [VZFNode nodeWithSpecs:{
+        {
+            .clz = [UILabel class],
+            .view = {
+                .backgroundColor = [UIColor yellowColor]
+            }
+        }
+    
+    } FlexAttributes:{
+        .marginTop = 10,
+        .marginLeft = 10,
+        .height = 14,
+        .flexGrow = 1
+    
+    }];
+    
+    VZFStackNode* stackNode = [VZFStackNode nodeWithStackLayout:{
+        .direction = VZFStackLayoutDirectionHorizontal,
+        
+    } Children:{
+        
+        
+        {.node = imageNode},
+        {.node = textNode,.spacingBefore = 10},
+        
+    }];
+
+    CGSize sz = CGSizeMake(self.view.bounds.size.width, 1000);
+    VZFNodeLayout layout = [stackNode  computeLayoutThatFits:sz];
+    NSLog(@"%s",layout.nodeDesc().c_str());
+    
 
 }
 

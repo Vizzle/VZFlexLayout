@@ -15,12 +15,122 @@
 #import "VZFNodeViewClass.h"
 
 
+namespace VZ {
+    
+    
+    struct LayerAttrs{
+        
+        CGFloat cornerRadius;
+        CGFloat borderWidth;
+        UIColor* borderColor;
+        UIImage* contents;
+    };
+    
+    struct ViewAttrs{
+        
+        UIColor* backgroundColor;
+        UIViewContentMode contentMode;
+        BOOL clipToBounds;
+        LayerAttrs layer;
+    };
+    
+    enum class GestureType{
+        
+        Tap = 0,
+        LongPress= 1,
+        Undefined = -1
+    };
+    
+    
+    typedef void(^gestureBlock)(id sender);
+    
+    struct Gesture{
+        
+ 
+        
+        Gesture():type(GestureType::Undefined),name("undefined"){};
+        Gesture(GestureType t):type(t){
+        
+            switch(t)
+            {
+                case GestureType::Tap:
+                {
+                    name = "tap";
+                    break;
+                }
+                case GestureType::LongPress:
+                {
+                    name = "longpress";
+                    break;
+                }
+                default:
+                {
+                    name ="undefined";
+                    break;
+                }
+            }
+        };
+            
+        GestureType type = GestureType::Undefined;
+        std::string name = "undefined";
+
+        //支持hash
+        bool operator == (const Gesture &gesture) const{
+            return gesture.type == this->type;
+        };
+    };
+
+  
+    
+    
+    typedef std::unordered_map<Gesture, gestureBlock> gesture_t;
+    
+    
+    struct UIAttributesSpecs{
+        
+        //view class
+        VZ::ViewClass clz;
+        
+        //view / layer properties
+        struct ViewAttrs view;
+        
+        //gesture
+        VZ::Gesture gesture;
+//        std::unordered_map<Gesture, gestureBlock> gesture;
+        
+        
+    };
+//    
+//    std::shared_ptr<gesture_t> GestureBuilder(Gesture type, gestureBlock callback)
+//    {
+//        gesture_t* map = new gesture_t{
+//        
+//        };
+//        
+//    }
+}
+
+typedef VZ::UIAttributesSpecs VZUISpec;
+
+namespace std {
+    
+    //provide a hash key
+    template<> struct hash<VZ::Gesture>
+    {
+        size_t operator()(const VZ::Gesture &gesture) const{
+            return std::hash<std::string>()(gesture.name);
+        }
+    };
+}
+
 //支持UIView和CALayer
 namespace VZ {
+
     
     template<typename T>
     struct UIAttribute{
         
+
         SEL selector;
         void (^setter)(T* obj, id value);
         
@@ -28,9 +138,6 @@ namespace VZ {
         UIAttribute(SEL sel):selector(sel),setter(^(T* obj ,id value){
             id oc_object = (id)obj;
             
-            NSMethodSignature *sig = [(id)obj methodSignatureForSelector:selector];
-            // If the setter actually takes an NSValue id as the argument, we shouldn't unbox to the primitive type.
-            const char *argumentType = [sig getArgumentTypeAtIndex:2];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [oc_object performSelector:selector withObject:value];

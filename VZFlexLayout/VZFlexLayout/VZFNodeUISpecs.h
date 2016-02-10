@@ -16,23 +16,17 @@ namespace VZ {
     struct UISpecs{
         
         UISpecs();
-        //使用右值，支持初始化赋值，减少拷贝
-        UISpecs(VZViewClass&& clz, VZViewAttributes&& vattrs);
-        UISpecs(VZViewClass&& clz, VZViewAttributes&& vattrs, VZLayerAttributes&& lattrs);
+        //使用右值，支持初始化赋值
+        UISpecs(VZUISpec&& spec);
         ~UISpecs();
         
-        const ViewClass& getViewClass() const;
-        std::shared_ptr<const VZViewAttributes> getViewAttributes() const;
-        std::shared_ptr<const VZLayerAttributes> getLayerAttributes() const;
+        const std::shared_ptr<const VZUISpec> getSpec() const;
     
     private:
-        struct States{
-        
-            VZViewClass clz;
-            std::shared_ptr<const VZViewAttributes> viewAttributes;
-            std::shared_ptr<const VZLayerAttributes> layerAttributes;
+        struct State{
+            std::shared_ptr<const VZUISpec> spec;
         };
    
-        std::shared_ptr<const States> state;
+        std::shared_ptr<const State> state;
     };
 }

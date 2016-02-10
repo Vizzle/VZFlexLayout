@@ -9,47 +9,57 @@
 #import "VZFStackNode.h"
 #import "VZFlexNode.h"
 #import "VZFUtils.h"
+#import "VZFNodeInternal.h"
 #import "VZFNodeSubclass.h"
+#import "VZFMacros.h"
+
+@interface VZFStackNode()
+
+//@property(nonatomic,strong)VZFlexNode* flexNode;
+
+@end
 
 @implementation VZFStackNode
 {
     VZFStackLayout _layout;
-    VZFlexNode*  _flexNode; //this will shadow the parent node
     std::vector<VZFStackChildNode> _children;
 }
 
+@synthesize flexNode = _flexNode;
+
+
++ (instancetype)nodeWithSpecs:(const VZ::UISpecs &)specs FlexAttributes:(const VZ::FlexAttribute &)attr{
+    VZ_NOT_DESIGNATED_INITIALIZER();
+}
 + (instancetype)nodeWithStackLayout:(const VZFStackLayout& )layout Children:(const std::vector<VZFStackChildNode> &)children
 {
     //create an empty node
-    VZFStackNode* stacknode = [[self alloc] init];
-    
+    VZFStackNode* stacknode =  [super nodeWithSpecs:{} FlexAttributes:{}];
     if (stacknode) {
         
         stacknode -> _layout = layout;
         stacknode -> _children = children;
+        stacknode -> _flexNode                = [VZFlexNode new];
+        stacknode -> _flexNode.flexDirection  = (VZFlexNodeDirection)layout.direction;
+        stacknode -> _flexNode.justifyContent = (VZFlexNodeJustifyContent)layout.justifyContent;
+        stacknode -> _flexNode.alignItems     = (VZFlexNodeAlignItems)layout.alignItems;
+        stacknode -> _flexNode.size           = {layout.flexAttributes.width,layout.flexAttributes.height};
+        stacknode -> _flexNode.margin         = {layout.flexAttributes.marginTop,
+                                                 layout.flexAttributes.marginLeft,
+                                                 layout.flexAttributes.marginBottom,
+                                                 layout.flexAttributes.marginRight};
+        
+        
+        stacknode -> _children = VZ::F::filter(children, [](const VZFStackChildNode &child){
+            return child.node != nil;
+        });
+        for (auto &child:stacknode->_children) {
+            [stacknode -> _flexNode addSubNode:child.node.flexNode];
+        }
+
     }
 
     return stacknode;
-}
-
-- (id)init
-{
-    self = [super init];
-    
-    if (self) {
-        
-        _flexNode = [VZFlexNode new];
-        _flexNode.flexDirection     = (VZFlexNodeDirection)_layout.direction;
-        _flexNode.justifyContent    = (VZFlexNodeJustifyContent)_layout.justifyContent;
-        _flexNode.alignItems        = (VZFlexNodeAlignItems)_layout.alignItems;
-        _flexNode.size              = {_layout.flexAttributes.width,_layout.flexAttributes.height};
-        _flexNode.margin            = UIEdgeInsetsMake(_layout.flexAttributes.marginTop,
-                                                   _layout.flexAttributes.marginLeft,
-                                                   _layout.flexAttributes.marginBottom,
-                                                   _layout.flexAttributes.marginRight);
-        
-    }
-    return self;
 }
 
 - (void)prepareForLayout{
@@ -62,24 +72,14 @@
 
     
     std::vector<VZ::NodeLayout> childrenLayouts{};
+    for (VZFStackChildNode child : _children) {
     
-    //过滤掉node为空的
-    std::vector<VZFStackChildNode> children = VZ::F::filter(_children, [](const VZFStackChildNode &child){
-        return child.node != nil;
-    });
-    
-    for (VZFStackChildNode child : children) {
         VZFNodeLayout l = [child.node computeLayoutThatFits:sz];
         childrenLayouts.push_back(l);
     }
     
-    VZFNodeLayout layout = {
-        
-        .origin     = _flexNode.frame.origin,
-        .size       = _flexNode.frame.size,
-        .margin     = UIEdgeInsetsZero,
-        .children   =  std::make_shared<std::vector<VZ::NodeLayout>>(childrenLayouts)
-    };
+    VZFNodeLayout layout = { _flexNode.frame.size, _flexNode.frame.origin, childrenLayouts};
+    
 
 
     return layout;

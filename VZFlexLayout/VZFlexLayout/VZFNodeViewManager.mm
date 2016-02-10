@@ -22,21 +22,18 @@
 
 + (UIView* )viewForConfiguration:(const VZ::UISpecs &)specs;
 {
+    std::shared_ptr<const VZUISpec> spec = specs.getSpec();
     
-    const VZ::ViewClass clz = specs.getViewClass();
-    UIView* view = clz.createView();
-    std::shared_ptr<const VZViewAttributes> viewAttributes = specs.getViewAttributes();
-    std::shared_ptr<const VZLayerAttributes> layerAttributes = specs.getLayerAttributes();
-    //apply view attributes
-    for(const auto &v : *viewAttributes){
-        VZ::UIAttribute<UIView> attr = v.first;
-        attr.setter(view,v.second);
-    }
-    //apply layer attributes;
-    for (const auto &l : *layerAttributes) {
-        VZ::UIAttribute<CALayer> attr = l.first;
-        attr.setter(view.layer,l.second);
-    }
+    VZ::ViewClass viewClass = (*spec.get()).clz;
+    UIView* view = viewClass.createView();
+    VZ::ViewAttrs vs = (*spec.get()).view;
+    view.backgroundColor = vs.backgroundColor;
+    view.contentMode = vs.contentMode;
+    view.clipsToBounds = vs.clipToBounds;
+    view.layer.cornerRadius = vs.layer.cornerRadius;
+    view.layer.borderColor = vs.layer.borderColor.CGColor;
+    view.layer.contents = (__bridge id)vs.layer.contents.CGImage;
+
     return view;
 }
 @end

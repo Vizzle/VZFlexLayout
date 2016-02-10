@@ -8,34 +8,37 @@
 
 #import <UIKit/UIKit.h>
 #import <vector>
+#import <string>
+#import "FlexLayout.h"
 
 namespace VZ {
     
-//    struct NodeLayout;
-    
-//    struct ChildNodeLayout{
-//        CGPoint position;
-//        NodeLayout layout;
-//        
-//    };
-
     struct NodeLayout{
         CGSize size;
         CGPoint origin;
-        UIEdgeInsets margin;
         std::shared_ptr<const std::vector<NodeLayout>> children;
+        NodeLayout():size({0,0}),origin({0,0}),children(new std::vector<NodeLayout>()){}
+        NodeLayout(CGSize sz, CGPoint pt):size(sz),origin(pt),children(new std::vector<NodeLayout>()){};
+        NodeLayout(CGSize sz, CGPoint pt, std::vector<NodeLayout> childs):size(sz),origin(pt),children(new std::vector<NodeLayout>(std::move(childs))){};
+        const std::string nodeDesc() const{
+            
+            auto print = [this]() -> std::string{
+                
+                std::string sz =  NSStringFromCGSize(this -> size).UTF8String;
+                std::string pt =  NSStringFromCGPoint(this->origin).UTF8String;
+                std::string ret = "origin:"+pt+","+"size:"+sz+"\n";
+                return ret;
+            
+            };
+            
+            std::string desc = "\n"+print();
+            for(NodeLayout l : *children.get()){
+                desc += l.nodeDesc();
+            }
+            return desc;
+        };
     };
-    
-//    struct ChildNodeLayout;
-//    struct NodeLayout{
-//        CGSize size;
-//        CGPoint position;
-//        std::shared_ptr<const std::vector<ChildNodeLayout>> children;
-//        NodeLayout(CGSize sz, std::vector<ChildNodeLayout> ch = {}):size(sz),children(new std::vector<ChildNodeLayout>(std::move(ch))){}
-//        
-//
-//    };
-//    
 }
 
 typedef VZ::NodeLayout VZFNodeLayout;
+
