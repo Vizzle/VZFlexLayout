@@ -15,6 +15,7 @@
 #import "VZFNodeViewClass.h"
 #import "VZFValue.h"
 
+using namespace VZ;
 
 namespace VZ {
     
@@ -41,6 +42,12 @@ namespace VZ {
         extern CGSize size;
         extern CGSize maxSize;
         extern CGSize minSize;
+        extern float width;
+        extern float height;
+        extern float maxWidth;
+        extern float maxHeight;
+        extern float minWidth;
+        extern float minHeight;
         
         //css attributes
         extern float marginLeft;
@@ -61,28 +68,37 @@ namespace VZ {
 
     };
     
-    
+
+//#undef PROPERTY
+//#define PROPERTY(CLASS, NAME)  Value<CLASS,DefaultFlexValue::NAME> NAME
     struct FlexAttrs{
         
-        VZ::Value<CGSize, DefaultFlexValue::size> size;
-        VZ::Value<CGSize, DefaultFlexValue::maxSize> maxSize;
-        VZ::Value<CGSize, DefaultFlexValue::minSize> minSize;
+//         Value<CGSize, DefaultFlexValue::size> size;
+//         Value<CGSize, DefaultFlexValue::maxSize> maxSize;
+//         Value<CGSize, DefaultFlexValue::minSize> minSize;
+
+        Value<float, DefaultFlexValue::width> width;
+        Value<float, DefaultFlexValue::height> height;
+        Value<float, DefaultFlexValue::maxWidth> maxWidth;
+        Value<float, DefaultFlexValue::maxHeight> maxHeight;
+        Value<float, DefaultFlexValue::minWidth> minWidth;
+        Value<float, DefaultFlexValue::minHeight> minHeight;
         
-        VZ::Value<float, DefaultFlexValue::marginLeft> marginLeft;
-        VZ::Value<float, DefaultFlexValue::marginRight> marginRight;
-        VZ::Value<float, DefaultFlexValue::marginTop> marginTop;
-        VZ::Value<float, DefaultFlexValue::marginBottom> marginBottom;
+        Value<float, DefaultFlexValue::marginLeft> marginLeft;
+        Value<float, DefaultFlexValue::marginRight> marginRight;
+        Value<float, DefaultFlexValue::marginTop> marginTop;
+        Value<float, DefaultFlexValue::marginBottom> marginBottom;
         
-        VZ::Value<float, DefaultFlexValue::paddingLeft> paddingLeft;
-        VZ::Value<float, DefaultFlexValue::paddingRight> paddingRight;
-        VZ::Value<float, DefaultFlexValue::paddingTop> paddingTop;
-        VZ::Value<float, DefaultFlexValue::paddingBottom> paddingBottom;
+         Value<float, DefaultFlexValue::paddingLeft> paddingLeft;
+         Value<float, DefaultFlexValue::paddingRight> paddingRight;
+         Value<float, DefaultFlexValue::paddingTop> paddingTop;
+         Value<float, DefaultFlexValue::paddingBottom> paddingBottom;
         
-        VZ::Value<float, DefaultFlexValue::flexGrow> flexGrow;
-        VZ::Value<float, DefaultFlexValue::flexShrink> flexShrink;
+         Value<float, DefaultFlexValue::flexGrow> flexGrow;
+         Value<float, DefaultFlexValue::flexShrink> flexShrink;
         
-        VZ::Value<bool, DefaultFlexValue::fixed> fixed;
-        VZ::Value<bool, DefaultFlexValue::wrap> wrap;
+         Value<bool, DefaultFlexValue::fixed> fixed;
+         Value<bool, DefaultFlexValue::wrap> wrap;
     
     };
 
@@ -139,7 +155,7 @@ namespace VZ {
     struct UIAttributesSpecs{
         
         //view class
-        VZ::ViewClass clz;
+         ViewClass clz;
         
         //view / layer properties
         struct ViewAttrs view;
@@ -149,29 +165,21 @@ namespace VZ {
         
         //gesture
         NSArray<NSDictionary* >* gestures;
-//        VZ::Gesture gesture;
+//         Gesture gesture;
 //        std::unordered_map<Gesture, gestureBlock> gesture;
         
         
     };
-//    
-//    std::shared_ptr<gesture_t> GestureBuilder(Gesture type, gestureBlock callback)
-//    {
-//        gesture_t* map = new gesture_t{
-//        
-//        };
-//        
-//    }
 }
 
-typedef VZ::UIAttributesSpecs VZUISpecs;
+typedef  UIAttributesSpecs VZUISpecs;
 
 namespace std {
     
     //provide a hash key
-    template<> struct hash<VZ::Gesture>
+    template<> struct hash< Gesture>
     {
-        size_t operator()(const VZ::Gesture &gesture) const{
+        size_t operator()(const  Gesture &gesture) const{
             return std::hash<std::string>()(gesture.name);
         }
     };
@@ -208,15 +216,15 @@ namespace std {
 //}
 //
 ////unorded_map is not thread safe!
-//typedef std::unordered_map<VZ::UIAttribute<UIView>, id> VZViewAttributes;
-//typedef std::unordered_map<VZ::UIAttribute<CALayer>, id> VZLayerAttributes;
+//typedef std::unordered_map< UIAttribute<UIView>, id> VZViewAttributes;
+//typedef std::unordered_map< UIAttribute<CALayer>, id> VZLayerAttributes;
 //
 ////支持hash
 //namespace std {
 //    template<class T>
-//    struct hash<VZ::UIAttribute<T>>
+//    struct hash< UIAttribute<T>>
 //    {
-//        size_t operator()(const VZ::UIAttribute<T> &attr) const{
+//        size_t operator()(const  UIAttribute<T> &attr) const{
 //
 //            return hash<std::string>()(NSStringFromSelector(attr.selector).UTF8String);
 //        }

@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "VZFNodeUIAttributes.h"
-#import "VZFNodeFlexAttributes.h"
-#import "VZFNodeViewClass.h"
 
 namespace VZ {
     

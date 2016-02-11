@@ -48,6 +48,27 @@ namespace VZ {
         CGPoint origin = {0,0};
         std::shared_ptr<const std::vector<NodeLayout>> children;
     };
+    
+    
+    struct _NodeLayout{
+        CGSize size;
+        CGPoint origin;
+        _NodeLayout():size({0,0}),origin({0,0}){}
+        _NodeLayout(CGSize sz, CGPoint pt):size(sz),origin(pt){}
+        const std::string description() const{
+            
+            std::string sz = NSStringFromCGSize(size).UTF8String;
+            std::string pt = NSStringFromCGPoint(origin).UTF8String;
+            std::string desc = "{origin:" + pt + "," + "size:"+sz+"}";
+            return desc;
+        }
+    };
+    
+    struct _StackNodeLayout{
+    
+        struct _NodeLayout;
+        std::vector<_NodeLayout> children;
+    };
 }
 
 typedef VZ::NodeLayout VZFNodeLayout;

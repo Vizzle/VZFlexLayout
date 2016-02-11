@@ -9,8 +9,6 @@
 #import "AppDelegate.h"
 #import "VZFNode.h"
 #import "VZFStackNode.h"
-#import "VZFNodeViewConfig.h"
-
 
 @interface AppDelegate ()
 

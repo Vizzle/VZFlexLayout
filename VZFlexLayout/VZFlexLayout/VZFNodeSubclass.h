@@ -19,6 +19,8 @@
 
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz;
 
+- (void)applyFlexAttributes:(const VZ::FlexAttrs &)flexAttributes;
+
 @end
 
 

@@ -167,8 +167,10 @@
             },
             .flex = {
 
-//                .marginTop = 10,
-//                .marginLeft = 10
+                .marginTop = 10,
+                .marginLeft = 10,
+                .width = 100,
+                .height = 100,
             }
         }
 
@@ -181,8 +183,9 @@
                 .backgroundColor = [UIColor yellowColor]
             },
             .flex={
-//                .marginTop = 10,
-//                .marginLeft = 10,
+                .marginTop = 10,
+                .marginLeft = 10,
+                .height = 14
             }
         }
     

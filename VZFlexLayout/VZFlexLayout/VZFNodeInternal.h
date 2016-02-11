@@ -16,5 +16,6 @@
 
 @property(nonatomic,strong,readonly)VZFlexNode* flexNode;
 
+
 @end
 #endif /* VZFNodeInternal_h */

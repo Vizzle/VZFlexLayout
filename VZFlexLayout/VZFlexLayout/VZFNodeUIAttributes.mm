@@ -11,10 +11,13 @@
 
 namespace VZ {
     namespace DefaultFlexValue{
-      
-        CGSize size = { -999997,-999997 };
-        CGSize maxSize = {-999998,-999998};
-        CGSize minSize = {0,0};
+        
+        float width = -999997;
+        float height = -999997;
+        float maxWidth = -999998;
+        float maxHeight = -999998;
+        float minWidth = 0;
+        float minHeight = 0;
         float marginTop = 0;
         float marginBottom = 0;
         float marginLeft = 0;

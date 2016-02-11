@@ -41,6 +41,8 @@
 @property (nonatomic,assign) CGFloat paddingLeft;
 @property (nonatomic,assign) CGFloat paddingBottom;
 @property (nonatomic,assign) CGFloat paddingRight;
+@property (nonatomic,assign) BOOL fixed;
+@property (nonatomic,assign) BOOL wrap;
 
 - (void)layout:(CGSize)constrainedSize;
 - (CGSize)sizeThatFits:(CGSize)constraintedSize;

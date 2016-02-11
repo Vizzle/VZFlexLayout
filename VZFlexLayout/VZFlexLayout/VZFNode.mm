@@ -51,12 +51,8 @@
         std::shared_ptr<const VZUISpecs> specptr = specs.getSpecs();
         
         VZ::FlexAttrs flexAttributes = (*specptr.get()).flex;
-        
-//        _flexNode.width
-//        _flexNode.size          = CGSizeMake(flexAttributes.width, flexAttributes.height);
-//        _flexNode.margin        = UIEdgeInsetsMake(flexAttributes.marginTop, flexAttributes.marginLeft, flexAttributes.marginBottom, flexAttributes.marginRight);
-//        _flexNode.flexGrow      = flexAttributes.flexGrow;
-//        _flexNode.flexShrink    = flexAttributes.flexShrink;
+
+        [self applyFlexAttributes:flexAttributes];
         
     }
     return self;
@@ -72,9 +68,27 @@
 
 }
 
-- (void)applyFlexAttributes:(const VZ::FlexAttrs &)flex{
-
-   // _flexNode.width = flex.size.width;
+- (void)applyFlexAttributes:(const VZ::FlexAttrs &)flexAttributes{
+    
+    
+    _flexNode.width  = flexAttributes.width;
+    _flexNode.height = flexAttributes.height;
+    _flexNode.maxWidth = flexAttributes.maxWidth;
+    _flexNode.minWidth = flexAttributes.minWidth;
+    _flexNode.maxHeight = flexAttributes.maxHeight;
+    _flexNode.minWidth = flexAttributes.minWidth;
+    _flexNode.marginTop = flexAttributes.marginTop;
+    _flexNode.marginLeft = flexAttributes.marginLeft;
+    _flexNode.marginRight = flexAttributes.marginRight;
+    _flexNode.marginBottom = flexAttributes.marginBottom;
+    _flexNode.paddingTop = flexAttributes.paddingTop;
+    _flexNode.paddingLeft = flexAttributes.paddingLeft;
+    _flexNode.paddingRight = flexAttributes.paddingRight;
+    _flexNode.paddingBottom = flexAttributes.paddingBottom;
+    _flexNode.flexGrow  = flexAttributes.flexGrow;
+    _flexNode.flexShrink = flexAttributes.flexShrink;
+    _flexNode.wrap = flexAttributes.wrap;
+    _flexNode.fixed = flexAttributes.fixed;
 }
 
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz{

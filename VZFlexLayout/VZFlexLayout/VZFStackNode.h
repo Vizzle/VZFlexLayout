@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VZFNodeFlexAttributes.h"
 #import "VZFNode.h"
+#import "VZFNodeUIAttributes.h"
 #import <vector>
 
 typedef NS_ENUM(NSUInteger, VZFStackLayoutDirection) {
@@ -32,16 +32,7 @@ typedef NS_ENUM(NSUInteger, VZFStackLayoutJustifyContent) {
 };
 
 struct VZFStackChildNode{
-    
     VZFNode *node;
-    /** Additional space to place before the component in the stacking direction. */
-    CGFloat spacingBefore;
-    /** Additional space to place after the component in the stacking direction. */
-    CGFloat spacingAfter;
-    /** If the sum of childrens' stack dimensions is less than the minimum size, should this component grow? */
-    BOOL flexGrow;
-    /** If the sum of childrens' stack dimensions is greater than the maximum size, should this component shrink? */
-    BOOL flexShrink;
 };
 
 
@@ -50,7 +41,7 @@ struct VZFStackLayout{
     VZFStackLayoutDirection direction;
     VZFStackLayoutAlignItems alignItems;
     VZFStackLayoutJustifyContent justifyContent;
-    VZFlexAttributes flexAttributes;
+    VZ::FlexAttrs flex;
 };
 
 @interface VZFStackNode : VZFNode
