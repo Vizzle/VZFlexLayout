@@ -41,14 +41,14 @@
         stacknode -> _children = children;
         stacknode -> _flexNode                = [VZFlexNode new];
         stacknode -> _flexNode.name           = @"stackNode";
-        stacknode -> _flexNode.flexDirection  = (VZFlexNodeDirection)layout.direction;
-        stacknode -> _flexNode.justifyContent = (VZFlexNodeJustifyContent)layout.justifyContent;
-        stacknode -> _flexNode.alignItems     = (VZFlexNodeAlignItems)layout.alignItems;
-        stacknode -> _flexNode.size           = {layout.flexAttributes.width,layout.flexAttributes.height};
-        stacknode -> _flexNode.margin         = {layout.flexAttributes.marginTop,
-                                                 layout.flexAttributes.marginLeft,
-                                                 layout.flexAttributes.marginBottom,
-                                                 layout.flexAttributes.marginRight};
+//        stacknode -> _flexNode.flexDirection  = (VZFlexNodeDirection)layout.direction;
+//        stacknode -> _flexNode.justifyContent = (VZFlexNodeJustifyContent)layout.justifyContent;
+//        stacknode -> _flexNode.alignItems     = (VZFlexNodeAlignItems)layout.alignItems;
+//        stacknode -> _flexNode.size           = {layout.flexAttributes.width,layout.flexAttributes.height};
+//        stacknode -> _flexNode.margin         = {layout.flexAttributes.marginTop,
+//                                                 layout.flexAttributes.marginLeft,
+//                                                 layout.flexAttributes.marginBottom,
+//                                                 layout.flexAttributes.marginRight};
         
         
         stacknode -> _children = VZ::F::filter(children, [](const VZFStackChildNode &child){

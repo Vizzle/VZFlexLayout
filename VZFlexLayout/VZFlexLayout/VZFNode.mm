@@ -50,12 +50,13 @@
         
         std::shared_ptr<const VZUISpecs> specptr = specs.getSpecs();
         
-        VZ::FlexAttrs flexAttributes = (*specptr).flex;
+        VZ::FlexAttrs flexAttributes = (*specptr.get()).flex;
         
-        _flexNode.size          = CGSizeMake(flexAttributes.width, flexAttributes.height);
-        _flexNode.margin        = UIEdgeInsetsMake(flexAttributes.marginTop, flexAttributes.marginLeft, flexAttributes.marginBottom, flexAttributes.marginRight);
-        _flexNode.flexGrow      = flexAttributes.flexGrow;
-        _flexNode.flexShrink    = flexAttributes.flexShrink;
+//        _flexNode.width
+//        _flexNode.size          = CGSizeMake(flexAttributes.width, flexAttributes.height);
+//        _flexNode.margin        = UIEdgeInsetsMake(flexAttributes.marginTop, flexAttributes.marginLeft, flexAttributes.marginBottom, flexAttributes.marginRight);
+//        _flexNode.flexGrow      = flexAttributes.flexGrow;
+//        _flexNode.flexShrink    = flexAttributes.flexShrink;
         
     }
     return self;
@@ -69,6 +70,11 @@
 - (void)updateState:(id (^)(id))updateBlock{
 
 
+}
+
+- (void)applyFlexAttributes:(const VZ::FlexAttrs &)flex{
+
+   // _flexNode.width = flex.size.width;
 }
 
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz{

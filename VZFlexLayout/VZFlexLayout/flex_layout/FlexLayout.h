@@ -130,13 +130,17 @@ PROPERTY(ClassWrapper, viewClass, nil, "View") \
         std::vector<FlexLayout> children;
         std::unordered_map<FNViewAttribute, id> attrs;
         FlexLayoutResult result;
-        
+
 #define PROPERTY(CLASS, NAME, DEFAULT, ...) Value<CLASS, Defaults::NAME> NAME;
         PROPERTIES
 #undef  PROPERTY
         
     };
-    
+//    
+//    void test(){
+//    
+//    };
+//    
     void layout(FlexLayout& flex, Size constraintedSize);
     
 }

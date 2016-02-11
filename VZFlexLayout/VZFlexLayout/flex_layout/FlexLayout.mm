@@ -9,6 +9,7 @@
 namespace flex {
     
     namespace Defaults {
+    
 #define PROPERTY(CLASS, NAME, DEFAULT, ...) CLASS NAME = DEFAULT;
         PROPERTIES
 #undef  PROPERTY

@@ -119,181 +119,222 @@ FlexNode* flexNodeChildAt(void* context, int index) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - setters
+- (void)setFixed:(BOOL)fixed {
+    _flex_node->fixed = fixed;
+}
 
-- (void)setWrap:(BOOL)wrap{
-    _wrap = wrap;
+- (BOOL)fixed {
+    return _flex_node -> fixed;
+}
+
+- (void)setWrap:(BOOL)wrap {
     _flex_node -> wrap = wrap;
 }
 
-- (void)setFixed:(BOOL)fixed{
-    _fixed = fixed;
-    _flex_node -> fixed = fixed;
+- (BOOL)wrap {
+    return _flex_node -> wrap;
 }
 
-- (void)setMaxSize:(CGSize)maxSize{
-    _maxSize = maxSize;
-    _flex_node -> maxSize[FLEX_WIDTH] = maxSize.width;
-    _flex_node -> maxSize[FLEX_HEIGHT] = maxSize.height;
+- (void)setDirection:(FlexDirection)direction {
+    _flex_node->direction = direction;
 }
 
-- (void)setMinSize:(CGSize)minSize{
-    _minSize = minSize;
-    _flex_node -> minSize[FLEX_WIDTH] = minSize.width;
-    _flex_node -> maxSize[FLEX_HEIGHT] = minSize.height;
+- (FlexDirection)direction {
+    return _flex_node->direction;
 }
 
-- (void)setSize:(CGSize)size{
-    _size = size;
-    _flex_node -> size[FLEX_WIDTH] = size.width;
-    _flex_node -> size[FLEX_HEIGHT] = size.height;
+- (void)setAlignItems:(FlexAlign)alignItems {
+    _flex_node->alignItems = alignItems;
 }
 
-- (void)setMargin:(UIEdgeInsets)margin
-{
-    _margin = margin;
-    
-    _flex_node -> margin[FLEX_LEFT] = margin.left;
-    _flex_node -> margin[FLEX_TOP] = margin.top;
-    _flex_node -> margin[FLEX_RIGHT] = margin.right;
-    _flex_node -> margin[FLEX_BOTTOM] = margin.bottom;
-    
+- (FlexAlign)alignItems {
+    return _flex_node->alignItems;
 }
 
-- (void)setPadding:(UIEdgeInsets)padding
-{
-    _padding = padding;
-    
-    _flex_node -> padding[FLEX_LEFT] = padding.left;
-    _flex_node -> padding[FLEX_TOP] = padding.top;
-    _flex_node -> padding[FLEX_RIGHT] = padding.right;
-    _flex_node -> padding[FLEX_BOTTOM] = padding.bottom;
+- (void)setAlignSelf:(FlexAlign)alignSelf {
+    _flex_node->alignSelf = alignSelf;
 }
 
-
-- (void)setFlexGrow:(VZFlexNodeFlexValue)flexGrow{
-
-    _flexGrow = flexGrow;
-    _flex_node -> flexGrow = flexGrow;
+- (FlexAlign)alignSelf {
+    return _flex_node->alignSelf;
 }
 
-- (void)setFlexShrink:(VZFlexNodeFlexValue)flexShrink{
-    _flexShrink = flexShrink;
-    _flex_node -> flexShrink = flexShrink;
+- (void)setAlignContent:(FlexAlign)alignContent {
+    _flex_node->alignContent = alignContent;
 }
 
-- (void)setJustifyContent:(VZFlexNodeJustifyContent)justifyContent
-{
-    _justifyContent = justifyContent;
-
-    FlexAlign value = FlexInherit;
-    switch (justifyContent) {
-        case VZFLEX_JC_START:
-            value = FlexStart;
-            break;
-        case VZFLEX_JC_CENTER:
-            value = FlexCenter;
-            break;
-        case VZFLEX_JC_END:
-            value = FlexEnd;
-            break;            
-        case VZFLEX_JC_SPACE_BETWEEN:
-            value = FlexSpaceBetween;
-            break;
-            
-        default:
-            break;
-    }
-    
-    _flex_node -> justifyContent = value;
+- (FlexAlign)alignContent {
+    return _flex_node->alignContent;
 }
 
-- (void)setFlexDirection:(VZFlexNodeDirection)flexDirection{
-    _flexDirection = flexDirection;
-    _flex_node -> direction = (FlexDirection)flexDirection;
+- (void)setJustifyContent:(FlexAlign)justifyContent {
+    _flex_node->justifyContent = justifyContent;
 }
 
-- (void)setAlignSelf:(VZFlexNodeAlignSelf)alignSelf{
-    _alignSelf = alignSelf;
-    
-    FlexAlign value = FlexStretch;
-    
-    switch (alignSelf) {
-        case VZFLEX_ALIGN_CONTENT_START:
-            value = FlexStart;
-            break;
-            
-        case VZFLEX_ALIGN_CONTENT_CENTER:
-            value = FlexCenter;
-            break;
-            
-        case VZFLEX_ALIGN_CONTENT_END:
-            value = FlexEnd;
-            break;
-            
-        case VZFLEX_ALIGN_CONTENT_STRETCH:
-            value = FlexStretch;
-            break;
-            
-        default:
-            break;
-    }
-
-    
-    _flex_node -> alignSelf = value;
+- (FlexAlign)justifyContent {
+    return _flex_node->justifyContent;
 }
 
-- (void)setAlignContent:(VZFlexNodeAlignContent)alignContent{
-    _alignContent = alignContent;
-    FlexAlign value = FlexStretch;
-    switch (alignContent) {
-        case VZFLEX_ALIGN_CONTENT_START:
-            value = FlexStart;
-            break;
-            
-        case VZFLEX_ALIGN_CONTENT_CENTER:
-            value = FlexCenter;
-            break;
-            
-        case VZFLEX_ALIGN_CONTENT_END:
-            value = FlexEnd;
-            break;
-        
-        case VZFLEX_ALIGN_CONTENT_STRETCH:
-            value = FlexStretch;
-            break;
-            
-        default:
-            break;
-    }
-    _flex_node -> alignContent = (FlexAlign)value;
+- (void)setFlexBasis:(CGFloat)flexBasis {
+    _flex_node->flexBasis = flexBasis;
 }
 
-- (void)setAlignItems:(VZFlexNodeAlignItems)alignItems{
-    _alignItems = alignItems;
-    
-    FlexAlign value = FlexStretch;
-    switch (alignItems) {
-        case VZFLEX_ALIGN_CONTENT_START:
-            value = FlexStart;
-            break;
-            
-        case VZFLEX_ALIGN_CONTENT_CENTER:
-            value = FlexCenter;
-            break;
-            
-        case VZFLEX_ALIGN_CONTENT_END:
-            value = FlexEnd;
-            break;
-            
-        case VZFLEX_ALIGN_CONTENT_STRETCH:
-            value = FlexStretch;
-            break;
-            
-        default:
-            break;
-    }
-    _flex_node -> alignItems = (FlexAlign)value;
+- (CGFloat)flexBasis {
+    return _flex_node->flexBasis;
 }
+
+- (void)setFlexGrow:(CGFloat)flexGrow {
+    _flex_node->flexGrow = flexGrow;
+}
+
+- (CGFloat)flexGrow {
+    return _flex_node->flexGrow;
+}
+
+- (void)setFlexShrink:(CGFloat)flexShrink {
+    _flex_node->flexShrink = flexShrink;
+}
+
+- (CGFloat)flexShrink {
+    return _flex_node->flexShrink;
+}
+
+- (void)setWidth:(CGFloat)width {
+    _flex_node->size[FLEX_WIDTH] = width;
+}
+
+- (CGFloat)width {
+    return _flex_node->size[FLEX_WIDTH];
+}
+
+- (void)setHeight:(CGFloat)height {
+    _flex_node->size[FLEX_HEIGHT] = height;
+}
+
+- (CGFloat)height {
+    return _flex_node->size[FLEX_HEIGHT];
+}
+
+- (void)setMinWidth:(CGFloat)minWidth {
+    _flex_node->minSize[FLEX_WIDTH] = minWidth;
+}
+
+- (CGFloat)minWidth {
+    return _flex_node->minSize[FLEX_WIDTH];
+}
+
+- (void)setMinHeight:(CGFloat)minHeight {
+    _flex_node->minSize[FLEX_HEIGHT] = minHeight;
+}
+
+- (CGFloat)minHeight {
+    return _flex_node->minSize[FLEX_HEIGHT];
+}
+
+- (void)setMaxWidth:(CGFloat)maxWidth {
+    _flex_node->maxSize[FLEX_WIDTH] = maxWidth;
+}
+
+- (CGFloat)maxWidth {
+    return _flex_node->maxSize[FLEX_WIDTH];
+}
+
+- (void)setMaxHeight:(CGFloat)maxHeight {
+    _flex_node->maxSize[FLEX_HEIGHT] = maxHeight;
+}
+
+- (CGFloat)maxHeight {
+    return _flex_node->maxSize[FLEX_HEIGHT];
+}
+
+- (void)setMarginTop:(CGFloat)marginTop {
+    _flex_node->margin[FLEX_TOP] = marginTop;
+}
+
+- (CGFloat)marginTop {
+    return _flex_node->margin[FLEX_TOP];
+}
+
+- (void)setMarginLeft:(CGFloat)marginLeft {
+    _flex_node->margin[FLEX_LEFT] = marginLeft;
+}
+
+- (CGFloat)marginLeft {
+    return _flex_node->margin[FLEX_LEFT];
+}
+
+- (void)setMarginBottom:(CGFloat)marginBottom {
+    _flex_node->margin[FLEX_BOTTOM] = marginBottom;
+}
+
+- (CGFloat)marginBottom {
+    return _flex_node->margin[FLEX_BOTTOM];
+}
+
+- (void)setMarginRight:(CGFloat)marginRight {
+    _flex_node->margin[FLEX_RIGHT] = marginRight;
+}
+
+- (CGFloat)marginRight {
+    return _flex_node->margin[FLEX_RIGHT];
+}
+
+- (void)setMargin:(CGFloat)margin {
+    self.marginTop = margin;
+    self.marginLeft = margin;
+    self.marginBottom = margin;
+    self.marginRight = margin;
+}
+
+- (CGFloat)margin {
+    NSAssert(false, @"");
+    return self.marginTop;
+}
+
+- (void)setPaddingTop:(CGFloat)paddingTop {
+    _flex_node->padding[FLEX_TOP] = paddingTop;
+}
+
+- (CGFloat)paddingTop {
+    return _flex_node->padding[FLEX_TOP];
+}
+
+- (void)setPaddingLeft:(CGFloat)paddingLeft {
+    _flex_node->padding[FLEX_LEFT] = paddingLeft;
+}
+
+- (CGFloat)paddingLeft {
+    return _flex_node->padding[FLEX_LEFT];
+}
+
+- (void)setPaddingBottom:(CGFloat)paddingBottom {
+    _flex_node->padding[FLEX_BOTTOM] = paddingBottom;
+}
+
+- (CGFloat)paddingBottom {
+    return _flex_node->padding[FLEX_BOTTOM];
+}
+
+- (void)setPaddingRight:(CGFloat)paddingRight {
+    _flex_node->padding[FLEX_RIGHT] = paddingRight;
+}
+
+- (CGFloat)paddingRight {
+    return _flex_node->padding[FLEX_RIGHT];
+}
+
+- (void)setPadding:(CGFloat)padding {
+    self.paddingTop = padding;
+    self.paddingLeft = padding;
+    self.paddingBottom = padding;
+    self.paddingRight = padding;
+}
+
+- (CGFloat)padding {
+    NSAssert(false, @"");
+    return self.paddingTop;
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////

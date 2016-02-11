@@ -33,7 +33,7 @@
     self.tableView.dataSource  = self;
    // [self.view addSubview:self.tableView];
 
-    [self headerNodes];
+    //[self headerNodes];
     [self stackNodes];
     
 //    void (^block)(id sender) = ^(id sender){};
@@ -55,14 +55,6 @@
     UIView* view = [VZFNodeViewManager viewForConfiguration:specs];
     view.frame = CGRectMake(0, 0, 100, 100);
     [self.view addSubview:view];
-    
-    
-    
-
-    
-
-
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,51 +95,55 @@
     float w = CGRectGetWidth(self.view.bounds);
     
     VZFlexNode* parentNode = [VZFlexNode new];
-    parentNode.flexDirection = VZFLEX_DIRECTION_HORIZONTAL;
+    parentNode.direction = FlexHorizontal;
 
     VZFlexNode* imageNode = [VZFlexNode new];
-    imageNode.size = {40,40};
+    imageNode.width = 40;
+    imageNode.height = 40;
     [parentNode addSubNode:imageNode];
 
     
     
     VZFlexNode* rightNode = [VZFlexNode new];
-    rightNode.flexDirection = VZFLEX_DIRECTION_VERTICAL;
+    rightNode.direction= FlexVertical;
     rightNode.flexGrow = 1;
     
     
     VZFlexNode* rightTopPlaceHolder = [VZFlexNode new];
-    rightTopPlaceHolder.flexDirection = VZFLEX_DIRECTION_HORIZONTAL;
-    rightTopPlaceHolder.justifyContent = VZFLEX_JC_SPACE_BETWEEN;
+    rightTopPlaceHolder.direction = FlexHorizontal;
+    rightTopPlaceHolder.justifyContent = FlexSpaceBetween;
     rightTopPlaceHolder.flexGrow = 1;
-    rightTopPlaceHolder.margin = UIEdgeInsetsMake(0, 10, 0, 10);
+    rightTopPlaceHolder.marginLeft = 10;
+    rightTopPlaceHolder.marginRight = 10;
     
     VZFlexNode* nameNode = [VZFlexNode new];
     nameNode.name = @"name";
-    nameNode.size = CGSizeMake(50, 14);
-    nameNode.margin = UIEdgeInsetsMake(5, 0, 0, 0);
+    nameNode.width = 50;
+    nameNode.height = 14;
+    nameNode.marginTop = 5;
     [rightTopPlaceHolder addSubNode:nameNode];
     
     VZFlexNode* textNode = [VZFlexNode new];
     textNode.name = @"time";
-    textNode.size = CGSizeMake(50, 14);
-    textNode.margin = UIEdgeInsetsMake(5, 0, 0, 0);
+    textNode.width = 50;
+    textNode.height = 14;
+    textNode.marginTop = 5;
     [rightTopPlaceHolder addSubNode:textNode];
     
     
     VZFlexNode* starNode = [VZFlexNode new];
-    starNode.margin = UIEdgeInsetsMake(10, 10, 0, 0);
-    starNode.size = CGSizeMake(100, 25);
+    starNode.marginTop = 10;
+    starNode.marginLeft = 10;
+    starNode.width = 100;
+    starNode.height = 25;
     starNode.name = @"star";
   
-    
-    
     [rightNode addSubNode:rightTopPlaceHolder];
     [rightNode addSubNode:starNode];
     [parentNode addSubNode:rightNode];
     
     
-    [parentNode layout: {float(w),VZFLEX_INFINITE}];
+    [parentNode layout: {float(w),FlexInfinite}];
 
 //    [parentNode renderRecursively];
 //    [self.view addSubview:parentNode.view];
@@ -170,14 +166,12 @@
                 }
             },
             .flex = {
-                .width  = 100,
-                .height = 100,
-                .marginTop = 10,
-                .marginLeft = 10
+
+//                .marginTop = 10,
+//                .marginLeft = 10
             }
         }
-    
-    
+
     }];
     
     VZFNode* textNode = [VZFNode nodeWithUISpecs:{
@@ -187,10 +181,8 @@
                 .backgroundColor = [UIColor yellowColor]
             },
             .flex={
-                .marginTop = 10,
-                .marginLeft = 10,
-                .width = 100,
-                .height = 14
+//                .marginTop = 10,
+//                .marginLeft = 10,
             }
         }
     
@@ -211,23 +203,23 @@
     VZFNodeLayout layout = [stackNode  computeLayoutThatFits:sz];
     NSLog(@"%s",layout.nodeDesc().c_str());
     
-    VZFlexNode* stackFlexNode= [VZFlexNode new];
-    stackFlexNode.flexDirection = VZFLEX_DIRECTION_HORIZONTAL;
-    
-    VZFlexNode* imageFlexNode = [VZFlexNode new];
-    imageFlexNode.size = {100,100};
-    imageFlexNode.margin = UIEdgeInsetsMake(10, 10, 0, 0);
-    [stackFlexNode addSubNode:imageFlexNode];
-    
-    VZFlexNode* textFlexNode = [VZFlexNode new];
-    textFlexNode.size = {VZFLEX_AUTO,14};
-    textFlexNode.margin = UIEdgeInsetsMake(10, 10, 0, 0);
-    [stackFlexNode addSubNode:textFlexNode];
-    
-    [stackFlexNode layout:sz];
-    CGRect stackResult = [stackFlexNode frame];
-    CGRect imageResult = [imageFlexNode frame];
-    CGRect textResult  = [textFlexNode frame];
+//    VZFlexNode* stackFlexNode= [VZFlexNode new];
+//    stackFlexNode.flexDirection = VZFLEX_DIRECTION_HORIZONTAL;
+//    
+//    VZFlexNode* imageFlexNode = [VZFlexNode new];
+//    imageFlexNode.size = {100,100};
+//    imageFlexNode.margin = UIEdgeInsetsMake(10, 10, 0, 0);
+//    [stackFlexNode addSubNode:imageFlexNode];
+//    
+//    VZFlexNode* textFlexNode = [VZFlexNode new];
+//    textFlexNode.size = {VZFLEX_AUTO,14};
+//    textFlexNode.margin = UIEdgeInsetsMake(10, 10, 0, 0);
+//    [stackFlexNode addSubNode:textFlexNode];
+//    
+//    [stackFlexNode layout:sz];
+//    CGRect stackResult = [stackFlexNode frame];
+//    CGRect imageResult = [imageFlexNode frame];
+//    CGRect textResult  = [textFlexNode frame];
 
 }
 

@@ -43,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		451E17511C6C84450030AE41 /* VZFValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFValue.h; sourceTree = "<group>"; };
 		453A6AB41C68AA1B000693C9 /* VZFNodeMountContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeMountContext.h; sourceTree = "<group>"; };
 		453A6AB51C68AA1B000693C9 /* VZFNodeMountContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeMountContext.mm; sourceTree = "<group>"; };
 		456E61E41C35290300240D64 /* ButtonNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonNode.h; sourceTree = "<group>"; };
@@ -193,6 +194,7 @@
 				45798B611C58F1EE00B007DF /* VZFNodeViewClass.mm */,
 				45798B621C58F1EE00B007DF /* VZFNodeViewClass.h */,
 				45798B5C1C58B90A00B007DF /* VZFMacros.h */,
+				451E17511C6C84450030AE41 /* VZFValue.h */,
 				45798B541C5897E500B007DF /* FlexLayout.c */,
 				45798B551C5897E500B007DF /* FlexLayout.h */,
 				4581467A1C5B3C4800394746 /* VZFNodeBuilder.h */,

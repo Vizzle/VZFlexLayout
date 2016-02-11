@@ -9,7 +9,12 @@
 #import "VZFNodeUISpecs.h"
 
 VZ::UISpecs::~UISpecs(){};
-VZ::UISpecs::UISpecs(){};
+VZ::UISpecs::UISpecs(){
+    auto t = new State{
+        .specs = std::make_shared<VZUISpecs>()
+    };
+    state.reset(t);
+};
 VZ::UISpecs::UISpecs(VZUISpecs&& specs){
     
     auto t = new State{
