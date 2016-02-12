@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <string>
 
 namespace VZ {
 
@@ -24,7 +24,12 @@ namespace VZ {
         UIGestureRecognizer* getGestureRecognizer() const {return _gesture; }
         
         friend bool operator < (const Gesture& x, const Gesture& y){
-            return false;
+            
+            std::string strX = NSStringFromClass([x.getGestureRecognizer() class]).UTF8String;
+            std::string strY = NSStringFromClass([y.getGestureRecognizer() class]).UTF8String;
+            
+            return std::hash<std::string>()(strX) > std::hash<std::string>()(strY);
+        
         }
         
     private:

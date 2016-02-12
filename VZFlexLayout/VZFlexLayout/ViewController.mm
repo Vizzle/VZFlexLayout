@@ -69,29 +69,43 @@
 
 - (void)testNode{
     
-    UISpecs specs({
-                      
-                      .clz = {[UIView class]},
-                      .view = {
-                          .backgroundColor = [UIColor redColor],
-                          .layer = {
-                              .cornerRadius = 50
-                          }
-                      },
-                      .gestures = {
-                          //
-                          GestureBuilder<UITapGestureRecognizer>(^(id sender){
-                              NSLog(@"abc!!");
-                          }),
-                          
-                      }
-                  });
+    self.fnode = [VZFNode nodeWithUISpecs:{
+        {
+            
+            .clz = {[UIView class]},
+            .view = {
+                .backgroundColor = [UIColor redColor],
+                .layer = {
+                    .cornerRadius = 50
+                }
+            },
+            .flex = {
+                .width = 100,
+                .height = 100,
+                .marginTop = 50,
+                .marginLeft = 50
+                
+            },
+            .gestures = {
+                //
+                GestureBuilder<UITapGestureRecognizer>(^(id sender){
+                    NSLog(@"tapped!!");
+                }),
+                
+                GestureBuilder<UILongPressGestureRecognizer>(^(id sender) {
+                    NSLog(@"long pressed!!");
+                }),
+            }
+        }
     
     
-    self.fnode = [VZFNode nodeWithUISpecs:specs];
-    
+    }];
+    VZFNodeLayout layout = [self.fnode computeLayoutThatFits:self.view.bounds.size];
     UIView* view = [VZFNodeViewManager viewForNode:self.fnode];
-    view.frame = CGRectMake(0, 0, 100, 100);
+    view.frame = CGRectMake(layout.getNodeOriginPoint().x,
+                            layout.getNodeOriginPoint().y,
+                            layout.getNodeSize().width,
+                            layout.getNodeSize().height);
     [self.view addSubview:view];
 }
 

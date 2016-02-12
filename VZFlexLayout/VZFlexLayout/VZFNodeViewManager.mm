@@ -34,17 +34,18 @@
     
     //apply gestures
     std::set<Gesture> gestures = (*spec.get()).gestures;
-    
+    VZFGestureForward* gestureForward = node.gestureForward;
+    if (!gestureForward) {
+        VZFGestureForward* gestureForward = [VZFGestureForward new];
+        node.gestureForward = gestureForward;
+    }
     for (auto g : gestures) {
         
         UIGestureRecognizer* gesture = g.getGestureRecognizer();
         gesture_callback_t callback = g.getGestureCallback();
-        VZFGestureForward* gestureForward = [VZFGestureForward new];
-        [gestureForward addGestureWithType:NSStringFromClass([gesture class]) Callback:callback];
-        [gesture addTarget:gestureForward action:@selector(action:)];
-        node.gestureForward = gestureForward;
+        [node.gestureForward addGestureWithType:NSStringFromClass([gesture class]) Callback:callback];
+        [gesture addTarget:node.gestureForward action:@selector(action:)];
         [view addGestureRecognizer:gesture];
-    
     }
     
     return view;
