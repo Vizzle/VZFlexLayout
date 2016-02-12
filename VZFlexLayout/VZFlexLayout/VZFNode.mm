@@ -46,12 +46,10 @@
     self = [super init];
     if (self) {
         
+        _specs = specs;
         _flexNode = [VZFlexNode new];
         
-        std::shared_ptr<const VZUISpecs> specptr = specs.getSpecs();
-        
-        VZ::FlexAttrs flexAttributes = (*specptr.get()).flex;
-
+        VZ::FlexAttrs flexAttributes = (*specs.getSpecs().get()).flex;
         [self applyFlexAttributes:flexAttributes];
         
     }
@@ -90,6 +88,7 @@
     _flexNode.wrap = flexAttributes.wrap;
     _flexNode.fixed = flexAttributes.fixed;
 }
+
 
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz{
     

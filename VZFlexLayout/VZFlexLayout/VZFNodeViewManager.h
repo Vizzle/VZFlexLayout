@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VZFNodeUISpecs.h"
-#import "VZFNodeMountContext.h"
+#import "VZFNode.h"
 
 @interface VZFNodeViewManager : NSObject
 
-+ (void)registerNodeWithMountedContext:(const VZ::NodeMountedContext &)context;
-
-+ (UIView* )viewForConfiguration:(const VZ::UISpecs &)specs;
++ (UIView* )viewForNode:(VZFNode* )node;
 
 @end

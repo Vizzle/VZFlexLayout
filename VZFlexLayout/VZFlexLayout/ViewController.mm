@@ -16,6 +16,7 @@
 #import "VZFNodeViewManager.h"
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
+@property(nonatomic,strong)VZFNode* fnode; //for test
 @property(nonatomic,strong)UITableView* tableView;
 
 @end
@@ -33,28 +34,10 @@
     self.tableView.dataSource  = self;
    // [self.view addSubview:self.tableView];
 
-    //[self headerNodes];
+    [self testNode];
     [self stackNodes];
     
-//    void (^block)(id sender) = ^(id sender){};
-    VZ::UISpecs specs(
-        {
-        
-            .clz = {[UIView class]},
-            .view = {
-                .backgroundColor = [UIColor redColor],
-                .layer = {
-                    .cornerRadius = 50
-                }
-            },
-        
-        }
- );
-    
 
-    UIView* view = [VZFNodeViewManager viewForConfiguration:specs];
-    view.frame = CGRectMake(0, 0, 100, 100);
-    [self.view addSubview:view];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,9 +67,32 @@
 
 }
 
-- (void)headerNodesCSS{
-
+- (void)testNode{
     
+    UISpecs specs({
+                      
+                      .clz = {[UIView class]},
+                      .view = {
+                          .backgroundColor = [UIColor redColor],
+                          .layer = {
+                              .cornerRadius = 50
+                          }
+                      },
+                      .gestures = {
+                          //
+                          GestureBuilder<UITapGestureRecognizer>(^(id sender){
+                              NSLog(@"abc!!");
+                          }),
+                          
+                      }
+                  });
+    
+    
+    self.fnode = [VZFNode nodeWithUISpecs:specs];
+    
+    UIView* view = [VZFNodeViewManager viewForNode:self.fnode];
+    view.frame = CGRectMake(0, 0, 100, 100);
+    [self.view addSubview:view];
 }
 
 
@@ -204,26 +210,8 @@
 
     CGSize sz = CGSizeMake(self.view.bounds.size.width, 1000);
     VZFNodeLayout layout = [stackNode  computeLayoutThatFits:sz];
-    NSLog(@"%s",layout.nodeDesc().c_str());
+    NSLog(@"%s",layout.description().c_str());
     
-//    VZFlexNode* stackFlexNode= [VZFlexNode new];
-//    stackFlexNode.flexDirection = VZFLEX_DIRECTION_HORIZONTAL;
-//    
-//    VZFlexNode* imageFlexNode = [VZFlexNode new];
-//    imageFlexNode.size = {100,100};
-//    imageFlexNode.margin = UIEdgeInsetsMake(10, 10, 0, 0);
-//    [stackFlexNode addSubNode:imageFlexNode];
-//    
-//    VZFlexNode* textFlexNode = [VZFlexNode new];
-//    textFlexNode.size = {VZFLEX_AUTO,14};
-//    textFlexNode.margin = UIEdgeInsetsMake(10, 10, 0, 0);
-//    [stackFlexNode addSubNode:textFlexNode];
-//    
-//    [stackFlexNode layout:sz];
-//    CGRect stackResult = [stackFlexNode frame];
-//    CGRect imageResult = [imageFlexNode frame];
-//    CGRect textResult  = [textFlexNode frame];
-
 }
 
 @end

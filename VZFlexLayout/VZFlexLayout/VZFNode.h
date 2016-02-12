@@ -8,10 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "VZFNodeUISpecs.h"
-#import <unordered_map>
 
 @interface VZFNode : NSObject
-
+@property(nonatomic,assign,readonly)VZ::UISpecs specs;
 +(instancetype)nodeWithUISpecs:(const VZ::UISpecs &)specs;
 
 @end

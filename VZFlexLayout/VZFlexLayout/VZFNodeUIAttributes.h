@@ -10,10 +10,12 @@
 
 #import <UIKit/UIKit.h>
 #include <string>
+#include <set>
 #import <unordered_map>
 #import <objc/runtime.h>
 #import "VZFNodeViewClass.h"
 #import "VZFValue.h"
+#import "VZFGesture.h"
 
 using namespace VZ;
 
@@ -69,13 +71,7 @@ namespace VZ {
     };
     
 
-//#undef PROPERTY
-//#define PROPERTY(CLASS, NAME)  Value<CLASS,DefaultFlexValue::NAME> NAME
     struct FlexAttrs{
-        
-//         Value<CGSize, DefaultFlexValue::size> size;
-//         Value<CGSize, DefaultFlexValue::maxSize> maxSize;
-//         Value<CGSize, DefaultFlexValue::minSize> minSize;
 
         Value<float, DefaultFlexValue::width> width;
         Value<float, DefaultFlexValue::height> height;
@@ -102,55 +98,6 @@ namespace VZ {
     
     };
 
-    enum class GestureType{
-        
-        Tap = 0,
-        LongPress= 1,
-        Undefined = -1
-    };
-    
-    
-    typedef void(^gestureBlock)(id sender);
-    
-    struct Gesture{
-    
-        Gesture():type(GestureType::Undefined),name("undefined"){};
-        Gesture(GestureType t):type(t){
-        
-            switch(t)
-            {
-                case GestureType::Tap:
-                {
-                    name = "tap";
-                    break;
-                }
-                case GestureType::LongPress:
-                {
-                    name = "longpress";
-                    break;
-                }
-                default:
-                {
-                    name ="undefined";
-                    break;
-                }
-            }
-        };
-            
-        GestureType type = GestureType::Undefined;
-        std::string name = "undefined";
-
-        //支持hash
-        bool operator == (const Gesture &gesture) const{
-            return gesture.type == this->type;
-        };
-    };
-
-  
-    
-    
-    typedef std::unordered_map<Gesture, gestureBlock> gesture_t;
-    
     
     struct UIAttributesSpecs{
         
@@ -163,27 +110,15 @@ namespace VZ {
         //flex
         struct FlexAttrs flex;
         
-        //gesture
-        NSArray<NSDictionary* >* gestures;
-//         Gesture gesture;
-//        std::unordered_map<Gesture, gestureBlock> gesture;
-        
+        //gestures
+        struct std::set<Gesture> gestures;
         
     };
 }
 
 typedef  UIAttributesSpecs VZUISpecs;
 
-namespace std {
-    
-    //provide a hash key
-    template<> struct hash< Gesture>
-    {
-        size_t operator()(const  Gesture &gesture) const{
-            return std::hash<std::string>()(gesture.name);
-        }
-    };
-}
+
 
 //支持UIView和CALayer
 //namespace VZ {

@@ -23,7 +23,7 @@ namespace VZ {
         NodeLayout(CGSize sz, CGPoint pt):size(sz),origin(pt),children(new std::vector<NodeLayout>()){};
         NodeLayout(CGSize sz, CGPoint pt, std::vector<NodeLayout> childs):size(sz),origin(pt),children(new std::vector<NodeLayout>(std::move(childs))){};
         
-        const std::string nodeDesc() const{
+        const std::string description() const{
             
             auto print = [this]() -> std::string{
                 
@@ -36,7 +36,7 @@ namespace VZ {
             
             std::string desc = "\n"+print();
             for(NodeLayout l : *children.get()){
-                desc += l.nodeDesc();
+                desc += l.description();
             }
             return desc;
         };
