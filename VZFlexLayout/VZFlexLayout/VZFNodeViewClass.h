@@ -14,9 +14,9 @@ namespace VZ {
     
     struct ViewClass{
         
-        ViewClass();
-        ViewClass(Class clz);
-        ViewClass(UIView*(^function)(void));
+        ViewClass():factory(nil){};
+        ViewClass(Class clz):factory(^{return [[clz alloc] init];}){}
+        ViewClass(UIView*(^function)(void)):factory(function){};
         
         const std::string &getIdentifier() const { return identifier; }
         UIView* createView() const{ return factory?factory():nil; }

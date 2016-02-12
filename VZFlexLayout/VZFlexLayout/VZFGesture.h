@@ -43,8 +43,3 @@ namespace VZ {
     }
     
 }
-
-//@interface VZFNode(GestureForward)
-//
-//
-//@end
