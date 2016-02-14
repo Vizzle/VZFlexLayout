@@ -15,6 +15,7 @@
 #import "VZFNodeSubclass.h"
 #import "VZFNodeViewManager.h"
 #import "VZFSizeRange.h"
+#import "VZFUtils.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -36,8 +37,28 @@
     self.tableView.dataSource  = self;
    // [self.view addSubview:self.tableView];
 
-    [self testNode];
-    [self stackNodes];
+    
+//    UIView* v = [[UIView alloc]initWithFrame:CGRectMake(100, 100, 100, 100)];
+//    v.backgroundColor = [UIColor redColor];
+//    
+//    UIView* a = [[UIView alloc]initWithFrame:CGRectMake(25,25, 50, 50)];
+//    a.backgroundColor = [UIColor yellowColor];
+//    [v addSubview:a];
+//    [self.view addSubview:v];
+    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        
+//        CGPoint pt = [v convertPoint:a.frame.origin toView:v.superview];
+//        a.frame = {pt,a.bounds.size};
+//        [v removeFromSuperview];
+//        [self.view addSubview:a];
+//        
+//    });
+    
+
+    
+//[self testNode];
+[self stackNodes];
     
 
 }
@@ -102,6 +123,9 @@
     
     
     }];
+    
+
+    
     VZFNodeLayout layout = [self.fnode computeLayoutThatFits:self.view.bounds.size];
     UIView* view = [VZFNodeViewManager viewForNode:self.fnode withLayoutSpec:layout];
     //[self.view addSubview:view];
@@ -213,6 +237,11 @@
     
     VZFStackNode* stackNodeTopNode = [VZFStackNode nodeWithStackLayout:{
         .direction = VZFStackLayoutDirectionHorizontal,
+        .viewSpecs = {
+            .view = {
+               .backgroundColor = [UIColor cyanColor]
+            }
+        }
         
     } Children:{
         
@@ -253,8 +282,8 @@
     VZFNodeLayout layout = [stackNode  computeLayoutThatFits:sz];
     NSLog(@"%s",layout.description().c_str());
     
-    UIView* view = [VZFNodeViewManager viewForStackNode:stackNode withStackLayoutSpec:layout];
-    [self.view addSubview:view];
+    UIView* stackView = [VZFNodeViewManager viewForStackNode:stackNode withStackLayoutSpec:layout];
+    [self.view addSubview:stackView];
     
     
 }

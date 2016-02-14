@@ -10,6 +10,8 @@
 #import "VZFGestureForward.h"
 #import "VZFNode.h"
 #import "VZFStackNode.h"
+
+using namespace VZ;
 @implementation VZFNodeViewManager
 {
 
@@ -21,9 +23,12 @@
         return nil;
     }
     
-//    VZFStackLayout layout = node.layout;
-    UIView* stackView = [UIView new];
-    stackView.backgroundColor = [UIColor clearColor];
+    VZFStackLayoutSpecs stackSpecs = stackNode.layoutSpecs;
+    ViewClass viewClass = stackSpecs.viewSpecs.clz;
+    UIView* stackView = viewClass.createView()?:[UIView new];
+    const ViewAttrs vs = stackSpecs.viewSpecs.view;
+    [self applyUIView:stackView withAttributes:vs];
+    
     stackView.frame = CGRectMake(stackLayout.getNodeOriginPoint().x, stackLayout.getNodeOriginPoint().y, stackLayout.getNodeSize().width, stackLayout.getNodeSize().height);
 
     for (int i = 0; i < stackNode.children.size(); i++) {
@@ -32,6 +37,7 @@
         VZFNode* node = childNode.node;
         VZFNodeLayout layout = stackLayout.getChildren()[i];
         if ([node isKindOfClass:[VZFStackNode class]]) {
+            //递归
             UIView* stackViewRecursive=[self viewForStackNode:(VZFStackNode* )node withStackLayoutSpec:layout];
             [stackView addSubview:stackViewRecursive];
         }
@@ -43,22 +49,19 @@
 
 + (UIView* )viewForNode:(VZFNode *)node withLayoutSpec:(const VZFNodeLayout &)layout{
     
-    const VZ::UISpecs specs = node.specs;
+    const UISpecs specs = node.specs;
     std::shared_ptr<const VZUISpecs> spec = specs.getSpecs();
-    VZ::ViewClass viewClass = (*spec.get()).clz;
-    UIView* view = viewClass.createView();
-    VZ::ViewAttrs vs = (*spec.get()).view;
+    ViewClass viewClass = (*spec.get()).clz;
+    UIView* view = viewClass.createView()?:[UIView new];
+    ViewAttrs vs = (*spec.get()).view;
     
     //apply view attributes
-    view.backgroundColor = vs.backgroundColor;
-    view.contentMode = vs.contentMode;
-    view.clipsToBounds = vs.clipToBounds;
-    view.layer.cornerRadius = vs.layer.cornerRadius;
-    view.layer.borderColor = vs.layer.borderColor.CGColor;
-    view.layer.contents = (__bridge id)vs.layer.contents.CGImage;
+    [self applyUIView:view withAttributes:vs];
     
     //apply layout result
     view.frame = CGRectMake(layout.getNodeOriginPoint().x, layout.getNodeOriginPoint().y, layout.getNodeSize().width, layout.getNodeSize().height);
+
+    
     
     //apply gestures
     std::set<Gesture> gestures = (*spec.get()).gestures;
@@ -79,5 +82,16 @@
     return view;
 }
 
++ (void)applyUIView:(UIView* )view withAttributes:(const VZ::ViewAttrs&)vs{
+
+
+    view.backgroundColor = vs.backgroundColor;
+    view.contentMode = vs.contentMode;
+    view.clipsToBounds = vs.clipToBounds;
+    view.layer.cornerRadius = vs.layer.cornerRadius;
+    view.layer.borderColor = vs.layer.borderColor.CGColor;
+    view.layer.contents = (__bridge id)vs.layer.contents.CGImage;
+    
+}
 
 @end

@@ -21,15 +21,15 @@
 
 @implementation VZFStackNode
 {
-    VZFStackLayout _layout;
+    VZFStackLayoutSpecs _layoutSpecs;
     std::vector<VZFStackChildNode> _children;
 }
 
 @synthesize flexNode = _flexNode;
 
 
-- (VZFStackLayout)layout{
-    return _layout;
+- (VZFStackLayoutSpecs)layoutSpecs{
+    return _layoutSpecs;
 }
 
 - (std::vector<VZFStackChildNode>)children{
@@ -39,18 +39,18 @@
 + (instancetype)nodeWithUISpecs:(const VZ::UISpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
-+ (instancetype)nodeWithStackLayout:(const VZFStackLayout& )layout Children:(const std::vector<VZFStackChildNode> &)children
++ (instancetype)nodeWithStackLayout:(const VZFStackLayoutSpecs& )layoutSpecs Children:(const std::vector<VZFStackChildNode> &)children
 {
     //create an empty node
     VZFStackNode* stacknode =  [super nodeWithUISpecs:{}];
     if (stacknode) {
         
-        stacknode -> _layout            = layout;
+        stacknode -> _layoutSpecs       = layoutSpecs;
         stacknode -> _children          = VZ::F::filter(children, [](const VZFStackChildNode &child){return child.node != nil;});
         stacknode -> _flexNode          = [VZFlexNode new];
         stacknode -> _flexNode.name     = @"stackNode";
 
-        [stacknode applyFlexAttributes:layout.flex];
+        [stacknode applyFlexAttributes:layoutSpecs.viewSpecs.flex];
         
         for (auto &child:stacknode->_children) {
             [stacknode -> _flexNode addSubNode:child.node.flexNode];
@@ -92,35 +92,35 @@
     [super applyFlexAttributes:flexAttributes];
     
     FlexDirection direction = FlexHorizontal;
-    if (_layout.direction == VZFStackLayoutDirectionVertical) {
+    if (_layoutSpecs.direction == VZFStackLayoutDirectionVertical) {
         direction = FlexVertical;
     }
     
     FlexAlign justifyContent = FlexInherit;
-    if (_layout.justifyContent == VZFStackLayoutJustifyContentStart) {
+    if (_layoutSpecs.justifyContent == VZFStackLayoutJustifyContentStart) {
         justifyContent = FlexStart;
     }
-    else if (_layout.justifyContent == VZFStackLayoutJustifyContentCenter){
+    else if (_layoutSpecs.justifyContent == VZFStackLayoutJustifyContentCenter){
         justifyContent = FlexCenter;
     }
-    else if (_layout.justifyContent == VZFStackLayoutJustifyContentEnd){
+    else if (_layoutSpecs.justifyContent == VZFStackLayoutJustifyContentEnd){
         justifyContent = FlexEnd;
     }
-    else if (_layout.justifyContent == VZFStackLayoutJustifyContentSpaceBetween){
+    else if (_layoutSpecs.justifyContent == VZFStackLayoutJustifyContentSpaceBetween){
         justifyContent = FlexSpaceBetween;
     }
 
     FlexAlign alignItems = FlexInherit;
-    if (_layout.alignItems == VZFStackLayoutAlignItemsStart) {
+    if (_layoutSpecs.alignItems == VZFStackLayoutAlignItemsStart) {
         alignItems = FlexStart;
     }
-    else if (_layout.alignItems == VZFStackLayoutAlignItemsCenter) {
+    else if (_layoutSpecs.alignItems == VZFStackLayoutAlignItemsCenter) {
         alignItems = FlexCenter;
     }
-    else if (_layout.alignItems == VZFStackLayoutAlignItemsEnd) {
+    else if (_layoutSpecs.alignItems == VZFStackLayoutAlignItemsEnd) {
         alignItems = FlexEnd;
     }
-    else if (_layout.alignItems == VZFStackLayoutAlignItemsStretch){
+    else if (_layoutSpecs.alignItems == VZFStackLayoutAlignItemsStretch){
         alignItems = FlexStretch;
     }
     

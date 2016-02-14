@@ -36,19 +36,19 @@ struct VZFStackChildNode{
 };
 
 
-struct VZFStackLayout{
+struct VZFStackLayoutSpecs{
 
     VZFStackLayoutDirection direction;
     VZFStackLayoutAlignItems alignItems;
     VZFStackLayoutJustifyContent justifyContent;
-    VZ::FlexAttrs flex;
+    VZUISpecs viewSpecs;
 };
 
 @interface VZFStackNode : VZFNode
 
-@property(nonatomic,readonly) VZFStackLayout layout;
+@property(nonatomic,readonly) VZFStackLayoutSpecs layoutSpecs;
 @property(nonatomic,readonly) std::vector<VZFStackChildNode> children;
 
-+ (instancetype)nodeWithStackLayout:(const VZFStackLayout& )layout Children:(const std::vector<VZFStackChildNode> &)children;
++ (instancetype)nodeWithStackLayout:(const VZFStackLayoutSpecs& )layout Children:(const std::vector<VZFStackChildNode> &)children;
 
 @end

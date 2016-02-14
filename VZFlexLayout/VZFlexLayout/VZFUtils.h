@@ -16,7 +16,7 @@
 namespace VZ {
     namespace F{
         
-        //filter: (vector<T>) -> (vector<T>)
+        //(vector<T>) -> (lambda<filter>) -> (vector<T>)
         template<typename T, typename Func>
         auto filter(const T& container, Func && lambda) -> std::vector<typename T::value_type>
         {
@@ -27,6 +27,17 @@ namespace VZ {
                 }
             }
             
+            return to;
+        }
+        
+        //(vector<T>) -> (lambda<map>) -> (vector<T>)
+        template<typename Func>
+        auto map(id<NSFastEnumeration> collection, Func &&func) -> std::vector<decltype(func(std::declval<id>()))>
+        {
+            std::vector<decltype(func(std::declval<id>()))> to;
+            for (id obj in collection) {
+                to.push_back(func(obj));
+            }
             return to;
         }
     }
