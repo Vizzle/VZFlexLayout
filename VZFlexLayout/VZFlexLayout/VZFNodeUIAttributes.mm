@@ -7,15 +7,15 @@
 //
 
 #import "VZFNodeUIAttributes.h"
-
+#import "VZFSizeRange.h"
 
 namespace VZ {
     namespace DefaultFlexValue{
         
-        float width = -999997;
-        float height = -999997;
-        float maxWidth = -999998;
-        float maxHeight = -999998;
+        float width = VZFlexAuto;
+        float height = VZFlexAuto;
+        float maxWidth = VZFlexInfinite;
+        float maxHeight = VZFlexInfinite;
         float minWidth = 0;
         float minHeight = 0;
         float marginTop = 0;

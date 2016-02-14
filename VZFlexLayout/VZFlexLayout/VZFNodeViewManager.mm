@@ -15,26 +15,25 @@
 
 }
 
-+ (UIView* )viewForStackNode:(VZFStackNode *)node withStackLayoutSpec:(const VZFNodeLayout &)stackLayout{
++ (UIView* )viewForStackNode:(VZFStackNode *)stackNode withStackLayoutSpec:(const VZFNodeLayout &)stackLayout{
     
-    if (![[node class] isKindOfClass : [VZFStackNode class] ]) {
+    if (![stackNode isKindOfClass : [VZFStackNode class] ]) {
         return nil;
     }
     
 //    VZFStackLayout layout = node.layout;
     UIView* stackView = [UIView new];
     stackView.backgroundColor = [UIColor clearColor];
-    //apply stack view layout
-    stackView.frame.origin = stackLayout.getNodeOriginPoint();
-    stackView.frame.size = stackLayout.getNodeSize();
+    stackView.frame = CGRectMake(stackLayout.getNodeOriginPoint().x, stackLayout.getNodeOriginPoint().y, stackLayout.getNodeSize().width, stackLayout.getNodeSize().height);
 
-    for (int i = 0; i < node.children.size(); i++) {
+    for (int i = 0; i < stackNode.children.size(); i++) {
         
-        VZFStackChildNode childNode = node.children[i];
+        VZFStackChildNode childNode = stackNode.children[i];
         VZFNode* node = childNode.node;
         VZFNodeLayout layout = stackLayout.getChildren()[i];
         if ([node isKindOfClass:[VZFStackNode class]]) {
-            [self viewForStackNode:(VZFStackNode* )node withStackLayoutSpec:layout];
+            UIView* stackViewRecursive=[self viewForStackNode:(VZFStackNode* )node withStackLayoutSpec:layout];
+            [stackView addSubview:stackViewRecursive];
         }
         UIView* view = [self viewForNode:node withLayoutSpec:layout];
         [stackView addSubview:view];
@@ -59,8 +58,7 @@
     view.layer.contents = (__bridge id)vs.layer.contents.CGImage;
     
     //apply layout result
-    view.frame.size = layout.getNodeSize();
-    view.frame.origin = layout.getNodeOriginPoint();
+    view.frame = CGRectMake(layout.getNodeOriginPoint().x, layout.getNodeOriginPoint().y, layout.getNodeSize().width, layout.getNodeSize().height);
     
     //apply gestures
     std::set<Gesture> gestures = (*spec.get()).gestures;

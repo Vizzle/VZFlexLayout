@@ -7,20 +7,20 @@
 //
 
 #import "VZFSizeRange.h"
-
+#import "VZFValue.h"
 
 @implementation VZSizeRangeProvider
 
-- (CGSize)rangeSize:(VZSizeRange)range ForBounds:(CGSize)size{
+- (CGSize)rangeSize:(VZFSizeRange)range ForBounds:(CGSize)size{
 
     if (range == VZFlexibleSizeWidthAndHeight) {
-        return (CGSize){0,0};
+        return (CGSize){VZFlexInfinite,VZFlexInfinite};
     }
     else if (range == VZFlexibleSizeHeight){
-        return (CGSize){size.width,0};
+        return (CGSize){size.width,VZFlexInfinite};
     }
     else if (range == VZFlexibleSizeWidth){
-        return (CGSize){0,size.height};
+        return (CGSize){VZFlexInfinite,size.height};
     }
     else if (range == VZFlexibleSizeNone){
         return size;

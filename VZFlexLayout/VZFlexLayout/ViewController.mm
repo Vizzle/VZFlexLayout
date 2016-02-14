@@ -14,6 +14,8 @@
 #import "VZFStackNode.h"
 #import "VZFNodeSubclass.h"
 #import "VZFNodeViewManager.h"
+#import "VZFSizeRange.h"
+
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong)VZFNode* fnode; //for test
@@ -102,7 +104,7 @@
     }];
     VZFNodeLayout layout = [self.fnode computeLayoutThatFits:self.view.bounds.size];
     UIView* view = [VZFNodeViewManager viewForNode:self.fnode withLayoutSpec:layout];
-    [self.view addSubview:view];
+    //[self.view addSubview:view];
 }
 
 
@@ -201,13 +203,15 @@
             .flex={
                 .marginTop = 10,
                 .marginLeft = 10,
-                .height = 14
+                .marginRight = 10,
+                .height = 100,
+                .flexGrow = 1
             }
         }
     
     }];
     
-    VZFStackNode* stackNode = [VZFStackNode nodeWithStackLayout:{
+    VZFStackNode* stackNodeTopNode = [VZFStackNode nodeWithStackLayout:{
         .direction = VZFStackLayoutDirectionHorizontal,
         
     } Children:{
@@ -218,9 +222,40 @@
         
     }];
 
-    CGSize sz = CGSizeMake(self.view.bounds.size.width, 1000);
+    CGSize szTop = CGSizeMake(CGRectGetWidth(self.view.bounds), VZFlexInfinite);
+    VZFNodeLayout topLayout = [stackNodeTopNode  computeLayoutThatFits:szTop];
+    NSLog(@"%s",topLayout.description().c_str());
+    
+    
+    VZFNode* contentNode = [VZFNode nodeWithUISpecs:{
+    
+        {
+            .clz = [UILabel class],
+            .view = {
+                .backgroundColor = [UIColor greenColor]
+            },
+            .flex = {
+                .marginLeft = 120,
+                .marginTop = 10,
+                .marginRight = 10,
+                .height = 150,
+                .width = 200
+            }
+        },
+    }];
+    
+    VZFStackNode* stackNode = [VZFStackNode nodeWithStackLayout:{.direction = VZFStackLayoutDirectionVertical} Children:{
+    
+        {.node = stackNodeTopNode},
+        {.node = contentNode}
+    }];
+    CGSize sz = CGSizeMake(CGRectGetWidth(self.view.bounds), VZFlexInfinite);
     VZFNodeLayout layout = [stackNode  computeLayoutThatFits:sz];
     NSLog(@"%s",layout.description().c_str());
+    
+    UIView* view = [VZFNodeViewManager viewForStackNode:stackNode withStackLayoutSpec:layout];
+    [self.view addSubview:view];
+    
     
 }
 
