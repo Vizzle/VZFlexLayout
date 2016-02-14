@@ -28,6 +28,14 @@
 @synthesize flexNode = _flexNode;
 
 
+- (VZFStackLayout)layout{
+    return _layout;
+}
+
+- (std::vector<VZFStackChildNode>)children{
+    return _children;
+}
+
 + (instancetype)nodeWithUISpecs:(const VZ::UISpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
@@ -53,10 +61,7 @@
     return stacknode;
 }
 
-- (void)prepareForLayout{
 
-    
-}
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)constrainedSize{
     
     [_flexNode layout:constrainedSize];

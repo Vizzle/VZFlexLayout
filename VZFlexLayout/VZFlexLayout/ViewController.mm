@@ -101,11 +101,7 @@
     
     }];
     VZFNodeLayout layout = [self.fnode computeLayoutThatFits:self.view.bounds.size];
-    UIView* view = [VZFNodeViewManager viewForNode:self.fnode];
-    view.frame = CGRectMake(layout.getNodeOriginPoint().x,
-                            layout.getNodeOriginPoint().y,
-                            layout.getNodeSize().width,
-                            layout.getNodeSize().height);
+    UIView* view = [VZFNodeViewManager viewForNode:self.fnode withLayoutSpec:layout];
     [self.view addSubview:view];
 }
 

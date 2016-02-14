@@ -7,7 +7,34 @@
 //
 
 #import "VZFNodeHostingView.h"
+#import "VZFMacros.h"
+
+@interface VZFNodeHostingView()
+{
+    Class<VZFNodeProviderInterface> _nodeProvider;
+    UIView* _containerView;
+}
+
+@end
 
 @implementation VZFNodeHostingView
+
+- (id)initWithFrame:(CGRect)frame{
+    VZ_NOT_DESIGNATED_INITIALIZER();
+}
+
+- (id)initWithNodeProvider:(Class<VZFNodeProviderInterface>)provider{
+
+    self = [super init];
+    if (self) {
+        _nodeProvider = provider;
+        
+        
+        
+    }
+    return self;
+}
+
+
 
 @end

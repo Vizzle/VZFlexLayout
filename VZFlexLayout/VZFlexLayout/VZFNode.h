@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "VZFNodeUISpecs.h"
+#import "VZFNodeUIAttributes.h"
 
 @interface VZFNode : NSObject
 @property(nonatomic,assign,readonly)VZ::UISpecs specs;
 +(instancetype)nodeWithUISpecs:(const VZ::UISpecs &)specs;
+
 
 @end

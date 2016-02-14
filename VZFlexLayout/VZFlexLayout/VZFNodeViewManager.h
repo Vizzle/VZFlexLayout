@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VZFNode.h"
+#import "VZFNodeLayout.h"
 
+@class VZFStackNode;
+@class VZFNode;
 @interface VZFNodeViewManager : NSObject
 
-+ (UIView* )viewForNode:(VZFNode* )node;
++ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout;
++ (UIView* )viewForStackNode:(VZFStackNode* )node withStackLayoutSpec:(const VZFNodeLayout& )stackLayout;
 
 @end

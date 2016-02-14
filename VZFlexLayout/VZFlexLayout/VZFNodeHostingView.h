@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "VZFSizeRange.h"
 
 @class VZFNode;
 @protocol VZFNodeProviderInterface <NSObject>
