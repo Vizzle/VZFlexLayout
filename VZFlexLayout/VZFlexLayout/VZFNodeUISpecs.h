@@ -1,30 +1,182 @@
 //
-//  VZFNodeUISpecs.h
+//  VZFNodeAttributes.h
 //  VZFlexLayout
 //
-//  Created by moxin on 16/2/3.
+//  Created by moxin on 16/1/26.
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "VZFNodeUIAttributes.h"
+#pragma once
+
+#import <UIKit/UIKit.h>
+#import <string>
+#import <set>
+#import <unordered_map>
+#import <objc/runtime.h>
+#import "VZFNodeViewClass.h"
+#import "VZFValue.h"
+#import "VZFGesture.h"
+
+using namespace VZ;
 
 namespace VZ {
     
+
+    
+    struct LayerAttrs{
+        
+        CGFloat cornerRadius;
+        CGFloat borderWidth;
+        UIColor* borderColor;
+        UIImage* contents;
+    };
+    
+    struct ViewAttrs{
+        
+        NSInteger tag;
+        UIColor* backgroundColor;
+        UIViewContentMode contentMode;
+        BOOL clipToBounds;
+        LayerAttrs layer;
+    };
+    
+
+    namespace DefaultFlexValue{
+        
+        //UI attributes
+        extern CGSize size;
+        extern CGSize maxSize;
+        extern CGSize minSize;
+        extern float width;
+        extern float height;
+        extern float maxWidth;
+        extern float maxHeight;
+        extern float minWidth;
+        extern float minHeight;
+        
+        //css attributes
+        extern float marginLeft;
+        extern float marginRight;
+        extern float marginTop;
+        extern float marginBottom;
+        
+        extern float paddingLeft;
+        extern float paddingRight;
+        extern float paddingTop;
+        extern float paddingBottom;
+        
+        //flex attributes
+        extern float flexGrow;
+        extern float flexShrink;
+        extern bool fixed;
+        extern bool wrap;
+        extern int direction;
+        extern int justifyContent;
+        extern int alignItems;
+        extern int aliginSelf;
+
+    };
+    
+
+    struct StackLayoutSpecs{
+        
+        Value<int, DefaultFlexValue::direction> direction;
+        Value<int, DefaultFlexValue::alignItems> alignItems;
+        Value<int, DefaultFlexValue::justifyContent> justifyContent;
+    };
+
+    struct FlexAttrs{
+
+        Value<float, DefaultFlexValue::width> width;
+        Value<float, DefaultFlexValue::height> height;
+        Value<float, DefaultFlexValue::maxWidth> maxWidth;
+        Value<float, DefaultFlexValue::maxHeight> maxHeight;
+        Value<float, DefaultFlexValue::minWidth> minWidth;
+        Value<float, DefaultFlexValue::minHeight> minHeight;
+        
+        Value<float, DefaultFlexValue::marginLeft> marginLeft;
+        Value<float, DefaultFlexValue::marginRight> marginRight;
+        Value<float, DefaultFlexValue::marginTop> marginTop;
+        Value<float, DefaultFlexValue::marginBottom> marginBottom;
+        
+        Value<float, DefaultFlexValue::paddingLeft> paddingLeft;
+        Value<float, DefaultFlexValue::paddingRight> paddingRight;
+        Value<float, DefaultFlexValue::paddingTop> paddingTop;
+        Value<float, DefaultFlexValue::paddingBottom> paddingBottom;
+        
+        Value<float, DefaultFlexValue::flexGrow> flexGrow;
+        Value<float, DefaultFlexValue::flexShrink> flexShrink;
+        Value<int, DefaultFlexValue::aliginSelf> alignSelf;
+        Value<bool, DefaultFlexValue::fixed> fixed;
+        Value<bool, DefaultFlexValue::wrap> wrap;
+        
+        //describe stack layout specs
+        struct StackLayoutSpecs stackLayout;
+    
+    };
+
+    
     struct UISpecs{
         
-        UISpecs();
-        //使用右值，支持初始化赋值
-        UISpecs(VZUISpecs&& spec);
-        ~UISpecs();
+        //name
+        std::string name;
         
-        const std::shared_ptr<const VZUISpecs> getSpecs() const;
-    
-    private:
-        struct State{
-            std::shared_ptr<const VZUISpecs> specs;
-        };
-   
-        std::shared_ptr<const State> state;
+        //view class
+        ViewClass clz;
+        
+        //view / layer properties
+        struct ViewAttrs view;
+        
+        //flex
+        struct FlexAttrs flex;
+        
+        //gestures
+        struct std::set<Gesture> gestures;
+        
     };
+    
+
 }
+
+typedef VZ::UISpecs VZUISpecs;
+
+/**
+ typedef enum {
+ FlexHorizontal,
+ FlexVertical
+ } FlexDirection;
+ */
+typedef NS_ENUM(int, VZFlexLayoutDirection){
+    VZFlexHorizontal,
+    VZFlexVertical
+};
+/**
+ typedef enum {
+ FlexInherit,
+ FlexStretch,
+ FlexStart,
+ FlexCenter,
+ FlexEnd,
+ FlexSpaceBetween,
+ FlexSpaceAround
+ } FlexAlign;
+ */
+typedef NS_ENUM(int, VZFlexLayoutAlignment){
+
+    VZFlexInherit,
+    VZFlexStretch,
+    VZFlexStart,
+    VZFlexCenter,
+    VZFlexEnd,
+    VZFlexSpaceBetween,
+    VZFlexSpaceAround
+
+};
+
+
+@class VZFlexNode;
+@interface VZFNodeUISpecs : NSObject
+
++ (VZFlexNode* )flexNodeWithAttributes:(const VZ::FlexAttrs& )attrs;
+
+@end

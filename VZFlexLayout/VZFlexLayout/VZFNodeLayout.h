@@ -43,7 +43,7 @@ namespace VZ {
         const CGSize getNodeSize() const{ return size ; };
         const CGPoint getNodeOriginPoint() const {return origin;};
         //？
-        std::vector<NodeLayout> getChildren() const { return *children; };
+        const std::vector<NodeLayout> getChildren() const { return *children; };
     private:
 
         CGSize size = {0,0};

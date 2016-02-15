@@ -16,55 +16,65 @@ using namespace VZ;
 {
 
 }
-
-+ (UIView* )viewForStackNode:(VZFStackNode *)stackNode withStackLayoutSpec:(const VZFNodeLayout &)stackLayout{
-    
-    if (![stackNode isKindOfClass : [VZFStackNode class] ]) {
-        return nil;
++ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout
+{
+    if (![node isKindOfClass : [VZFStackNode class] ]) {
+        return [self _viewForNode:node withLayoutSpec:layout];
     }
-    
-    VZFStackLayoutSpecs stackSpecs = stackNode.layoutSpecs;
-    ViewClass viewClass = stackSpecs.viewSpecs.clz;
-    UIView* stackView = viewClass.createView()?:[UIView new];
-    const ViewAttrs vs = stackSpecs.viewSpecs.view;
-    [self applyUIView:stackView withAttributes:vs];
-    
-    stackView.frame = CGRectMake(stackLayout.getNodeOriginPoint().x, stackLayout.getNodeOriginPoint().y, stackLayout.getNodeSize().width, stackLayout.getNodeSize().height);
-
-    for (int i = 0; i < stackNode.children.size(); i++) {
-        
-        VZFStackChildNode childNode = stackNode.children[i];
-        VZFNode* node = childNode.node;
-        VZFNodeLayout layout = stackLayout.getChildren()[i];
-        if ([node isKindOfClass:[VZFStackNode class]]) {
-            //递归
-            UIView* stackViewRecursive=[self viewForStackNode:(VZFStackNode* )node withStackLayoutSpec:layout];
-            [stackView addSubview:stackViewRecursive];
+    else{
+      
+        UIView* stackView = [self _viewForNode:node withLayoutSpec:layout];
+        VZFStackNode* stackNode = (VZFStackNode* )node;
+        for (int i = 0; i < stackNode.children.size(); i++) {
+            
+            VZFStackChildNode _childNode = stackNode.children[i];
+            VZFNode* _node = _childNode.node;
+            VZFNodeLayout _layout = layout.getChildren()[i];
+            if ([_node isKindOfClass:[VZFStackNode class]]) {
+                //递归
+                UIView* stackViewRecursive=[self viewForNode:_node withLayoutSpec:_layout];
+                [stackView addSubview:stackViewRecursive];
+            }
+            else{
+                UIView* view = [self _viewForNode:_node withLayoutSpec:_layout];
+                [stackView addSubview:view];
+            }
+     
         }
-        UIView* view = [self viewForNode:node withLayoutSpec:layout];
-        [stackView addSubview:view];
+        return stackView;
     }
-    return stackView;
 }
-
-+ (UIView* )viewForNode:(VZFNode *)node withLayoutSpec:(const VZFNodeLayout &)layout{
++ (UIView* )_viewForNode:(VZFNode *)node withLayoutSpec:(const VZFNodeLayout &)layout{
     
     const UISpecs specs = node.specs;
-    std::shared_ptr<const VZUISpecs> spec = specs.getSpecs();
-    ViewClass viewClass = (*spec.get()).clz;
-    UIView* view = viewClass.createView()?:[UIView new];
-    ViewAttrs vs = (*spec.get()).view;
+    UIView* view = [self _createUIView:specs.clz];
+    [self _applyAttributes:specs.view ToUIView:view];
+    view.frame = {layout.getNodeOriginPoint(), layout.getNodeSize()};
+    [self _applyGestures:specs.gestures ToUIView:view Node:node];
     
-    //apply view attributes
-    [self applyUIView:view withAttributes:vs];
-    
-    //apply layout result
-    view.frame = CGRectMake(layout.getNodeOriginPoint().x, layout.getNodeOriginPoint().y, layout.getNodeSize().width, layout.getNodeSize().height);
+    return view;
+}
 
+
++ (UIView* )_createUIView:(const ViewClass& )clz{
+
+    return clz.createView()?:[UIView new];
+}
+
++ (void)_applyAttributes:(const ViewAttrs&)vs ToUIView:(UIView* )view {
+
+    view.tag = vs.tag;
+    view.backgroundColor = vs.backgroundColor;
+    view.contentMode = vs.contentMode;
+    view.clipsToBounds = vs.clipToBounds;
+    view.layer.cornerRadius = vs.layer.cornerRadius;
+    view.layer.borderColor = vs.layer.borderColor.CGColor;
+    view.layer.contents = (__bridge id)vs.layer.contents.CGImage;
     
-    
-    //apply gestures
-    std::set<Gesture> gestures = (*spec.get()).gestures;
+}
+
++ (void)_applyGestures:(const std::set<Gesture>&)gestures ToUIView:(UIView* )view Node:(VZFNode* )node{
+
     VZFGestureForward* gestureForward = node.gestureForward;
     if (!gestureForward) {
         VZFGestureForward* gestureForward = [VZFGestureForward new];
@@ -78,19 +88,7 @@ using namespace VZ;
         [gesture addTarget:node.gestureForward action:@selector(action:)];
         [view addGestureRecognizer:gesture];
     }
-    
-    return view;
-}
 
-+ (void)applyUIView:(UIView* )view withAttributes:(const VZ::ViewAttrs&)vs{
-
-
-    view.backgroundColor = vs.backgroundColor;
-    view.contentMode = vs.contentMode;
-    view.clipsToBounds = vs.clipToBounds;
-    view.layer.cornerRadius = vs.layer.cornerRadius;
-    view.layer.borderColor = vs.layer.borderColor.CGColor;
-    view.layer.contents = (__bridge id)vs.layer.contents.CGImage;
     
 }
 

@@ -10,7 +10,7 @@
 #import "VZFSizeRange.h"
 
 @class VZFNode;
-@protocol VZFNodeProviderInterface <NSObject>
+@protocol VZFNodeProvider <NSObject>
 
 + (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context;
 
@@ -18,6 +18,7 @@
 
 @interface VZFNodeHostingView : UIView
 
-- (id)initWithNodeProvider:(Class<VZFNodeProviderInterface>)provider;
+- (id)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider RangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
+- (void)renderWithState:(id)state;
 
 @end

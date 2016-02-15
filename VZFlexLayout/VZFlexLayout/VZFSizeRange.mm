@@ -10,24 +10,37 @@
 #import "VZFValue.h"
 
 @implementation VZSizeRangeProvider
+{
+    VZFSizeRange _range;
+}
+- (CGSize)rangeSizeForBounds:(CGSize)size{
 
-- (CGSize)rangeSize:(VZFSizeRange)range ForBounds:(CGSize)size{
-
-    if (range == VZFlexibleSizeWidthAndHeight) {
-        return (CGSize){VZFlexInfinite,VZFlexInfinite};
+    if (_range == VZFlexibleSizeWidthAndHeight) {
+        return (CGSize){-999998,-999998};
     }
-    else if (range == VZFlexibleSizeHeight){
-        return (CGSize){size.width,VZFlexInfinite};
+    else if (_range == VZFlexibleSizeHeight){
+        return (CGSize){size.width,-999998};
     }
-    else if (range == VZFlexibleSizeWidth){
-        return (CGSize){VZFlexInfinite,size.height};
+    else if (_range == VZFlexibleSizeWidth){
+        return (CGSize){-999998,size.height};
     }
-    else if (range == VZFlexibleSizeNone){
+    else if (_range == VZFlexibleSizeNone){
         return size;
     }
     else{
         return size;
     }
+}
+
++ (instancetype)defaultRangeProvider:(VZFSizeRange)range{
+
+    static VZSizeRangeProvider* instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [VZSizeRangeProvider new];
+        instance -> _range = range;
+    });
+    return instance;
 }
 
 @end

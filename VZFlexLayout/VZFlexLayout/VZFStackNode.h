@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "VZFNode.h"
-#import "VZFNodeUIAttributes.h"
 #import <vector>
 
 typedef NS_ENUM(NSUInteger, VZFStackLayoutDirection) {
@@ -41,14 +40,16 @@ struct VZFStackLayoutSpecs{
     VZFStackLayoutDirection direction;
     VZFStackLayoutAlignItems alignItems;
     VZFStackLayoutJustifyContent justifyContent;
+    
+    //VZStackLayoutSpecs stackSpecs;
     VZUISpecs viewSpecs;
 };
 
 @interface VZFStackNode : VZFNode
 
-@property(nonatomic,readonly) VZFStackLayoutSpecs layoutSpecs;
-@property(nonatomic,readonly) std::vector<VZFStackChildNode> children;
+@property(nonatomic,assign,readonly) std::vector<VZFStackChildNode> children;
 
-+ (instancetype)nodeWithStackLayout:(const VZFStackLayoutSpecs& )layout Children:(const std::vector<VZFStackChildNode> &)children;
++ (instancetype)nodeWithStackSpecs:(const VZUISpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children;
+
 
 @end

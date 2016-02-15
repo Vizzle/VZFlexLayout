@@ -15,8 +15,6 @@
 
 @interface VZFlexNode()
 
-@property(nonatomic,strong)VZFlexNode* flexNode;
-
 @end
 
 @implementation VZFNode
@@ -47,11 +45,8 @@
     if (self) {
         
         _specs = specs;
-        _flexNode = [VZFlexNode new];
-        
-        VZ::FlexAttrs flexAttributes = (*specs.getSpecs().get()).flex;
-        [self applyFlexAttributes:flexAttributes];
-        
+        _flexNode = [VZFNodeUISpecs flexNodeWithAttributes:_specs.flex];
+        _flexNode.name = [NSString stringWithUTF8String:specs.name.c_str()];
     }
     return self;
 }
@@ -59,34 +54,6 @@
 - (instancetype)init
 {
     VZ_NOT_DESIGNATED_INITIALIZER();
-}
-
-- (void)updateState:(id (^)(id))updateBlock{
-
-
-}
-
-- (void)applyFlexAttributes:(const VZ::FlexAttrs &)flexAttributes{
-    
-    
-    _flexNode.width  = flexAttributes.width;
-    _flexNode.height = flexAttributes.height;
-    _flexNode.maxWidth = flexAttributes.maxWidth;
-    _flexNode.minWidth = flexAttributes.minWidth;
-    _flexNode.maxHeight = flexAttributes.maxHeight;
-    _flexNode.minWidth = flexAttributes.minWidth;
-    _flexNode.marginTop = flexAttributes.marginTop;
-    _flexNode.marginLeft = flexAttributes.marginLeft;
-    _flexNode.marginRight = flexAttributes.marginRight;
-    _flexNode.marginBottom = flexAttributes.marginBottom;
-    _flexNode.paddingTop = flexAttributes.paddingTop;
-    _flexNode.paddingLeft = flexAttributes.paddingLeft;
-    _flexNode.paddingRight = flexAttributes.paddingRight;
-    _flexNode.paddingBottom = flexAttributes.paddingBottom;
-    _flexNode.flexGrow  = flexAttributes.flexGrow;
-    _flexNode.flexShrink = flexAttributes.flexShrink;
-    _flexNode.wrap = flexAttributes.wrap;
-    _flexNode.fixed = flexAttributes.fixed;
 }
 
 

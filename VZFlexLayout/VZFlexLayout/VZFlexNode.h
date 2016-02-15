@@ -46,7 +46,7 @@
 
 - (void)layout:(CGSize)constrainedSize;
 - (CGSize)sizeThatFits:(CGSize)constraintedSize;
-- (void)renderRecursively;//for test only
+
 - (void)addSubNode:(VZFlexNode* )node;
 - (void)removeSubNode:(VZFlexNode* )node;
 

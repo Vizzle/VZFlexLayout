@@ -10,12 +10,14 @@
 #define VZFNodeInternal_h
 
 #import "VZFNode.h"
+#import "VZFNodeLayout.h"
 
 @class VZFlexNode;
 @interface VZFNode()
 
 @property(nonatomic,strong,readonly)VZFlexNode* flexNode;
 
+- (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz;
 
 @end
 #endif /* VZFNodeInternal_h */
