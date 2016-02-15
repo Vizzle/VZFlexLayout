@@ -47,6 +47,7 @@ struct VZFStackLayoutSpecs{
 
 @interface VZFStackNode : VZFNode
 
+@property(nonatomic,assign,readonly) VZUISpecs specs;
 @property(nonatomic,assign,readonly) std::vector<VZFStackChildNode> children;
 
 + (instancetype)nodeWithStackSpecs:(const VZUISpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children;

@@ -173,6 +173,15 @@ typedef NS_ENUM(int, VZFlexLayoutAlignment){
 
 };
 
+typedef NS_ENUM(int, VZFlexValue){
+
+    VZFlexValueUndefined = -999999,  // used in properties: marginTop, paddingTop, ...
+    VZFlexValueInfinite = -999998, // used in constraintedSize, maxWidth, maxHeight
+    VZFlexValueAuto = -999997,   // used in properties: flexBasis, width, height, margin, padding, marginTop, ...
+    VZFlexValueContent = -999996        // used in properties: flexBasis
+    
+};
+
 
 @class VZFlexNode;
 @interface VZFNodeUISpecs : NSObject

@@ -16,7 +16,16 @@
 
 @end
 
+@protocol VZFNodeHostingView <NSObject>
+
+@optional
+- (void)hostingViewDidInvalidate:(CGSize)newSize;
+
+@end
+
 @interface VZFNodeHostingView : UIView
+
+@property(nonatomic,weak)id<VZFNodeHostingView> delegate;
 
 - (id)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider RangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
 - (void)renderWithState:(id)state;

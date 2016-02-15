@@ -43,7 +43,42 @@
 
 + (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context{
 
-    return [self stackNodes];
+    return [self simpleNode];
+//    return [self stackNodes];
+}
+
++ (VZFNode* )simpleNode{
+
+    VZFNode* node = [VZFNode nodeWithUISpecs:{
+    
+    
+        .clz = [UIView class],
+        .view = {
+            .backgroundColor = [UIColor redColor],
+            .layer = {
+                .cornerRadius = 50,
+            }
+        },
+        .flex = {
+            .width = 100,
+            .height = 100,
+            .marginLeft = 100,
+            .marginTop = 100,
+
+        },
+        .gestures = {
+        
+            GestureBuilder<UITapGestureRecognizer>(^(id sender) {
+               
+                NSLog(@"tapped!!");
+                
+            }),
+        }
+    
+    
+    }];
+    
+    return node;
 }
 
 
@@ -127,6 +162,10 @@
     
 
     VZFStackNode* stackNode = [VZFStackNode nodeWithStackSpecs:{
+        
+        .view = {
+            .backgroundColor = [UIColor whiteColor],
+        },
         .flex = {
             .stackLayout = {
                 .direction = VZFlexVertical

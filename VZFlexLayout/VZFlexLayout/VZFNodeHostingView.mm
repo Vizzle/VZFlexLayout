@@ -52,6 +52,9 @@
     if (fView) {
         [_containerView addSubview:fView];
     }
+    if ([self.delegate respondsToSelector:@selector(hostingViewDidInvalidate:)]) {
+        [self.delegate hostingViewDidInvalidate:_containerView.frame.size];
+    }
     
 }
 
