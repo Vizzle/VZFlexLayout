@@ -10,40 +10,13 @@
 #import "VZFNode.h"
 #import <vector>
 
-typedef NS_ENUM(NSUInteger, VZFStackLayoutDirection) {
-   
-    VZFStackLayoutDirectionHorizontal,
-    VZFStackLayoutDirectionVertical,
-};
 
-typedef NS_ENUM(NSUInteger, VZFStackLayoutAlignItems) {
-    VZFStackLayoutAlignItemsStart,
-    VZFStackLayoutAlignItemsEnd,
-    VZFStackLayoutAlignItemsCenter,
-    VZFStackLayoutAlignItemsStretch
-};
-
-typedef NS_ENUM(NSUInteger, VZFStackLayoutJustifyContent) {
-    VZFStackLayoutJustifyContentStart,
-    VZFStackLayoutJustifyContentEnd,
-    VZFStackLayoutJustifyContentCenter,
-    VZFStackLayoutJustifyContentSpaceBetween
-};
-
-struct VZFStackChildNode{
+typedef struct {
     VZFNode *node;
-};
+    NSUInteger spacingBefore; //not implemented yet
+    NSUInteger spacingAfter;//not implemented yet
+}VZFStackChildNode;
 
-
-struct VZFStackLayoutSpecs{
-
-    VZFStackLayoutDirection direction;
-    VZFStackLayoutAlignItems alignItems;
-    VZFStackLayoutJustifyContent justifyContent;
-    
-    //VZStackLayoutSpecs stackSpecs;
-    VZUISpecs viewSpecs;
-};
 
 @interface VZFStackNode : VZFNode
 
