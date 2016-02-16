@@ -81,14 +81,19 @@ namespace VZ {
         extern int alignItems;
         extern int aliginSelf;
 
+        extern float spacing;
+        extern float lineSpacing;
     };
     
 
     struct StackLayoutSpecs{
-        
+
         Value<int, DefaultFlexValue::direction> direction;
         Value<int, DefaultFlexValue::alignItems> alignItems;
         Value<int, DefaultFlexValue::justifyContent> justifyContent;
+        
+        Value<float, DefaultFlexValue::spacing> spacing;
+        Value<float, DefaultFlexValue::lineSpacing> lineSpacing;
         
     };
 

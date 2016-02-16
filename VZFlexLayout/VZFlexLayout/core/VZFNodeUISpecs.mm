@@ -37,6 +37,8 @@ namespace VZ {
         int justifyContent = FlexSpaceBetween;
         int alignItems = FlexStretch;
         int aliginSelf = FlexInherit;
+        float spacing = 0;
+        float lineSpacing = 0;
     };
     
 }
@@ -75,6 +77,8 @@ namespace VZ {
     node.direction          = (FlexDirection)((int)attrs.stackLayout.direction);
     node.justifyContent     = (FlexAlign)((int)attrs.stackLayout.justifyContent);
     node.alignItems         = (FlexAlign)((int)attrs.stackLayout.alignItems);
+    node.spacing            = attrs.stackLayout.spacing;
+    node.lineSpacing        = attrs.stackLayout.lineSpacing;
 
     
     return node;

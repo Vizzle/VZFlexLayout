@@ -29,6 +29,8 @@ typedef NS_OPTIONS(NSUInteger, NodeDescriptionOption) {
 @property (nonatomic,assign) FlexAlign alignSelf;
 @property (nonatomic,assign) FlexAlign alignContent;
 @property (nonatomic,assign) FlexAlign justifyContent;
+@property (nonatomic,assign) CGFloat spacing;
+@property (nonatomic,assign) CGFloat lineSpacing;
 @property (nonatomic,assign) CGFloat flexBasis;
 @property (nonatomic,assign) CGFloat flexGrow;
 @property (nonatomic,assign) CGFloat flexShrink;

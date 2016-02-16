@@ -191,6 +191,22 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     return _flex_node->flexShrink;
 }
 
+- (void)setSpacing:(CGFloat)spacing {
+    _flex_node->spacing = spacing;
+}
+
+- (CGFloat)spacing {
+    return _flex_node->spacing;
+}
+
+- (void)setLineSpacing:(CGFloat)lineSpacing {
+    _flex_node->lineSpacing = lineSpacing;
+}
+
+- (CGFloat)lineSpacing {
+    return _flex_node->lineSpacing;
+}
+
 - (void)setWidth:(CGFloat)width {
     _flex_node->size[FLEX_WIDTH] = width;
 }
