@@ -64,11 +64,10 @@
         .flex = {
             .width = 100,
             .height = 100,
-            .marginLeft = VZFlexValueAuto,
-            .marginTop = VZFlexValueAuto,
-            .marginRight = VZFlexValueAuto,
-            .marginBottom = VZFlexValueAuto
-            
+            .marginLeft = 100,
+            .marginTop = 100,
+            .marginRight = 100,
+            .marginBottom = 100
         },
         .gestures = {
             
