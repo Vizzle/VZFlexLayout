@@ -78,6 +78,8 @@
     
     }];
     
+    NSLog(@"%@", node);
+    
     return node;
 }
 
