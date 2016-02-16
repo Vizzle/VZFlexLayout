@@ -7,7 +7,11 @@
 //
 
 #import "VZFNode.h"
+#import "VZFNodeUISpecs.h"
 
 @interface VZFImageNode : VZFNode
+
+@property(nonatomic,assign,readonly) VZUIImageNodeSpecs specs;
++ (instancetype)imageNodeWithSpecs:(const VZUIImageNodeSpecs& )specs;
 
 @end

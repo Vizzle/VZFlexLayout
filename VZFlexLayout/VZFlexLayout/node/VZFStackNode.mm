@@ -34,7 +34,7 @@
     return _children;
 }
 
-+ (instancetype)nodeWithUISpecs:(const VZ::UISpecs &)specs{
++ (instancetype)nodeWithUISpecs:(const VZUISpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 + (instancetype)nodeWithStackSpecs:(const VZUISpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children{

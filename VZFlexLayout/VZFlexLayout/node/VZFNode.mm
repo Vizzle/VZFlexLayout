@@ -13,6 +13,7 @@
 #import "VZFNodeInternal.h"
 
 
+
 @interface VZFlexNode()
 
 @end
@@ -28,7 +29,7 @@
     return nil;
 }
 
-+(instancetype)nodeWithUISpecs:(const VZ::UISpecs &)specs{
++(instancetype)nodeWithUISpecs:(const VZUISpecs &)specs{
     
     return [[self alloc] initWithUISpecs:specs];
 }
@@ -40,7 +41,7 @@
     return [self nodeWithUISpecs:{}];
 }
 
-- (instancetype)initWithUISpecs:(const VZ::UISpecs& )specs{
+- (instancetype)initWithUISpecs:(const VZUISpecs& )specs{
     self = [super init];
     if (self) {
         

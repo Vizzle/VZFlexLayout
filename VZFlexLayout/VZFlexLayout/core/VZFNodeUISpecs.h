@@ -36,7 +36,6 @@ namespace VZ {
         NSInteger tag;
         BOOL userInteractionEnabled;
         UIColor* backgroundColor;
-        UIViewContentMode contentMode;
         BOOL clipToBounds;
         LayerAttrs layer;
         void(^block)(UIView* );
@@ -128,8 +127,38 @@ namespace VZ {
         struct StackLayoutSpecs stackLayout;
     
     };
-
     
+    
+    typedef struct{
+    
+        UIImage* image;
+        
+    }ImageNodeSpecs;
+    
+    typedef struct {
+    
+        UIColor* textColor;
+        UIFont* textFont;
+        NSString* text;
+    }TextNodeSpecs;
+    
+    typedef struct{
+        
+        bool seleced;
+        bool enabled;
+        NSString* title;
+        UIFont* titleFont;
+        UIColor* titleColor;
+        UIImage* image;
+        UIImage* backgroundImage;
+        id target;
+        SEL action;
+    
+    }ButtonNodeSpecs;
+    
+    typedef struct{}ViewNodeSpecs;
+
+    template<typename T>
     struct UISpecs{
         
         //name
@@ -147,12 +176,18 @@ namespace VZ {
         //gestures
         struct std::set<Gesture> gestures;
         
+        //other type of UISpecs
+        T attrs;
+        
     };
     
 
 }
 
-typedef VZ::UISpecs VZUISpecs;
+typedef VZ::UISpecs<ViewNodeSpecs> VZUISpecs;
+typedef VZ::UISpecs<TextNodeSpecs> VZUITextNodeSpecs;
+typedef VZ::UISpecs<ImageNodeSpecs> VZUIImageNodeSpecs;
+typedef VZ::UISpecs<ButtonNodeSpecs> VZUIButtonNodeSpecs;
 
 /**
  typedef enum {

@@ -46,7 +46,7 @@ using namespace VZ;
 }
 + (UIView* )_viewForNode:(VZFNode *)node withLayoutSpec:(const VZFNodeLayout &)layout{
     
-    const UISpecs specs = node.specs;
+    const VZUISpecs specs = node.specs;
     UIView* view = [self _createUIView:specs.clz];
     [self _applyAttributes:specs.view ToUIView:view];
     view.frame = {layout.getNodeOriginPoint(), layout.getNodeSize()};
@@ -66,7 +66,6 @@ using namespace VZ;
     view.tag                    = vs.tag;
     view.userInteractionEnabled = vs.userInteractionEnabled;
     view.backgroundColor        = vs.backgroundColor;
-    view.contentMode            = vs.contentMode;
     view.clipsToBounds          = vs.clipToBounds;
     view.layer.cornerRadius     = vs.layer.cornerRadius;
     view.layer.borderColor      = vs.layer.borderColor.CGColor;
