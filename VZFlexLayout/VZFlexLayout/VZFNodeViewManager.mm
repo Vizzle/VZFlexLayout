@@ -75,6 +75,9 @@ using namespace VZ;
 
 + (void)_applyGestures:(const std::set<Gesture>&)gestures ToUIView:(UIView* )view Node:(VZFNode* )node{
 
+    if (gestures.size() == 0) {
+        return;
+    }
     VZFGestureForward* gestureForward = node.gestureForward;
     if (!gestureForward) {
         VZFGestureForward* gestureForward = [VZFGestureForward new];
