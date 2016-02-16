@@ -18,7 +18,7 @@
 #import "VZFUtils.h"
 #import "VZFNodeHostingView.h"
 
-@interface ViewController ()
+@interface ViewController ()<VZFNodeHostingView>
 
 @property(nonatomic,strong)VZFNodeHostingView* hostingView;
 
@@ -34,6 +34,7 @@
                                                          RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
     self.hostingView.backgroundColor = [UIColor orangeColor];
     self.hostingView.frame = {{0,0},{CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds)}};
+    self.hostingView.delegate = self;
     [self.view addSubview:self.hostingView];
     
     [self.hostingView renderWithState:nil];
@@ -50,10 +51,11 @@
 + (VZFNode* )simpleNode{
 
     VZFNode* node = [VZFNode nodeWithUISpecs:{
-    
-    
+        
+        
         .clz = [UIView class],
         .view = {
+            .userInteractionEnabled = YES,
             .backgroundColor = [UIColor redColor],
             .layer = {
                 .cornerRadius = 50,
@@ -62,23 +64,40 @@
         .flex = {
             .width = 100,
             .height = 100,
-            .marginLeft = 100,
-            .marginTop = 100,
-
+            .marginLeft = VZFlexValueAuto,
+            .marginTop = VZFlexValueAuto,
+            .marginRight = VZFlexValueAuto,
+            .marginBottom = VZFlexValueAuto
+            
         },
         .gestures = {
-        
+            
             GestureBuilder<UITapGestureRecognizer>(^(id sender) {
-               
+                
                 NSLog(@"tapped!!");
                 
             }),
         }
-    
-    
+        
+        
     }];
     
-    return node;
+    
+    VZFStackNode* stackNdoe =[VZFStackNode nodeWithStackSpecs:{
+        
+        .flex= {
+            .width = 200,
+            .height = 200
+        }
+        
+        
+    } Children:{
+        {.node = node}
+    }];
+    
+
+    
+    return stackNdoe;
 }
 
 
@@ -180,6 +199,11 @@
     
     return stackNode;
 
+}
+
+
+- (void)hostingViewDidInvalidate:(CGSize)newSize{
+    self.hostingView.frame = {self.hostingView.frame.origin, newSize};
 }
 
 @end

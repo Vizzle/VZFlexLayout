@@ -36,6 +36,7 @@
         _nodeProvider = nodeProvider;
         _sizeProvider = sizeProvider;
         _containerView = [[UIView alloc]initWithFrame:CGRectZero];
+        _containerView.backgroundColor = [UIColor blackColor];
         [self addSubview:_containerView];
             
     }
@@ -50,11 +51,14 @@
     _containerView.frame = {{0,0}, layout.getNodeSize().width, layout.getNodeSize().height};
     UIView* fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout];
     if (fView) {
+        
         [_containerView addSubview:fView];
+        
+        if ([self.delegate respondsToSelector:@selector(hostingViewDidInvalidate:)]) {
+            [self.delegate hostingViewDidInvalidate:_containerView.frame.size];
+        }
     }
-    if ([self.delegate respondsToSelector:@selector(hostingViewDidInvalidate:)]) {
-        [self.delegate hostingViewDidInvalidate:_containerView.frame.size];
-    }
+
     
 }
 

@@ -50,7 +50,7 @@ using namespace VZ;
     UIView* view = [self _createUIView:specs.clz];
     [self _applyAttributes:specs.view ToUIView:view];
     view.frame = {layout.getNodeOriginPoint(), layout.getNodeSize()};
-    [self _applyGestures:specs.gestures ToUIView:view Node:node];
+    [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
     
     return view;
 }
@@ -64,6 +64,7 @@ using namespace VZ;
 + (void)_applyAttributes:(const ViewAttrs&)vs ToUIView:(UIView* )view {
 
     view.tag = vs.tag;
+    view.userInteractionEnabled = vs.userInteractionEnabled;
     view.backgroundColor = vs.backgroundColor;
     view.contentMode = vs.contentMode;
     view.clipsToBounds = vs.clipToBounds;
@@ -73,11 +74,12 @@ using namespace VZ;
     
 }
 
-+ (void)_applyGestures:(const std::set<Gesture>&)gestures ToUIView:(UIView* )view Node:(VZFNode* )node{
++ (void)_applyGestures:(const std::set<Gesture>&)gestures ToUIView:(UIView* )view AndNode:(VZFNode* )node{
 
     if (gestures.size() == 0) {
         return;
     }
+    
     VZFGestureForward* gestureForward = node.gestureForward;
     if (!gestureForward) {
         VZFGestureForward* gestureForward = [VZFGestureForward new];
