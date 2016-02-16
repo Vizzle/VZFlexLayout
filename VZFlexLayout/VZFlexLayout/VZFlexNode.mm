@@ -7,67 +7,7 @@
 //
 
 #import "VZFlexNode.h"
-#import "Layout.h"
-
-
 #import "FlexLayout.h"
-//
-//static const FlexNode* defaultFlexNode() {
-//    
-//    static dispatch_once_t onceToken;
-//    static FlexNode node;
-//    dispatch_once(&onceToken, ^{
-//        initFlexNode(&node);
-//    });
-//    return &node;
-//}
-//
-//
-//
-//static inline NSString *floatToNSString(float value) {
-//    if (value == FlexAuto) {
-//        return @"auto";
-//    }
-//    else if (value == FlexContent) {
-//        return @"content";
-//    }
-//    else if (value == FlexUndefined) {
-//        return @"undefined";
-//    }
-//    else if (value == FlexInfinite) {
-//        return @"infinite";
-//    }
-//    
-//    NSString *s = [NSString stringWithFormat:@"%f", value];
-//    int i = (int)s.length - 1;
-//    for (;i>=0;i--) {
-//        if ([s characterAtIndex:i] != '0') {
-//            break;
-//        }
-//    }
-//    if (i >= 0 && [s characterAtIndex:i] == '.') i--;
-//    return [s substringToIndex:i + 1];
-//}
-//
-//static inline NSString *alignToNSString(FlexAlign align) {
-//    switch (align) {
-//        case FlexInherit:
-//            return @"auto";
-//        case FlexStretch:
-//            return @"stretch";
-//        case FlexStart:
-//            return @"flex-start";
-//        case FlexCenter:
-//            return @"center";
-//        case FlexEnd:
-//            return @"flex-end";
-//        case FlexSpaceBetween:
-//            return @"space-between";
-//        case FlexSpaceAround:
-//            return @"space-around";
-//    }
-//}
-//
 
 
 @interface VZFlexNode()
@@ -77,14 +17,9 @@
 
 }
 
-@property(nonatomic,strong)UIView* internalView;
-
 @end
 
 @implementation VZFlexNode
-
-
-
 
 FlexSize flexNodeMeasure(void* context, FlexSize constraintedSize) {
     VZFlexNode* node = (__bridge VZFlexNode*)context;
@@ -102,20 +37,6 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 }
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark - getters
-
-- (UIView* )internalView{
-    if (!_internalView) {
-        _internalView = [[UIView alloc]initWithFrame:CGRectZero];
-        UILabel* label = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 50, 14)];
-        label.tag = 100;
-        label.text = @"";
-        label.font = [UIFont systemFontOfSize:12.0f];
-        [_internalView addSubview:label];
-    }
-    return _internalView;
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - setters
@@ -365,17 +286,28 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 
 
 
-- (CGRect)frame
+- (CGRect)resultFrame
 {
     return (CGRect) {
         
-        .origin.x = _flex_node -> result.position[0],
-        .origin.y = _flex_node ->result.position[1],
-        .size.width = _flex_node->result.size[FLEX_WIDTH],
-        .size.height = _flex_node->result.size[FLEX_HEIGHT]
+        .origin.x       = _flex_node -> result.position[0],
+        .origin.y       = _flex_node -> result.position[1],
+        .size.width     = _flex_node -> result.size[FLEX_WIDTH],
+        .size.height    = _flex_node -> result.size[FLEX_HEIGHT]
     };
 }
 
+- (UIEdgeInsets)resultMargin{
+
+    return (UIEdgeInsets){
+    
+        .top    = _flex_node -> result.margin[FLEX_TOP],
+        .bottom = _flex_node -> result.margin[FLEX_BOTTOM],
+        .left   = _flex_node -> result.margin[FLEX_LEFT],
+        .right  = _flex_node -> result.margin[FLEX_RIGHT]
+
+    };
+}
 
 - (void)prepareLayout
 {
@@ -408,37 +340,6 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 - (CGSize)sizeThatFits:(CGSize)constraintedSize{
     return CGSizeZero;
 }
-
-- (void)renderRecursively
-{
-    for (VZFlexNode* node in self.childNodes) {
-        [node renderRecursively];
-    }
-    [self render];
-}
-
-
-- (UIView* )view{
-    return _internalView;
-}
-
-- (void)render{
-
-    self.internalView.frame = [self frame];
-    UILabel* label = [self.internalView viewWithTag:100];
-    label.text = self.name;
-    self.internalView.backgroundColor = [UIColor colorWithRed:(arc4random()%255)/255.0
-                                                        green:(arc4random()%255)/255.0
-                                                         blue:(arc4random()%255)/255.0 alpha:1.0];
-
-    for(VZFlexNode* node in self.childNodes)
-    {
-        [self.internalView addSubview:node.internalView];
-        
-    }
-}
-
-
 
 - (void)addSubNode:(VZFlexNode* )node{
     

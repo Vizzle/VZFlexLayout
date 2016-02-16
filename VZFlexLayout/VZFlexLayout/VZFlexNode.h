@@ -12,8 +12,8 @@
 
 @interface VZFlexNode : NSObject
 
-//@property (nonatomic,strong,readonly) FlexNode* flexNode;
-@property (nonatomic,assign,readonly) CGRect frame;
+@property (nonatomic,assign,readonly) CGRect resultFrame;
+@property (nonatomic,assign,readonly) UIEdgeInsets resultMargin;
 @property (nonatomic,strong,readonly) NSArray* childNodes;
 
 @property (nonatomic,strong)NSString* name;

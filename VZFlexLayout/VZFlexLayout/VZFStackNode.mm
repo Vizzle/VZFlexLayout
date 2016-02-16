@@ -64,7 +64,7 @@
     std::function<VZFNodeLayout(VZFlexNode* )> lambda = [&lambda](VZFlexNode* node)->VZFNodeLayout{
     
         if (node.childNodes.count == 0) {
-            return {node.frame.size,node.frame.origin,{}};
+            return {node.resultFrame.size,node.resultFrame.origin,node.resultMargin,{}};
         }
         else{
             
@@ -72,7 +72,7 @@
             for(VZFlexNode* child in node.childNodes){
                 childlayouts.push_back(lambda(child));
             }
-            return {node.frame.size,node.frame.origin,childlayouts};
+            return {node.resultFrame.size,node.resultFrame.origin,node.resultMargin,childlayouts};
         }
     };
     VZFNodeLayout layout = lambda(_flexNode);

@@ -130,7 +130,10 @@ VZFlexNode *defaultVZFlexNode() {
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz{
     
     [_flexNode layout:sz];
-    VZFNodeLayout layout = { _flexNode.frame.size,_flexNode.frame.origin };
+    VZFNodeLayout layout = { _flexNode.resultFrame.size,
+                             _flexNode.resultFrame.origin,
+                             _flexNode.resultMargin
+    };
     return layout;
 }
 
@@ -193,8 +196,8 @@ VZFlexNode *defaultVZFlexNode() {
     if (!(option & NodeDescriptionOptionHideResult)) {
         [ret appendString:@"  result = \n  {\n"];
         
-        [ret appendFormat:@"    frame = %@\n", NSStringFromCGRect(self.flexNode.frame)];
-//        [ret appendFormat:@"    margin = %@\n", NSStringFromUIEdgeInsets(self.resultMargin)];
+        [ret appendFormat:@"    frame = %@\n", NSStringFromCGRect(self.flexNode.resultFrame)];
+        [ret appendFormat:@"    margin = %@\n", NSStringFromUIEdgeInsets(self.flexNode.resultMargin)];
         
         [ret appendString:@"  }\n"];
     }

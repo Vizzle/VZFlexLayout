@@ -19,9 +19,11 @@ namespace VZ {
         std::string name = "undefined";
         
         //constructor
-        NodeLayout():size({0,0}),origin({0,0}),children(new std::vector<NodeLayout>()){}
-        NodeLayout(CGSize sz, CGPoint pt):size(sz),origin(pt),children(new std::vector<NodeLayout>()){};
-        NodeLayout(CGSize sz, CGPoint pt, std::vector<NodeLayout> childs):size(sz),origin(pt),children(new std::vector<NodeLayout>(std::move(childs))){};
+        NodeLayout():size({0,0}),origin({0,0}),margin({0,0,0,0}),children(new std::vector<NodeLayout>()){}
+        
+        NodeLayout(CGSize sz, CGPoint pt, UIEdgeInsets _margin):size(sz),origin(pt),margin(_margin),children(new std::vector<NodeLayout>()){};
+        
+        NodeLayout(CGSize sz, CGPoint pt, UIEdgeInsets _margin,std::vector<NodeLayout> childs):size(sz),origin(pt),margin(_margin),children(new std::vector<NodeLayout>(std::move(childs))){};
         
         const std::string description() const{
             
@@ -41,13 +43,14 @@ namespace VZ {
             return desc;
         };
         const CGSize getNodeSize() const{ return size ; };
-        const CGPoint getNodeOriginPoint() const {return origin;};
-        //？
+        const CGPoint getNodeOriginPoint() const { return origin; };
+        const UIEdgeInsets getNodeMargin() const { return margin; };
         const std::vector<NodeLayout> getChildren() const { return *children; };
     private:
 
         CGSize size = {0,0};
         CGPoint origin = {0,0};
+        UIEdgeInsets margin = {0,0,0,0};
         std::shared_ptr<const std::vector<NodeLayout>> children;
     };
 

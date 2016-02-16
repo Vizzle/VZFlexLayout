@@ -63,14 +63,14 @@ using namespace VZ;
 
 + (void)_applyAttributes:(const ViewAttrs&)vs ToUIView:(UIView* )view {
 
-    view.tag = vs.tag;
+    view.tag                    = vs.tag;
     view.userInteractionEnabled = vs.userInteractionEnabled;
-    view.backgroundColor = vs.backgroundColor;
-    view.contentMode = vs.contentMode;
-    view.clipsToBounds = vs.clipToBounds;
-    view.layer.cornerRadius = vs.layer.cornerRadius;
-    view.layer.borderColor = vs.layer.borderColor.CGColor;
-    view.layer.contents = (__bridge id)vs.layer.contents.CGImage;
+    view.backgroundColor        = vs.backgroundColor;
+    view.contentMode            = vs.contentMode;
+    view.clipsToBounds          = vs.clipToBounds;
+    view.layer.cornerRadius     = vs.layer.cornerRadius;
+    view.layer.borderColor      = vs.layer.borderColor.CGColor;
+    view.layer.contents         = (__bridge id)vs.layer.contents.CGImage;
     
 }
 

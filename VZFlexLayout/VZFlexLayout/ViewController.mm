@@ -82,22 +82,24 @@
         
     }];
     
+    return node;
     
-    VZFStackNode* stackNdoe =[VZFStackNode nodeWithStackSpecs:{
-        
-        .flex= {
-            .width = 200,
-            .height = 200
-        }
-        
-        
-    } Children:{
-        {.node = node}
-    }];
-
-    NSLog(@"%@", stackNdoe);
-  
-    return stackNdoe;
+    
+//    VZFStackNode* stackNdoe =[VZFStackNode nodeWithStackSpecs:{
+//        
+//        .flex= {
+//            .width = 200,
+//            .height = 200
+//        }
+//        
+//        
+//    } Children:{
+//        {.node = node}
+//    }];
+//
+//    NSLog(@"%@", stackNdoe);
+//  
+//    return stackNdoe;
 
 }
 
@@ -204,7 +206,7 @@
 
 
 - (void)hostingViewDidInvalidate:(CGSize)newSize{
-    self.hostingView.frame = {self.hostingView.frame.origin, newSize};
+//    self.hostingView.frame = {self.hostingView.frame.origin, newSize};
 }
 
 @end

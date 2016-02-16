@@ -48,7 +48,10 @@
     _node = [_nodeProvider nodeForItem:state context:nil];
     CGSize size = [_sizeProvider rangeSizeForBounds:self.bounds.size];
     VZFNodeLayout layout = [_node computeLayoutThatFits:size];
-    _containerView.frame = {{0,0}, layout.getNodeSize().width, layout.getNodeSize().height};
+    
+    CGFloat containerWidth = layout.getNodeSize().width + layout.getNodeMargin().left + layout.getNodeMargin().right;
+    CGFloat containerHeight = layout.getNodeSize().height + layout.getNodeMargin().top + layout.getNodeMargin().bottom;
+    _containerView.frame = {{0,0}, {containerWidth, containerHeight}};
     UIView* fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout];
     if (fView) {
         
