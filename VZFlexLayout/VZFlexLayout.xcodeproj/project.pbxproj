@@ -8,16 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		453A6AB61C68AA1B000693C9 /* VZFNodeMountContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 453A6AB51C68AA1B000693C9 /* VZFNodeMountContext.mm */; };
-		456E62031C35290300240D64 /* ButtonNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61E51C35290300240D64 /* ButtonNode.mm */; };
-		456E62041C35290300240D64 /* Color.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61E71C35290300240D64 /* Color.mm */; };
-		456E62051C35290300240D64 /* Enum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 456E61E81C35290300240D64 /* Enum.cpp */; };
-		456E62061C35290300240D64 /* FlexLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61EB1C35290300240D64 /* FlexLayout.mm */; };
-		456E62071C35290300240D64 /* FNViewAttribute.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61EE1C35290300240D64 /* FNViewAttribute.mm */; };
-		456E62081C35290300240D64 /* Font.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61F01C35290300240D64 /* Font.mm */; };
-		456E62091C35290300240D64 /* ImageNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61F31C35290300240D64 /* ImageNode.mm */; };
-		456E620B1C35290300240D64 /* Length.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61F71C35290300240D64 /* Length.mm */; };
-		456E620C1C35290300240D64 /* TestLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E61FD1C35290300240D64 /* TestLayout.mm */; };
-		456E620E1C35290300240D64 /* TextNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456E62011C35290300240D64 /* TextNode.mm */; };
 		45798B461C57ACDF00B007DF /* VZFNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45798B451C57ACDF00B007DF /* VZFNode.mm */; };
 		45798B4A1C57AE2800B007DF /* VZFNodeUISpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45798B491C57AE2800B007DF /* VZFNodeUISpecs.mm */; };
 		45798B531C5895E600B007DF /* VZFStackNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45798B521C5895E600B007DF /* VZFStackNode.mm */; };
@@ -35,7 +25,6 @@
 		45C987571C2D0F2800D17A1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45C987561C2D0F2800D17A1D /* Assets.xcassets */; };
 		45C9875A1C2D0F2800D17A1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */; };
 		45C987631C2D115500D17A1D /* VZFlexCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C987621C2D115500D17A1D /* VZFlexCell.mm */; };
-		45C987681C2D12BE00D17A1D /* Layout.c in Sources */ = {isa = PBXBuildFile; fileRef = 45C987661C2D12BE00D17A1D /* Layout.c */; };
 		45C9876B1C2D309800D17A1D /* VZFlexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C9876A1C2D309800D17A1D /* VZFlexNode.mm */; };
 /* End PBXBuildFile section */
 
@@ -44,35 +33,6 @@
 		451E175A1C6D87390030AE41 /* VZFGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFGesture.h; sourceTree = "<group>"; };
 		453A6AB41C68AA1B000693C9 /* VZFNodeMountContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeMountContext.h; sourceTree = "<group>"; };
 		453A6AB51C68AA1B000693C9 /* VZFNodeMountContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeMountContext.mm; sourceTree = "<group>"; };
-		456E61E41C35290300240D64 /* ButtonNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonNode.h; sourceTree = "<group>"; };
-		456E61E51C35290300240D64 /* ButtonNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ButtonNode.mm; sourceTree = "<group>"; };
-		456E61E61C35290300240D64 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
-		456E61E71C35290300240D64 /* Color.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Color.mm; sourceTree = "<group>"; };
-		456E61E81C35290300240D64 /* Enum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Enum.cpp; sourceTree = "<group>"; };
-		456E61E91C35290300240D64 /* Enum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enum.h; sourceTree = "<group>"; };
-		456E61EA1C35290300240D64 /* FlexLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlexLayout.h; sourceTree = "<group>"; };
-		456E61EB1C35290300240D64 /* FlexLayout.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FlexLayout.mm; sourceTree = "<group>"; };
-		456E61EC1C35290300240D64 /* FNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNode.h; sourceTree = "<group>"; };
-		456E61ED1C35290300240D64 /* FNViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FNViewAttribute.h; sourceTree = "<group>"; };
-		456E61EE1C35290300240D64 /* FNViewAttribute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FNViewAttribute.mm; sourceTree = "<group>"; };
-		456E61EF1C35290300240D64 /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
-		456E61F01C35290300240D64 /* Font.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Font.mm; sourceTree = "<group>"; };
-		456E61F11C35290300240D64 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
-		456E61F21C35290300240D64 /* ImageNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageNode.h; sourceTree = "<group>"; };
-		456E61F31C35290300240D64 /* ImageNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageNode.mm; sourceTree = "<group>"; };
-		456E61F51C35290300240D64 /* Inset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inset.h; sourceTree = "<group>"; };
-		456E61F61C35290300240D64 /* Length.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Length.h; sourceTree = "<group>"; };
-		456E61F71C35290300240D64 /* Length.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Length.mm; sourceTree = "<group>"; };
-		456E61F81C35290300240D64 /* Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Macros.h; sourceTree = "<group>"; };
-		456E61F91C35290300240D64 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
-		456E61FA1C35290300240D64 /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
-		456E61FB1C35290300240D64 /* StringHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringHelper.h; sourceTree = "<group>"; };
-		456E61FC1C35290300240D64 /* TestLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestLayout.h; sourceTree = "<group>"; };
-		456E61FD1C35290300240D64 /* TestLayout.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TestLayout.mm; sourceTree = "<group>"; };
-		456E62001C35290300240D64 /* TextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextNode.h; sourceTree = "<group>"; };
-		456E62011C35290300240D64 /* TextNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextNode.mm; sourceTree = "<group>"; };
-		456E62021C35290300240D64 /* Value.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Value.h; sourceTree = "<group>"; };
-		456E620F1C35293000240D64 /* FNode-iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FNode-iOS.h"; sourceTree = "<group>"; };
 		45798B411C57A38500B007DF /* VZFNodeUISpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeUISpecs.h; sourceTree = "<group>"; };
 		45798B441C57ACDF00B007DF /* VZFNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNode.h; sourceTree = "<group>"; };
 		45798B451C57ACDF00B007DF /* VZFNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNode.mm; sourceTree = "<group>"; };
@@ -109,8 +69,6 @@
 		45C9875B1C2D0F2800D17A1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45C987611C2D115500D17A1D /* VZFlexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFlexCell.h; sourceTree = "<group>"; };
 		45C987621C2D115500D17A1D /* VZFlexCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFlexCell.mm; sourceTree = "<group>"; };
-		45C987661C2D12BE00D17A1D /* Layout.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Layout.c; sourceTree = "<group>"; };
-		45C987671C2D12BE00D17A1D /* Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layout.h; sourceTree = "<group>"; };
 		45C987691C2D309800D17A1D /* VZFlexNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFlexNode.h; sourceTree = "<group>"; };
 		45C9876A1C2D309800D17A1D /* VZFlexNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFlexNode.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,42 +84,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		456E61E31C35290300240D64 /* flex_layout */ = {
-			isa = PBXGroup;
-			children = (
-				456E620F1C35293000240D64 /* FNode-iOS.h */,
-				456E61E41C35290300240D64 /* ButtonNode.h */,
-				456E61E51C35290300240D64 /* ButtonNode.mm */,
-				456E61E61C35290300240D64 /* Color.h */,
-				456E61E71C35290300240D64 /* Color.mm */,
-				456E61E81C35290300240D64 /* Enum.cpp */,
-				456E61E91C35290300240D64 /* Enum.h */,
-				456E61EA1C35290300240D64 /* FlexLayout.h */,
-				456E61EB1C35290300240D64 /* FlexLayout.mm */,
-				456E61EC1C35290300240D64 /* FNode.h */,
-				456E61ED1C35290300240D64 /* FNViewAttribute.h */,
-				456E61EE1C35290300240D64 /* FNViewAttribute.mm */,
-				456E61EF1C35290300240D64 /* Font.h */,
-				456E61F01C35290300240D64 /* Font.mm */,
-				456E61F11C35290300240D64 /* Image.h */,
-				456E61F21C35290300240D64 /* ImageNode.h */,
-				456E61F31C35290300240D64 /* ImageNode.mm */,
-				456E61F51C35290300240D64 /* Inset.h */,
-				456E61F61C35290300240D64 /* Length.h */,
-				456E61F71C35290300240D64 /* Length.mm */,
-				456E61F81C35290300240D64 /* Macros.h */,
-				456E61F91C35290300240D64 /* Node.h */,
-				456E61FA1C35290300240D64 /* Property.h */,
-				456E61FB1C35290300240D64 /* StringHelper.h */,
-				456E61FC1C35290300240D64 /* TestLayout.h */,
-				456E61FD1C35290300240D64 /* TestLayout.mm */,
-				456E62001C35290300240D64 /* TextNode.h */,
-				456E62011C35290300240D64 /* TextNode.mm */,
-				456E62021C35290300240D64 /* Value.h */,
-			);
-			path = flex_layout;
-			sourceTree = "<group>";
-		};
 		45C9873E1C2D0F2800D17A1D = {
 			isa = PBXGroup;
 			children = (
@@ -209,10 +131,8 @@
 				4581467E1C5D06C800394746 /* VZFNodeViewManager.mm */,
 				453A6AB41C68AA1B000693C9 /* VZFNodeMountContext.h */,
 				453A6AB51C68AA1B000693C9 /* VZFNodeMountContext.mm */,
-				456E61E31C35290300240D64 /* flex_layout */,
 				45C987691C2D309800D17A1D /* VZFlexNode.h */,
 				45C9876A1C2D309800D17A1D /* VZFlexNode.mm */,
-				45C987651C2D12BE00D17A1D /* css_layout */,
 				45C987611C2D115500D17A1D /* VZFlexCell.h */,
 				45C987621C2D115500D17A1D /* VZFlexCell.mm */,
 				45C9874D1C2D0F2800D17A1D /* AppDelegate.h */,
@@ -234,15 +154,6 @@
 				45C9874B1C2D0F2800D17A1D /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		45C987651C2D12BE00D17A1D /* css_layout */ = {
-			isa = PBXGroup;
-			children = (
-				45C987661C2D12BE00D17A1D /* Layout.c */,
-				45C987671C2D12BE00D17A1D /* Layout.h */,
-			);
-			path = css_layout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,33 +226,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				456E62091C35290300240D64 /* ImageNode.mm in Sources */,
 				45798B5F1C58BA6200B007DF /* VZFNodeLayout.mm in Sources */,
-				456E62071C35290300240D64 /* FNViewAttribute.mm in Sources */,
 				458146761C5A12BB00394746 /* VZFNodeHostingView.mm in Sources */,
 				458300761C6E3DAC00B80D0F /* VZFGestureForward.mm in Sources */,
-				456E620E1C35290300240D64 /* TextNode.mm in Sources */,
-				456E620C1C35290300240D64 /* TestLayout.mm in Sources */,
-				456E62041C35290300240D64 /* Color.mm in Sources */,
 				453A6AB61C68AA1B000693C9 /* VZFNodeMountContext.mm in Sources */,
 				45C9876B1C2D309800D17A1D /* VZFlexNode.mm in Sources */,
 				45C987521C2D0F2800D17A1D /* ViewController.mm in Sources */,
 				45798B531C5895E600B007DF /* VZFStackNode.mm in Sources */,
 				45798B4A1C57AE2800B007DF /* VZFNodeUISpecs.mm in Sources */,
-				456E62051C35290300240D64 /* Enum.cpp in Sources */,
-				45C987681C2D12BE00D17A1D /* Layout.c in Sources */,
 				45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */,
 				4581467F1C5D06C800394746 /* VZFNodeViewManager.mm in Sources */,
 				45798B461C57ACDF00B007DF /* VZFNode.mm in Sources */,
-				456E620B1C35290300240D64 /* Length.mm in Sources */,
 				45C987631C2D115500D17A1D /* VZFlexCell.mm in Sources */,
 				45798B631C58F1EE00B007DF /* VZFNodeViewClass.mm in Sources */,
-				456E62081C35290300240D64 /* Font.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
 				45960DA11C70AD0100C5C71A /* VZFSizeRange.mm in Sources */,
-				456E62061C35290300240D64 /* FlexLayout.mm in Sources */,
 				45798B561C5897E500B007DF /* FlexLayout.c in Sources */,
-				456E62031C35290300240D64 /* ButtonNode.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
