@@ -80,23 +80,4 @@
     return layout;
 }
 
-- (NSString *)propertiesDescription:(NodeDescriptionOption)option {
-    NSMutableString *ret = [super propertiesDescription:option].mutableCopy;
-    
-    if (!(option & NodeDescriptionOptionHideChildren) && self.children.size() > 0) {
-        [ret appendString:@"  children = \n  {\n"];
-        
-        for (VZFStackChildNode& child : self.children) {
-            NSString *childDescription = [child.node recursiveDescription:option];
-            [childDescription enumerateLinesUsingBlock:^(NSString * _Nonnull line, BOOL * _Nonnull stop) {
-                [ret appendFormat:@"    %@\n", line];
-            }];
-        }
-        
-        [ret appendString:@"  }\n"];
-    }
-    
-    return ret;
-}
-
 @end
