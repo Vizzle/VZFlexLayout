@@ -94,10 +94,11 @@
     } Children:{
         {.node = node}
     }];
-    
 
-    
+    NSLog(@"%@", stackNdoe);
+  
     return stackNdoe;
+
 }
 
 

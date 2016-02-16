@@ -1,6 +1,6 @@
 //
 //  FlexLayout.h
-//  oc_test
+//  flex_layout
 //
 //  Created by Sleen on 16/1/25.
 //  Copyright © 2016年 Sleen. All rights reserved.
@@ -11,7 +11,8 @@
 #ifdef __cplusplus
 extern "C"{
 #endif
-
+    
+#include <stddef.h>
 #ifndef __cplusplus
 #   include <stdbool.h>
 #endif
@@ -23,7 +24,9 @@ static const float FlexContent = -999996;        // used in properties: flexBasi
 
 typedef enum {
     FlexHorizontal,
-    FlexVertical
+    FlexVertical,
+    FlexHorizontalReverse,
+    FlexVerticalReverse
 } FlexDirection;
 
 static const FlexDirection FLEX_WIDTH = FlexHorizontal;
@@ -47,7 +50,9 @@ typedef enum {
     FLEX_LEFT = 0,
     FLEX_TOP,
     FLEX_RIGHT,
-    FLEX_BOTTOM
+    FLEX_BOTTOM,
+    FLEX_START,
+    FLEX_END
 } FlexPositionIndex;
 
 typedef struct {
@@ -70,23 +75,23 @@ typedef struct FlexNode {
     float size[2];
     float minSize[2];
     float maxSize[2];
-    float margin[4];
-    float padding[4];
-    float border[4];
+    float margin[6];
+    float padding[6];
+    float border[6];
     float spacing;
     float lineSpacing;
     
     FlexResult result;
     
     void* context;
-    int childrenCount;
+    size_t childrenCount;
     FlexSize (*measure)(void* context, FlexSize constraintedSize);
-    struct FlexNode* (*childAt)(void* context, int index);
+    struct FlexNode* (*childAt)(void* context, size_t index);
 } FlexNode;
 
 void initFlexNode(FlexNode* node);
 void layoutFlexNode(FlexNode* node, float constraintedWidth, float constraintedHeight);
-    
+   
 #ifdef __cplusplus
 }
 #endif

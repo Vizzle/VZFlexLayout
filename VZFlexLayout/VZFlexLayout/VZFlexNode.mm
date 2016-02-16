@@ -95,7 +95,7 @@ FlexSize flexNodeMeasure(void* context, FlexSize constraintedSize) {
     return ret;
 }
 
-FlexNode* flexNodeChildAt(void* context, int index) {
+FlexNode* flexNodeChildAt(void* context, size_t index) {
     VZFlexNode* node = (__bridge VZFlexNode*)context;
     VZFlexNode* child = node.childNodes[index];
     return child -> _flex_node;
