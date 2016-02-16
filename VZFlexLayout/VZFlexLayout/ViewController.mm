@@ -52,6 +52,10 @@
             .backgroundColor = [UIColor redColor],
             .layer = {
                 .cornerRadius = 50,
+            },
+            .block = ^(UIView *view) {
+                view.layer.borderWidth = 1;
+                view.layer.borderColor = [UIColor whiteColor].CGColor;
             }
         },
         .flex = {

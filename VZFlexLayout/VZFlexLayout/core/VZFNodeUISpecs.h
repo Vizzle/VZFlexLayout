@@ -29,7 +29,6 @@ namespace VZ {
         CGFloat borderWidth;
         UIColor* borderColor;
         UIImage* contents;
-        void(^attr)(CALayer* );
     };
     
     struct ViewAttrs{
@@ -40,7 +39,7 @@ namespace VZ {
         UIViewContentMode contentMode;
         BOOL clipToBounds;
         LayerAttrs layer;
-        void(^attrs)(UIView* );
+        void(^block)(UIView* );
     };
     
 

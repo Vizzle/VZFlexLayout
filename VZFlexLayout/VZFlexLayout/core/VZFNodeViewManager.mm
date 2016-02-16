@@ -71,7 +71,7 @@ using namespace VZ;
     view.layer.cornerRadius     = vs.layer.cornerRadius;
     view.layer.borderColor      = vs.layer.borderColor.CGColor;
     view.layer.contents         = (__bridge id)vs.layer.contents.CGImage;
-    
+    vs.block(view);
     
 }
 
