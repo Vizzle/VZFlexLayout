@@ -442,10 +442,11 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 }
 
 
-- (NSString *)propertiesDescription:(NodeDescriptionOption)option {
+- (NSString *)propertiesDescription:(VZFlexNodeDescriptionOption)option {
     NSMutableString *ret = [[NSMutableString alloc] init];
+    BOOL showUnspecified = !(option & VZFlexNodeDescriptionOptionHideUnspecified);
     
-#define PRINT_PROP(PROP, TYPE) if (!(option & NodeDescriptionOptionHideUnspecified) || self.PROP != vz_defaultVZFlexNode().PROP) \
+#define PRINT_PROP(PROP, TYPE) if (showUnspecified || self.PROP != vz_defaultVZFlexNode().PROP) \
 [ret appendFormat:@"  " #PROP " = %@\n", vz_##TYPE##ToNSString(self.PROP)];
     
     PRINT_PROP(fixed, bool);
@@ -476,8 +477,8 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     PRINT_PROP(paddingRight, float);
 //    PRINT_PROP(paddingStart, float);
 //    PRINT_PROP(paddingEnd, float);
-//    PRINT_PROP(spacing, float);
-//    PRINT_PROP(lineSpacing, float);
+    PRINT_PROP(spacing, float);
+    PRINT_PROP(lineSpacing, float);
 //    PRINT_PROP(borderWidth, float);
     
 #undef PRINT_PROP
@@ -485,7 +486,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     return ret;
 }
 
-- (NSString *)recursiveDescription:(NodeDescriptionOption)option {
+- (NSString *)recursiveDescription:(VZFlexNodeDescriptionOption)option {
     NSMutableString *ret = [[NSMutableString alloc] init];
     if (self.name.length > 0) {
         [ret appendFormat:@"%@(%@)", self.name, NSStringFromClass(self.class)];
@@ -497,7 +498,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     [ret appendString:@" {\n"];
     [ret appendString:[self propertiesDescription:option]];
     
-    if (!(option & NodeDescriptionOptionHideResult)) {
+    if (!(option & VZFlexNodeDescriptionOptionHideResult)) {
         [ret appendString:@"  result = \n  {\n"];
         
         [ret appendFormat:@"    frame = %@\n", NSStringFromCGRect(self.resultFrame)];
@@ -506,7 +507,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
         [ret appendString:@"  }\n"];
     }
     
-    if (!(option & NodeDescriptionOptionHideChildren) && self.childNodes.count > 0) {
+    if (!(option & VZFlexNodeDescriptionOptionHideChildren) && self.childNodes.count > 0) {
         [ret appendString:@"  children = \n  {\n"];
         
         for (VZFlexNode *child in self.childNodes) {
@@ -525,7 +526,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 }
 
 - (NSString *)description {
-    return [self recursiveDescription:NodeDescriptionOptionHideUnspecified | NodeDescriptionOptionHideResult];
+    return [self recursiveDescription:VZFlexNodeDescriptionOptionHideUnspecified | VZFlexNodeDescriptionOptionHideResult];
 }
 
 

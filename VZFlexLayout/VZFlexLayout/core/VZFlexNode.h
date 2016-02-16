@@ -10,11 +10,11 @@
 #import "FlexLayout.h"
 
 
-typedef NS_OPTIONS(NSUInteger, NodeDescriptionOption) {
-    NodeDescriptionOptionDefault = 0,
-    NodeDescriptionOptionHideResult = 1 << 0,
-    NodeDescriptionOptionHideUnspecified = 1 << 1,
-    NodeDescriptionOptionHideChildren = 1 << 2,
+typedef NS_OPTIONS(NSUInteger, VZFlexNodeDescriptionOption) {
+    VZFlexNodeDescriptionOptionDefault = 0,
+    VZFlexNodeDescriptionOptionHideResult = 1 << 0,
+    VZFlexNodeDescriptionOptionHideUnspecified = 1 << 1,
+    VZFlexNodeDescriptionOptionHideChildren = 1 << 2,
 };
 
 @interface VZFlexNode : NSObject
@@ -60,6 +60,6 @@ typedef NS_OPTIONS(NSUInteger, NodeDescriptionOption) {
 - (void)removeSubNode:(VZFlexNode* )node;
 
 //for debugging
-- (NSString *)recursiveDescription:(NodeDescriptionOption)option;
+- (NSString *)recursiveDescription:(VZFlexNodeDescriptionOption)option;
 
 @end
