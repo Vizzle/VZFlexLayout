@@ -57,10 +57,7 @@
         .flex = {
             .width = 100,
             .height = 100,
-            .marginLeft = 100,
-            .marginTop = 100,
-            .marginRight = 100,
-            .marginBottom = 100
+            .margin = 100
         },
         .gestures = {
             
