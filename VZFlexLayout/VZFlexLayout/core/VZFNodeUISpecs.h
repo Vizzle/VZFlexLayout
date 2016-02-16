@@ -29,6 +29,7 @@ namespace VZ {
         CGFloat borderWidth;
         UIColor* borderColor;
         UIImage* contents;
+        void(^attr)(CALayer* );
     };
     
     struct ViewAttrs{
@@ -39,6 +40,7 @@ namespace VZ {
         UIViewContentMode contentMode;
         BOOL clipToBounds;
         LayerAttrs layer;
+        void(^attrs)(UIView* );
     };
     
 
@@ -84,6 +86,7 @@ namespace VZ {
         Value<int, DefaultFlexValue::direction> direction;
         Value<int, DefaultFlexValue::alignItems> alignItems;
         Value<int, DefaultFlexValue::justifyContent> justifyContent;
+        
     };
 
     struct FlexAttrs{

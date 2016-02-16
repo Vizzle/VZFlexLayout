@@ -8,12 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "VZFNodeUISpecs.h"
-#import "FlexLayout.h"
 
 using namespace VZ;
-
-
-
 @interface VZFNode : NSObject
 
 @property(nonatomic,assign,readonly)VZUISpecs specs;

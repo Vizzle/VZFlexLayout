@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "VZFNodeLayout.h"
 
-@class VZFStackNode;
+
 @class VZFNode;
 @interface VZFNodeViewManager : NSObject
 

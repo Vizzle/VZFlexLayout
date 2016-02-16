@@ -72,6 +72,7 @@ using namespace VZ;
     view.layer.borderColor      = vs.layer.borderColor.CGColor;
     view.layer.contents         = (__bridge id)vs.layer.contents.CGImage;
     
+    
 }
 
 + (void)_applyGestures:(const std::set<Gesture>&)gestures ToUIView:(UIView* )view AndNode:(VZFNode* )node{
