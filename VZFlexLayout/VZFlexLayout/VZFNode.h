@@ -12,12 +12,7 @@
 
 using namespace VZ;
 
-typedef NS_OPTIONS(NSUInteger, NodeDescriptionOption) {
-    NodeDescriptionOptionDefault = 0,
-    NodeDescriptionOptionHideResult = 1 << 0,
-    NodeDescriptionOptionHideUnspecified = 1 << 1,
-    NodeDescriptionOptionHideChildren = 1 << 2,
-};
+
 
 @interface VZFNode : NSObject
 
@@ -25,7 +20,6 @@ typedef NS_OPTIONS(NSUInteger, NodeDescriptionOption) {
 
 +(instancetype)nodeWithUISpecs:(const VZUISpecs &)specs;
 
-- (NSString *)propertiesDescription:(NodeDescriptionOption)option;
-- (NSString *)recursiveDescription:(NodeDescriptionOption)option;
+
 
 @end
