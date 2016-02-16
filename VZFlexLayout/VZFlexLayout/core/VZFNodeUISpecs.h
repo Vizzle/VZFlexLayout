@@ -68,6 +68,9 @@ namespace VZ {
         extern float paddingTop;
         extern float paddingBottom;
         
+        extern float margin;
+        extern float padding;
+        
         //flex attributes
         extern float flexGrow;
         extern float flexShrink;
@@ -107,6 +110,9 @@ namespace VZ {
         Value<float, DefaultFlexValue::paddingRight> paddingRight;
         Value<float, DefaultFlexValue::paddingTop> paddingTop;
         Value<float, DefaultFlexValue::paddingBottom> paddingBottom;
+        
+        Value<float, DefaultFlexValue::margin> margin;
+        Value<float, DefaultFlexValue::padding> padding;
         
         Value<float, DefaultFlexValue::flexGrow> flexGrow;
         Value<float, DefaultFlexValue::flexShrink> flexShrink;
