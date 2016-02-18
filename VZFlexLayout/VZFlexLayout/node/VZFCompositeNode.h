@@ -9,10 +9,14 @@
 #import "VZFNode.h"
 #import "VZFState.h"
 
+
+/**
+ *  Subclass node should inherit this node
+ */
 @interface VZFCompositeNode : VZFNode
 
 @property(nonatomic,strong,readonly)VZFNode* node;
-
+@property(nonatomic,assign,readonly)NodeSpecs specs;
 + (instancetype)newWithNode:(VZFNode* )node Props:(VZFState* )props;
 
 @end

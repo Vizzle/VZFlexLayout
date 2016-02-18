@@ -86,7 +86,11 @@ using namespace VZ;
     view.layer.cornerRadius     = vs.layer.cornerRadius;
     view.layer.borderColor      = vs.layer.borderColor.CGColor;
     view.layer.contents         = (__bridge id)vs.layer.contents.CGImage;
-    vs.block(view);
+    
+    if (vs.block) {
+        vs.block(view);
+    }
+
     
 }
 
@@ -119,10 +123,16 @@ using namespace VZ;
 
 + (void)_applyButtonAttributes:(const ButtonNodeSpecs& )buttonNodeSpecs ToUIButton:(UIButton* )btn{
 
-    [btn setTitleColor:buttonNodeSpecs.titleColor forState:UIControlStateNormal];
+    
     [btn setTitleColor:buttonNodeSpecs.titleColorHighlight forState:UIControlStateHighlighted];
-    [btn setTitle:buttonNodeSpecs.title forState:UIControlStateNormal];
     [btn setTitle:buttonNodeSpecs.titleHighlight forState:UIControlStateHighlighted];
+    [btn setTitleColor:buttonNodeSpecs.titleColor forState:UIControlStateNormal];
+    [btn setTitle:buttonNodeSpecs.title forState:UIControlStateNormal];
+    [btn.titleLabel setFont:buttonNodeSpecs.titleFont];
+    [btn setImage:buttonNodeSpecs.image forState:UIControlStateNormal];
+
+
+
 }
 
 + (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs ToUILabel:(UILabel* )label{

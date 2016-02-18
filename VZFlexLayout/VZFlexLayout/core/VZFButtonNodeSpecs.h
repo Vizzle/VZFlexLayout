@@ -12,9 +12,7 @@
 namespace VZ {
     
     struct ButtonNodeSpecs{
-        
-        bool seleced;
-        bool enabled;
+
         NSString* title;
         NSString* titleHighlight;
         UIFont* titleFont;
@@ -27,8 +25,7 @@ namespace VZ {
         
         const ButtonNodeSpecs copy() const{
             return {
-                seleced,
-                enabled,
+
                 [title copy],
                 [titleHighlight copy],
                 [titleFont copy],
@@ -43,8 +40,7 @@ namespace VZ {
         bool operator == (const ButtonNodeSpecs& other) const{
         
             return
-            seleced == other.seleced &&
-            enabled == other.enabled &&
+
             [title isEqualToString:other.title] &&
             [titleHighlight isEqualToString:other.titleHighlight] &&
             Hash::_ObjectsEqual(titleColor, other.titleColor)&&

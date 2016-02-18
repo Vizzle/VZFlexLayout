@@ -16,10 +16,16 @@
     VZFState* _props;
 }
 
-@synthesize node = _node;
-@synthesize flexNode = _flexNode;
+@synthesize node        = _node;
+@synthesize flexNode    = _flexNode;
+@synthesize specs       = _specs;
 
-+ (instancetype)nodeWithUISpecs:(const NodeSpecs &)specs{
+
+- (NodeSpecs)specs{
+    return _node.specs;
+}
+
++ (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 
@@ -33,7 +39,7 @@
     if (compositeNode) {
         compositeNode -> _node = node;
         compositeNode -> _props = state;
-        compositeNode -> _flexNode = nil;
+        compositeNode -> _flexNode = node.flexNode;
     }
     return compositeNode;
 }

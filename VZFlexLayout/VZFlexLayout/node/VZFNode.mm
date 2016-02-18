@@ -70,8 +70,7 @@
     [_flexNode layout:sz];
     VZFNodeLayout layout = { _flexNode.resultFrame.size,
                              _flexNode.resultFrame.origin,
-                             _flexNode.resultMargin
-    };
+                             _flexNode.resultMargin};
     return layout;
 }
 

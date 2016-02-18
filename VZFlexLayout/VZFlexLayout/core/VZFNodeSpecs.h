@@ -35,7 +35,7 @@ namespace VZ {
         UIColor* backgroundColor;
         BOOL clipToBounds;
         LayerAttrs layer;
-        void(^block)(UIView* );
+        void(^block)(UIView* view);
     };
     
 

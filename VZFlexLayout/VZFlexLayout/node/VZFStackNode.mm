@@ -49,18 +49,7 @@
         
         for (const auto  &child:stacknode->_children)
         {
-            if ([child.node isKindOfClass:[VZFCompositeNode class]])
-            {
-                
-                VZFlexNode* flexNode = ((VZFCompositeNode* )child.node).node.flexNode;
-                [stacknode -> _flexNode addSubNode:flexNode];
-            
-            }
-            else
-            {
-                [stacknode -> _flexNode addSubNode:child.node.flexNode];
-            }
-            
+            [stacknode -> _flexNode addSubNode:child.node.flexNode];
         }
         
     }
