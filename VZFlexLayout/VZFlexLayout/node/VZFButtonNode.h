@@ -13,6 +13,6 @@
 
 @property(nonatomic,assign,readonly) NodeSpecs specs;
 @property(nonatomic,assign,readonly) ButtonNodeSpecs buttonSpecs;
-+ (instancetype)newWithNodeSpecs:(const NodeSpecs& )specs ButtonSpecs:(const ButtonNodeSpecs&) buttonSepcs;
++ (instancetype)newWithNodeSpecs:(const NodeSpecs& )specs ButtonAttributes:(const ButtonNodeSpecs&) buttonSepcs;
 
 @end

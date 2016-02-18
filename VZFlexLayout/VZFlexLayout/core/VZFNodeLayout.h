@@ -14,10 +14,7 @@
 namespace VZ {
     
     struct NodeLayout{
-        
-
-        std::string name = "undefined";
-        
+            
         //constructor
         NodeLayout():size({0,0}),origin({0,0}),margin({0,0,0,0}),children(new std::vector<NodeLayout>()){}
         
@@ -31,21 +28,21 @@ namespace VZ {
                 
                 std::string sz =  NSStringFromCGSize(this -> size).UTF8String;
                 std::string pt =  NSStringFromCGPoint(this->origin).UTF8String;
-                std::string ret = "origin:"+pt+","+"size:"+sz+"\n";
+                std::string ret = "( origin:"+pt+","+"size:"+sz+ " )";
                 return ret;
             
             };
             
-            std::string desc = "\n"+print();
+            std::string desc = "\n" + print() + "\n";
             for(NodeLayout l : *children.get()){
                 desc += l.description();
             }
             return desc;
         };
-        const CGSize getNodeSize() const{ return size ; };
-        const CGPoint getNodeOriginPoint() const { return origin; };
-        const UIEdgeInsets getNodeMargin() const { return margin; };
-        const std::vector<NodeLayout> getChildren() const { return *children; };
+        const CGSize nodeSize() const{ return size ; };
+        const CGPoint nodeOrigin() const { return origin; };
+        const UIEdgeInsets nodeMargin() const { return margin; };
+        const std::vector<NodeLayout> childrenLayout() const { return *children; };
     private:
 
         CGSize size = {0,0};

@@ -37,7 +37,7 @@
 + (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
-+ (instancetype)nodeWithStackSpecs:(const NodeSpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children{
++ (instancetype)newWithStackSpecs:(const NodeSpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children{
 
     VZFStackNode* stacknode =  [super newWithView:[UIView class] NodeSpecs:specs];
     if (stacknode) {

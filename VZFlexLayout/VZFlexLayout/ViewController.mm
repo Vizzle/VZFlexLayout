@@ -10,6 +10,8 @@
 #import "VZFNode.h"
 #import "VZFStackNode.h"
 #import "VZFNodeHostingView.h"
+#import "VZFButtonNode.h"
+#import "VZFCompositeNode.h"
 
 @interface ViewController ()<VZFNodeHostingView>
 
@@ -37,7 +39,12 @@
 
 + (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context{
 
-    return [self simpleNode];
+    
+    VZFCompositeNode* compositeNode = [VZFCompositeNode newWithNode:[self stackNodes] Props:nil];
+    return compositeNode;
+    
+    
+//    return [self simpleNode];
 //    return [self stackNodes];
 }
 
@@ -57,9 +64,8 @@
 + (VZFNode* )simpleNode{
 
     
-    
-    VZFNode* node = [VZFNode newWithView:[UIView class] NodeSpecs:{
-    
+    VZFButtonNode* buttonNode = [VZFButtonNode newWithNodeSpecs:{
+        
         .view = {
             .userInteractionEnabled = YES,
             .backgroundColor = [UIColor redColor],
@@ -75,20 +81,52 @@
             .width = 100,
             .height = 100,
             .margin = 100
-        },
-        .gestures = {
-            
-            GestureBuilder<UITapGestureRecognizer>(^(id sender) {
-                
-                NSLog(@"tapped!!");
-                
-            }),
         }
+    
+    
+    } ButtonAttributes:{
+    
+        .title = @"按钮",
+        .titleFont = [UIFont systemFontOfSize:14.0f],
+        .titleColor = [UIColor yellowColor],
+        .action = ^(UIButton* btn){
         
+        
+        }
+    
     }];
     
+//    VZFNode* node = [VZFNode newWithView:[UIView class] NodeSpecs:{
+//    
+//        .view = {
+//            .userInteractionEnabled = YES,
+//            .backgroundColor = [UIColor redColor],
+//            .layer = {
+//                .cornerRadius = 50,
+//            },
+//            .block = ^(UIView *view) {
+//                view.layer.borderWidth = 1;
+//                view.layer.borderColor = [UIColor whiteColor].CGColor;
+//            }
+//        },
+//        .flex = {
+//            .width = 100,
+//            .height = 100,
+//            .margin = 100
+//        },
+//        .gestures = {
+//            
+//            GestureBuilder<UITapGestureRecognizer>(^(id sender) {
+//                
+//                NSLog(@"tapped!!");
+//                
+//            }),
+//        }
+//        
+//    }];
     
-    return node;
+    
+    return buttonNode;
     
     
 //    VZFStackNode* stackNdoe =[VZFStackNode nodeWithStackSpecs:{
@@ -149,7 +187,7 @@
             }
         }];
     
-    VZFStackNode* stackNodeTopNode = [VZFStackNode nodeWithStackSpecs:{
+    VZFStackNode* stackNodeTopNode = [VZFStackNode newWithStackSpecs:{
         
         .name = "TopNode",
         .view = {
@@ -184,7 +222,7 @@
         }];
     
 
-    VZFStackNode* stackNode = [VZFStackNode nodeWithStackSpecs:{
+    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
         
         .view = {
             .backgroundColor = [UIColor whiteColor],
@@ -201,6 +239,7 @@
     
     }];
     
+  
     return stackNode;
 
 }

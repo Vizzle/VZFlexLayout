@@ -17,7 +17,7 @@
 + (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
-+ (instancetype)newWithNodeSpecs:(const NodeSpecs& )specs ButtonSpecs:(const ButtonNodeSpecs&) buttonSepcs{
++ (instancetype)newWithNodeSpecs:(const NodeSpecs& )specs ButtonAttributes:(const ButtonNodeSpecs&) buttonSepcs{
     
     VZFButtonNode* buttonNode = [super newWithView:[UIButton class] NodeSpecs:specs];
     

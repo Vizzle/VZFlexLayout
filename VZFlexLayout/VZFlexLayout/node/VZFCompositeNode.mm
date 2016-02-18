@@ -18,11 +18,13 @@
 
 @synthesize node        = _node;
 @synthesize flexNode    = _flexNode;
-@synthesize specs       = _specs;
-
 
 - (NodeSpecs)specs{
     return _node.specs;
+}
+
+- (ViewClass)viewClass{
+    return _node.viewClass;
 }
 
 + (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{

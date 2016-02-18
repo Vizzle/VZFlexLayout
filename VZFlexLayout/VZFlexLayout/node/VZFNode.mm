@@ -75,7 +75,9 @@
 }
 
 - (NSString *)description {
-    return self.flexNode.description;
+    
+    NSString* className = NSStringFromClass([self class]);
+    return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
 }
 
 @end

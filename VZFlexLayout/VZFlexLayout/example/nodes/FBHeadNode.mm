@@ -8,12 +8,16 @@
 
 #import "FBHeadNode.h"
 #import "VZFNode.h"
+#import "VZFStackNode.h"
 
 @implementation FBHeadNode
 
 
 + (instancetype)new{
 
+    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{} Children:{}];
+    
+    
     VZFNode* node = [VZFNode newWithView:[UIView class] NodeSpecs:{
         
         .view = {

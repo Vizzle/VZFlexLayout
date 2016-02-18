@@ -48,9 +48,9 @@
     _node = [_nodeProvider nodeForItem:state context:nil];
     CGSize size = [_sizeProvider rangeSizeForBounds:self.bounds.size];
     VZFNodeLayout layout = [_node computeLayoutThatFits:size];
-    
-    CGFloat containerWidth = layout.getNodeSize().width + layout.getNodeMargin().left + layout.getNodeMargin().right;
-    CGFloat containerHeight = layout.getNodeSize().height + layout.getNodeMargin().top + layout.getNodeMargin().bottom;
+    NSLog(@"%s",layout.description().c_str());
+    CGFloat containerWidth = layout.nodeSize().width + layout.nodeMargin().left + layout.nodeMargin().right;
+    CGFloat containerHeight = layout.nodeSize().height + layout.nodeMargin().top + layout.nodeMargin().bottom;
     _containerView.frame = {{0,0}, {containerWidth, containerHeight}};
     UIView* fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout];
     if (fView) {

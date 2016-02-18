@@ -9,6 +9,7 @@
 #import "VZFNodeViewManager.h"
 #import "VZFGestureForward.h"
 #import "VZFNode.h"
+#import "VZFCompositeNode.h"
 #import "VZFStackNode.h"
 #import "VZFImageNode.h"
 #import "VZFTextNode.h"
@@ -22,8 +23,19 @@ using namespace VZ;
 + (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout
 {
     if (![node isKindOfClass : [VZFStackNode class] ]) {
-        return [self _viewForNode:node withLayoutSpec:layout];
+        
+        //对compositeNode做特殊处理
+        if ([node isKindOfClass:[VZFCompositeNode class]]) {
+            
+            VZFCompositeNode* compositeNode = (VZFCompositeNode* )node;
+            return [self viewForNode:compositeNode.node withLayoutSpec:layout];
+        }
+        else{
+            return [self _viewForNode:node withLayoutSpec:layout];
+        }
+      
     }
+    
     else{
       
         UIView* stackView = [self _viewForNode:node withLayoutSpec:layout];
@@ -32,7 +44,7 @@ using namespace VZ;
             
             VZFStackChildNode _childNode = stackNode.children[i];
             VZFNode* _node = _childNode.node;
-            VZFNodeLayout _layout = layout.getChildren()[i];
+            VZFNodeLayout _layout = layout.childrenLayout()[i];
             if ([_node isKindOfClass:[VZFStackNode class]]) {
                 //递归
                 UIView* stackViewRecursive=[self viewForNode:_node withLayoutSpec:_layout];
@@ -52,7 +64,7 @@ using namespace VZ;
     const NodeSpecs specs = node.specs;
     UIView* view = [self _createUIView:node.viewClass];
     [self _applyAttributes:specs.view ToUIView:view];
-    view.frame = {layout.getNodeOriginPoint(), layout.getNodeSize()};
+    view.frame = {layout.nodeOrigin(), layout.nodeSize()};
     [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
@@ -133,6 +145,7 @@ using namespace VZ;
     [btn setImage:buttonNodeSpecs.imageHighlight forState:UIControlStateHighlighted];
     [btn setBackgroundImage:buttonNodeSpecs.backgroundImage forState:UIControlStateNormal];
     [btn setBackgroundImage:buttonNodeSpecs.backgroundImageHighlight forState:UIControlStateHighlighted];
+//    btn addTarget:<#(nullable id)#> action:<#(nonnull SEL)#> forControlEvents:<#(UIControlEvents)#>
     
 }
 
