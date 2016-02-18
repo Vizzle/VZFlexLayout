@@ -12,7 +12,7 @@
 #import "VZFStackNode.h"
 #import "VZFImageNode.h"
 #import "VZFTextNode.h"
-#import "VZFButtonNodeSpecs.h"
+#import "VZFButtonNode.h"
 
 using namespace VZ;
 @implementation VZFNodeViewManager
@@ -55,9 +55,17 @@ using namespace VZ;
     view.frame = {layout.getNodeOriginPoint(), layout.getNodeSize()};
     [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
     
-    if ([view isKindOfClass:[UIImageView class]]) {
+    if ([node isKindOfClass:[VZFImageNode class]]) {
         VZFImageNode* imageNode = (VZFImageNode* )node;
         [self _applyImageAttributes:imageNode.imagesSpecs ToImageView:(UIImageView* )view];
+    }
+    else if ([node isKindOfClass:[VZFButtonNode class]]){
+        VZFButtonNode* buttonNdoe = (VZFButtonNode* )node;
+        [self _applyButtonAttributes:buttonNdoe.buttonSpecs ToUIButton:(UIButton* )view];
+    }
+    else if ([node isKindOfClass:[VZFTextNode class]]){
+        VZFTextNode* textNode = (VZFTextNode* )node;
+        [self _applyTextAttributes:textNode.textSpecs ToUILabel:(UILabel* )view];
     }
     
     return view;
@@ -112,12 +120,14 @@ using namespace VZ;
 + (void)_applyButtonAttributes:(const ButtonNodeSpecs& )buttonNodeSpecs ToUIButton:(UIButton* )btn{
 
     [btn setTitleColor:buttonNodeSpecs.titleColor forState:UIControlStateNormal];
-    
+    [btn setTitleColor:buttonNodeSpecs.titleColorHighlight forState:UIControlStateHighlighted];
+    [btn setTitle:buttonNodeSpecs.title forState:UIControlStateNormal];
+    [btn setTitle:buttonNodeSpecs.titleHighlight forState:UIControlStateHighlighted];
 }
 
 + (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs ToUILabel:(UILabel* )label{
 
-    
+    label.attributedText = textNodeSpecs.attributedString;
 }
 
 @end

@@ -34,12 +34,12 @@
     return _children;
 }
 
-+ (instancetype)nodeWithUISpecs:(const NodeSpecs &)specs{
++ (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 + (instancetype)nodeWithStackSpecs:(const NodeSpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children{
 
-    VZFStackNode* stacknode =  [super nodeWithView:[UIView class] Specs:specs];
+    VZFStackNode* stacknode =  [super newWithView:[UIView class] NodeSpecs:specs];
     if (stacknode) {
         
         stacknode -> _specs             = specs;

@@ -58,7 +58,7 @@
 
     
     
-    VZFNode* node = [VZFNode nodeWithView:[UIView class] Specs:{
+    VZFNode* node = [VZFNode newWithView:[UIView class] NodeSpecs:{
     
         .view = {
             .userInteractionEnabled = YES,
@@ -112,7 +112,7 @@
 
 + (VZFStackNode* )stackNodes{
 
-    VZFNode* imageNode = [VZFNode nodeWithView:[UIView class] Specs:{
+    VZFNode* imageNode = [VZFNode newWithView:[UIView class] NodeSpecs:{
         
             .view = {
                 
@@ -134,7 +134,7 @@
             }
         }];
     
-    VZFNode* textNode = [VZFNode nodeWithView:[UIView class] Specs:{
+    VZFNode* textNode = [VZFNode newWithView:[UIView class] NodeSpecs:{
     
             .view = {
                 .tag = 101,
@@ -170,7 +170,7 @@
         
     }];
 
-    VZFNode* contentNode = [VZFNode nodeWithView:[UIView class] Specs:{
+    VZFNode* contentNode = [VZFNode newWithView:[UIView class] NodeSpecs:{
             .view = {
                 .backgroundColor = [UIColor greenColor],
             },

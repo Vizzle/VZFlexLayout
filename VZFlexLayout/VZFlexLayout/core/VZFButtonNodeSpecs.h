@@ -16,8 +16,10 @@ namespace VZ {
         bool seleced;
         bool enabled;
         NSString* title;
+        NSString* titleHighlight;
         UIFont* titleFont;
         UIColor* titleColor;
+        UIColor* titleColorHighlight;
         UIImage* image;
         UIImage* backgroundImage;
         void(^action)(UIButton* btn);
@@ -42,6 +44,8 @@ namespace VZ {
             seleced == other.seleced &&
             enabled == other.enabled &&
             [title isEqualToString:other.title] &&
+            Hash::_ObjectsEqual(titleColor, other.titleColor)&&
+            Hash::_ObjectsEqual(titleColorHighlight, other.titleColorHighlight)&&
             Hash::_ObjectsEqual(titleFont, other.titleFont) &&
             Hash::_ObjectsEqual(image, other.image) &&
             Hash::_ObjectsEqual(backgroundImage, other.backgroundImage) &&

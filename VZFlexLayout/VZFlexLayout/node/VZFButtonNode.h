@@ -7,7 +7,12 @@
 //
 
 #import "VZFNode.h"
+#import "VZFButtonNodeSpecs.h"
 
 @interface VZFButtonNode : VZFNode
+
+@property(nonatomic,assign,readonly) NodeSpecs specs;
+@property(nonatomic,assign,readonly) ButtonNodeSpecs buttonSpecs;
++ (instancetype)newWithNodeSpecs:(const NodeSpecs& )specs ButtonSpecs:(const ButtonNodeSpecs&) buttonSepcs;
 
 @end

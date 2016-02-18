@@ -14,7 +14,7 @@
 
 @property(nonatomic,assign,readonly) NodeSpecs specs;
 @property(nonatomic,assign,readonly) ImageNodeSpecs imagesSpecs;
-+ (instancetype)imageNodeWithSpecs:(const NodeSpecs&)specs ImageSpecs:(const ImageNodeSpecs &)imageSpecs;
++ (instancetype)newWithNodeSpecs:(const NodeSpecs&)specs ImageAttributes:(const ImageNodeSpecs &)imageSpecs;
 
 
 @end

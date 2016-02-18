@@ -29,7 +29,7 @@
         return nil;
     }
     
-    VZFCompositeNode* compositeNode = [super nodeWithView:{} Specs:{}];
+    VZFCompositeNode* compositeNode = [super newWithView:{} NodeSpecs:{}];
     if (compositeNode) {
         compositeNode -> _node = node;
         compositeNode -> _props = state;

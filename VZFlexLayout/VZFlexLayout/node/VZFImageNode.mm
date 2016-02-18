@@ -15,16 +15,16 @@
 
 @synthesize specs = _specs;
 @synthesize imagesSpecs = _imageSpecs;
-@synthesize flexNode = _flexNode;
 
-+ (instancetype)nodeWithUISpecs:(const NodeSpecs &)specs{
++ (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 
-+ (instancetype)imageNodeWithSpecs:(const NodeSpecs &)specs ImageSpecs:(const ImageNodeSpecs &)imageSpecs
++ (instancetype)newWithNodeSpecs:(const NodeSpecs &)specs ImageAttributes:(const ImageNodeSpecs &)imageSpecs
 {
-    VZFImageNode* imageNode = [super nodeWithView:[UIImageView class] Specs:specs];    
+    VZFImageNode* imageNode = [super newWithView:[UIImageView class] NodeSpecs:specs];
     if (imageNode) {
+        imageNode -> _specs = specs;
         imageNode -> _imageSpecs = imageSpecs.copy();
     }
     return imageNode;

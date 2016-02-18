@@ -30,7 +30,7 @@
     return nil;
 }
 
-+ (instancetype)nodeWithView:(ViewClass &&)viewclass Specs:(const NodeSpecs &)specs{
++ (instancetype)newWithView:(ViewClass &&)viewclass NodeSpecs:(const NodeSpecs &)specs{
 
     return [[self alloc] initWithView: std::move(viewclass) Specs:specs];
 }
@@ -39,7 +39,7 @@
 
 + (instancetype)new
 {
-    return [self nodeWithView:[UIView class] Specs:{}];
+    return [self newWithView:[UIView class] NodeSpecs:{}];
 }
 
 - (instancetype)initWithView:(ViewClass&& )viewclass Specs:(const NodeSpecs& )specs{

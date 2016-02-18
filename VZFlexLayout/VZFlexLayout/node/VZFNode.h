@@ -16,7 +16,7 @@ using namespace VZ;
 @property(nonatomic,assign,readonly)ViewClass viewClass;
 @property(nonatomic,assign,readonly)NodeSpecs specs;
 
-+(instancetype)nodeWithView:(ViewClass &&)viewClass Specs:(const NodeSpecs& )specs;
++(instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs& )specs;
 
 
 
