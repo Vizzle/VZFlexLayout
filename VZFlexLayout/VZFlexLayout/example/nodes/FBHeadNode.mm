@@ -7,14 +7,35 @@
 //
 
 #import "FBHeadNode.h"
-
+#import "VZFNode.h"
 
 @implementation FBHeadNode
 
 
-+ (instancetype)newWithIcon:(UIImage* )image URL:(NSString* )url{
++ (instancetype)new{
 
-    return nil;
+    VZFNode* node = [VZFNode newWithView:[UIView class] NodeSpecs:{
+        
+        .view = {
+        
+            .backgroundColor = [UIColor blackColor],
+            .layer = {
+            
+            
+            },
+        },
+        .flex = {
+            .width = 100,
+            .height = 100,
+        }
+    
+    
+    }];
+    
+    FBHeadNode* headNode = [super newWithNode:node Props:nil];
+    
+    return headNode;
+
 }
 
 

@@ -19,7 +19,9 @@ namespace VZ {
         UIColor* titleColor;
         UIColor* titleColorHighlight;
         UIImage* image;
+        UIImage* imageHighlight;
         UIImage* backgroundImage;
+        UIImage* backgroundImageHighlight;
         void(^action)(UIButton* btn);
         
         
@@ -32,7 +34,9 @@ namespace VZ {
                 [titleColor copy],
                 [titleColorHighlight copy],
                 [image copy],
+                [imageHighlight copy],
                 [backgroundImage copy],
+                [backgroundImageHighlight copy],
                 [action copy],
             };
         }
@@ -47,7 +51,9 @@ namespace VZ {
             Hash::_ObjectsEqual(titleColorHighlight, other.titleColorHighlight)&&
             Hash::_ObjectsEqual(titleFont, other.titleFont) &&
             Hash::_ObjectsEqual(image, other.image) &&
+            Hash::_ObjectsEqual(imageHighlight, other.imageHighlight) &&
             Hash::_ObjectsEqual(backgroundImage, other.backgroundImage) &&
+            Hash::_ObjectsEqual(backgroundImageHighlight, other.backgroundImageHighlight) &&
             action == other.action;
             
         }

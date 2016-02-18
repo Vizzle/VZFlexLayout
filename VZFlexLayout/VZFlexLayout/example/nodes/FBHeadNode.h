@@ -10,6 +10,6 @@
 
 @interface FBHeadNode : VZFCompositeNode
 
-+ (instancetype)newWithIcon:(UIImage* )image URL:(NSString* )url;
++ (instancetype)new;
 
 @end

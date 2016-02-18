@@ -43,7 +43,7 @@
     if (stacknode) {
         
         stacknode -> _specs             = specs;
-        stacknode -> _children          = VZ::F::filter(children, [](const VZFStackChildNode &child){return child.node != nil;});
+        stacknode -> _children          = VZ::Function::filter(children, [](const VZFStackChildNode &child){return child.node != nil;});
         stacknode -> _flexNode          = [VZFNodeUISpecs flexNodeWithAttributes:specs.flex];
         stacknode -> _flexNode.name     = [[NSString alloc]initWithUTF8String:specs.name.c_str()];
         

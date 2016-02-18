@@ -130,9 +130,10 @@ using namespace VZ;
     [btn setTitle:buttonNodeSpecs.title forState:UIControlStateNormal];
     [btn.titleLabel setFont:buttonNodeSpecs.titleFont];
     [btn setImage:buttonNodeSpecs.image forState:UIControlStateNormal];
-
-
-
+    [btn setImage:buttonNodeSpecs.imageHighlight forState:UIControlStateHighlighted];
+    [btn setBackgroundImage:buttonNodeSpecs.backgroundImage forState:UIControlStateNormal];
+    [btn setBackgroundImage:buttonNodeSpecs.backgroundImageHighlight forState:UIControlStateHighlighted];
+    
 }
 
 + (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs ToUILabel:(UILabel* )label{

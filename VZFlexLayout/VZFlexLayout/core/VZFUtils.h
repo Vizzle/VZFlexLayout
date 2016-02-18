@@ -14,7 +14,7 @@
 #import <vector>
 
 namespace VZ {
-    namespace F{
+    namespace Function{
         
         //(vector<T>) -> (lambda<filter>) -> (vector<T>)
         template<typename T, typename Func>
