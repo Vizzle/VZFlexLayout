@@ -30,8 +30,10 @@ namespace VZ {
                 seleced,
                 enabled,
                 [title copy],
+                [titleHighlight copy],
                 [titleFont copy],
                 [titleColor copy],
+                [titleColorHighlight copy],
                 [image copy],
                 [backgroundImage copy],
                 [action copy],
@@ -44,6 +46,7 @@ namespace VZ {
             seleced == other.seleced &&
             enabled == other.enabled &&
             [title isEqualToString:other.title] &&
+            [titleHighlight isEqualToString:other.titleHighlight] &&
             Hash::_ObjectsEqual(titleColor, other.titleColor)&&
             Hash::_ObjectsEqual(titleColorHighlight, other.titleColorHighlight)&&
             Hash::_ObjectsEqual(titleFont, other.titleFont) &&
