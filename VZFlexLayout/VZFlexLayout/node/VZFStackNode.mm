@@ -10,8 +10,8 @@
 #import "VZFlexNode.h"
 #import "VZFUtils.h"
 #import "VZFNodeInternal.h"
-#import "VZFNodeSubclass.h"
 #import "VZFMacros.h"
+#import "VZFCompositeNode.h"
 
 @interface VZFStackNode()
 
@@ -26,7 +26,7 @@
 @synthesize specs = _specs;
 @synthesize flexNode = _flexNode;
 
-- (VZUISpecs)specs{
+- (NodeSpecs)specs{
     return _specs;
 }
 
@@ -34,12 +34,12 @@
     return _children;
 }
 
-+ (instancetype)nodeWithUISpecs:(const VZUISpecs &)specs{
++ (instancetype)nodeWithUISpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
-+ (instancetype)nodeWithStackSpecs:(const VZUISpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children{
++ (instancetype)nodeWithStackSpecs:(const NodeSpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children{
 
-    VZFStackNode* stacknode =  [super nodeWithUISpecs:{}];
+    VZFStackNode* stacknode =  [super nodeWithView:[UIView class] Specs:specs];
     if (stacknode) {
         
         stacknode -> _specs             = specs;
@@ -47,8 +47,20 @@
         stacknode -> _flexNode          = [VZFNodeUISpecs flexNodeWithAttributes:specs.flex];
         stacknode -> _flexNode.name     = [[NSString alloc]initWithUTF8String:specs.name.c_str()];
         
-        for (const auto  &child:stacknode->_children) {
-            [stacknode -> _flexNode addSubNode:child.node.flexNode];
+        for (const auto  &child:stacknode->_children)
+        {
+            if ([child.node isKindOfClass:[VZFCompositeNode class]])
+            {
+                
+                VZFlexNode* flexNode = ((VZFCompositeNode* )child.node).node.flexNode;
+                [stacknode -> _flexNode addSubNode:flexNode];
+            
+            }
+            else
+            {
+                [stacknode -> _flexNode addSubNode:child.node.flexNode];
+            }
+            
         }
         
     }

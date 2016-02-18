@@ -7,14 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VZFNodeUISpecs.h"
+#import "VZFNodeSpecs.h"
+#import "VZFNodeViewClass.h"
 
 using namespace VZ;
 @interface VZFNode : NSObject
 
-@property(nonatomic,assign,readonly)VZUISpecs specs;
+@property(nonatomic,assign,readonly)ViewClass viewClass;
+@property(nonatomic,assign,readonly)NodeSpecs specs;
 
-+(instancetype)nodeWithUISpecs:(const VZUISpecs &)specs;
++(instancetype)nodeWithView:(ViewClass &&)viewClass Specs:(const NodeSpecs& )specs;
 
 
 

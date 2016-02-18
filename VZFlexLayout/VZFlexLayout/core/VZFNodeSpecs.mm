@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "VZFNodeUISpecs.h"
+#import "VZFNodeSpecs.h"
 #import "VZFSizeRange.h"
 #import "VZFlexNode.h"
 

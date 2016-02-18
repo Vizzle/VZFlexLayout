@@ -7,7 +7,7 @@
 //
 
 #import "VZFSizeRange.h"
-#import "VZFNodeUISpecs.h"
+#import "VZFNodeSpecs.h"
 #import "VZFValue.h"
 
 @implementation VZSizeRangeProvider

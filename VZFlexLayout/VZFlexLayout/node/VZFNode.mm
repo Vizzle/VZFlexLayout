@@ -25,27 +25,29 @@
 
 @synthesize flexNode = _flexNode;
 
+
 + (id)initialState{
     return nil;
 }
 
-+(instancetype)nodeWithUISpecs:(const VZUISpecs &)specs{
-    
-    return [[self alloc] initWithUISpecs:specs];
++ (instancetype)nodeWithView:(ViewClass &&)viewclass Specs:(const NodeSpecs &)specs{
+
+    return [[self alloc] initWithView: std::move(viewclass) Specs:specs];
 }
 
 
 
 + (instancetype)new
 {
-    return [self nodeWithUISpecs:{}];
+    return [self nodeWithView:[UIView class] Specs:{}];
 }
 
-- (instancetype)initWithUISpecs:(const VZUISpecs& )specs{
+- (instancetype)initWithView:(ViewClass&& )viewclass Specs:(const NodeSpecs& )specs{
     self = [super init];
     if (self) {
         
         _specs = specs;
+        _viewClass = viewclass;
         _flexNode = [VZFNodeUISpecs flexNodeWithAttributes:_specs.flex];
         _flexNode.name = [NSString stringWithUTF8String:specs.name.c_str()];
     }
@@ -55,6 +57,11 @@
 - (instancetype)init
 {
     VZ_NOT_DESIGNATED_INITIALIZER();
+}
+
+- (void)updateState:(id (^)(id))updateBlock{
+
+    //noop
 }
 
 

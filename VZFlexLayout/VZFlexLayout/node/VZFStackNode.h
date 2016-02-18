@@ -20,10 +20,10 @@ typedef struct {
 
 @interface VZFStackNode : VZFNode
 
-@property(nonatomic,assign,readonly) VZUISpecs specs;
+@property(nonatomic,assign,readonly) NodeSpecs specs;
 @property(nonatomic,assign,readonly) std::vector<VZFStackChildNode> children;
 
-+ (instancetype)nodeWithStackSpecs:(const VZUISpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children;
++ (instancetype)nodeWithStackSpecs:(const NodeSpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children;
 
 
 @end

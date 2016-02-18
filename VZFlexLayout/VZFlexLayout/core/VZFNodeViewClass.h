@@ -30,7 +30,7 @@ namespace VZ {
     };
 }
 
-typedef VZ::ViewClass VZViewClass;
+typedef VZ::ViewClass ViewClass;
 
 //hash<ViewClass>
 namespace std {

@@ -14,21 +14,18 @@
 @implementation VZFImageNode
 
 @synthesize specs = _specs;
+@synthesize imagesSpecs = _imageSpecs;
 @synthesize flexNode = _flexNode;
 
-+ (instancetype)nodeWithUISpecs:(const VZUISpecs &)specs{
++ (instancetype)nodeWithUISpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 
-+ (instancetype)imageNodeWithSpecs:(const VZUIImageNodeSpecs& )specs{
-    
-    //check the specs
-    VZFImageNode* imageNode = [super nodeWithUISpecs:{}];
-    
++ (instancetype)imageNodeWithSpecs:(const NodeSpecs &)specs ImageSpecs:(const ImageNodeSpecs &)imageSpecs
+{
+    VZFImageNode* imageNode = [super nodeWithView:[UIImageView class] Specs:specs];    
     if (imageNode) {
-        imageNode -> _specs = specs;
-        imageNode -> _flexNode = [VZFNodeUISpecs flexNodeWithAttributes:specs.flex];
-        imageNode -> _flexNode.name = [[NSString alloc]initWithUTF8String:specs.name.c_str()];
+        imageNode -> _imageSpecs = imageSpecs.copy();
     }
     return imageNode;
     

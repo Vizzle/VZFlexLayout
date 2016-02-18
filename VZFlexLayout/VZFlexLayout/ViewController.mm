@@ -41,12 +41,25 @@
 //    return [self stackNodes];
 }
 
++ (VZFlexNode* )textNode{
+
+//    VZ::TextKitAttributes attr = {
+//    
+//        .attributedString = [[NSAttributedString alloc]initWithString:@"a"],
+//    
+//    };
+    
+
+    return nil;
+
+}
+
 + (VZFNode* )simpleNode{
 
-    VZFNode* node = [VZFNode nodeWithUISpecs:{
-        
-        
-        .clz = [UIView class],
+    
+    
+    VZFNode* node = [VZFNode nodeWithView:[UIView class] Specs:{
+    
         .view = {
             .userInteractionEnabled = YES,
             .backgroundColor = [UIColor redColor],
@@ -72,8 +85,8 @@
             }),
         }
         
-        
     }];
+    
     
     return node;
     
@@ -99,9 +112,8 @@
 
 + (VZFStackNode* )stackNodes{
 
-    VZFNode* imageNode = [VZFNode nodeWithUISpecs:{
+    VZFNode* imageNode = [VZFNode nodeWithView:[UIView class] Specs:{
         
-            .clz = [UIImageView class],
             .view = {
                 
                 .tag = 100,
@@ -122,9 +134,8 @@
             }
         }];
     
-    VZFNode* textNode = [VZFNode nodeWithUISpecs:{
+    VZFNode* textNode = [VZFNode nodeWithView:[UIView class] Specs:{
     
-            .clz = [UIView class],
             .view = {
                 .tag = 101,
                 .backgroundColor = [UIColor yellowColor]
@@ -159,10 +170,7 @@
         
     }];
 
-    VZFNode* contentNode = [VZFNode nodeWithUISpecs:
-    
-        {
-            .clz = [UILabel class],
+    VZFNode* contentNode = [VZFNode nodeWithView:[UIView class] Specs:{
             .view = {
                 .backgroundColor = [UIColor greenColor],
             },

@@ -10,6 +10,9 @@
 #import "VZFGestureForward.h"
 #import "VZFNode.h"
 #import "VZFStackNode.h"
+#import "VZFImageNode.h"
+#import "VZFTextNode.h"
+#import "VZFButtonNodeSpecs.h"
 
 using namespace VZ;
 @implementation VZFNodeViewManager
@@ -46,11 +49,16 @@ using namespace VZ;
 }
 + (UIView* )_viewForNode:(VZFNode *)node withLayoutSpec:(const VZFNodeLayout &)layout{
     
-    const VZUISpecs specs = node.specs;
-    UIView* view = [self _createUIView:specs.clz];
+    const NodeSpecs specs = node.specs;
+    UIView* view = [self _createUIView:node.viewClass];
     [self _applyAttributes:specs.view ToUIView:view];
     view.frame = {layout.getNodeOriginPoint(), layout.getNodeSize()};
     [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
+    
+    if ([view isKindOfClass:[UIImageView class]]) {
+        VZFImageNode* imageNode = (VZFImageNode* )node;
+        [self _applyImageAttributes:imageNode.imagesSpecs ToImageView:(UIImageView* )view];
+    }
     
     return view;
 }
@@ -93,6 +101,21 @@ using namespace VZ;
         [gesture addTarget:node.gestureForward action:@selector(action:)];
         [view addGestureRecognizer:gesture];
     }
+}
+
++ (void)_applyImageAttributes:(const ImageNodeSpecs& )imageNodeSpecs ToImageView:(UIImageView* )imageView{
+    
+    imageView.image = imageNodeSpecs.image;
+
+}
+
++ (void)_applyButtonAttributes:(const ButtonNodeSpecs& )buttonNodeSpecs ToUIButton:(UIButton* )btn{
+
+    [btn setTitleColor:buttonNodeSpecs.titleColor forState:UIControlStateNormal];
+    
+}
+
++ (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs ToUILabel:(UILabel* )label{
 
     
 }

@@ -18,10 +18,7 @@
 #import "VZFGesture.h"
 
 using namespace VZ;
-
 namespace VZ {
-    
-
     
     struct LayerAttrs{
         
@@ -119,7 +116,7 @@ namespace VZ {
         
         Value<float, DefaultFlexValue::flexGrow> flexGrow;
         Value<float, DefaultFlexValue::flexShrink> flexShrink;
-        Value<int, DefaultFlexValue::aliginSelf> alignSelf;
+        Value<int,  DefaultFlexValue::aliginSelf> alignSelf;
         Value<bool, DefaultFlexValue::fixed> fixed;
         Value<bool, DefaultFlexValue::wrap> wrap;
         
@@ -127,34 +124,30 @@ namespace VZ {
         struct StackLayoutSpecs stackLayout;
     
     };
+//    
+//    
+//    typedef struct{
+//    
+//        UIImage* image;
+//        
+//    }ImageNodeSpecs;
     
+//    typedef struct {
+//    
+//        UIColor* textColor;
+//        UIFont* textFont;
+//        NSString* text;
+//        
+//        
+//    }TextNodeSpecs;
+
     
-    typedef struct{
-    
-        UIImage* image;
-        
-    }ImageNodeSpecs;
-    
-    typedef struct {
-    
-        UIColor* textColor;
-        UIFont* textFont;
-        NSString* text;
-    }TextNodeSpecs;
-    
-    typedef struct{
-        
-        bool seleced;
-        bool enabled;
-        NSString* title;
-        UIFont* titleFont;
-        UIColor* titleColor;
-        UIImage* image;
-        UIImage* backgroundImage;
-        id target;
-        SEL action;
-    
-    }ButtonNodeSpecs;
+//    typedef struct{
+//        
+// 
+//
+//    
+//    }ButtonNodeSpecs;
     
     typedef struct{}ViewNodeSpecs;
 
@@ -163,10 +156,7 @@ namespace VZ {
         
         //name
         std::string name;
-        
-        //view class
-        ViewClass clz;
-        
+
         //view / layer properties
         struct ViewAttrs view;
         
@@ -184,10 +174,10 @@ namespace VZ {
 
 }
 
-typedef VZ::UISpecs<ViewNodeSpecs> VZUISpecs;
-typedef VZ::UISpecs<TextNodeSpecs> VZUITextNodeSpecs;
-typedef VZ::UISpecs<ImageNodeSpecs> VZUIImageNodeSpecs;
-typedef VZ::UISpecs<ButtonNodeSpecs> VZUIButtonNodeSpecs;
+typedef VZ::UISpecs<ViewNodeSpecs> NodeSpecs;
+//typedef VZ::UISpecs<TextNodeSpecs> VZUITextNodeSpecs;
+//typedef VZ::UISpecs<ImageNodeSpecs> VZUIImageNodeSpecs;
+//typedef VZ::UISpecs<ButtonNodeSpecs> VZUIButtonNodeSpecs;
 
 /**
  typedef enum {

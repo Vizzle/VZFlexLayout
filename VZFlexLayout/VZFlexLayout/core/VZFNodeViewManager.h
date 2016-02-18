@@ -11,6 +11,7 @@
 
 
 @class VZFNode;
+@class VZFImageNode;
 @interface VZFNodeViewManager : NSObject
 
 + (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout;

@@ -17,6 +17,20 @@
 
 @property(nonatomic,strong,readonly)VZFlexNode* flexNode;
 
+/**
+ *  更新状态，(old) -> (new)
+ *
+ *  @param updateBlock
+ */
+- (void)updateState:(id(^)(id))updateBlock;
+
+/**
+ *  计算Node的layout
+ *
+ *  @param sz
+ *
+ *  @return
+ */
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz;
 
 @end
