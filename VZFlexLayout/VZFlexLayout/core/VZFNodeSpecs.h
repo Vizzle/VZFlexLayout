@@ -124,30 +124,6 @@ namespace VZ {
         struct StackLayoutSpecs stackLayout;
     
     };
-//    
-//    
-//    typedef struct{
-//    
-//        UIImage* image;
-//        
-//    }ImageNodeSpecs;
-    
-//    typedef struct {
-//    
-//        UIColor* textColor;
-//        UIFont* textFont;
-//        NSString* text;
-//        
-//        
-//    }TextNodeSpecs;
-
-    
-//    typedef struct{
-//        
-// 
-//
-//    
-//    }ButtonNodeSpecs;
     
     typedef struct{}ViewNodeSpecs;
 
@@ -170,14 +146,9 @@ namespace VZ {
         T attrs;
         
     };
-    
-
 }
 
 typedef VZ::UISpecs<ViewNodeSpecs> NodeSpecs;
-//typedef VZ::UISpecs<TextNodeSpecs> VZUITextNodeSpecs;
-//typedef VZ::UISpecs<ImageNodeSpecs> VZUIImageNodeSpecs;
-//typedef VZ::UISpecs<ButtonNodeSpecs> VZUIButtonNodeSpecs;
 
 /**
  typedef enum {
