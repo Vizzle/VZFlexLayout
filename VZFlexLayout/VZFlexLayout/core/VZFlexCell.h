@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "VZFLocker.h"
 
 
 @interface VZFlexCell : UITableViewCell
