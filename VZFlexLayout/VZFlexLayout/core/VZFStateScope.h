@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  Node内部的State是封闭的，StateScope用来让Node在类方法内获取state
+ */
 @interface VZFStateScope : NSObject
 
 @end
