@@ -24,6 +24,7 @@
 }
 
 @synthesize flexNode = _flexNode;
+@synthesize parentNode = _parentNode;
 
 
 + (id)initialState{
@@ -62,6 +63,7 @@
 - (void)updateState:(id (^)(id))updateBlock{
 
     //noop
+    [self.parentNode updateState:updateBlock];
 }
 
 
@@ -72,6 +74,10 @@
                              _flexNode.resultFrame.origin,
                              _flexNode.resultMargin};
     return layout;
+}
+
+- (void)willBeAddedToParentNode:(VZFNode* )parentNode{
+    _parentNode = parentNode;
 }
 
 - (NSString *)description {
