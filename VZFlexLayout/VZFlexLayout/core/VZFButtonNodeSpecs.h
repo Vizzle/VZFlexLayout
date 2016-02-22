@@ -8,53 +8,63 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFUtils.h"
+#import "VZFValue.h"
 
 namespace VZ {
     
+    typedef void(^UIControlActionBlock)(id sender);
+    
+    struct ControlAction {
+        UIControlEvents event;
+        UIControlActionBlock action;
+        
+        bool operator == (const ControlAction& other) const {
+            return event == other.event && action == other.action;
+        }
+    };
+    
+    struct ControlActionList : std::vector<ControlAction> {
+        using VectorType = std::vector<ControlAction>;
+        
+        ControlActionList() : VectorType() {}
+        ControlActionList(UIControlActionBlock action) : VectorType({{UIControlEventTouchUpInside, action}}) {}
+        ControlActionList(std::initializer_list<typename VectorType::value_type> list) : VectorType(list) {}
+    };
+    
     struct ButtonNodeSpecs{
 
-        NSString* title;
-        NSString* titleHighlight;
-        UIFont* titleFont;
-        UIColor* titleColor;
-        UIColor* titleColorHighlight;
-        UIImage* image;
-        UIImage* imageHighlight;
-        UIImage* backgroundImage;
-        UIImage* backgroundImageHighlight;
-        void(^action)(UIButton* btn);
-        
+        UIFont *font;
+        NSTextAlignment textAlignment;
+        StatefulValue<NSString *>title;     // IMPORTANT: node won't re-layout when the title is changed by state-changing.
+        StatefulValue<UIColor *> titleColor;
+        StatefulValue<UIImage *> backgroundImage;
+        ControlActionList action;
+        // the image property was not supported, use an image node nested in a button node instead.
         
         const ButtonNodeSpecs copy() const{
-            return {
-
-                [title copy],
-                [titleHighlight copy],
-                [titleFont copy],
-                [titleColor copy],
-                [titleColorHighlight copy],
-                [image copy],
-                [imageHighlight copy],
-                [backgroundImage copy],
-                [backgroundImageHighlight copy],
-                [action copy],
-            };
+            return *this;
+//            return {
+//
+//                [title copy],
+//                [titleHighlight copy],
+//                [titleFont copy],
+//                [titleColor copy],
+//                [titleColorHighlight copy],
+//                [image copy],
+//                [imageHighlight copy],
+//                [backgroundImage copy],
+//                [backgroundImageHighlight copy],
+//                [action copy],
+//            };
         }
         
         bool operator == (const ButtonNodeSpecs& other) const{
         
-            return
-
-            [title isEqualToString:other.title] &&
-            [titleHighlight isEqualToString:other.titleHighlight] &&
-            Hash::_ObjectsEqual(titleColor, other.titleColor)&&
-            Hash::_ObjectsEqual(titleColorHighlight, other.titleColorHighlight)&&
-            Hash::_ObjectsEqual(titleFont, other.titleFont) &&
-            Hash::_ObjectsEqual(image, other.image) &&
-            Hash::_ObjectsEqual(imageHighlight, other.imageHighlight) &&
-            Hash::_ObjectsEqual(backgroundImage, other.backgroundImage) &&
-            Hash::_ObjectsEqual(backgroundImageHighlight, other.backgroundImageHighlight) &&
-            action == other.action;
+            return VZ::Hash::_ObjectsEqual(font, other.font)
+                && title == other.title
+                && titleColor == other.titleColor
+                && backgroundImage == other.backgroundImage
+                && action == other.action;
             
         }
     

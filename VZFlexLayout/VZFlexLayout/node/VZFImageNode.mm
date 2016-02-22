@@ -26,6 +26,15 @@
     if (imageNode) {
         imageNode -> _specs = specs;
         imageNode -> _imageSpecs = imageSpecs.copy();
+        
+        __weak typeof(imageNode) weakNode = imageNode;
+        imageNode.flexNode.measure = ^(CGSize constraintedSize) {
+            __strong typeof(weakNode) strongNode = weakNode;
+            if (!strongNode) return CGSizeZero;
+            
+            VZ::ImageNodeSpecs imageSpecs = strongNode.imagesSpecs;
+            return imageSpecs.image ? imageSpecs.image.size : CGSizeZero;
+        };
     }
     return imageNode;
     
