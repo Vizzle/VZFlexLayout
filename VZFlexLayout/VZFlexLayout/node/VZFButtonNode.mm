@@ -7,6 +7,8 @@
 //
 
 #import "VZFButtonNode.h"
+#import "VZFNodeInternal.h"
+#import "VZFlexNode.h"
 #import "VZFMacros.h"
 
 @implementation VZFButtonNode
@@ -24,6 +26,24 @@
     if (buttonNode) {
         buttonNode -> _specs = specs;
         buttonNode -> _buttonSpecs = buttonSepcs.copy();
+        
+        __weak typeof(buttonNode) weakNode = buttonNode;
+        buttonNode.flexNode.measure = ^(CGSize constraintedSize) {
+            __strong typeof(weakNode) strongNode = weakNode;
+            if (!strongNode) return CGSizeZero;
+            
+            VZ::ButtonNodeSpecs buttonSpecs = strongNode.buttonSpecs;
+            
+            NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+            style.alignment = buttonSpecs.textAlignment;
+            CGSize size = [buttonSpecs.title[UIControlStateNormal] boundingRectWithSize:CGSizeMake(constraintedSize.width, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:buttonSpecs.font?:[UIFont systemFontOfSize:17], NSParagraphStyleAttributeName:style} context:nil].size;
+            
+            CGFloat scale = [UIScreen mainScreen].scale;
+            size.width = ceil(size.width * scale) / scale;
+            size.height = ceil(size.height * scale) / scale;
+            
+            return size;
+        };
     }
     return buttonNode;
 }

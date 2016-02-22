@@ -7,11 +7,15 @@
 //
 
 #import "VZFImageNodeSpecs.h"
+#import "VZFUtils.h"
 
 namespace VZ {
     
     size_t ImageNodeSpecs::hash() const{
-    
-        return [image hash];
+        NSUInteger subhashes[] = {
+            [image hash],
+            std::hash<NSInteger>()(contentMode),
+        };
+        return VZ::Hash::IntegerArrayHash(subhashes, sizeof(subhashes) / sizeof(subhashes[0]));
     }
 }
