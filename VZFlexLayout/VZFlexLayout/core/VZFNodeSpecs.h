@@ -144,7 +144,6 @@ namespace VZ {
         
         //other type of UISpecs
         T attrs;
-        
     };
 }
 
