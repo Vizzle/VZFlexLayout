@@ -14,6 +14,7 @@
 #import "VZFTextNode.h"
 #import "VZFImageNode.h"
 #import "VZFCompositeNode.h"
+#import "TableViewController.h"
 
 @interface ViewController ()<VZFNodeHostingView>
 
@@ -36,6 +37,14 @@
     
     [self.hostingView renderWithState:nil];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goTable)];
+    
+    [self.view addGestureRecognizer:tap];
+    
+}
+
+- (void)goTable {
+    [self.navigationController pushViewController:[TableViewController new] animated:YES];
 }
 
 
@@ -46,8 +55,8 @@
 //    return compositeNode;
     
     
-    return [self simpleNode];
-//    return [self stackNodes];
+//    return [self simpleNode];
+    return [self stackNodes];
 }
 
 + (VZFlexNode* )textNode{

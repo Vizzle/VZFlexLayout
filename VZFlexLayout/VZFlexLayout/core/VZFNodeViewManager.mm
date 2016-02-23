@@ -47,7 +47,6 @@ using namespace VZ;
             VZFCompositeNode* compositeNode = (VZFCompositeNode* )node;
             
             
-            
             return [self viewForNode:compositeNode.node withLayoutSpec:layout reuseView:cell];
         }
         else{
@@ -92,13 +91,7 @@ using namespace VZ;
     const NodeSpecs specs = node.specs;
     
     UIView* view;
-
-    if (reuseView) {
-        //清理subView
-        for (UIView* subview in reuseView.subviews) {
-            [subview removeFromSuperview];
-        }
-    }
+    
     
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
@@ -135,7 +128,9 @@ using namespace VZ;
         [self _applyTextAttributes:textNode.textSpecs ToUILabel:(UILabel* )view];
     }
     
-    
+    if (view == nil) {
+        view = [self _createUIView:node.viewClass];
+    }
     [self _applyAttributes:specs.view ToUIView:view];
     view.frame = {layout.nodeOrigin(), layout.nodeSize()};
     [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
@@ -300,7 +295,7 @@ using namespace VZ;
 //    [btn setImage:buttonNodeSpecs.imageHighlight forState:UIControlStateHighlighted];
 //    [btn setBackgroundImage:buttonNodeSpecs.backgroundImage forState:UIControlStateNormal];
 //    [btn setBackgroundImage:buttonNodeSpecs.backgroundImageHighlight forState:UIControlStateHighlighted];
-//    btn addTarget:<#(nullable id)#> action:<#(nonnull SEL)#> forControlEvents:<#(UIControlEvents)#>
+//    btn addTarget:(nullable id) action:<#(nonnull SEL)#> forControlEvents:<#(UIControlEvents)#>
     
 }
 

@@ -30,4 +30,6 @@
 - (id)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider RangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
 - (void)renderWithState:(id)state;
 
+- (void)renderWithState:(id)state reuseView:(UIView *)reuseView;
+
 @end
