@@ -45,6 +45,9 @@ using namespace VZ;
         if ([node isKindOfClass:[VZFCompositeNode class]]) {
             
             VZFCompositeNode* compositeNode = (VZFCompositeNode* )node;
+            
+            
+            
             return [self viewForNode:compositeNode.node withLayoutSpec:layout reuseView:cell];
         }
         else{
@@ -89,10 +92,20 @@ using namespace VZ;
     const NodeSpecs specs = node.specs;
     
     UIView* view;
+
+    if (reuseView) {
+        //清理subView
+        for (UIView* subview in reuseView.subviews) {
+            [subview removeFromSuperview];
+        }
+    }
+    
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
         
+        //TODO 需要优化代码实现形式，目前开发阶段先这么写测试是否有用
         if ([reuseView isKindOfClass:UIImageView.class]) {
+            
             view = reuseView;
         } else {
             view = [self _createUIView:node.viewClass];
