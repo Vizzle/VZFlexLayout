@@ -72,6 +72,8 @@
     CGFloat containerWidth = layout.nodeSize().width + layout.nodeMargin().left + layout.nodeMargin().right;
     CGFloat containerHeight = layout.nodeSize().height + layout.nodeMargin().top + layout.nodeMargin().bottom;
     _containerView.frame = {{0,0}, {containerWidth, containerHeight}};
+    
+    //reuse的时候cell固定有一层hostView和containerView
     UIView* fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:reuseView.contentView.subviews[0].subviews[0]];
     if (fView) {
         
