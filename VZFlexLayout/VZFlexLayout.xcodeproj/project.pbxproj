@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		451729781C7AEA6E00BF3B9E /* VZStateHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 451729771C7AEA6E00BF3B9E /* VZStateHandler.mm */; };
 		4578E0C31C72F1CC00E52B79 /* VZFGestureForward.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E09E1C72F1CC00E52B79 /* VZFGestureForward.mm */; };
 		4578E0C41C72F1CC00E52B79 /* VZFlexCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A01C72F1CC00E52B79 /* VZFlexCell.mm */; };
 		4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */; };
@@ -41,6 +42,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		451729761C7AEA6E00BF3B9E /* VZStateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZStateHandler.h; sourceTree = "<group>"; };
+		451729771C7AEA6E00BF3B9E /* VZStateHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZStateHandler.mm; sourceTree = "<group>"; };
 		4578E09C1C72F1CC00E52B79 /* VZFGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFGesture.h; sourceTree = "<group>"; };
 		4578E09D1C72F1CC00E52B79 /* VZFGestureForward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFGestureForward.h; sourceTree = "<group>"; };
 		4578E09E1C72F1CC00E52B79 /* VZFGestureForward.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFGestureForward.mm; sourceTree = "<group>"; };
@@ -159,6 +162,8 @@
 				4578E0E61C741FFF00E52B79 /* VZFState.mm */,
 				4578E0FC1C7734E300E52B79 /* VZFStateScope.h */,
 				4578E0FD1C7734E300E52B79 /* VZFStateScope.mm */,
+				451729761C7AEA6E00BF3B9E /* VZStateHandler.h */,
+				451729771C7AEA6E00BF3B9E /* VZStateHandler.mm */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -347,6 +352,7 @@
 				4578E0D81C73054000E52B79 /* VZFButtonNode.mm in Sources */,
 				4578E0EA1C747A7800E52B79 /* VZFCompositeNode.mm in Sources */,
 				4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */,
+				451729781C7AEA6E00BF3B9E /* VZStateHandler.mm in Sources */,
 				4578E0D01C72F1CC00E52B79 /* VZFSizeRange.mm in Sources */,
 				4578E0CB1C72F1CC00E52B79 /* VZFNodeMountContext.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,

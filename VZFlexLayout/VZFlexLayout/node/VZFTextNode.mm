@@ -7,6 +7,8 @@
 //
 
 #import "VZFTextNode.h"
+#import "VZFNodeInternal.h"
+#import "VZFlexNode.h"
 #import "VZFMacros.h"
 
 @implementation VZFTextNode
@@ -25,6 +27,28 @@
     if (textNode) {
         textNode -> _specs = specs;
         textNode -> _textSpecs = textSpecs.copy();
+        
+        __weak typeof(textNode) weakNode = textNode;
+        textNode.flexNode.measure = ^(CGSize constraintedSize) {
+            __strong typeof(weakNode) strongNode = weakNode;
+            if (!strongNode) return CGSizeZero;
+            
+            VZ::TextNodeSpecs textSpecs = strongNode.textSpecs;
+            
+            CGSize size = [textSpecs.getAttributedString() boundingRectWithSize:CGSizeMake(constraintedSize.width, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+            
+            if (textSpecs.maximumNumberOfLines > 1) {
+                NSAssert(textSpecs.attributedString == nil, @"maximumNumberOfLines is not supported on attributedString yet");
+                CGFloat lineHeight = textSpecs.font.lineHeight;
+                size.height = std::min(size.height, lineHeight * textSpecs.maximumNumberOfLines);
+            }
+            
+            CGFloat scale = [UIScreen mainScreen].scale;
+            size.width = ceil(size.width * scale) / scale;
+            size.height = ceil(size.height * scale) / scale;
+            
+            return size;
+        };
     }
     return textNode;
 }

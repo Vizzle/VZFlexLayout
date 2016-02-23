@@ -23,6 +23,7 @@ typedef NS_OPTIONS(NSUInteger, VZFlexNodeDescriptionOption) {
 @property (nonatomic,assign,readonly) UIEdgeInsets resultMargin;
 @property (nonatomic,strong,readonly) NSArray* childNodes;
 
+@property (nonatomic,copy) CGSize (^measure)(CGSize constraintedSize);
 @property (nonatomic,strong)NSString* name;
 @property (nonatomic,assign) FlexDirection direction;
 @property (nonatomic,assign) FlexAlign alignItems;
@@ -54,7 +55,6 @@ typedef NS_OPTIONS(NSUInteger, VZFlexNodeDescriptionOption) {
 @property (nonatomic,assign) BOOL wrap;
 
 - (void)layout:(CGSize)constrainedSize;
-- (CGSize)sizeThatFits:(CGSize)constraintedSize;
 
 - (void)addSubNode:(VZFlexNode* )node;
 - (void)removeSubNode:(VZFlexNode* )node;

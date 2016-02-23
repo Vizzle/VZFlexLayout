@@ -94,7 +94,7 @@ VZFlexNode *vz_defaultVZFlexNode() {
 
 FlexSize flexNodeMeasure(void* context, FlexSize constraintedSize) {
     VZFlexNode* node = (__bridge VZFlexNode*)context;
-    CGSize size = [node sizeThatFits:CGSizeMake(constraintedSize.size[FLEX_WIDTH], constraintedSize.size[FLEX_HEIGHT])];
+    CGSize size = node.measure ? node.measure(CGSizeMake(constraintedSize.size[FLEX_WIDTH], constraintedSize.size[FLEX_HEIGHT])) : CGSizeZero;
     FlexSize ret;
     ret.size[FLEX_WIDTH] = size.width;
     ret.size[FLEX_HEIGHT] = size.height;
@@ -422,10 +422,6 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     
     layoutFlexNode(_flex_node, constrainedSize.width, constrainedSize.height);
     
-}
-
-- (CGSize)sizeThatFits:(CGSize)constraintedSize{
-    return CGSizeZero;
 }
 
 - (void)addSubNode:(VZFlexNode* )node{

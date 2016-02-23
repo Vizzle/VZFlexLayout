@@ -13,13 +13,14 @@ namespace VZ {
     struct ImageNodeSpecs{
     
         UIImage* image;
+        UIViewContentMode contentMode;
         
         const ImageNodeSpecs copy() const{
-            return { [image copy] };
+            return { [image copy] , contentMode };
         }
         
         bool operator == (const ImageNodeSpecs &other) const {
-            return (image == other.image);
+            return (image == other.image && contentMode == other.contentMode);
         }
         
         size_t hash() const;

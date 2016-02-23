@@ -11,6 +11,8 @@
 #import "VZFStackNode.h"
 #import "VZFNodeHostingView.h"
 #import "VZFButtonNode.h"
+#import "VZFTextNode.h"
+#import "VZFImageNode.h"
 #import "VZFCompositeNode.h"
 
 @interface ViewController ()<VZFNodeHostingView>
@@ -26,7 +28,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.hostingView = [[VZFNodeHostingView alloc]initWithNodeProvider:[self class]
-                                                         RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
+                                                         RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeWidthAndHeight]];
     self.hostingView.backgroundColor = [UIColor orangeColor];
     self.hostingView.frame = {{0,0},{CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds)}};
     self.hostingView.delegate = self;
@@ -41,10 +43,10 @@
 
     
     VZFCompositeNode* compositeNode = [VZFCompositeNode newWithNode:[self stackNodes] Props:nil];
-    return compositeNode;
+//    return compositeNode;
     
     
-//    return [self simpleNode];
+    return [self simpleNode];
 //    return [self stackNodes];
 }
 
@@ -70,7 +72,7 @@
             .userInteractionEnabled = YES,
             .backgroundColor = [UIColor redColor],
             .layer = {
-                .cornerRadius = 50,
+                .cornerRadius = 4,
             },
             .block = ^(UIView *view) {
                 view.layer.borderWidth = 1;
@@ -78,20 +80,23 @@
             }
         },
         .flex = {
-            .width = 100,
-            .height = 100,
-            .margin = 100
+            .margin = 100,
+            .padding = 10,
         }
     
     
     } ButtonAttributes:{
     
-        .title = @"按钮",
-        .titleFont = [UIFont systemFontOfSize:14.0f],
-        .titleColor = [UIColor yellowColor],
-        .action = ^(UIButton* btn){
-        
-        
+        .title = {{UIControlStateNormal,@"按钮"},{UIControlStateHighlighted, @"Button"}},
+        .font = [UIFont systemFontOfSize:14.0f],
+        .titleColor = {{UIControlStateNormal,[UIColor yellowColor]},{UIControlStateHighlighted, [UIColor whiteColor]}},
+        .action = {
+            {UIControlEventTouchDown, ^(UIButton* btn){
+                NSLog(@"%@ down", btn.titleLabel.text);
+            }},
+            {UIControlEventTouchUpInside, ^(UIButton* btn){
+                NSLog(@"%@ up", btn.titleLabel.text);
+            }}
         }
     
     }];
@@ -150,42 +155,46 @@
 
 + (VZFStackNode* )stackNodes{
 
-    VZFNode* imageNode = [VZFNode newWithView:[UIView class] NodeSpecs:{
+    VZFNode* imageNode = [VZFImageNode newWithNodeSpecs:{
+        .view = {
+            
+            .tag = 100,
+            .backgroundColor = [UIColor redColor],
+            .clipToBounds = YES,
+            .layer = {
+                
+                .cornerRadius = 10,
+                .borderColor = [UIColor whiteColor]
+            }
+        },
+        .flex = {
+            
+            .marginTop = 10,
+            .marginLeft = 10,
+            .width = 100,
+            .height = 100,
+        }
+    } ImageAttributes:{
+        .image = [UIImage imageNamed:@"cat"],
+        .contentMode = UIViewContentModeScaleAspectFill
+    }];
+    
+    VZFTextNode *textNode = [VZFTextNode newWithNodeSpecs:{
         
-            .view = {
-                
-                .tag = 100,
-                .backgroundColor = [UIColor redColor],
-                .clipToBounds = YES,
-                .layer = {
-                
-                    .cornerRadius = 10,
-                    .borderColor = [UIColor whiteColor]
-                }
-            },
-            .flex = {
-
-                .marginTop = 10,
-                .marginLeft = 10,
-                .width = 100,
-                .height = 100,
-            }
-        }];
-    
-    VZFNode* textNode = [VZFNode newWithView:[UIView class] NodeSpecs:{
-    
-            .view = {
-                .tag = 101,
-                .backgroundColor = [UIColor yellowColor]
-            },
-            .flex={
-                .marginTop = 10,
-                .marginLeft = 10,
-                .marginRight = 10,
-                .height = 100,
-                .flexGrow = 1
-            }
-        }];
+        .view = {
+            .tag = 101,
+            .backgroundColor = [UIColor yellowColor]
+        },
+        .flex={
+            .marginTop = 10,
+            .marginLeft = 10,
+            .marginRight = 10,
+            .alignSelf = VZFlexCenter,
+        }
+    } TextAttributes:{
+        .text = @"ABC123",
+        .color = [UIColor blueColor],
+    }];
     
     VZFStackNode* stackNodeTopNode = [VZFStackNode newWithStackSpecs:{
         
@@ -208,18 +217,18 @@
         
     }];
 
-    VZFNode* contentNode = [VZFNode newWithView:[UIView class] NodeSpecs:{
-            .view = {
-                .backgroundColor = [UIColor greenColor],
-            },
-            .flex = {
-                .marginLeft = 120,
-                .marginTop = 10,
-                .marginRight = 10,
-                .height = 150,
-                .width = 200
-            }
-        }];
+    VZFNode* contentNode = [VZFImageNode newWithNodeSpecs:{
+        .view = {
+            .backgroundColor = [UIColor greenColor],
+        },
+        .flex = {
+            .marginLeft = 120,
+            .marginTop = 10,
+            .alignSelf = VZFlexStart,
+        }
+    } ImageAttributes:{
+        .image = [UIImage imageNamed:@"cat"],
+    }];
     
 
     VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{

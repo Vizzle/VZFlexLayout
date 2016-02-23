@@ -15,7 +15,22 @@
 @class VZFlexNode;
 @interface VZFNode()
 
+/**
+ *  内部引用的Objective-C类型的node
+ */
 @property(nonatomic,strong,readonly)VZFlexNode* flexNode;
+
+/**
+ *  父node
+ */
+@property(nonatomic,weak,readonly)VZFNode* parentNode;
+
+/**
+ *  Node的初始状态
+ *
+ *  @return state
+ */
++ (id)initialState;
 
 /**
  *  更新状态，(old) -> (new)

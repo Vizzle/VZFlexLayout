@@ -13,4 +13,6 @@
  */
 @interface VZFStateScope : NSObject
 
+
+
 @end

@@ -16,6 +16,21 @@
 #import "VZFButtonNode.h"
 #import "VZFlexCell.h"
 
+@interface BlockWrapper : NSObject
+@property (nonatomic, copy) void (^block)(id sender);
+- (void) invoke:(id)sender;
+@end
+
+@implementation BlockWrapper
+- (void) dealloc {
+    self.block = nil;
+}
+
+- (void) invoke:(id)sender {
+    self.block(sender);
+}
+@end
+
 using namespace VZ;
 @implementation VZFNodeViewManager
 {
@@ -227,27 +242,68 @@ using namespace VZ;
 + (void)_applyImageAttributes:(const ImageNodeSpecs& )imageNodeSpecs ToImageView:(UIImageView* )imageView{
     
     imageView.image = imageNodeSpecs.image;
+    imageView.contentMode = imageNodeSpecs.contentMode;
 
 }
 
 + (void)_applyButtonAttributes:(const ButtonNodeSpecs& )buttonNodeSpecs ToUIButton:(UIButton* )btn{
-
+    btn.titleLabel.font = buttonNodeSpecs.font;
     
-    [btn setTitleColor:buttonNodeSpecs.titleColorHighlight forState:UIControlStateHighlighted];
-    [btn setTitle:buttonNodeSpecs.titleHighlight forState:UIControlStateHighlighted];
-    [btn setTitleColor:buttonNodeSpecs.titleColor forState:UIControlStateNormal];
-    [btn setTitle:buttonNodeSpecs.title forState:UIControlStateNormal];
-    [btn.titleLabel setFont:buttonNodeSpecs.titleFont];
-    [btn setImage:buttonNodeSpecs.image forState:UIControlStateNormal];
-    [btn setImage:buttonNodeSpecs.imageHighlight forState:UIControlStateHighlighted];
-    [btn setBackgroundImage:buttonNodeSpecs.backgroundImage forState:UIControlStateNormal];
-    [btn setBackgroundImage:buttonNodeSpecs.backgroundImageHighlight forState:UIControlStateHighlighted];
+    for (auto title : buttonNodeSpecs.title) {
+        [btn setTitle:title.second forState:title.first];
+    }
+    
+    for (auto color : buttonNodeSpecs.titleColor) {
+        [btn setTitleColor:color.second forState:color.first];
+    }
+    
+    for (auto image : buttonNodeSpecs.backgroundImage) {
+        [btn setBackgroundImage:image.second forState:image.first];
+    }
+    
+    [btn removeTarget:nil action:nil forControlEvents:UIControlEventAllEvents];
+    for (auto action : buttonNodeSpecs.action) {
+        NSMutableArray * blockArray = objc_getAssociatedObject(btn, "blockArray");
+        
+        if (blockArray == nil) {
+            blockArray = [NSMutableArray array];
+            objc_setAssociatedObject(btn, "blockArray", blockArray, OBJC_ASSOCIATION_RETAIN);
+        }
+        
+        BlockWrapper *blockWrapper = [[BlockWrapper alloc] init];
+        blockWrapper.block = action.action;
+        [blockArray addObject:blockWrapper];
+        
+        NSCAssert([btn isKindOfClass:[UIControl class]], @"ActionAttirbute only supported on UIControl-based node");
+        
+        [btn addTarget:blockWrapper action:@selector(invoke:) forControlEvents:action.event];
+    }
+//    [btn setTitleColor:buttonNodeSpecs.titleColorHighlight forState:UIControlStateHighlighted];
+//    [btn setTitle:buttonNodeSpecs.titleHighlight forState:UIControlStateHighlighted];
+//    [btn setTitleColor:buttonNodeSpecs.titleColor forState:UIControlStateNormal];
+//    [btn setTitle:buttonNodeSpecs.title forState:UIControlStateNormal];
+//    [btn.titleLabel setFont:buttonNodeSpecs.titleFont];
+//    [btn setImage:buttonNodeSpecs.image forState:UIControlStateNormal];
+//    [btn setImage:buttonNodeSpecs.imageHighlight forState:UIControlStateHighlighted];
+//    [btn setBackgroundImage:buttonNodeSpecs.backgroundImage forState:UIControlStateNormal];
+//    [btn setBackgroundImage:buttonNodeSpecs.backgroundImageHighlight forState:UIControlStateHighlighted];
+//    btn addTarget:<#(nullable id)#> action:<#(nonnull SEL)#> forControlEvents:<#(UIControlEvents)#>
     
 }
 
 + (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs ToUILabel:(UILabel* )label{
 
-    label.attributedText = textNodeSpecs.attributedString;
+    if (textNodeSpecs.attributedString) {
+        label.attributedText = textNodeSpecs.attributedString;
+    }
+    else {
+        label.text = textNodeSpecs.text;
+        label.font = textNodeSpecs.font;
+        label.textColor = textNodeSpecs.color;
+    }
+    label.textAlignment = textNodeSpecs.textAlignment;
+    label.lineBreakMode = textNodeSpecs.lineBreakMode;
+    label.numberOfLines = textNodeSpecs.maximumNumberOfLines;
 }
 
 @end

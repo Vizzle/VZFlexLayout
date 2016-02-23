@@ -10,7 +10,8 @@
 
 
 #include <type_traits>
-
+#include <unordered_map>
+#import <UIKit/UIKit.h>
 
 
 namespace VZ{
@@ -42,8 +43,46 @@ namespace VZ{
             bool isDefault() const { return *this == defaultValue; }
         };
         
+        
+        template<typename Type, bool isOCClass = false>
+        struct _StatefulValue : public std::unordered_map<UIControlState, Type> {
+            using MapType = std::unordered_map<UIControlState, Type>;
+            
+            _StatefulValue() : _StatefulValue({}) {}
+            _StatefulValue(Type value) : MapType({{UIControlStateNormal, Type(value)}}) {}
+            template<typename... Args>
+            _StatefulValue(Args... args) : MapType({{UIControlStateNormal, Type(args...)}}) {
+                static_assert(std::is_constructible<Type, Args...>::value, "there is no suitable constructor");
+            }
+            _StatefulValue(std::initializer_list<typename MapType::value_type> map) : MapType(map) {}
+        };
+        
+        template<typename Type>
+        struct _StatefulValue<Type, true> : public std::unordered_map<UIControlState, Type> {
+            using MapType = std::unordered_map<UIControlState, Type>;
+            
+            _StatefulValue() : _StatefulValue({}) {}
+            _StatefulValue(Type value) : MapType({{UIControlStateNormal, Type(value)}}) {}
+            template<typename... Args>
+            _StatefulValue(Args... args) : MapType({{UIControlStateNormal, Type(args...)}}) {
+                static_assert(std::is_constructible<Type, Args...>::value, "there is no suitable constructor");
+            }
+            _StatefulValue(std::initializer_list<typename MapType::value_type> map) : MapType(map) {}
+            bool operator == (const _StatefulValue& other) const {
+                if (this->size() != other.size()) return false;
+                for (int i=0;i<this->size();i++) {
+                    if (![(id)this->at(i) isEqual:other.at(i)]) return false;
+                }
+                return true;
+            }
+        };
+        
+        
     }
 
     template<typename Type, const Type& defaultValue>
     using Value = Internal::_Value<Type, defaultValue, std::is_class<Type>::value>;
+    
+    template<typename Type>
+    using StatefulValue = Internal::_StatefulValue<Type, std::is_convertible<Type, id>::value>;
 }

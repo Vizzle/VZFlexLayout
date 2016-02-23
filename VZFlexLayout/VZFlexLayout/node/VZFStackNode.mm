@@ -24,7 +24,7 @@
 
 @synthesize children = _children;
 @synthesize specs = _specs;
-@synthesize flexNode = _flexNode;
+//@synthesize flexNode = _flexNode;
 
 - (NodeSpecs)specs{
     return _specs;
@@ -44,12 +44,10 @@
         
         stacknode -> _specs             = specs;
         stacknode -> _children          = VZ::Function::filter(children, [](const VZFStackChildNode &child){return child.node != nil;});
-        stacknode -> _flexNode          = [VZFNodeUISpecs flexNodeWithAttributes:specs.flex];
-        stacknode -> _flexNode.name     = [[NSString alloc]initWithUTF8String:specs.name.c_str()];
-        
+  
         for (const auto  &child:stacknode->_children)
         {
-            [stacknode -> _flexNode addSubNode:child.node.flexNode];
+            [stacknode.flexNode addSubNode:child.node.flexNode];
         }
         
     }
@@ -59,7 +57,7 @@
 
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)constrainedSize{
     
-    [_flexNode layout:constrainedSize];
+    [self.flexNode layout:constrainedSize];
     
     //递归
     std::function<VZFNodeLayout(VZFlexNode* )> lambda = [&lambda](VZFlexNode* node)->VZFNodeLayout{
@@ -76,7 +74,7 @@
             return {node.resultFrame.size,node.resultFrame.origin,node.resultMargin,childlayouts};
         }
     };
-    VZFNodeLayout layout = lambda(_flexNode);
+    VZFNodeLayout layout = lambda(self.flexNode);
     
     return layout;
 }
