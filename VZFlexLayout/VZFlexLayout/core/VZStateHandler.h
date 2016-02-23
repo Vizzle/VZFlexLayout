@@ -9,8 +9,13 @@
 #import <Foundation/Foundation.h>
 
 @class VZFNode;
+
+
+
 @interface VZStateHandler : NSObject
 
 + (instancetype)stateHandlerForNode:(VZFNode* )node;
+
+//- (instancetype)initWithListener:(id<VZFStateListener>)listener;
 
 @end

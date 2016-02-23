@@ -16,6 +16,6 @@
 @interface VZFCompositeNode : VZFNode
 
 @property(nonatomic,strong,readonly)VZFNode* node;
-+ (instancetype)newWithNode:(VZFNode* )node Props:(VZFState* )props;
++ (instancetype)newWithNode:(VZFNode* )node Props:(id<VZFProps>)props;
 
 @end

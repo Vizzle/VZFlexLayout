@@ -48,6 +48,9 @@
  */
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz;
 
+- (void)willAddToParentNode:(VZFNode* )parentNode;
+
+- (void)didAddToParentNode:(VZFNode* )parentNode;
 
 
 @end

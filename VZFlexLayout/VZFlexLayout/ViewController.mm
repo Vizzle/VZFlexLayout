@@ -46,8 +46,8 @@
 //    return compositeNode;
     
     
-    return [self simpleNode];
-//    return [self stackNodes];
+//    return [self simpleNode];
+    return [self stackNodes];
 }
 
 + (VZFlexNode* )textNode{

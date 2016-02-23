@@ -76,7 +76,11 @@
     return layout;
 }
 
-- (void)willBeAddedToParentNode:(VZFNode* )parentNode{
+
+- (void)willAddToParentNode:(VZFNode *)parentNode{
+    _parentNode = parentNode;
+}
+- (void)didAddToParentNode:(VZFNode *)parentNode{
     _parentNode = parentNode;
 }
 

@@ -16,6 +16,8 @@
 
 namespace VZ{
     
+    
+    //moxin:自定义一组抽象的数据类型
     namespace Internal{
         
         template<typename Type, const Type& defaultValue, bool isClass = false>

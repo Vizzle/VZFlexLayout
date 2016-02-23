@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol VZFStateListener <NSObject>
 
-@end
 
+
+typedef id(^stateTrampolineBlock)(id);
 @protocol VZFProps <NSObject>
-
+- (id)value;
+- (stateTrampolineBlock)stateTrampolineBlock;
 @end
 
 @interface VZFState : NSObject
