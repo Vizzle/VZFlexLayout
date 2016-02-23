@@ -14,12 +14,108 @@
 #import "VZFImageNode.h"
 #import "VZFTextNode.h"
 #import "VZFButtonNode.h"
+#import "VZFlexCell.h"
 
 using namespace VZ;
 @implementation VZFNodeViewManager
 {
 
 }
+
++ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout reuseView:(UIView *)cell
+{
+    if (![node isKindOfClass : [VZFStackNode class] ]) {
+        
+        //对compositeNode做特殊处理
+        if ([node isKindOfClass:[VZFCompositeNode class]]) {
+            
+            VZFCompositeNode* compositeNode = (VZFCompositeNode* )node;
+            return [self viewForNode:compositeNode.node withLayoutSpec:layout reuseView:cell];
+        }
+        else{
+            return [self _viewForNode:node withLayoutSpec:layout reuseView:cell];
+        }
+        
+    }
+    
+    else{
+        
+        UIView* stackView = [self _viewForNode:node withLayoutSpec:layout reuseView:cell];
+        VZFStackNode* stackNode = (VZFStackNode* )node;
+        
+        NSMutableArray *subviews = [[NSMutableArray alloc] initWithCapacity:stackNode.children.size()];
+        
+        if (cell) {
+            [subviews addObjectsFromArray:cell.subviews];
+        }
+        
+        for (int i = 0; i < stackNode.children.size(); i++) {
+            
+            VZFStackChildNode _childNode = stackNode.children[i];
+            VZFNode* _node = _childNode.node;
+            VZFNodeLayout _layout = layout.childrenLayout()[i];
+            if ([_node isKindOfClass:[VZFStackNode class]]) {
+                //递归
+                UIView* stackViewRecursive=[self viewForNode:_node withLayoutSpec:_layout reuseView:subviews.count > i?subviews[i]:nil];
+                [stackView addSubview:stackViewRecursive];
+            }
+            else{
+                UIView* view = [self _viewForNode:_node withLayoutSpec:_layout reuseView:subviews.count > i?subviews[i]:nil];
+                [stackView addSubview:view];
+            }
+            
+        }
+        return stackView;
+    }
+}
+
++ (UIView* )_viewForNode:(VZFNode *)node withLayoutSpec:(const VZFNodeLayout &)layout reuseView:(UIView *)reuseView{
+    
+    const NodeSpecs specs = node.specs;
+    
+    UIView* view;
+    
+    if ([node isKindOfClass:[VZFImageNode class]]) {
+        
+        if ([reuseView isKindOfClass:UIImageView.class]) {
+            view = reuseView;
+        } else {
+            view = [self _createUIView:node.viewClass];
+        }
+        
+        VZFImageNode* imageNode = (VZFImageNode* )node;
+        [self _applyImageAttributes:imageNode.imagesSpecs ToImageView:(UIImageView* )view];
+    }
+    else if ([node isKindOfClass:[VZFButtonNode class]]){
+        if ([reuseView isKindOfClass:UIButton.class]) {
+            view = reuseView;
+        } else {
+            view = [self _createUIView:node.viewClass];
+        }
+        VZFButtonNode* buttonNdoe = (VZFButtonNode* )node;
+        [self _applyButtonAttributes:buttonNdoe.buttonSpecs ToUIButton:(UIButton* )view];
+    }
+    else if ([node isKindOfClass:[VZFTextNode class]]){
+        
+        if ([reuseView isKindOfClass:UILabel.class]) {
+            view = reuseView;
+        } else {
+            view = [self _createUIView:node.viewClass];
+        }
+        
+        VZFTextNode* textNode = (VZFTextNode* )node;
+        [self _applyTextAttributes:textNode.textSpecs ToUILabel:(UILabel* )view];
+    }
+    
+    
+    [self _applyAttributes:specs.view ToUIView:view];
+    view.frame = {layout.nodeOrigin(), layout.nodeSize()};
+    [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
+    
+    return view;
+}
+
+
 + (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout
 {
     if (![node isKindOfClass : [VZFStackNode class] ]) {
@@ -59,6 +155,8 @@ using namespace VZ;
         return stackView;
     }
 }
+
+
 + (UIView* )_viewForNode:(VZFNode *)node withLayoutSpec:(const VZFNodeLayout &)layout{
     
     const NodeSpecs specs = node.specs;
@@ -82,7 +180,6 @@ using namespace VZ;
     
     return view;
 }
-
 
 + (UIView* )_createUIView:(const ViewClass& )clz{
 
@@ -145,7 +242,6 @@ using namespace VZ;
     [btn setImage:buttonNodeSpecs.imageHighlight forState:UIControlStateHighlighted];
     [btn setBackgroundImage:buttonNodeSpecs.backgroundImage forState:UIControlStateNormal];
     [btn setBackgroundImage:buttonNodeSpecs.backgroundImageHighlight forState:UIControlStateHighlighted];
-//    btn addTarget:<#(nullable id)#> action:<#(nonnull SEL)#> forControlEvents:<#(UIControlEvents)#>
     
 }
 
