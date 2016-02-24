@@ -28,6 +28,6 @@
 @property(nonatomic,weak)id<VZFNodeHostingView> delegate;
 
 - (id)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider RangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
-- (void)renderWithState:(id)state;
+- (void)render:(id)model;
 
 @end

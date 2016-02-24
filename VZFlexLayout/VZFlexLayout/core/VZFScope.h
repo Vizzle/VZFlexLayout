@@ -9,18 +9,14 @@
 #import <Foundation/Foundation.h>
 #include <unordered_map>
 #include <stack>
+#import "VZFState.h"
 
-@protocol VZFStateListener <NSObject>
 
-@end
 
+//{key:scopeId, value:state_update_func}
+typedef std::unordered_multimap<int32_t, id (^)(id)> VZFNodeStateUpdateMap;
 
 namespace VZ {
-
-    struct VZFScopeFramePair {
-        VZFScopeFramePair *frame;
-        VZFScopeFramePair *equivalentPreviousFrame;
-    };
 
     /**
      *  Node内部的State是封闭的，StateScope用来让Node在类方法内获取state
@@ -31,11 +27,13 @@ namespace VZ {
         ~VZFScope();
         
         id state() const;
+        id scopeId() const;
         
     private:
         VZFScope(const VZFScope& ) = delete;
         VZFScope& operator=(const VZFScope& ) = delete;
         id _state;
+        NSNumber* _scopeId;
     };
 }
 
@@ -54,28 +52,32 @@ namespace VZ {
  *  @return scope
  */
 + (instancetype)rootScopeWithListener:(id<VZFStateListener>)listener;
-
+- (instancetype)newRootScope;
 
 
 @end
 
-
-typedef std::unordered_multimap<int32_t, id (^)(id)> VZFNodeStateUpdateMap;
-
 namespace VZ {
     
-    
-    struct VZFLocalScope{
-        
-        VZFLocalScope(VZFRootScope *previousScopeRoot,const VZFNodeStateUpdateMap &updates);
-        ~VZFLocalScope();
-        
-        /** Returns nullptr if there isn't a current scope */
-        static VZFLocalScope *currentScope();
-        
-        VZFRootScope *const newScopeRoot;
-        const VZFNodeStateUpdateMap stateUpdates;
-        std::stack<VZFScopeFramePair> stack;
-        
-    };
+//    struct VZFScopePair {
+//        CKComponentScopeFrame *frame;
+//        CKComponentScopeFrame *equivalentPreviousFrame;
+//    };
+//    
+//    struct LocalScopeBuilder{
+//        
+//        LocalScopeBuilder(VZFRootScope* previousRootScope, const VZFNodeStateUpdateMap& updates){
+//        
+//            
+//        }
+//        
+//        VZFRootScope* const newRootScope;
+//        const VZFNodeStateUpdateMap stateUpdates
+//        std::stack
+//    
+//    };
 }
+
+
+
+

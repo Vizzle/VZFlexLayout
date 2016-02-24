@@ -34,7 +34,7 @@
     self.hostingView.delegate = self;
     [self.view addSubview:self.hostingView];
     
-    [self.hostingView renderWithState:nil];
+    [self.hostingView render:nil];
     
 }
 

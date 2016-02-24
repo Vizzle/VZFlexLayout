@@ -7,16 +7,19 @@
 //
 
 #import "VZFScope.h"
-
+#include <libkern/OSAtomic.h>
 namespace VZ {
     
     VZFScope::VZFScope(Class componentClz, id scopeId, id (^initialStateCreator)(void)){
-    
-        
+        _state = initialStateCreator();
+        _scopeId = scopeId;
     };
     
     id VZFScope::state() const {
         return _state;
+    }
+    id VZFScope::scopeId() const{
+        return _scopeId;
     }
     
 }
@@ -29,7 +32,7 @@ namespace VZ {
 + (instancetype)rootScopeWithListener:(id<VZFStateListener>)listener{
     
     static int32_t nextRootId = 0;
-    return [[self alloc] initWithRootScopeListener:listener rootScopeId:nextRootId];
+    return [[self alloc] initWithRootScopeListener:listener rootScopeId:OSAtomicIncrement32(&nextRootId)];
     
 }
 
@@ -41,6 +44,9 @@ namespace VZ {
         _rootScopeId = rootId;
     }
     return self;
+}
+- (instancetype)newRootScope{
+    return [self  initWithRootScopeListener:_listener rootScopeId:_rootScopeId];
 }
 
 @end

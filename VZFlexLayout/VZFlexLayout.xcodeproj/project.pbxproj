@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		451729781C7AEA6E00BF3B9E /* VZStateHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 451729771C7AEA6E00BF3B9E /* VZStateHandler.mm */; };
+		4517297B1C7C494700BF3B9E /* VZFScopeHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */; };
+		4517297E1C7C616C00BF3B9E /* VZFScopeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */; };
+		451729811C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 451729801C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm */; };
 		4578E0C31C72F1CC00E52B79 /* VZFGestureForward.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E09E1C72F1CC00E52B79 /* VZFGestureForward.mm */; };
 		4578E0C41C72F1CC00E52B79 /* VZFlexCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A01C72F1CC00E52B79 /* VZFlexCell.mm */; };
 		4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */; };
@@ -44,6 +47,12 @@
 /* Begin PBXFileReference section */
 		451729761C7AEA6E00BF3B9E /* VZStateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZStateHandler.h; sourceTree = "<group>"; };
 		451729771C7AEA6E00BF3B9E /* VZStateHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZStateHandler.mm; sourceTree = "<group>"; };
+		451729791C7C494700BF3B9E /* VZFScopeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFScopeHandler.h; sourceTree = "<group>"; };
+		4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeHandler.mm; sourceTree = "<group>"; };
+		4517297C1C7C616C00BF3B9E /* VZFScopeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFScopeManager.h; sourceTree = "<group>"; };
+		4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeManager.mm; sourceTree = "<group>"; };
+		4517297F1C7D61F700BF3B9E /* VZFNodeTreeBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeTreeBuilder.h; sourceTree = "<group>"; };
+		451729801C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeTreeBuilder.mm; sourceTree = "<group>"; };
 		4578E09C1C72F1CC00E52B79 /* VZFGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFGesture.h; sourceTree = "<group>"; };
 		4578E09D1C72F1CC00E52B79 /* VZFGestureForward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFGestureForward.h; sourceTree = "<group>"; };
 		4578E09E1C72F1CC00E52B79 /* VZFGestureForward.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFGestureForward.mm; sourceTree = "<group>"; };
@@ -162,8 +171,14 @@
 				4578E0E61C741FFF00E52B79 /* VZFState.mm */,
 				4578E0FC1C7734E300E52B79 /* VZFScope.h */,
 				4578E0FD1C7734E300E52B79 /* VZFScope.mm */,
+				451729791C7C494700BF3B9E /* VZFScopeHandler.h */,
+				4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */,
+				4517297F1C7D61F700BF3B9E /* VZFNodeTreeBuilder.h */,
+				451729801C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm */,
 				451729761C7AEA6E00BF3B9E /* VZStateHandler.h */,
 				451729771C7AEA6E00BF3B9E /* VZStateHandler.mm */,
+				4517297C1C7C616C00BF3B9E /* VZFScopeManager.h */,
+				4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -343,6 +358,7 @@
 				4578E0DB1C73055400E52B79 /* VZFTextNode.mm in Sources */,
 				4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */,
 				4578E0C31C72F1CC00E52B79 /* VZFGestureForward.mm in Sources */,
+				451729811C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm in Sources */,
 				4578E0D21C72F1CC00E52B79 /* FlexLayout.c in Sources */,
 				4578E0CE1C72F1CC00E52B79 /* VZFNodeViewClass.mm in Sources */,
 				4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */,
@@ -350,10 +366,12 @@
 				4578E0F01C75687D00E52B79 /* VZFImageNodeSpecs.mm in Sources */,
 				4578E0D51C73052F00E52B79 /* VZFImageNode.mm in Sources */,
 				4578E0D81C73054000E52B79 /* VZFButtonNode.mm in Sources */,
+				4517297B1C7C494700BF3B9E /* VZFScopeHandler.mm in Sources */,
 				4578E0EA1C747A7800E52B79 /* VZFCompositeNode.mm in Sources */,
 				4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */,
 				451729781C7AEA6E00BF3B9E /* VZStateHandler.mm in Sources */,
 				4578E0D01C72F1CC00E52B79 /* VZFSizeRange.mm in Sources */,
+				4517297E1C7C616C00BF3B9E /* VZFScopeManager.mm in Sources */,
 				4578E0CB1C72F1CC00E52B79 /* VZFNodeMountContext.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
 				4578E0F31C756D3400E52B79 /* VZFButtonNodeSpecs.mm in Sources */,

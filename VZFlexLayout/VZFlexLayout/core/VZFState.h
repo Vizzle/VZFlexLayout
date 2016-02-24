@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol VZFStateListener <NSObject>
 
+@optional
+- (void)nodeStateUpdateWithScopeId:(int32_t)scopeId rootScopeId:(int32_t)rootScopeId Func:(id(^)(id))updateFunc;
 
+@end
 
 typedef id(^stateTrampolineBlock)(id);
 @protocol VZFProps <NSObject>
