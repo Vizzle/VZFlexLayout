@@ -73,8 +73,14 @@
     CGFloat containerHeight = layout.nodeSize().height + layout.nodeMargin().top + layout.nodeMargin().bottom;
     _containerView.frame = {{0,0}, {containerWidth, containerHeight}};
     
+    UIView* fView;
+    
     //reuse的时候cell固定有一层hostView和containerView
-    UIView* fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:reuseView.contentView.subviews[0].subviews[0]];
+    if (reuseView.contentView.subviews.count > 0 && reuseView.contentView.subviews[0].subviews.count >0 && reuseView.contentView.subviews[0].subviews[0].subviews.count > 0) {
+        fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:reuseView.contentView.subviews[0].subviews[0].subviews[0]];
+    } else {
+        fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:nil];
+    }
     if (fView) {
         
         [_containerView addSubview:fView];

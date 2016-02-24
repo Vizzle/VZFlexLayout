@@ -10,4 +10,6 @@
 
 @interface DemoCell : VZFlexCell
 
+- (void)updateNode;
+
 @end

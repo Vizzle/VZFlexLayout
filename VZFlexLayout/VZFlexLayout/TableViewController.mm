@@ -51,9 +51,11 @@
 
     NSString* CellIdentifier = @"demo reuse";
     
-    VZFlexCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    DemoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[DemoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    } else {
+        [cell updateNode];
     }
     
     return cell;

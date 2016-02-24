@@ -93,6 +93,7 @@ using namespace VZ;
     UIView* view;
     
     
+    //需要考虑不同层级的删除subView
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
         

@@ -40,6 +40,11 @@
     return self;
 }
 
+//Vizzle setItem
+- (void)updateNode {
+    [self.hostingView renderWithState:nil reuseView:self];
+}
+
 
 + (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context{
     
