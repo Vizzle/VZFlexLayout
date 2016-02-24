@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <stack>
 #import "VZFState.h"
+#import "VZFScopeHandler.h"
 
 
 
@@ -23,17 +24,20 @@ namespace VZ {
      */
     struct VZFScope{
         
-        VZFScope(Class componentClz, id scopeId, id (^initialStateCreator)(void) = nil);
+        VZFScope(Class clz, id scopeIdentifier=nil, id(^initialStateCreator)(void)=nil);
         ~VZFScope();
         
         id state() const;
-        id scopeId() const;
+        Class nodeClass() const;
+        id scopeIdentifier() const;
         
     private:
         VZFScope(const VZFScope& ) = delete;
         VZFScope& operator=(const VZFScope& ) = delete;
         id _state;
-        NSNumber* _scopeId;
+        id _scopeIdentifier;
+        Class _nodeClass;
+
     };
 }
 

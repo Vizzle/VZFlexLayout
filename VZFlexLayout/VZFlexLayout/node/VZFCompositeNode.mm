@@ -32,7 +32,7 @@
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 
-+ (instancetype)newWithNode:(VZFNode* )node Props:(Class<VZFProps>)props{
++ (instancetype)newWithNode:(VZFNode *)node{
 
     if (!node) {
         return nil;

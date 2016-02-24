@@ -13,13 +13,15 @@
 @interface VZFScopeHandler : NSObject
 
 @property(nonatomic,weak,readonly) id state;
+@property(nonatomic,assign,readonly) BOOL isRootHandler;
 
-- (instancetype)initWithListener:(id<VZFStateListener>)listener
-                     rootScopeId:(int32_t)rootScopeId
-                       Node:(VZFNode* )node
-                       PropsFunc:(id(^)(void))propCreator;
-/** Creates a new version of an existing scope handle that incorporates the given state updates */
-- (instancetype)newHandleWithStateUpdates:(const VZFNodeStateUpdateMap &)stateUpdates;
+- (instancetype)initWithScopeIdentifier:(id)identifier
+                              NodeClass:(Class )nodeClass
+                           InitialState:(id)state;
+
+- (instancetype)newHandler;
+
+- (BOOL)bindToNode:(VZFNode* )node;
 
 - (void)updateState:(id(^)(id))stateBlock;
 

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		451729781C7AEA6E00BF3B9E /* VZStateHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 451729771C7AEA6E00BF3B9E /* VZStateHandler.mm */; };
 		4517297B1C7C494700BF3B9E /* VZFScopeHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */; };
 		4517297E1C7C616C00BF3B9E /* VZFScopeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */; };
 		451729811C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 451729801C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm */; };
@@ -45,8 +44,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		451729761C7AEA6E00BF3B9E /* VZStateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZStateHandler.h; sourceTree = "<group>"; };
-		451729771C7AEA6E00BF3B9E /* VZStateHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZStateHandler.mm; sourceTree = "<group>"; };
 		451729791C7C494700BF3B9E /* VZFScopeHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFScopeHandler.h; sourceTree = "<group>"; };
 		4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeHandler.mm; sourceTree = "<group>"; };
 		4517297C1C7C616C00BF3B9E /* VZFScopeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFScopeManager.h; sourceTree = "<group>"; };
@@ -175,8 +172,6 @@
 				4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */,
 				4517297F1C7D61F700BF3B9E /* VZFNodeTreeBuilder.h */,
 				451729801C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm */,
-				451729761C7AEA6E00BF3B9E /* VZStateHandler.h */,
-				451729771C7AEA6E00BF3B9E /* VZStateHandler.mm */,
 				4517297C1C7C616C00BF3B9E /* VZFScopeManager.h */,
 				4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */,
 			);
@@ -369,7 +364,6 @@
 				4517297B1C7C494700BF3B9E /* VZFScopeHandler.mm in Sources */,
 				4578E0EA1C747A7800E52B79 /* VZFCompositeNode.mm in Sources */,
 				4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */,
-				451729781C7AEA6E00BF3B9E /* VZStateHandler.mm in Sources */,
 				4578E0D01C72F1CC00E52B79 /* VZFSizeRange.mm in Sources */,
 				4517297E1C7C616C00BF3B9E /* VZFScopeManager.mm in Sources */,
 				4578E0CB1C72F1CC00E52B79 /* VZFNodeMountContext.mm in Sources */,

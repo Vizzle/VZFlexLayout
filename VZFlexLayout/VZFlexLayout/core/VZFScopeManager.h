@@ -7,11 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <unordered_map>
 
+
+@class VZFNode;
+@class VZFScopeHandler;
 @interface VZFScopeManager : NSObject
 
 + (instancetype)sharedInstance;
 
++ (VZFScopeHandler* )scopeHandlerForNode:(VZFNode* )node; //will mutate node
+
++ (VZFScopeHandler* )pushScopeHandlerWithScopeIdentifier:(id)identifier NodeClass:(Class)clz initialState:(id)state;
++ (void)popScopeHandler;
 
 @end

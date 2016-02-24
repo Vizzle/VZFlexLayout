@@ -12,14 +12,10 @@
 
 @optional
 - (void)nodeStateUpdateWithScopeId:(int32_t)scopeId rootScopeId:(int32_t)rootScopeId Func:(id(^)(id))updateFunc;
+- (void)nodeStateUpdateDidChanged;
 
 @end
 
-typedef id(^stateTrampolineBlock)(id);
-@protocol VZFProps <NSObject>
-- (id)value;
-- (stateTrampolineBlock)stateTrampolineBlock;
-@end
 
 @interface VZFState : NSObject
 

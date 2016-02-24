@@ -68,7 +68,10 @@ struct VZFNodeHostingViewInputs{
 
     [self _render];
 }
+- (void)nodeStateUpdateDidChanged{
 
+    [self _render];
+}
 - (void)nodeStateUpdateWithScopeId:(int32_t)scopeId rootScopeId:(int32_t)rootScopeId Func:(id (^)(id))updateFunc{
 
     _pendingInputs.stateMap.insert({scopeId,updateFunc});

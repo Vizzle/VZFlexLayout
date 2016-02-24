@@ -42,7 +42,7 @@
 + (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context{
 
     
-    VZFCompositeNode* compositeNode = [VZFCompositeNode newWithNode:[self stackNodes] Props:nil];
+    VZFCompositeNode* compositeNode = [VZFCompositeNode newWithNode:[self stackNodes]];
 //    return compositeNode;
     
     

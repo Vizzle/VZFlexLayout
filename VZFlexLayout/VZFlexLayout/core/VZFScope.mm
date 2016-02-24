@@ -8,18 +8,44 @@
 
 #import "VZFScope.h"
 #include <libkern/OSAtomic.h>
+#import "VZFScopeManager.h"
+#import "VZFScopeHandler.h"
+#import "VZFNodeInternal.h"
+
 namespace VZ {
     
-    VZFScope::VZFScope(Class componentClz, id scopeId, id (^initialStateCreator)(void)){
-        _state = initialStateCreator();
-        _scopeId = scopeId;
+    VZFScope::VZFScope(Class clz, id scopeIdentifier, id(^initialStateCreator)(void)):_scopeIdentifier(scopeIdentifier),_nodeClass(clz){
+       
+        
+        static int32_t scopeId = 0;
+        if (!scopeIdentifier) {
+            scopeIdentifier = @(OSAtomicIncrement32(&scopeId));
+        }
+        
+        id initialState = nil;
+        if (!initialStateCreator) {
+            initialState = [clz initialState];
+        }
+        else{
+            initialState = initialStateCreator();
+        }
+        
+        VZFScopeHandler* handler = [VZFScopeManager pushScopeHandlerWithScopeIdentifier:scopeIdentifier NodeClass:clz initialState:initialState];
+        _state = handler.state;
+    
     };
+    
+    VZFScope::~VZFScope(){
+        
+        [VZFScopeManager popScopeHandler];
+        
+    }
     
     id VZFScope::state() const {
         return _state;
     }
-    id VZFScope::scopeId() const{
-        return _scopeId;
+    id VZFScope::scopeIdentifier() const{
+        return _scopeIdentifier;
     }
     
 }
