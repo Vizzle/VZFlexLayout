@@ -22,18 +22,18 @@ namespace VZ {
     /**
      *  Node内部的State是封闭的，StateScope用来让Node在类方法内获取state
      */
-    struct VZFScope{
+    struct Scope{
         
-        VZFScope(Class clz, id scopeIdentifier=nil, id(^initialStateCreator)(void)=nil);
-        ~VZFScope();
+        Scope(Class clz, id scopeIdentifier=nil, id(^initialStateCreator)(void)=nil);
+        ~Scope();
         
         id state() const;
-        Class nodeClass() const;
-        id scopeIdentifier() const;
+//        Class nodeClass() const;
+//        id scopeIdentifier() const;
         
     private:
-        VZFScope(const VZFScope& ) = delete;
-        VZFScope& operator=(const VZFScope& ) = delete;
+        Scope(const Scope& ) = delete;
+        Scope& operator=(const Scope& ) = delete;
         id _state;
         id _scopeIdentifier;
         Class _nodeClass;
@@ -60,27 +60,6 @@ namespace VZ {
 
 
 @end
-
-namespace VZ {
-    
-//    struct VZFScopePair {
-//        CKComponentScopeFrame *frame;
-//        CKComponentScopeFrame *equivalentPreviousFrame;
-//    };
-//    
-//    struct LocalScopeBuilder{
-//        
-//        LocalScopeBuilder(VZFRootScope* previousRootScope, const VZFNodeStateUpdateMap& updates){
-//        
-//            
-//        }
-//        
-//        VZFRootScope* const newRootScope;
-//        const VZFNodeStateUpdateMap stateUpdates
-//        std::stack
-//    
-//    };
-}
 
 
 

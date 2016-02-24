@@ -14,7 +14,7 @@
 
 namespace VZ {
     
-    VZFScope::VZFScope(Class clz, id scopeIdentifier, id(^initialStateCreator)(void)):_scopeIdentifier(scopeIdentifier),_nodeClass(clz){
+    Scope::Scope(Class clz, id scopeIdentifier, id(^initialStateCreator)(void)):_scopeIdentifier(scopeIdentifier),_nodeClass(clz){
        
         
         static int32_t scopeId = 0;
@@ -35,17 +35,10 @@ namespace VZ {
     
     };
     
-    VZFScope::~VZFScope(){
+    Scope::~Scope(){
         
         [VZFScopeManager popScopeHandler];
         
-    }
-    
-    id VZFScope::state() const {
-        return _state;
-    }
-    id VZFScope::scopeIdentifier() const{
-        return _scopeIdentifier;
     }
     
 }

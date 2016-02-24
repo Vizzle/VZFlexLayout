@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "28FE937F47E4054747BFE341B23EF6AC704B1272",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "28FE937F47E4054747BFE341B23EF6AC704B1272" : 0,
+    "46B3A7D7791AFC212FFD6D68FA84110731573E19" : 0,
+    "FCDA58A321A2F37DFA0ADCFBEF23D1196F89FDBF" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "864B890C-7506-45F1-9712-67E960C5DB47",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "28FE937F47E4054747BFE341B23EF6AC704B1272" : "VZFlexLayout\/",
+    "46B3A7D7791AFC212FFD6D68FA84110731573E19" : "FLEX\/",
+    "FCDA58A321A2F37DFA0ADCFBEF23D1196F89FDBF" : "Alipass\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "VZFlexLayout",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "VZFlexLayout\/VZFlexLayout.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Vizzle\/VZFlexLayout.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "28FE937F47E4054747BFE341B23EF6AC704B1272"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Flipboard\/FLEX.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "46B3A7D7791AFC212FFD6D68FA84110731573E19"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "gitlab.alipay-inc.com:wallet\/ios-phone-alipass.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FCDA58A321A2F37DFA0ADCFBEF23D1196F89FDBF"
+    }
+  ]
+}
