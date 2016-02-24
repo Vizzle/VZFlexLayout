@@ -63,7 +63,11 @@ using namespace VZ;
         NSMutableArray *subviews = [[NSMutableArray alloc] initWithCapacity:stackNode.children.size()];
         
         if (cell) {
-            [subviews addObjectsFromArray:cell.subviews];
+            
+            VZFNode* oldNode = objc_getAssociatedObject(cell, &kViewReuseInfoKey);
+            if(!oldNode.specs.view.block) {
+                [subviews addObjectsFromArray:cell.subviews];
+            }
         }
         
         for (int i = 0; i < stackNode.children.size(); i++) {
@@ -92,14 +96,11 @@ using namespace VZ;
     
     UIView* view;
     
-    
     //需要考虑不同层级的删除subView
-    
     if ([node isKindOfClass:[VZFImageNode class]]) {
         
         //TODO 需要优化代码实现形式，目前开发阶段先这么写测试是否有用
         if ([reuseView isKindOfClass:UIImageView.class]) {
-            
             view = reuseView;
         } else {
             view = [self _createUIView:node.viewClass];

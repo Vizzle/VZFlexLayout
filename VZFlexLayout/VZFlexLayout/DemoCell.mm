@@ -13,12 +13,14 @@
 #import "VZFTextNode.h"
 #import "VZFImageNode.h"
 #import "VZFStackNode.h"
+#import "VZFNodeViewManager.h"
 
 @interface DemoCell()<VZFNodeHostingView>
 
 @property(nonatomic,strong)VZFNodeHostingView* hostingView;
 
 @end
+
 
 @implementation DemoCell
 
@@ -48,8 +50,13 @@
 
 + (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context{
     
-    return [self stackNodes];
+    VZFNode* node = [self stackNodes];
+    
+    objc_setAssociatedObject(self, &kViewReuseInfoKey, node, OBJC_ASSOCIATION_ASSIGN);
+    
+    return node;
 }
+
 
 
 

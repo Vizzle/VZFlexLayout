@@ -12,6 +12,9 @@
 
 @class VZFNode;
 @class VZFImageNode;
+
+static char const kViewReuseInfoKey = ' ';
+
 @interface VZFNodeViewManager : NSObject
 
 + (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout;

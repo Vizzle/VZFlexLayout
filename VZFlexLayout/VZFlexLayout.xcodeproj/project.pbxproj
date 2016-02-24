@@ -119,6 +119,7 @@
 		E6D13CD31C7C650800F603AB /* FLEXImagePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D13C871C7C650800F603AB /* FLEXImagePreviewViewController.m */; };
 		E6D13CD51C7C651700F603AB /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D13CD41C7C651700F603AB /* libsqlite3.0.tbd */; };
 		E6D13CD71C7C652400F603AB /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D13CD61C7C652400F603AB /* libz.tbd */; };
+		E6D13CDA1C7D938700F603AB /* VZNodeReuseUtility.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13CD91C7D938700F603AB /* VZNodeReuseUtility.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -346,6 +347,8 @@
 		E6D13C871C7C650800F603AB /* FLEXImagePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLEXImagePreviewViewController.m; sourceTree = "<group>"; };
 		E6D13CD41C7C651700F603AB /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		E6D13CD61C7C652400F603AB /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		E6D13CD81C7D938700F603AB /* VZNodeReuseUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZNodeReuseUtility.h; sourceTree = "<group>"; };
+		E6D13CD91C7D938700F603AB /* VZNodeReuseUtility.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZNodeReuseUtility.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -403,6 +406,8 @@
 				4578E0FD1C7734E300E52B79 /* VZFStateScope.mm */,
 				451729761C7AEA6E00BF3B9E /* VZStateHandler.h */,
 				451729771C7AEA6E00BF3B9E /* VZStateHandler.mm */,
+				E6D13CD81C7D938700F603AB /* VZNodeReuseUtility.h */,
+				E6D13CD91C7D938700F603AB /* VZNodeReuseUtility.mm */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -863,6 +868,7 @@
 				E6D13CBF1C7C650800F603AB /* FLEXDictionaryExplorerViewController.m in Sources */,
 				4578E0FE1C7734E300E52B79 /* VZFStateScope.mm in Sources */,
 				E6D13C921C7C650800F603AB /* FLEXArgumentInputTextView.m in Sources */,
+				E6D13CDA1C7D938700F603AB /* VZNodeReuseUtility.mm in Sources */,
 				E6D13CC11C7C650800F603AB /* FLEXImageExplorerViewController.m in Sources */,
 				E6D13CB01C7C650800F603AB /* FLEXSystemLogTableViewCell.m in Sources */,
 				4578E0FA1C75A7BA00E52B79 /* FBHeadNode.mm in Sources */,
