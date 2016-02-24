@@ -90,49 +90,62 @@ using namespace VZ;
     }
 }
 
++ (BOOL)canReuse:(VZFNode *)node reuseView:(UIView *)reuseView {
+    if ([node isKindOfClass:VZFImageNode.class] && [reuseView isKindOfClass:UIImageView.class]) {
+        return YES;
+    }
+    
+    if ([node isKindOfClass:VZFButtonNode.class] && [reuseView isKindOfClass:UIButton.class]) {
+        return YES;
+    }
+    
+    if ([node isKindOfClass:VZFTextNode.class] && [reuseView isKindOfClass:UILabel.class]) {
+        return YES;
+    }
+    
+    if ((![node isKindOfClass:VZFImageNode.class] && ![node isKindOfClass:VZFButtonNode.class] && ![node isKindOfClass:VZFTextNode.class]) &&[reuseView isKindOfClass:UIView.class]) {
+        return YES;
+    }
+    
+    
+    return NO;
+}
+
 + (UIView* )_viewForNode:(VZFNode *)node withLayoutSpec:(const VZFNodeLayout &)layout reuseView:(UIView *)reuseView{
     
     const NodeSpecs specs = node.specs;
     
+    //如果可以重用则重用，不可重用就结束重用流程
+    
     UIView* view;
+
+    
+    if ([self canReuse:node reuseView:reuseView]) {
+        view = reuseView;
+    } else {
+        [reuseView removeFromSuperview];
+        view = [self _createUIView:node.viewClass];
+    }
+    
+    
     
     //需要考虑不同层级的删除subView
     if ([node isKindOfClass:[VZFImageNode class]]) {
-        
-        //TODO 需要优化代码实现形式，目前开发阶段先这么写测试是否有用
-        if ([reuseView isKindOfClass:UIImageView.class]) {
-            view = reuseView;
-        } else {
-            view = [self _createUIView:node.viewClass];
-        }
         
         VZFImageNode* imageNode = (VZFImageNode* )node;
         [self _applyImageAttributes:imageNode.imagesSpecs ToImageView:(UIImageView* )view];
     }
     else if ([node isKindOfClass:[VZFButtonNode class]]){
-        if ([reuseView isKindOfClass:UIButton.class]) {
-            view = reuseView;
-        } else {
-            view = [self _createUIView:node.viewClass];
-        }
+
         VZFButtonNode* buttonNdoe = (VZFButtonNode* )node;
         [self _applyButtonAttributes:buttonNdoe.buttonSpecs ToUIButton:(UIButton* )view];
     }
     else if ([node isKindOfClass:[VZFTextNode class]]){
         
-        if ([reuseView isKindOfClass:UILabel.class]) {
-            view = reuseView;
-        } else {
-            view = [self _createUIView:node.viewClass];
-        }
-        
         VZFTextNode* textNode = (VZFTextNode* )node;
         [self _applyTextAttributes:textNode.textSpecs ToUILabel:(UILabel* )view];
     }
-    
-    if (view == nil) {
-        view = [self _createUIView:node.viewClass];
-    }
+
     [self _applyAttributes:specs.view ToUIView:view];
     view.frame = {layout.nodeOrigin(), layout.nodeSize()};
     [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
