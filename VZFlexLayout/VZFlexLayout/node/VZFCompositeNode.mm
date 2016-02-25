@@ -13,7 +13,7 @@
 
 @implementation VZFCompositeNode
 {
-    VZFState* _props;
+     
 }
 
 @synthesize node        = _node;
@@ -27,20 +27,21 @@
     return _node.viewClass;
 }
 
+
 + (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 
-+ (instancetype)newWithNode:(VZFNode* )node Props:(VZFState* )state{
++ (instancetype)newWithNode:(VZFNode *)node{
 
     if (!node) {
         return nil;
     }
     
+    
     VZFCompositeNode* compositeNode = [super newWithView:{} NodeSpecs:{}];
     if (compositeNode) {
         compositeNode -> _node = node;
-        compositeNode -> _props = state;
         compositeNode -> _flexNode = node.flexNode;
     }
     return compositeNode;

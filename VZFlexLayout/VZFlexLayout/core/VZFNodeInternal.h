@@ -48,5 +48,28 @@
  */
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz;
 
+
+
+
+
+
+@end
+
+
+@interface VZFNode(Tree)
+
+- (void)willAddToParentNode:(VZFNode* )parentNode;
+
+- (void)didAddToParentNode:(VZFNode* )parentNode;
+
+- (VZFNode* )findRoot;
+
+@end
+
+@class VZFScopeHandler;
+@interface VZFNode(State)
+
+- (void)bindScopeHandler:(VZFScopeHandler* )scopeHandler;
+
 @end
 #endif /* VZFNodeInternal_h */

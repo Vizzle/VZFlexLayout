@@ -35,7 +35,7 @@
     self.hostingView.delegate = self;
     [self.view addSubview:self.hostingView];
     
-    [self.hostingView renderWithState:nil];
+    [self.hostingView render:nil];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goTable)];
     
@@ -51,7 +51,7 @@
 + (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context{
 
     
-    VZFCompositeNode* compositeNode = [VZFCompositeNode newWithNode:[self stackNodes] Props:nil];
+    VZFCompositeNode* compositeNode = [VZFCompositeNode newWithNode:[self stackNodes]];
 //    return compositeNode;
     
     

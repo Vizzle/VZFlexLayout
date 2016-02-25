@@ -36,7 +36,7 @@
     
     }];
     
-    FBHeadNode* headNode = [super newWithNode:node Props:nil];
+    FBHeadNode* headNode = [super newWithNode:node];
     
     return headNode;
 

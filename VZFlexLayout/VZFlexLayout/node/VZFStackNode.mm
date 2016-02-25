@@ -47,7 +47,9 @@
   
         for (const auto  &child:stacknode->_children)
         {
+            [child.node willAddToParentNode:stacknode];
             [stacknode.flexNode addSubNode:child.node.flexNode];
+            [child.node didAddToParentNode:stacknode];
         }
         
     }

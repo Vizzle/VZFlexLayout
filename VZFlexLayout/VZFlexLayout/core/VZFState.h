@@ -10,11 +10,12 @@
 
 @protocol VZFStateListener <NSObject>
 
+@optional
+//- (void)nodeStateUpdateWithScopeId:(int32_t)scopeId rootScopeId:(int32_t)rootScopeId Func:(id(^)(id))updateFunc;
+- (void)nodeStateUpdateDidChanged;
+
 @end
 
-@protocol VZFProps <NSObject>
-
-@end
 
 @interface VZFState : NSObject
 

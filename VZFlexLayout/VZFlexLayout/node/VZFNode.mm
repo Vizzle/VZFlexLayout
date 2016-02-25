@@ -11,7 +11,8 @@
 #import "VZFNodeLayout.h"
 #import "VZFlexNode.h"
 #import "VZFNodeInternal.h"
-
+#import "VZFScopeHandler.h"
+#import "VZFScopeManager.h"
 
 
 @interface VZFlexNode()
@@ -20,10 +21,12 @@
 
 @implementation VZFNode
 {
-    
+    VZFScopeHandler* _scopeHander;
+//    int32_t _scopeId;
 }
 
 @synthesize flexNode = _flexNode;
+@synthesize parentNode = _parentNode;
 
 
 + (id)initialState{
@@ -34,8 +37,6 @@
 
     return [[self alloc] initWithView: std::move(viewclass) Specs:specs];
 }
-
-
 
 + (instancetype)new
 {
@@ -50,6 +51,10 @@
         _viewClass = viewclass;
         _flexNode = [VZFNodeUISpecs flexNodeWithAttributes:_specs.flex];
         _flexNode.name = [NSString stringWithUTF8String:specs.name.c_str()];
+        _scopeHander = [VZFScopeManager scopeHandlerForNode:self];
+//        _scopeHander = [[VZFScopeHandler alloc]initWithListener:nil NodeClass:[self class] PropsFunc:^id{
+//            return [[self class] initialState];
+//        }];
     }
     return self;
 }
@@ -59,9 +64,16 @@
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 
+- (NSNumber* )scopeId{
+    
+    return nil;
+}
+
+
+
 - (void)updateState:(id (^)(id))updateBlock{
 
-    //noop
+    [_scopeHander updateState:updateBlock];
 }
 
 
@@ -72,6 +84,28 @@
                              _flexNode.resultFrame.origin,
                              _flexNode.resultMargin};
     return layout;
+}
+
+
+- (void)willAddToParentNode:(VZFNode *)parentNode{
+    _parentNode = parentNode;
+}
+- (void)didAddToParentNode:(VZFNode *)parentNode{
+    _parentNode = parentNode;
+}
+
+- (VZFNode* )findRoot{
+
+    if (_scopeHander.isRootHandler) {
+        return self;
+    }
+    else{
+        return [_parentNode findRoot];
+    }
+}
+
+- (void)bindScopeHandler:(VZFScopeHandler* )scopeHandler{
+    _scopeHander = scopeHandler;
 }
 
 - (NSString *)description {
