@@ -55,7 +55,7 @@ struct VZFNodeHostingViewInputs{
         _sizeProvider = sizeProvider;
         _pendingInputs = {.rootScope = [VZFRootScope rootScopeWithListener:self]};
         _containerView = [[UIView alloc]initWithFrame:CGRectZero];
-        _containerView.backgroundColor = [UIColor blackColor];
+//        _containerView.backgroundColor = [UIColor c];
         [self addSubview:_containerView];
             
     }

@@ -91,15 +91,15 @@
         return NO;
     }
     else{
-        if ([node isMemberOfClass:_nodeClass]) {
+//        if ([node isMemberOfClass:_nodeClass]) {
             _inUse = YES;
             [node bindScopeHandler:self];
             
             return YES;
-        }
-        else{
-            return NO;
-        }
+//        }
+//        else{
+//            return NO;
+//        }
     }
 }
 
@@ -123,4 +123,15 @@
     }
 
 }
+
+- (id)copyWithZone:(nullable NSZone *)zone{
+
+    VZFScopeHandler* newHandler = [[self class] allocWithZone:zone];
+    newHandler -> _state = self.state;
+    newHandler -> _isRootHandler = self.isRootHandler;
+    return newHandler;
+}
+
+
+
 @end

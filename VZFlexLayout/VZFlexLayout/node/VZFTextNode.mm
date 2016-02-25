@@ -13,7 +13,7 @@
 
 @implementation VZFTextNode
 
-@synthesize specs = _specs;
+//@synthesize specs = _specs;
 @synthesize textSpecs = _textSpecs;
 
 + (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
@@ -25,7 +25,7 @@
     VZFTextNode* textNode = [super newWithView:[UILabel class] NodeSpecs:specs];
     
     if (textNode) {
-        textNode -> _specs = specs;
+//        textNode -> _specs = specs;
         textNode -> _textSpecs = textSpecs.copy();
         
         __weak typeof(textNode) weakNode = textNode;
@@ -39,7 +39,7 @@
             
             if (textSpecs.maximumNumberOfLines > 1) {
                 NSAssert(textSpecs.attributedString == nil, @"maximumNumberOfLines is not supported on attributedString yet");
-                CGFloat lineHeight = textSpecs.font.lineHeight;
+                CGFloat lineHeight = (textSpecs.font?:[UIFont systemFontOfSize:17.0f]).lineHeight;
                 size.height = std::min(size.height, lineHeight * textSpecs.maximumNumberOfLines);
             }
             

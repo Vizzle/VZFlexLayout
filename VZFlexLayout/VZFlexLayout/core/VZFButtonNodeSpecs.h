@@ -39,6 +39,7 @@ namespace VZ {
         StatefulValue<UIColor *> titleColor;
         StatefulValue<UIImage *> backgroundImage;
         ControlActionList action;
+        SEL actionSelector;
         // the image property was not supported, use an image node nested in a button node instead.
         
         const ButtonNodeSpecs copy() const{
