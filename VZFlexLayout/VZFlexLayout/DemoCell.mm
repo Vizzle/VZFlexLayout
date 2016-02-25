@@ -87,8 +87,8 @@
             
             .marginTop = 10,
             .marginLeft = 10,
-            .width = 100,
-            .height = 100,
+            .width = 80,
+            .height = 80,
         }
     } ImageAttributes:{
         .image = [UIImage imageNamed:@"cat"],
@@ -133,13 +133,43 @@
         
     }];
     
+    VZFNode* contentNode = [VZFImageNode newWithNodeSpecs:{
+        .view = {
+            .backgroundColor = [UIColor greenColor],
+        },
+        .flex = {
+            .marginTop = 10,
+            .width = 80,
+            .height = 80,
+            .alignSelf = VZFlexStart,
+        }
+    } ImageAttributes:{
+        .image = [UIImage imageNamed:@"cat"],
+    }];
     
     
+    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
+        
+        .view = {
+            .backgroundColor = [UIColor whiteColor],
+        },
+        .flex = {
+            .stackLayout = {
+                .direction = VZFlexHorizontal
+            }
+        }
+        
+    } Children:{
+        {.node = stackNodeTopNode},
+        {.node = contentNode}
+        
+    }];
     
     
-    return stackNodeTopNode;
+    return stackNode;
     
 }
+
 
 + (VZFStackNode* )stackNodes2{
     

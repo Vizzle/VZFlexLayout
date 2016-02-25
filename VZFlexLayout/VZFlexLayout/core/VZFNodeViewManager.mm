@@ -103,7 +103,7 @@ using namespace VZ;
         return YES;
     }
     
-    if ((![node isKindOfClass:VZFImageNode.class] && ![node isKindOfClass:VZFButtonNode.class] && ![node isKindOfClass:VZFTextNode.class]) &&[reuseView isKindOfClass:UIView.class]) {
+    if ((![node isKindOfClass:VZFImageNode.class] && ![node isKindOfClass:VZFButtonNode.class] && ![node isKindOfClass:VZFTextNode.class]) &&[reuseView isMemberOfClass:UIView.class]) {
         return YES;
     }
     
@@ -306,7 +306,7 @@ using namespace VZ;
 //    [btn setImage:buttonNodeSpecs.imageHighlight forState:UIControlStateHighlighted];
 //    [btn setBackgroundImage:buttonNodeSpecs.backgroundImage forState:UIControlStateNormal];
 //    [btn setBackgroundImage:buttonNodeSpecs.backgroundImageHighlight forState:UIControlStateHighlighted];
-//    btn addTarget:(nullable id) action:<#(nonnull SEL)#> forControlEvents:<#(UIControlEvents)#>
+//    btn addTarget:(nullable id) action:(nonnull SEL) forControlEvents:<#(UIControlEvents)#>
     
 }
 
