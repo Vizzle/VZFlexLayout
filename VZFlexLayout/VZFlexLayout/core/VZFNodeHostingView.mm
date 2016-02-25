@@ -12,6 +12,7 @@
 #import "VZFNode.h"
 #import "VZFNodeInternal.h"
 #import "VZFScope.h"
+#import "VZFlexCell.h"
 
 struct VZFNodeHostingViewInputs{
     VZFRootScope* rootScope;
@@ -109,7 +110,7 @@ struct VZFNodeHostingViewInputs{
 
 }
 
-- (void)renderWithState:(id)state reuseView:(UITableViewCell *)reuseView {
+- (void)renderWithState:(id)state reuseView:(VZFlexCell *)reuseView {
     _node = [_nodeProvider nodeForItem:state context:nil];
     CGSize size = [_sizeProvider rangeSizeForBounds:self.bounds.size];
     VZFNodeLayout layout = [_node computeLayoutThatFits:size];
@@ -120,6 +121,7 @@ struct VZFNodeHostingViewInputs{
     
     UIView* fView;
     
+    
     //reuse的时候cell固定有一层hostView和containerView
     if (reuseView.contentView.subviews.count > 0 && reuseView.contentView.subviews[0].subviews.count >0 && reuseView.contentView.subviews[0].subviews[0].subviews.count > 0) {
         fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:reuseView.contentView.subviews[0].subviews[0].subviews[0]];
@@ -127,6 +129,8 @@ struct VZFNodeHostingViewInputs{
         fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:nil];
     }
     if (fView) {
+        
+        objc_setAssociatedObject(fView, &kViewReuseInfoKey, _node, OBJC_ASSOCIATION_ASSIGN);
         
         [_containerView addSubview:fView];
         

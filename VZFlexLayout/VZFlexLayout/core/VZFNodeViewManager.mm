@@ -65,6 +65,7 @@ using namespace VZ;
         if (cell) {
             
             VZFNode* oldNode = objc_getAssociatedObject(cell, &kViewReuseInfoKey);
+            
             if(!oldNode.specs.view.block) {
                 [subviews addObjectsFromArray:cell.subviews];
             }
@@ -91,19 +92,19 @@ using namespace VZ;
 }
 
 + (BOOL)canReuse:(VZFNode *)node reuseView:(UIView *)reuseView {
-    if ([node isKindOfClass:VZFImageNode.class] && [reuseView isKindOfClass:UIImageView.class]) {
+    if ([node isMemberOfClass:VZFImageNode.class] && [reuseView isMemberOfClass:UIImageView.class]) {
         return YES;
     }
     
-    if ([node isKindOfClass:VZFButtonNode.class] && [reuseView isKindOfClass:UIButton.class]) {
+    if ([node isMemberOfClass:VZFButtonNode.class] && [reuseView isMemberOfClass:UIButton.class]) {
         return YES;
     }
     
-    if ([node isKindOfClass:VZFTextNode.class] && [reuseView isKindOfClass:UILabel.class]) {
+    if ([node isMemberOfClass:VZFTextNode.class] && [reuseView isMemberOfClass:UILabel.class]) {
         return YES;
     }
     
-    if ((![node isKindOfClass:VZFImageNode.class] && ![node isKindOfClass:VZFButtonNode.class] && ![node isKindOfClass:VZFTextNode.class]) &&[reuseView isMemberOfClass:UIView.class]) {
+    if ((![node isMemberOfClass:VZFImageNode.class] && ![node isMemberOfClass:VZFButtonNode.class] && ![node isMemberOfClass:VZFTextNode.class]) &&[reuseView isMemberOfClass:UIView.class]) {
         return YES;
     }
     
@@ -121,6 +122,7 @@ using namespace VZ;
     if ([self canReuse:node reuseView:reuseView]) {
         view = reuseView;
     } else {
+        
         [reuseView removeFromSuperview];
         view = [self _createUIView:node.viewClass];
     }

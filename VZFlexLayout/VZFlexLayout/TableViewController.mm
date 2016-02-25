@@ -10,6 +10,7 @@
 #import "VZFNode.h"
 #import "VZFlexCell.h"
 #import "DemoCell.h"
+#import "VZFNodeViewManager.h"
 
 @interface TableViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -61,6 +62,7 @@
     } else {
         [cell updateNode];
     }
+    
     
     return cell;
 }
