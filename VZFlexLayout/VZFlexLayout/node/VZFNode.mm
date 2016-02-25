@@ -106,4 +106,12 @@
     return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
 }
 
+- (id)nextResponder {
+    return _scopeHander.controller ?: _parentNode;
+}
+
+- (id)responderForSelector:(SEL)selector {
+    return [self respondsToSelector:selector] ? self : [self.nextResponder responderForSelector:selector];
+}
+
 @end

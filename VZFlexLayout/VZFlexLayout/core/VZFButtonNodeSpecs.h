@@ -14,21 +14,13 @@ namespace VZ {
     
     typedef void(^UIControlActionBlock)(id sender);
     
-    struct ControlAction {
-        UIControlEvents event;
-        UIControlActionBlock action;
+    template<typename Type>
+    struct EventfulValue : std::unordered_multimap<UIControlEvents, Type> {
+        using SuperType = std::unordered_multimap<UIControlEvents, Type>;
         
-        bool operator == (const ControlAction& other) const {
-            return event == other.event && action == other.action;
-        }
-    };
-    
-    struct ControlActionList : std::vector<ControlAction> {
-        using VectorType = std::vector<ControlAction>;
-        
-        ControlActionList() : VectorType() {}
-        ControlActionList(UIControlActionBlock action) : VectorType({{UIControlEventTouchUpInside, action}}) {}
-        ControlActionList(std::initializer_list<typename VectorType::value_type> list) : VectorType(list) {}
+        EventfulValue() : SuperType() {}
+        EventfulValue(Type value) : SuperType({{UIControlEventTouchUpInside, value}}) {}
+        EventfulValue(std::initializer_list<typename SuperType::value_type> list) : SuperType(list) {}
     };
     
     struct ButtonNodeSpecs{
@@ -38,8 +30,8 @@ namespace VZ {
         StatefulValue<NSString *>title;     // IMPORTANT: node won't re-layout when the title is changed by state-changing.
         StatefulValue<UIColor *> titleColor;
         StatefulValue<UIImage *> backgroundImage;
-        ControlActionList action;
-        SEL actionSelector;
+        EventfulValue<UIControlActionBlock> actionBlock;
+        EventfulValue<SEL> actionSelector;
         // the image property was not supported, use an image node nested in a button node instead.
         
         const ButtonNodeSpecs copy() const{
@@ -65,7 +57,7 @@ namespace VZ {
                 && title == other.title
                 && titleColor == other.titleColor
                 && backgroundImage == other.backgroundImage
-                && action == other.action;
+                && actionBlock == other.actionBlock;
             
         }
     

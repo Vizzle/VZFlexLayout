@@ -42,6 +42,7 @@
 		45C987571C2D0F2800D17A1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45C987561C2D0F2800D17A1D /* Assets.xcassets */; };
 		45C9875A1C2D0F2800D17A1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */; };
 		45CA3A851C7DDE5400DA04C1 /* VZFScope.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3A841C7DDE5400DA04C1 /* VZFScope.mm */; };
+		B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.m */; };
 		E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */; };
 		E6D13AE31C7C44EF00F603AB /* DemoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13AE21C7C44EF00F603AB /* DemoCell.mm */; };
 /* End PBXBuildFile section */
@@ -118,6 +119,8 @@
 		45C987591C2D0F2800D17A1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45C9875B1C2D0F2800D17A1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45CA3A841C7DDE5400DA04C1 /* VZFScope.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScope.mm; sourceTree = "<group>"; };
+		B1CB0B9A1C7EEEEA00A9CAE7 /* VZFNodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeController.h; sourceTree = "<group>"; };
+		B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFNodeController.m; sourceTree = "<group>"; };
 		E6D13ADE1C7C3F6500F603AB /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TableViewController.mm; sourceTree = "<group>"; };
 		E6D13AE11C7C44EF00F603AB /* DemoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoCell.h; sourceTree = "<group>"; };
@@ -181,6 +184,8 @@
 				451729801C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm */,
 				4517297C1C7C616C00BF3B9E /* VZFScopeManager.h */,
 				4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */,
+				B1CB0B9A1C7EEEEA00A9CAE7 /* VZFNodeController.h */,
+				B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -363,6 +368,7 @@
 				4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */,
 				4578E0DB1C73055400E52B79 /* VZFTextNode.mm in Sources */,
 				45CA3A851C7DDE5400DA04C1 /* VZFScope.mm in Sources */,
+				B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.m in Sources */,
 				4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */,
 				4578E0C31C72F1CC00E52B79 /* VZFGestureForward.mm in Sources */,
 				451729811C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm in Sources */,

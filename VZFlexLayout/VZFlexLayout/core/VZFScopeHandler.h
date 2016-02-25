@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "VZFScope.h"
+#import "VZFNodeController.h"
 
 @class VZFNode;
 @interface VZFScopeHandler : NSObject<NSCopying>
 
+@property(nonatomic,strong,readonly) VZFNodeController* controller;
 @property(nonatomic,strong,readonly) id state;
 @property(nonatomic,assign,readonly) BOOL isRootHandler;
 

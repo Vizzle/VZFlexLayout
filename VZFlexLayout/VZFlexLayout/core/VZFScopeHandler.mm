@@ -130,6 +130,8 @@
     return newHandler;
 }
 
-
+static VZFNodeController* newController(Class componentClass) {
+    return nil;
+}
 
 @end

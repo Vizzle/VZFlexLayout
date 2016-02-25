@@ -18,6 +18,6 @@ using namespace VZ;
 
 +(instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs& )specs;
 
-
+- (id)nextResponder;
 
 @end

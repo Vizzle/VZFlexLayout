@@ -57,16 +57,7 @@
         .title = [state boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         .font = [UIFont systemFontOfSize:12.0f],
-        .action = ^(UIButton* sender){
-        
-            [sender.node.parentNode updateState:^id(NSNumber* oldState) {
-                
-                return @(![oldState boolValue]);
-                
-
-            }];
-        
-        }
+        .actionSelector = @selector(didTap:),
 
     }];
     
@@ -92,5 +83,13 @@
     return headNode;
 }
 
+- (void)didTap:(id)sender {
+    NSLog(@"%@ didTap", NSStringFromClass([sender class]));
+    [self updateState:^id(NSNumber* oldState) {
+        
+        return @(![oldState boolValue]);
+        
+    }];
+}
 
 @end

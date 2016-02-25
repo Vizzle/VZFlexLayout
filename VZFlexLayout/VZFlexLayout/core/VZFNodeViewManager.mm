@@ -9,6 +9,7 @@
 #import "VZFNodeViewManager.h"
 #import "VZFGestureForward.h"
 #import "VZFNode.h"
+#import "VZFNodeInternal.h"
 #import "VZFCompositeNode.h"
 #import "VZFStackNode.h"
 #import "VZFImageNode.h"
@@ -17,9 +18,14 @@
 #import "VZFlexCell.h"
 #import <objc/runtime.h>
 
-@interface BlockWrapper : NSObject
+@protocol VZFActionWrapper <NSObject>
+
+- (void)invoke:(id)sender event:(UIEvent *)event;
+
+@end
+
+@interface BlockWrapper : NSObject <VZFActionWrapper>
 @property (nonatomic, copy) void (^block)(id sender);
-- (void) invoke:(id)sender;
 @end
 
 @implementation BlockWrapper
@@ -27,12 +33,41 @@
     self.block = nil;
 }
 
-- (void) invoke:(id)sender {
+- (void) invoke:(id)sender event:(UIEvent *)event {
     self.block(sender);
 }
 @end
 
 
+@interface SelectorWrapper : NSObject <VZFActionWrapper>
+
+- (instancetype)initWithSelector:(SEL)selector;
+
+@end
+
+@implementation SelectorWrapper
+{
+    SEL _selector;
+}
+
+- (instancetype)initWithSelector:(SEL)selector {
+    if (self = [super init]) {
+        _selector = selector;
+    }
+    return self;
+}
+
+- (void)invoke:(UIControl *)sender event:(UIEvent *)event {
+    id responder = [sender.node responderForSelector:_selector];
+    NSAssert(responder, @"could not found responder for action '%@'", NSStringFromSelector(_selector));
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [responder performSelector:_selector withObject:sender.node withObject:event];
+#pragma clang diagnostic pop
+}
+
+@end
 
 
 @implementation UIView(VZFNode)
@@ -301,21 +336,22 @@ using namespace VZ;
     }
     
     [btn removeTarget:nil action:nil forControlEvents:UIControlEventAllEvents];
-    for (auto action : buttonNodeSpecs.action) {
-        NSMutableArray * blockArray = objc_getAssociatedObject(btn, "blockArray");
-        
-        if (blockArray == nil) {
-            blockArray = [NSMutableArray array];
-            objc_setAssociatedObject(btn, "blockArray", blockArray, OBJC_ASSOCIATION_RETAIN);
-        }
-        
-        BlockWrapper *blockWrapper = [[BlockWrapper alloc] init];
-        blockWrapper.block = action.action;
-        [blockArray addObject:blockWrapper];
-        
-        NSCAssert([btn isKindOfClass:[UIControl class]], @"ActionAttirbute only supported on UIControl-based node");
-        
-        [btn addTarget:blockWrapper action:@selector(invoke:) forControlEvents:action.event];
+    static const void* _id = &_id;
+    NSMutableArray * actionArray = objc_getAssociatedObject(btn, _id);
+    if (actionArray == nil) {
+        actionArray = [NSMutableArray array];
+        objc_setAssociatedObject(btn, _id, actionArray, OBJC_ASSOCIATION_RETAIN);
+    }
+    for (auto action : buttonNodeSpecs.actionBlock) {
+        BlockWrapper *wrapper = [[BlockWrapper alloc] init];
+        wrapper.block = action.second;
+        [actionArray addObject:wrapper];
+        [btn addTarget:wrapper action:@selector(invoke:event:) forControlEvents:action.first];
+    }
+    for (auto action : buttonNodeSpecs.actionSelector) {
+        SelectorWrapper *wrapper = [[SelectorWrapper alloc] initWithSelector:action.second];
+        [actionArray addObject:wrapper];
+        [btn addTarget:wrapper action:@selector(invoke:event:) forControlEvents:action.first];
     }
 
 //    [btn setTitleColor:buttonNodeSpecs.titleColorHighlight forState:UIControlStateHighlighted];

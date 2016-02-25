@@ -104,7 +104,7 @@
         .title = {{UIControlStateNormal,@"按钮"},{UIControlStateHighlighted, @"Button"}},
         .font = [UIFont systemFontOfSize:14.0f],
         .titleColor = {{UIControlStateNormal,[UIColor yellowColor]},{UIControlStateHighlighted, [UIColor whiteColor]}},
-        .action = {
+        .actionBlock = {
             {UIControlEventTouchDown, ^(UIButton* btn){
                 NSLog(@"%@ down", btn.titleLabel.text);
             }},

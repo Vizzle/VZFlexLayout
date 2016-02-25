@@ -48,8 +48,7 @@
  */
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz;
 
-
-
+- (id)responderForSelector:(SEL)selector;
 
 
 
