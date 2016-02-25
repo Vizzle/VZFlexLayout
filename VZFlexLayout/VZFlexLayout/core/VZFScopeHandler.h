@@ -10,9 +10,9 @@
 #import "VZFScope.h"
 
 @class VZFNode;
-@interface VZFScopeHandler : NSObject
+@interface VZFScopeHandler : NSObject<NSCopying>
 
-@property(nonatomic,weak,readonly) id state;
+@property(nonatomic,strong,readonly) id state;
 @property(nonatomic,assign,readonly) BOOL isRootHandler;
 
 - (instancetype)initWithScopeIdentifier:(id)identifier

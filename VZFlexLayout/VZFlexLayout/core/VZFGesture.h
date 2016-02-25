@@ -36,9 +36,7 @@ namespace VZ {
         UIGestureRecognizer* _gesture;
         SEL _sel;
         gesture_callback_t _callback;
-        
-        
-        
+    
     };
     
     template<typename T>

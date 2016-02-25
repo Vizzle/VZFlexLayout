@@ -15,6 +15,7 @@
 #import "VZFTextNode.h"
 #import "VZFButtonNode.h"
 #import "VZFlexCell.h"
+#import <objc/runtime.h>
 
 @interface BlockWrapper : NSObject
 @property (nonatomic, copy) void (^block)(id sender);
@@ -29,6 +30,22 @@
 - (void) invoke:(id)sender {
     self.block(sender);
 }
+@end
+
+
+
+
+@implementation UIView(VZFNode)
+
+const void* _id = &_id;
+- (void)setNode:(VZFNode *)node{
+    objc_setAssociatedObject(self, _id, node, OBJC_ASSOCIATION_ASSIGN);
+}
+
+- (VZFNode* )node{
+    return objc_getAssociatedObject(self, _id);
+}
+
 @end
 
 using namespace VZ;
@@ -214,6 +231,8 @@ using namespace VZ;
         [self _applyTextAttributes:textNode.textSpecs ToUILabel:(UILabel* )view];
     }
     
+    
+    view.node = node;
     return view;
 }
 
@@ -225,7 +244,6 @@ using namespace VZ;
 + (void)_applyAttributes:(const ViewAttrs&)vs ToUIView:(UIView* )view {
 
     view.tag                    = vs.tag;
-    view.userInteractionEnabled = vs.userInteractionEnabled;
     view.backgroundColor        = vs.backgroundColor;
     view.clipsToBounds          = vs.clipToBounds;
     view.layer.cornerRadius     = vs.layer.cornerRadius;
@@ -269,7 +287,7 @@ using namespace VZ;
 
 + (void)_applyButtonAttributes:(const ButtonNodeSpecs& )buttonNodeSpecs ToUIButton:(UIButton* )btn{
     btn.titleLabel.font = buttonNodeSpecs.font;
-    
+
     for (auto title : buttonNodeSpecs.title) {
         [btn setTitle:title.second forState:title.first];
     }
@@ -299,6 +317,7 @@ using namespace VZ;
         
         [btn addTarget:blockWrapper action:@selector(invoke:) forControlEvents:action.event];
     }
+
 //    [btn setTitleColor:buttonNodeSpecs.titleColorHighlight forState:UIControlStateHighlighted];
 //    [btn setTitle:buttonNodeSpecs.titleHighlight forState:UIControlStateHighlighted];
 //    [btn setTitleColor:buttonNodeSpecs.titleColor forState:UIControlStateNormal];
@@ -309,6 +328,7 @@ using namespace VZ;
 //    [btn setBackgroundImage:buttonNodeSpecs.backgroundImage forState:UIControlStateNormal];
 //    [btn setBackgroundImage:buttonNodeSpecs.backgroundImageHighlight forState:UIControlStateHighlighted];
 //    btn addTarget:(nullable id) action:(nonnull SEL) forControlEvents:<#(UIControlEvents)#>
+
     
 }
 

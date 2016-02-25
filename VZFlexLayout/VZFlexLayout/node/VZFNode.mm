@@ -25,8 +25,8 @@
 //    int32_t _scopeId;
 }
 
-@synthesize flexNode = _flexNode;
-@synthesize parentNode = _parentNode;
+//@synthesize flexNode = _flexNode;
+//@synthesize parentNode = _parentNode;
 
 
 + (id)initialState{
@@ -51,7 +51,7 @@
         _viewClass = viewclass;
         _flexNode = [VZFNodeUISpecs flexNodeWithAttributes:_specs.flex];
         _flexNode.name = [NSString stringWithUTF8String:specs.name.c_str()];
-        _scopeHander = [VZFScopeManager scopeHandlerForNode:self];
+        [VZFScopeManager scopeHandlerForNode:self];
 //        _scopeHander = [[VZFScopeHandler alloc]initWithListener:nil NodeClass:[self class] PropsFunc:^id{
 //            return [[self class] initialState];
 //        }];
@@ -105,7 +105,7 @@
 }
 
 - (void)bindScopeHandler:(VZFScopeHandler* )scopeHandler{
-    _scopeHander = scopeHandler;
+    _scopeHander = [scopeHandler copy];
 }
 
 - (NSString *)description {

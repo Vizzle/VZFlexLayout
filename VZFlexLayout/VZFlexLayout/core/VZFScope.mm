@@ -41,6 +41,10 @@ namespace VZ {
         
     }
     
+    id Scope::state() const {
+        return _state;
+    }
+    
 }
 
 @implementation VZFRootScope

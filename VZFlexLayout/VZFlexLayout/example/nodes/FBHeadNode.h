@@ -10,6 +10,6 @@
 
 @interface FBHeadNode : VZFCompositeNode
 
-+ (instancetype)new;
++ (instancetype)newWithProps:(NSString* )state;
 
 @end

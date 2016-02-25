@@ -13,7 +13,7 @@
 
 @implementation VZFImageNode
 
-@synthesize specs = _specs;
+
 @synthesize imagesSpecs = _imageSpecs;
 
 + (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
@@ -24,7 +24,6 @@
 {
     VZFImageNode* imageNode = [super newWithView:[UIImageView class] NodeSpecs:specs];
     if (imageNode) {
-        imageNode -> _specs = specs;
         imageNode -> _imageSpecs = imageSpecs.copy();
         
         __weak typeof(imageNode) weakNode = imageNode;

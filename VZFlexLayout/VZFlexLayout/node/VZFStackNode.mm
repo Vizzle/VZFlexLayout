@@ -23,12 +23,6 @@
 }
 
 @synthesize children = _children;
-@synthesize specs = _specs;
-//@synthesize flexNode = _flexNode;
-
-- (NodeSpecs)specs{
-    return _specs;
-}
 
 - (std::vector<VZFStackChildNode>)children{
     return _children;
@@ -41,9 +35,7 @@
 
     VZFStackNode* stacknode =  [super newWithView:[UIView class] NodeSpecs:specs];
     if (stacknode) {
-        
-        stacknode -> _specs             = specs;
-        stacknode -> _children          = VZ::Function::filter(children, [](const VZFStackChildNode &child){return child.node != nil;});
+        stacknode -> _children = VZ::Function::filter(children, [](const VZFStackChildNode &child){return child.node != nil;});
   
         for (const auto  &child:stacknode->_children)
         {

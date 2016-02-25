@@ -13,7 +13,7 @@
 
 @implementation VZFButtonNode
 
-@synthesize specs = _specs;
+//@synthesize specs = _specs;
 @synthesize buttonSpecs = _buttonSpecs;
 
 + (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
@@ -24,7 +24,7 @@
     VZFButtonNode* buttonNode = [super newWithView:[UIButton class] NodeSpecs:specs];
     
     if (buttonNode) {
-        buttonNode -> _specs = specs;
+//        buttonNode -> _specs = specs;
         buttonNode -> _buttonSpecs = buttonSepcs.copy();
         
         __weak typeof(buttonNode) weakNode = buttonNode;

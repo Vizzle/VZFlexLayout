@@ -15,7 +15,7 @@
 #import "VZFImageNode.h"
 #import "VZFCompositeNode.h"
 #import "TableViewController.h"
-
+#import "FBHeadNode.h"
 @interface ViewController ()<VZFNodeHostingView>
 
 @property(nonatomic,strong)VZFNodeHostingView* hostingView;
@@ -29,7 +29,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.hostingView = [[VZFNodeHostingView alloc]initWithNodeProvider:[self class]
-                                                         RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeWidthAndHeight]];
+                                                         RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
     self.hostingView.backgroundColor = [UIColor orangeColor];
     self.hostingView.frame = {{0,0},{CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds)}};
     self.hostingView.delegate = self;
@@ -37,9 +37,9 @@
     
     [self.hostingView render:nil];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goTable)];
-    
-    [self.view addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goTable)];
+//    
+//    [self.view addGestureRecognizer:tap];
     
 }
 
@@ -50,6 +50,11 @@
 
 + (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context{
 
+    
+    FBHeadNode* node = [FBHeadNode newWithProps:@"很多人都还记得，上赛季的总决赛，勇士战胜骑士夺冠，但如今效力骑士12年的中锋瓦莱乔却投入了劲敌勇士的怀抱。对此骑士球星凯文-乐福开玩笑的说道，“他们得到了我们所有的内部情报，不过正经的说，我为他而感到开心，他加盟了一支非常出色的球队，失去了那样一个兄弟是非常艰难的。他对于这座城市、这支球队都意味着很多东西。”记者再次提醒乐福，瓦莱乔加盟的可是勇士，对此乐福继续说道。“是啊，悲喜交加的一件事情，我希望他能打出出色的表现，当然，不是在对阵我们的时候。"];
+    
+    return node;
+    
     
     VZFCompositeNode* compositeNode = [VZFCompositeNode newWithNode:[self stackNodes]];
 //    return compositeNode;
@@ -78,7 +83,7 @@
     VZFButtonNode* buttonNode = [VZFButtonNode newWithNodeSpecs:{
         
         .view = {
-            .userInteractionEnabled = YES,
+
             .backgroundColor = [UIColor redColor],
             .layer = {
                 .cornerRadius = 4,
@@ -168,7 +173,6 @@
         .view = {
             
             .tag = 100,
-            .backgroundColor = [UIColor redColor],
             .clipToBounds = YES,
             .layer = {
                 
@@ -201,7 +205,7 @@
             .alignSelf = VZFlexCenter,
         }
     } TextAttributes:{
-        .text = @"ABC123",
+        .text = @"很多人都还记得，上赛季的总决赛，勇士战胜骑士夺冠，但如今效力骑士12年的中锋瓦莱乔却投入了劲敌勇士的怀抱。对此骑士球星凯文-乐福开玩笑的说道，“他们得到了我们所有的内部情报，不过正经的说，我为他而感到开心，他加盟了一支非常出色的球队，失去了那样一个兄弟是非常艰难的。他对于这座城市、这支球队都意味着很多东西。”记者再次提醒乐福，瓦莱乔加盟的可是勇士，对此乐福继续说道。“是啊，悲喜交加的一件事情，我希望他能打出出色的表现，当然，不是在对阵我们的时候。",
         .color = [UIColor blueColor],
     }];
     

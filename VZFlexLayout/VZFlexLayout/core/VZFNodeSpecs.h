@@ -31,9 +31,8 @@ namespace VZ {
     struct ViewAttrs{
         
         NSInteger tag;
-        BOOL userInteractionEnabled;
-        UIColor* backgroundColor;
         BOOL clipToBounds;
+        UIColor* backgroundColor;
         LayerAttrs layer;
         void(^block)(UIView* view);
     };

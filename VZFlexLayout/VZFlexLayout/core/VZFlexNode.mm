@@ -522,7 +522,8 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 }
 
 - (NSString *)description {
-    return [self recursiveDescription:VZFlexNodeDescriptionOptionHideUnspecified | VZFlexNodeDescriptionOptionHideResult];
+//    return [self recursiveDescription:VZFlexNodeDescriptionOptionHideUnspecified | VZFlexNodeDescriptionOptionHideResult];
+    return [self recursiveDescription:VZFlexNodeDescriptionOptionHideUnspecified];
 }
 
 
