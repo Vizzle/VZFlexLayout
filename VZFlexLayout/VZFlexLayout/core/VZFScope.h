@@ -28,8 +28,6 @@ namespace VZ {
         ~Scope();
         
         id state() const;
-//        Class nodeClass() const;
-//        id scopeIdentifier() const;
         
     private:
         Scope(const Scope& ) = delete;

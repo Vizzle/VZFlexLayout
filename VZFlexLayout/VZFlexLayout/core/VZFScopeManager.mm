@@ -65,8 +65,6 @@
         return  handler;
     }
     else{
-
-        //need assert here !
         return nil;
     }
 }

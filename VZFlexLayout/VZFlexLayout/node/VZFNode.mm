@@ -51,10 +51,8 @@
         _viewClass = viewclass;
         _flexNode = [VZFNodeUISpecs flexNodeWithAttributes:_specs.flex];
         _flexNode.name = [NSString stringWithUTF8String:specs.name.c_str()];
-        [VZFScopeManager scopeHandlerForNode:self];
-//        _scopeHander = [[VZFScopeHandler alloc]initWithListener:nil NodeClass:[self class] PropsFunc:^id{
-//            return [[self class] initialState];
-//        }];
+        _scopeHander = [VZFScopeManager scopeHandlerForNode:self];
+
     }
     return self;
 }
@@ -63,12 +61,6 @@
 {
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
-
-- (NSNumber* )scopeId{
-    
-    return nil;
-}
-
 
 
 - (void)updateState:(id (^)(id))updateBlock{

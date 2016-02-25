@@ -91,15 +91,13 @@
         return NO;
     }
     else{
-//        if ([node isMemberOfClass:_nodeClass]) {
+        if ([node isMemberOfClass:_nodeClass]) {
             _inUse = YES;
-            [node bindScopeHandler:self];
-            
             return YES;
-//        }
-//        else{
-//            return NO;
-//        }
+        }
+        else{
+            return NO;
+        }
     }
 }
 
