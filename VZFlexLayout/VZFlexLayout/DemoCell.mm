@@ -43,16 +43,25 @@
 }
 
 //Vizzle setItem
-- (void)updateNode {
+- (void)updateNode{    
     [self.hostingView renderWithState:nil reuseView:self];
 }
 
 
 + (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context{
     
-    VZFNode* node = [self stackNodes];
+    VZFNode* node;
+    
+    int x = rand();
+    if (x%2) {
+        node = [self stackNodes];
+    } else {
+        node = [self stackNodes2];
+    }
+    
     
     objc_setAssociatedObject(self, &kViewReuseInfoKey, node, OBJC_ASSOCIATION_ASSIGN);
+
     
     return node;
 }
@@ -80,6 +89,77 @@
             .marginLeft = 10,
             .width = 100,
             .height = 100,
+        }
+    } ImageAttributes:{
+        .image = [UIImage imageNamed:@"cat"],
+        .contentMode = UIViewContentModeScaleAspectFill
+    }];
+    
+    VZFTextNode *textNode = [VZFTextNode newWithNodeSpecs:{
+        
+        .view = {
+            .tag = 101,
+            .backgroundColor = [UIColor yellowColor]
+        },
+        .flex={
+            .marginTop = 10,
+            .marginLeft = 10,
+            .marginRight = 10,
+            .alignSelf = VZFlexCenter,
+        }
+    } TextAttributes:{
+        .text = @"ABC123",
+        .color = [UIColor blueColor],
+    }];
+    
+    VZFStackNode* stackNodeTopNode = [VZFStackNode newWithStackSpecs:{
+        
+        .name = "TopNode",
+        .view = {
+            .tag = 10,
+            .backgroundColor = [UIColor cyanColor]
+        },
+        .flex = {
+            .stackLayout = {
+                .direction = VZFlexHorizontal,
+            }
+        }
+        
+    } Children:{
+        
+        
+        {.node = imageNode},
+        {.node = textNode},
+        
+    }];
+    
+    
+    
+    
+    
+    return stackNodeTopNode;
+    
+}
+
++ (VZFStackNode* )stackNodes2{
+    
+    VZFNode* imageNode = [VZFImageNode newWithNodeSpecs:{
+        .view = {
+            
+            .tag = 100,
+            .backgroundColor = [UIColor greenColor],
+            .clipToBounds = YES,
+            .layer = {
+                
+                .borderColor = [UIColor whiteColor]
+            }
+        },
+        .flex = {
+            
+            .marginTop = 10,
+            .marginLeft = 10,
+            .width = 50,
+            .height = 50,
         }
     } ImageAttributes:{
         .image = [UIImage imageNamed:@"cat"],

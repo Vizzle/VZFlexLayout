@@ -115,8 +115,6 @@ using namespace VZ;
     
     const NodeSpecs specs = node.specs;
     
-    //如果可以重用则重用，不可重用就结束重用流程
-    
     UIView* view;
 
     
@@ -127,12 +125,14 @@ using namespace VZ;
         view = [self _createUIView:node.viewClass];
     }
     
+    [self _applyAttributes:specs.view ToUIView:view];
+    view.frame = {layout.nodeOrigin(), layout.nodeSize()};
+    [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
     
-    
-    //需要考虑不同层级的删除subView
     if ([node isKindOfClass:[VZFImageNode class]]) {
-        
         VZFImageNode* imageNode = (VZFImageNode* )node;
+        ((UIImageView*)view).image = nil;
+
         [self _applyImageAttributes:imageNode.imagesSpecs ToImageView:(UIImageView* )view];
     }
     else if ([node isKindOfClass:[VZFButtonNode class]]){
@@ -145,10 +145,6 @@ using namespace VZ;
         VZFTextNode* textNode = (VZFTextNode* )node;
         [self _applyTextAttributes:textNode.textSpecs ToUILabel:(UILabel* )view];
     }
-
-    [self _applyAttributes:specs.view ToUIView:view];
-    view.frame = {layout.nodeOrigin(), layout.nodeSize()};
-    [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
     
     return view;
 }
