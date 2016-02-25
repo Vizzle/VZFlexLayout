@@ -80,7 +80,11 @@ using namespace VZ;
         NSMutableArray *subviews = [[NSMutableArray alloc] initWithCapacity:stackNode.children.size()];
         
         if (cell) {
-            [subviews addObjectsFromArray:cell.subviews];
+            
+            VZFNode* oldNode = objc_getAssociatedObject(cell, &kViewReuseInfoKey);
+            if(!oldNode.specs.view.block) {
+                [subviews addObjectsFromArray:cell.subviews];
+            }
         }
         
         for (int i = 0; i < stackNode.children.size(); i++) {
@@ -103,54 +107,61 @@ using namespace VZ;
     }
 }
 
++ (BOOL)canReuse:(VZFNode *)node reuseView:(UIView *)reuseView {
+    if ([node isKindOfClass:VZFImageNode.class] && [reuseView isKindOfClass:UIImageView.class]) {
+        return YES;
+    }
+    
+    if ([node isKindOfClass:VZFButtonNode.class] && [reuseView isKindOfClass:UIButton.class]) {
+        return YES;
+    }
+    
+    if ([node isKindOfClass:VZFTextNode.class] && [reuseView isKindOfClass:UILabel.class]) {
+        return YES;
+    }
+    
+    if ((![node isKindOfClass:VZFImageNode.class] && ![node isKindOfClass:VZFButtonNode.class] && ![node isKindOfClass:VZFTextNode.class]) &&[reuseView isMemberOfClass:UIView.class]) {
+        return YES;
+    }
+    
+    
+    return NO;
+}
+
 + (UIView* )_viewForNode:(VZFNode *)node withLayoutSpec:(const VZFNodeLayout &)layout reuseView:(UIView *)reuseView{
     
     const NodeSpecs specs = node.specs;
     
     UIView* view;
+
     
+    if ([self canReuse:node reuseView:reuseView]) {
+        view = reuseView;
+    } else {
+        [reuseView removeFromSuperview];
+        view = [self _createUIView:node.viewClass];
+    }
     
+    [self _applyAttributes:specs.view ToUIView:view];
+    view.frame = {layout.nodeOrigin(), layout.nodeSize()};
+    [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
-        
-        //TODO 需要优化代码实现形式，目前开发阶段先这么写测试是否有用
-        if ([reuseView isKindOfClass:UIImageView.class]) {
-            
-            view = reuseView;
-        } else {
-            view = [self _createUIView:node.viewClass];
-        }
-        
         VZFImageNode* imageNode = (VZFImageNode* )node;
+        ((UIImageView*)view).image = nil;
+
         [self _applyImageAttributes:imageNode.imagesSpecs ToImageView:(UIImageView* )view];
     }
     else if ([node isKindOfClass:[VZFButtonNode class]]){
-        if ([reuseView isKindOfClass:UIButton.class]) {
-            view = reuseView;
-        } else {
-            view = [self _createUIView:node.viewClass];
-        }
+
         VZFButtonNode* buttonNdoe = (VZFButtonNode* )node;
         [self _applyButtonAttributes:buttonNdoe.buttonSpecs ToUIButton:(UIButton* )view];
     }
     else if ([node isKindOfClass:[VZFTextNode class]]){
         
-        if ([reuseView isKindOfClass:UILabel.class]) {
-            view = reuseView;
-        } else {
-            view = [self _createUIView:node.viewClass];
-        }
-        
         VZFTextNode* textNode = (VZFTextNode* )node;
         [self _applyTextAttributes:textNode.textSpecs ToUILabel:(UILabel* )view];
     }
-    
-    if (view == nil) {
-        view = [self _createUIView:node.viewClass];
-    }
-    [self _applyAttributes:specs.view ToUIView:view];
-    view.frame = {layout.nodeOrigin(), layout.nodeSize()};
-    [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
     
     return view;
 }
@@ -304,7 +315,18 @@ using namespace VZ;
         
         [btn addTarget:blockWrapper action:@selector(invoke:) forControlEvents:action.event];
     }
-    
+
+//    [btn setTitleColor:buttonNodeSpecs.titleColorHighlight forState:UIControlStateHighlighted];
+//    [btn setTitle:buttonNodeSpecs.titleHighlight forState:UIControlStateHighlighted];
+//    [btn setTitleColor:buttonNodeSpecs.titleColor forState:UIControlStateNormal];
+//    [btn setTitle:buttonNodeSpecs.title forState:UIControlStateNormal];
+//    [btn.titleLabel setFont:buttonNodeSpecs.titleFont];
+//    [btn setImage:buttonNodeSpecs.image forState:UIControlStateNormal];
+//    [btn setImage:buttonNodeSpecs.imageHighlight forState:UIControlStateHighlighted];
+//    [btn setBackgroundImage:buttonNodeSpecs.backgroundImage forState:UIControlStateNormal];
+//    [btn setBackgroundImage:buttonNodeSpecs.backgroundImageHighlight forState:UIControlStateHighlighted];
+//    btn addTarget:(nullable id) action:(nonnull SEL) forControlEvents:<#(UIControlEvents)#>
+
     
 }
 

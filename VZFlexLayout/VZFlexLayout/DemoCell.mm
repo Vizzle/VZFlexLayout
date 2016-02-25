@@ -13,12 +13,14 @@
 #import "VZFTextNode.h"
 #import "VZFImageNode.h"
 #import "VZFStackNode.h"
+#import "VZFNodeViewManager.h"
 
 @interface DemoCell()<VZFNodeHostingView>
 
 @property(nonatomic,strong)VZFNodeHostingView* hostingView;
 
 @end
+
 
 @implementation DemoCell
 
@@ -40,11 +42,30 @@
     return self;
 }
 
+//Vizzle setItem
+- (void)updateNode{    
+    [self.hostingView renderWithState:nil reuseView:self];
+}
+
 
 + (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context{
     
-    return [self stackNodes];
+    VZFNode* node;
+    
+    int x = rand();
+    if (x%2) {
+        node = [self stackNodes];
+    } else {
+        node = [self stackNodes2];
+    }
+    
+    
+    objc_setAssociatedObject(self, &kViewReuseInfoKey, node, OBJC_ASSOCIATION_ASSIGN);
+
+    
+    return node;
 }
+
 
 
 
@@ -66,8 +87,109 @@
             
             .marginTop = 10,
             .marginLeft = 10,
-            .width = 100,
-            .height = 100,
+            .width = 80,
+            .height = 80,
+        }
+    } ImageAttributes:{
+        .image = [UIImage imageNamed:@"cat"],
+        .contentMode = UIViewContentModeScaleAspectFill
+    }];
+    
+    VZFTextNode *textNode = [VZFTextNode newWithNodeSpecs:{
+        
+        .view = {
+            .tag = 101,
+            .backgroundColor = [UIColor yellowColor]
+        },
+        .flex={
+            .marginTop = 10,
+            .marginLeft = 10,
+            .marginRight = 10,
+            .alignSelf = VZFlexCenter,
+        }
+    } TextAttributes:{
+        .text = @"ABC123",
+        .color = [UIColor blueColor],
+    }];
+    
+    VZFStackNode* stackNodeTopNode = [VZFStackNode newWithStackSpecs:{
+        
+        .name = "TopNode",
+        .view = {
+            .tag = 10,
+            .backgroundColor = [UIColor cyanColor]
+        },
+        .flex = {
+            .stackLayout = {
+                .direction = VZFlexHorizontal,
+            }
+        }
+        
+    } Children:{
+        
+        
+        {.node = imageNode},
+        {.node = textNode},
+        
+    }];
+    
+    VZFNode* contentNode = [VZFImageNode newWithNodeSpecs:{
+        .view = {
+            .backgroundColor = [UIColor greenColor],
+        },
+        .flex = {
+            .marginTop = 10,
+            .width = 80,
+            .height = 80,
+            .alignSelf = VZFlexStart,
+        }
+    } ImageAttributes:{
+        .image = [UIImage imageNamed:@"cat"],
+    }];
+    
+    
+    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
+        
+        .view = {
+            .backgroundColor = [UIColor whiteColor],
+        },
+        .flex = {
+            .stackLayout = {
+                .direction = VZFlexHorizontal
+            }
+        }
+        
+    } Children:{
+        {.node = stackNodeTopNode},
+        {.node = contentNode}
+        
+    }];
+    
+    
+    return stackNode;
+    
+}
+
+
++ (VZFStackNode* )stackNodes2{
+    
+    VZFNode* imageNode = [VZFImageNode newWithNodeSpecs:{
+        .view = {
+            
+            .tag = 100,
+            .backgroundColor = [UIColor greenColor],
+            .clipToBounds = YES,
+            .layer = {
+                
+                .borderColor = [UIColor whiteColor]
+            }
+        },
+        .flex = {
+            
+            .marginTop = 10,
+            .marginLeft = 10,
+            .width = 50,
+            .height = 50,
         }
     } ImageAttributes:{
         .image = [UIImage imageNamed:@"cat"],

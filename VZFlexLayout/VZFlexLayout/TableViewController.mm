@@ -47,13 +47,19 @@
     return 100;
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
     NSString* CellIdentifier = @"demo reuse";
     
-    VZFlexCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    DemoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (!cell) {
         cell = [[DemoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    } else {
+        [cell updateNode];
     }
     
     return cell;
