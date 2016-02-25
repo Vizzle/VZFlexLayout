@@ -36,7 +36,7 @@
         [self.contentView addSubview:self.hostingView];
         
         [self.hostingView renderWithState:nil reuseView:self];
-
+        
     }
     
     return self;
@@ -58,10 +58,6 @@
     } else {
         node = [self stackNodes2];
     }
-    
-    
-    objc_setAssociatedObject(self, &kViewReuseInfoKey, node, OBJC_ASSOCIATION_ASSIGN);
-
     
     return node;
 }
