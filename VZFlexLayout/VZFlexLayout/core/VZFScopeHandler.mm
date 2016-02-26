@@ -129,7 +129,7 @@
      BOOL _inUse;
      id _rootScopeId;
      */
-    return [NSString stringWithFormat:@"%@-->{\nlistener: %@\n node: %@\n scopeId: %@\n inUSE: %d\n rootScopeId:%@\n}",self.class,_listener,_nodeClass,_scopeIdentifier,_inUse,_rootScopeId];
+    return [NSString stringWithFormat:@"%@-->{\nlistener: %@\n node: %@\n scopeId: %@\n inUSE: %d\n rootScopeId:%@ state:%@\n}",self.class,_listener,_nodeClass,_scopeIdentifier,_inUse,_rootScopeId,_state];
 
 }
 

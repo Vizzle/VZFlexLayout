@@ -12,40 +12,9 @@
 #include <string>
 #import "VZFUtils.h"
 
-namespace VZ {
-    struct _StateScopeKey {
-        Class __unsafe_unretained nodeClass;
-        id identifier;
-        
-        bool operator==(const _StateScopeKey &v) const {
-            return (Hash::_ObjectsEqual(this->nodeClass, v.nodeClass) && Hash::_ObjectsEqual(this->identifier, v.identifier));
-        }
-    };
-}
-typedef VZ::_StateScopeKey VZStateScopeKey;
-namespace std
-{
-    template <>
-    struct hash<VZStateScopeKey>
-    {
-        size_t operator ()(VZStateScopeKey k) const {
-            NSUInteger subhashes[] = { [k.nodeClass hash], [k.identifier hash] };
-            
-            NSUInteger count = sizeof(subhashes)/sizeof(subhashes[0]);
-            return VZ::Hash::IntegerArrayHash(subhashes, count);
-        }
-    };
-    
-    
-   // NSString*
-    
-}
 
 @implementation VZFScopeFrame{
-    
     NSMutableDictionary* _children;
-//    std::unordered_map<VZStateScopeKey, VZFScopeFrame *> _children;
-
 }
 
 
@@ -66,7 +35,7 @@ namespace std
                          StateUpdates:(NSDictionary* )stateUpdatesFunc{
 
 
-    // Find the existing child, if any, in the old frame
+
     VZFScopeFrame *existingChild = nil;;
     if (pair.oldScopeFrame) {
         
@@ -76,10 +45,6 @@ namespace std
         if (value) {
             existingChild = value;
         }
-//        const auto it = oldFrameChildren.find({nodeClz, identifier});
-//        if (it != oldFrameChildren.end() ) {
-//            existingChild = it -> second;
-//        }
     }
     
     VZFScopeHandler* newHandler = nil;
@@ -107,9 +72,6 @@ namespace std
         [pair.newScopeFrame->_children setObject:newFrame forKey:newKey];
     }
     
-    
-//    const auto result = pair.newScopeFrame->_children.insert({{nodeClz, identifier}, newFrame});
-  //  CKAssert(result.second, @"Scope collision: attempting to create duplicate scope %@:%@", componentClass, identifier);
     return {.newScopeFrame = newFrame, .oldScopeFrame = existingChild};
 
 
