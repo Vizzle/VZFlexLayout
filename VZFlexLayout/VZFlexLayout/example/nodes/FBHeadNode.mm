@@ -57,7 +57,10 @@
         .title = [state boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         .font = [UIFont systemFontOfSize:12.0f],
-        .actionSelector = @selector(didTap:),
+        .actionSelector = {
+            {UIControlEventTouchUpInside, @selector(didTap:)},
+            {UIControlEventTouchDown, @selector(touchDown)}
+        },
 
     }];
     

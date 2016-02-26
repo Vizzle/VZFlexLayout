@@ -9,6 +9,7 @@
 #import "VZFScopeHandler.h"
 #import "VZFNodeInternal.h"
 #include <libkern/OSAtomic.h>
+#include "VZFLocker.h"
 
 @implementation VZFScopeHandler
 {
@@ -64,7 +65,7 @@
         _scopeIdentifier = identifier;
         _rootScopeId     = rootScopeId;
         _state = state;
-    
+        _controller = newController(nodeClass);
     }
     return self;
 }
@@ -140,7 +141,33 @@
     return newHandler;
 }
 
-static VZFNodeController* newController(Class componentClass) {
+static Class controllerClassForNodeClass(Class nodeClass)
+{
+    if (nodeClass == [VZFNode class]) {
+        return Nil;
+    }
+    
+    static VZ::StaticMutex mutex = VZ_MUTEX_INITIALIZER; // protects cache
+    VZ::StaticMutexLocker l(mutex);
+    
+    static std::unordered_map<Class, Class> *cache = new std::unordered_map<Class, Class>();
+    const auto &it = cache->find(nodeClass);
+    if (it == cache->end()) {
+        Class c = NSClassFromString([NSStringFromClass(nodeClass) stringByAppendingString:@"Controller"]);
+        
+        cache->insert({nodeClass, c});
+        return c;
+    }
+    return it->second;
+}
+
+static VZFNodeController* newController(Class nodeClass) {
+    Class controllerClass = controllerClassForNodeClass(nodeClass);
+    if (controllerClass) {
+        NSCAssert([controllerClass isSubclassOfClass:[VZFNodeController class]],
+                  @"%@ must inherit from CKComponentController", controllerClass);
+        return [[controllerClass alloc] init];
+    }
     return nil;
 }
 

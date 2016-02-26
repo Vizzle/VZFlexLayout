@@ -17,6 +17,7 @@
 #import "VZFButtonNode.h"
 #import "VZFlexCell.h"
 #import <objc/runtime.h>
+#import "VZFNodeControllerInternal.h"
 
 @protocol VZFActionWrapper <NSObject>
 
@@ -91,6 +92,8 @@ using namespace VZ;
 
 + (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout reuseView:(UIView *)cell
 {
+    [node.controller nodeWillMount:node];
+    UIView *view;
     if (![node isKindOfClass : [VZFStackNode class] ]) {
         
         //对compositeNode做特殊处理
@@ -99,10 +102,10 @@ using namespace VZ;
             VZFCompositeNode* compositeNode = (VZFCompositeNode* )node;
             
             
-            return [self viewForNode:compositeNode.node withLayoutSpec:layout reuseView:cell];
+            view = [self viewForNode:compositeNode.node withLayoutSpec:layout reuseView:cell];
         }
         else{
-            return [self _viewForNode:node withLayoutSpec:layout reuseView:cell];
+            view = [self _viewForNode:node withLayoutSpec:layout reuseView:cell];
         }
         
     }
@@ -139,8 +142,10 @@ using namespace VZ;
             }
             
         }
-        return stackView;
+        view = stackView;
     }
+    [node.controller nodeDidMount:node];
+    return view;
 }
 
 + (BOOL)canReuse:(VZFNode *)node reuseView:(UIView *)reuseView {
@@ -206,16 +211,18 @@ using namespace VZ;
 
 + (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout
 {
+    [node.controller nodeWillMount:node];
+    UIView *view;
     if (![node isKindOfClass : [VZFStackNode class] ]) {
         
         //对compositeNode做特殊处理
         if ([node isKindOfClass:[VZFCompositeNode class]]) {
             
             VZFCompositeNode* compositeNode = (VZFCompositeNode* )node;
-            return [self viewForNode:compositeNode.node withLayoutSpec:layout];
+            view = [self viewForNode:compositeNode.node withLayoutSpec:layout];
         }
         else{
-            return [self _viewForNode:node withLayoutSpec:layout];
+            view = [self _viewForNode:node withLayoutSpec:layout];
         }
       
     }
@@ -240,8 +247,10 @@ using namespace VZ;
             }
      
         }
-        return stackView;
+        view = stackView;
     }
+    [node.controller nodeDidMount:node];
+    return view;
 }
 
 
