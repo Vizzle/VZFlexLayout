@@ -7,15 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <unordered_map>
-#include <stack>
-#import "VZFState.h"
-#import "VZFScopeHandler.h"
-
-
-
-//{key:scopeId, value:state_update_func}
-typedef std::unordered_multimap<int32_t, id (^)(id)> VZFNodeStateUpdateMap;
 
 namespace VZ {
 
@@ -41,23 +32,6 @@ namespace VZ {
 
 
 
-
-@interface VZFRootScope : NSObject
-
-@property(nonatomic,weak,readonly) id<VZFStateListener> listener;
-@property(nonatomic,assign,readonly) int32_t rootScopeId;
-/**
- * 每个root scope绑定一个listener
- *
- *  @param listener node的state变化触发这个listener
- *
- *  @return scope
- */
-+ (instancetype)rootScopeWithListener:(id<VZFStateListener>)listener;
-- (instancetype)newRootScope;
-
-
-@end
 
 
 

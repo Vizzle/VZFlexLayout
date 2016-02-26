@@ -11,14 +11,15 @@
 #import "VZFMacros.h"
 #import "VZFNode.h"
 #import "VZFNodeInternal.h"
-#import "VZFScope.h"
 #import "VZFlexCell.h"
+#import "VZFRootScope.h"
+#import "VZFScopeManager.h"
 
 struct VZFNodeHostingViewInputs{
     VZFRootScope* rootScope;
     id model;
     id context;
-    VZFNodeStateUpdateMap stateMap;
+    NSDictionary* stateMap;
     
     bool operator==(const VZFNodeHostingViewInputs &i) const {
         return rootScope == i.rootScope &&
@@ -54,7 +55,8 @@ struct VZFNodeHostingViewInputs{
     if (self) {
         _nodeProvider = nodeProvider;
         _sizeProvider = sizeProvider;
-        _pendingInputs = {.rootScope = [VZFRootScope rootScopeWithListener:self]};
+        _pendingInputs = {.rootScope = [VZFRootScope rootScopeWithListener:self],
+            .stateMap = @{}};
         _containerView = [[UIView alloc]initWithFrame:CGRectZero];
 //        _containerView.backgroundColor = [UIColor c];
         [self addSubview:_containerView];
@@ -69,16 +71,19 @@ struct VZFNodeHostingViewInputs{
 
     [self _render];
 }
-- (void)nodeStateUpdateDidChanged{
+- (void)nodeScopeHandleWithIdentifier:(id)scopeId
+                       rootIdentifier:(id)rootScopeId
+                didReceiveStateUpdate:(id (^)(id))stateUpdate{
 
+    NSMutableDictionary* mutableFuncs = [_pendingInputs.stateMap mutableCopy];
+    NSMutableArray* funclist = mutableFuncs[scopeId];
+    if (!funclist) {
+        funclist = [NSMutableArray new];
+    }
+    [funclist addObject:stateUpdate];
+    mutableFuncs[scopeId] = funclist;
+    _pendingInputs.stateMap = [mutableFuncs copy];
     [self _render];
-}
-- (void)nodeStateUpdateWithScopeId:(int32_t)scopeId rootScopeId:(int32_t)rootScopeId Func:(id (^)(id))updateFunc{
-
-    _pendingInputs.stateMap.insert({scopeId,updateFunc});
-    
-    [self _render];
-    
 }
 
 - (void)_render{
@@ -88,7 +93,14 @@ struct VZFNodeHostingViewInputs{
     }
     
     _isRendering = YES;
-    _node = [_nodeProvider nodeForItem:_pendingInputs.model context:nil];
+    
+    VZBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
+        return [_nodeProvider nodeForItem:_pendingInputs.model context:nil];
+    } RootScope:_pendingInputs.rootScope StateUpdateFuncs:_pendingInputs.stateMap];
+    _pendingInputs.rootScope = result.scopeRoot;
+    _pendingInputs.stateMap = @{};
+    _node = result.node;
+    
     CGSize size = [_sizeProvider rangeSizeForBounds:self.bounds.size];
     VZFNodeLayout layout = [_node computeLayoutThatFits:size];
     NSLog(@"%@",_node);
@@ -98,6 +110,7 @@ struct VZFNodeHostingViewInputs{
     UIView* fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout];
     if (fView) {
         
+        [_containerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         [_containerView addSubview:fView];
         
         if ([self.delegate respondsToSelector:@selector(hostingViewDidInvalidate:)]) {

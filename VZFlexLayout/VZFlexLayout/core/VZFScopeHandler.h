@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "VZFScope.h"
 #import "VZFNodeController.h"
+#import "VZFScopeManager.h"
 
 @class VZFNode;
 @interface VZFScopeHandler : NSObject<NSCopying>
@@ -17,14 +18,20 @@
 @property(nonatomic,strong,readonly) id state;
 @property(nonatomic,assign,readonly) BOOL isRootHandler;
 
-- (instancetype)initWithScopeIdentifier:(id)identifier
-                              NodeClass:(Class )nodeClass
-                           InitialState:(id)state;
++ (VZFScopeHandler* )scopeHandlerForNode:(VZFNode* )node;
+
+- (instancetype)initWithListener:(id<VZFStateListener>)listener
+             RootScopeIdentifier:(id)identifier
+                       NodeClass:(Class )nodeClass
+                InitialStateFunc:(id(^)(void))stateFunc;
 
 - (instancetype)newHandler;
+- (instancetype)newHandlerWithLatestState:(NSDictionary* )multiStates;
 
 - (BOOL)bindToNode:(VZFNode* )node;
 
 - (void)updateState:(id(^)(id))stateBlock;
+
+
 
 @end

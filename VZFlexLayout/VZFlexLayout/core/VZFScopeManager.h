@@ -7,17 +7,38 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VZFRootScope.h"
+#import "VZFScopeFrame.h"
 
 
 @class VZFNode;
 @class VZFScopeHandler;
+
+@interface VZFLocalScope:NSObject
+
+- (id)initWithRootScope:(VZFRootScope* )rootScope StateUpdates:(NSDictionary* )funcs;
+- (VZFRootScope* )newRootScope;
+- (NSDictionary* )stateUpdateFunctions;
+- (VZScopeFramePair )top;
+- (void)pop;
+- (void)push:(const VZScopeFramePair& )pair;
+
+@end
+
+struct VZBuildNodeResult {
+    VZFNode *node;
+    VZFRootScope *scopeRoot;
+};
+
 @interface VZFScopeManager : NSObject
+
+@property(nonatomic,strong,readonly) VZFLocalScope* currentLocalScope;
 
 + (instancetype)sharedInstance;
 
-+ (VZFScopeHandler* )scopeHandlerForNode:(VZFNode* )node; //will mutate node
++ (VZBuildNodeResult)buildNodeWithFunction:(VZFNode*(^)(void))function
+                                 RootScope:(VZFRootScope* )rootScope
+                          StateUpdateFuncs:(NSDictionary* )funcs;
 
-+ (VZFScopeHandler* )pushScopeHandlerWithScopeIdentifier:(id)identifier NodeClass:(Class)clz initialState:(id)state;
-+ (void)popScopeHandler;
 
 @end

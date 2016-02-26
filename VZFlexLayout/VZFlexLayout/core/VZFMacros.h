@@ -15,3 +15,5 @@ NSAssert2(NO, @"%@ is not the designated initializer for instances of %@.", NSSt
 return nil; \
 } while (0)
 #endif // CK_NOT_DESIGNATED_INITIALIZER
+
+

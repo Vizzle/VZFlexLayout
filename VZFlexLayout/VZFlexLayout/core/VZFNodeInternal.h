@@ -70,5 +70,7 @@
 
 - (void)bindScopeHandler:(VZFScopeHandler* )scopeHandler;
 
+
+
 @end
 #endif /* VZFNodeInternal_h */

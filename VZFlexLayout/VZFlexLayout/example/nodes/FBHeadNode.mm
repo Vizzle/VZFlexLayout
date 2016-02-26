@@ -87,7 +87,8 @@
     NSLog(@"%@ didTap", NSStringFromClass([sender class]));
     [self updateState:^id(NSNumber* oldState) {
         
-        return @(![oldState boolValue]);
+        id state =  @(![oldState boolValue]);
+        return state;
         
     }];
 }

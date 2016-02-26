@@ -11,33 +11,41 @@
 #import "VZFScopeManager.h"
 #import "VZFScopeHandler.h"
 #import "VZFNodeInternal.h"
+#import "VZFScopeFrame.h"
 
 namespace VZ {
     
     Scope::Scope(Class clz, id scopeIdentifier, id(^initialStateCreator)(void)):_scopeIdentifier(scopeIdentifier),_nodeClass(clz){
-       
+
         
-        static int32_t scopeId = 0;
-        if (!scopeIdentifier) {
-            scopeIdentifier = @(OSAtomicIncrement32(&scopeId));
-        }
-        
-        id initialState = nil;
-        if (!initialStateCreator) {
-            initialState = [clz initialState];
+        VZFLocalScope* localScope = [VZFScopeManager sharedInstance].currentLocalScope;
+        if (localScope) {
+            
+            const auto currentPair = [localScope top];
+            
+            const auto newPair = [VZFScopeFrame scopeFramePair:currentPair
+                                                    NewRoot:[localScope newRootScope]
+                                                  NodeClass:clz
+                                                 Identifier:scopeIdentifier
+                                        InitialStateCreator:initialStateCreator
+                                               StateUpdates:[localScope stateUpdateFunctions]];
+            
+            [localScope push:newPair];
+            _state = newPair.newScopeFrame.handler.state;
         }
         else{
-            initialState = initialStateCreator();
-        }
         
-        VZFScopeHandler* handler = [VZFScopeManager pushScopeHandlerWithScopeIdentifier:scopeIdentifier NodeClass:clz initialState:initialState];
-        _state = handler.state;
-    
+            //assert here
+        }
+
     };
     
     Scope::~Scope(){
         
-        [VZFScopeManager popScopeHandler];
+        VZFLocalScope* localScope = [VZFScopeManager sharedInstance].currentLocalScope;
+        if (localScope) {
+            [localScope pop];
+        }
         
     }
     
@@ -47,29 +55,3 @@ namespace VZ {
     
 }
 
-@implementation VZFRootScope
-{
-    
-}
-
-+ (instancetype)rootScopeWithListener:(id<VZFStateListener>)listener{
-    
-    static int32_t nextRootId = 0;
-    return [[self alloc] initWithRootScopeListener:listener rootScopeId:OSAtomicIncrement32(&nextRootId)];
-    
-}
-
-- (instancetype)initWithRootScopeListener:(id<VZFStateListener>)listener rootScopeId:(int32_t)rootId{
-
-    self = [super  init];
-    if (self) {
-        _listener = listener;
-        _rootScopeId = rootId;
-    }
-    return self;
-}
-- (instancetype)newRootScope{
-    return [self  initWithRootScopeListener:_listener rootScopeId:_rootScopeId];
-}
-
-@end

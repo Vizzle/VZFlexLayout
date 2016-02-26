@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4517297B1C7C494700BF3B9E /* VZFScopeHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */; };
 		4517297E1C7C616C00BF3B9E /* VZFScopeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */; };
-		451729811C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 451729801C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm */; };
 		4578E0C31C72F1CC00E52B79 /* VZFGestureForward.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E09E1C72F1CC00E52B79 /* VZFGestureForward.mm */; };
 		4578E0C41C72F1CC00E52B79 /* VZFlexCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A01C72F1CC00E52B79 /* VZFlexCell.mm */; };
 		4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */; };
@@ -27,7 +26,6 @@
 		4578E0DE1C736AF200E52B79 /* VZFNetworkImageNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0DD1C736AF200E52B79 /* VZFNetworkImageNode.mm */; };
 		4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0E01C736D1200E52B79 /* VZFNode.mm */; };
 		4578E0E41C736D1200E52B79 /* VZFStackNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0E21C736D1200E52B79 /* VZFStackNode.mm */; };
-		4578E0E71C741FFF00E52B79 /* VZFState.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0E61C741FFF00E52B79 /* VZFState.mm */; };
 		4578E0EA1C747A7800E52B79 /* VZFCompositeNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0E91C747A7800E52B79 /* VZFCompositeNode.mm */; };
 		4578E0ED1C74A68300E52B79 /* VZFTextNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0EC1C74A68300E52B79 /* VZFTextNodeSpecs.mm */; };
 		4578E0F01C75687D00E52B79 /* VZFImageNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0EF1C75687D00E52B79 /* VZFImageNodeSpecs.mm */; };
@@ -42,6 +40,8 @@
 		45C987571C2D0F2800D17A1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45C987561C2D0F2800D17A1D /* Assets.xcassets */; };
 		45C9875A1C2D0F2800D17A1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */; };
 		45CA3A851C7DDE5400DA04C1 /* VZFScope.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3A841C7DDE5400DA04C1 /* VZFScope.mm */; };
+		45CA3A8B1C7F35B000DA04C1 /* VZFRootScope.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3A8A1C7F35B000DA04C1 /* VZFRootScope.mm */; };
+		45CA3A8E1C80233E00DA04C1 /* VZFScopeFrame.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3A8D1C80233E00DA04C1 /* VZFScopeFrame.mm */; };
 		B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.m */; };
 		E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */; };
 		E6D13AE31C7C44EF00F603AB /* DemoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13AE21C7C44EF00F603AB /* DemoCell.mm */; };
@@ -52,8 +52,6 @@
 		4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeHandler.mm; sourceTree = "<group>"; };
 		4517297C1C7C616C00BF3B9E /* VZFScopeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFScopeManager.h; sourceTree = "<group>"; };
 		4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeManager.mm; sourceTree = "<group>"; };
-		4517297F1C7D61F700BF3B9E /* VZFNodeTreeBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeTreeBuilder.h; sourceTree = "<group>"; };
-		451729801C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeTreeBuilder.mm; sourceTree = "<group>"; };
 		4578E09C1C72F1CC00E52B79 /* VZFGesture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFGesture.h; sourceTree = "<group>"; };
 		4578E09D1C72F1CC00E52B79 /* VZFGestureForward.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFGestureForward.h; sourceTree = "<group>"; };
 		4578E09E1C72F1CC00E52B79 /* VZFGestureForward.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFGestureForward.mm; sourceTree = "<group>"; };
@@ -93,8 +91,6 @@
 		4578E0E01C736D1200E52B79 /* VZFNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNode.mm; sourceTree = "<group>"; };
 		4578E0E11C736D1200E52B79 /* VZFStackNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFStackNode.h; sourceTree = "<group>"; };
 		4578E0E21C736D1200E52B79 /* VZFStackNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFStackNode.mm; sourceTree = "<group>"; };
-		4578E0E51C741FFF00E52B79 /* VZFState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFState.h; sourceTree = "<group>"; };
-		4578E0E61C741FFF00E52B79 /* VZFState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFState.mm; sourceTree = "<group>"; };
 		4578E0E81C747A7800E52B79 /* VZFCompositeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFCompositeNode.h; sourceTree = "<group>"; };
 		4578E0E91C747A7800E52B79 /* VZFCompositeNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFCompositeNode.mm; sourceTree = "<group>"; };
 		4578E0EB1C74A68300E52B79 /* VZFTextNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeSpecs.h; sourceTree = "<group>"; };
@@ -119,6 +115,10 @@
 		45C987591C2D0F2800D17A1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45C9875B1C2D0F2800D17A1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45CA3A841C7DDE5400DA04C1 /* VZFScope.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScope.mm; sourceTree = "<group>"; };
+		45CA3A891C7F35B000DA04C1 /* VZFRootScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFRootScope.h; sourceTree = "<group>"; };
+		45CA3A8A1C7F35B000DA04C1 /* VZFRootScope.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFRootScope.mm; sourceTree = "<group>"; };
+		45CA3A8C1C80233E00DA04C1 /* VZFScopeFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFScopeFrame.h; sourceTree = "<group>"; };
+		45CA3A8D1C80233E00DA04C1 /* VZFScopeFrame.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeFrame.mm; sourceTree = "<group>"; };
 		B1CB0B9A1C7EEEEA00A9CAE7 /* VZFNodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeController.h; sourceTree = "<group>"; };
 		B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFNodeController.m; sourceTree = "<group>"; };
 		E6D13ADE1C7C3F6500F603AB /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
@@ -174,14 +174,14 @@
 				4578E0BD1C72F1CC00E52B79 /* VZFUtils.h */,
 				4578E0F41C756E0700E52B79 /* VZFUtils.mm */,
 				4578E0BE1C72F1CC00E52B79 /* VZFValue.h */,
-				4578E0E51C741FFF00E52B79 /* VZFState.h */,
-				4578E0E61C741FFF00E52B79 /* VZFState.mm */,
 				4578E0FC1C7734E300E52B79 /* VZFScope.h */,
 				45CA3A841C7DDE5400DA04C1 /* VZFScope.mm */,
+				45CA3A8C1C80233E00DA04C1 /* VZFScopeFrame.h */,
+				45CA3A8D1C80233E00DA04C1 /* VZFScopeFrame.mm */,
+				45CA3A891C7F35B000DA04C1 /* VZFRootScope.h */,
+				45CA3A8A1C7F35B000DA04C1 /* VZFRootScope.mm */,
 				451729791C7C494700BF3B9E /* VZFScopeHandler.h */,
 				4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */,
-				4517297F1C7D61F700BF3B9E /* VZFNodeTreeBuilder.h */,
-				451729801C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm */,
 				4517297C1C7C616C00BF3B9E /* VZFScopeManager.h */,
 				4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */,
 				B1CB0B9A1C7EEEEA00A9CAE7 /* VZFNodeController.h */,
@@ -371,12 +371,11 @@
 				B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.m in Sources */,
 				4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */,
 				4578E0C31C72F1CC00E52B79 /* VZFGestureForward.mm in Sources */,
-				451729811C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm in Sources */,
 				4578E0D21C72F1CC00E52B79 /* FlexLayout.c in Sources */,
+				45CA3A8B1C7F35B000DA04C1 /* VZFRootScope.mm in Sources */,
 				4578E0CE1C72F1CC00E52B79 /* VZFNodeViewClass.mm in Sources */,
 				4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */,
 				E6D13AE31C7C44EF00F603AB /* DemoCell.mm in Sources */,
-				4578E0E71C741FFF00E52B79 /* VZFState.mm in Sources */,
 				4578E0F01C75687D00E52B79 /* VZFImageNodeSpecs.mm in Sources */,
 				4578E0D51C73052F00E52B79 /* VZFImageNode.mm in Sources */,
 				4578E0D81C73054000E52B79 /* VZFButtonNode.mm in Sources */,
@@ -390,6 +389,7 @@
 				4578E0F31C756D3400E52B79 /* VZFButtonNodeSpecs.mm in Sources */,
 				4578E0CF1C72F1CC00E52B79 /* VZFNodeViewManager.mm in Sources */,
 				E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */,
+				45CA3A8E1C80233E00DA04C1 /* VZFScopeFrame.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

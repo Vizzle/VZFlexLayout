@@ -16,73 +16,77 @@
     Class _nodeClass;
     id _scopeIdentifier;
     BOOL _inUse;
-//    int32_t _rootScopeId;
+    id _rootScopeId;
 }
 
-+ (instancetype)scopeHandlerForNode:(VZFNode* )node{
++ (VZFScopeHandler* )scopeHandlerForNode:(VZFNode* )node{
 
-    
+    VZFLocalScope* localScope = [VZFScopeManager sharedInstance].currentLocalScope;
+    if (localScope) {
+        VZFScopeHandler* handler = [localScope top].newScopeFrame.handler;
+        if ([handler bindToNode:node]) {
+            return handler;
+        }
+    }
     return nil;
 
 }
 
+- (instancetype)initWithListener:(id<VZFStateListener>)listener
+             RootScopeIdentifier:(id)rootScopeId
+                       NodeClass:(Class )nodeClass
+                InitialStateFunc:(id(^)(void))stateFunc{
 
-- (instancetype)initWithScopeIdentifier:(id)identifier
-                              NodeClass:(Class)nodeClass
-                           InitialState:(id)state
-{
-
-    
     static int32_t scopeId = 0;
-    if (identifier == nil) {
-        identifier = @(OSAtomicIncrement32(&scopeId));
-    }
-    return [self initWithListener:nil
-                  ScopeIdentifier:identifier
-                        NodeClass:nodeClass
-                            State:state];
+    return  [self initWithListener:listener
+                   ScopeIdentifier: @(OSAtomicIncrement32(&scopeId))
+               RootScopeIdentifier:rootScopeId
+                         NodeClass:nodeClass
+                      InitialState:stateFunc?stateFunc():[nodeClass initialState]];
 
 }
 
 
-- (instancetype)initWithListener:(id<VZFStateListener>)listner
-                 ScopeIdentifier:(id)scopdId
+
+
+
+- (instancetype)initWithListener:(id<VZFStateListener>)listener
+                 ScopeIdentifier:(id)identifier
+             RootScopeIdentifier:(id)rootScopeId
                        NodeClass:(Class )nodeClass
-                           State:(id)state{
-    
+                    InitialState:(id)state{
+
     self = [super init];
     if (self) {
         
-        _listener        = listner;
+        _listener        = listener;
         _nodeClass       = nodeClass;
-        _scopeIdentifier = scopdId;
-//        _rootScopeId = rootId;
+        _scopeIdentifier = identifier;
+        _rootScopeId     = rootScopeId;
         _state = state;
     
     }
     return self;
 }
 
-//- (instancetype)newHandleWithStateUpdates:(const VZFNodeStateUpdateMap &)stateUpdates{
-//    id state = _state;
-//    const auto range = stateUpdates.equal_range(_scopeId);
-//    for (auto it = range.first; it != range.second; ++it) {
-//        state = it->second(state);
-//    }
-//    
-//    //返回一个新的handler，而不是原来的状态
-//    return [[VZFScopeHandler alloc] initWithListener:_listener
-//                                             ScopeId:_scopeId
-//                                                NodeClass:_nodeClass
-//                                               State:state];
-//}
 
 - (instancetype)newHandler{
 
-    return [[VZFScopeHandler alloc]initWithListener:_listener
-                                    ScopeIdentifier:_scopeIdentifier
-                                          NodeClass:_nodeClass
-                                              State:_state];
+    return [[VZFScopeHandler alloc]initWithListener:_listener ScopeIdentifier:_scopeIdentifier RootScopeIdentifier:_rootScopeId NodeClass:_nodeClass InitialState:_state];
+}
+
+- (instancetype)newHandlerWithLatestState:(NSDictionary* )multiStates{
+
+    id identifier = _scopeIdentifier;
+    NSArray* stateFuncs = multiStates[identifier];
+    
+    id state = _state;
+    for(id(^func)(id oldState) in stateFuncs){
+    
+        state = func(state);
+    }
+    _state = state;
+    return [self newHandler];
 }
 
 - (BOOL)bindToNode:(VZFNode* )node{
@@ -109,16 +113,22 @@
         });
         return;
     }
-    
-    _state = stateBlock(_state);
-    
-    
-    if (self.isRootHandler) {
-        
-        if ([_listener respondsToSelector:@selector(nodeStateUpdateDidChanged)]) {
-            [_listener nodeStateUpdateDidChanged];
-        }
+    if (_listener) {
+        [_listener nodeScopeHandleWithIdentifier:_scopeIdentifier rootIdentifier:_rootScopeId didReceiveStateUpdate:stateBlock];
     }
+
+}
+
+- (NSString* )description{
+
+    /**
+     __weak id<VZFStateListener> _listener;
+     Class _nodeClass;
+     id _scopeIdentifier;
+     BOOL _inUse;
+     id _rootScopeId;
+     */
+    return [NSString stringWithFormat:@"%@-->{\nlistener: %@\n node: %@\n scopeId: %@\n inUSE: %d\n rootScopeId:%@\n}",self.class,_listener,_nodeClass,_scopeIdentifier,_inUse,_rootScopeId];
 
 }
 

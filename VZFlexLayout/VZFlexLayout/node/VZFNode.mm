@@ -51,7 +51,7 @@
         _viewClass = viewclass;
         _flexNode = [VZFNodeUISpecs flexNodeWithAttributes:_specs.flex];
         _flexNode.name = [NSString stringWithUTF8String:specs.name.c_str()];
-        _scopeHander = [VZFScopeManager scopeHandlerForNode:self];
+        _scopeHander = [VZFScopeHandler scopeHandlerForNode:self];
 
     }
     return self;
@@ -66,6 +66,7 @@
 - (void)updateState:(id (^)(id))updateBlock{
 
     [_scopeHander updateState:updateBlock];
+    
 }
 
 

@@ -9,12 +9,78 @@
 #import "VZFScopeManager.h"
 #import "VZFScopeHandler.h"
 #include <stack>
+#include <string>
+
+
+@implementation VZFLocalScope
+{
+    VZFRootScope* _newRootScope;
+    NSDictionary* _funcs;
+    std::stack<VZScopeFramePair> _stack;
+
+}
+
+- (VZFRootScope* )newRootScope{
+    return _newRootScope;
+}
+
+- (NSDictionary* )stateUpdateFunctions{
+    return _funcs;
+}
+
+- (id)initWithRootScope:(VZFRootScope *)rootScope StateUpdates:(NSDictionary *)funcs{
+
+    self = [super init];
+    if (self) {
+        _newRootScope = [rootScope newRootScope];
+        _funcs = funcs;
+        _stack.push({[_newRootScope rootFrame],[rootScope rootFrame]});
+        
+    }
+    return self;
+}
+
+- (void)pop{
+    
+    return _stack.pop();
+
+}
+
+- (VZScopeFramePair)top{
+    return _stack.top();
+}
+- (void)push:(const VZScopeFramePair& )pair{
+
+    _stack.push(pair);
+}
+
+- (void)dealloc{
+    _stack.pop();
+
+}
+
+- (NSString* )description{
+
+    NSString* stackDesc=@"";
+    
+    std::string str("");
+    for (std::stack<VZScopeFramePair> dump = _stack; !dump.empty(); dump.pop()){
+        str += [NSString stringWithFormat:@"{new:%@,old:%@},",dump.top().newScopeFrame,dump.top().oldScopeFrame].UTF8String;
+    }
+    stackDesc = [[NSString alloc]initWithCString:str.c_str() encoding:NSUTF8StringEncoding];
+    return [NSString stringWithFormat:@"%@-->\n{\n RootScope:%@ \n Functions:%@\n Stack:%@\n}",self.class,_newRootScope,_funcs,stackDesc];
+
+
+}
+
+@end
+
+
+
 
 @implementation VZFScopeManager
 {
-    //这个数据结构再想想,应该用有序哈希
-//    NSMutableDictionary* _map;
-     NSMutableArray*  _stack;
+
 
 }
 
@@ -33,40 +99,27 @@
 
     self = [super init];
     if (self) {
-        _stack = [NSMutableArray new];
-//        _map = [NSMutableDictionary new];
+
     }
     return self;
 }
 
++ (VZBuildNodeResult)buildNodeWithFunction:(VZFNode*(^)(void))function
+                                 RootScope:(VZFRootScope* )rootScope
+                          StateUpdateFuncs:(NSDictionary* )funcs{
 
-+ (VZFScopeHandler* )pushScopeHandlerWithScopeIdentifier:(id)identifier NodeClass:(Class)clz initialState:(id)state{
 
-
-    VZFScopeHandler* handler = [[VZFScopeHandler alloc]initWithScopeIdentifier:identifier
-                                                                     NodeClass:clz
-                                                                  InitialState:state];
+    VZFLocalScope* localScope = [VZFScopeManager newLocalScopeWithRootScope:rootScope StateUpdateFuncs:funcs];
+    VZFNode* node = function();
+    return {.node = node, .scopeRoot = localScope.newRootScope};
     
-//    [[VZFScopeManager sharedInstance] -> _map setObject:handler forKey:identifier];
-    [[VZFScopeManager sharedInstance] -> _stack addObject:handler];
-    return handler;
 }
++ (VZFLocalScope* )newLocalScopeWithRootScope:(VZFRootScope* )rootScope StateUpdateFuncs:(NSDictionary* )funcs{
 
-+ (void)popScopeHandler{
+    VZFLocalScope* localScope = [[VZFLocalScope alloc]initWithRootScope:rootScope StateUpdates:funcs];
+    [VZFScopeManager sharedInstance] -> _currentLocalScope = localScope;
+    return localScope;
 
-    [[VZFScopeManager sharedInstance] -> _stack removeLastObject];
-}
-
-+ (VZFScopeHandler* )scopeHandlerForNode:(VZFNode *)node{
-
-    
-    VZFScopeHandler* handler = [[VZFScopeManager sharedInstance] -> _stack lastObject];
-    if ([handler bindToNode:node]) {
-        return  handler;
-    }
-    else{
-        return nil;
-    }
 }
 
 
