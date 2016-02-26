@@ -30,6 +30,8 @@ namespace VZ {
     };
 }
 
+typedef VZ::Scope VZFScope;
+
 
 
 

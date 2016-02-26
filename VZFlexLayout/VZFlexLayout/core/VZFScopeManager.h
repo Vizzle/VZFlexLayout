@@ -36,6 +36,15 @@ struct VZBuildNodeResult {
 
 + (instancetype)sharedInstance;
 
+/**
+ *  构建node和RootScope
+ *
+ *  @param function  用来创建node
+ *  @param rootScope HostingView持有的RootScope
+ *  @param funcs     <id,NSArray<id(^state)(id)>>
+ *
+ *  @return node对象和新的RootScope
+ */
 + (VZBuildNodeResult)buildNodeWithFunction:(VZFNode*(^)(void))function
                                  RootScope:(VZFRootScope* )rootScope
                           StateUpdateFuncs:(NSDictionary* )funcs;

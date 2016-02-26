@@ -71,9 +71,5 @@
 @class VZFScopeHandler;
 @interface VZFNode(State)
 
-- (void)bindScopeHandler:(VZFScopeHandler* )scopeHandler;
-
-
-
 @end
 #endif /* VZFNodeInternal_h */

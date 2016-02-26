@@ -12,6 +12,9 @@
 #import "VZFScopeManager.h"
 
 @class VZFNode;
+/**
+ *  每个Node持有一个ScopeHandler，用来管理Node的状态变化
+ */
 @interface VZFScopeHandler : NSObject<NSCopying>
 
 @property(nonatomic,strong,readonly) VZFNodeController* controller;

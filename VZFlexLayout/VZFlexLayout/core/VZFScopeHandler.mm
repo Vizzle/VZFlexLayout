@@ -73,7 +73,11 @@
 
 - (instancetype)newHandler{
 
-    return [[VZFScopeHandler alloc]initWithListener:_listener ScopeIdentifier:_scopeIdentifier RootScopeIdentifier:_rootScopeId NodeClass:_nodeClass InitialState:_state];
+    return [[VZFScopeHandler alloc]initWithListener:_listener
+                                    ScopeIdentifier:_scopeIdentifier
+                                RootScopeIdentifier:_rootScopeId
+                                          NodeClass:_nodeClass
+                                       InitialState:_state];
 }
 
 - (instancetype)newHandlerWithLatestState:(NSDictionary* )multiStates{
