@@ -13,6 +13,7 @@
 #import "VZFNodeInternal.h"
 #import "VZFScopeHandler.h"
 #import "VZFScopeManager.h"
+#import "VZFNodeController.h"
 
 
 @interface VZFlexNode()
@@ -112,6 +113,10 @@
 
 - (id)responderForSelector:(SEL)selector {
     return [self respondsToSelector:selector] ? self : [self.nextResponder responderForSelector:selector];
+}
+
+- (VZFNodeController* )controller {
+    return _scopeHander.controller;
 }
 
 @end

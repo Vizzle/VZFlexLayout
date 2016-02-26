@@ -1,5 +1,5 @@
 //
-//  VZFNodeController.m
+//  FBHeadNodeController.h
 //  VZFlexLayout
 //
 //  Created by Sleen on 16/2/25.
@@ -8,6 +8,6 @@
 
 #import "VZFNodeController.h"
 
-@implementation VZFNodeController
+@interface FBHeadNodeController : VZFNodeController
 
 @end

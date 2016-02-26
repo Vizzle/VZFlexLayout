@@ -8,6 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+@class VZFNode;
+@class UIView;
+
 @interface VZFNodeController : NSObject
+
+@property (nonatomic,weak,readonly) VZFNode *node;
+@property (nonatomic,weak,readonly) UIView *view;
+
+- (void)willUpdateNode          NS_REQUIRES_SUPER;
+- (void)didUpdateNode           NS_REQUIRES_SUPER;
 
 @end

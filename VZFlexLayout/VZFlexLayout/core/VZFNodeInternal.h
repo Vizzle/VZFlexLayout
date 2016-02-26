@@ -13,6 +13,8 @@
 #import "VZFNodeLayout.h"
 
 @class VZFlexNode;
+@class VZFNodeController;
+
 @interface VZFNode()
 
 /**
@@ -50,6 +52,7 @@
 
 - (id)responderForSelector:(SEL)selector;
 
+- (VZFNodeController* )controller;
 
 
 @end
