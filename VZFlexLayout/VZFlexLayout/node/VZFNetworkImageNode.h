@@ -13,7 +13,11 @@
 
 @interface VZFNetworkImageNode : VZFNode
 
-+ (VZFNetworkImageNode* )newWithURL:(NSURL* )url
+@property(nonatomic,strong,readonly)NSURL* url;
+@property(nonatomic,assign,readonly)VZImageSpecs imageSpecs;
+@property(nonatomic,strong,readonly)id<VZFNetworkImageDownloadProtocol> imageDownloader;
+
++ (instancetype)newWithURL:(NSURL* )url
                     ImageAttributes:(const ImageNodeSpecs& )imageSpecs
                           NodeSpecs:(const NodeSpecs& )nodeSpecs
                     ImageDownloader:(id<VZFNetworkImageDownloadProtocol>)imagedownloader;

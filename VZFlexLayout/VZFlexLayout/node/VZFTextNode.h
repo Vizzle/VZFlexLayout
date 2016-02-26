@@ -12,7 +12,6 @@
 @interface VZFTextNode : VZFNode
 
 @property(nonatomic,assign,readonly) TextNodeSpecs textSpecs;
-
 + (instancetype)newWithNodeSpecs:(const NodeSpecs&) specs TextAttributes:(const TextNodeSpecs&) textSpecs;
 
 @end

@@ -11,11 +11,22 @@
 
 #import "VZFNode.h"
 #import "VZFNodeLayout.h"
+#import "VZFNodeViewClass.h"
+#import "VZFNodeSpecs.h"
 
 @class VZFlexNode;
 @class VZFNodeController;
 
 @interface VZFNode()
+
+/**
+ *  Node对应到UIKit的类型
+ */
+@property(nonatomic,assign,readonly)ViewClass viewClass;
+/**
+ *  Node的描述文件
+ */
+@property(nonatomic,assign,readonly)NodeSpecs specs;
 
 /**
  *  内部引用的Objective-C类型的node

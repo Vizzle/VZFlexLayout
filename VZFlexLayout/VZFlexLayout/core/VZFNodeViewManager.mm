@@ -192,7 +192,7 @@ using namespace VZ;
         VZFImageNode* imageNode = (VZFImageNode* )node;
         ((UIImageView*)view).image = nil;
 
-        [self _applyImageAttributes:imageNode.imagesSpecs ToImageView:(UIImageView* )view];
+        [self _applyImageAttributes:imageNode.imageSpecs ToImageView:(UIImageView* )view];
     }
     else if ([node isKindOfClass:[VZFButtonNode class]]){
 
@@ -264,7 +264,7 @@ using namespace VZ;
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
         VZFImageNode* imageNode = (VZFImageNode* )node;
-        [self _applyImageAttributes:imageNode.imagesSpecs ToImageView:(UIImageView* )view];
+        [self _applyImageAttributes:imageNode.imageSpecs ToImageView:(UIImageView* )view];
     }
     else if ([node isKindOfClass:[VZFButtonNode class]]){
         VZFButtonNode* buttonNdoe = (VZFButtonNode* )node;

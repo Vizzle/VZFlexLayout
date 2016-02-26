@@ -13,8 +13,6 @@
 using namespace VZ;
 @interface VZFNode : NSObject
 
-@property(nonatomic,assign,readonly)ViewClass viewClass;
-@property(nonatomic,assign,readonly)NodeSpecs specs;
 
 +(instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs& )specs;
 

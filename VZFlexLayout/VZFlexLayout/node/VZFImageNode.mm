@@ -15,9 +15,10 @@
 
 
 @implementation VZFImageNode
+{
 
 
-@synthesize imagesSpecs = _imageSpecs;
+}
 
 + (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
@@ -34,7 +35,7 @@
             __strong typeof(weakNode) strongNode = weakNode;
             if (!strongNode) return CGSizeZero;
             
-            VZ::ImageNodeSpecs imageSpecs = strongNode.imagesSpecs;
+            VZ::ImageNodeSpecs imageSpecs = strongNode.imageSpecs;
             return imageSpecs.image ? imageSpecs.image.size : CGSizeZero;
             
       
