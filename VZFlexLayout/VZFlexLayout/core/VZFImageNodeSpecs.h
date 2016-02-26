@@ -14,9 +14,9 @@ namespace VZ {
     
         UIImage* image;
         UIViewContentMode contentMode;
-        
+
         const ImageNodeSpecs copy() const{
-            return { [image copy] , contentMode };
+            return {[image copy] , contentMode };
         }
         
         bool operator == (const ImageNodeSpecs &other) const {
@@ -28,4 +28,4 @@ namespace VZ {
 
 }
 
-typedef VZ::ImageNodeSpecs ImageNodeSpecs;
+typedef VZ::ImageNodeSpecs VZImageSpecs;

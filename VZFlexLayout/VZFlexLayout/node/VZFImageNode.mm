@@ -11,6 +11,9 @@
 #import "VZFlexNode.h"
 #import "VZFMacros.h"
 
+
+
+
 @implementation VZFImageNode
 
 
@@ -33,6 +36,8 @@
             
             VZ::ImageNodeSpecs imageSpecs = strongNode.imagesSpecs;
             return imageSpecs.image ? imageSpecs.image.size : CGSizeZero;
+            
+      
         };
     }
     return imageNode;

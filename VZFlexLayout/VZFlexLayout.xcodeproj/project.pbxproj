@@ -40,11 +40,19 @@
 		45C987571C2D0F2800D17A1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45C987561C2D0F2800D17A1D /* Assets.xcassets */; };
 		45C9875A1C2D0F2800D17A1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */; };
 		45CA3A851C7DDE5400DA04C1 /* VZFScope.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3A841C7DDE5400DA04C1 /* VZFScope.mm */; };
-
 		45CA3A8B1C7F35B000DA04C1 /* VZFRootScope.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3A8A1C7F35B000DA04C1 /* VZFRootScope.mm */; };
 		45CA3A8E1C80233E00DA04C1 /* VZFScopeFrame.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3A8D1C80233E00DA04C1 /* VZFScopeFrame.mm */; };
-		B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.m */; };
-
+		45CA3A911C809F2400DA04C1 /* FBHeaderNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3A901C809F2400DA04C1 /* FBHeaderNode.mm */; };
+		45CA3A991C80AD5C00DA04C1 /* FBImageDownloader.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3A981C80AD5C00DA04C1 /* FBImageDownloader.mm */; };
+		45CA3A9C1C80AD8300DA04C1 /* FBHostItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3A9B1C80AD8300DA04C1 /* FBHostItem.m */; };
+		45CA3A9F1C80ADA700DA04C1 /* result1.json in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3A9D1C80ADA700DA04C1 /* result1.json */; };
+		45CA3AA01C80ADA700DA04C1 /* result2.json in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3A9E1C80ADA700DA04C1 /* result2.json */; };
+		45CA3AA71C80AE8900DA04C1 /* comment_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3AA21C80AE8900DA04C1 /* comment_location@2x.png */; };
+		45CA3AA81C80AE8900DA04C1 /* o2o_gray_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3AA31C80AE8900DA04C1 /* o2o_gray_star@2x.png */; };
+		45CA3AA91C80AE8900DA04C1 /* o2o_yellow_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3AA41C80AE8900DA04C1 /* o2o_yellow_star@2x.png */; };
+		45CA3AAA1C80AE8900DA04C1 /* O2OStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AA61C80AE8900DA04C1 /* O2OStarView.m */; };
+		74D57AEAF919AB89D9844A8E /* libPods-VZFlexLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9866E37FDE793C917B86E54 /* libPods-VZFlexLayout.a */; };
+		B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.mm */; };
 		E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */; };
 		E6D13AE31C7C44EF00F603AB /* DemoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13AE21C7C44EF00F603AB /* DemoCell.mm */; };
 /* End PBXBuildFile section */
@@ -121,11 +129,28 @@
 		45CA3A8A1C7F35B000DA04C1 /* VZFRootScope.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFRootScope.mm; sourceTree = "<group>"; };
 		45CA3A8C1C80233E00DA04C1 /* VZFScopeFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFScopeFrame.h; sourceTree = "<group>"; };
 		45CA3A8D1C80233E00DA04C1 /* VZFScopeFrame.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeFrame.mm; sourceTree = "<group>"; };
+		45CA3A8F1C809F2400DA04C1 /* FBHeaderNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBHeaderNode.h; sourceTree = "<group>"; };
+		45CA3A901C809F2400DA04C1 /* FBHeaderNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBHeaderNode.mm; sourceTree = "<group>"; };
+		45CA3A921C80ACD600DA04C1 /* VZFNetworkImageDownloadProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNetworkImageDownloadProtocol.h; sourceTree = "<group>"; };
+		45CA3A971C80AD5C00DA04C1 /* FBImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBImageDownloader.h; sourceTree = "<group>"; };
+		45CA3A981C80AD5C00DA04C1 /* FBImageDownloader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBImageDownloader.mm; sourceTree = "<group>"; };
+		45CA3A9A1C80AD8300DA04C1 /* FBHostItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBHostItem.h; sourceTree = "<group>"; };
+		45CA3A9B1C80AD8300DA04C1 /* FBHostItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBHostItem.m; sourceTree = "<group>"; };
+		45CA3A9D1C80ADA700DA04C1 /* result1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result1.json; sourceTree = "<group>"; };
+		45CA3A9E1C80ADA700DA04C1 /* result2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result2.json; sourceTree = "<group>"; };
+		45CA3AA21C80AE8900DA04C1 /* comment_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_location@2x.png"; sourceTree = "<group>"; };
+		45CA3AA31C80AE8900DA04C1 /* o2o_gray_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "o2o_gray_star@2x.png"; sourceTree = "<group>"; };
+		45CA3AA41C80AE8900DA04C1 /* o2o_yellow_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "o2o_yellow_star@2x.png"; sourceTree = "<group>"; };
+		45CA3AA51C80AE8900DA04C1 /* O2OStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = O2OStarView.h; sourceTree = "<group>"; };
+		45CA3AA61C80AE8900DA04C1 /* O2OStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = O2OStarView.m; sourceTree = "<group>"; };
+		74855FEA5EBE78D66E20B2AC /* Pods-VZFlexLayout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout/Pods-VZFlexLayout.debug.xcconfig"; sourceTree = "<group>"; };
+		A9866E37FDE793C917B86E54 /* libPods-VZFlexLayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VZFlexLayout.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1CB0B9A1C7EEEEA00A9CAE7 /* VZFNodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeController.h; sourceTree = "<group>"; };
 		B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeController.mm; sourceTree = "<group>"; };
 		B1CB0B9D1C7F370700A9CAE7 /* FBHeadNodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBHeadNodeController.h; sourceTree = "<group>"; };
 		B1CB0B9E1C7F370700A9CAE7 /* FBHeadNodeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBHeadNodeController.mm; sourceTree = "<group>"; };
 		B1CB0BA71C7FF37D00A9CAE7 /* VZFNodeControllerInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeControllerInternal.h; sourceTree = "<group>"; };
+		D30E0A8AD856BE61977DCF18 /* Pods-VZFlexLayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout.release.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout/Pods-VZFlexLayout.release.xcconfig"; sourceTree = "<group>"; };
 		E6D13ADE1C7C3F6500F603AB /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TableViewController.mm; sourceTree = "<group>"; };
 		E6D13AE11C7C44EF00F603AB /* DemoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoCell.h; sourceTree = "<group>"; };
@@ -137,6 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74D57AEAF919AB89D9844A8E /* libPods-VZFlexLayout.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +218,7 @@
 				B1CB0BA71C7FF37D00A9CAE7 /* VZFNodeControllerInternal.h */,
 				B1CB0B9A1C7EEEEA00A9CAE7 /* VZFNodeController.h */,
 				B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.mm */,
+				45CA3A921C80ACD600DA04C1 /* VZFNetworkImageDownloadProtocol.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -229,6 +256,8 @@
 		4578E0F61C75A1DF00E52B79 /* example */ = {
 			isa = PBXGroup;
 			children = (
+				45CA3AA11C80AE8900DA04C1 /* views */,
+				45CA3A961C80AD5C00DA04C1 /* model */,
 				4578E0F71C75A79400E52B79 /* nodes */,
 			);
 			path = example;
@@ -241,6 +270,8 @@
 				4578E0F91C75A7BA00E52B79 /* FBHeadNode.mm */,
 				B1CB0B9D1C7F370700A9CAE7 /* FBHeadNodeController.h */,
 				B1CB0B9E1C7F370700A9CAE7 /* FBHeadNodeController.mm */,
+				45CA3A8F1C809F2400DA04C1 /* FBHeaderNode.h */,
+				45CA3A901C809F2400DA04C1 /* FBHeaderNode.mm */,
 			);
 			path = nodes;
 			sourceTree = "<group>";
@@ -250,6 +281,8 @@
 			children = (
 				45C987491C2D0F2800D17A1D /* VZFlexLayout */,
 				45C987481C2D0F2800D17A1D /* Products */,
+				D79BF90C6660C6FB2455E1F3 /* Pods */,
+				8AE16580C6A02E2A1D82E421 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -293,6 +326,48 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		45CA3A961C80AD5C00DA04C1 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				45CA3A9D1C80ADA700DA04C1 /* result1.json */,
+				45CA3A9E1C80ADA700DA04C1 /* result2.json */,
+				45CA3A9A1C80AD8300DA04C1 /* FBHostItem.h */,
+				45CA3A9B1C80AD8300DA04C1 /* FBHostItem.m */,
+				45CA3A971C80AD5C00DA04C1 /* FBImageDownloader.h */,
+				45CA3A981C80AD5C00DA04C1 /* FBImageDownloader.mm */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		45CA3AA11C80AE8900DA04C1 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				45CA3AA21C80AE8900DA04C1 /* comment_location@2x.png */,
+				45CA3AA31C80AE8900DA04C1 /* o2o_gray_star@2x.png */,
+				45CA3AA41C80AE8900DA04C1 /* o2o_yellow_star@2x.png */,
+				45CA3AA51C80AE8900DA04C1 /* O2OStarView.h */,
+				45CA3AA61C80AE8900DA04C1 /* O2OStarView.m */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		8AE16580C6A02E2A1D82E421 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A9866E37FDE793C917B86E54 /* libPods-VZFlexLayout.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D79BF90C6660C6FB2455E1F3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				74855FEA5EBE78D66E20B2AC /* Pods-VZFlexLayout.debug.xcconfig */,
+				D30E0A8AD856BE61977DCF18 /* Pods-VZFlexLayout.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -300,9 +375,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45C9875E1C2D0F2800D17A1D /* Build configuration list for PBXNativeTarget "VZFlexLayout" */;
 			buildPhases = (
+				C007861DED1F360B4DCAA3A7 /* Check Pods Manifest.lock */,
 				45C987431C2D0F2800D17A1D /* Sources */,
 				45C987441C2D0F2800D17A1D /* Frameworks */,
 				45C987451C2D0F2800D17A1D /* Resources */,
+				711D6CDE6B6C380F4D32CD0B /* Embed Pods Frameworks */,
+				266F0BF1B9CD719BD4F58249 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -351,13 +429,66 @@
 			buildActionMask = 2147483647;
 			files = (
 				4578E0F51C756E0700E52B79 /* VZFUtils.mm in Resources */,
+				45CA3AA91C80AE8900DA04C1 /* o2o_yellow_star@2x.png in Resources */,
 				45C9875A1C2D0F2800D17A1D /* LaunchScreen.storyboard in Resources */,
 				45C987571C2D0F2800D17A1D /* Assets.xcassets in Resources */,
+				45CA3A9F1C80ADA700DA04C1 /* result1.json in Resources */,
+				45CA3AA81C80AE8900DA04C1 /* o2o_gray_star@2x.png in Resources */,
 				45C987551C2D0F2800D17A1D /* Main.storyboard in Resources */,
+				45CA3AA01C80ADA700DA04C1 /* result2.json in Resources */,
+				45CA3AA71C80AE8900DA04C1 /* comment_location@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		266F0BF1B9CD719BD4F58249 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VZFlexLayout/Pods-VZFlexLayout-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		711D6CDE6B6C380F4D32CD0B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VZFlexLayout/Pods-VZFlexLayout-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C007861DED1F360B4DCAA3A7 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		45C987431C2D0F2800D17A1D /* Sources */ = {
@@ -366,6 +497,7 @@
 			files = (
 				45C987521C2D0F2800D17A1D /* ViewController.mm in Sources */,
 				4578E0FE1C7734E300E52B79 /* (null) in Sources */,
+				45CA3A991C80AD5C00DA04C1 /* FBImageDownloader.mm in Sources */,
 				4578E0FA1C75A7BA00E52B79 /* FBHeadNode.mm in Sources */,
 				4578E0E41C736D1200E52B79 /* VZFStackNode.mm in Sources */,
 				4578E0C41C72F1CC00E52B79 /* VZFlexCell.mm in Sources */,
@@ -384,13 +516,15 @@
 				4578E0CE1C72F1CC00E52B79 /* VZFNodeViewClass.mm in Sources */,
 				4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */,
 				E6D13AE31C7C44EF00F603AB /* DemoCell.mm in Sources */,
+				45CA3A9C1C80AD8300DA04C1 /* FBHostItem.m in Sources */,
+				45CA3A911C809F2400DA04C1 /* FBHeaderNode.mm in Sources */,
 				4578E0F01C75687D00E52B79 /* VZFImageNodeSpecs.mm in Sources */,
 				4578E0D51C73052F00E52B79 /* VZFImageNode.mm in Sources */,
 				4578E0D81C73054000E52B79 /* VZFButtonNode.mm in Sources */,
 				4517297B1C7C494700BF3B9E /* VZFScopeHandler.mm in Sources */,
 				4578E0EA1C747A7800E52B79 /* VZFCompositeNode.mm in Sources */,
-				B1CB0B9F1C7F370700A9CAE7 /* FBHeadNodeController.mm in Sources */,
 				4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */,
+				45CA3AAA1C80AE8900DA04C1 /* O2OStarView.m in Sources */,
 				4578E0D01C72F1CC00E52B79 /* VZFSizeRange.mm in Sources */,
 				4517297E1C7C616C00BF3B9E /* VZFScopeManager.mm in Sources */,
 				4578E0CB1C72F1CC00E52B79 /* VZFNodeMountContext.mm in Sources */,
@@ -508,6 +642,7 @@
 		};
 		45C9875F1C2D0F2800D17A1D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 74855FEA5EBE78D66E20B2AC /* Pods-VZFlexLayout.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
@@ -520,6 +655,7 @@
 		};
 		45C987601C2D0F2800D17A1D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D30E0A8AD856BE61977DCF18 /* Pods-VZFlexLayout.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;

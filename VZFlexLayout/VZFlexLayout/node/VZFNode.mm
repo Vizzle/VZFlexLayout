@@ -81,31 +81,16 @@
 }
 
 
-- (void)willAddToParentNode:(VZFNode *)parentNode{
-    _parentNode = parentNode;
-}
-- (void)didAddToParentNode:(VZFNode *)parentNode{
-    _parentNode = parentNode;
-}
-
-- (VZFNode* )findRoot{
-
-    if (_scopeHander.isRootHandler) {
-        return self;
-    }
-    else{
-        return [_parentNode findRoot];
-    }
-}
-
-- (void)bindScopeHandler:(VZFScopeHandler* )scopeHandler{
-    _scopeHander = [scopeHandler copy];
-}
 
 - (NSString *)description {
     
     NSString* className = NSStringFromClass([self class]);
     return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
+}
+
+
+- (void)addToParentNode:(VZFNode* )parentNode{
+    _parentNode = parentNode;
 }
 
 - (id)nextResponder {

@@ -59,7 +59,7 @@
         .font = [UIFont systemFontOfSize:12.0f],
         .actionSelector = {
             {UIControlEventTouchUpInside, @selector(didTap:)},
-            {UIControlEventTouchDown, @selector(touchDown)}
+           // {UIControlEventTouchDown, @selector(touchDown)}
         },
 
     }];

@@ -41,7 +41,7 @@
     if (compositeNode) {
         compositeNode -> _node = node;
         compositeNode -> _flexNode = node.flexNode;
-        [node willAddToParentNode:compositeNode];
+        [node addToParentNode:compositeNode];
     }
     return compositeNode;
 }
