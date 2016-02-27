@@ -48,7 +48,9 @@
     }];
 
     
-    VZFStackNode* headerNode =[VZFStackNode newWithStackSpecs:{} Children:{
+    VZFStackNode* headerNode =[VZFStackNode newWithStackSpecs:{
+        .flex = { .margin = 10}
+    } Children:{
         {iconNode},
         {righStackNode}
     }];
