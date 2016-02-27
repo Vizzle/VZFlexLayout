@@ -16,7 +16,7 @@
              callbackQueue:(dispatch_queue_t)callbackQueue
      downloadProgressBlock:(void (^)(CGFloat progress))downloadProgressBlock
          imageProcessBlock:(UIImage*(^)(UIImage* rawImage))imageProcessBlock
-                completion:(void (^)(CGImageRef image, NSError *error))completion;
+                completion:(void (^)(UIImage* image, NSError *error))completion;
 
 
 - (void)cancelImageDownload:(id)download;

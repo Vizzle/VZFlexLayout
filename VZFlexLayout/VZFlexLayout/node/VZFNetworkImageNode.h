@@ -13,13 +13,14 @@
 
 @interface VZFNetworkImageNode : VZFNode
 
-@property(nonatomic,strong,readonly)NSURL* url;
+@property(nonatomic,copy,readonly)NSURL* url;
 @property(nonatomic,assign,readonly)VZImageSpecs imageSpecs;
 @property(nonatomic,strong,readonly)id<VZFNetworkImageDownloadProtocol> imageDownloader;
+@property(nonatomic, copy, readonly) UIImage*(^imageProcessingBlock)(UIImage* );
 
 + (instancetype)newWithURL:(NSURL* )url
                     ImageAttributes:(const ImageNodeSpecs& )imageSpecs
                           NodeSpecs:(const NodeSpecs& )nodeSpecs
-                    ImageDownloader:(id<VZFNetworkImageDownloadProtocol>)imagedownloader;
-
+                    ImageDownloader:(id<VZFNetworkImageDownloadProtocol>)imagedownloader
+                ImageProcessingBlock:(UIImage*(^)(UIImage* rawImage)) imageProcessingBlock;
 @end

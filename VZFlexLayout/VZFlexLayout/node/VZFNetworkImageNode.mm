@@ -10,10 +10,7 @@
 #import "VZFMacros.h"
 #import "VZFlexNode.h"
 #import "VZFNodeInternal.h"
-
-@interface VZFNetworkImageView : UIImageView
-
-@end
+#import "VZFNetworkImageView.h"
 
 @implementation VZFNetworkImageNode
 {
@@ -25,8 +22,7 @@
 
 }
 
-+ (instancetype)newWithURL:(NSURL *)url ImageAttributes:(const VZ::ImageNodeSpecs &)imageSpecs NodeSpecs:(const NodeSpecs &)nodeSpecs ImageDownloader:(id<VZFNetworkImageDownloadProtocol>)imagedownloader{
-
++ (instancetype)newWithURL:(NSURL *)url ImageAttributes:(const VZ::ImageNodeSpecs &)imageSpecs NodeSpecs:(const NodeSpecs &)nodeSpecs ImageDownloader:(id<VZFNetworkImageDownloadProtocol>)imagedownloader ImageProcessingBlock:(UIImage *(^)(UIImage *))imageProcessingBlock{
     
     VZFNetworkImageNode* networkImageNode = [super newWithView:[VZFNetworkImageView class] NodeSpecs:nodeSpecs];
     
@@ -34,6 +30,7 @@
         networkImageNode -> _url = url;
         networkImageNode -> _imageSpecs = imageSpecs.copy();
         networkImageNode -> _imageDownloader = imagedownloader;
+        networkImageNode -> _imageProcessingBlock = imageProcessingBlock;
         
         
         __weak typeof(networkImageNode) weakNode = networkImageNode;
@@ -54,10 +51,3 @@
 
 @end
 
-
-
-@implementation VZFNetworkImageView
-
-
-
-@end

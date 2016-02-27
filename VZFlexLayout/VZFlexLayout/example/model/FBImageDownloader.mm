@@ -20,7 +20,7 @@
     });
     return downloader;
 }
-- (id)downloadImageWithURL:(NSURL *)URL callbackQueue:(dispatch_queue_t)callbackQueue downloadProgressBlock:(void (^)(CGFloat))downloadProgressBlock imageProcessBlock:(UIImage *(^)(UIImage *))imageProcessBlock completion:(void (^)(CGImageRef, NSError *))completion{
+- (id)downloadImageWithURL:(NSURL *)URL callbackQueue:(dispatch_queue_t)callbackQueue downloadProgressBlock:(void (^)(CGFloat))downloadProgressBlock imageProcessBlock:(UIImage *(^)(UIImage *))imageProcessBlock completion:(void (^)(UIImage* , NSError *))completion{
 
     id<SDWebImageOperation> op =  [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:URL options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
         
@@ -28,7 +28,7 @@
             dispatch_async(callbackQueue, ^{
                 
                 if (image && completion) {
-                    completion(image.CGImage,error);
+                    completion(image,error);
                 }
                 
             });

@@ -15,6 +15,8 @@
 #import "VZFImageNode.h"
 #import "VZFTextNode.h"
 #import "VZFButtonNode.h"
+#import "VZFNetworkImageNode.h"
+#import "VZFNetworkImageView.h"
 #import "VZFlexCell.h"
 #import <objc/runtime.h>
 #import "VZFNodeControllerInternal.h"
@@ -208,6 +210,7 @@ using namespace VZ;
     return view;
 }
 
+//----------------------------------------------------------------------------------------------------------------
 
 + (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout
 {
@@ -274,7 +277,10 @@ using namespace VZ;
         VZFTextNode* textNode = (VZFTextNode* )node;
         [self _applyTextAttributes:textNode.textSpecs ToUILabel:(UILabel* )view];
     }
-    
+    else if([node isKindOfClass:[VZFNetworkImageNode class]]){
+        VZFNetworkImageNode* networkImageNode = (VZFNetworkImageNode* )node;
+        [self _appleyNetworkImageAttributes:networkImageNode ToNetworkImageView:(VZFNetworkImageView* )view];
+    }
     
     view.node = node;
     return view;
@@ -391,5 +397,21 @@ using namespace VZ;
     label.lineBreakMode = textNodeSpecs.lineBreakMode;
     label.numberOfLines = textNodeSpecs.maximumNumberOfLines;
 }
+
++ (void)_appleyNetworkImageAttributes:(VZFNetworkImageNode* )node ToNetworkImageView:(VZFNetworkImageView* )networkImageView{
+
+
+    NSURL* url = node.url;
+    ImageNodeSpecs imageSpec = node.imageSpecs;
+    id<VZFNetworkImageDownloadProtocol> imageDownloader = node.imageDownloader;
+    UIImage*(^block)(UIImage* ) = node.imageProcessingBlock;
+    
+    VZFNetworkImageSpec* spec = [[VZFNetworkImageSpec alloc]initWithURL:url defaultImage:imageSpec.image imageProcessingFunc:block imageDownloader:imageDownloader];
+    [networkImageView setSpec:spec];
+
+}
+
+
+//--------------------------------------------------------------------------------------------------
 
 @end
