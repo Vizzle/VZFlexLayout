@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "VZFNodeHostingView.h"
 #import "TableViewController.h"
-#import "FBHeaderNode.h"
+#import "FBHostNode.h"
 #import "FBHostItem.h"
 
 @interface ViewController ()<VZFNodeHostingView>
@@ -51,7 +51,7 @@
 
 + (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
 
-    FBHeaderNode* node = [FBHeaderNode newWithItem:item];
+    FBHostNode* node = [FBHostNode newWithItem:item];
     return node;
 }
 

@@ -8,8 +8,9 @@
 
 #import "VZFCompositeNode.h"
 
-@interface FBHeadNode : VZFCompositeNode
+@class FBHostItem;
+@interface FBContentNode : VZFCompositeNode
 
-+ (instancetype)newWithProps:(NSString* )state;
++ (instancetype)newWithItem:(FBHostItem* )item;
 
 @end

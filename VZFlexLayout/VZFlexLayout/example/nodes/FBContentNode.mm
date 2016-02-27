@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "FBHeadNode.h"
+#import "FBContentNode.h"
 #import "VZFNode.h"
 #import "VZFNodeInternal.h"
 #import "VZFStackNode.h"
@@ -14,10 +14,10 @@
 #import "VZFTextNode.h"
 #import "VZFNetworkImageNode.h"
 #import "VZFScope.h"
-#import "VZFNodeViewManager.h"
 #import "FBImageDownloader.h"
+#import "FBHostItem.h"
 
-@implementation FBHeadNode
+@implementation FBContentNode
 
 
 + (id)initialState{
@@ -27,7 +27,7 @@
 
 }
 
-+ (instancetype)newWithProps:(NSString *)props
++ (instancetype)newWithItem:(FBHostItem *)item
 {
     VZ::Scope scope(self);
     NSNumber* state = scope.state();
@@ -41,7 +41,7 @@
     
     } TextAttributes:{
         
-        .text = props,
+        .text = item.content,
         .maximumNumberOfLines = [state boolValue] ? 0UL : 4UL
     
     }];
@@ -67,25 +67,25 @@
     }];
     
     
-    VZFNetworkImageNode* networkImageNode = [VZFNetworkImageNode newWithURL:[NSURL URLWithString:@"http://www.collegedj.net/wp-content/uploads/2016/02/CaOn9TMUcAATRy_-150x150.jpg"] ImageAttributes:{
-        .contentMode = UIViewContentModeScaleAspectFill
-    } NodeSpecs:{
-        .view = {
-            .backgroundColor = [UIColor grayColor],
-            .clipToBounds = YES,
-            .layer = {
-                .cornerRadius = 10,
-            }
-        },
-        .flex = {
-            .width = 200,
-            .height = 200,
-            .marginTop = 10,
-            .marginLeft = 10
-        }
-        
-    
-    } ImageDownloader:[FBImageDownloader sharedInstance] ImageProcessingBlock:nil];
+//    VZFNetworkImageNode* networkImageNode = [VZFNetworkImageNode newWithURL:[NSURL URLWithString:@"http://www.collegedj.net/wp-content/uploads/2016/02/CaOn9TMUcAATRy_-150x150.jpg"] ImageAttributes:{
+//        .contentMode = UIViewContentModeScaleAspectFill
+//    } NodeSpecs:{
+//        .view = {
+//            .backgroundColor = [UIColor grayColor],
+//            .clipToBounds = YES,
+//            .layer = {
+//                .cornerRadius = 10,
+//            }
+//        },
+//        .flex = {
+//            .width = 200,
+//            .height = 200,
+//            .marginTop = 10,
+//            .marginLeft = 10
+//        }
+//        
+//    
+//    } ImageDownloader:[FBImageDownloader sharedInstance] ImageProcessingBlock:nil];
     
     
     VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
@@ -98,13 +98,13 @@
     
         {.node = textNode},
         {.node = buttonNode},
-        {.node = networkImageNode}
+//        {.node = networkImageNode}
     
     }];
     
 
     
-    FBHeadNode* headNode =  [super newWithNode:stackNode];
+    FBContentNode* headNode =  [super newWithNode:stackNode];
     
     return headNode;
 }
