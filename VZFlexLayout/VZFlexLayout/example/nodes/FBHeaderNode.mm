@@ -11,20 +11,49 @@
 #import "FBStarNode.h"
 #import "VZFStackNode.h"
 #import "FBHostItem.h"
+#import "VZFNetworkImageNode.h"
+#import "FBImageDownloader.h"
 
 @implementation FBHeaderNode
 
 + (instancetype)newWithItem:(FBHostItem* )item{
 
+    
+    VZFNetworkImageNode* iconNode = [VZFNetworkImageNode newWithURL:[NSURL URLWithString:item.headIconURL]
+                                                    ImageAttributes:{.contentMode = UIViewContentModeScaleAspectFill}
+                                                          NodeSpecs:{
+                                                                            .view = {
+                                                                                .clipToBounds = YES,
+                                                                                .backgroundColor = [UIColor grayColor],
+                                                                                .layer = {.cornerRadius = 30.0f}
+                                                                            },
+                                                                            .flex = {
+                                                                                .width = 60,
+                                                                                .height = 60
+                                                                            }}
+                                                    ImageDownloader:[FBImageDownloader sharedInstance]
+                                               ImageProcessingBlock:nil];
+    
     VZFStackNode* righStackNode = [VZFStackNode newWithStackSpecs:{
-        .flex = {.stackLayout = {.direction = VZFlexVertical }}
+        .flex = {
+            .marginLeft = 10,
+            .stackLayout = {
+                .direction = VZFlexVertical,
+                .justifyContent = VZFlexSpaceBetween
+            }}
     
     } Children:{
         {[FBNameNode newWithName:item.nick createTime:item.time]},
         {[FBStarNode newWithScore:[item.score floatValue]]}
     }];
 
-    return [super newWithNode:righStackNode];
+    
+    VZFStackNode* headerNode =[VZFStackNode newWithStackSpecs:{} Children:{
+        {iconNode},
+        {righStackNode}
+    }];
+    
+    return [super newWithNode:headerNode];
 
 }
 

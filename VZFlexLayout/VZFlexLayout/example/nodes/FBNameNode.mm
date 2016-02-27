@@ -15,19 +15,24 @@
 + (instancetype)newWithName:(NSString* )name createTime:(NSString* )time{
 
     
-    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{} Children:{
+    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
+        .flex = {
+            .marginTop = 10,
+            .stackLayout = { .justifyContent = VZFlexSpaceBetween }
+        }
+    } Children:{
     
         {.node = [VZFTextNode newWithNodeSpecs:{.view = {.backgroundColor = [UIColor clearColor]}} TextAttributes:{
             .text = name,
             .color = [UIColor blackColor],
-            .font = [UIFont systemFontOfSize:14.0f],
+            .font = [UIFont systemFontOfSize:16.0f],
         }]},
         {
-            .node = [VZFTextNode newWithNodeSpecs:{.view = {.backgroundColor = [UIColor clearColor]}} TextAttributes:{
+            .node = [VZFTextNode newWithNodeSpecs:{.view = {.backgroundColor = [UIColor redColor]}} TextAttributes:{
             
                 .text = time,
                 .color = [UIColor lightGrayColor],
-                .font = [UIFont systemFontOfSize:14.0f],
+                .font = [UIFont systemFontOfSize:16.0f],
                 .textAlignment = NSTextAlignmentRight
             
             }]
