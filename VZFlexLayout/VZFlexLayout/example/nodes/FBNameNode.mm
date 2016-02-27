@@ -28,7 +28,9 @@
             .font = [UIFont systemFontOfSize:16.0f],
         }]},
         {
-            .node = [VZFTextNode newWithNodeSpecs:{.view = {.backgroundColor = [UIColor redColor]}} TextAttributes:{
+            .node = [VZFTextNode newWithNodeSpecs:{
+                .view = {.backgroundColor = [UIColor redColor]}
+            } TextAttributes:{
             
                 .text = time,
                 .color = [UIColor lightGrayColor],

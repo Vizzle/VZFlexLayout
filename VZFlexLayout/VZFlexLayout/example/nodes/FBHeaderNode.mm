@@ -37,6 +37,7 @@
     VZFStackNode* righStackNode = [VZFStackNode newWithStackSpecs:{
         .flex = {
             .marginLeft = 10,
+            .flexGrow = 1,
             .stackLayout = {
                 .direction = VZFlexVertical,
                 .justifyContent = VZFlexSpaceBetween
