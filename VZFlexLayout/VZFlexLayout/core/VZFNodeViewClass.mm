@@ -17,33 +17,20 @@ namespace VZ {
     _factory(nil){};
     
     ViewClass::ViewClass(Class clz):
-    _factory(^{return [[clz alloc] init];}),
+    _factory(^(void){return [[clz alloc] init];}),
     _identifier(class_getName(clz)){}
     
     ViewClass::ViewClass(Class clz, SEL enter, SEL leave):
-    _factory(^{return [[clz alloc] init];}),
+    _factory(^(void ){return [[clz alloc] init];}),
     _identifier(class_getName(clz)),
     _didEnterReusePool(^(UIView* v){ [v performSelector:enter]; }),
     _willLeaveReusePool(^(UIView* v){ [v performSelector:enter]; }){}
     
-    ViewClass::ViewClass(UIView *(*factory)(void),void(^enter)(UIView* v),void(^leave)(UIView* v)):
-    _factory(^(void){
-        UIView* v = factory();
-        return v;
-    }),
-    _identifier(Helper::stringFromPointer((const void* )factory)),
+    ViewClass::ViewClass(UIView *(^factory)(void), NSString* identifier, void(^enter)(UIView* v),void(^leave)(UIView* v)):
+    _factory([factory copy]),
+    _identifier([[identifier copy]UTF8String]),
     _didEnterReusePool([enter copy]),
-    _willLeaveReusePool([leave copy]){}
-    
-    
-    ViewClass::ViewClass(const std::string &i,
-                        UIView *(^fact)(void),
-                      void (^enter)(UIView *),
-                      void (^leave)(UIView *)):
-                    _identifier(i),
-                    _factory(fact),
-                    _didEnterReusePool(enter),
-                    _willLeaveReusePool(leave)
+    _willLeaveReusePool([leave copy])
     {
 #if DEBUG
       //  CKCAssertNil(objc_getClass(i.c_str()), @"You may not use a class name as the identifier; it would conflict with "

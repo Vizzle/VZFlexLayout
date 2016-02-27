@@ -216,20 +216,21 @@ using namespace VZ;
 {
     [node.controller nodeWillMount:node];
     UIView *view;
-    if (![node isKindOfClass : [VZFStackNode class] ]) {
-        
-        //对compositeNode做特殊处理
-        if ([node isKindOfClass:[VZFCompositeNode class]]) {
-            
-            VZFCompositeNode* compositeNode = (VZFCompositeNode* )node;
-            view = [self viewForNode:compositeNode.node withLayoutSpec:layout];
+    
+    VZFNode*(^retrieveNode)(VZFNode* __input) = ^VZFNode*(VZFNode* __input){
+        if([__input isKindOfClass:[VZFCompositeNode class]]){
+            return  ((VZFCompositeNode* )__input).node;
         }
         else{
-            view = [self _viewForNode:node withLayoutSpec:layout];
+            return __input;
         }
-      
-    }
+    };
     
+    node = retrieveNode(node);
+    
+    if (![node isKindOfClass : [VZFStackNode class] ]) {
+        view = [self _viewForNode:node withLayoutSpec:layout];
+    }
     else{
       
         UIView* stackView = [self _viewForNode:node withLayoutSpec:layout];
@@ -237,7 +238,7 @@ using namespace VZ;
         for (int i = 0; i < stackNode.children.size(); i++) {
             
             VZFStackChildNode _childNode = stackNode.children[i];
-            VZFNode* _node = _childNode.node;
+            VZFNode* _node = retrieveNode(_childNode.node);
             VZFNodeLayout _layout = layout.childrenLayout()[i];
             if ([_node isKindOfClass:[VZFStackNode class]]) {
                 //递归

@@ -52,6 +52,14 @@
     id _download;
 }
 
+- (void)dealloc{
+
+    if (_download) {
+        [self.spec.imageDownloader cancelImageDownload:_download];
+        _download = nil;
+    }
+}
+
 - (void)setSpec:(VZFNetworkImageSpec *)spec{
 
     if (VZ::Hash::_ObjectsEqual(spec, _spec)){
@@ -99,7 +107,6 @@
         __strong typeof(weakSelf) strongSelf = weakSelf;
         if (strongSelf) {
             [strongSelf _displayImage:image Error:error];
-            strongSelf -> _download = nil;
         }
     }];
 }

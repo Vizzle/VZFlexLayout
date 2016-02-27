@@ -16,7 +16,7 @@ namespace VZ {
         ViewClass();
         ViewClass(Class clz);
         ViewClass(Class clz, SEL enter, SEL leave);
-        ViewClass(UIView *(*factory)(void),void(^enter)(UIView* v)= nil,void(^leave)(UIView* v)  = nil);
+        ViewClass(UIView *(^factory)(void), NSString* identifier, void(^enter)(UIView* v)= nil,void(^leave)(UIView* v)  = nil);
 
         const std::string &identifier() const;
         UIView* createView() const;
@@ -25,10 +25,6 @@ namespace VZ {
         bool operator==(const ViewClass &other) const { return other.identifier() == _identifier; }
         
     private:
-        ViewClass(const std::string &ident,
-                  UIView *(^factory)(void),
-                void(^didEnterReusePool)(UIView* v)= nil,
-                  void(^willLeaveReusePool)(UIView* v)= nil);
         std::string _identifier;
         UIView *(^_factory)(void);
         void(^_didEnterReusePool)(UIView* v);

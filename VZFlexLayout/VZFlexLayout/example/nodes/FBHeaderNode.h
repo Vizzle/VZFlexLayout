@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "VZFCompositeNode.h"
 
+@class FBHostItem;
 @interface FBHeaderNode : VZFCompositeNode
+
++ (instancetype)newWithItem:(FBHostItem* )item;
 
 @end

@@ -65,6 +65,7 @@
         }
     };
     VZFNodeLayout layout = lambda(self.flexNode);
+    NSLog(@"%s",layout.description().c_str());
     
     return layout;
 }

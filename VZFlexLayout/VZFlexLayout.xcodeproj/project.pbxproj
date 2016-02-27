@@ -52,6 +52,8 @@
 		45CA3AAA1C80AE8900DA04C1 /* O2OStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AA61C80AE8900DA04C1 /* O2OStarView.m */; };
 		45CA3AAD1C81891600DA04C1 /* VZFNetworkImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AAC1C81891600DA04C1 /* VZFNetworkImageView.mm */; };
 		45CA3AB21C81A4EC00DA04C1 /* VZFUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AB01C81A4EC00DA04C1 /* VZFUtils.mm */; };
+		45CA3AB51C81DF3D00DA04C1 /* FBNameNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AB41C81DF3D00DA04C1 /* FBNameNode.mm */; };
+		45CA3AB81C81E49E00DA04C1 /* FBStarNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AB71C81E49E00DA04C1 /* FBStarNode.mm */; };
 		74D57AEAF919AB89D9844A8E /* libPods-VZFlexLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9866E37FDE793C917B86E54 /* libPods-VZFlexLayout.a */; };
 		B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.mm */; };
 		E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */; };
@@ -146,6 +148,10 @@
 		45CA3AAC1C81891600DA04C1 /* VZFNetworkImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNetworkImageView.mm; sourceTree = "<group>"; };
 		45CA3AB01C81A4EC00DA04C1 /* VZFUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFUtils.mm; sourceTree = "<group>"; };
 		45CA3AB11C81A4EC00DA04C1 /* VZFUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFUtils.h; sourceTree = "<group>"; };
+		45CA3AB31C81DF3D00DA04C1 /* FBNameNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBNameNode.h; sourceTree = "<group>"; };
+		45CA3AB41C81DF3D00DA04C1 /* FBNameNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBNameNode.mm; sourceTree = "<group>"; };
+		45CA3AB61C81E49E00DA04C1 /* FBStarNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBStarNode.h; sourceTree = "<group>"; };
+		45CA3AB71C81E49E00DA04C1 /* FBStarNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBStarNode.mm; sourceTree = "<group>"; };
 		74855FEA5EBE78D66E20B2AC /* Pods-VZFlexLayout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout/Pods-VZFlexLayout.debug.xcconfig"; sourceTree = "<group>"; };
 		A9866E37FDE793C917B86E54 /* libPods-VZFlexLayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VZFlexLayout.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1CB0B9A1C7EEEEA00A9CAE7 /* VZFNodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeController.h; sourceTree = "<group>"; };
@@ -277,6 +283,10 @@
 				B1CB0B9E1C7F370700A9CAE7 /* FBHeadNodeController.mm */,
 				45CA3A8F1C809F2400DA04C1 /* FBHeaderNode.h */,
 				45CA3A901C809F2400DA04C1 /* FBHeaderNode.mm */,
+				45CA3AB31C81DF3D00DA04C1 /* FBNameNode.h */,
+				45CA3AB41C81DF3D00DA04C1 /* FBNameNode.mm */,
+				45CA3AB61C81E49E00DA04C1 /* FBStarNode.h */,
+				45CA3AB71C81E49E00DA04C1 /* FBStarNode.mm */,
 			);
 			path = nodes;
 			sourceTree = "<group>";
@@ -502,6 +512,8 @@
 				45C987521C2D0F2800D17A1D /* ViewController.mm in Sources */,
 				4578E0FE1C7734E300E52B79 /* (null) in Sources */,
 				45CA3A991C80AD5C00DA04C1 /* FBImageDownloader.mm in Sources */,
+				45CA3AB81C81E49E00DA04C1 /* FBStarNode.mm in Sources */,
+				45CA3AB51C81DF3D00DA04C1 /* FBNameNode.mm in Sources */,
 				4578E0FA1C75A7BA00E52B79 /* FBHeadNode.mm in Sources */,
 				4578E0E41C736D1200E52B79 /* VZFStackNode.mm in Sources */,
 				4578E0C41C72F1CC00E52B79 /* VZFlexCell.mm in Sources */,

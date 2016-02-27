@@ -12,8 +12,10 @@
 #import "VZFStackNode.h"
 #import "VZFButtonNode.h"
 #import "VZFTextNode.h"
+#import "VZFNetworkImageNode.h"
 #import "VZFScope.h"
 #import "VZFNodeViewManager.h"
+#import "FBImageDownloader.h"
 
 @implementation FBHeadNode
 
@@ -65,6 +67,26 @@
     }];
     
     
+    VZFNetworkImageNode* networkImageNode = [VZFNetworkImageNode newWithURL:[NSURL URLWithString:@"http://www.collegedj.net/wp-content/uploads/2016/02/CaOn9TMUcAATRy_-150x150.jpg"] ImageAttributes:{
+        .contentMode = UIViewContentModeScaleAspectFill
+    } NodeSpecs:{
+        .view = {
+            .backgroundColor = [UIColor grayColor],
+            .clipToBounds = YES,
+            .layer = {
+                .cornerRadius = 10,
+            }
+        },
+        .flex = {
+            .width = 200,
+            .height = 200,
+            .marginTop = 10,
+            .marginLeft = 10
+        }
+        
+    
+    } ImageDownloader:[FBImageDownloader sharedInstance] ImageProcessingBlock:nil];
+    
     
     VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
         
@@ -75,7 +97,8 @@
     } Children:{
     
         {.node = textNode},
-        {.node = buttonNode}
+        {.node = buttonNode},
+        {.node = networkImageNode}
     
     }];
     
