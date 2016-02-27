@@ -15,7 +15,9 @@
 #import "VZFNetworkImageNode.h"
 #import "VZFScope.h"
 #import "FBImageDownloader.h"
+#import "VZFImageNode.h"
 #import "FBHostItem.h"
+#import "FBGridImageNode.h"
 
 @implementation FBContentNode
 
@@ -32,33 +34,23 @@
     VZ::Scope scope(self);
     NSNumber* state = scope.state();
 
-    VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{
-    
-        .flex = {
-            .margin = 10,
-        }
-    
-    
-    } TextAttributes:{
+    VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
         
         .text = item.content,
+        .font = [UIFont systemFontOfSize:14.0f],
         .maximumNumberOfLines = [state boolValue] ? 0UL : 4UL
     
     }];
     
     VZFButtonNode* buttonNode = [VZFButtonNode newWithNodeSpecs:{
     
-        .flex = {
-        
-            .alignSelf = VZFlexStart,
-            .marginLeft = 10
-        }
+        .flex = {.alignSelf = VZFlexStart,.marginTop = 5}
     
     } ButtonAttributes:{
         
         .title = [state boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
-        .font = [UIFont systemFontOfSize:12.0f],
+        .font = [UIFont systemFontOfSize:14.0f],
         .actionSelector = {
             {UIControlEventTouchUpInside, @selector(didTap:)},
            // {UIControlEventTouchDown, @selector(touchDown)}
@@ -66,31 +58,36 @@
 
     }];
     
+    FBGridImageNode* imageNode = [FBGridImageNode newWithImageURLs:item.images];
+
     
-//    VZFNetworkImageNode* networkImageNode = [VZFNetworkImageNode newWithURL:[NSURL URLWithString:@"http://www.collegedj.net/wp-content/uploads/2016/02/CaOn9TMUcAATRy_-150x150.jpg"] ImageAttributes:{
-//        .contentMode = UIViewContentModeScaleAspectFill
-//    } NodeSpecs:{
-//        .view = {
-//            .backgroundColor = [UIColor grayColor],
-//            .clipToBounds = YES,
-//            .layer = {
-//                .cornerRadius = 10,
-//            }
-//        },
-//        .flex = {
-//            .width = 200,
-//            .height = 200,
-//            .marginTop = 10,
-//            .marginLeft = 10
-//        }
-//        
-//    
-//    } ImageDownloader:[FBImageDownloader sharedInstance] ImageProcessingBlock:nil];
+    VZFStackNode* location = [VZFStackNode newWithStackSpecs:{
+    
+        .view = {
+            .backgroundColor = [UIColor lightGrayColor]
+        },
+        .flex= {
+            .marginTop = 10,
+            .stackLayout = {.spacing = 10}
+        }
+    } Children:{
+    
+        {[VZFImageNode newWithNodeSpecs:{
+            .flex = {
+                .marginLeft = 5,
+                .marginTop = 10,
+                .marginBottom = 10,
+            }
+        } ImageAttributes:{.image = [UIImage imageNamed:@"comment_location"]}]},
+        {[VZFTextNode newWithNodeSpecs:{} TextAttributes:{.text = item.location, .font = [UIFont systemFontOfSize:14.0f], .color = [UIColor blackColor]}]}
+    
+    }];
     
     
     VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
         
         .flex = {
+            .marginLeft = 40,
             .stackLayout = { .direction = VZFlexVertical }
         }
     
@@ -98,7 +95,8 @@
     
         {.node = textNode},
         {.node = buttonNode},
-//        {.node = networkImageNode}
+        {.node = imageNode},
+        {.node = location}
     
     }];
     

@@ -25,11 +25,11 @@
                                                                             .view = {
                                                                                 .clipToBounds = YES,
                                                                                 .backgroundColor = [UIColor grayColor],
-                                                                                .layer = {.cornerRadius = 30.0f}
+                                                                                .layer = {.cornerRadius = 20.0f}
                                                                             },
                                                                             .flex = {
-                                                                                .width = 60,
-                                                                                .height = 60
+                                                                                .width = 40,
+                                                                                .height = 40
                                                                             }}
                                                     ImageDownloader:[FBImageDownloader sharedInstance]
                                                ImageProcessingBlock:nil];
