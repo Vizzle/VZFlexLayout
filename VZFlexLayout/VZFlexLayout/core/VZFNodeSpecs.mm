@@ -34,7 +34,7 @@ namespace VZ {
         bool fixed = 0;
         bool wrap = 0;
         int direction = FlexHorizontal;
-        int justifyContent = FlexSpaceBetween;
+        int justifyContent = FlexStart;
         int alignItems = FlexStretch;
         int aliginSelf = FlexInherit;
         float spacing = 0;

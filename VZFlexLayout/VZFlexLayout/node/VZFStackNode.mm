@@ -13,9 +13,6 @@
 #import "VZFMacros.h"
 #import "VZFCompositeNode.h"
 
-@interface VZFStackNode()
-
-@end
 
 @implementation VZFStackNode
 {
@@ -39,9 +36,8 @@
   
         for (const auto  &child:stacknode->_children)
         {
-            [child.node willAddToParentNode:stacknode];
+            [child.node addToParentNode:stacknode];
             [stacknode.flexNode addSubNode:child.node.flexNode];
-            [child.node didAddToParentNode:stacknode];
         }
         
     }
@@ -69,6 +65,7 @@
         }
     };
     VZFNodeLayout layout = lambda(self.flexNode);
+    NSLog(@"%s",layout.description().c_str());
     
     return layout;
 }

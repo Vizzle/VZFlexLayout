@@ -29,7 +29,7 @@
 
 - (id)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider RangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
 - (void)render:(id)model;
-
+//for test only
 - (void)renderWithState:(id)state reuseView:(UIView *)reuseView;
 
 @end

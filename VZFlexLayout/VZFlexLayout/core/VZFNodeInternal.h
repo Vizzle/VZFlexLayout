@@ -11,11 +11,22 @@
 
 #import "VZFNode.h"
 #import "VZFNodeLayout.h"
+#import "VZFNodeViewClass.h"
+#import "VZFNodeSpecs.h"
 
 @class VZFlexNode;
 @class VZFNodeController;
 
 @interface VZFNode()
+
+/**
+ *  Node对应到UIKit的类型
+ */
+@property(nonatomic,assign,readonly)ViewClass viewClass;
+/**
+ *  Node的描述文件
+ */
+@property(nonatomic,assign,readonly)NodeSpecs specs;
 
 /**
  *  内部引用的Objective-C类型的node
@@ -50,9 +61,7 @@
  */
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz;
 
-- (id)responderForSelector:(SEL)selector;
 
-- (VZFNodeController* )controller;
 
 
 @end
@@ -60,18 +69,16 @@
 
 @interface VZFNode(Tree)
 
-- (void)willAddToParentNode:(VZFNode* )parentNode;
-
-- (void)didAddToParentNode:(VZFNode* )parentNode;
-
-- (VZFNode* )findRoot;
+- (void)addToParentNode:(VZFNode* )parentNode;
 
 @end
 
 @class VZFScopeHandler;
 @interface VZFNode(State)
 
-- (void)bindScopeHandler:(VZFScopeHandler* )scopeHandler;
+- (id)responderForSelector:(SEL)selector;
+
+- (VZFNodeController* )controller;
 
 @end
 #endif /* VZFNodeInternal_h */

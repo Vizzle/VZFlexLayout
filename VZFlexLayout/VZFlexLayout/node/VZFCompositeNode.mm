@@ -17,7 +17,7 @@
 }
 
 @synthesize node        = _node;
-@synthesize flexNode    = _flexNode;
+//@synthesize flexNode    = _flexNode;
 
 - (NodeSpecs)specs{
     return _node.specs;
@@ -27,6 +27,9 @@
     return _node.viewClass;
 }
 
+- (VZFlexNode* )flexNode{
+    return _node.flexNode;
+}
 
 + (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
@@ -40,8 +43,8 @@
     VZFCompositeNode* compositeNode = [super newWithView:{} NodeSpecs:{}];
     if (compositeNode) {
         compositeNode -> _node = node;
-        compositeNode -> _flexNode = node.flexNode;
-        [node willAddToParentNode:compositeNode];
+//        compositeNode -> _flexNode = node.flexNode;
+        [node addToParentNode:compositeNode];
     }
     return compositeNode;
 }

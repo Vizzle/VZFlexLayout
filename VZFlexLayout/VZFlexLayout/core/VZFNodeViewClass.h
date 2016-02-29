@@ -8,25 +8,27 @@
 
 #import <UIKit/UIKit.h>
 #import <string>
-#import <functional>
 
 namespace VZ {
     
     struct ViewClass{
         
-        ViewClass():factory(nil){};
-        ViewClass(Class clz):factory(^{return [[clz alloc] init];}){}
-        ViewClass(UIView*(^function)(void)):factory(function){};
+        ViewClass();
+        ViewClass(Class clz);
+        ViewClass(Class clz, SEL enter, SEL leave);
+        ViewClass(UIView *(^factory)(void), NSString* identifier, void(^enter)(UIView* v)= nil,void(^leave)(UIView* v)  = nil);
+
+        const std::string &identifier() const;
+        UIView* createView() const;
+        bool hasView() const;
         
-        const std::string &getIdentifier() const { return identifier; }
-        UIView* createView() const{ return factory?factory():nil; }
-        bool hasView() const {return factory; }
+        bool operator==(const ViewClass &other) const { return other.identifier() == _identifier; }
         
     private:
-        
-//        std::function<UIView* (void)> fp;
-        UIView* (^factory)();
-        std::string identifier;
+        std::string _identifier;
+        UIView *(^_factory)(void);
+        void(^_didEnterReusePool)(UIView* v);
+        void(^_willLeaveReusePool)(UIView* v);
     };
 }
 
@@ -38,7 +40,7 @@ namespace std {
     struct hash<VZ::ViewClass>{
         size_t operator()(const VZ::ViewClass &cl) const
         {
-            return hash<std::string>()(cl.getIdentifier());
+            return hash<std::string>()(cl.identifier());
         }
     };
 }

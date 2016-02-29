@@ -52,7 +52,7 @@
         _viewClass = viewclass;
         _flexNode = [VZFNodeUISpecs flexNodeWithAttributes:_specs.flex];
         _flexNode.name = [NSString stringWithUTF8String:specs.name.c_str()];
-        _scopeHander = [VZFScopeManager scopeHandlerForNode:self];
+        _scopeHander = [VZFScopeHandler scopeHandlerForNode:self];
 
     }
     return self;
@@ -67,6 +67,7 @@
 - (void)updateState:(id (^)(id))updateBlock{
 
     [_scopeHander updateState:updateBlock];
+    
 }
 
 
@@ -80,31 +81,16 @@
 }
 
 
-- (void)willAddToParentNode:(VZFNode *)parentNode{
-    _parentNode = parentNode;
-}
-- (void)didAddToParentNode:(VZFNode *)parentNode{
-    _parentNode = parentNode;
-}
-
-- (VZFNode* )findRoot{
-
-    if (_scopeHander.isRootHandler) {
-        return self;
-    }
-    else{
-        return [_parentNode findRoot];
-    }
-}
-
-- (void)bindScopeHandler:(VZFScopeHandler* )scopeHandler{
-    _scopeHander = [scopeHandler copy];
-}
 
 - (NSString *)description {
     
     NSString* className = NSStringFromClass([self class]);
     return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
+}
+
+
+- (void)addToParentNode:(VZFNode* )parentNode{
+    _parentNode = parentNode;
 }
 
 - (id)nextResponder {

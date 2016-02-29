@@ -15,6 +15,8 @@
 #import "VZFImageNode.h"
 #import "VZFTextNode.h"
 #import "VZFButtonNode.h"
+#import "VZFNetworkImageNode.h"
+#import "VZFNetworkImageView.h"
 #import "VZFlexCell.h"
 #import <objc/runtime.h>
 #import "VZFNodeControllerInternal.h"
@@ -192,7 +194,7 @@ using namespace VZ;
         VZFImageNode* imageNode = (VZFImageNode* )node;
         ((UIImageView*)view).image = nil;
 
-        [self _applyImageAttributes:imageNode.imagesSpecs ToImageView:(UIImageView* )view];
+        [self _applyImageAttributes:imageNode.imageSpecs ToImageView:(UIImageView* )view];
     }
     else if ([node isKindOfClass:[VZFButtonNode class]]){
 
@@ -208,25 +210,27 @@ using namespace VZ;
     return view;
 }
 
+//----------------------------------------------------------------------------------------------------------------
 
 + (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout
 {
     [node.controller nodeWillMount:node];
     UIView *view;
-    if (![node isKindOfClass : [VZFStackNode class] ]) {
-        
-        //对compositeNode做特殊处理
-        if ([node isKindOfClass:[VZFCompositeNode class]]) {
-            
-            VZFCompositeNode* compositeNode = (VZFCompositeNode* )node;
-            view = [self viewForNode:compositeNode.node withLayoutSpec:layout];
+    
+    VZFNode*(^retrieveNode)(VZFNode* __input) = ^VZFNode*(VZFNode* __input){
+        if([__input isKindOfClass:[VZFCompositeNode class]]){
+            return  ((VZFCompositeNode* )__input).node;
         }
         else{
-            view = [self _viewForNode:node withLayoutSpec:layout];
+            return __input;
         }
-      
-    }
+    };
     
+    node = retrieveNode(node);
+    
+    if (![node isKindOfClass : [VZFStackNode class] ]) {
+        view = [self _viewForNode:node withLayoutSpec:layout];
+    }
     else{
       
         UIView* stackView = [self _viewForNode:node withLayoutSpec:layout];
@@ -234,7 +238,7 @@ using namespace VZ;
         for (int i = 0; i < stackNode.children.size(); i++) {
             
             VZFStackChildNode _childNode = stackNode.children[i];
-            VZFNode* _node = _childNode.node;
+            VZFNode* _node = retrieveNode(_childNode.node);
             VZFNodeLayout _layout = layout.childrenLayout()[i];
             if ([_node isKindOfClass:[VZFStackNode class]]) {
                 //递归
@@ -264,7 +268,7 @@ using namespace VZ;
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
         VZFImageNode* imageNode = (VZFImageNode* )node;
-        [self _applyImageAttributes:imageNode.imagesSpecs ToImageView:(UIImageView* )view];
+        [self _applyImageAttributes:imageNode.imageSpecs ToImageView:(UIImageView* )view];
     }
     else if ([node isKindOfClass:[VZFButtonNode class]]){
         VZFButtonNode* buttonNdoe = (VZFButtonNode* )node;
@@ -274,7 +278,10 @@ using namespace VZ;
         VZFTextNode* textNode = (VZFTextNode* )node;
         [self _applyTextAttributes:textNode.textSpecs ToUILabel:(UILabel* )view];
     }
-    
+    else if([node isKindOfClass:[VZFNetworkImageNode class]]){
+        VZFNetworkImageNode* networkImageNode = (VZFNetworkImageNode* )node;
+        [self _appleyNetworkImageAttributes:networkImageNode ToNetworkImageView:(VZFNetworkImageView* )view];
+    }
     
     view.node = node;
     return view;
@@ -391,5 +398,21 @@ using namespace VZ;
     label.lineBreakMode = textNodeSpecs.lineBreakMode;
     label.numberOfLines = textNodeSpecs.maximumNumberOfLines;
 }
+
++ (void)_appleyNetworkImageAttributes:(VZFNetworkImageNode* )node ToNetworkImageView:(VZFNetworkImageView* )networkImageView{
+
+
+    NSURL* url = node.url;
+    ImageNodeSpecs imageSpec = node.imageSpecs;
+    id<VZFNetworkImageDownloadProtocol> imageDownloader = node.imageDownloader;
+    UIImage*(^block)(UIImage* ) = node.imageProcessingBlock;
+    
+    VZFNetworkImageSpec* spec = [[VZFNetworkImageSpec alloc]initWithURL:url defaultImage:imageSpec.image imageProcessingFunc:block imageDownloader:imageDownloader];
+    [networkImageView setSpec:spec];
+
+}
+
+
+//--------------------------------------------------------------------------------------------------
 
 @end

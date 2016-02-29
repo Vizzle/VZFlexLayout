@@ -7,8 +7,6 @@
 //
 
 #import "VZFNode.h"
-#import "VZFState.h"
-
 
 /**
  *  Subclass node should inherit this node

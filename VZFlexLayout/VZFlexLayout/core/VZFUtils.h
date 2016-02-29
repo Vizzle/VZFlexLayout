@@ -2,16 +2,19 @@
 //  VZFUtils.h
 //  VZFlexLayout
 //
-//  Created by moxin on 16/2/4.
+//  Created by moxin on 16/2/27.
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#pragma once
-
+#ifndef VZFUtils_h
+#define VZFUtils_h
+#import <Foundation/Foundation.h>
+#include <stdio.h>
 #import <algorithm>
 #import <functional>
 #import <type_traits>
 #import <vector>
+#import <string>
 
 namespace VZ {
     namespace Function{
@@ -43,7 +46,7 @@ namespace VZ {
     }
     
     namespace Hash{
-    
+        
         // From folly:
         // This is the Hash128to64 function from Google's cityhash (available
         // under the MIT License).  We use it to reduce multiple 64 bit hashes
@@ -91,6 +94,26 @@ namespace VZ {
         {
             return obj1 == obj2 ? YES : [obj1 isEqual:obj2];
         }
+        
+        inline NSUInteger ScopeHashValue(Class clz, id identifier){
+            
+            NSUInteger clzHash = [clz hash];
+            NSUInteger idHash = [identifier hash];
+            return clzHash + idHash;
+            
+        }
+        inline NSString* ScopeHashKey(Class clz, id identifier){
+            
+            return [NSString stringWithFormat:@"%@^%@",NSStringFromClass(clz),identifier];
+        }
     }
+    
+    namespace Helper{
+    
+        std::string stringFromPointer(const void* ptr);
+    }
+    
+    
 }
 
+#endif /* VZFUtils_h */

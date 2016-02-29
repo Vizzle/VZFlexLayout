@@ -12,7 +12,7 @@
 
 @interface VZFImageNode : VZFNode
 
-@property(nonatomic,assign,readonly) ImageNodeSpecs imagesSpecs;
+@property(nonatomic,assign,readonly) ImageNodeSpecs imageSpecs;
 + (instancetype)newWithNodeSpecs:(const NodeSpecs&)specs ImageAttributes:(const ImageNodeSpecs &)imageSpecs;
 
 
