@@ -25,7 +25,7 @@
     
     } ButtonAttributes:{
         .image = img,
-        .actionSelector = action
+        .action = action
     }];
     VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
         .text = text,

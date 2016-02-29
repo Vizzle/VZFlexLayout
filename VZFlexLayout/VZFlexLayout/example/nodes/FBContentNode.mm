@@ -56,10 +56,7 @@
         .title = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         .font = [UIFont systemFontOfSize:14.0f],
-        .actionSelector = {
-            {UIControlEventTouchUpInside, @selector(onExpendClicked:)}
-        },
-
+        .action = @selector(onExpendClicked:),
     }];
     
     FBGridImageNode* imageNode = [FBGridImageNode newWithImageURLs:item.images];

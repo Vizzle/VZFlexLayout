@@ -20,57 +20,7 @@
 #import "VZFlexCell.h"
 #import <objc/runtime.h>
 #import "VZFNodeControllerInternal.h"
-
-@protocol VZFActionWrapper <NSObject>
-
-- (void)invoke:(id)sender event:(UIEvent *)event;
-
-@end
-
-@interface BlockWrapper : NSObject <VZFActionWrapper>
-@property (nonatomic, copy) void (^block)(id sender);
-@end
-
-@implementation BlockWrapper
-- (void) dealloc {
-    self.block = nil;
-}
-
-- (void) invoke:(id)sender event:(UIEvent *)event {
-    self.block(sender);
-}
-@end
-
-
-@interface SelectorWrapper : NSObject <VZFActionWrapper>
-
-- (instancetype)initWithSelector:(SEL)selector;
-
-@end
-
-@implementation SelectorWrapper
-{
-    SEL _selector;
-}
-
-- (instancetype)initWithSelector:(SEL)selector {
-    if (self = [super init]) {
-        _selector = selector;
-    }
-    return self;
-}
-
-- (void)invoke:(UIControl *)sender event:(UIEvent *)event {
-    id responder = [sender.node responderForSelector:_selector];
-    NSAssert(responder, @"could not found responder for action '%@'", NSStringFromSelector(_selector));
-    
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [responder performSelector:_selector withObject:sender.node withObject:event];
-#pragma clang diagnostic pop
-}
-
-@end
+#import "VZFActionWrapper.h"
 
 
 @implementation UIView(VZFNode)
@@ -355,30 +305,11 @@ using namespace VZ;
         actionArray = [NSMutableArray array];
         objc_setAssociatedObject(btn, _id, actionArray, OBJC_ASSOCIATION_RETAIN);
     }
-    for (auto action : buttonNodeSpecs.actionBlock) {
-        BlockWrapper *wrapper = [[BlockWrapper alloc] init];
-        wrapper.block = action.second;
+    for (auto action : buttonNodeSpecs.action) {
+        id<VZFActionWrapper> wrapper = vz_actionWrapper(action.second);
         [actionArray addObject:wrapper];
         [btn addTarget:wrapper action:@selector(invoke:event:) forControlEvents:action.first];
     }
-    for (auto action : buttonNodeSpecs.actionSelector) {
-        SelectorWrapper *wrapper = [[SelectorWrapper alloc] initWithSelector:action.second];
-        [actionArray addObject:wrapper];
-        [btn addTarget:wrapper action:@selector(invoke:event:) forControlEvents:action.first];
-    }
-
-//    [btn setTitleColor:buttonNodeSpecs.titleColorHighlight forState:UIControlStateHighlighted];
-//    [btn setTitle:buttonNodeSpecs.titleHighlight forState:UIControlStateHighlighted];
-//    [btn setTitleColor:buttonNodeSpecs.titleColor forState:UIControlStateNormal];
-//    [btn setTitle:buttonNodeSpecs.title forState:UIControlStateNormal];
-//    [btn.titleLabel setFont:buttonNodeSpecs.titleFont];
-//    [btn setImage:buttonNodeSpecs.image forState:UIControlStateNormal];
-//    [btn setImage:buttonNodeSpecs.imageHighlight forState:UIControlStateHighlighted];
-//    [btn setBackgroundImage:buttonNodeSpecs.backgroundImage forState:UIControlStateNormal];
-//    [btn setBackgroundImage:buttonNodeSpecs.backgroundImageHighlight forState:UIControlStateHighlighted];
-//    btn addTarget:(nullable id) action:(nonnull SEL) forControlEvents:<#(UIControlEvents)#>
-
-    
 }
 
 + (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs ToUILabel:(UILabel* )label{

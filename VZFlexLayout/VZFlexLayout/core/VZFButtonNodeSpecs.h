@@ -9,17 +9,19 @@
 #import <UIKit/UIKit.h>
 #import "VZFUtils.h"
 #import "VZFValue.h"
+#import "VZFActionWrapper.h"
 
 namespace VZ {
-    
-    typedef void(^UIControlActionBlock)(id sender);
     
     template<typename Type>
     struct EventfulValue : std::unordered_multimap<UIControlEvents, Type> {
         using SuperType = std::unordered_multimap<UIControlEvents, Type>;
         
         EventfulValue() : SuperType() {}
-        EventfulValue(Type value) : SuperType({{UIControlEventTouchUpInside, value}}) {}
+        template<typename T>
+        EventfulValue(T value) : SuperType({{UIControlEventTouchUpInside, value}}) {
+            static_assert(std::is_convertible<T, Type>::value, "there is no suitable constructor");
+        }
         EventfulValue(std::initializer_list<typename SuperType::value_type> list) : SuperType(list) {}
     };
     
@@ -31,8 +33,7 @@ namespace VZ {
         StatefulValue<UIColor *> titleColor;
         StatefulValue<UIImage *> backgroundImage;
         StatefulValue<UIImage *> image;
-        EventfulValue<UIControlActionBlock> actionBlock;
-        EventfulValue<SEL> actionSelector;
+        EventfulValue<ActionWrapper> action;
         // the image property was not supported, use an image node nested in a button node instead.
         
         const ButtonNodeSpecs copy() const{
@@ -58,7 +59,7 @@ namespace VZ {
                 && title == other.title
                 && titleColor == other.titleColor
                 && backgroundImage == other.backgroundImage
-                && actionBlock == other.actionBlock
+                && action == other.action
                 && image == other.backgroundImage;
             
         }
