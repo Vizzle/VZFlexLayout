@@ -15,7 +15,7 @@
 #import <objc/runtime.h>
 #import "VZFNodeViewClass.h"
 #import "VZFValue.h"
-#import "VZFGesture.h"
+#import "VZFActionWrapper.h"
 
 using namespace VZ;
 namespace VZ {
@@ -128,6 +128,13 @@ namespace VZ {
     
     typedef struct{}ViewNodeSpecs;
 
+    
+    template<>
+    struct MultiMapKey<Class> {
+        static Class defaultKey;
+    };
+    
+    
     template<typename T>
     struct UISpecs{
         
@@ -141,7 +148,7 @@ namespace VZ {
         struct FlexAttrs flex;
         
         //gestures
-        struct std::set<Gesture> gestures;
+        MultiMap<Class, ActionWrapper> gesture;
         
         //other type of UISpecs
         T attrs;

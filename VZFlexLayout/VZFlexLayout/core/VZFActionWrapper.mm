@@ -22,9 +22,14 @@
     self.block = nil;
 }
 
-- (void) invoke:(id)sender event:(UIEvent *)event {
-    self.block(sender);
+- (void) invoke:(UIControl *)sender event:(UIEvent *)event {
+    self.block(sender.node);
 }
+
+- (void)invoke:(UIGestureRecognizer *)sender {
+    self.block(sender.view.node);
+}
+
 @end
 
 
@@ -41,12 +46,24 @@
 }
 
 - (void)invoke:(UIControl *)sender event:(UIEvent *)event {
-    id responder = [sender.node responderForSelector:_selector];
+    VZFNode *node = sender.node;
+    id responder = [node responderForSelector:_selector];
     NSAssert(responder, @"could not found responder for action '%@'", NSStringFromSelector(_selector));
     
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [responder performSelector:_selector withObject:sender.node withObject:event];
+    [responder performSelector:_selector withObject:node withObject:event];
+#pragma clang diagnostic pop
+}
+
+- (void)invoke:(UIGestureRecognizer *)sender {
+    VZFNode *node = sender.view.node;
+    id responder = [node responderForSelector:_selector];
+    NSAssert(responder, @"could not found responder for action '%@'", NSStringFromSelector(_selector));
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [responder performSelector:_selector withObject:node];
 #pragma clang diagnostic pop
 }
 

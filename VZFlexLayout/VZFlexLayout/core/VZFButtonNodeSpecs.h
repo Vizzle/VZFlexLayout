@@ -13,27 +13,19 @@
 
 namespace VZ {
     
-    template<typename Type>
-    struct EventfulValue : std::unordered_multimap<UIControlEvents, Type> {
-        using SuperType = std::unordered_multimap<UIControlEvents, Type>;
-        
-        EventfulValue() : SuperType() {}
-        template<typename T>
-        EventfulValue(T value) : SuperType({{UIControlEventTouchUpInside, value}}) {
-            static_assert(std::is_convertible<T, Type>::value, "there is no suitable constructor");
-        }
-        EventfulValue(std::initializer_list<typename SuperType::value_type> list) : SuperType(list) {}
+    template<>
+    struct MultiMapKey<UIControlEvents> {
+        static UIControlEvents defaultKey;
     };
     
     struct ButtonNodeSpecs{
-
         UIFont *font;
         NSTextAlignment textAlignment;
         StatefulValue<NSString *>title;     // IMPORTANT: node won't re-layout when the title is changed by state-changing.
         StatefulValue<UIColor *> titleColor;
         StatefulValue<UIImage *> backgroundImage;
         StatefulValue<UIImage *> image;
-        EventfulValue<ActionWrapper> action;
+        MultiMap<UIControlEvents, ActionWrapper> action;
         // the image property was not supported, use an image node nested in a button node instead.
         
         const ButtonNodeSpecs copy() const{

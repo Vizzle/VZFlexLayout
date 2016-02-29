@@ -7,7 +7,6 @@
 //
 
 #import "VZFNodeViewManager.h"
-#import "VZFGestureForward.h"
 #import "VZFNode.h"
 #import "VZFNodeInternal.h"
 #import "VZFCompositeNode.h"
@@ -138,7 +137,7 @@ using namespace VZ;
     
     [self _applyAttributes:specs.view ToUIView:view];
     view.frame = {layout.nodeOrigin(), layout.nodeSize()};
-    [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
+    [self _applyGestures:specs.gesture ToUIView:view AndNode:node];
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
         VZFImageNode* imageNode = (VZFImageNode* )node;
@@ -207,7 +206,7 @@ using namespace VZ;
     UIView* view = [self _createUIView:node.viewClass];
     [self _applyAttributes:specs.view ToUIView:view];
     view.frame = {layout.nodeOrigin(), layout.nodeSize()};
-    [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
+    [self _applyGestures:specs.gesture ToUIView:view AndNode:node];
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
         VZFImageNode* imageNode = (VZFImageNode* )node;
@@ -230,6 +229,29 @@ using namespace VZ;
     return view;
 }
 
++ (void)_applyGestures:(MultiMap<Class, ActionWrapper>)gestures ToUIView:(UIView* )view AndNode:(VZFNode* )node{
+    [view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [view removeGestureRecognizer:obj];
+    }];
+    static const void* _id = &_id;
+    NSMutableArray * gestureArray = objc_getAssociatedObject(view, _id);
+    if (gestureArray == nil) {
+        gestureArray = [NSMutableArray array];
+        objc_setAssociatedObject(view, _id, gestureArray, OBJC_ASSOCIATION_RETAIN);
+    }
+    for (auto iter=gestures.begin(); iter!=gestures.end(); iter=gestures.equal_range(iter->first).second){
+        auto key = iter->first;
+        UIGestureRecognizer *gestureRecognizer = [[key alloc] initWithTarget:nil action:nil];
+        auto range = gestures.equal_range(key);
+        for (auto it=range.first; it!=range.second; it++){
+            id<VZFActionWrapper> wrapper = vz_actionWrapper(it->second);
+            [gestureArray addObject:wrapper];
+            [gestureRecognizer addTarget:wrapper action:@selector(invoke:)];
+        }
+        [view addGestureRecognizer:gestureRecognizer];
+    }
+}
+
 + (UIView* )_createUIView:(const ViewClass& )clz{
 
     return clz.createView()?:[UIView new];
@@ -249,27 +271,6 @@ using namespace VZ;
     }
 
     
-}
-
-+ (void)_applyGestures:(const std::set<Gesture>&)gestures ToUIView:(UIView* )view AndNode:(VZFNode* )node{
-
-    if (gestures.size() == 0) {
-        return;
-    }
-    
-    VZFGestureForward* gestureForward = node.gestureForward;
-    if (!gestureForward) {
-        VZFGestureForward* gestureForward = [VZFGestureForward new];
-        node.gestureForward = gestureForward;
-    }
-    for (auto g : gestures) {
-        
-        UIGestureRecognizer* gesture = g.getGestureRecognizer();
-        gesture_callback_t callback = g.getGestureCallback();
-        [node.gestureForward addGestureWithType:NSStringFromClass([gesture class]) Callback:callback];
-        [gesture addTarget:node.gestureForward action:@selector(action:)];
-        [view addGestureRecognizer:gesture];
-    }
 }
 
 + (void)_applyImageAttributes:(const ImageNodeSpecs& )imageNodeSpecs ToImageView:(UIImageView* )imageView{

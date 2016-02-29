@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <unordered_map>
 
 typedef void(^UIControlActionBlock)(id sender);
 
@@ -24,12 +25,33 @@ namespace VZ {
         }
     };
     
+    template<typename KeyType>
+    struct MultiMapKey {
+        static KeyType defaultKey;
+    };
+    
+    template<typename KeyType, typename ValueType>
+    struct MultiMap : std::unordered_multimap<KeyType, ValueType> {
+        using SuperType = std::unordered_multimap<KeyType, ValueType>;
+        
+        MultiMap() : SuperType() {}
+        template<typename T>
+        MultiMap(T value) : SuperType({{MultiMapKey<KeyType>::defaultKey, value}}) {
+            static_assert(std::is_convertible<T, ValueType>::value, "there is no suitable constructor");
+        }
+        MultiMap(std::initializer_list<typename SuperType::value_type> list) : SuperType(list) {}
+    };
+
 }
 
 
 @protocol VZFActionWrapper <NSObject>
 
+// for control action
 - (void)invoke:(id)sender event:(UIEvent *)event;
+
+// for gesture recognizer
+- (void)invoke:(id)sender;
 
 @end
 

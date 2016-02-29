@@ -42,14 +42,8 @@
                 .lineSpacing = 10
             }
         },
-        .gestures = {
+        .gesture = ^(id sender) { NSLog(@"image tapped!"); },
         
-            GestureBuilder<UITapGestureRecognizer>(^(id sender) {
-                
-                NSLog(@"image tapped!");
-            })
-        }
-    
     } Children:imageNodes];
     
     return [super newWithNode:stackNode];

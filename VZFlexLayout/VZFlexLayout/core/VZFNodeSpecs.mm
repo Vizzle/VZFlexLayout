@@ -11,6 +11,9 @@
 #import "VZFlexNode.h"
 
 namespace VZ {
+    
+    Class MultiMapKey<Class>::defaultKey = [UITapGestureRecognizer class];
+    
     namespace DefaultFlexValue{
         
         float width = FlexAuto;

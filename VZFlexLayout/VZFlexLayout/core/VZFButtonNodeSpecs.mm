@@ -8,4 +8,8 @@
 
 #import "VZFButtonNodeSpecs.h"
 
-
+namespace VZ {
+    
+    UIControlEvents MultiMapKey<UIControlEvents>::defaultKey = UIControlEventTouchUpInside;
+    
+}
