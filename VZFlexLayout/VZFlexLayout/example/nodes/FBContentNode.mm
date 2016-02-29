@@ -93,7 +93,7 @@
     
     } Children:{
     
-        {.node = textNode},
+        {.node = item.content?textNode:nil},
         {.node = buttonNode},
         {.node = imageNode},
         {.node = location}

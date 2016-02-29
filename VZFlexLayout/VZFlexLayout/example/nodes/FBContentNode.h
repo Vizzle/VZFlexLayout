@@ -14,3 +14,4 @@
 + (instancetype)newWithItem:(FBHostItem* )item;
 
 @end
+

@@ -24,7 +24,10 @@
 @property(nonatomic,strong,readonly)NSString* likeCount;
 @property(nonatomic,strong,readonly)NSArray<NSString* >* zanPersons;
 @property(nonatomic,strong,readonly)NSArray<NSString* >* likePersons;
+@property(nonatomic,strong,readonly)NSString* comment;
 @property(nonatomic,strong,readonly)NSString* replyContent;
+@property(nonatomic,strong,readonly)NSString* isLike;
+@property(nonatomic,strong,readonly)NSString* isComment;
 
 + (instancetype)newWithJSON:(NSDictionary* )json;
 

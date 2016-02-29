@@ -56,6 +56,11 @@
 		45CA3AB81C81E49E00DA04C1 /* FBStarNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AB71C81E49E00DA04C1 /* FBStarNode.mm */; };
 		45CA3ABB1C81F97B00DA04C1 /* FBHostNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3ABA1C81F97B00DA04C1 /* FBHostNode.mm */; };
 		45CA3ABE1C81FD2300DA04C1 /* FBGridImageNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3ABD1C81FD2300DA04C1 /* FBGridImageNode.mm */; };
+		45CA3AC11C8307C300DA04C1 /* FBActionNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AC01C8307C300DA04C1 /* FBActionNode.mm */; };
+		45CA3AC61C83089700DA04C1 /* comment_like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3AC21C83089700DA04C1 /* comment_like@2x.png */; };
+		45CA3AC71C83089700DA04C1 /* comment_liked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3AC31C83089700DA04C1 /* comment_liked@2x.png */; };
+		45CA3AC81C83089700DA04C1 /* comment_reward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3AC41C83089700DA04C1 /* comment_reward@2x.png */; };
+		45CA3AC91C83089700DA04C1 /* comment_rewarded@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3AC51C83089700DA04C1 /* comment_rewarded@2x.png */; };
 		74D57AEAF919AB89D9844A8E /* libPods-VZFlexLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9866E37FDE793C917B86E54 /* libPods-VZFlexLayout.a */; };
 		B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.mm */; };
 		E68F9EFA1C83E55600C97813 /* VZFNodeLifecycleManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = E68F9EF11C83E55600C97813 /* VZFNodeLifecycleManager.mm */; };
@@ -162,6 +167,12 @@
 		45CA3ABA1C81F97B00DA04C1 /* FBHostNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBHostNode.mm; sourceTree = "<group>"; };
 		45CA3ABC1C81FD2300DA04C1 /* FBGridImageNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBGridImageNode.h; sourceTree = "<group>"; };
 		45CA3ABD1C81FD2300DA04C1 /* FBGridImageNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBGridImageNode.mm; sourceTree = "<group>"; };
+		45CA3ABF1C8307C300DA04C1 /* FBActionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBActionNode.h; sourceTree = "<group>"; };
+		45CA3AC01C8307C300DA04C1 /* FBActionNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBActionNode.mm; sourceTree = "<group>"; };
+		45CA3AC21C83089700DA04C1 /* comment_like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_like@2x.png"; sourceTree = "<group>"; };
+		45CA3AC31C83089700DA04C1 /* comment_liked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_liked@2x.png"; sourceTree = "<group>"; };
+		45CA3AC41C83089700DA04C1 /* comment_reward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_reward@2x.png"; sourceTree = "<group>"; };
+		45CA3AC51C83089700DA04C1 /* comment_rewarded@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_rewarded@2x.png"; sourceTree = "<group>"; };
 		74855FEA5EBE78D66E20B2AC /* Pods-VZFlexLayout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout/Pods-VZFlexLayout.debug.xcconfig"; sourceTree = "<group>"; };
 		A9866E37FDE793C917B86E54 /* libPods-VZFlexLayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VZFlexLayout.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1CB0B9A1C7EEEEA00A9CAE7 /* VZFNodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeController.h; sourceTree = "<group>"; };
@@ -317,6 +328,8 @@
 				45CA3AB71C81E49E00DA04C1 /* FBStarNode.mm */,
 				45CA3AB91C81F97B00DA04C1 /* FBHostNode.h */,
 				45CA3ABA1C81F97B00DA04C1 /* FBHostNode.mm */,
+				45CA3ABF1C8307C300DA04C1 /* FBActionNode.h */,
+				45CA3AC01C8307C300DA04C1 /* FBActionNode.mm */,
 			);
 			path = nodes;
 			sourceTree = "<group>";
@@ -387,6 +400,10 @@
 		45CA3AA11C80AE8900DA04C1 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				45CA3AC21C83089700DA04C1 /* comment_like@2x.png */,
+				45CA3AC31C83089700DA04C1 /* comment_liked@2x.png */,
+				45CA3AC41C83089700DA04C1 /* comment_reward@2x.png */,
+				45CA3AC51C83089700DA04C1 /* comment_rewarded@2x.png */,
 				45CA3AA21C80AE8900DA04C1 /* comment_location@2x.png */,
 				45CA3AA31C80AE8900DA04C1 /* o2o_gray_star@2x.png */,
 				45CA3AA41C80AE8900DA04C1 /* o2o_yellow_star@2x.png */,
@@ -473,12 +490,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				45CA3AA91C80AE8900DA04C1 /* o2o_yellow_star@2x.png in Resources */,
+				45CA3AC81C83089700DA04C1 /* comment_reward@2x.png in Resources */,
 				45C9875A1C2D0F2800D17A1D /* LaunchScreen.storyboard in Resources */,
 				45C987571C2D0F2800D17A1D /* Assets.xcassets in Resources */,
 				45CA3A9F1C80ADA700DA04C1 /* result1.json in Resources */,
+				45CA3AC71C83089700DA04C1 /* comment_liked@2x.png in Resources */,
 				45CA3AA81C80AE8900DA04C1 /* o2o_gray_star@2x.png in Resources */,
 				45C987551C2D0F2800D17A1D /* Main.storyboard in Resources */,
+				45CA3AC91C83089700DA04C1 /* comment_rewarded@2x.png in Resources */,
 				45CA3AA01C80ADA700DA04C1 /* result2.json in Resources */,
+				45CA3AC61C83089700DA04C1 /* comment_like@2x.png in Resources */,
 				45CA3AA71C80AE8900DA04C1 /* comment_location@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -534,6 +555,7 @@
 				4578E0CC1C72F1CC00E52B79 /* VZFNodeSpecs.mm in Sources */,
 				45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */,
 				4578E0DE1C736AF200E52B79 /* VZFNetworkImageNode.mm in Sources */,
+				45CA3AC11C8307C300DA04C1 /* FBActionNode.mm in Sources */,
 				4578E0ED1C74A68300E52B79 /* VZFTextNodeSpecs.mm in Sources */,
 				4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */,
 				4578E0DB1C73055400E52B79 /* VZFTextNode.mm in Sources */,

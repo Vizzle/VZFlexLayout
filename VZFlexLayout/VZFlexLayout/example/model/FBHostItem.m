@@ -42,6 +42,10 @@
     item -> _zanPersons     = json[@"zanPersons"];
     item -> _likePersons    = json[@"likePersons"];
     item -> _replyContent   = json[@"replyCount"];
+    item -> _comment        = json[@"comment"];
+    item -> _isLike         = json[@"islike"];
+    item -> _isComment      = json[@"iscomment"];
+    
     return  item;
 
 }
