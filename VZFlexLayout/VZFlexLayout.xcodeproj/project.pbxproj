@@ -46,6 +46,10 @@
 		B1CB0B9F1C7F370700A9CAE7 /* FBHeadNodeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0B9E1C7F370700A9CAE7 /* FBHeadNodeController.mm */; };
 		E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */; };
 		E6D13AE31C7C44EF00F603AB /* DemoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13AE21C7C44EF00F603AB /* DemoCell.mm */; };
+		E6D13DD21C80272800F603AB /* VZFNodeLifecycleManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13DD11C80272800F603AB /* VZFNodeLifecycleManager.mm */; };
+		E6D13DD51C802A1E00F603AB /* VZFNodeReuseUtility.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13DD41C802A1E00F603AB /* VZFNodeReuseUtility.mm */; };
+		E6D13DD81C802A6300F603AB /* VZFNodeViewConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13DD71C802A6300F603AB /* VZFNodeViewConfiguration.mm */; };
+		E6D13DDB1C802A9300F603AB /* VZFNodeViewAttribute.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13DDA1C802A9300F603AB /* VZFNodeViewAttribute.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -129,6 +133,14 @@
 		E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TableViewController.mm; sourceTree = "<group>"; };
 		E6D13AE11C7C44EF00F603AB /* DemoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoCell.h; sourceTree = "<group>"; };
 		E6D13AE21C7C44EF00F603AB /* DemoCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DemoCell.mm; sourceTree = "<group>"; };
+		E6D13DD01C80272800F603AB /* VZFNodeLifecycleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeLifecycleManager.h; sourceTree = "<group>"; };
+		E6D13DD11C80272800F603AB /* VZFNodeLifecycleManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeLifecycleManager.mm; sourceTree = "<group>"; };
+		E6D13DD31C802A1E00F603AB /* VZFNodeReuseUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeReuseUtility.h; sourceTree = "<group>"; };
+		E6D13DD41C802A1E00F603AB /* VZFNodeReuseUtility.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeReuseUtility.mm; sourceTree = "<group>"; };
+		E6D13DD61C802A6300F603AB /* VZFNodeViewConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeViewConfiguration.h; sourceTree = "<group>"; };
+		E6D13DD71C802A6300F603AB /* VZFNodeViewConfiguration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeViewConfiguration.mm; sourceTree = "<group>"; };
+		E6D13DD91C802A9300F603AB /* VZFNodeViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeViewAttribute.h; sourceTree = "<group>"; };
+		E6D13DDA1C802A9300F603AB /* VZFNodeViewAttribute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeViewAttribute.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +203,14 @@
 				B1CB0BA71C7FF37D00A9CAE7 /* VZFNodeControllerInternal.h */,
 				B1CB0B9A1C7EEEEA00A9CAE7 /* VZFNodeController.h */,
 				B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.mm */,
+				E6D13DD01C80272800F603AB /* VZFNodeLifecycleManager.h */,
+				E6D13DD11C80272800F603AB /* VZFNodeLifecycleManager.mm */,
+				E6D13DD31C802A1E00F603AB /* VZFNodeReuseUtility.h */,
+				E6D13DD41C802A1E00F603AB /* VZFNodeReuseUtility.mm */,
+				E6D13DD61C802A6300F603AB /* VZFNodeViewConfiguration.h */,
+				E6D13DD71C802A6300F603AB /* VZFNodeViewConfiguration.mm */,
+				E6D13DD91C802A9300F603AB /* VZFNodeViewAttribute.h */,
+				E6D13DDA1C802A9300F603AB /* VZFNodeViewAttribute.mm */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -373,13 +393,16 @@
 				4578E0DE1C736AF200E52B79 /* VZFNetworkImageNode.mm in Sources */,
 				4578E0ED1C74A68300E52B79 /* VZFTextNodeSpecs.mm in Sources */,
 				4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */,
+				E6D13DDB1C802A9300F603AB /* VZFNodeViewAttribute.mm in Sources */,
 				4578E0DB1C73055400E52B79 /* VZFTextNode.mm in Sources */,
 				45CA3A851C7DDE5400DA04C1 /* VZFScope.mm in Sources */,
 				B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.mm in Sources */,
 				4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */,
 				4578E0C31C72F1CC00E52B79 /* VZFGestureForward.mm in Sources */,
+				E6D13DD21C80272800F603AB /* VZFNodeLifecycleManager.mm in Sources */,
 				451729811C7D61F700BF3B9E /* VZFNodeTreeBuilder.mm in Sources */,
 				4578E0D21C72F1CC00E52B79 /* FlexLayout.c in Sources */,
+				E6D13DD81C802A6300F603AB /* VZFNodeViewConfiguration.mm in Sources */,
 				4578E0CE1C72F1CC00E52B79 /* VZFNodeViewClass.mm in Sources */,
 				4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */,
 				E6D13AE31C7C44EF00F603AB /* DemoCell.mm in Sources */,
@@ -392,6 +415,7 @@
 				B1CB0B9F1C7F370700A9CAE7 /* FBHeadNodeController.mm in Sources */,
 				4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */,
 				4578E0D01C72F1CC00E52B79 /* VZFSizeRange.mm in Sources */,
+				E6D13DD51C802A1E00F603AB /* VZFNodeReuseUtility.mm in Sources */,
 				4517297E1C7C616C00BF3B9E /* VZFScopeManager.mm in Sources */,
 				4578E0CB1C72F1CC00E52B79 /* VZFNodeMountContext.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
