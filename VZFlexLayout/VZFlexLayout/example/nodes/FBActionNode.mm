@@ -7,7 +7,39 @@
 //
 
 #import "FBActionNode.h"
+#import "VZFButtonNode.h"
+#import "VZFTextNode.h"
+#import "VZFNodeInternal.h"
+#import "VZFStackNode.h"
 
 @implementation FBActionNode
+
+
++ (instancetype)newWithImage:(UIImage* )img Text:(NSString* )text Action:(SEL)action{
+    
+    VZFButtonNode* btnNode=[VZFButtonNode newWithNodeSpecs:{} ButtonAttributes:{
+        .image = img,
+        .actionSelector = action
+    }];
+    VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
+        .text = text,
+        .font = [UIFont systemFontOfSize:12.0f],
+        .color = [UIColor lightGrayColor]
+    
+    }];
+
+    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
+        .flex= {.stackLayout = {.spacing = 5}}
+        
+    } Children:{
+        {btnNode},
+        {textNode}
+    }];
+    
+    return [super newWithNode:stackNode];
+
+
+}
+
 
 @end

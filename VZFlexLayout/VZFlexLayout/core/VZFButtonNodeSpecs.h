@@ -30,6 +30,7 @@ namespace VZ {
         StatefulValue<NSString *>title;     // IMPORTANT: node won't re-layout when the title is changed by state-changing.
         StatefulValue<UIColor *> titleColor;
         StatefulValue<UIImage *> backgroundImage;
+        StatefulValue<UIImage *> image;
         EventfulValue<UIControlActionBlock> actionBlock;
         EventfulValue<SEL> actionSelector;
         // the image property was not supported, use an image node nested in a button node instead.
@@ -57,7 +58,8 @@ namespace VZ {
                 && title == other.title
                 && titleColor == other.titleColor
                 && backgroundImage == other.backgroundImage
-                && actionBlock == other.actionBlock;
+                && actionBlock == other.actionBlock
+                && image == other.backgroundImage;
             
         }
     

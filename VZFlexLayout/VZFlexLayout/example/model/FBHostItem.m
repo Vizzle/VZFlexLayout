@@ -37,14 +37,21 @@
     item -> _dishes         = json[@"dishes"];
     item -> _images         = json[@"images"];
     item -> _location       = json[@"location"];
-    item -> _zanCount       = json[@"zanCount"];
-    item -> _likeCount      = json[@"likeCount"];
-    item -> _zanPersons     = json[@"zanPersons"];
-    item -> _likePersons    = json[@"likePersons"];
-    item -> _replyContent   = json[@"replyCount"];
-    item -> _comment        = json[@"comment"];
+    
+
+    item -> _rewardCount       = json[@"rewardedCount"];
+    item -> _likeCount         = json[@"likeCount"];
+    item -> _commentCount      = json[@"commentCount"];
+    
+    
+    item -> _rewardedPersons  = json[@"rewardedPersons"];
+    item -> _likePersons      = json[@"likePersons"];
+    item -> _comments         = json[@"comments"];
+    
+    
     item -> _isLike         = json[@"islike"];
     item -> _isComment      = json[@"iscomment"];
+    item -> _isReward       = json[@"isReward"];
     
     return  item;
 

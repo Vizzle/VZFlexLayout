@@ -39,7 +39,6 @@ namespace VZ {
     }
     
     const std::string & ViewClass::identifier() const{
-    
         return _identifier;
     }
     

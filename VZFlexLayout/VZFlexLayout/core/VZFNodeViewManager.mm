@@ -344,6 +344,10 @@ using namespace VZ;
         [btn setBackgroundImage:image.second forState:image.first];
     }
     
+    for (auto image : buttonNodeSpecs.image){
+        [btn setImage:image.second forState:image.first];
+    }
+    
     [btn removeTarget:nil action:nil forControlEvents:UIControlEventAllEvents];
     static const void* _id = &_id;
     NSMutableArray * actionArray = objc_getAssociatedObject(btn, _id);

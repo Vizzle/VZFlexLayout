@@ -10,4 +10,6 @@
 
 @interface FBActionNode : VZFCompositeNode
 
++ (instancetype)newWithImage:(UIImage* )img Text:(NSString* )text Action:(SEL)action;
+
 @end

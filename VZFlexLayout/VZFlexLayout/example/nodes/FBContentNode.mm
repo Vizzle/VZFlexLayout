@@ -19,27 +19,31 @@
 #import "FBHostItem.h"
 #import "FBGridImageNode.h"
 #import "VZFLineNode.h"
+#import "FBActionNode.h"
 
 @implementation FBContentNode
 
 
 + (id)initialState{
 
-
-    return @(NO);
-
+    return @{
+                @"expend":@(NO),
+                @"like":@(NO),
+                @"reward":@(NO)
+             
+             };
 }
 
 + (instancetype)newWithItem:(FBHostItem *)item
 {
     VZ::Scope scope(self);
-    NSNumber* state = scope.state();
+    NSDictionary* state = scope.state();
 
     VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
         
         .text = item.content,
         .font = [UIFont systemFontOfSize:14.0f],
-        .maximumNumberOfLines = [state boolValue] ? 0UL : 4UL
+        .maximumNumberOfLines = [state[@"expend"] boolValue] ? 0UL : 4UL
     
     }];
     
@@ -49,12 +53,11 @@
     
     } ButtonAttributes:{
         
-        .title = [state boolValue] ? @"收起":@"展开",
+        .title = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         .font = [UIFont systemFontOfSize:14.0f],
         .actionSelector = {
-            {UIControlEventTouchUpInside, @selector(didTap:)},
-           // {UIControlEventTouchDown, @selector(touchDown)}
+            {UIControlEventTouchUpInside, @selector(onExpendClicked:)}
         },
 
     }];
@@ -85,6 +88,21 @@
     }];
     
     
+    VZFStackNode* actions = [VZFStackNode newWithStackSpecs:{
+        .flex = {
+            .alignSelf = VZFlexEnd,
+            .stackLayout = {.spacing = 10}
+        }
+    
+    } Children:{
+        { [FBActionNode newWithImage:[item.isLike boolValue]?[UIImage imageNamed:@"comment_liked"]:[UIImage imageNamed:@"comment_like"] Text:item.likeCount Action:@selector(onLikeClicked:)]},
+        { [FBActionNode newWithImage:[item.isReward boolValue]?[UIImage imageNamed:@"comment_rewarded"]:[UIImage imageNamed:@"comment_reward"] Text:item.rewardCount Action:@selector(onRewardClicked:)]},
+//        { [FBActionNode newWithImage:[UIImage imageNamed:@"comment_liked"] Text:item.likeCount Action:@selector(onLikeClicked:)]}
+        
+    
+    }];
+    
+    
     VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
         
         .flex = {
@@ -97,8 +115,8 @@
         {.node = item.content?textNode:nil},
         {.node = buttonNode},
         {.node = imageNode},
-        {.node = [VZFLineNode lineNode]},
-        {.node = location}
+        {.node = location},
+        {.node = actions}
     
     }];
     
@@ -109,13 +127,24 @@
     return headNode;
 }
 
-- (void)didTap:(id)sender {
-    NSLog(@"%@ didTap", NSStringFromClass([sender class]));
-    [self updateState:^id(NSNumber* oldState) {
+- (void)onLikeClicked:(id)sender{
+
+    
+}
+
+- (void)onRewardClicked:(id)sender{
+
+
+}
+
+
+- (void)onExpendClicked:(id)sender {
+
+    [self updateState:^id(NSDictionary* oldState) {
         
-        id state =  @(![oldState boolValue]);
-        return state;
-        
+        NSMutableDictionary* mutableOldState = [oldState mutableCopy];
+        mutableOldState[@"expend"] = @(![oldState[@"expend"] boolValue]);
+        return [mutableOldState copy];
     }];
 }
 
