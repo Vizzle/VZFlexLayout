@@ -105,18 +105,8 @@
 
     
     FBContentNode* headNode =  [super newWithNode:stackNode];
-    
+    headNode->_expanded = state.boolValue;
     return headNode;
-}
-
-- (void)didTap:(id)sender {
-    NSLog(@"%@ didTap", NSStringFromClass([sender class]));
-    [self updateState:^id(NSNumber* oldState) {
-        
-        id state =  @(![oldState boolValue]);
-        return state;
-        
-    }];
 }
 
 @end
