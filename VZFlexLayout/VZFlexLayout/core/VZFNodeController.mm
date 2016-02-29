@@ -41,7 +41,7 @@
 - (void)didUpdateNode {}
 
 - (id)nextResponder {
-    return self.node.parentNode;
+    return (id)self.node.parentNode ?: self.node.hostingView;
 }
 
 - (id)responderForSelector:(SEL)selector {

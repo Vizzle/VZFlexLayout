@@ -14,6 +14,7 @@
 #import "VZFScopeHandler.h"
 #import "VZFScopeManager.h"
 #import "VZFNodeController.h"
+#import "VZFNodeHostingView.h"
 
 
 @interface VZFlexNode()
@@ -81,20 +82,18 @@
 }
 
 
-
 - (NSString *)description {
     
     NSString* className = NSStringFromClass([self class]);
     return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
 }
 
-
 - (void)addToParentNode:(VZFNode* )parentNode{
     _parentNode = parentNode;
 }
 
 - (id)nextResponder {
-    return _scopeHander.controller ?: _parentNode;
+    return _scopeHander.controller ?: self.parentNode ?: self.hostingView;
 }
 
 - (id)responderForSelector:(SEL)selector {

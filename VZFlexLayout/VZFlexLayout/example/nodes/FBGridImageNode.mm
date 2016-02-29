@@ -42,7 +42,7 @@
                 .lineSpacing = 10
             }
         },
-        .gesture = ^(id sender) { NSLog(@"image tapped!"); },
+        .gesture = @selector(imageDidTap),
         
     } Children:imageNodes];
     
