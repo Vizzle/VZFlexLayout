@@ -123,10 +123,11 @@
 
     
     FBContentNode* headNode =  [super newWithNode:stackNode];
-    
+//    headNode->_expanded = state.boolValue;
     return headNode;
 }
 
+//<<<<<<< HEAD
 - (void)onLikeClicked:(id)sender{
 
     
