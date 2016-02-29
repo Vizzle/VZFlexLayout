@@ -13,7 +13,10 @@
     "location":"黄龙时代广场(万塘路)",
     "zanCount":"5",
     "likeCount":"8",
+    "islike":"1",
+    "isComment":"1",
     "zanPersons":["凌万","贤哲","胖砸","大狗","威曼"],
     "likePersons":["凌万","贤哲","胖砸","大狗","威曼","何灵","净枫","志宗"],
+    "comment":"View layer with MVP becomes so simple, so it does not even need to have callbacks when requesting for data. View logic becomes very linear.",
     "replyContent":"迪安也不再从事追魔行动，并发誓再也不回来，回到了原先的生活。他遇到了从地狱逃出生天的山姆，两人重聚后发现他们再也回不到过去，他们的关系也和从前不一样了，一切都变了"
 }
