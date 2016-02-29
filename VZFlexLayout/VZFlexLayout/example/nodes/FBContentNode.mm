@@ -18,6 +18,7 @@
 #import "VZFImageNode.h"
 #import "FBHostItem.h"
 #import "FBGridImageNode.h"
+#import "VZFLineNode.h"
 
 @implementation FBContentNode
 
@@ -96,6 +97,7 @@
         {.node = item.content?textNode:nil},
         {.node = buttonNode},
         {.node = imageNode},
+        {.node = [VZFLineNode lineNode]},
         {.node = location}
     
     }];

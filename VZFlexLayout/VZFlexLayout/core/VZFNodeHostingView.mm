@@ -137,9 +137,17 @@ struct VZFNodeHostingViewInputs{
     
     //reuse的时候cell固定有一层hostView和containerView
     if (reuseView.contentView.subviews.count > 0 && reuseView.contentView.subviews[0].subviews.count >0 && reuseView.contentView.subviews[0].subviews[0].subviews.count > 0) {
+        double time = [[NSDate date] timeIntervalSince1970];
         fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:reuseView.contentView.subviews[0].subviews[0].subviews[0]];
+    
+        NSLog(@"render time: %lf ms", [[NSDate date] timeIntervalSince1970] - time);
+        
     } else {
+        double time = [[NSDate date] timeIntervalSince1970];
+
         fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:nil];
+        NSLog(@"create time: %lf ms", [[NSDate date] timeIntervalSince1970] - time);
+
     }
     if (fView) {
         

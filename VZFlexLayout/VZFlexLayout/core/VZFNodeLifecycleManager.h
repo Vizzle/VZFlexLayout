@@ -1,13 +1,13 @@
 //
-//  VZNodeReuseUtility.h
+//  VZFNodeLifecycleManager.h
 //  VZFlexLayout
 //
-//  Created by 俞伟平 on 2/24/16.
+//  Created by 俞伟平 on 2/26/16.
 //  Copyright © 2016 Vizlab. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface VZNodeReuseUtility : NSObject
+@interface VZFNodeLifecycleManager : NSObject
 
 @end
