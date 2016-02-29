@@ -17,7 +17,13 @@
 
 + (instancetype)newWithImage:(UIImage* )img Text:(NSString* )text Action:(SEL)action{
     
-    VZFButtonNode* btnNode=[VZFButtonNode newWithNodeSpecs:{} ButtonAttributes:{
+    VZFButtonNode* btnNode=[VZFButtonNode newWithNodeSpecs:{
+        .flex = {
+            .width = 20,
+            .height = 20,
+        }
+    
+    } ButtonAttributes:{
         .image = img,
         .actionSelector = action
     }];

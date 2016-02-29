@@ -91,7 +91,8 @@
     VZFStackNode* actions = [VZFStackNode newWithStackSpecs:{
         .flex = {
             .alignSelf = VZFlexEnd,
-            .stackLayout = {.spacing = 10}
+            .marginTop = 10,
+            .stackLayout = {.spacing = 5}
         }
     
     } Children:{

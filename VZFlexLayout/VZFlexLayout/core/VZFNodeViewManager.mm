@@ -288,7 +288,7 @@ using namespace VZ;
 + (void)_applyAttributes:(const ViewAttrs&)vs ToUIView:(UIView* )view {
 
     view.tag                    = vs.tag;
-    view.backgroundColor        = vs.backgroundColor;
+    view.backgroundColor        = vs.backgroundColor?:[UIColor clearColor];
     view.clipsToBounds          = vs.clipToBounds;
     view.layer.cornerRadius     = vs.layer.cornerRadius;
     view.layer.borderColor      = vs.layer.borderColor.CGColor;
