@@ -31,6 +31,7 @@ namespace VZ {
         float padding = 0;
         float flexGrow = 0;
         float flexShrink = 1;
+        float flexBasis = FlexAuto;
         bool fixed = 0;
         bool wrap = 0;
         int direction = FlexHorizontal;
@@ -71,6 +72,7 @@ namespace VZ {
     node.paddingBottom      = attrs.paddingBottom != FlexUndefined ? attrs.paddingBottom.value : attrs.padding.value;
     node.flexGrow           = attrs.flexGrow;
     node.flexShrink         = attrs.flexShrink;
+    node.flexBasis          = attrs.flexBasis;
     node.wrap               = attrs.wrap;
     node.fixed              = attrs.fixed;
     node.alignSelf          = (FlexAlign)((int)attrs.alignSelf);

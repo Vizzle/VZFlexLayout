@@ -68,6 +68,7 @@ namespace VZ {
         //flex attributes
         extern float flexGrow;
         extern float flexShrink;
+        extern float flexBasis;
         extern bool fixed;
         extern bool wrap;
         extern int direction;
@@ -115,6 +116,7 @@ namespace VZ {
         
         Value<float, DefaultFlexValue::flexGrow> flexGrow;
         Value<float, DefaultFlexValue::flexShrink> flexShrink;
+        Value<float, DefaultFlexValue::flexBasis> flexBasis;
         Value<int,  DefaultFlexValue::aliginSelf> alignSelf;
         Value<bool, DefaultFlexValue::fixed> fixed;
         Value<bool, DefaultFlexValue::wrap> wrap;

@@ -67,6 +67,7 @@
 		E68F9EFB1C83E55600C97813 /* VZFNodeReuseUtility.mm in Sources */ = {isa = PBXBuildFile; fileRef = E68F9EF31C83E55600C97813 /* VZFNodeReuseUtility.mm */; };
 		E68F9EFD1C83E55600C97813 /* VZFNodeViewAttribute.mm in Sources */ = {isa = PBXBuildFile; fileRef = E68F9EF71C83E55600C97813 /* VZFNodeViewAttribute.mm */; };
 		E68F9EFE1C83E55600C97813 /* VZFNodeViewConfiguration.mm in Sources */ = {isa = PBXBuildFile; fileRef = E68F9EF91C83E55600C97813 /* VZFNodeViewConfiguration.mm */; };
+		B1CB0BBA1C83E23900A9CAE7 /* VZFLineNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0BB91C83E23900A9CAE7 /* VZFLineNode.mm */; };
 		E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */; };
 		E6D13AE31C7C44EF00F603AB /* DemoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13AE21C7C44EF00F603AB /* DemoCell.mm */; };
 /* End PBXBuildFile section */
@@ -180,6 +181,8 @@
 		B1CB0B9D1C7F370700A9CAE7 /* FBHeadNodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBHeadNodeController.h; sourceTree = "<group>"; };
 		B1CB0B9E1C7F370700A9CAE7 /* FBHeadNodeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBHeadNodeController.mm; sourceTree = "<group>"; };
 		B1CB0BA71C7FF37D00A9CAE7 /* VZFNodeControllerInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeControllerInternal.h; sourceTree = "<group>"; };
+		B1CB0BB81C83E23900A9CAE7 /* VZFLineNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLineNode.h; sourceTree = "<group>"; };
+		B1CB0BB91C83E23900A9CAE7 /* VZFLineNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLineNode.mm; sourceTree = "<group>"; };
 		D30E0A8AD856BE61977DCF18 /* Pods-VZFlexLayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout.release.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout/Pods-VZFlexLayout.release.xcconfig"; sourceTree = "<group>"; };
 		E68F9EF01C83E55600C97813 /* VZFNodeLifecycleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeLifecycleManager.h; sourceTree = "<group>"; };
 		E68F9EF11C83E55600C97813 /* VZFNodeLifecycleManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeLifecycleManager.mm; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				4578E0DA1C73055400E52B79 /* VZFTextNode.mm */,
 				4578E0E81C747A7800E52B79 /* VZFCompositeNode.h */,
 				4578E0E91C747A7800E52B79 /* VZFCompositeNode.mm */,
+				B1CB0BB81C83E23900A9CAE7 /* VZFLineNode.h */,
+				B1CB0BB91C83E23900A9CAE7 /* VZFLineNode.mm */,
 			);
 			path = node;
 			sourceTree = "<group>";
@@ -556,6 +561,7 @@
 				45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */,
 				4578E0DE1C736AF200E52B79 /* VZFNetworkImageNode.mm in Sources */,
 				45CA3AC11C8307C300DA04C1 /* FBActionNode.mm in Sources */,
+				B1CB0BBA1C83E23900A9CAE7 /* VZFLineNode.mm in Sources */,
 				4578E0ED1C74A68300E52B79 /* VZFTextNodeSpecs.mm in Sources */,
 				4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */,
 				4578E0DB1C73055400E52B79 /* VZFTextNode.mm in Sources */,
