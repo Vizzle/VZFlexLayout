@@ -226,29 +226,22 @@ using namespace VZ;
         }
     };
     
-    node = unwrap(node);
-    
-    if (![node isKindOfClass : [VZFStackNode class] ]) {
-        view = [self _viewForNode:node withLayoutSpec:layout];
+    VZFNode* unwrappedNode = unwrap(node);
+    if (![unwrappedNode isKindOfClass : [VZFStackNode class] ]) {
+        view = [self _viewForNode:unwrappedNode withLayoutSpec:layout];
     }
     else{
       
-        UIView* stackView = [self _viewForNode:node withLayoutSpec:layout];
-        VZFStackNode* stackNode = (VZFStackNode* )node;
+        UIView* stackView = [self _viewForNode:unwrappedNode withLayoutSpec:layout];
+        VZFStackNode* stackNode = (VZFStackNode* )unwrappedNode;
         for (int i = 0; i < stackNode.children.size(); i++) {
             
             VZFStackChildNode _childNode = stackNode.children[i];
-            VZFNode* _node = unwrap(_childNode.node);
+            VZFNode* _node = _childNode.node;
             VZFNodeLayout _layout = layout.childrenLayout()[i];
-            if ([_node isKindOfClass:[VZFStackNode class]]) {
-                //递归
-                UIView* stackViewRecursive=[self viewForNode:_node withLayoutSpec:_layout];
-                [stackView addSubview:stackViewRecursive];
-            }
-            else{
-                UIView* view = [self _viewForNode:_node withLayoutSpec:_layout];
-                [stackView addSubview:view];
-            }
+            //递归
+            UIView* _view = [self viewForNode:_node withLayoutSpec:_layout];
+            [stackView addSubview:_view];
      
         }
         view = stackView;
