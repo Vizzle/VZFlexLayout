@@ -18,6 +18,11 @@ namespace VZ {
         static UIControlEvents defaultKey;
     };
     
+    template<UIControlEvents EventType>
+    MultiMap<UIControlEvents, ActionWrapper>::value_type VZFAction(const ActionWrapper& action) {
+        return { EventType, action };
+    }
+    
     struct ButtonNodeSpecs{
         UIFont *font;
         NSTextAlignment textAlignment;
@@ -25,6 +30,20 @@ namespace VZ {
         StatefulValue<UIColor *> titleColor;
         StatefulValue<UIImage *> backgroundImage;
         StatefulValue<UIImage *> image;
+        
+        /*
+            .action = @selector(xx),
+            .action = ^(id sender){},
+            .action = VZFAction<UIControlEventTouchUpInside>(@selector(xx)),
+            .action = {
+                VZFAction<UIControlEventTouchUpInside>(@selector(xx)),
+                VZFAction<UIControlEventTouchUpOutside>(^(id sender){}),
+            },
+            .action = {
+                { UIControlEventTouchUpInside, @selector(xx) },
+                { UIControlEventTouchUpOutside, ^(id sender){} },
+            }
+         */
         MultiMap<UIControlEvents, ActionWrapper> action;
         // the image property was not supported, use an image node nested in a button node instead.
         

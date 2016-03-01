@@ -134,6 +134,12 @@ namespace VZ {
         static Class defaultKey;
     };
     
+    template<typename GestureType>
+    MultiMap<Class, ActionWrapper>::value_type VZFGesture(const ActionWrapper& action) {
+        static_assert(std::is_convertible<GestureType, UIGestureRecognizer>::value_type, "is not gesture recognizer class");
+        return { [GestureType class], action };
+    }
+    
     
     template<typename T>
     struct UISpecs{
@@ -147,7 +153,21 @@ namespace VZ {
         //flex
         struct FlexAttrs flex;
         
-        //gestures
+        /*
+            gestures
+         
+            .gesture = @selector(xx),
+            .gesture = ^(id sender){},
+            .gesture = VZFGesture<UITapGestureRecognizer>(@selector(xx)),
+            .gesture = {
+                VZFGesture<UITapGestureRecognizer>(@selector(xx)),
+                VZFGesture<UITapGestureRecognizer>(^(id sender){}),
+            },
+            .gesture = {
+                { UITapGestureRecognizer, @selector(xx) },
+                { UITapGestureRecognizer, ^(id sender){} },
+            }
+         */
         MultiMap<Class, ActionWrapper> gesture;
         
         //other type of UISpecs
