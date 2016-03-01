@@ -50,4 +50,10 @@
 
 }
 
+
+- (void)imageDidTap
+{
+    NSLog(@"abc");
+}
+
 @end

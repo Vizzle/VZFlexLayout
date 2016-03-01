@@ -17,7 +17,7 @@ namespace VZ {
     struct ActionWrapper {
         UIControlActionBlock block;
         SEL selector;
-        ActionWrapper(UIControlActionBlock block) : block(block) {}
+        ActionWrapper(UIControlActionBlock block) : block([block copy]) {}
         ActionWrapper(SEL selector) : selector(selector) {}
         
         bool operator==(const ActionWrapper& other) const {

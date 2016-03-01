@@ -13,48 +13,34 @@
 #import "FBHostItem.h"
 #import "VZFNetworkImageNode.h"
 #import "FBImageDownloader.h"
+#import "FBIconNode.h"
 
 @implementation FBHeaderNode
 
 + (instancetype)newWithItem:(FBHostItem* )item{
+    
+    return [super newWithNode:[VZFStackNode newWithStackSpecs:{}
+                                                     Children:{
+    
+        {[FBIconNode newWithURL:[NSURL URLWithString:item.headIconURL]]},//头像
+        {[VZFStackNode newWithStackSpecs:{
+        
+            .flex = {
+                .marginLeft = 10,
+                .flexGrow = 1,
+                .stackLayout = {
+                    .direction = VZFlexVertical,
+                    .justifyContent = VZFlexSpaceBetween
+                }
+            }
+        
+        } Children:{
+        
+            {[FBNameNode newWithName:item.nick createTime:item.time]},//姓名+时间
+            {[FBStarNode newWithScore:[item.score floatValue]]} //星星
 
-    
-    VZFNetworkImageNode* iconNode = [VZFNetworkImageNode newWithURL:[NSURL URLWithString:item.headIconURL]
-                                                    ImageAttributes:{.contentMode = UIViewContentModeScaleAspectFill}
-                                                          NodeSpecs:{
-                                                                            .view = {
-                                                                                .clipToBounds = YES,
-                                                                                .backgroundColor = [UIColor grayColor],
-                                                                                .layer = {.cornerRadius = 20.0f}
-                                                                            },
-                                                                            .flex = {
-                                                                                .width = 40,
-                                                                                .height = 40
-                                                                            }}
-                                                    ImageDownloader:[FBImageDownloader sharedInstance]
-                                               ImageProcessingBlock:nil];
-    
-    VZFStackNode* righStackNode = [VZFStackNode newWithStackSpecs:{
-        .flex = {
-            .marginLeft = 10,
-            .flexGrow = 1,
-            .stackLayout = {
-                .direction = VZFlexVertical,
-                .justifyContent = VZFlexSpaceBetween
-            }}
-    
-    } Children:{
-        {[FBNameNode newWithName:item.nick createTime:item.time]},
-        {[FBStarNode newWithScore:[item.score floatValue]]}
-    }];
-
-    
-    VZFStackNode* headerNode =[VZFStackNode newWithStackSpecs:{} Children:{
-        {iconNode},
-        {righStackNode}
-    }];
-    
-    return [super newWithNode:headerNode];
+        }]},
+    }]];
 
 }
 

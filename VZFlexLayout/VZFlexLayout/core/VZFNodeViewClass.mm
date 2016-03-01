@@ -23,8 +23,21 @@ namespace VZ {
     ViewClass::ViewClass(Class clz, SEL enter, SEL leave):
     _factory(^(void ){return [[clz alloc] init];}),
     _identifier(class_getName(clz)),
-    _didEnterReusePool(^(UIView* v){ [v performSelector:enter]; }),
-    _willLeaveReusePool(^(UIView* v){ [v performSelector:enter]; }){}
+
+    _didEnterReusePool(^(UIView* v){
+        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [v performSelector:enter]; }),
+#pragma clang diagnostic pop
+    _willLeaveReusePool(^(UIView* v){
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [v performSelector:enter];
+#pragma clang diagnostic pop
+
+    }){}
+
     
     ViewClass::ViewClass(UIView *(^factory)(void), NSString* identifier, void(^enter)(UIView* v),void(^leave)(UIView* v)):
     _factory([factory copy]),
