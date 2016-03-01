@@ -39,6 +39,7 @@ namespace VZ {
         MultiMap(T value) : SuperType({{MultiMapKey<KeyType>::defaultKey, value}}) {
             static_assert(std::is_convertible<T, ValueType>::value, "there is no suitable constructor");
         }
+        MultiMap(typename SuperType::value_type pair) : SuperType({pair}) {}
         MultiMap(std::initializer_list<typename SuperType::value_type> list) : SuperType(list) {}
     };
 
