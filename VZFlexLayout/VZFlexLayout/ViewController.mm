@@ -12,20 +12,6 @@
 #import "FBHostNode.h"
 #import "FBHostItem.h"
 
-@interface MyHostingView : VZFNodeHostingView
-
-- (void)imageDidTap;
-
-@end
-
-@implementation MyHostingView
-
-- (void)imageDidTap {
-    NSLog(@"imageDidTap");
-}
-
-@end
-
 @interface ViewController ()<VZFNodeHostingView>
 
 @property(nonatomic,strong)VZFNodeHostingView* hostingView;
@@ -34,11 +20,15 @@
 
 @implementation ViewController
 
+- (void)imageDidTap {
+    NSLog(@"imageDidTap");
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    self.hostingView = [[MyHostingView alloc]initWithNodeProvider:[self class]
+    self.hostingView = [[VZFNodeHostingView alloc]initWithNodeProvider:[self class]
                                                          RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
     self.hostingView.backgroundColor = [UIColor whiteColor];
     self.hostingView.frame = {{0,0},{CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds)}};

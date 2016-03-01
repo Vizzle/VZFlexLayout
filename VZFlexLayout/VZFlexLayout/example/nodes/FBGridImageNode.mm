@@ -21,8 +21,10 @@
     {
         VZFNetworkImageNode* node = [VZFNetworkImageNode newWithURL:[NSURL URLWithString:list[i]] ImageAttributes:{.contentMode = UIViewContentModeScaleAspectFill} NodeSpecs:{
             .view = {
-                .clipToBounds = YES
+                .clipToBounds = YES,
+                .block = ^(UIView *view){view.userInteractionEnabled = YES;},
             },
+            .gesture = @selector(imageDidTap),
             .flex = {
                 .width = 76,
                 .height = 76
@@ -42,7 +44,6 @@
                 .lineSpacing = 10
             }
         },
-        .gesture = @selector(imageDidTap),
         
     } Children:imageNodes];
     

@@ -164,8 +164,9 @@ struct VZFNodeHostingViewInputs{
 
 }
 
-- (id)responderForSelector:(SEL)selector {
-    return [self respondsToSelector:selector] ? self : nil;
+- (id)targetForAction:(SEL)action withSender:(id)sender
+{
+    return [self respondsToSelector:action] ? self : [[self nextResponder] targetForAction:action withSender:sender];
 }
 
 @end

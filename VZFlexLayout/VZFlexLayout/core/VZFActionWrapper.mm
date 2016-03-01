@@ -47,7 +47,7 @@
 
 - (void)invoke:(UIControl *)sender event:(UIEvent *)event {
     VZFNode *node = sender.node;
-    id responder = [node responderForSelector:_selector];
+    id responder = [node targetForAction:_selector withSender:sender];
     NSAssert(responder, @"could not found responder for action '%@'", NSStringFromSelector(_selector));
     
 #pragma clang diagnostic push
@@ -58,7 +58,7 @@
 
 - (void)invoke:(UIGestureRecognizer *)sender {
     VZFNode *node = sender.view.node;
-    id responder = [node responderForSelector:_selector];
+    id responder = [node targetForAction:_selector withSender:sender];
     NSAssert(responder, @"could not found responder for action '%@'", NSStringFromSelector(_selector));
     
 #pragma clang diagnostic push

@@ -96,8 +96,9 @@
     return _scopeHander.controller ?: self.parentNode ?: self.hostingView;
 }
 
-- (id)responderForSelector:(SEL)selector {
-    return [self respondsToSelector:selector] ? self : [self.nextResponder responderForSelector:selector];
+- (id)targetForAction:(SEL)action withSender:(id)sender
+{
+    return [self respondsToSelector:action] ? self : [[self nextResponder] targetForAction:action withSender:sender];
 }
 
 - (VZFNodeController* )controller {
