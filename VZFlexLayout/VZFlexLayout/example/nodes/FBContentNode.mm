@@ -111,24 +111,29 @@
     } Children:{
     
         {.node = item.content?textNode:nil},
-        {.node = buttonNode},
-        {.node = imageNode},
-        {.node = location},
+        {.node = item.content?buttonNode:nil},
+        {.node = item.images.count > 0 ?imageNode:nil},
+        {.node = item.location?location:nil},
         {.node = actions}
     
     }];
     
-
-    
     FBContentNode* headNode =  [super newWithNode:stackNode];
-//    headNode->_expanded = state.boolValue;
+
     return headNode;
 }
 
-//<<<<<<< HEAD
 - (void)onLikeClicked:(id)sender{
 
+    [self updateState:^id(NSDictionary* oldState) {
+        
+        NSMutableDictionary* mutableOldState = [oldState mutableCopy];
+        mutableOldState[@"like"] = @(![oldState[@"like"] boolValue]);
+        return [mutableOldState copy];
+        
+    }];
     
+    [self.nextResponder performSelector:@selector(onLikeClicked:) withObject:nil ];
 }
 
 - (void)onRewardClicked:(id)sender{

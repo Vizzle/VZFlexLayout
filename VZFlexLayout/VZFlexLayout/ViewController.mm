@@ -15,6 +15,7 @@
 @interface MyHostingView : VZFNodeHostingView
 
 - (void)imageDidTap;
+- (void)onLikeClicked:(id)sender;
 
 @end
 
@@ -22,6 +23,9 @@
 
 - (void)imageDidTap {
     NSLog(@"imageDidTap");
+}
+- (void)onLikeClicked:(id)sender{
+    NSLog(@"liked!");
 }
 
 @end
