@@ -82,8 +82,10 @@ using namespace VZ;
             VZFNodeLayout _layout = layout.childrenLayout()[i];
             //递归
             UIView* _view = [self viewForNode:_node withLayoutSpec:_layout reuseView:subviews.count > i?subviews[i]:nil];
-            [stackView addSubview:_view];
             
+            if (_view != (subviews.count > i?subviews[i]:nil)) {
+                [stackView addSubview:_view];
+            }
         }
         view = stackView;
     }
@@ -129,11 +131,12 @@ using namespace VZ;
             [reuseView removeFromSuperview];
         }
         view = [self _createUIView:node.viewClass];
+        [self _applyAttributes:specs.view ToUIView:view];
     }
 
-    [self _applyAttributes:specs.view ToUIView:view];
     view.frame = {layout.nodeOrigin(), layout.nodeSize()};
     [self _applyGestures:specs.gesture ToUIView:view AndNode:node];
+
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
         VZFImageNode* imageNode = (VZFImageNode* )node;
@@ -188,8 +191,14 @@ using namespace VZ;
 }
 
 + (UIView* )_createUIView:(const ViewClass& )clz{
-
-    return clz.createView()?:[UIView new];
+    
+    UIView* view = clz.createView()?:[UIView new];
+    
+//    if (clz._didEnterReusePool) {
+//        clz._didEnterReusePool(view);
+//    }
+    
+    return view;
 }
 
 + (void)_applyAttributes:(const ViewAttrs&)vs ToUIView:(UIView* )view {
@@ -199,7 +208,7 @@ using namespace VZ;
     view.clipsToBounds          = vs.clipToBounds;
     view.layer.cornerRadius     = vs.layer.cornerRadius;
     view.layer.borderColor      = vs.layer.borderColor.CGColor;
-    view.layer.contents         = (__bridge id)vs.layer.contents.CGImage;
+//    view.layer.contents         = (__bridge id)vs.layer.contents.CGImage;
     
     if (vs.block) {
         vs.block(view);
