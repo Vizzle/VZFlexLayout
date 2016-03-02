@@ -131,8 +131,9 @@ using namespace VZ;
             [reuseView removeFromSuperview];
         }
         view = [self _createUIView:node.viewClass];
-        [self _applyAttributes:specs.view ToUIView:view];
     }
+
+    [self _applyAttributes:specs.view ToUIView:view];
 
     view.frame = {layout.nodeOrigin(), layout.nodeSize()};
     [self _applyGestures:specs.gesture ToUIView:view AndNode:node];
@@ -140,8 +141,6 @@ using namespace VZ;
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
         VZFImageNode* imageNode = (VZFImageNode* )node;
-        ((UIImageView*)view).image = nil;
-
         [self _applyImageAttributes:imageNode.imageSpecs ToImageView:(UIImageView* )view];
     }
     else if ([node isKindOfClass:[VZFButtonNode class]]){
@@ -202,13 +201,15 @@ using namespace VZ;
 }
 
 + (void)_applyAttributes:(const ViewAttrs&)vs ToUIView:(UIView* )view {
-
+    
     view.tag                    = vs.tag;
     view.backgroundColor        = vs.backgroundColor?:[UIColor clearColor];
     view.clipsToBounds          = vs.clipToBounds;
     view.layer.cornerRadius     = vs.layer.cornerRadius;
     view.layer.borderColor      = vs.layer.borderColor.CGColor;
-//    view.layer.contents         = (__bridge id)vs.layer.contents.CGImage;
+    if (vs.layer.contents.CGImage) {
+        view.layer.contents     = (__bridge id)vs.layer.contents.CGImage;
+    }
     
     if (vs.block) {
         vs.block(view);
