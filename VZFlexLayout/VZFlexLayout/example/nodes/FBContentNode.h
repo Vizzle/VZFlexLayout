@@ -11,6 +11,8 @@
 @class FBHostItem;
 @interface FBContentNode : VZFCompositeNode
 
+@property (nonatomic, readonly) BOOL expanded;
+
 + (instancetype)newWithItem:(FBHostItem* )item;
 
 @end

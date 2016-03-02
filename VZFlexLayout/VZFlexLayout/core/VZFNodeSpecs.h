@@ -15,7 +15,7 @@
 #import <objc/runtime.h>
 #import "VZFNodeViewClass.h"
 #import "VZFValue.h"
-#import "VZFGesture.h"
+#import "VZFActionWrapper.h"
 
 using namespace VZ;
 namespace VZ {
@@ -68,6 +68,7 @@ namespace VZ {
         //flex attributes
         extern float flexGrow;
         extern float flexShrink;
+        extern float flexBasis;
         extern bool fixed;
         extern bool wrap;
         extern int direction;
@@ -115,6 +116,7 @@ namespace VZ {
         
         Value<float, DefaultFlexValue::flexGrow> flexGrow;
         Value<float, DefaultFlexValue::flexShrink> flexShrink;
+        Value<float, DefaultFlexValue::flexBasis> flexBasis;
         Value<int,  DefaultFlexValue::aliginSelf> alignSelf;
         Value<bool, DefaultFlexValue::fixed> fixed;
         Value<bool, DefaultFlexValue::wrap> wrap;
@@ -126,6 +128,19 @@ namespace VZ {
     
     typedef struct{}ViewNodeSpecs;
 
+    
+    template<>
+    struct MultiMapKey<Class> {
+        static Class defaultKey;
+    };
+    
+    template<typename GestureType>
+    MultiMap<Class, ActionWrapper>::value_type VZFGesture(const ActionWrapper& action) {
+        static_assert(std::is_convertible<GestureType, UIGestureRecognizer>::value_type, "is not gesture recognizer class");
+        return { [GestureType class], action };
+    }
+    
+    
     template<typename T>
     struct UISpecs{
         
@@ -138,8 +153,22 @@ namespace VZ {
         //flex
         struct FlexAttrs flex;
         
-        //gestures
-        struct std::set<Gesture> gestures;
+        /*
+            gestures
+         
+            .gesture = @selector(xx),
+            .gesture = ^(id sender){},
+            .gesture = VZFGesture<UITapGestureRecognizer>(@selector(xx)),
+            .gesture = {
+                VZFGesture<UITapGestureRecognizer>(@selector(xx)),
+                VZFGesture<UITapGestureRecognizer>(^(id sender){}),
+            },
+            .gesture = {
+                { UITapGestureRecognizer, @selector(xx) },
+                { UITapGestureRecognizer, ^(id sender){} },
+            }
+         */
+        MultiMap<Class, ActionWrapper> gesture;
         
         //other type of UISpecs
         T attrs;

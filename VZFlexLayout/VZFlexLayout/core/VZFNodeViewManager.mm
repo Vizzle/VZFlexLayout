@@ -7,7 +7,6 @@
 //
 
 #import "VZFNodeViewManager.h"
-#import "VZFGestureForward.h"
 #import "VZFNode.h"
 #import "VZFNodeInternal.h"
 #import "VZFCompositeNode.h"
@@ -20,57 +19,7 @@
 #import "VZFlexCell.h"
 #import <objc/runtime.h>
 #import "VZFNodeControllerInternal.h"
-
-@protocol VZFActionWrapper <NSObject>
-
-- (void)invoke:(id)sender event:(UIEvent *)event;
-
-@end
-
-@interface BlockWrapper : NSObject <VZFActionWrapper>
-@property (nonatomic, copy) void (^block)(id sender);
-@end
-
-@implementation BlockWrapper
-- (void) dealloc {
-    self.block = nil;
-}
-
-- (void) invoke:(id)sender event:(UIEvent *)event {
-    self.block(sender);
-}
-@end
-
-
-@interface SelectorWrapper : NSObject <VZFActionWrapper>
-
-- (instancetype)initWithSelector:(SEL)selector;
-
-@end
-
-@implementation SelectorWrapper
-{
-    SEL _selector;
-}
-
-- (instancetype)initWithSelector:(SEL)selector {
-    if (self = [super init]) {
-        _selector = selector;
-    }
-    return self;
-}
-
-- (void)invoke:(UIControl *)sender event:(UIEvent *)event {
-    id responder = [sender.node responderForSelector:_selector];
-    NSAssert(responder, @"could not found responder for action '%@'", NSStringFromSelector(_selector));
-    
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [responder performSelector:_selector withObject:sender.node withObject:event];
-#pragma clang diagnostic pop
-}
-
-@end
+#import "VZFActionWrapper.h"
 
 
 @implementation UIView(VZFNode)
@@ -106,15 +55,14 @@ using namespace VZ;
         }
     };
     
-    node = unwrap(node);
-    
-    if (![node isKindOfClass : [VZFStackNode class] ]) {
-        view = [self _viewForNode:node withLayoutSpec:layout reuseView:oldView];
+    VZFNode* unwrappedNode = unwrap(node);
+    if (![unwrappedNode isKindOfClass : [VZFStackNode class] ]) {
+        view = [self _viewForNode:unwrappedNode withLayoutSpec:layout reuseView:oldView];
     }
     else{
         
-        UIView* stackView = [self _viewForNode:node withLayoutSpec:layout reuseView:oldView];
-        VZFStackNode* stackNode = (VZFStackNode* )node;
+        UIView* stackView = [self _viewForNode:unwrappedNode withLayoutSpec:layout reuseView:oldView];
+        VZFStackNode* stackNode = (VZFStackNode* )unwrappedNode;
         
         NSMutableArray *subviews = [[NSMutableArray alloc] initWithCapacity:stackNode.children.size()];
         
@@ -130,25 +78,14 @@ using namespace VZ;
         for (int i = 0; i < stackNode.children.size(); i++) {
             
             VZFStackChildNode _childNode = stackNode.children[i];
-            VZFNode* _node = unwrap(_childNode.node);
+            VZFNode* _node = _childNode.node;
             VZFNodeLayout _layout = layout.childrenLayout()[i];
-            if ([_node isKindOfClass:[VZFStackNode class]]) {
-                //递归
-                UIView* stackViewRecursive=[self viewForNode:_node withLayoutSpec:_layout reuseView:subviews.count > i?subviews[i]:nil];
-                if (stackViewRecursive != (subviews.count > i?subviews[i]:nil)) {
-                    [stackView addSubview:stackViewRecursive];
-                }
-            }
-            else{
-                UIView* view = [self _viewForNode:_node withLayoutSpec:_layout reuseView:subviews.count > i?subviews[i]:nil];
-                if (view != (subviews.count > i?subviews[i]:nil)) {
-                    [stackView addSubview:view];
-                }
-            }
+            //递归
+            UIView* _view = [self viewForNode:_node withLayoutSpec:_layout reuseView:subviews.count > i?subviews[i]:nil];
+            [stackView addSubview:_view];
             
         }
         view = stackView;
-        
     }
     [node.controller nodeDidMount:node];
     return view;
@@ -196,7 +133,7 @@ using namespace VZ;
 
     [self _applyAttributes:specs.view ToUIView:view];
     view.frame = {layout.nodeOrigin(), layout.nodeSize()};
-    [self _applyGestures:specs.gestures ToUIView:view AndNode:node];
+    [self _applyGestures:specs.gesture ToUIView:view AndNode:node];
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
         VZFImageNode* imageNode = (VZFImageNode* )node;
@@ -216,16 +153,39 @@ using namespace VZ;
     }
     else if([node isKindOfClass:[VZFNetworkImageNode class]]){
         VZFNetworkImageNode* networkImageNode = (VZFNetworkImageNode* )node;
-
+        
         [self _appleyNetworkImageAttributes:networkImageNode ToNetworkImageView:(VZFNetworkImageView* )view];
     }
-    
+
     view.node = node;
+    
     return view;
 }
 
 //----------------------------------------------------------------------------------------------------------------
 
++ (void)_applyGestures:(MultiMap<Class, ActionWrapper>)gestures ToUIView:(UIView* )view AndNode:(VZFNode* )node{
+    [view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [view removeGestureRecognizer:obj];
+    }];
+    static const void* _id = &_id;
+    NSMutableArray * gestureArray = objc_getAssociatedObject(view, _id);
+    if (gestureArray == nil) {
+        gestureArray = [NSMutableArray array];
+        objc_setAssociatedObject(view, _id, gestureArray, OBJC_ASSOCIATION_RETAIN);
+    }
+    for (auto iter=gestures.begin(); iter!=gestures.end(); iter=gestures.equal_range(iter->first).second){
+        auto key = iter->first;
+        UIGestureRecognizer *gestureRecognizer = [[key alloc] initWithTarget:nil action:nil];
+        auto range = gestures.equal_range(key);
+        for (auto it=range.first; it!=range.second; it++){
+            id<VZFActionWrapper> wrapper = vz_actionWrapper(it->second);
+            [gestureArray addObject:wrapper];
+            [gestureRecognizer addTarget:wrapper action:@selector(invoke:)];
+        }
+        [view addGestureRecognizer:gestureRecognizer];
+    }
+}
 
 + (UIView* )_createUIView:(const ViewClass& )clz{
 
@@ -235,7 +195,7 @@ using namespace VZ;
 + (void)_applyAttributes:(const ViewAttrs&)vs ToUIView:(UIView* )view {
 
     view.tag                    = vs.tag;
-    view.backgroundColor        = vs.backgroundColor;
+    view.backgroundColor        = vs.backgroundColor?:[UIColor clearColor];
     view.clipsToBounds          = vs.clipToBounds;
     view.layer.cornerRadius     = vs.layer.cornerRadius;
     view.layer.borderColor      = vs.layer.borderColor.CGColor;
@@ -246,27 +206,6 @@ using namespace VZ;
     }
 
     
-}
-
-+ (void)_applyGestures:(const std::set<Gesture>&)gestures ToUIView:(UIView* )view AndNode:(VZFNode* )node{
-
-    if (gestures.size() == 0) {
-        return;
-    }
-    
-    VZFGestureForward* gestureForward = node.gestureForward;
-    if (!gestureForward) {
-        VZFGestureForward* gestureForward = [VZFGestureForward new];
-        node.gestureForward = gestureForward;
-    }
-    for (auto g : gestures) {
-        
-        UIGestureRecognizer* gesture = g.getGestureRecognizer();
-        gesture_callback_t callback = g.getGestureCallback();
-        [node.gestureForward addGestureWithType:NSStringFromClass([gesture class]) Callback:callback];
-        [gesture addTarget:node.gestureForward action:@selector(action:)];
-        [view addGestureRecognizer:gesture];
-    }
 }
 
 + (void)_applyImageAttributes:(const ImageNodeSpecs& )imageNodeSpecs ToImageView:(UIImageView* )imageView{
@@ -291,6 +230,10 @@ using namespace VZ;
         [btn setBackgroundImage:image.second forState:image.first];
     }
     
+    for (auto image : buttonNodeSpecs.image){
+        [btn setImage:image.second forState:image.first];
+    }
+    
     [btn removeTarget:nil action:nil forControlEvents:UIControlEventAllEvents];
     static const void* _id = &_id;
     NSMutableArray * actionArray = objc_getAssociatedObject(btn, _id);
@@ -298,30 +241,11 @@ using namespace VZ;
         actionArray = [NSMutableArray array];
         objc_setAssociatedObject(btn, _id, actionArray, OBJC_ASSOCIATION_RETAIN);
     }
-    for (auto action : buttonNodeSpecs.actionBlock) {
-        BlockWrapper *wrapper = [[BlockWrapper alloc] init];
-        wrapper.block = action.second;
+    for (auto action : buttonNodeSpecs.action) {
+        id<VZFActionWrapper> wrapper = vz_actionWrapper(action.second);
         [actionArray addObject:wrapper];
         [btn addTarget:wrapper action:@selector(invoke:event:) forControlEvents:action.first];
     }
-    for (auto action : buttonNodeSpecs.actionSelector) {
-        SelectorWrapper *wrapper = [[SelectorWrapper alloc] initWithSelector:action.second];
-        [actionArray addObject:wrapper];
-        [btn addTarget:wrapper action:@selector(invoke:event:) forControlEvents:action.first];
-    }
-
-//    [btn setTitleColor:buttonNodeSpecs.titleColorHighlight forState:UIControlStateHighlighted];
-//    [btn setTitle:buttonNodeSpecs.titleHighlight forState:UIControlStateHighlighted];
-//    [btn setTitleColor:buttonNodeSpecs.titleColor forState:UIControlStateNormal];
-//    [btn setTitle:buttonNodeSpecs.title forState:UIControlStateNormal];
-//    [btn.titleLabel setFont:buttonNodeSpecs.titleFont];
-//    [btn setImage:buttonNodeSpecs.image forState:UIControlStateNormal];
-//    [btn setImage:buttonNodeSpecs.imageHighlight forState:UIControlStateHighlighted];
-//    [btn setBackgroundImage:buttonNodeSpecs.backgroundImage forState:UIControlStateNormal];
-//    [btn setBackgroundImage:buttonNodeSpecs.backgroundImageHighlight forState:UIControlStateHighlighted];
-//    btn addTarget:(nullable id) action:(nonnull SEL) forControlEvents:<#(UIControlEvents)#>
-
-    
 }
 
 + (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs ToUILabel:(UILabel* )label{

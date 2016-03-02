@@ -33,7 +33,7 @@
             
                 .text = time,
                 .color = [UIColor lightGrayColor],
-                .font = [UIFont systemFontOfSize:14.0f],
+                .font = [UIFont systemFontOfSize:12.0f],
                 .textAlignment = NSTextAlignmentRight
             
             }]

@@ -9,29 +9,42 @@
 #import <UIKit/UIKit.h>
 #import "VZFUtils.h"
 #import "VZFValue.h"
+#import "VZFActionWrapper.h"
 
 namespace VZ {
     
-    typedef void(^UIControlActionBlock)(id sender);
-    
-    template<typename Type>
-    struct EventfulValue : std::unordered_multimap<UIControlEvents, Type> {
-        using SuperType = std::unordered_multimap<UIControlEvents, Type>;
-        
-        EventfulValue() : SuperType() {}
-        EventfulValue(Type value) : SuperType({{UIControlEventTouchUpInside, value}}) {}
-        EventfulValue(std::initializer_list<typename SuperType::value_type> list) : SuperType(list) {}
+    template<>
+    struct MultiMapKey<UIControlEvents> {
+        static UIControlEvents defaultKey;
     };
     
+    template<UIControlEvents EventType>
+    MultiMap<UIControlEvents, ActionWrapper>::value_type VZFAction(const ActionWrapper& action) {
+        return { EventType, action };
+    }
+    
     struct ButtonNodeSpecs{
-
         UIFont *font;
         NSTextAlignment textAlignment;
         StatefulValue<NSString *>title;     // IMPORTANT: node won't re-layout when the title is changed by state-changing.
         StatefulValue<UIColor *> titleColor;
         StatefulValue<UIImage *> backgroundImage;
-        EventfulValue<UIControlActionBlock> actionBlock;
-        EventfulValue<SEL> actionSelector;
+        StatefulValue<UIImage *> image;
+        
+        /*
+            .action = @selector(xx),
+            .action = ^(id sender){},
+            .action = VZFAction<UIControlEventTouchUpInside>(@selector(xx)),
+            .action = {
+                VZFAction<UIControlEventTouchUpInside>(@selector(xx)),
+                VZFAction<UIControlEventTouchUpOutside>(^(id sender){}),
+            },
+            .action = {
+                { UIControlEventTouchUpInside, @selector(xx) },
+                { UIControlEventTouchUpOutside, ^(id sender){} },
+            }
+         */
+        MultiMap<UIControlEvents, ActionWrapper> action;
         // the image property was not supported, use an image node nested in a button node instead.
         
         const ButtonNodeSpecs copy() const{
@@ -57,7 +70,8 @@ namespace VZ {
                 && title == other.title
                 && titleColor == other.titleColor
                 && backgroundImage == other.backgroundImage
-                && actionBlock == other.actionBlock;
+                && action == other.action
+                && image == other.backgroundImage;
             
         }
     

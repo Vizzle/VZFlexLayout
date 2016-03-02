@@ -20,6 +20,10 @@
 
 @implementation ViewController
 
+- (void)imageDidTap {
+    NSLog(@"imageDidTap");
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;

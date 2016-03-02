@@ -41,11 +41,12 @@
 - (void)didUpdateNode {}
 
 - (id)nextResponder {
-    return self.node.parentNode;
+    return (id)self.node.parentNode ?: self.node.hostingView;
 }
 
-- (id)responderForSelector:(SEL)selector {
-    return [self respondsToSelector:selector] ? self : [self.nextResponder responderForSelector:selector];
+- (id)targetForAction:(SEL)action withSender:(id)sender
+{
+    return [self respondsToSelector:action] ? self : [[self nextResponder] targetForAction:action withSender:sender];
 }
 
 @end

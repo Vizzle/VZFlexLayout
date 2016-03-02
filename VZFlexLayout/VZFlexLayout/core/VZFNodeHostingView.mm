@@ -101,6 +101,7 @@ struct VZFNodeHostingViewInputs{
     _pendingInputs.rootScope = result.scopeRoot;
     _pendingInputs.stateMap = @{};
     _node = result.node;
+    _node.hostingView = self;
     
     CGSize size = [_sizeProvider rangeSizeForBounds:self.bounds.size];
     VZFNodeLayout layout = [_node computeLayoutThatFits:size];
@@ -128,6 +129,7 @@ struct VZFNodeHostingViewInputs{
 
 - (void)renderWithState:(id)state reuseView:(VZFlexCell *)reuseView {
     _node = [_nodeProvider nodeForItem:state context:nil];
+    _node.hostingView = self;
     CGSize size = [_sizeProvider rangeSizeForBounds:self.bounds.size];
     VZFNodeLayout layout = [_node computeLayoutThatFits:size];
     NSLog(@"%s",layout.description().c_str());
@@ -165,6 +167,9 @@ struct VZFNodeHostingViewInputs{
 
 }
 
-
+- (id)targetForAction:(SEL)action withSender:(id)sender
+{
+    return [self respondsToSelector:action] ? self : [[self nextResponder] targetForAction:action withSender:sender];
+}
 
 @end

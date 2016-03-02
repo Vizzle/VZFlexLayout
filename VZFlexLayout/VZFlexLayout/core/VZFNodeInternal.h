@@ -16,6 +16,7 @@
 
 @class VZFlexNode;
 @class VZFNodeController;
+@class VZFNodeHostingView;
 
 @interface VZFNode()
 
@@ -37,6 +38,8 @@
  *  父node
  */
 @property(nonatomic,weak,readonly)VZFNode* parentNode;
+
+@property(nonatomic,weak)VZFNodeHostingView* hostingView;
 
 /**
  *  Node的初始状态
@@ -73,10 +76,9 @@
 
 @end
 
-@class VZFScopeHandler;
 @interface VZFNode(State)
 
-- (id)responderForSelector:(SEL)selector;
+- (id)targetForAction:(SEL)action withSender:(id)sender;
 
 - (VZFNodeController* )controller;
 
