@@ -8,6 +8,4 @@
 
 #import "VZFNodeViewAttribute.h"
 
-@implementation VZFNodeViewAttribute
 
-@end

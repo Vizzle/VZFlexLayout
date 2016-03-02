@@ -42,20 +42,20 @@ void ViewReuseUtilities::mountingInRootView(UIView *rootView)
     objc_setAssociatedObject(rootView, &kViewReuseInfoKey, info, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-void ViewReuseUtilities::createdView(UIView *view, const VZFNodeViewClass &viewClass, UIView *parent)
-{
-//    CKCAssertNil(objc_getAssociatedObject(view, &kViewReuseInfoKey),
-//                 @"Didn't expect reuse info on just-created view %@", view);
-    
-    VZFNodeViewReuseInfo *info = [[VZFNodeViewReuseInfo alloc] initWithView:view
-                                                             didEnterReusePoolBlock:nil
-                                                            willLeaveReusePoolBlock:nil];
-    objc_setAssociatedObject(view, &kViewReuseInfoKey, info, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
-    VZFNodeViewReuseInfo *parentInfo = objc_getAssociatedObject(parent, &kViewReuseInfoKey);
-//    CKCAssertNotNil(parentInfo, @"Expected parentInfo but found none on %@", parent);
-    [parentInfo registerChildViewInfo:info];
-}
+//void ViewReuseUtilities::createdView(UIView *view, const ViewClass &viewClass, UIView *parent)
+//{
+////    CKCAssertNil(objc_getAssociatedObject(view, &kViewReuseInfoKey),
+////                 @"Didn't expect reuse info on just-created view %@", view);
+//    
+//    VZFNodeViewReuseInfo *info = [[VZFNodeViewReuseInfo alloc] initWithView:view
+//                                                             didEnterReusePoolBlock:nil
+//                                                            willLeaveReusePoolBlock:nil];
+//    objc_setAssociatedObject(view, &kViewReuseInfoKey, info, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    
+//    VZFNodeViewReuseInfo *parentInfo = objc_getAssociatedObject(parent, &kViewReuseInfoKey);
+////    CKCAssertNotNil(parentInfo, @"Expected parentInfo but found none on %@", parent);
+//    [parentInfo registerChildViewInfo:info];
+//}
 
 void ViewReuseUtilities::mountingInChildContext(UIView *view, UIView *parent)
 {

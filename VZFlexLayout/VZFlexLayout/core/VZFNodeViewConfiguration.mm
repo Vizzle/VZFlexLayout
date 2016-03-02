@@ -8,6 +8,3 @@
 
 #import "VZFNodeViewConfiguration.h"
 
-@implementation VZFNodeViewConfiguration : NSObject
-
-@end
