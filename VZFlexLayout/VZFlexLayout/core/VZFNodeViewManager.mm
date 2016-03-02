@@ -16,7 +16,6 @@
 #import "VZFButtonNode.h"
 #import "VZFNetworkImageNode.h"
 #import "VZFNetworkImageView.h"
-#import "VZFlexCell.h"
 #import <objc/runtime.h>
 #import "VZFNodeControllerInternal.h"
 #import "VZFActionWrapper.h"
@@ -36,7 +35,7 @@ const void* _id = &_id;
 @end
 
 using namespace VZ;
-@implementation VZFNodeViewManager
+@implementation VZFNodeViewManager : NSObject
 {
 
 }

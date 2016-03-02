@@ -10,6 +10,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "VZFNodeViewClass.h"
+
 class ViewClass;
 
 namespace VZ {
