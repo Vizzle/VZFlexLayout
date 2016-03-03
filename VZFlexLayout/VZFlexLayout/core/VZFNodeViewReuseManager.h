@@ -20,9 +20,10 @@
 
 
 class VZFNodeViewConfiguration;
-class ViewClass;
 
 namespace VZ {
+    
+    class ViewClass;
     /**
      Describes a set of attribute *identifiers* for attributes that can't be un-applied (unapplicator is nil).
      Any two components that have a different PersistentAttributeShape cannot recycle the same view.

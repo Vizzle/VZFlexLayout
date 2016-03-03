@@ -11,9 +11,10 @@
 #import "VZFNodeViewReuseManager.h"
 #import "VZFNodeReuseUtility.h"
 
-using namespace VZ;
+namespace VZ{
 
 struct ViewClass{
+    friend class ViewReuseUtilities;
     
     ViewClass();
     ViewClass(Class clz);
@@ -31,14 +32,17 @@ private:
     UIView *(^_factory)(void);
     void(^_didEnterReusePool)(UIView* v);
     void(^_willLeaveReusePool)(UIView* v);
-    friend class ViewReuseUtilities;
+    
 };
+    
+}
+
 
 //hash<ViewClass>
 namespace std {
     template<>
-    struct hash<ViewClass>{
-        size_t operator()(const ViewClass &cl) const
+    struct hash<VZ::ViewClass>{
+        size_t operator()(const VZ::ViewClass &cl) const
         {
             return hash<std::string>()(cl.identifier());
         }
@@ -49,19 +53,19 @@ struct VZFNodeViewConfiguration {
     
     VZFNodeViewConfiguration();
     
-    VZFNodeViewConfiguration(ViewClass &&cls,
+    VZFNodeViewConfiguration(VZ::ViewClass &&cls,
                              VZFNodeViewAttributeValueMap &&attrs = {});
     
     
     ~VZFNodeViewConfiguration();
     bool operator==(const VZFNodeViewConfiguration &other) const;
     
-    const ViewClass &viewClass() const;
+    const VZ::ViewClass &viewClass() const;
     std::shared_ptr<const VZFNodeViewAttributeValueMap> attributes() const;
     
 private:
     struct Repr {
-        ViewClass viewClass;
+        VZ::ViewClass viewClass;
         std::shared_ptr<const VZFNodeViewAttributeValueMap> attributes;
 //        PersistentAttributeShape attributeShape;
     };

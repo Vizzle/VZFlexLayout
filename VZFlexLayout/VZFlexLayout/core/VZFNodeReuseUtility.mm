@@ -45,8 +45,8 @@ void ViewReuseUtilities::createdView(UIView *view, const ViewClass &viewClass, U
 //                 @"Didn't expect reuse info on just-created view %@", view);
     
     VZFNodeViewReuseInfo *info = [[VZFNodeViewReuseInfo alloc] initWithView:view
-                                                             didEnterReusePoolBlock:nil
-                                                            willLeaveReusePoolBlock:nil];
+                                                             didEnterReusePoolBlock:viewClass._didEnterReusePool
+                                                            willLeaveReusePoolBlock:viewClass._willLeaveReusePool];
     objc_setAssociatedObject(view, &kViewReuseInfoKey, info, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     VZFNodeViewReuseInfo *parentInfo = objc_getAssociatedObject(parent, &kViewReuseInfoKey);

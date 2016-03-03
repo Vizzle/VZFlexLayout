@@ -12,9 +12,11 @@
 
 #import "VZFNodeViewClass.h"
 
-class ViewClass;
 
 namespace VZ {
+    
+    class ViewClass;
+
     class ViewReuseUtilities {
     public:
         /** Called when Components will begin mounting in a root view */
