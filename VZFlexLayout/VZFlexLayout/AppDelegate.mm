@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "VZFNode.h"
 #import "VZFStackNode.h"
+#import "TableViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,8 +20,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-    
+    _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    TableViewController *controller = [[TableViewController alloc] init];
+    _window.rootViewController = controller;
+    [_window makeKeyAndVisible];
     
     return YES;
 }
