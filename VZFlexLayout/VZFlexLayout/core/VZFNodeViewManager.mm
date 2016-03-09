@@ -85,6 +85,10 @@ using namespace VZ;
             if (_view != (subviews.count > i?subviews[i]:nil)) {
                 [stackView addSubview:_view];
             }
+            
+            if (i == (stackNode.children.size() - 1) && subviews.count > stackNode.children.size() && subviews.count > (i+1)) {
+                [subviews[i+1] removeFromSuperview];
+            }
         }
         view = stackView;
     }
