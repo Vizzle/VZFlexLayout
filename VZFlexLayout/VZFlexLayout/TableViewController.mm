@@ -28,8 +28,6 @@
     [super viewDidLoad];
 
     [self renderTableView];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enqueueItems) name:@"scrollToBottom" object:nil];
 }
 
 
@@ -49,19 +47,6 @@
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONWritingPrettyPrinted error:nil];
         FBHostItem* item = [FBHostItem newWithJSON:json];
         changeset.insertItem({0, i}, item);
-    }
-    [_dataSource applyChangeset:changeset];
-}
-
-- (void)enqueueItems {
-    VZ::Changeset changeset;
-    NSInteger numberOfItems = [self.tableView numberOfRowsInSection:0];
-    for (int i=0;i<5;i++) {
-        NSString* path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"result%d", (rand()%2)+1] ofType:@"json"];
-        NSData* data = [NSData dataWithContentsOfFile:path];
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONWritingPrettyPrinted error:nil];
-        FBHostItem* item = [FBHostItem newWithJSON:json];
-        changeset.insertItem({0, numberOfItems++}, item);
     }
     [_dataSource applyChangeset:changeset];
 }

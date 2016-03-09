@@ -12,6 +12,7 @@
 #import "VZFSectionedArray.h"
 #import "VZFNodeInternal.h"
 #import "VZFNodeViewManager.h"
+#import "FBHostItem.h"
 
 @interface VZFItem : NSObject
 
@@ -94,12 +95,12 @@ static NSString *const kVZFTableViewCellReuseIdentifier = @"kVZFTableViewCellReu
     changeset.enumerateSectionMoves(^(NSInteger fromSection, NSInteger toSection, BOOL *stop) {
         [_tableView moveSection:fromSection toSection:toSection];
     });
-    [_tableView reloadRowsAtIndexPaths:itemUpdateIndexPaths withRowAnimation:animation];
-    [_tableView deleteRowsAtIndexPaths:itemRemovalIndexPaths withRowAnimation:animation];
-    [_tableView insertRowsAtIndexPaths:itemInsertionIndexPaths withRowAnimation:animation];
-    [_tableView reloadSections:sectionUpdateIndexSet withRowAnimation:animation];
-    [_tableView deleteSections:sectionRemovalIndexSet withRowAnimation:animation];
-    [_tableView insertSections:sectionInsertionIndexSet withRowAnimation:animation];
+    if (itemUpdateIndexPaths.count) [_tableView reloadRowsAtIndexPaths:itemUpdateIndexPaths withRowAnimation:animation];
+    if (itemRemovalIndexPaths.count) [_tableView deleteRowsAtIndexPaths:itemRemovalIndexPaths withRowAnimation:animation];
+    if (itemInsertionIndexPaths.count) [_tableView insertRowsAtIndexPaths:itemInsertionIndexPaths withRowAnimation:animation];
+    if (sectionUpdateIndexSet.count) [_tableView reloadSections:sectionUpdateIndexSet withRowAnimation:animation];
+    if (sectionRemovalIndexSet.count) [_tableView deleteSections:sectionRemovalIndexSet withRowAnimation:animation];
+    if (sectionInsertionIndexSet.count) [_tableView insertSections:sectionInsertionIndexSet withRowAnimation:animation];
     [_tableView endUpdates];
 }
 
@@ -134,7 +135,19 @@ static NSString *const kVZFTableViewCellReuseIdentifier = @"kVZFTableViewCellReu
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == [self numberOfSectionsInTableView:tableView] - 1 && indexPath.row == [self tableView:tableView numberOfRowsInSection:indexPath.section] - 1) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"scrollToBottom" object:nil];
+        VZ::Changeset changeset;
+        NSInteger numberOfItems = [self.tableView numberOfRowsInSection:0];
+        for (int i=0;i<1;i++) {
+            NSString* path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"result%d", (rand()%2)+1] ofType:@"json"];
+            NSData* data = [NSData dataWithContentsOfFile:path];
+            NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONWritingPrettyPrinted error:nil];
+            FBHostItem* item = [FBHostItem newWithJSON:json];
+            changeset.insertItem({0, numberOfItems++}, item);
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self applyChangeset:changeset];
+        });
     }
 }
 
