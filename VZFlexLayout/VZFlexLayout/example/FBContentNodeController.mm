@@ -19,35 +19,12 @@
     UIAlertView *_alertView;
 }
 
-- (void)didTap:(id)sender {
-    NSLog(@"%@ didTap", NSStringFromClass([sender class]));
+- (void)didUpdateNode {
     
-    if (((FBContentNode*)self.node).expanded) {
-        [self update];
-    }
-    else {
-        _alertView = [[UIAlertView alloc] initWithTitle:@"确定要展开吗？"
-                                                message:nil
-                                               delegate:self
-                                      cancelButtonTitle:@"取消" 
-                                      otherButtonTitles:@"确定", nil];
-        [_alertView show];
-    }
+    NSLog(@"%@",self);
+    
+    
 }
 
-- (void)alertView:(UIAlertView *)alert didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) return;
-    [self update];
-}
-
-- (void)update {
-    [self.node updateState:^id(NSNumber* oldState) {
-        
-        id state =  @(![oldState boolValue]);
-        return state;
-        
-    }];
-}
 
 @end

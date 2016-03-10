@@ -132,8 +132,9 @@
         return [mutableOldState copy];
         
     }];
+
     
-    [self.nextResponder performSelector:@selector(onLikeClicked:) withObject:nil ];
+//    [self.nextResponder performSelector:@selector(onLikeClicked:) withObject:nil ];
 }
 
 - (void)onRewardClicked:(id)sender{

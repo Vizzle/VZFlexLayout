@@ -19,6 +19,7 @@
 @protocol VZFNodeHostingView <NSObject>
 
 @optional
+
 - (void)hostingViewDidInvalidate:(CGSize)newSize;
 
 @end

@@ -23,6 +23,7 @@ typedef VZ::ScopeFramePair VZScopeFramePair;
 @interface VZFScopeFrame : NSObject
 
 @property(nonatomic,strong,readonly) VZFScopeHandler* handler;
+
 - (id)initWithScopeHandler:(VZFScopeHandler* )scopeHandler;
 + (VZScopeFramePair)scopeFramePair:(const VZScopeFramePair& )pair
                 NewRoot:(VZFRootScope* )newRoot

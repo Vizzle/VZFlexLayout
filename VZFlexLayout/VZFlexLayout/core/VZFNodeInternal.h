@@ -78,7 +78,7 @@
 
 @interface VZFNode(State)
 
-- (id)responderForSelector:(SEL)selector;
+- (id)targetForAction:(SEL)action withSender:(id)sender;
 
 - (VZFNodeController* )controller;
 
