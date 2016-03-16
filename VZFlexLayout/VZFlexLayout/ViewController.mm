@@ -56,11 +56,6 @@
     [self.hostingView render:item];
 }
 
-- (void)goTable {
-    [self.navigationController pushViewController:[TableViewController new] animated:YES];
-}
-
-
 + (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
 
     FBHostNode* node = [FBHostNode newWithItem:item];

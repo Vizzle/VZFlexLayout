@@ -16,7 +16,6 @@
 #import "VZFButtonNode.h"
 #import "VZFNetworkImageNode.h"
 #import "VZFNetworkImageView.h"
-#import "VZFlexCell.h"
 #import <objc/runtime.h>
 #import "VZFNodeControllerInternal.h"
 #import "VZFActionWrapper.h"
@@ -36,44 +35,42 @@ const void* _id = &_id;
 @end
 
 using namespace VZ;
-@implementation VZFNodeViewManager
+@implementation VZFNodeViewManager : NSObject
 {
 
 }
 
-+ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout reuseView:(UIView *)cell
++ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout reuseView:(UIView *)oldView
 {
     [node.controller nodeWillMount:node];
     UIView *view;
-    if (![node isKindOfClass : [VZFStackNode class] ]) {
-        
-        //对compositeNode做特殊处理
-        if ([node isKindOfClass:[VZFCompositeNode class]]) {
-            
-            VZFCompositeNode* compositeNode = (VZFCompositeNode* )node;
-            
-            
-            view = [self viewForNode:compositeNode.node withLayoutSpec:layout reuseView:cell];
+    
+    VZFNode*(^unwrap)(VZFNode* __input) = ^VZFNode*(VZFNode* __input){
+        if([__input isKindOfClass:[VZFCompositeNode class]]){
+            return  ((VZFCompositeNode* )__input).node;
         }
         else{
-            view = [self _viewForNode:node withLayoutSpec:layout reuseView:cell];
+            return __input;
         }
-        
-    }
+    };
     
+    VZFNode* unwrappedNode = unwrap(node);
+    if (![unwrappedNode isKindOfClass : [VZFStackNode class] ]) {
+        view = [self _viewForNode:unwrappedNode withLayoutSpec:layout reuseView:oldView];
+    }
     else{
         
-        UIView* stackView = [self _viewForNode:node withLayoutSpec:layout reuseView:cell];
-        VZFStackNode* stackNode = (VZFStackNode* )node;
+        UIView* stackView = [self _viewForNode:unwrappedNode withLayoutSpec:layout reuseView:oldView];
+        VZFStackNode* stackNode = (VZFStackNode* )unwrappedNode;
         
         NSMutableArray *subviews = [[NSMutableArray alloc] initWithCapacity:stackNode.children.size()];
         
-        if (cell) {
+        if (oldView) {
             
-            VZFNode* oldNode = objc_getAssociatedObject(cell, &kViewReuseInfoKey);
+            VZFNode* oldNode = oldView.node;
             
             if(!oldNode.specs.view.block) {
-                [subviews addObjectsFromArray:cell.subviews];
+                [subviews addObjectsFromArray:oldView.subviews];
             }
         }
         
@@ -82,16 +79,16 @@ using namespace VZ;
             VZFStackChildNode _childNode = stackNode.children[i];
             VZFNode* _node = _childNode.node;
             VZFNodeLayout _layout = layout.childrenLayout()[i];
-            if ([_node isKindOfClass:[VZFStackNode class]]) {
-                //递归
-                UIView* stackViewRecursive=[self viewForNode:_node withLayoutSpec:_layout reuseView:subviews.count > i?subviews[i]:nil];
-                [stackView addSubview:stackViewRecursive];
-            }
-            else{
-                UIView* view = [self _viewForNode:_node withLayoutSpec:_layout reuseView:subviews.count > i?subviews[i]:nil];
-                [stackView addSubview:view];
+            //递归
+            UIView* _view = [self viewForNode:_node withLayoutSpec:_layout reuseView:subviews.count > i?subviews[i]:nil];
+            
+            if (_view != (subviews.count > i?subviews[i]:nil)) {
+                [stackView addSubview:_view];
             }
             
+            if (i == (stackNode.children.size() - 1) && subviews.count > stackNode.children.size() && subviews.count > (i+1)) {
+                [subviews[i+1] removeFromSuperview];
+            }
         }
         view = stackView;
     }
@@ -112,7 +109,11 @@ using namespace VZ;
         return YES;
     }
     
-    if ((![node isMemberOfClass:VZFImageNode.class] && ![node isMemberOfClass:VZFButtonNode.class] && ![node isMemberOfClass:VZFTextNode.class]) &&[reuseView isMemberOfClass:UIView.class]) {
+    if ([node isMemberOfClass:VZFNetworkImageNode.class] && [reuseView isMemberOfClass:VZFNetworkImageView.class]) {
+        return YES;
+    }
+    
+    if ((![node isMemberOfClass:VZFNetworkImageNode.class]&&![node isMemberOfClass:VZFImageNode.class] && ![node isMemberOfClass:VZFButtonNode.class] && ![node isMemberOfClass:VZFTextNode.class]) &&[reuseView isKindOfClass:UIView.class] && [node isKindOfClass:VZFNode.class]) {
         return YES;
     }
     
@@ -125,24 +126,24 @@ using namespace VZ;
     const NodeSpecs specs = node.specs;
     
     UIView* view;
-
     
     if ([self canReuse:node reuseView:reuseView]) {
         view = reuseView;
     } else {
-        
-        [reuseView removeFromSuperview];
+        if (reuseView) {
+            [reuseView removeFromSuperview];
+        }
         view = [self _createUIView:node.viewClass];
     }
-    
+
     [self _applyAttributes:specs.view ToUIView:view];
+
     view.frame = {layout.nodeOrigin(), layout.nodeSize()};
     [self _applyGestures:specs.gesture ToUIView:view AndNode:node];
+
     
     if ([node isKindOfClass:[VZFImageNode class]]) {
         VZFImageNode* imageNode = (VZFImageNode* )node;
-        ((UIImageView*)view).image = nil;
-
         [self _applyImageAttributes:imageNode.imageSpecs ToImageView:(UIImageView* )view];
     }
     else if ([node isKindOfClass:[VZFButtonNode class]]){
@@ -152,80 +153,17 @@ using namespace VZ;
     }
     else if ([node isKindOfClass:[VZFTextNode class]]){
         
-        VZFTextNode* textNode = (VZFTextNode* )node;
-        [self _applyTextAttributes:textNode.textSpecs ToUILabel:(UILabel* )view];
-    }
-    
-    return view;
-}
-
-//----------------------------------------------------------------------------------------------------------------
-
-+ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout
-{
-    [node.controller nodeWillMount:node];
-    UIView *view;
-    
-    VZFNode*(^unwrap)(VZFNode* __input) = ^VZFNode*(VZFNode* __input){
-        if([__input isKindOfClass:[VZFCompositeNode class]]){
-            return  ((VZFCompositeNode* )__input).node;
-        }
-        else{
-            return __input;
-        }
-    };
-    
-    VZFNode* unwrappedNode = unwrap(node);
-    if (![unwrappedNode isKindOfClass : [VZFStackNode class] ]) {
-        view = [self _viewForNode:unwrappedNode withLayoutSpec:layout];
-    }
-    else{
-      
-        UIView* stackView = [self _viewForNode:unwrappedNode withLayoutSpec:layout];
-        VZFStackNode* stackNode = (VZFStackNode* )unwrappedNode;
-        for (int i = 0; i < stackNode.children.size(); i++) {
-            
-            VZFStackChildNode _childNode = stackNode.children[i];
-            VZFNode* _node = _childNode.node;
-            VZFNodeLayout _layout = layout.childrenLayout()[i];
-            //递归
-            UIView* _view = [self viewForNode:_node withLayoutSpec:_layout];
-            [stackView addSubview:_view];
-     
-        }
-        view = stackView;
-    }
-    [node.controller nodeDidMount:node];
-    return view;
-}
-
-
-+ (UIView* )_viewForNode:(VZFNode *)node withLayoutSpec:(const VZFNodeLayout &)layout{
-    
-    const NodeSpecs specs = node.specs;
-    UIView* view = [self _createUIView:node.viewClass];
-    [self _applyAttributes:specs.view ToUIView:view];
-    view.frame = {layout.nodeOrigin(), layout.nodeSize()};
-    [self _applyGestures:specs.gesture ToUIView:view AndNode:node];
-    
-    if ([node isKindOfClass:[VZFImageNode class]]) {
-        VZFImageNode* imageNode = (VZFImageNode* )node;
-        [self _applyImageAttributes:imageNode.imageSpecs ToImageView:(UIImageView* )view];
-    }
-    else if ([node isKindOfClass:[VZFButtonNode class]]){
-        VZFButtonNode* buttonNdoe = (VZFButtonNode* )node;
-        [self _applyButtonAttributes:buttonNdoe.buttonSpecs ToUIButton:(UIButton* )view];
-    }
-    else if ([node isKindOfClass:[VZFTextNode class]]){
         VZFTextNode* textNode = (VZFTextNode* )node;
         [self _applyTextAttributes:textNode.textSpecs ToUILabel:(UILabel* )view];
     }
     else if([node isKindOfClass:[VZFNetworkImageNode class]]){
         VZFNetworkImageNode* networkImageNode = (VZFNetworkImageNode* )node;
+        
         [self _appleyNetworkImageAttributes:networkImageNode ToNetworkImageView:(VZFNetworkImageView* )view];
     }
-    
+
     view.node = node;
+    
     return view;
 }
 
@@ -253,18 +191,26 @@ using namespace VZ;
 }
 
 + (UIView* )_createUIView:(const ViewClass& )clz{
-
-    return clz.createView()?:[UIView new];
+    
+    UIView* view = clz.createView()?:[UIView new];
+    
+//    if (clz._didEnterReusePool) {
+//        clz._didEnterReusePool(view);
+//    }
+    
+    return view;
 }
 
 + (void)_applyAttributes:(const ViewAttrs&)vs ToUIView:(UIView* )view {
-
+    
     view.tag                    = vs.tag;
     view.backgroundColor        = vs.backgroundColor?:[UIColor clearColor];
     view.clipsToBounds          = vs.clipToBounds;
     view.layer.cornerRadius     = vs.layer.cornerRadius;
     view.layer.borderColor      = vs.layer.borderColor.CGColor;
-    view.layer.contents         = (__bridge id)vs.layer.contents.CGImage;
+    if (vs.layer.contents.CGImage) {
+        view.layer.contents     = (__bridge id)vs.layer.contents.CGImage;
+    }
     
     if (vs.block) {
         vs.block(view);
@@ -340,8 +286,5 @@ using namespace VZ;
     [networkImageView setSpec:spec];
 
 }
-
-
-//--------------------------------------------------------------------------------------------------
 
 @end

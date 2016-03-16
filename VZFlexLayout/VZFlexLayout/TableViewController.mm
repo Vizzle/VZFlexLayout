@@ -11,10 +11,14 @@
 #import "VZFlexCell.h"
 #import "DemoCell.h"
 #import "VZFNodeViewManager.h"
+#import "VZFTableViewDataSource.h"
+#import "FBHostNode.h"
+#import "FBHostItem.h"
 
-@interface TableViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface TableViewController ()<UITableViewDelegate, VZFNodeProvider>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) VZFTableViewDataSource *dataSource;
 
 @end
 
@@ -30,42 +34,25 @@
 - (void)renderTableView {
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-    self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    _dataSource = [[VZFTableViewDataSource alloc] initWithTableView:self.tableView nodeProvider:self];
     
     [self.view addSubview:self.tableView];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 50;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
-}
-
-- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
-    NSString* CellIdentifier = @"demo reuse";
     
-    DemoCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (!cell) {
-        cell = [[DemoCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    } else {
-        [cell updateNode];
+    VZ::Changeset changeset;
+    changeset.insertSection(0, @"Section");
+    for (int i=0;i<5;i++) {
+        NSString* path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"result%d", (rand()%2)+1] ofType:@"json"];
+        NSData* data = [NSData dataWithContentsOfFile:path];
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONWritingPrettyPrinted error:nil];
+        FBHostItem* item = [FBHostItem newWithJSON:json];
+        changeset.insertItem({0, i}, item);
     }
-    
-    
-    return cell;
+    [_dataSource applyChangeset:changeset];
 }
 
++ (VZFNode *)nodeForItem:(FBHostItem *)item context:(id<NSObject>)context {
+    return [FBHostNode newWithItem:item];
+}
 
 @end

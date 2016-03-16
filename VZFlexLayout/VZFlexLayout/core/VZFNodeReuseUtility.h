@@ -10,15 +10,19 @@
 
 #import <UIKit/UIKit.h>
 
-class VZFNodeViewClass;
+#import "VZFNodeViewClass.h"
+
 
 namespace VZ {
+    
+    class ViewClass;
+
     class ViewReuseUtilities {
     public:
         /** Called when Components will begin mounting in a root view */
         static void mountingInRootView(UIView *rootView);
         /** Called when Components creates a view */
-        static void createdView(UIView *view, const VZFNodeViewClass &viewClass, UIView *parent);
+        static void createdView(UIView *view, const ViewClass &viewClass, UIView *parent);
         /** Called when Components will begin mounting child components in a new child view */
         static void mountingInChildContext(UIView *view, UIView *parent);
         

@@ -8,18 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNodeLayout.h"
-
-
+#import "VZFNodeViewClass.h"
 
 @class VZFNode;
 @class VZFImageNode;
 
-static char const kViewReuseInfoKey = ' ';
+static char const kViewReuseKey = ' ';
 
 @interface VZFNodeViewManager : NSObject
 
-+ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout;
-+ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout reuseView:(UIView *)cell;
++ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout reuseView:(UIView *)oldView;
 
 @end
 

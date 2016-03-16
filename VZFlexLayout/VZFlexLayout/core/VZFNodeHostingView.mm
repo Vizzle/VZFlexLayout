@@ -38,6 +38,7 @@ struct VZFNodeHostingViewInputs{
     VZFNode* _node;
     VZFNodeHostingViewInputs _pendingInputs;
     BOOL _isRendering;
+    UIView* _resultView;
 }
 
 @end
@@ -108,9 +109,11 @@ struct VZFNodeHostingViewInputs{
     CGFloat containerWidth = layout.nodeSize().width + layout.nodeMargin().left + layout.nodeMargin().right;
     CGFloat containerHeight = layout.nodeSize().height + layout.nodeMargin().top + layout.nodeMargin().bottom;
     _containerView.frame = {{0,0}, {containerWidth, containerHeight}};
-    UIView* fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout];
-    if (fView) {
-        
+    UIView* fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:self->_resultView];
+    
+    //整体View如果是新创建的，则需要移除hostingView上原有的subView
+    if (fView != self->_resultView) {
+        self->_resultView = fView;
         [_containerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
         [_containerView addSubview:fView];
         
@@ -118,7 +121,7 @@ struct VZFNodeHostingViewInputs{
             [self.delegate hostingViewDidInvalidate:_containerView.frame.size];
         }
     }
-
+    
     _isRendering = NO;
 
 
@@ -153,7 +156,7 @@ struct VZFNodeHostingViewInputs{
     }
     if (fView) {
         
-        objc_setAssociatedObject(fView, &kViewReuseInfoKey, _node, OBJC_ASSOCIATION_ASSIGN);
+        objc_setAssociatedObject(fView, &kViewReuseKey, _node, OBJC_ASSOCIATION_ASSIGN);
         
         [_containerView addSubview:fView];
         
