@@ -14,10 +14,21 @@
 
 @end
 
+
 @implementation FBContentNodeController
 {
     UIAlertView *_alertView;
 }
+
+- (id)init{
+    self = [super init];
+    if (self) {
+        
+        NSLog(@"a");
+    }
+    return self;
+}
+
 
 - (void)didUpdateNode {
     
@@ -26,5 +37,9 @@
     
 }
 
+- (void)dealloc{
+    
+    NSLog(@"[%@]-->dealloc",self.class);
+}
 
 @end

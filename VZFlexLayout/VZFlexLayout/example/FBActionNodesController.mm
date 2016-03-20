@@ -10,6 +10,14 @@
 
 @implementation FBActionNodesController
 
+- (id)init{
+    self = [super init];
+    if (self) {
+        
+        NSLog(@"a");
+    }
+    return self;
+}
 
 - (void)onLikeClicked:(id)sender{
     NSLog(@"like clicked");
