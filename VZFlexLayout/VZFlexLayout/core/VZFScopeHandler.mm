@@ -43,7 +43,8 @@
                    ScopeIdentifier: @(OSAtomicIncrement32(&scopeId))
                RootScopeIdentifier:rootScopeId
                          NodeClass:nodeClass
-                      InitialState:stateFunc?stateFunc():[nodeClass initialState]];
+                      InitialState:stateFunc?stateFunc():[nodeClass initialState]
+             Controller:newController(nodeClass)];
 
 }
 
@@ -55,7 +56,9 @@
                  ScopeIdentifier:(id)identifier
              RootScopeIdentifier:(id)rootScopeId
                        NodeClass:(Class )nodeClass
-                    InitialState:(id)state{
+                    InitialState:(id)state
+                      Controller:(VZFNodeController* )controller
+{
 
     self = [super init];
     if (self) {
@@ -65,7 +68,7 @@
         _scopeIdentifier = identifier;
         _rootScopeId     = rootScopeId;
         _state = state;
-        _controller = newController(nodeClass);
+        _controller = controller;
     }
     return self;
 }
@@ -82,7 +85,8 @@
                                     ScopeIdentifier:_scopeIdentifier
                                 RootScopeIdentifier:_rootScopeId
                                           NodeClass:_nodeClass
-                                       InitialState:_state];
+                                       InitialState:_state
+                                        Controller:_controller];
 }
 
 - (instancetype)newHandlerWithLatestState:(NSDictionary* )multiStates{
