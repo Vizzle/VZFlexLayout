@@ -10,7 +10,6 @@
 		4517297B1C7C494700BF3B9E /* VZFScopeHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */; };
 		4517297E1C7C616C00BF3B9E /* VZFScopeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */; };
 		4562BCFA1C85358300D68CA2 /* FBIconNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4562BCF91C85358300D68CA2 /* FBIconNode.mm */; };
-		4578E0C41C72F1CC00E52B79 /* VZFlexCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A01C72F1CC00E52B79 /* VZFlexCell.mm */; };
 		4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */; };
 		4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0AA1C72F1CC00E52B79 /* VZFNodeHostingView.mm */; };
 		4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0AD1C72F1CC00E52B79 /* VZFNodeLayout.mm */; };
@@ -35,7 +34,7 @@
 		45B05B2E1C9EB41100C196D3 /* FBLocationNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B05B2D1C9EB41100C196D3 /* FBLocationNode.mm */; };
 		45B05B311C9EB4F800C196D3 /* FBActionNodes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B05B301C9EB4F800C196D3 /* FBActionNodes.mm */; };
 		45B05B341C9EBCA200C196D3 /* FBClickNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B05B331C9EBCA200C196D3 /* FBClickNode.mm */; };
-		45B05B371C9ED15300C196D3 /* FBActionsNodeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B05B361C9ED15300C196D3 /* FBActionsNodeController.mm */; };
+		45B05B371C9ED15300C196D3 /* FBActionNodesController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B05B361C9ED15300C196D3 /* FBActionNodesController.mm */; };
 		45C9874C1C2D0F2800D17A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874B1C2D0F2800D17A1D /* main.m */; };
 		45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874E1C2D0F2800D17A1D /* AppDelegate.mm */; };
 		45C987521C2D0F2800D17A1D /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C987511C2D0F2800D17A1D /* ViewController.mm */; };
@@ -75,7 +74,6 @@
 		E68F9EFA1C83E55600C97813 /* VZFNodeLifecycleManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = E68F9EF11C83E55600C97813 /* VZFNodeLifecycleManager.mm */; };
 		E68F9EFB1C83E55600C97813 /* VZFNodeReuseUtility.mm in Sources */ = {isa = PBXBuildFile; fileRef = E68F9EF31C83E55600C97813 /* VZFNodeReuseUtility.mm */; };
 		E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */; };
-		E6D13AE31C7C44EF00F603AB /* DemoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13AE21C7C44EF00F603AB /* DemoCell.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,8 +83,6 @@
 		4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeManager.mm; sourceTree = "<group>"; };
 		4562BCF81C85358300D68CA2 /* FBIconNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBIconNode.h; sourceTree = "<group>"; };
 		4562BCF91C85358300D68CA2 /* FBIconNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBIconNode.mm; sourceTree = "<group>"; };
-		4578E09F1C72F1CC00E52B79 /* VZFlexCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFlexCell.h; sourceTree = "<group>"; };
-		4578E0A01C72F1CC00E52B79 /* VZFlexCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFlexCell.mm; sourceTree = "<group>"; };
 		4578E0A11C72F1CC00E52B79 /* VZFlexNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFlexNode.h; sourceTree = "<group>"; };
 		4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFlexNode.mm; sourceTree = "<group>"; };
 		4578E0A31C72F1CC00E52B79 /* VZFMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMacros.h; sourceTree = "<group>"; };
@@ -138,8 +134,8 @@
 		45B05B301C9EB4F800C196D3 /* FBActionNodes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBActionNodes.mm; sourceTree = "<group>"; };
 		45B05B321C9EBCA200C196D3 /* FBClickNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBClickNode.h; sourceTree = "<group>"; };
 		45B05B331C9EBCA200C196D3 /* FBClickNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBClickNode.mm; sourceTree = "<group>"; };
-		45B05B351C9ED15300C196D3 /* FBActionsNodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBActionsNodeController.h; sourceTree = "<group>"; };
-		45B05B361C9ED15300C196D3 /* FBActionsNodeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBActionsNodeController.mm; sourceTree = "<group>"; };
+		45B05B351C9ED15300C196D3 /* FBActionNodesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBActionNodesController.h; sourceTree = "<group>"; };
+		45B05B361C9ED15300C196D3 /* FBActionNodesController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBActionNodesController.mm; sourceTree = "<group>"; };
 		45C987471C2D0F2800D17A1D /* VZFlexLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZFlexLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C9874B1C2D0F2800D17A1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C9874D1C2D0F2800D17A1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -213,8 +209,6 @@
 		E68FA0E71C86C9BD00C97813 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E6D13ADE1C7C3F6500F603AB /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TableViewController.mm; sourceTree = "<group>"; };
-		E6D13AE11C7C44EF00F603AB /* DemoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoCell.h; sourceTree = "<group>"; };
-		E6D13AE21C7C44EF00F603AB /* DemoCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DemoCell.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,8 +231,6 @@
 				E68F9EF21C83E55600C97813 /* VZFNodeReuseUtility.h */,
 				E68F9EF31C83E55600C97813 /* VZFNodeReuseUtility.mm */,
 				4578E0FB1C76B09900E52B79 /* VZFLocker.h */,
-				4578E09F1C72F1CC00E52B79 /* VZFlexCell.h */,
-				4578E0A01C72F1CC00E52B79 /* VZFlexCell.mm */,
 				4578E0A11C72F1CC00E52B79 /* VZFlexNode.h */,
 				4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */,
 				4578E0A31C72F1CC00E52B79 /* VZFMacros.h */,
@@ -397,8 +389,6 @@
 				B13A04AF1C8871BA0023D3D5 /* VZFSectionedArray.mm */,
 				B1CB0BCB1C85807A00A9CAE7 /* VZFTableViewDataSource.h */,
 				B1CB0BCC1C85807A00A9CAE7 /* VZFTableViewDataSource.mm */,
-				E6D13AE11C7C44EF00F603AB /* DemoCell.h */,
-				E6D13AE21C7C44EF00F603AB /* DemoCell.mm */,
 				45C987531C2D0F2800D17A1D /* Main.storyboard */,
 				45C987561C2D0F2800D17A1D /* Assets.xcassets */,
 				45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */,
@@ -460,8 +450,8 @@
 			children = (
 				B1CB0BBC1C83E8BB00A9CAE7 /* FBContentNodeController.h */,
 				B1CB0BBD1C83E8BB00A9CAE7 /* FBContentNodeController.mm */,
-				45B05B351C9ED15300C196D3 /* FBActionsNodeController.h */,
-				45B05B361C9ED15300C196D3 /* FBActionsNodeController.mm */,
+				45B05B351C9ED15300C196D3 /* FBActionNodesController.h */,
+				45B05B361C9ED15300C196D3 /* FBActionNodesController.mm */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -597,7 +587,6 @@
 				45CA3AB51C81DF3D00DA04C1 /* FBNameNode.mm in Sources */,
 				4578E0FA1C75A7BA00E52B79 /* FBContentNode.mm in Sources */,
 				4578E0E41C736D1200E52B79 /* VZFStackNode.mm in Sources */,
-				4578E0C41C72F1CC00E52B79 /* VZFlexCell.mm in Sources */,
 				4578E0CC1C72F1CC00E52B79 /* VZFNodeSpecs.mm in Sources */,
 				45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */,
 				4578E0DE1C736AF200E52B79 /* VZFNetworkImageNode.mm in Sources */,
@@ -612,7 +601,7 @@
 				4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */,
 				45CA3AAD1C81891600DA04C1 /* VZFNetworkImageView.mm in Sources */,
 				4578E0D21C72F1CC00E52B79 /* FlexLayout.c in Sources */,
-				45B05B371C9ED15300C196D3 /* FBActionsNodeController.mm in Sources */,
+				45B05B371C9ED15300C196D3 /* FBActionNodesController.mm in Sources */,
 				B13A04B01C8871BA0023D3D5 /* VZFSectionedArray.mm in Sources */,
 				45CA3A8B1C7F35B000DA04C1 /* VZFRootScope.mm in Sources */,
 				45CA3ABB1C81F97B00DA04C1 /* FBHostNode.mm in Sources */,
@@ -620,7 +609,6 @@
 				4562BCFA1C85358300D68CA2 /* FBIconNode.mm in Sources */,
 				4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */,
 				B1C63E281C898B5D00AE0D14 /* VZFChangeset.mm in Sources */,
-				E6D13AE31C7C44EF00F603AB /* DemoCell.mm in Sources */,
 				45CA3A9C1C80AD8300DA04C1 /* FBHostItem.m in Sources */,
 				45CA3A911C809F2400DA04C1 /* FBHeaderNode.mm in Sources */,
 				4578E0F01C75687D00E52B79 /* VZFImageNodeSpecs.mm in Sources */,

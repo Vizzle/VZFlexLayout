@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "FBActionsNodeController.h"
+#import "FBActionNodesController.h"
 
-@implementation FBActionsNodeController
+@implementation FBActionNodesController
 
 
 - (void)onLikeClicked:(id)sender{
@@ -19,6 +19,9 @@
     NSLog(@"rewarded clicked");
 }
 
+- (void)dealloc{
 
+    NSLog(@"[%@]-->dealloc",self.class);
+}
 
 @end

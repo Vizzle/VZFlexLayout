@@ -8,7 +8,6 @@
 
 #import "VZFTableViewDataSource.h"
 #import "VZFSectionedArray.h"
-#import "VZFlexCell.h"
 #import "VZFSectionedArray.h"
 #import "VZFNodeInternal.h"
 #import "VZFNodeViewManager.h"
@@ -44,7 +43,7 @@ static NSString *const kVZFTableViewCellReuseIdentifier = @"kVZFTableViewCellReu
         _tableView = tableView;
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        [_tableView registerClass:[VZFlexCell class] forCellReuseIdentifier:kVZFTableViewCellReuseIdentifier];
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:kVZFTableViewCellReuseIdentifier];
         _sectionedArray = [[VZFSectionedArray alloc] init];
     }
     return self;
@@ -115,7 +114,7 @@ static NSString *const kVZFTableViewCellReuseIdentifier = @"kVZFTableViewCellReu
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    VZFlexCell *cell = [tableView dequeueReusableCellWithIdentifier:kVZFTableViewCellReuseIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kVZFTableViewCellReuseIdentifier forIndexPath:indexPath];
     VZFItem *item = [_sectionedArray itemAtIndexPath:indexPath];
     UIView *oldView = cell.contentView.subviews.count > 0 ? cell.contentView.subviews[0] : nil;
     UIView *view = [VZFNodeViewManager viewForNode:item.node withLayoutSpec:item.layout reuseView:oldView];

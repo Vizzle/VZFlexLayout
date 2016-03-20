@@ -70,6 +70,11 @@
     return self;
 }
 
+- (void)dealloc{
+
+    NSLog(@"[%@]-->dealloc",self.class);
+}
+
 
 - (instancetype)newHandler{
 

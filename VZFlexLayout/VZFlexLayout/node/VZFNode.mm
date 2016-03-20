@@ -64,6 +64,10 @@
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 
+- (void)dealloc{
+    NSLog(@"[%@]-->dealloc",self.class);
+}
+
 
 - (void)updateState:(id (^)(id))updateBlock{
 

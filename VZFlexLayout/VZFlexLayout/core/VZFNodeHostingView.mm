@@ -11,7 +11,6 @@
 #import "VZFMacros.h"
 #import "VZFNode.h"
 #import "VZFNodeInternal.h"
-#import "VZFlexCell.h"
 #import "VZFRootScope.h"
 #import "VZFScopeManager.h"
 
@@ -127,45 +126,45 @@ struct VZFNodeHostingViewInputs{
 
 }
 
-- (void)renderWithState:(id)state reuseView:(VZFlexCell *)reuseView {
-    _node = [_nodeProvider nodeForItem:state context:nil];
-    _node.hostingView = self;
-    CGSize size = [_sizeProvider rangeSizeForBounds:self.bounds.size];
-    VZFNodeLayout layout = [_node computeLayoutThatFits:size];
-    NSLog(@"%s",layout.description().c_str());
-    CGFloat containerWidth = layout.nodeSize().width + layout.nodeMargin().left + layout.nodeMargin().right;
-    CGFloat containerHeight = layout.nodeSize().height + layout.nodeMargin().top + layout.nodeMargin().bottom;
-    _containerView.frame = {{0,0}, {containerWidth, containerHeight}};
-    
-    UIView* fView;
-    
-    
-    //reuse的时候cell固定有一层hostView和containerView
-    if (reuseView.contentView.subviews.count > 0 && reuseView.contentView.subviews[0].subviews.count >0 && reuseView.contentView.subviews[0].subviews[0].subviews.count > 0) {
-        double time = [[NSDate date] timeIntervalSince1970];
-        fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:reuseView.contentView.subviews[0].subviews[0].subviews[0]];
-    
-        NSLog(@"render time: %lf ms", [[NSDate date] timeIntervalSince1970] - time);
-        
-    } else {
-        double time = [[NSDate date] timeIntervalSince1970];
-
-        fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:nil];
-        NSLog(@"create time: %lf ms", [[NSDate date] timeIntervalSince1970] - time);
-
-    }
-    if (fView) {
-        
-        objc_setAssociatedObject(fView, &kViewReuseKey, _node, OBJC_ASSOCIATION_ASSIGN);
-        
-        [_containerView addSubview:fView];
-        
-        if ([self.delegate respondsToSelector:@selector(hostingViewDidInvalidate:)]) {
-            [self.delegate hostingViewDidInvalidate:_containerView.frame.size];
-        }
-    }
-
-}
+//- (void)renderWithState:(id)state reuseView:(VZFlexCell *)reuseView {
+//    _node = [_nodeProvider nodeForItem:state context:nil];
+//    _node.hostingView = self;
+//    CGSize size = [_sizeProvider rangeSizeForBounds:self.bounds.size];
+//    VZFNodeLayout layout = [_node computeLayoutThatFits:size];
+//    NSLog(@"%s",layout.description().c_str());
+//    CGFloat containerWidth = layout.nodeSize().width + layout.nodeMargin().left + layout.nodeMargin().right;
+//    CGFloat containerHeight = layout.nodeSize().height + layout.nodeMargin().top + layout.nodeMargin().bottom;
+//    _containerView.frame = {{0,0}, {containerWidth, containerHeight}};
+//    
+//    UIView* fView;
+//    
+//    
+//    //reuse的时候cell固定有一层hostView和containerView
+//    if (reuseView.contentView.subviews.count > 0 && reuseView.contentView.subviews[0].subviews.count >0 && reuseView.contentView.subviews[0].subviews[0].subviews.count > 0) {
+//        double time = [[NSDate date] timeIntervalSince1970];
+//        fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:reuseView.contentView.subviews[0].subviews[0].subviews[0]];
+//    
+//        NSLog(@"render time: %lf ms", [[NSDate date] timeIntervalSince1970] - time);
+//        
+//    } else {
+//        double time = [[NSDate date] timeIntervalSince1970];
+//
+//        fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:nil];
+//        NSLog(@"create time: %lf ms", [[NSDate date] timeIntervalSince1970] - time);
+//
+//    }
+//    if (fView) {
+//        
+//        objc_setAssociatedObject(fView, &kViewReuseKey, _node, OBJC_ASSOCIATION_ASSIGN);
+//        
+//        [_containerView addSubview:fView];
+//        
+//        if ([self.delegate respondsToSelector:@selector(hostingViewDidInvalidate:)]) {
+//            [self.delegate hostingViewDidInvalidate:_containerView.frame.size];
+//        }
+//    }
+//
+//}
 
 - (id)targetForAction:(SEL)action withSender:(id)sender
 {
