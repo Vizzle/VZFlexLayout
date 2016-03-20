@@ -32,6 +32,10 @@
 		4578E0F31C756D3400E52B79 /* VZFButtonNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0F21C756D3400E52B79 /* VZFButtonNodeSpecs.mm */; };
 		4578E0FA1C75A7BA00E52B79 /* FBContentNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0F91C75A7BA00E52B79 /* FBContentNode.mm */; };
 		4578E0FE1C7734E300E52B79 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		45B05B2E1C9EB41100C196D3 /* FBLocationNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B05B2D1C9EB41100C196D3 /* FBLocationNode.mm */; };
+		45B05B311C9EB4F800C196D3 /* FBActionNodes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B05B301C9EB4F800C196D3 /* FBActionNodes.mm */; };
+		45B05B341C9EBCA200C196D3 /* FBClickNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B05B331C9EBCA200C196D3 /* FBClickNode.mm */; };
+		45B05B371C9ED15300C196D3 /* FBActionsNodeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B05B361C9ED15300C196D3 /* FBActionsNodeController.mm */; };
 		45C9874C1C2D0F2800D17A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874B1C2D0F2800D17A1D /* main.m */; };
 		45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874E1C2D0F2800D17A1D /* AppDelegate.mm */; };
 		45C987521C2D0F2800D17A1D /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C987511C2D0F2800D17A1D /* ViewController.mm */; };
@@ -56,7 +60,6 @@
 		45CA3AB81C81E49E00DA04C1 /* FBStarNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AB71C81E49E00DA04C1 /* FBStarNode.mm */; };
 		45CA3ABB1C81F97B00DA04C1 /* FBHostNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3ABA1C81F97B00DA04C1 /* FBHostNode.mm */; };
 		45CA3ABE1C81FD2300DA04C1 /* FBGridImageNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3ABD1C81FD2300DA04C1 /* FBGridImageNode.mm */; };
-		45CA3AC11C8307C300DA04C1 /* FBActionNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AC01C8307C300DA04C1 /* FBActionNode.mm */; };
 		45CA3AC61C83089700DA04C1 /* comment_like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3AC21C83089700DA04C1 /* comment_like@2x.png */; };
 		45CA3AC71C83089700DA04C1 /* comment_liked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3AC31C83089700DA04C1 /* comment_liked@2x.png */; };
 		45CA3AC81C83089700DA04C1 /* comment_reward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CA3AC41C83089700DA04C1 /* comment_reward@2x.png */; };
@@ -129,6 +132,14 @@
 		4578E0F91C75A7BA00E52B79 /* FBContentNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBContentNode.mm; sourceTree = "<group>"; };
 		4578E0FB1C76B09900E52B79 /* VZFLocker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFLocker.h; sourceTree = "<group>"; };
 		4578E0FC1C7734E300E52B79 /* VZFScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFScope.h; sourceTree = "<group>"; };
+		45B05B2C1C9EB41100C196D3 /* FBLocationNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBLocationNode.h; sourceTree = "<group>"; };
+		45B05B2D1C9EB41100C196D3 /* FBLocationNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBLocationNode.mm; sourceTree = "<group>"; };
+		45B05B2F1C9EB4F800C196D3 /* FBActionNodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBActionNodes.h; sourceTree = "<group>"; };
+		45B05B301C9EB4F800C196D3 /* FBActionNodes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBActionNodes.mm; sourceTree = "<group>"; };
+		45B05B321C9EBCA200C196D3 /* FBClickNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBClickNode.h; sourceTree = "<group>"; };
+		45B05B331C9EBCA200C196D3 /* FBClickNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBClickNode.mm; sourceTree = "<group>"; };
+		45B05B351C9ED15300C196D3 /* FBActionsNodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBActionsNodeController.h; sourceTree = "<group>"; };
+		45B05B361C9ED15300C196D3 /* FBActionsNodeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBActionsNodeController.mm; sourceTree = "<group>"; };
 		45C987471C2D0F2800D17A1D /* VZFlexLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZFlexLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C9874B1C2D0F2800D17A1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C9874D1C2D0F2800D17A1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -170,8 +181,6 @@
 		45CA3ABA1C81F97B00DA04C1 /* FBHostNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBHostNode.mm; sourceTree = "<group>"; };
 		45CA3ABC1C81FD2300DA04C1 /* FBGridImageNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBGridImageNode.h; sourceTree = "<group>"; };
 		45CA3ABD1C81FD2300DA04C1 /* FBGridImageNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBGridImageNode.mm; sourceTree = "<group>"; };
-		45CA3ABF1C8307C300DA04C1 /* FBActionNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBActionNode.h; sourceTree = "<group>"; };
-		45CA3AC01C8307C300DA04C1 /* FBActionNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBActionNode.mm; sourceTree = "<group>"; };
 		45CA3AC21C83089700DA04C1 /* comment_like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_like@2x.png"; sourceTree = "<group>"; };
 		45CA3AC31C83089700DA04C1 /* comment_liked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_liked@2x.png"; sourceTree = "<group>"; };
 		45CA3AC41C83089700DA04C1 /* comment_reward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_reward@2x.png"; sourceTree = "<group>"; };
@@ -337,10 +346,14 @@
 				45CA3AB41C81DF3D00DA04C1 /* FBNameNode.mm */,
 				45CA3AB61C81E49E00DA04C1 /* FBStarNode.h */,
 				45CA3AB71C81E49E00DA04C1 /* FBStarNode.mm */,
+				45B05B2C1C9EB41100C196D3 /* FBLocationNode.h */,
+				45B05B2D1C9EB41100C196D3 /* FBLocationNode.mm */,
 				45CA3AB91C81F97B00DA04C1 /* FBHostNode.h */,
 				45CA3ABA1C81F97B00DA04C1 /* FBHostNode.mm */,
-				45CA3ABF1C8307C300DA04C1 /* FBActionNode.h */,
-				45CA3AC01C8307C300DA04C1 /* FBActionNode.mm */,
+				45B05B2F1C9EB4F800C196D3 /* FBActionNodes.h */,
+				45B05B301C9EB4F800C196D3 /* FBActionNodes.mm */,
+				45B05B321C9EBCA200C196D3 /* FBClickNode.h */,
+				45B05B331C9EBCA200C196D3 /* FBClickNode.mm */,
 				4562BCF81C85358300D68CA2 /* FBIconNode.h */,
 				4562BCF91C85358300D68CA2 /* FBIconNode.mm */,
 			);
@@ -447,6 +460,8 @@
 			children = (
 				B1CB0BBC1C83E8BB00A9CAE7 /* FBContentNodeController.h */,
 				B1CB0BBD1C83E8BB00A9CAE7 /* FBContentNodeController.mm */,
+				45B05B351C9ED15300C196D3 /* FBActionsNodeController.h */,
+				45B05B361C9ED15300C196D3 /* FBActionsNodeController.mm */,
 			);
 			name = controllers;
 			sourceTree = "<group>";
@@ -578,6 +593,7 @@
 				4578E0FE1C7734E300E52B79 /* (null) in Sources */,
 				45CA3A991C80AD5C00DA04C1 /* FBImageDownloader.mm in Sources */,
 				45CA3AB81C81E49E00DA04C1 /* FBStarNode.mm in Sources */,
+				45B05B2E1C9EB41100C196D3 /* FBLocationNode.mm in Sources */,
 				45CA3AB51C81DF3D00DA04C1 /* FBNameNode.mm in Sources */,
 				4578E0FA1C75A7BA00E52B79 /* FBContentNode.mm in Sources */,
 				4578E0E41C736D1200E52B79 /* VZFStackNode.mm in Sources */,
@@ -585,7 +601,6 @@
 				4578E0CC1C72F1CC00E52B79 /* VZFNodeSpecs.mm in Sources */,
 				45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */,
 				4578E0DE1C736AF200E52B79 /* VZFNetworkImageNode.mm in Sources */,
-				45CA3AC11C8307C300DA04C1 /* FBActionNode.mm in Sources */,
 				B1CB0BBA1C83E23900A9CAE7 /* VZFLineNode.mm in Sources */,
 				4578E0ED1C74A68300E52B79 /* VZFTextNodeSpecs.mm in Sources */,
 				B1CB0BC11C840B2700A9CAE7 /* VZFActionWrapper.mm in Sources */,
@@ -597,6 +612,7 @@
 				4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */,
 				45CA3AAD1C81891600DA04C1 /* VZFNetworkImageView.mm in Sources */,
 				4578E0D21C72F1CC00E52B79 /* FlexLayout.c in Sources */,
+				45B05B371C9ED15300C196D3 /* FBActionsNodeController.mm in Sources */,
 				B13A04B01C8871BA0023D3D5 /* VZFSectionedArray.mm in Sources */,
 				45CA3A8B1C7F35B000DA04C1 /* VZFRootScope.mm in Sources */,
 				45CA3ABB1C81F97B00DA04C1 /* FBHostNode.mm in Sources */,
@@ -608,6 +624,7 @@
 				45CA3A9C1C80AD8300DA04C1 /* FBHostItem.m in Sources */,
 				45CA3A911C809F2400DA04C1 /* FBHeaderNode.mm in Sources */,
 				4578E0F01C75687D00E52B79 /* VZFImageNodeSpecs.mm in Sources */,
+				45B05B311C9EB4F800C196D3 /* FBActionNodes.mm in Sources */,
 				4578E0D51C73052F00E52B79 /* VZFImageNode.mm in Sources */,
 				4578E0D81C73054000E52B79 /* VZFButtonNode.mm in Sources */,
 				4517297B1C7C494700BF3B9E /* VZFScopeHandler.mm in Sources */,
@@ -624,6 +641,7 @@
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
 				E68F9EFA1C83E55600C97813 /* VZFNodeLifecycleManager.mm in Sources */,
 				4578E0F31C756D3400E52B79 /* VZFButtonNodeSpecs.mm in Sources */,
+				45B05B341C9EBCA200C196D3 /* FBClickNode.mm in Sources */,
 				4578E0CF1C72F1CC00E52B79 /* VZFNodeViewManager.mm in Sources */,
 				E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */,
 				45CA3A8E1C80233E00DA04C1 /* VZFScopeFrame.mm in Sources */,

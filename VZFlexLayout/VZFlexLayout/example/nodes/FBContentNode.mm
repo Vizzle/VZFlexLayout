@@ -19,19 +19,15 @@
 #import "FBHostItem.h"
 #import "FBGridImageNode.h"
 #import "VZFLineNode.h"
-#import "FBActionNode.h"
+#import "FBActionNodes.h"
+#import "FBLocationNode.h"
 
 @implementation FBContentNode
 
 
 + (id)initialState{
 
-    return @{
-                @"expend":@(NO),
-                @"like":@(NO),
-                @"reward":@(NO)
-             
-             };
+    return @{@"like":@(NO)};
 }
 
 + (instancetype)newWithItem:(FBHostItem *)item
@@ -65,45 +61,6 @@
     FBGridImageNode* imageNode = [FBGridImageNode newWithImageURLs:item.images];
 
     
-    VZFStackNode* location = [VZFStackNode newWithStackSpecs:{
-    
-        .view = {
-            .backgroundColor = [UIColor lightGrayColor]
-        },
-        .flex= {
-            .marginTop = 10,
-            .stackLayout = {.spacing = 10}
-        }
-    } Children:{
-    
-        {[VZFImageNode newWithNodeSpecs:{
-            .flex = {
-                .marginLeft = 5,
-                .marginTop = 10,
-                .marginBottom = 10,
-            }
-        } ImageAttributes:{.image = [UIImage imageNamed:@"comment_location"]}]},
-        {[VZFTextNode newWithNodeSpecs:{} TextAttributes:{.text = item.location, .font = [UIFont systemFontOfSize:14.0f], .color = [UIColor blackColor]}]}
-    
-    }];
-    
-    
-    VZFStackNode* actions = [VZFStackNode newWithStackSpecs:{
-        .flex = {
-            .alignSelf = VZFlexEnd,
-            .marginTop = 10,
-            .stackLayout = {.spacing = 5}
-        }
-    
-    } Children:{
-        { [FBActionNode newWithImage:[item.isLike boolValue]?[UIImage imageNamed:@"comment_liked"]:[UIImage imageNamed:@"comment_like"] Text:item.likeCount Action:@selector(onLikeClicked:)]},
-        { [FBActionNode newWithImage:[item.isReward boolValue]?[UIImage imageNamed:@"comment_rewarded"]:[UIImage imageNamed:@"comment_reward"] Text:item.rewardCount Action:@selector(onRewardClicked:)]},
-//        { [FBActionNode newWithImage:[UIImage imageNamed:@"comment_liked"] Text:item.likeCount Action:@selector(onLikeClicked:)]}
-        
-    
-    }];
-    
-    
     VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
         
         .flex = {
@@ -112,12 +69,12 @@
         }
     
     } Children:{
-    
-        {.node = item.content?textNode:nil},
-        {.node = item.content?buttonNode:nil},
-        {.node = item.images.count > 0 ?imageNode:nil},
-        {.node = item.location?location:nil},
-        {.node = actions}
+        
+        {item.content?textNode:nil},
+        {item.content?buttonNode:nil},
+        {item.images.count?imageNode:nil},
+        {item.location?[FBLocationNode newWithLocation:item.location]:nil},
+        {[FBActionNodes newWithItem:item]}
     
     }];
     
@@ -126,24 +83,7 @@
     return headNode;
 }
 
-- (void)onLikeClicked:(id)sender{
 
-    [self updateState:^id(NSDictionary* oldState) {
-        
-        NSMutableDictionary* mutableOldState = [oldState mutableCopy];
-        mutableOldState[@"like"] = @(![oldState[@"like"] boolValue]);
-        return [mutableOldState copy];
-        
-    }];
-
-    
-//    [self.nextResponder performSelector:@selector(onLikeClicked:) withObject:nil ];
-}
-
-- (void)onRewardClicked:(id)sender{
-
-
-}
 
 
 - (void)onExpendClicked:(id)sender {

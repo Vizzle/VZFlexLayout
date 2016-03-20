@@ -1,28 +1,27 @@
 //
-//  FBActionNode.m
+//  FBClickNode.m
 //  VZFlexLayout
 //
-//  Created by moxin on 16/2/28.
+//  Created by moxin on 16/3/20.
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "FBActionNode.h"
+#import "FBClickNode.h"
 #import "VZFButtonNode.h"
 #import "VZFTextNode.h"
-#import "VZFNodeInternal.h"
 #import "VZFStackNode.h"
 
-@implementation FBActionNode
-
+@implementation FBClickNode
 
 + (instancetype)newWithImage:(UIImage* )img Text:(NSString* )text Action:(SEL)action{
-    
+
+
     VZFButtonNode* btnNode=[VZFButtonNode newWithNodeSpecs:{
         .flex = {
             .width = 20,
             .height = 20,
         }
-    
+        
     } ButtonAttributes:{
         .image = img,
         .action = action
@@ -31,9 +30,9 @@
         .text = text,
         .font = [UIFont systemFontOfSize:12.0f],
         .color = [UIColor lightGrayColor]
-    
+        
     }];
-
+    
     VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
         .flex= {.stackLayout = {.spacing = 5}}
         
@@ -43,9 +42,9 @@
     }];
     
     return [super newWithNode:stackNode];
-
-
 }
+
+
 
 
 @end
