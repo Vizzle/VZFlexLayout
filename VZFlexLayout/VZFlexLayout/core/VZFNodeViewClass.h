@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import <string>
-#import "VZFNodeViewReuseManager.h"
 #import "VZFNodeReuseUtility.h"
 
 namespace VZ{
@@ -49,39 +48,6 @@ namespace std {
     };
 }
 
-struct VZFNodeViewConfiguration {
-    
-    VZFNodeViewConfiguration();
-    
-    VZFNodeViewConfiguration(VZ::ViewClass &&cls,
-                             VZFNodeViewAttributeValueMap &&attrs = {});
-    
-    
-    ~VZFNodeViewConfiguration();
-    bool operator==(const VZFNodeViewConfiguration &other) const;
-    
-    const VZ::ViewClass &viewClass() const;
-    std::shared_ptr<const VZFNodeViewAttributeValueMap> attributes() const;
-    
-private:
-    struct Repr {
-        VZ::ViewClass viewClass;
-        std::shared_ptr<const VZFNodeViewAttributeValueMap> attributes;
-//        PersistentAttributeShape attributeShape;
-    };
-    
-    static std::shared_ptr<const Repr> singletonViewConfiguration();
-    std::shared_ptr<const Repr> rep; // const is important for the singletonViewConfiguration optimization.
-    
-    friend class ViewReusePoolMap;    // uses attributeShape
-};
-
-namespace std {
-    template<> struct hash<VZFNodeViewConfiguration>
-    {
-        size_t operator()(const VZFNodeViewConfiguration &cl) const;
-    };
-}
 
 
 

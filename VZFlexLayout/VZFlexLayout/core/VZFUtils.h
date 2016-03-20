@@ -104,7 +104,7 @@ namespace VZ {
         }
         inline NSString* ScopeHashKey(Class clz, id identifier){
             
-            return [NSString stringWithFormat:@"%@^%@",NSStringFromClass(clz),identifier];
+            return [NSString stringWithFormat:@"%@^%@",NSStringFromClass(clz),identifier?:@"(undefined)"];
         }
     }
     

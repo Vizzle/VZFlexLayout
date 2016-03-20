@@ -71,10 +71,8 @@
 		B1CB0BCD1C85807A00A9CAE7 /* VZFTableViewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0BCC1C85807A00A9CAE7 /* VZFTableViewDataSource.mm */; };
 		E68F9EFA1C83E55600C97813 /* VZFNodeLifecycleManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = E68F9EF11C83E55600C97813 /* VZFNodeLifecycleManager.mm */; };
 		E68F9EFB1C83E55600C97813 /* VZFNodeReuseUtility.mm in Sources */ = {isa = PBXBuildFile; fileRef = E68F9EF31C83E55600C97813 /* VZFNodeReuseUtility.mm */; };
-		E68F9EFD1C83E55600C97813 /* VZFNodeViewAttribute.mm in Sources */ = {isa = PBXBuildFile; fileRef = E68F9EF71C83E55600C97813 /* VZFNodeViewAttribute.mm */; };
 		E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */; };
 		E6D13AE31C7C44EF00F603AB /* DemoCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13AE21C7C44EF00F603AB /* DemoCell.mm */; };
-		E6E9471C1C87176400E34835 /* VZFNodeViewReuseManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6E9471B1C87176400E34835 /* VZFNodeViewReuseManager.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -202,16 +200,12 @@
 		E68F9EF11C83E55600C97813 /* VZFNodeLifecycleManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeLifecycleManager.mm; sourceTree = "<group>"; };
 		E68F9EF21C83E55600C97813 /* VZFNodeReuseUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeReuseUtility.h; sourceTree = "<group>"; };
 		E68F9EF31C83E55600C97813 /* VZFNodeReuseUtility.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeReuseUtility.mm; sourceTree = "<group>"; };
-		E68F9EF61C83E55600C97813 /* VZFNodeViewAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeViewAttribute.h; sourceTree = "<group>"; };
-		E68F9EF71C83E55600C97813 /* VZFNodeViewAttribute.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeViewAttribute.mm; sourceTree = "<group>"; };
 		E68FA0E51C86C9B700C97813 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		E68FA0E71C86C9BD00C97813 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		E6D13ADE1C7C3F6500F603AB /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TableViewController.mm; sourceTree = "<group>"; };
 		E6D13AE11C7C44EF00F603AB /* DemoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoCell.h; sourceTree = "<group>"; };
 		E6D13AE21C7C44EF00F603AB /* DemoCell.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DemoCell.mm; sourceTree = "<group>"; };
-		E6E9471A1C87176400E34835 /* VZFNodeViewReuseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeViewReuseManager.h; sourceTree = "<group>"; };
-		E6E9471B1C87176400E34835 /* VZFNodeViewReuseManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeViewReuseManager.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,14 +223,10 @@
 		4578E09B1C72F1CC00E52B79 /* core */ = {
 			isa = PBXGroup;
 			children = (
-				E6E9471A1C87176400E34835 /* VZFNodeViewReuseManager.h */,
-				E6E9471B1C87176400E34835 /* VZFNodeViewReuseManager.mm */,
 				E68F9EF01C83E55600C97813 /* VZFNodeLifecycleManager.h */,
 				E68F9EF11C83E55600C97813 /* VZFNodeLifecycleManager.mm */,
 				E68F9EF21C83E55600C97813 /* VZFNodeReuseUtility.h */,
 				E68F9EF31C83E55600C97813 /* VZFNodeReuseUtility.mm */,
-				E68F9EF61C83E55600C97813 /* VZFNodeViewAttribute.h */,
-				E68F9EF71C83E55600C97813 /* VZFNodeViewAttribute.mm */,
 				4578E0FB1C76B09900E52B79 /* VZFLocker.h */,
 				4578E09F1C72F1CC00E52B79 /* VZFlexCell.h */,
 				4578E0A01C72F1CC00E52B79 /* VZFlexCell.mm */,
@@ -601,7 +591,6 @@
 				B1CB0BC11C840B2700A9CAE7 /* VZFActionWrapper.mm in Sources */,
 				B1CB0BCD1C85807A00A9CAE7 /* VZFTableViewDataSource.mm in Sources */,
 				4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */,
-				E6E9471C1C87176400E34835 /* VZFNodeViewReuseManager.mm in Sources */,
 				4578E0DB1C73055400E52B79 /* VZFTextNode.mm in Sources */,
 				45CA3A851C7DDE5400DA04C1 /* VZFScope.mm in Sources */,
 				B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.mm in Sources */,
@@ -633,7 +622,6 @@
 				4578E0CB1C72F1CC00E52B79 /* VZFNodeMountContext.mm in Sources */,
 				45CA3AB21C81A4EC00DA04C1 /* VZFUtils.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
-				E68F9EFD1C83E55600C97813 /* VZFNodeViewAttribute.mm in Sources */,
 				E68F9EFA1C83E55600C97813 /* VZFNodeLifecycleManager.mm in Sources */,
 				4578E0F31C756D3400E52B79 /* VZFButtonNodeSpecs.mm in Sources */,
 				4578E0CF1C72F1CC00E52B79 /* VZFNodeViewManager.mm in Sources */,

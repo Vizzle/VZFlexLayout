@@ -42,7 +42,10 @@
 
 - (void)pop{
     
-    return _stack.pop();
+    if (_stack.size()) {
+        _stack.pop();
+    }
+ 
 
 }
 
@@ -55,8 +58,8 @@
 }
 
 - (void)dealloc{
-    _stack.pop();
-
+    
+    _stack.empty();
 }
 
 - (NSString* )description{
@@ -111,6 +114,7 @@
 
     VZFLocalScope* localScope = [VZFScopeManager newLocalScopeWithRootScope:rootScope StateUpdateFuncs:funcs];
     VZFNode* node = function();
+    [localScope pop];
     return {.node = node, .scopeRoot = localScope.newRootScope};
     
 }

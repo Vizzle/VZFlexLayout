@@ -56,6 +56,9 @@
         .title = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         .font = [UIFont systemFontOfSize:14.0f],
+//        .action = ^(id sender){
+
+//        }
         .action = @selector(onExpendClicked:),
     }];
     

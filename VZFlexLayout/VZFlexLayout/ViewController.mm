@@ -11,6 +11,11 @@
 #import "TableViewController.h"
 #import "FBHostNode.h"
 #import "FBHostItem.h"
+#import "VZFStackNode.h"
+#import "VZFImageNode.h"
+#import "VZFNetworkImageNode.h"
+#import "VZFTextNode.h"
+#import "O2OStarView.h"
 
 @interface ViewController ()<VZFNodeHostingView>
 
@@ -67,6 +72,8 @@
 - (void)hostingViewDidInvalidate:(CGSize)newSize{
 //    self.hostingView.frame = {self.hostingView.frame.origin, newSize};
 }
+
+
 
 @end
 

@@ -14,7 +14,7 @@
 #import "VZFScopeHandler.h"
 #import "VZFScopeManager.h"
 #import "VZFNodeController.h"
-#import "VZFNodeHostingView.h"
+//#import "VZFNodeHostingView.h"
 
 
 @interface VZFlexNode()
