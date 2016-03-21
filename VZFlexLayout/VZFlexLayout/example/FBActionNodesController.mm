@@ -19,11 +19,11 @@
     return self;
 }
 
-- (void)onLikeClicked:(id)sender{
+- (void)onLiked:(id)sender{
     NSLog(@"like clicked");
 }
 
-- (void)onRewardClicked:(id)sender{
+- (void)onReward:(id)sender{
     NSLog(@"rewarded clicked");
 }
 

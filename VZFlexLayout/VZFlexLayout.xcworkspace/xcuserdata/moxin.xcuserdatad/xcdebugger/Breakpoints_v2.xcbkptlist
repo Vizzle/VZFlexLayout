@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/core/VZFScopeHandler.mm"
-            timestampString = "480179601.316587"
+            filePath = "VZFlexLayout/example/FBActionNodesController.mm"
+            timestampString = "480223136.566176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "-initWithListener:ScopeIdentifier:RootScopeIdentifier:NodeClass:InitialState:Controller:"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "-onLiked:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/core/VZFScopeHandler.mm"
-            timestampString = "480179619.089033"
+            filePath = "VZFlexLayout/example/FBActionNodesController.mm"
+            timestampString = "480223171.974007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "-newHandler"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "-init"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

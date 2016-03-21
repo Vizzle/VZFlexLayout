@@ -10,6 +10,6 @@
 
 @interface FBClickNode : VZFCompositeNode
 
-+ (instancetype)newWithImage:(UIImage* )img Text:(NSString* )text Action:(SEL)action;
++ (instancetype)newWithImage:(UIImage* )img Text:(NSString* )text StateAction:(SEL)action1 ControllerAction:(SEL)action2;
 
 @end
