@@ -18,24 +18,12 @@
 #import "O2OStarView.h"
 
 @interface ViewController ()<VZFNodeHostingView>
-
-
-- (void)imageDidTap;
-- (void)onLikeClicked:(id)sender;
-
 @property(nonatomic,strong)VZFNodeHostingView* hostingView;
-
 
 @end
 
 @implementation ViewController
 
-- (void)imageDidTap {
-    NSLog(@"imageDidTap");
-}
-- (void)onLikeClicked:(id)sender{
-    NSLog(@"liked!");
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

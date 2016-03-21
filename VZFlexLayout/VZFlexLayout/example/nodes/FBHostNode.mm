@@ -30,10 +30,4 @@
     return [super newWithNode:stackNode];
 }
 
-- (void)dealloc{
-    
-    NSLog(@"abc");
-
-}
-
 @end

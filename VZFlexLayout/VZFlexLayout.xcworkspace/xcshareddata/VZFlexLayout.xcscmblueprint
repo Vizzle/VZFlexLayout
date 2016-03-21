@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "28FE937F47E4054747BFE341B23EF6AC704B1272",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "28FE937F47E4054747BFE341B23EF6AC704B1272" : 0,
+    "5BE4F96BE2A3D170A43982CA81644C6D6B92B610" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "9846F439-F6A2-48E8-9BB7-C0D3BE80621D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "28FE937F47E4054747BFE341B23EF6AC704B1272" : "VZFlexLayout\/",
+    "5BE4F96BE2A3D170A43982CA81644C6D6B92B610" : "..\/..\/Workspaces\/O2O"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "VZFlexLayout",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "VZFlexLayout\/VZFlexLayout.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:Vizzle\/VZFlexLayout.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "28FE937F47E4054747BFE341B23EF6AC704B1272"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "gitlab.alipay-inc.com:wallet\/ios-phone-o2o.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "5BE4F96BE2A3D170A43982CA81644C6D6B92B610"
+    }
+  ]
+}

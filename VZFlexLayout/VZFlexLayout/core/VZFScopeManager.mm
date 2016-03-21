@@ -45,12 +45,15 @@
     if (_stack.size()) {
         _stack.pop();
     }
- 
-
 }
 
 - (VZScopeFramePair)top{
-    return _stack.top();
+    if (_stack.size()) {
+        return _stack.top();
+    }
+    else{
+        return {};
+    }
 }
 - (void)push:(const VZScopeFramePair& )pair{
 
