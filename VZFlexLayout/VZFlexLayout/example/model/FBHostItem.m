@@ -53,6 +53,8 @@
     item -> _isComment      = json[@"iscomment"];
     item -> _isReward       = json[@"isReward"];
     
+    item -> _iconTextBlockDict = json[@"iconTextBlock"];
+    
     return  item;
 
 }

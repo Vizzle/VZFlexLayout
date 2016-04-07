@@ -8,7 +8,6 @@
 
 #import "FBContentNodeController.h"
 #import "FBContentNode.h"
-#import "VZFNodeInternal.h"
 
 @interface FBContentNodeController () <UIAlertViewDelegate>
 

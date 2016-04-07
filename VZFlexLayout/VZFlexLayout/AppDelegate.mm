@@ -10,7 +10,7 @@
 #import "VZFNode.h"
 #import "VZFStackNode.h"
 #import "TableViewController.h"
-#import "ViewController.h"
+#import "FBViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,8 +23,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 //    TableViewController *controller = [[TableViewController alloc] init];
-    ViewController* controller = [[ViewController alloc]init];
-    _window.rootViewController = controller;
+    FBViewController* controller = [[FBViewController alloc]init];
+    _window.rootViewController = [[UINavigationController alloc] initWithRootViewController:controller];
     [_window makeKeyAndVisible];
     
     return YES;

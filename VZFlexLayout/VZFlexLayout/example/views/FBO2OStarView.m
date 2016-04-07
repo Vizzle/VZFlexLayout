@@ -1,19 +1,19 @@
 //
-//  O2OStarView.m
+//  FBO2OStarView.m
 //  O2O
 //
 //  Created by 凌万 on 15/4/15.
 //  Copyright (c) 2015年 Alipay. All rights reserved.
 //
 
-#import "O2OStarView.h"
+#import "FBO2OStarView.h"
 
 #define FOREGROUND_STAR_IMAGE_NAME @"o2o_yellow_star"
 #define BACKGROUND_STAR_IMAGE_NAME @"o2o_gray_star"
 #define DEFALUT_STAR_NUMBER 5
 
-@interface O2OStarView ()
-@property (nonatomic, assign) O2OStarViewType viewType;
+@interface FBO2OStarView ()
+@property (nonatomic, assign) FBO2OStarViewType viewType;
 @property (nonatomic, strong) UIView *foregroundStarView;
 @property (nonatomic, strong) UIView *backgroundStarView;
 @property (nonatomic, assign) NSInteger numberOfStars;
@@ -21,12 +21,12 @@
 @property (nonatomic, assign) CGFloat starMargin;
 @end
 
-@implementation O2OStarView
+@implementation FBO2OStarView
 
 # pragma mark - Initializer
 
 - (instancetype)initWithOrigin:(CGPoint)origin
-                      viewType:(O2OStarViewType)viewType
+                      viewType:(FBO2OStarViewType)viewType
                      starWidth:(CGFloat)starWidth
                     starMargin:(CGFloat)starMargin
                     starNumber:(NSInteger)starNumber {
@@ -47,7 +47,7 @@
         [self addSubview:self.backgroundStarView];
         [self addSubview:self.foregroundStarView];
         
-        if (self.viewType == O2OStarViewTypeTapAndPan) {
+        if (self.viewType == FBO2OStarViewTypeTapAndPan) {
             UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
             [self addGestureRecognizer:tapGesture];
             
@@ -60,20 +60,20 @@
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
-                     viewType:(O2OStarViewType)viewType {
+                     viewType:(FBO2OStarViewType)viewType {
     return [self initWithOrigin:frame.origin viewType:viewType starWidth:20 starMargin:3 starNumber:DEFALUT_STAR_NUMBER];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
-    return [self initWithFrame:frame viewType:O2OStarViewTypeForDisplay];
+    return [self initWithFrame:frame viewType:FBO2OStarViewTypeForDisplay];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    __weak O2OStarView *weakSelf = self;
+    __weak FBO2OStarView *weakSelf = self;
     [UIView animateWithDuration:self.animationInterval animations:^{
         BOOL hasPoint5 = ((NSInteger)(self.score * 10) % 10 == 5);
-        if (self.roundRule == O2OStarViewRoundToHalf && hasPoint5) {
+        if (self.roundRule == FBO2OStarViewRoundToHalf && hasPoint5) {
             CGFloat width = (self.starWidth + self.starMargin) * (self.score - 0.5) + self.starWidth * 0.5;
             weakSelf.foregroundStarView.frame = CGRectMake(0, 0, width, weakSelf.bounds.size.height);
         } else {
@@ -168,16 +168,16 @@
 
 - (CGFloat)formatScore:(CGFloat)originalScore {
     switch (self.roundRule) {
-        case O2OStarViewRoundNo:
+        case FBO2OStarViewRoundNo:
             return originalScore;
             
-        case O2OStarViewRoundTo1:
+        case FBO2OStarViewRoundTo1:
             return round(originalScore);
             
-        case O2OStarViewRoundToHalf:
+        case FBO2OStarViewRoundToHalf:
             return round(originalScore * 2) / 2.f;
             
-//        case O2OStarViewRoundNewRule:
+//        case FBO2OStarViewRoundNewRule:
 //        {
 //            return [self.class scoreFromNewRoundRule:originalScore];
 //        }

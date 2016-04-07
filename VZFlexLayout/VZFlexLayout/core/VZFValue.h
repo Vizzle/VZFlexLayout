@@ -87,3 +87,38 @@ namespace VZ{
     template<typename Type>
     using StatefulValue = Internal::_StatefulValue<Type, std::is_convertible<Type, id>::value>;
 }
+
+
+
+/**
+ *  实现Objective-C版本的Tuple
+ */
+@interface VZFTuple : NSObject<NSCopying,NSCoding,NSFastEnumeration>
+
+@property (nonatomic, readonly) NSUInteger count;
+
+@property (nonatomic, readonly) id first;
+@property (nonatomic, readonly) id second;
+@property (nonatomic, readonly) id third;
+@property (nonatomic, readonly) id fourth;
+@property (nonatomic, readonly) id fifth;
+@property (nonatomic, readonly) id last;
+
++ (instancetype) tupleWithArray:(NSArray* ) array;
+
++ (instancetype) tupleWithObjects:(id)obj,... NS_REQUIRES_NIL_TERMINATION;
+
+- (id)objectAtIndex:(NSUInteger)index;
+
+- (NSArray *)allObjects;
+
+@end
+
+/**
+ *  实现[]语法糖
+ */
+@interface VZFTuple(ObjectSubscripting)
+
+- (id)objectAtIndexedSubscript:(NSUInteger)idx;
+
+@end

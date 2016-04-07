@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <string>
-#import "VZFNodeReuseUtility.h"
+
 
 namespace VZ{
 
+typedef void(^VZViewReuseBlock)(UIView* v);
 struct ViewClass{
-    friend class ViewReuseUtilities;
+
     
     ViewClass();
     ViewClass(Class clz);
@@ -23,14 +24,19 @@ struct ViewClass{
     const std::string &identifier() const;
     UIView* createView() const;
     bool hasView() const;
+    VZViewReuseBlock didEnterReusePool() const;
+    VZViewReuseBlock willLeaveReusePool() const;
+
     
     bool operator==(const ViewClass &other) const { return other.identifier() == _identifier; }
+    bool operator!=(const ViewClass &other) const { return other.identifier() != _identifier; }
     
 private:
     std::string _identifier;
     UIView *(^_factory)(void);
-    void(^_didEnterReusePool)(UIView* v);
-    void(^_willLeaveReusePool)(UIView* v);
+    VZViewReuseBlock _didEnterReusePool;
+    VZViewReuseBlock _willLeaveReusePool;
+
     
 };
     

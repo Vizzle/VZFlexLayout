@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, O2OStarViewType) {
-    O2OStarViewTypeForDisplay,  //只用来展示，不能点击打分或滑动打分
-    O2OStarViewTypeTapAndPan,   //支持点击和滑动打分
+typedef NS_ENUM(NSUInteger, FBO2OStarViewType) {
+    FBO2OStarViewTypeForDisplay,  //只用来展示，不能点击打分或滑动打分
+    FBO2OStarViewTypeTapAndPan,   //支持点击和滑动打分
 };
 
-typedef NS_ENUM(NSUInteger, O2OStarViewRound) {
-    O2OStarViewRoundNo,     //不近似，直接用浮点的分数
-    O2OStarViewRoundTo1,    //近似到1分，四舍五入
-    O2OStarViewRoundToHalf, //近似到0.5分，0.1，0.2舍，0.3，0.4入
+typedef NS_ENUM(NSUInteger, FBO2OStarViewRound) {
+    FBO2OStarViewRoundNo,     //不近似，直接用浮点的分数
+    FBO2OStarViewRoundTo1,    //近似到1分，四舍五入
+    FBO2OStarViewRoundToHalf, //近似到0.5分，0.1，0.2舍，0.3，0.4入
     
     //9.5版本新加近似规则
     //[3.9, 4.4] = 4
@@ -27,16 +27,16 @@ typedef NS_ENUM(NSUInteger, O2OStarViewRound) {
     //另，Tap操作时只能精确到1，不支持0.5
 };
 
-@class O2OStarView;
+@class FBO2OStarView;
 
-@protocol O2OStarViewDelegate <NSObject>
+@protocol FBO2OStarViewDelegate <NSObject>
 @optional
-- (void)starView:(O2OStarView *)starView scoreDidChange:(CGFloat)score;
-- (void)panGestureEnded:(O2OStarView *)starView;
-- (void)tapGestureEnded:(O2OStarView *)starView;
+- (void)starView:(FBO2OStarView *)starView scoreDidChange:(CGFloat)score;
+- (void)panGestureEnded:(FBO2OStarView *)starView;
+- (void)tapGestureEnded:(FBO2OStarView *)starView;
 @end
 
-@interface O2OStarView : UIView
+@interface FBO2OStarView : UIView
 
 /**
  *  Designated initializer
@@ -47,13 +47,13 @@ typedef NS_ENUM(NSUInteger, O2OStarViewRound) {
  *  @return starView
  */
 - (instancetype)initWithOrigin:(CGPoint)origin
-                      viewType:(O2OStarViewType)viewType
+                      viewType:(FBO2OStarViewType)viewType
                      starWidth:(CGFloat)starWidth
                     starMargin:(CGFloat)starMargin
                     starNumber:(NSInteger)starNumber;
 
 - (instancetype)initWithFrame:(CGRect)frame
-                     viewType:(O2OStarViewType)viewType;
+                     viewType:(FBO2OStarViewType)viewType;
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
@@ -73,7 +73,7 @@ typedef NS_ENUM(NSUInteger, O2OStarViewRound) {
 //[4.9, 5]   = 5
 //+ (CGFloat)scoreFromNewRoundRule:(CGFloat)originalScore;
 
-@property (nonatomic, weak) id<O2OStarViewDelegate> delegate;
+@property (nonatomic, weak) id<FBO2OStarViewDelegate> delegate;
 
 /**
  *  得分值，范围为0-starNumber，默认为0
@@ -83,7 +83,7 @@ typedef NS_ENUM(NSUInteger, O2OStarViewRound) {
 /**
  *  分值的近似规则，默认不近似。如果允许打分，点击时只能精确到1，滑动打分可以精确到0.5
  */
-@property (nonatomic, assign) O2OStarViewRound roundRule;
+@property (nonatomic, assign) FBO2OStarViewRound roundRule;
 
 /**
  *  从0到score的动画时间，允许动画的一般场景为进入新页面后展示分值时带动画

@@ -45,10 +45,7 @@ namespace VZ {
     _didEnterReusePool([enter copy]),
     _willLeaveReusePool([leave copy])
     {
-    #if DEBUG
-      //  CKCAssertNil(objc_getClass(i.c_str()), @"You may not use a class name as the identifier; it would conflict with "
-                        //"the constructor variant that takes a viewClass.");
-    #endif
+
     }
 
     const std::string & ViewClass::identifier() const{
@@ -61,6 +58,14 @@ namespace VZ {
 
     bool ViewClass::hasView() const{
         return _factory;
+    
     }
-
+    
+    VZViewReuseBlock ViewClass::didEnterReusePool() const{
+        return [_didEnterReusePool copy];
+    }
+        
+    VZViewReuseBlock ViewClass::willLeaveReusePool() const{
+            return [_willLeaveReusePool copy];
+    }
 }

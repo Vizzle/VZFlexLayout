@@ -7,7 +7,6 @@
 //
 
 #import "VZFNodeController.h"
-
 @interface FBActionNodesController : VZFNodeController
 
 @end

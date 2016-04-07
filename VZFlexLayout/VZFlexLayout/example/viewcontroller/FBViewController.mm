@@ -1,28 +1,27 @@
 //
-//  ViewController.m
-//  VZFlexLayout
+//  FBViewController.m
+//  DynamicView
 //
-//  Created by moxin on 15/12/25.
-//  Copyright © 2015年 Vizlab. All rights reserved.
+//  Created by moxin on 16/3/21.
+//  Copyright © 2016年 John Wong. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "FBViewController.h"
 #import "VZFNodeHostingView.h"
-#import "TableViewController.h"
 #import "FBHostNode.h"
 #import "FBHostItem.h"
 #import "VZFStackNode.h"
-#import "VZFImageNode.h"
-#import "VZFNetworkImageNode.h"
 #import "VZFTextNode.h"
-#import "O2OStarView.h"
+#import "VZFImageNode.h"
+#import "FBHeaderNode.h"
 
-@interface ViewController ()<VZFNodeHostingView>
+@interface FBViewController ()<VZFNodeHostingView>
 @property(nonatomic,strong)VZFNodeHostingView* hostingView;
 
 @end
 
-@implementation ViewController
+
+@implementation FBViewController
 
 
 - (void)viewDidLoad {
@@ -32,7 +31,7 @@
     self.hostingView = [[VZFNodeHostingView alloc]initWithNodeProvider:[self class]
                                                          RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
     self.hostingView.backgroundColor = [UIColor whiteColor];
-    self.hostingView.frame = {{0,0},{CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds)}};
+    self.hostingView.frame = {{0,0},{CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds)-64}};
     self.hostingView.delegate = self;
     [self.view addSubview:self.hostingView];
     
@@ -46,11 +45,14 @@
     NSData* data = [NSData dataWithContentsOfFile:path];
     NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONWritingPrettyPrinted error:nil];
     FBHostItem* item = [FBHostItem newWithJSON:json];
-    [self.hostingView render:item];
+    [self.hostingView update:item mode:VZFUpdateModeSynchronous];
 }
 
 + (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
-
+    
+    
+//    return [FBHeaderNode newWithItem:item];
+    
     FBHostNode* node = [FBHostNode newWithItem:item];
     return node;
 }
@@ -58,10 +60,7 @@
 
 
 - (void)hostingViewDidInvalidate:(CGSize)newSize{
-//    self.hostingView.frame = {self.hostingView.frame.origin, newSize};
+    //    self.hostingView.frame = {self.hostingView.frame.origin, newSize};
 }
 
-
-
 @end
-

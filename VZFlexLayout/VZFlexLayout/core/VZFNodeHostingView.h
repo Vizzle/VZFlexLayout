@@ -24,12 +24,18 @@
 
 @end
 
+
+typedef NS_ENUM(NSUInteger,VZFUpdateMode){
+
+    VZFUpdateModeAsynchronous,
+    VZFUpdateModeSynchronous
+};
+
 @interface VZFNodeHostingView : UIView
 
 @property(nonatomic,weak)id<VZFNodeHostingView> delegate;
 
 - (id)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider RangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
-- (void)render:(id)model;
-
+- (void)update:(id)model mode:(VZFUpdateMode)updateMode;
 
 @end

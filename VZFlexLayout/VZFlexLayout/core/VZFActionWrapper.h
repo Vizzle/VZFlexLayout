@@ -57,13 +57,13 @@ namespace VZ {
 @end
 
 
-@interface BlockWrapper : NSObject <VZFActionWrapper>
+@interface VZFBlockWrapper : NSObject <VZFActionWrapper>
 @property (nonatomic, copy) void (^block)(id sender);
 - (instancetype)initWithBlock:(UIControlActionBlock)block;
 @end
 
 
-@interface SelectorWrapper : NSObject <VZFActionWrapper>
+@interface VZFSelectorWrapper : NSObject <VZFActionWrapper>
 
 - (instancetype)initWithSelector:(SEL)selector;
 

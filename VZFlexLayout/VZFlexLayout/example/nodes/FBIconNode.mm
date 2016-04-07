@@ -15,11 +15,10 @@
 + (instancetype)newWithURL:(NSURL* )url{
     
     
-    VZFNetworkImageNode* iconNode = [VZFNetworkImageNode newWithURL:url
-                                                    ImageAttributes:{.contentMode = UIViewContentModeScaleAspectFill}
+    VZFNetworkImageNode* iconNode = [VZFNetworkImageNode newWithImageAttributes:{.contentMode = UIViewContentModeScaleAspectFill,.url = url}
                                                           NodeSpecs:{
                                                               .view = {
-                                                                  .clipToBounds = YES,
+                                                                  .clipsToBounds = YES,
                                                                   .backgroundColor = [UIColor grayColor],
                                                                   .layer = {.cornerRadius = 20.0f}
                                                               },

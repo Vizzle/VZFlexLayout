@@ -34,6 +34,8 @@
 @property(nonatomic,strong,readonly)NSString* isReward;
 @property(nonatomic,strong,readonly)NSString* isComment;
 
+@property (nonatomic, strong, readonly) NSDictionary *iconTextBlockDict;
+
 + (instancetype)newWithJSON:(NSDictionary* )json;
 
 

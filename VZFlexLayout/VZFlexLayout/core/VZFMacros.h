@@ -14,6 +14,20 @@ do { \
 NSAssert2(NO, @"%@ is not the designated initializer for instances of %@.", NSStringFromSelector(_cmd), NSStringFromClass([self class])); \
 return nil; \
 } while (0)
-#endif // CK_NOT_DESIGNATED_INITIALIZER
+#endif 
+
+#define VZFAssert(condition, description, ...) NSAssert(condition, description, ##__VA_ARGS__)
+#define VZFCAssert(condition, description, ...) NSCAssert(condition, description, ##__VA_ARGS__)
+
+#define VZFAssertNil(condition, description, ...) VZFAssert(!(condition), (description), ##__VA_ARGS__)
+#define VZFCAssertNil(condition, description, ...) VZFCAssert(!(condition), (description), ##__VA_ARGS__)
+
+#define VZFAssertNotNil(condition, description, ...) VZFAssert((condition), (description), ##__VA_ARGS__)
+#define VZFCAssertNotNil(condition, description, ...) VZFCAssert((condition), (description), ##__VA_ARGS__)
 
 
+#define VZFAssertTrue(condition) VZFAssert((condition), nil, nil)
+#define VZFCAssertTrue(condition) VZFCAssert((condition), nil, nil)
+
+#define VZFAssertFalse(condition) VZFAssert(!(condition), nil, nil)
+#define VZFCAssertFalse(condition) VZFCAssert(!(condition), nil, nil)

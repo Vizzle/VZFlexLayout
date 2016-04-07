@@ -13,6 +13,10 @@
 #import "VZFNodeLayout.h"
 #import "VZFNodeViewClass.h"
 #import "VZFNodeSpecs.h"
+#import "VZFNodeMountContext.h"
+
+
+using namespace VZ;
 
 @class VZFlexNode;
 @class VZFNodeController;
@@ -38,8 +42,10 @@
  *  父node
  */
 @property(nonatomic,weak,readonly)VZFNode* parentNode;
-
-@property(nonatomic,weak)VZFNodeHostingView* hostingView;
+/**
+ *  root view
+ */
+@property(nonatomic,weak)UIView* rootNodeView;
 
 /**
  *  Node的初始状态
@@ -73,6 +79,18 @@
 @interface VZFNode(Tree)
 
 - (void)addToParentNode:(VZFNode* )parentNode;
+- (id)nextResponderAfterController;
+
+@end
+
+
+@interface VZFNode(Mounting)
+
+-(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context
+                                   Size:(CGSize) size
+                             ParentNode:(VZFNode* )parentNode;
+-(void)unmount;
+-(void)didMount;
 
 @end
 

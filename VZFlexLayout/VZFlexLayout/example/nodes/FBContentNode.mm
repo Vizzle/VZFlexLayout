@@ -74,7 +74,7 @@
         {item.content?buttonNode:nil},
         {item.images.count?imageNode:nil},
         {item.location?[FBLocationNode newWithLocation:item.location]:nil},
-//        {[FBActionNodes newWithItem:item]}
+        {[FBActionNodes newWithItem:item]}
     
     }];
     

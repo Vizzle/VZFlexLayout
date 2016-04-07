@@ -8,11 +8,14 @@
 
 #import "VZFNodeController.h"
 
+@class VZFNode;
 @interface VZFNodeController ()
 
 - (void)nodeWillMount:(VZFNode *)node;
 - (void)nodeDidMount:(VZFNode *)node;
-//- (void)nodeWillUnmount:(VZFNode *)node;
-//- (void)nodeDidUnmount:(VZFNode *)node;
+- (void)node:(VZFNode* )node willReleaseBackingView:(UIView* )view;
+- (void)node:(VZFNode* )node didAquireBackingView:(UIView* )view;
+- (void)nodeWillUnmount:(VZFNode *)node;
+- (void)nodeDidUnmount:(VZFNode *)node;
 
 @end

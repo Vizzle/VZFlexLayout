@@ -54,10 +54,10 @@
 
 - (void)dealloc{
 
-    if (_download) {
-        [self.spec.imageDownloader cancelImageDownload:_download];
-        _download = nil;
-    }
+//    if (_download) {
+//        [self.spec.imageDownloader cancelImageDownload:_download];
+//        _download = nil;
+//    }
 }
 
 - (void)setSpec:(VZFNetworkImageSpec *)spec{
@@ -67,10 +67,10 @@
     }
     _spec = spec;
 
-    if (_download) {
-        [_spec.imageDownloader cancelImageDownload:_download];
-        _download = nil;
-    }
+//    if (_download) {
+//        [_spec.imageDownloader cancelImageDownload:_download];
+//        _download = nil;
+//    }
     
     self.image = spec.defaultImage;
     
@@ -82,10 +82,10 @@
 - (void)enterReusePool{
     
     _isInReusePool = YES;
-    if (_download) {
-        [_spec.imageDownloader cancelImageDownload:_download];
-        _download = nil;
-    }
+//    if (_download) {
+//        [_spec.imageDownloader cancelImageDownload:_download];
+//        _download = nil;
+//    }
     self.image = self.spec.defaultImage;
 }
 
@@ -100,7 +100,7 @@
         return;
     }
     __weak typeof(self) weakSelf = self;
-    _download = [_spec.imageDownloader downloadImageWithURL:_spec.url callbackQueue:dispatch_get_main_queue()downloadProgressBlock:nil imageProcessBlock:^UIImage *(UIImage *rawImage) {
+    [_spec.imageDownloader downloadImageWithURL:_spec.url callbackQueue:dispatch_get_main_queue()downloadProgressBlock:nil imageProcessBlock:^UIImage *(UIImage *rawImage) {
         return weakSelf.spec.imageProcessingBlock(rawImage);
     } completion:^(UIImage* image, NSError *error) {
         
@@ -117,7 +117,7 @@
     }
     else{
         self.image = image;
-        _download = nil;
+//        _download = nil;
     }
     
 }
@@ -128,7 +128,6 @@
 //        return;
 //    }
 //    
-//    // If we're about to crop the width or height, make sure the cropped version won't be upscaled
 //    CGFloat croppedWidth = self.image.size.width * _spec.cropRect.size.width;
 //    CGFloat croppedHeight = self.image.size.height * _spec.cropRect.size.height;
 //    if ((_spec.cropRect.size.width == 1 || croppedWidth >= self.bounds.size.width) &&

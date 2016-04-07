@@ -45,9 +45,12 @@
     if (_stack.size()) {
         _stack.pop();
     }
+ 
+
 }
 
 - (VZScopeFramePair)top{
+    
     if (_stack.size()) {
         return _stack.top();
     }
@@ -110,7 +113,7 @@
     return self;
 }
 
-+ (VZBuildNodeResult)buildNodeWithFunction:(VZFNode*(^)(void))function
++ (VZFBuildNodeResult)buildNodeWithFunction:(VZFNode*(^)(void))function
                                  RootScope:(VZFRootScope* )rootScope
                           StateUpdateFuncs:(NSDictionary* )funcs{
 

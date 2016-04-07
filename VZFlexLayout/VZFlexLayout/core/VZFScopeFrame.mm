@@ -58,10 +58,6 @@
                                              InitialStateFunc:initialStateCreator];
     }
     
-    
-    //[newRoot registerAnnounceableEventsForController:newHandle.controller];
-    
-    
     VZFScopeFrame* newFrame = [[VZFScopeFrame alloc]initWithScopeHandler:newHandler];
     NSString* newKey = VZ::Hash::ScopeHashKey(nodeClz, identifier);
     if ([[pair.newScopeFrame->_children allKeys] containsObject:newKey]) {

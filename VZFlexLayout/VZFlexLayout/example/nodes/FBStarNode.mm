@@ -7,7 +7,7 @@
 //
 
 #import "FBStarNode.h"
-#import "O2OStarView.h"
+#import "FBO2OStarView.h"
 
 
 //static O2OStarView* createStarView(NSNumber* score){
@@ -21,7 +21,7 @@
 
     VZFNode* starNode = [VZFNode newWithView:{^{
         
-        O2OStarView* starView  = [[O2OStarView alloc] initWithOrigin:CGPointMake(0, 0) viewType:O2OStarViewTypeForDisplay starWidth:14 starMargin:2 starNumber:5];
+        FBO2OStarView* starView  = [[FBO2OStarView alloc] initWithOrigin:CGPointMake(0, 0) viewType:FBO2OStarViewTypeForDisplay starWidth:14 starMargin:2 starNumber:5];
         starView.score = score;
         return starView;
     

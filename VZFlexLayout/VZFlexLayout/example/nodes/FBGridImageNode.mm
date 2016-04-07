@@ -19,9 +19,9 @@
     std::vector<VZFStackChildNode > imageNodes{};
     for(int i=0; i<list.count; i++)
     {
-        VZFNetworkImageNode* node = [VZFNetworkImageNode newWithURL:[NSURL URLWithString:list[i]] ImageAttributes:{.contentMode = UIViewContentModeScaleAspectFill} NodeSpecs:{
+        VZFNetworkImageNode* node = [VZFNetworkImageNode newWithImageAttributes:{.contentMode = UIViewContentModeScaleAspectFill,.url = [NSURL URLWithString:list[i]]} NodeSpecs:{
             .view = {
-                .clipToBounds = YES,
+                .clipsToBounds = YES,
                 .block = ^(UIView *view){
                     
                     view.userInteractionEnabled = YES;

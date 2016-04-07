@@ -8,6 +8,7 @@
 
 #import "VZFStackNode.h"
 #import "VZFlexNode.h"
+#import "VZFlexNode+VZFNode.h"
 #import "VZFUtils.h"
 #import "VZFNodeInternal.h"
 #import "VZFMacros.h"
@@ -47,27 +48,30 @@
 
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)constrainedSize{
     
-
+    //caclculate the frame
     [self.flexNode layout:constrainedSize];
     
     //递归
-    std::function<VZFNodeLayout(VZFlexNode* )> lambda = [&lambda](VZFlexNode* node)->VZFNodeLayout{
+    std::function<VZFNodeLayout(VZFlexNode* )> lambda = [&lambda](VZFlexNode* flexNode)->VZFNodeLayout{
     
-        if (node.childNodes.count == 0) {
-            return {node.resultFrame.size,node.resultFrame.origin,node.resultMargin,{}};
+        if (flexNode.childNodes.count == 0) {
+            return {
+                flexNode.fNode,
+                flexNode.resultFrame.size,
+                flexNode.resultFrame.origin,
+                flexNode.resultMargin,{}};
         }
         else{
             
             std::vector<VZFNodeLayout> childlayouts = {};
-            for(VZFlexNode* child in node.childNodes){
+            for(VZFlexNode* child in flexNode.childNodes){
                 childlayouts.push_back(lambda(child));
             }
-            return {node.resultFrame.size,node.resultFrame.origin,node.resultMargin,childlayouts};
+            return {flexNode.fNode,flexNode.resultFrame.size,flexNode.resultFrame.origin,flexNode.resultMargin,childlayouts};
         }
     };
-    VZFNodeLayout layout = lambda(self.flexNode);
-    NSLog(@"%s",layout.description().c_str());
     
+    VZFNodeLayout layout = lambda(self.flexNode);
     return layout;
 }
 

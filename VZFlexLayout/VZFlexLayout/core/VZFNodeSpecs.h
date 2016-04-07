@@ -1,4 +1,5 @@
-//
+/* 
+ */
 //  VZFNodeAttributes.h
 //  VZFlexLayout
 //
@@ -19,7 +20,6 @@
 
 using namespace VZ;
 namespace VZ {
-
     
     struct LayerAttrs{
         
@@ -32,9 +32,9 @@ namespace VZ {
     struct ViewAttrs{
         
         NSInteger tag;
-        BOOL clipToBounds;
+        BOOL clipsToBounds;
         UIColor* backgroundColor;
-        LayerAttrs layer;
+        struct LayerAttrs layer;
         void(^block)(UIView* view);
     };
     
@@ -127,8 +127,9 @@ namespace VZ {
     
     };
     
-    typedef struct{}ViewNodeSpecs;
+//    typedef struct{}ViewNodeSpecs;
 
+    using ViewNodeSpecs = struct{};
     
     template<>
     struct MultiMapKey<Class> {
@@ -146,7 +147,7 @@ namespace VZ {
     struct UISpecs{
         
         //name
-        std::string name;
+        std::string identifier;
 
         //view / layer properties
         struct ViewAttrs view;

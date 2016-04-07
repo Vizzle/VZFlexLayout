@@ -10,11 +10,14 @@
 #import "FBHeaderNode.h"
 #import "FBContentNode.h"
 #import "VZFStackNode.h"
+#import "FBHostItem.h"
+
 @implementation FBHostNode
 
 + (instancetype)newWithItem:(FBHostItem* )item{
 
     VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
+        
         .flex = {
             .margin = 10,
             .stackLayout = {.direction = VZFlexVertical}
@@ -23,11 +26,16 @@
     } Children:{
     
         {[FBHeaderNode newWithItem:item]},
-        {[FBContentNode newWithItem:item]}
-    
+        {[FBContentNode newWithItem:item]},
     }];
     
     return [super newWithNode:stackNode];
+}
+
+- (void)dealloc{
+    
+    NSLog(@"abc");
+
 }
 
 @end

@@ -7,29 +7,35 @@
 //
 
 #import "VZFNode.h"
+#import "VZFUtils.h"
 #import "VZFMacros.h"
-#import "VZFNodeLayout.h"
 #import "VZFlexNode.h"
+#import "VZFNodeLayout.h"
 #import "VZFNodeInternal.h"
 #import "VZFScopeHandler.h"
 #import "VZFScopeManager.h"
 #import "VZFNodeController.h"
-//#import "VZFNodeHostingView.h"
+#import "VZFlexNode+VZFNode.h"
+#import "VZFNodeMountContext.h"
+#import "VZFNodeViewManager.h"
+#import "VZFNodeMountContext.h"
+#import "VZFNodeControllerInternal.h"
+#import "VZFNodeAttributeApplicator.h"
 
+struct VZFNodeMountedInfo{
+    
+    VZFNode* parentNode;
+    UIView* mountedView;
+    CGRect mountedFrame;
+};
 
-@interface VZFlexNode()
-
-@end
+using namespace VZ::UIKit;
 
 @implementation VZFNode
 {
     VZFScopeHandler* _scopeHander;
-//    int32_t _scopeId;
+    std::unique_ptr<VZFNodeMountedInfo> _mountedInfo;
 }
-
-//@synthesize flexNode = _flexNode;
-//@synthesize parentNode = _parentNode;
-
 
 + (id)initialState{
     return nil;
@@ -52,8 +58,9 @@
         _specs = specs;
         _viewClass = viewclass;
         _flexNode = [VZFNodeUISpecs flexNodeWithAttributes:_specs.flex];
-        _flexNode.name = [NSString stringWithUTF8String:specs.name.c_str()];
+        _flexNode.name = [NSString stringWithUTF8String:specs.identifier.c_str()];
         _scopeHander = [VZFScopeHandler scopeHandlerForNode:self];
+        _flexNode.fNode = self;
 
     }
     return self;
@@ -65,21 +72,24 @@
 }
 
 - (void)dealloc{
-    NSLog(@"[%@]-->dealloc",self.class);
-}
 
+    NSLog(@"[%@]-->dealloc",self.class);
+    _flexNode.fNode = nil;
+
+}
 
 - (void)updateState:(id (^)(id))updateBlock{
 
     [_scopeHander updateState:updateBlock];
-    
+
 }
 
 
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz{
     
     [_flexNode layout:sz];
-    VZFNodeLayout layout = { _flexNode.resultFrame.size,
+    VZFNodeLayout layout = { self,
+                             _flexNode.resultFrame.size,
                              _flexNode.resultFrame.origin,
                              _flexNode.resultMargin};
     return layout;
@@ -97,7 +107,12 @@
 }
 
 - (id)nextResponder {
-    return _scopeHander.controller ?: self.parentNode ?: self.hostingView;
+    return _scopeHander.controller ?: [self nextResponderAfterController];
+}
+
+- (id)nextResponderAfterController
+{
+    return (self.parentNode?: nil) ?: self.rootNodeView;
 }
 
 - (id)targetForAction:(SEL)action withSender:(id)sender
@@ -109,4 +124,98 @@
     return _scopeHander.controller;
 }
 
+-(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
+{
+
+    
+    if (!_mountedInfo) {
+        _mountedInfo.reset( new VZFNodeMountedInfo() );
+    }
+    
+    _mountedInfo -> parentNode = parentNode;
+    
+    VZFNodeController* controller = _scopeHander.controller;
+    [controller nodeWillMount:self];
+    
+    //获取一个reuse view
+    UIView* view = [context.viewManager viewForNode:self];
+    
+    //说明reusepool中有view
+    if (view) {
+        //不是当前的backingview
+        if (view != _mountedInfo -> mountedView) {
+            
+            //如果获取
+            [self _recycleMountedView];
+            [view.node unmount];
+            view.node = self;
+            //apply attributes
+            [VZFNodeAttributeApplicator applyNodeAttributes:self toView:view];
+            [self.controller node:self didAquireBackingView:view];
+            _mountedInfo -> mountedView = view;
+        }
+        else{
+            VZFAssert(view.node == self, @"");
+        }
+
+        //计算公式:
+        //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
+        //position.y = frame.origin.y + anchorPoint.y * bounds.size.height；
+        const CGPoint anchorPoint = view.layer.anchorPoint;
+        view.center = context.position + CGPoint({anchorPoint.x * size.width, anchorPoint.y * size.height});
+        view.bounds = {view.bounds.origin,size};
+
+//        view.frame = CGRect({context.position, size});
+        
+        _mountedInfo -> mountedFrame = {context.position, view.bounds.size};
+
+        return {.hasChildren = YES, .childContext = context.childContextForSubview(view)};
+        
+
+    }
+    else{
+        //reuse Pool中没有,则使用viewManager中保存的view
+        UIView* view = context.viewManager.managedView;
+        _mountedInfo -> mountedView = view;
+        _mountedInfo -> mountedFrame = {context.position,view.bounds.size};
+        
+        return {.hasChildren = YES, .childContext = context};
+        
+    }
+}
+
+
+-(void)unmount{
+    
+    if (_mountedInfo != nullptr) {
+        [_scopeHander.controller nodeWillMount:self];
+        [self _recycleMountedView];
+        _mountedInfo.reset();
+        [_scopeHander.controller nodeDidUnmount:self];
+    }
+
+}
+
+-(void)didMount{
+    [_scopeHander.controller nodeDidMount:self];
+}
+
+
+- (void)_recycleMountedView{
+    
+    UIView* view = _mountedInfo -> mountedView;
+    if(view){
+    
+        //这种情况很奇怪，先assert
+        VZFAssertTrue(view.node == self);
+        //通知controller
+        [self.controller node:self willReleaseBackingView:view];
+        view.node = nil;
+        _mountedInfo -> mountedView = nil;
+    }
+
+
+
+    
+}
 @end

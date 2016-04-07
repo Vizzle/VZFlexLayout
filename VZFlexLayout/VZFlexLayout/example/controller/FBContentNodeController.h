@@ -7,7 +7,7 @@
 //
 
 #import "VZFNodeController.h"
-
 @interface FBContentNodeController : VZFNodeController
+
 
 @end

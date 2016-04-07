@@ -12,6 +12,7 @@
 #include <assert.h>
 #include <float.h>
 #include <math.h>
+#include <stdio.h>
 
 float clamp(float value, float minValue, float maxValue) {
     if (maxValue == FlexInfinite) {
@@ -808,6 +809,8 @@ void setupProperties(FlexNode* node) {
 }
 
 void layoutFlexNode(FlexNode* node, float constraintedWidth, float constraintedHeight) {
+    
+    printf("flexlayout begin: \n");
     setupProperties(node);
     node->result.margin[FLEX_LEFT] = node->margin[FLEX_LEFT] == FlexAuto ? 0 : node->margin[FLEX_LEFT];
     node->result.margin[FLEX_TOP] = node->margin[FLEX_TOP] == FlexAuto ? 0 : node->margin[FLEX_TOP];
@@ -819,6 +822,7 @@ void layoutFlexNode(FlexNode* node, float constraintedWidth, float constraintedH
     _layoutFlexNode(node, constraintedSize, true);
     node->result.position[FLEX_LEFT] = node->result.margin[FLEX_LEFT];
     node->result.position[FLEX_TOP] = node->result.margin[FLEX_TOP];
+    printf("flexlayout end: \n");
 }
 
 void initFlexNode(FlexNode* node) {

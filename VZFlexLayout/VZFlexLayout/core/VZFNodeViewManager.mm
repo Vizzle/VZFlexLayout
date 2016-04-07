@@ -19,26 +19,49 @@
 #import <objc/runtime.h>
 #import "VZFNodeControllerInternal.h"
 #import "VZFActionWrapper.h"
+#import "VZFViewReusePoolManager.h"
 
 
 @implementation UIView(VZFNode)
 
-const void* _id = &_id;
+static const void* g_nodeId = &g_nodeId;
 - (void)setNode:(VZFNode *)node{
-    objc_setAssociatedObject(self, _id, node, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, g_nodeId, node, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (VZFNode* )node{
-    return objc_getAssociatedObject(self, _id);
+    return objc_getAssociatedObject(self, g_nodeId);
 }
 
 @end
 
 using namespace VZ;
-@implementation VZFNodeViewManager : NSObject
-{
 
+@implementation VZFNodeViewManager
+{
+    VZFViewReusePoolManager* _managerReusePoolManager;
 }
+
+- (instancetype)initWithView:(UIView *)view{
+
+    self = [super init];
+    if (self) {
+        _managedView = view;
+        _managerReusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view];
+    }
+    return self;
+}
+
+- (UIView* )viewForNode:(VZFNode* )node{
+
+    UIView* v = [_managerReusePoolManager viewForClass:node.viewClass Spec:node.specs ParentView:_managedView];
+    return v;
+}
+
+- (void)dealloc{
+    [_managerReusePoolManager reset:_managedView];
+}
+
 
 + (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout reuseView:(UIView *)oldView
 {
@@ -78,7 +101,7 @@ using namespace VZ;
             
             VZFStackChildNode _childNode = stackNode.children[i];
             VZFNode* _node = _childNode.node;
-            VZFNodeLayout _layout = layout.childrenLayout()[i];
+            VZFNodeLayout _layout = (*layout.children)[i];
             //递归
             UIView* _view = [self viewForNode:_node withLayoutSpec:_layout reuseView:subviews.count > i?subviews[i]:nil];
             
@@ -138,7 +161,7 @@ using namespace VZ;
 
     [self _applyAttributes:specs.view ToUIView:view];
 
-    view.frame = {layout.nodeOrigin(), layout.nodeSize()};
+    view.frame = {layout.origin, layout.size};
     [self _applyGestures:specs.gesture ToUIView:view AndNode:node];
 
     
@@ -205,7 +228,7 @@ using namespace VZ;
     
     view.tag                    = vs.tag;
     view.backgroundColor        = vs.backgroundColor?:[UIColor clearColor];
-    view.clipsToBounds          = vs.clipToBounds;
+    view.clipsToBounds          = vs.clipsToBounds;
     view.layer.cornerRadius     = vs.layer.cornerRadius;
     view.layer.borderColor      = vs.layer.borderColor.CGColor;
     if (vs.layer.contents.CGImage) {
@@ -277,8 +300,8 @@ using namespace VZ;
 + (void)_appleyNetworkImageAttributes:(VZFNetworkImageNode* )node ToNetworkImageView:(VZFNetworkImageView* )networkImageView{
 
 
-    NSURL* url = node.url;
     ImageNodeSpecs imageSpec = node.imageSpecs;
+    NSURL* url = imageSpec.url;
     id<VZFNetworkImageDownloadProtocol> imageDownloader = node.imageDownloader;
     UIImage*(^block)(UIImage* ) = node.imageProcessingBlock;
     
@@ -286,5 +309,29 @@ using namespace VZ;
     [networkImageView setSpec:spec];
 
 }
+
+@end
+
+
+@implementation VZFNodeViewKey
+{
+    
+}
+
++ (VZFNodeViewKey* )viewKeyForNodeClass:(Class)nodeClass Identifier:(NSString* )identifier{
+    
+    VZFNodeViewKey* viewKey = [VZFNodeViewKey new];
+    viewKey->_identifier = [identifier copy];
+    viewKey->_nodeClass  = nodeClass;
+    
+    return viewKey;
+}
+
+
+- (BOOL)isEqual:(VZFNodeViewKey* )object
+{
+    return [self->_identifier isEqualToString:object.identifier] && (self ->_nodeClass == object.nodeClass);
+}
+
 
 @end

@@ -10,24 +10,28 @@
 #import <vector>
 #import <string>
 #import "FlexLayout.h"
+#import "VZFNode.h"
 
 namespace VZ {
     
     struct NodeLayout{
             
         //constructor
-        NodeLayout():size({0,0}),origin({0,0}),margin({0,0,0,0}),children(new std::vector<NodeLayout>()){}
+        NodeLayout():
+        node(nil),size({0,0}),origin({0,0}),margin({0,0,0,0}),children(new std::vector<NodeLayout>()){}
         
-        NodeLayout(CGSize sz, CGPoint pt, UIEdgeInsets _margin):size(sz),origin(pt),margin(_margin),children(new std::vector<NodeLayout>()){};
+        NodeLayout(VZFNode* _node,CGSize _sz, CGPoint _pt, UIEdgeInsets _margin):
+        node(_node),size(_sz),origin(_pt),margin(_margin),children(new std::vector<NodeLayout>()){};
         
-        NodeLayout(CGSize sz, CGPoint pt, UIEdgeInsets _margin,std::vector<NodeLayout> childs):size(sz),origin(pt),margin(_margin),children(new std::vector<NodeLayout>(std::move(childs))){};
+        NodeLayout(VZFNode* _node,CGSize _sz, CGPoint _pt, UIEdgeInsets _margin,std::vector<NodeLayout> _childs):
+        node(_node),size(_sz),origin(_pt),margin(_margin),children(new std::vector<NodeLayout>(std::move(_childs))){};
         
         const std::string description() const{
             
             auto print = [this]() -> std::string{
                 
                 std::string sz =  NSStringFromCGSize(this -> size).UTF8String;
-                std::string pt =  NSStringFromCGPoint(this->origin).UTF8String;
+                std::string pt =  NSStringFromCGPoint(this-> origin).UTF8String;
                 std::string ret = "( origin:"+pt+","+"size:"+sz+ " )";
                 return ret;
             
@@ -39,12 +43,8 @@ namespace VZ {
             }
             return desc;
         };
-        const CGSize nodeSize() const{ return size ; };
-        const CGPoint nodeOrigin() const { return origin; };
-        const UIEdgeInsets nodeMargin() const { return margin; };
-        const std::vector<NodeLayout> childrenLayout() const { return *children; };
-    private:
 
+        VZFNode* node; //this does not create a retain cycle
         CGSize size = {0,0};
         CGPoint origin = {0,0};
         UIEdgeInsets margin = {0,0,0,0};

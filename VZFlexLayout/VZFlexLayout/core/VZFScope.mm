@@ -13,6 +13,7 @@
 #import "VZFScopeHandler.h"
 #import "VZFNodeInternal.h"
 #import "VZFScopeFrame.h"
+#import "VZFMacros.h"
 
 namespace VZ {
     
@@ -37,6 +38,7 @@ namespace VZ {
         else{
         
             //assert here
+            VZFCAssertNil(true, @"local scope is nil!");
         }
 
     };

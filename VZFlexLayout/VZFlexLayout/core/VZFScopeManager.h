@@ -25,7 +25,7 @@
 
 @end
 
-struct VZBuildNodeResult {
+struct VZFBuildNodeResult {
     VZFNode *node;
     VZFRootScope *scopeRoot;
 };
@@ -45,7 +45,7 @@ struct VZBuildNodeResult {
  *
  *  @return node对象和新的RootScope
  */
-+ (VZBuildNodeResult)buildNodeWithFunction:(VZFNode*(^)(void))function
++ (VZFBuildNodeResult)buildNodeWithFunction:(VZFNode*(^)(void))function
                                  RootScope:(VZFRootScope* )rootScope
                           StateUpdateFuncs:(NSDictionary* )funcs;
 

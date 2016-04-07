@@ -6,8 +6,9 @@
 //  Copyright © 2016年 VizLab. All rights reserved.
 //
 
+#import <SDWebImage/SDWebImageManager.h>
 #import "FBImageDownloader.h"
-#import <SDWebImage/SDWebImageDownloader.h>
+
 
 @implementation FBImageDownloader
 
@@ -20,24 +21,24 @@
     });
     return downloader;
 }
+
 - (id)downloadImageWithURL:(NSURL *)URL callbackQueue:(dispatch_queue_t)callbackQueue downloadProgressBlock:(void (^)(CGFloat))downloadProgressBlock imageProcessBlock:(UIImage *(^)(UIImage *))imageProcessBlock completion:(void (^)(UIImage* , NSError *))completion{
 
-    id<SDWebImageOperation> op =  [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:URL options:0 progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
+    id<SDWebImageOperation> op = [[SDWebImageManager sharedManager] downloadImageWithURL:URL options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
         
         if (finished) {
-            dispatch_async(callbackQueue, ^{
-                
-                if (image && completion) {
-                    completion(image,error);
-                }
-                
-            });
+            
+            if (callbackQueue) {
+                dispatch_async(callbackQueue, ^{
+                    if (completion) {
+                        completion(image,error);
+                    }
+                });
+            }
+            
         }
-        
-        
     }];
     return op;
-
 }
 
 
@@ -46,5 +47,6 @@
     id<SDWebImageOperation> op = (id<SDWebImageOperation>) download;
     [op cancel];
 }
+
 
 @end

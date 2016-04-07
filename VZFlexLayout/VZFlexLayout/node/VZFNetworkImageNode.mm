@@ -22,12 +22,11 @@
 
 }
 
-+ (instancetype)newWithURL:(NSURL *)url ImageAttributes:(const VZ::ImageNodeSpecs &)imageSpecs NodeSpecs:(const NodeSpecs &)nodeSpecs ImageDownloader:(id<VZFNetworkImageDownloadProtocol>)imagedownloader ImageProcessingBlock:(UIImage *(^)(UIImage *))imageProcessingBlock{
++ (instancetype)newWithImageAttributes:(const VZ::ImageNodeSpecs &)imageSpecs NodeSpecs:(const NodeSpecs &)nodeSpecs ImageDownloader:(id<VZFNetworkImageDownloadProtocol>)imagedownloader ImageProcessingBlock:(UIImage *(^)(UIImage *))imageProcessingBlock{
     
     VZFNetworkImageNode* networkImageNode = [super newWithView:[VZFNetworkImageView class] NodeSpecs:nodeSpecs];
     
     if (networkImageNode) {
-        networkImageNode -> _url = url;
         networkImageNode -> _imageSpecs = imageSpecs.copy();
         networkImageNode -> _imageDownloader = imagedownloader;
         networkImageNode -> _imageProcessingBlock = imageProcessingBlock;

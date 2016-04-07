@@ -118,7 +118,7 @@ static NSString *const kVZFTableViewCellReuseIdentifier = @"kVZFTableViewCellReu
     VZFItem *item = [_sectionedArray itemAtIndexPath:indexPath];
     UIView *oldView = cell.contentView.subviews.count > 0 ? cell.contentView.subviews[0] : nil;
     UIView *view = [VZFNodeViewManager viewForNode:item.node withLayoutSpec:item.layout reuseView:oldView];
-    view.frame = {item.layout.nodeOrigin(), view.frame.size};
+    view.frame = {item.layout.origin, view.frame.size};
     if (view != oldView) {
         [oldView removeFromSuperview];
         [cell.contentView addSubview:view];
@@ -129,7 +129,7 @@ static NSString *const kVZFTableViewCellReuseIdentifier = @"kVZFTableViewCellReu
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     VZFItem *item = [_sectionedArray itemAtIndexPath:indexPath];
-    return item.layout.nodeSize().height + item.layout.nodeMargin().top + item.layout.nodeMargin().bottom;
+    return item.layout.size.height + item.layout.margin.top + item.layout.margin.bottom;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

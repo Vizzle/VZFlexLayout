@@ -10,7 +10,7 @@
 #import "VZFNodeViewManager.h"
 #import "VZFNodeInternal.h"
 
-@implementation BlockWrapper
+@implementation VZFBlockWrapper
 - (instancetype)initWithBlock:(UIControlActionBlock)block {
     if (self = [super init]) {
         self.block = block;
@@ -33,7 +33,7 @@
 @end
 
 
-@implementation SelectorWrapper
+@implementation VZFSelectorWrapper
 {
     SEL _selector;
 }
@@ -72,10 +72,10 @@
 
 id<VZFActionWrapper> vz_actionWrapper(VZ::ActionWrapper action) {
     if (action.block) {
-        return [[BlockWrapper alloc] initWithBlock:action.block];
+        return [[VZFBlockWrapper alloc] initWithBlock:action.block];
     }
     else if (action.selector) {
-        return [[SelectorWrapper alloc] initWithSelector:action.selector];
+        return [[VZFSelectorWrapper alloc] initWithSelector:action.selector];
     }
     return nil;
 }
