@@ -78,9 +78,9 @@
     
     }];
     
-    FBContentNode* headNode =  [super newWithNode:stackNode];
+    FBContentNode* contentNode =  [super newWithNode:stackNode];
 
-    return headNode;
+    return contentNode;
 }
 
 

@@ -163,13 +163,13 @@ struct VZFNodeHostingViewOutputs{
 
 - (void)_update:(VZFUpdateMode)mode{
     
-    if (_shouldUpdate && _updateMode == VZFUpdateModeSynchronous) {
-        return;
-    }
+//    if (_shouldUpdate && _updateMode == VZFUpdateModeSynchronous) {
+//        return;
+//    }
     _shouldUpdate = YES;
     _updateMode = mode;
-    if (mode == VZFUpdateModeSynchronous) {
-        [self _updateSynchronously];
+    if (mode == VZFUpdateModeAsynchronous) {
+        [self _updateASynchronously];
     }
     else{
         [self setNeedsLayout];

@@ -14,6 +14,7 @@
 #import "VZFTextNode.h"
 #import "VZFImageNode.h"
 #import "FBHeaderNode.h"
+#import "FBContentNode.h"
 
 @interface FBViewController ()<VZFNodeHostingView>
 @property(nonatomic,strong)VZFNodeHostingView* hostingView;
@@ -49,9 +50,6 @@
 }
 
 + (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
-    
-    
-//    return [FBHeaderNode newWithItem:item];
     
     FBHostNode* node = [FBHostNode newWithItem:item];
     return node;
