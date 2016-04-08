@@ -14,15 +14,6 @@ using namespace VZ;
 @interface VZFNode : NSObject
 
 /**
- *  mount后的view
- */
-@property(nonatomic,strong,readonly)UIView* mountedView;
-/**
- *  mount后的frame
- */
-@property(nonatomic,assign,readonly)CGRect mountedFrame;
-
-/**
  *  Create a Node
  *
  *  @param viewClass backing view

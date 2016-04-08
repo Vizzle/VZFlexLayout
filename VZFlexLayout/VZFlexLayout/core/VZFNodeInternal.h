@@ -37,11 +37,14 @@ using namespace VZ;
  *  内部引用的Objective-C类型的node
  */
 @property(nonatomic,strong,readonly)VZFlexNode* flexNode;
-
 /**
- *  父node
+ *  node对应的composite node，不是每个node都有
  */
-@property(nonatomic,weak,readonly)VZFNode* parentNode;
+@property(nonatomic,weak)VZFNode* boxedNode;
+/**
+ *  node的父节点
+ */
+@property(nonatomic,weak)VZFNode* superNode;
 /**
  *  root view
  */
@@ -76,10 +79,23 @@ using namespace VZ;
 @end
 
 
-@interface VZFNode(Tree)
+@interface VZFNode(ResponderChain)
 
-- (void)addToParentNode:(VZFNode* )parentNode;
+/**
+ *  返回controller的下一个responder
+ *
+ *  @return object
+ */
 - (id)nextResponderAfterController;
+/**
+ *  response响应事件的方法
+ *
+ *  @param action 事件名
+ *  @param sender sender
+ *
+ *  @return object
+ */
+- (id)targetForAction:(SEL)action withSender:(id)sender;
 
 @end
 
@@ -90,13 +106,12 @@ using namespace VZ;
                                    Size:(CGSize) size
                              ParentNode:(VZFNode* )parentNode;
 -(void)unmount;
+-(void)willMount;
 -(void)didMount;
 
 @end
 
-@interface VZFNode(State)
-
-- (id)targetForAction:(SEL)action withSender:(id)sender;
+@interface VZFNode(Controller)
 
 - (VZFNodeController* )controller;
 

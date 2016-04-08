@@ -32,15 +32,14 @@
 + (instancetype)newWithStackSpecs:(const NodeSpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children{
 
     VZFStackNode* stacknode =  [super newWithView:[UIView class] NodeSpecs:specs];
-    if (stacknode) {
+    if (stacknode)
+    {
         stacknode -> _children = VZ::Function::filter(children, [](const VZFStackChildNode &child){return child.node != nil;});
   
         for (const auto  &child:stacknode->_children)
         {
-            [child.node addToParentNode:stacknode];
             [stacknode.flexNode addSubNode:child.node.flexNode];
         }
-        
     }
     
     return stacknode;

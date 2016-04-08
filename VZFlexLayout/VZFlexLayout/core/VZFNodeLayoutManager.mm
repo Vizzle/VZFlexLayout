@@ -75,6 +75,8 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
         MountItem& item = stack.top();
         if(item.isVisited){
            
+            //@discussion:等所有child mount完再通知，还是每个node mount完就通知
+            //涉及到VZFNode可以少暴露一个接口
             [item.layout.node didMount];
             stack.pop();
             
@@ -87,6 +89,9 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
             if(item.layout.node == nil){
                 continue;
             }
+            
+            //will mount
+            [item.layout.node willMount];
             
             //加载node，创建backing view
             MountResult mountResult = [item.layout.node mountInContext:item.context

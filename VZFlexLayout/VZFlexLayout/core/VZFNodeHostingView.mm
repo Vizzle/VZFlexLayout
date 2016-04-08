@@ -111,6 +111,7 @@ struct VZFNodeHostingViewOutputs{
 
         
         CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
+
         _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
                                                                   InContainer:self
                                                             WithPreviousNodes:_mountedNodes
@@ -118,6 +119,14 @@ struct VZFNodeHostingViewOutputs{
         
         CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
         NSLog(@"node 加载:%.4f",t2-t1);
+        
+        
+        id nextResponder = [_nodeToMount nextResponder];
+        while ( nextResponder != nil) {
+            
+            NSLog(@"next responder:%@",[nextResponder nextResponder]);
+            nextResponder = [nextResponder nextResponder];
+        }
         
         //resize the container view
 //        CGFloat containerWidth  = _mountedLayout.size.width + _mountedLayout.margin.left + _mountedLayout.margin.right;

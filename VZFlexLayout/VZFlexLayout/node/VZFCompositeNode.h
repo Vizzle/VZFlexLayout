@@ -10,6 +10,8 @@
 
 /**
  *  Subclass node should inherit this node
+ *
+ *  Composite Node会作为responder chain的节点，传递事件
  */
 @interface VZFCompositeNode : VZFNode
 

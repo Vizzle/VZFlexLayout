@@ -40,7 +40,7 @@
     VZFCompositeNode* compositeNode = [super newWithView:{} NodeSpecs:{}];
     if (compositeNode) {
         compositeNode -> _node = node;
-        [node addToParentNode:compositeNode];
+        node.boxedNode = compositeNode;
     }
     return compositeNode;
 }
@@ -50,5 +50,16 @@
     return [_node computeLayoutThatFits:sz];
 }
 
+- (void)willMount{}
+
+- (void)didMount{
+    
+    //这里需要重置responder chain
+    VZFNode* childSuperNode = _node.superNode;
+    if (childSuperNode) {
+        _node.superNode = self;
+        self.superNode = childSuperNode;
+    }
+}
 
 @end

@@ -75,13 +75,12 @@ using namespace VZ::UIKit;
 
     NSLog(@"[%@]-->dealloc",self.class);
     _flexNode.fNode = nil;
-
+    _boxedNode = nil;
 }
 
+
 - (void)updateState:(id (^)(id))updateBlock{
-
     [_scopeHander updateState:updateBlock];
-
 }
 
 
@@ -102,9 +101,6 @@ using namespace VZ::UIKit;
     return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
 }
 
-- (void)addToParentNode:(VZFNode* )parentNode{
-    _parentNode = parentNode;
-}
 
 - (id)nextResponder {
     return _scopeHander.controller ?: [self nextResponderAfterController];
@@ -112,7 +108,8 @@ using namespace VZ::UIKit;
 
 - (id)nextResponderAfterController
 {
-    return (self.parentNode?: nil) ?: self.rootNodeView;
+    VZFNode* node = self.superNode;
+    return (node?:nil)?:self.rootNodeView;
 }
 
 - (id)targetForAction:(SEL)action withSender:(id)sender
@@ -125,17 +122,16 @@ using namespace VZ::UIKit;
 }
 
 -(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
-{
-
-    
+{    
     if (!_mountedInfo) {
         _mountedInfo.reset( new VZFNodeMountedInfo() );
     }
     
-    _mountedInfo -> parentNode = parentNode;
+    _mountedInfo -> parentNode = self.superNode = parentNode;
     
-    VZFNodeController* controller = _scopeHander.controller;
-    [controller nodeWillMount:self];
+    //通知controller
+//    VZFNodeController* controller = _scopeHander.controller;
+//    [controller nodeWillMount:self];
     
     //获取一个reuse view
     UIView* view = [context.viewManager viewForNode:self];
@@ -165,10 +161,11 @@ using namespace VZ::UIKit;
         view.center = context.position + CGPoint({anchorPoint.x * size.width, anchorPoint.y * size.height});
         view.bounds = {view.bounds.origin,size};
 
-//        view.frame = CGRect({context.position, size});
-        
         _mountedInfo -> mountedFrame = {context.position, view.bounds.size};
-
+        
+        //通知controller
+        //[controller nodeDidUnmount:self];
+        
         return {.hasChildren = YES, .childContext = context.childContextForSubview(view)};
         
 
@@ -179,9 +176,13 @@ using namespace VZ::UIKit;
         _mountedInfo -> mountedView = view;
         _mountedInfo -> mountedFrame = {context.position,view.bounds.size};
         
+        //通知controller
+        //[controller nodeDidUnmount:self];
         return {.hasChildren = YES, .childContext = context};
         
     }
+    
+
 }
 
 
@@ -197,7 +198,18 @@ using namespace VZ::UIKit;
 }
 
 -(void)didMount{
+    
     [_scopeHander.controller nodeDidMount:self];
+    
+    [self.boxedNode didMount];
+    
+}
+
+-(void)willMount{
+    
+    [_scopeHander.controller nodeWillMount:self];
+    
+    [self.boxedNode willMount];
 }
 
 
