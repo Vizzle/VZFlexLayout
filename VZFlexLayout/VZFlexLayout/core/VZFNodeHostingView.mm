@@ -115,18 +115,13 @@ struct VZFNodeHostingViewOutputs{
         _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
                                                                   InContainer:self
                                                             WithPreviousNodes:_mountedNodes
-                                                                 AndSuperNode:nil];
+                                                                 AndSuperNode:_nodeToMount];
         
         CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
         NSLog(@"node 加载:%.4f",t2-t1);
         
         
-        id nextResponder = [_nodeToMount nextResponder];
-        while ( nextResponder != nil) {
-            
-            NSLog(@"next responder:%@",[nextResponder nextResponder]);
-            nextResponder = [nextResponder nextResponder];
-        }
+
         
         //resize the container view
 //        CGFloat containerWidth  = _mountedLayout.size.width + _mountedLayout.margin.left + _mountedLayout.margin.right;
@@ -163,7 +158,7 @@ struct VZFNodeHostingViewOutputs{
     [funclist addObject:stateUpdate];
     mutableFuncs[scopeId] = funclist;
     _pendingInputs.stateMap = [mutableFuncs copy];
-    [self _update:VZFUpdateModeSynchronous];
+    [self _update:VZFUpdateModeAsynchronous];
 }
 
 

@@ -115,14 +115,14 @@ static NSString *const kVZFTableViewCellReuseIdentifier = @"kVZFTableViewCellReu
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kVZFTableViewCellReuseIdentifier forIndexPath:indexPath];
-    VZFItem *item = [_sectionedArray itemAtIndexPath:indexPath];
-    UIView *oldView = cell.contentView.subviews.count > 0 ? cell.contentView.subviews[0] : nil;
-    UIView *view = [VZFNodeViewManager viewForNode:item.node withLayoutSpec:item.layout reuseView:oldView];
-    view.frame = {item.layout.origin, view.frame.size};
-    if (view != oldView) {
-        [oldView removeFromSuperview];
-        [cell.contentView addSubview:view];
-    }
+//    VZFItem *item = [_sectionedArray itemAtIndexPath:indexPath];
+//    UIView *oldView = cell.contentView.subviews.count > 0 ? cell.contentView.subviews[0] : nil;
+//    UIView *view = [VZFNodeViewManager viewForNode:item.node withLayoutSpec:item.layout reuseView:oldView];
+//    view.frame = {item.layout.origin, view.frame.size};
+//    if (view != oldView) {
+//        [oldView removeFromSuperview];
+//        [cell.contentView addSubview:view];
+//    }
     
     return cell;
 }

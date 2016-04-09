@@ -39,6 +39,9 @@
         for (const auto  &child:stacknode->_children)
         {
             [stacknode.flexNode addSubNode:child.node.flexNode];
+            
+            //建立responder chain
+            child.node.superNode = stacknode;
         }
     }
     

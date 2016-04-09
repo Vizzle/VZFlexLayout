@@ -49,7 +49,7 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
     struct MountItem{
         const VZFNodeLayout& layout;
         MountContext context;
-        VZFNode* superNode;
+        VZFNode* superNode; //@discussion:和实际的responder chain的super node并不一致
         BOOL isVisited;
     };
     
@@ -75,8 +75,7 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
         MountItem& item = stack.top();
         if(item.isVisited){
            
-            //@discussion:等所有child mount完再通知，还是每个node mount完就通知
-            //涉及到VZFNode可以少暴露一个接口
+            //@discussion:所有child mount完再通知
             [item.layout.node didMount];
             stack.pop();
             

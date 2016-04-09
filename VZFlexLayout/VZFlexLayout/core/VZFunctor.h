@@ -11,9 +11,9 @@
 
 #import <Foundation/Foundation.h>
 
-/* generic functors */
+/* 定义一些 functors */
 
-namespace CK {
+namespace VZ {
     
     template<class T>
     struct DescriptionFunctor {

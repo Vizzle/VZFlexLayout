@@ -38,13 +38,13 @@ using namespace VZ;
  */
 @property(nonatomic,strong,readonly)VZFlexNode* flexNode;
 /**
- *  node对应的composite node，不是每个node都有
- */
-@property(nonatomic,weak)VZFNode* boxedNode;
-/**
  *  node的父节点
  */
 @property(nonatomic,weak)VZFNode* superNode;
+/**
+ *  boxed node
+ */
+@property(nonatomic,weak)VZFNode* boxedNode;
 /**
  *  root view
  */
@@ -101,7 +101,14 @@ using namespace VZ;
 
 
 @interface VZFNode(Mounting)
-
+/**
+ *  加载一个Node
+ *
+ *  @param size       node的size
+ *  @param parentNode 父节点
+ *
+ *  @return 加载结果
+ */
 -(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context
                                    Size:(CGSize) size
                              ParentNode:(VZFNode* )parentNode;

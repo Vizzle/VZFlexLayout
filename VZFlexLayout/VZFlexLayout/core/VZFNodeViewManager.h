@@ -15,8 +15,6 @@
 
 @property(nonatomic,weak,readonly)UIView* managedView;
 
-+ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const VZFNodeLayout&)layout reuseView:(UIView *)oldView;
-
 - (instancetype)initWithView:(UIView* )view;
 
 - (UIView* )viewForNode:(VZFNode* )node;

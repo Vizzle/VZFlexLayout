@@ -75,7 +75,6 @@ using namespace VZ::UIKit;
 
     NSLog(@"[%@]-->dealloc",self.class);
     _flexNode.fNode = nil;
-    _boxedNode = nil;
 }
 
 
@@ -108,8 +107,7 @@ using namespace VZ::UIKit;
 
 - (id)nextResponderAfterController
 {
-    VZFNode* node = self.superNode;
-    return (node?:nil)?:self.rootNodeView;
+    return (self.superNode?:nil)?:self.rootNodeView;
 }
 
 - (id)targetForAction:(SEL)action withSender:(id)sender
@@ -127,11 +125,7 @@ using namespace VZ::UIKit;
         _mountedInfo.reset( new VZFNodeMountedInfo() );
     }
     
-    _mountedInfo -> parentNode = self.superNode = parentNode;
-    
-    //通知controller
-//    VZFNodeController* controller = _scopeHander.controller;
-//    [controller nodeWillMount:self];
+    _mountedInfo -> parentNode =  parentNode;
     
     //获取一个reuse view
     UIView* view = [context.viewManager viewForNode:self];
@@ -162,9 +156,7 @@ using namespace VZ::UIKit;
         view.bounds = {view.bounds.origin,size};
 
         _mountedInfo -> mountedFrame = {context.position, view.bounds.size};
-        
-        //通知controller
-        //[controller nodeDidUnmount:self];
+    
         
         return {.hasChildren = YES, .childContext = context.childContextForSubview(view)};
         
@@ -176,8 +168,7 @@ using namespace VZ::UIKit;
         _mountedInfo -> mountedView = view;
         _mountedInfo -> mountedFrame = {context.position,view.bounds.size};
         
-        //通知controller
-        //[controller nodeDidUnmount:self];
+        
         return {.hasChildren = YES, .childContext = context};
         
     }
@@ -189,27 +180,26 @@ using namespace VZ::UIKit;
 -(void)unmount{
     
     if (_mountedInfo != nullptr) {
-        [_scopeHander.controller nodeWillMount:self];
+        [self.controller nodeWillUnmount:self];
         [self _recycleMountedView];
         _mountedInfo.reset();
-        [_scopeHander.controller nodeDidUnmount:self];
+        [self.controller nodeDidUnmount:self];
     }
+    [[self boxedNode] unmount];
 
 }
 
 -(void)didMount{
     
-    [_scopeHander.controller nodeDidMount:self];
-    
-    [self.boxedNode didMount];
-    
+    [[self controller] nodeDidMount:self];
+    [[self boxedNode] didMount];
 }
 
 -(void)willMount{
     
-    [_scopeHander.controller nodeWillMount:self];
+    [[self controller] nodeWillMount:self];
+    [[self boxedNode] willMount];
     
-    [self.boxedNode willMount];
 }
 
 
@@ -221,12 +211,12 @@ using namespace VZ::UIKit;
         //这种情况很奇怪，先assert
         VZFAssertTrue(view.node == self);
         //通知controller
-        [self.controller node:self willReleaseBackingView:view];
+        [_scopeHander.controller node:self willReleaseBackingView:view];
         view.node = nil;
         _mountedInfo -> mountedView = nil;
     }
 
-
+    
 
     
 }
