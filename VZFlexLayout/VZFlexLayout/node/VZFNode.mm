@@ -33,7 +33,7 @@ using namespace VZ::UIKit;
 
 @implementation VZFNode
 {
-    VZFScopeHandler* _scopeHander;
+    VZFScopeHandler* _scopeHandler;
     std::unique_ptr<VZFNodeMountedInfo> _mountedInfo;
 }
 
@@ -59,7 +59,7 @@ using namespace VZ::UIKit;
         _viewClass = viewclass;
         _flexNode = [VZFNodeUISpecs flexNodeWithAttributes:_specs.flex];
         _flexNode.name = [NSString stringWithUTF8String:specs.identifier.c_str()];
-        _scopeHander = [VZFScopeHandler scopeHandlerForNode:self];
+        _scopeHandler = [VZFScopeHandler scopeHandlerForNode:self];
         _flexNode.fNode = self;
 
     }
@@ -79,7 +79,7 @@ using namespace VZ::UIKit;
 
 
 - (void)updateState:(id (^)(id))updateBlock{
-    [_scopeHander updateState:updateBlock];
+    [_scopeHandler updateState:updateBlock];
 }
 
 
@@ -100,14 +100,18 @@ using namespace VZ::UIKit;
     return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
 }
 
+- (VZFNode* )superNode{
+    return _mountedInfo -> parentNode;
+}
 
 - (id)nextResponder {
-    return _scopeHander.controller ?: [self nextResponderAfterController];
+    return _scopeHandler.controller ?: [self nextResponderAfterController];
 }
 
 - (id)nextResponderAfterController
 {
-    return (self.superNode?:nil)?:self.rootNodeView;
+    VZFNode* superNode = [self superNode];
+    return (superNode?:nil)?:self.rootNodeView;
 }
 
 - (id)targetForAction:(SEL)action withSender:(id)sender
@@ -116,7 +120,7 @@ using namespace VZ::UIKit;
 }
 
 - (VZFNodeController* )controller {
-    return _scopeHander.controller;
+    return _scopeHandler.controller;
 }
 
 -(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
@@ -156,7 +160,6 @@ using namespace VZ::UIKit;
         view.bounds = {view.bounds.origin,size};
 
         _mountedInfo -> mountedFrame = {context.position, view.bounds.size};
-    
         
         return {.hasChildren = YES, .childContext = context.childContextForSubview(view)};
         
@@ -166,8 +169,7 @@ using namespace VZ::UIKit;
         //reuse Pool中没有,则使用viewManager中保存的view
         UIView* view = context.viewManager.managedView;
         _mountedInfo -> mountedView = view;
-        _mountedInfo -> mountedFrame = {context.position,view.bounds.size};
-        
+        _mountedInfo -> mountedFrame = {context.position,size};
         
         return {.hasChildren = YES, .childContext = context};
         
@@ -185,20 +187,17 @@ using namespace VZ::UIKit;
         _mountedInfo.reset();
         [self.controller nodeDidUnmount:self];
     }
-    [[self boxedNode] unmount];
 
 }
 
 -(void)didMount{
     
     [[self controller] nodeDidMount:self];
-    [[self boxedNode] didMount];
 }
 
 -(void)willMount{
     
     [[self controller] nodeWillMount:self];
-    [[self boxedNode] willMount];
     
 }
 
@@ -207,11 +206,7 @@ using namespace VZ::UIKit;
     
     UIView* view = _mountedInfo -> mountedView;
     if(view){
-    
-        //这种情况很奇怪，先assert
-        VZFAssertTrue(view.node == self);
-        //通知controller
-        [_scopeHander.controller node:self willReleaseBackingView:view];
+        [_scopeHandler.controller node:self willReleaseBackingView:view];
         view.node = nil;
         _mountedInfo -> mountedView = nil;
     }

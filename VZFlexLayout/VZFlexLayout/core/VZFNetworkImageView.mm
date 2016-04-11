@@ -54,10 +54,10 @@
 
 - (void)dealloc{
 
-//    if (_download) {
-//        [self.spec.imageDownloader cancelImageDownload:_download];
-//        _download = nil;
-//    }
+    if (_download) {
+        [self.spec.imageDownloader cancelImageDownload:_download];
+        _download = nil;
+    }
 }
 
 - (void)setSpec:(VZFNetworkImageSpec *)spec{
@@ -67,10 +67,10 @@
     }
     _spec = spec;
 
-//    if (_download) {
-//        [_spec.imageDownloader cancelImageDownload:_download];
-//        _download = nil;
-//    }
+    if (_download) {
+        [_spec.imageDownloader cancelImageDownload:_download];
+        _download = nil;
+    }
     
     self.image = spec.defaultImage;
     
@@ -82,10 +82,10 @@
 - (void)enterReusePool{
     
     _isInReusePool = YES;
-//    if (_download) {
-//        [_spec.imageDownloader cancelImageDownload:_download];
-//        _download = nil;
-//    }
+    if (_download) {
+        [_spec.imageDownloader cancelImageDownload:_download];
+        _download = nil;
+    }
     self.image = self.spec.defaultImage;
 }
 
@@ -117,7 +117,7 @@
     }
     else{
         self.image = image;
-//        _download = nil;
+        _download = nil;
     }
     
 }

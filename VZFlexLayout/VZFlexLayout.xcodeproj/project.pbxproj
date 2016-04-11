@@ -62,6 +62,7 @@
 		45A7D6FE1CB4DEEC00B072D5 /* heartstone.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D6FD1CB4DEEC00B072D5 /* heartstone.jpg */; };
 		45A7D7011CB4E47A00B072D5 /* result1.json in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D6FF1CB4E47A00B072D5 /* result1.json */; };
 		45A7D7021CB4E47A00B072D5 /* result2.json in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D7001CB4E47A00B072D5 /* result2.json */; };
+		45B15A621CBA923D00F408DA /* VZFNodeControllerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A611CBA923D00F408DA /* VZFNodeControllerManager.mm */; };
 		45C9874C1C2D0F2800D17A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874B1C2D0F2800D17A1D /* main.m */; };
 		45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874E1C2D0F2800D17A1D /* AppDelegate.mm */; };
 		45C987551C2D0F2800D17A1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987531C2D0F2800D17A1D /* Main.storyboard */; };
@@ -187,6 +188,8 @@
 		45A7D6FD1CB4DEEC00B072D5 /* heartstone.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = heartstone.jpg; sourceTree = "<group>"; };
 		45A7D6FF1CB4E47A00B072D5 /* result1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result1.json; sourceTree = "<group>"; };
 		45A7D7001CB4E47A00B072D5 /* result2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result2.json; sourceTree = "<group>"; };
+		45B15A601CBA923D00F408DA /* VZFNodeControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeControllerManager.h; sourceTree = "<group>"; };
+		45B15A611CBA923D00F408DA /* VZFNodeControllerManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeControllerManager.mm; sourceTree = "<group>"; };
 		45C987471C2D0F2800D17A1D /* VZFlexLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZFlexLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C9874B1C2D0F2800D17A1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C9874D1C2D0F2800D17A1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -301,6 +304,8 @@
 				45CA3AB11C81A4EC00DA04C1 /* VZFUtils.h */,
 				B1CB0BBF1C840B2700A9CAE7 /* VZFActionWrapper.h */,
 				B1CB0BC01C840B2700A9CAE7 /* VZFActionWrapper.mm */,
+				45B15A601CBA923D00F408DA /* VZFNodeControllerManager.h */,
+				45B15A611CBA923D00F408DA /* VZFNodeControllerManager.mm */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -670,6 +675,7 @@
 				4578E0F31C756D3400E52B79 /* VZFButtonNodeSpecs.mm in Sources */,
 				4578E0CF1C72F1CC00E52B79 /* VZFNodeViewManager.mm in Sources */,
 				45A7D6AC1CB4D99300B072D5 /* VZFValue.mm in Sources */,
+				45B15A621CBA923D00F408DA /* VZFNodeControllerManager.mm in Sources */,
 				E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */,
 				45CA3A8E1C80233E00DA04C1 /* VZFScopeFrame.mm in Sources */,
 				45A7D69F1CB4D97900B072D5 /* VZFlexNode+VZFNode.m in Sources */,

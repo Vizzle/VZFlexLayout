@@ -11,18 +11,12 @@
 #import "VZFNodeInternal.h"
 #import "VZFNodeLayout.h"
 #import "VZFScopeHandler.h"
+#import "VZFlexNode+VZFNode.h"
 
 @implementation VZFCompositeNode
 {
 }
 
-- (NodeSpecs)specs{
-    return _node.specs;
-}
-
-- (ViewClass)viewClass{
-    return _node.viewClass;
-}
 
 - (VZFlexNode* )flexNode{
     return _node.flexNode;
@@ -41,27 +35,19 @@
     VZFCompositeNode* compositeNode = [super newWithView:{} NodeSpecs:{}];
     if (compositeNode) {
         compositeNode -> _node = node;
-        
-        //建立responder chain
-        node.superNode = compositeNode;
-        
-        //关联一个boxed node
-        node.boxedNode = compositeNode;
-    
-        
-    
+
     }
     return compositeNode;
 }
 
 /**
- *  直接返回里面的node，composite node不参与node🌲的构建
+ * @discussion: Composite Node同样参与Node🌲的构建
  */
 - (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz{
 
-    return [_node computeLayoutThatFits:sz];
-//    VZFNodeLayout layout = [_node computeLayoutThatFits:sz];
-//    return {self,layout.size,layout.origin,layout.margin,*layout.children};
+//    return [_node computeLayoutThatFits:sz];
+    VZFNodeLayout layout = [_node computeLayoutThatFits:sz];
+    return {self,layout.size,layout.origin,layout.margin, {{_node,layout.size,layout.origin,layout.margin,*layout.children}}};
 }
 
 @end

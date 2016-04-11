@@ -39,14 +39,14 @@
     } Children:{
         { [FBClickNode newWithImage:isLike?[UIImage imageNamed:@"comment_liked"]:[UIImage imageNamed:@"comment_like"]
                                Text:item.likeCount
-                             StateAction:@selector(onLikeClicked:)
-                        ControllerAction:@selector(onLiked:)]},
+                             Action:@selector(onLikeClicked:)]
+           },
         
         
         { [FBClickNode newWithImage:isRewarded?[UIImage imageNamed:@"comment_rewarded"]:[UIImage imageNamed:@"comment_reward"]
                                Text:item.rewardCount
-                             StateAction:@selector(onRewardClicked:)
-                   ControllerAction:@selector(onReward:)]},
+                             Action:@selector(onRewardClicked:)]
+        },
     }];
     
     return  [super newWithNode:actions];

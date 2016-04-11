@@ -49,7 +49,7 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
     struct MountItem{
         const VZFNodeLayout& layout;
         MountContext context;
-        VZFNode* superNode; //@discussion:和实际的responder chain的super node并不一致
+        VZFNode* superNode; 
         BOOL isVisited;
     };
     
@@ -62,7 +62,7 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
     
     //2.1, 创建rootContext
     MountContext rootContext = MountContext::RootContext(container);
-    rootContext.position = layout.origin;
+    //rootContext.position = layout.origin;
 
     //2.2, 创建一个stack用来循环mount每个node
     std::stack<MountItem> stack = {};
@@ -84,6 +84,7 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
             
             //创建一个mark
             item.isVisited = YES;
+            
 
             if(item.layout.node == nil){
                 continue;
@@ -92,12 +93,16 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
             //will mount
             [item.layout.node willMount];
             
+            NSLog(@"<Context:%@>",NSStringFromCGPoint(item.context.position));
+            
             //加载node，创建backing view
             MountResult mountResult = [item.layout.node mountInContext:item.context
                                                                   Size:item.layout.size
                                                             ParentNode:item.superNode];
             [mountedNodes addObject:item.layout.node];
             
+            NSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
+        
             if (mountResult.hasChildren) {
                 
                 /**
@@ -109,11 +114,12 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
                  */
                 
                 for(auto reverseItor = item.layout.children->rbegin(); reverseItor != item.layout.children->rend(); reverseItor ++){
-                
-                    stack.push({*reverseItor,
-                                mountResult.childContext.rootOffset((*reverseItor).origin, item.layout.size, (*reverseItor).size),
-                                item.layout.node,
-                                NO});
+                    
+                    stack.push(
+                        {*reverseItor,
+                        mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size, (*reverseItor).size),
+                        item.layout.node,
+                        NO});
                 }
             }
             

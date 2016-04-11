@@ -41,10 +41,8 @@ using namespace VZ;
  *  node的父节点
  */
 @property(nonatomic,weak)VZFNode* superNode;
-/**
- *  boxed node
- */
-@property(nonatomic,weak)VZFNode* boxedNode;
+
+//@property(nonatomic,weak)UIView* backingView;
 /**
  *  root view
  */

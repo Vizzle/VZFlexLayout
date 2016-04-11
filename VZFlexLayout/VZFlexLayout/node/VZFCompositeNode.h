@@ -16,6 +16,8 @@
 @interface VZFCompositeNode : VZFNode
 
 @property(nonatomic,strong,readonly)VZFNode* node;
+@property(nonatomic,assign,readonly)BOOL childNodeHasBeenMounted;
+
 + (instancetype)newWithNode:(VZFNode* )node;
 
 @end

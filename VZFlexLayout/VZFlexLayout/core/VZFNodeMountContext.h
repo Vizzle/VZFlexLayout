@@ -42,6 +42,11 @@ namespace VZ
                 return MountContext(viewManager,position + p, rootLayout);
             };
             
+            MountContext parentOffset(const CGPoint p, const CGSize parentSize, const CGSize childSize) const{
+            
+                return MountContext(viewManager,p,{});
+            }
+            
             MountContext childContextForSubview(UIView *subview) const {
               
                 Mounting::mountingChildView(subview, viewManager.managedView);

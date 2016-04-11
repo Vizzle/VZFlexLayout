@@ -51,6 +51,8 @@
 
 + (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
     
+//    FBHeaderNode* node = [FBHeaderNode newWithItem:item];
+//    FBContentNode* node = [FBContentNode newWithItem:item];
     FBHostNode* node = [FBHostNode newWithItem:item];
     return node;
 }

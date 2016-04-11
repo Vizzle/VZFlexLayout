@@ -13,7 +13,7 @@
 
 @implementation FBClickNode
 
-+ (instancetype)newWithImage:(UIImage* )img Text:(NSString* )text StateAction:(SEL)action1 ControllerAction:(SEL)action2{
++ (instancetype)newWithImage:(UIImage* )img Text:(NSString* )text Action:(SEL)action{
 
 
     VZFButtonNode* btnNode=[VZFButtonNode newWithNodeSpecs:{
@@ -24,7 +24,7 @@
         
     } ButtonAttributes:{
         .image = img,
-        .action = {{UIControlEventTouchUpInside,action2},{UIControlEventTouchUpInside,action1}}
+        .action = action
     }];
     VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
         .text = text,

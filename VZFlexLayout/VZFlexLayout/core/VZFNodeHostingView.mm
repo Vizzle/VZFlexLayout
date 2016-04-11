@@ -115,7 +115,7 @@ struct VZFNodeHostingViewOutputs{
         _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
                                                                   InContainer:self
                                                             WithPreviousNodes:_mountedNodes
-                                                                 AndSuperNode:_nodeToMount];
+                                                                 AndSuperNode:nil];
         
         CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
         NSLog(@"node 加载:%.4f",t2-t1);
