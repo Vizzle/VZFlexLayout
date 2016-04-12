@@ -42,7 +42,7 @@ namespace VZ
                 return MountContext(viewManager,position + p, rootLayout);
             };
             
-            MountContext parentOffset(const CGPoint p, const CGSize parentSize, const CGSize childSize) const{
+            MountContext parentOffset(const CGPoint p, const CGSize parentSize) const{
             
                 return MountContext(viewManager,p,{});
             }

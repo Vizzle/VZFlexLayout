@@ -143,6 +143,7 @@ using namespace VZ::UIKit;
             [self _recycleMountedView];
             [view.node unmount];
             view.node = self;
+
             //apply attributes
             [VZFNodeAttributeApplicator applyNodeAttributes:self toView:view];
             [self.controller node:self didAquireBackingView:view];

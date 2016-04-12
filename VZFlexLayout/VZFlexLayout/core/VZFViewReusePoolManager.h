@@ -13,10 +13,12 @@
  *  管理每个view的ReusePool
  */
 using namespace VZ;
+@class VZFNode;
 @interface VZFViewReusePoolManager : NSObject
 
 + (VZFViewReusePoolManager* )viewReusePoolManagerForView:(UIView* )view;
 
+- (UIView* )viewForNode:(VZFNode* )node ParentView:(UIView* )container;
 - (UIView* )viewForClass:(const ViewClass&) viewclass Spec:(const NodeSpecs&)spec ParentView:(UIView* )container;
 - (void)reset:(UIView* )containerView;
 

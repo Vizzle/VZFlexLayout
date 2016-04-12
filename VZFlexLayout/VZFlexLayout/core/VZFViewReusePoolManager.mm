@@ -11,7 +11,8 @@
 #import "VZFNodeViewManager.h"
 #import "VZFViewReusePool.h"
 #import "VZFMacros.h"
-#import <UIKit/UIKit.h>
+#import "VZFNode.h"
+#import "VZFNodeInternal.h"
 #import <objc/runtime.h>
 #import <vector>
 
@@ -19,7 +20,7 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
 @implementation VZFViewReusePoolManager
 {
     NSMutableDictionary<NSString*, VZFViewReusePool* >* _reusePoolMap; //<ViewKey, ReusePool>
-    std::vector<UIView* > _existedViews; //moxin.xt: using vector to boost performance
+    std::vector<UIView* > _existedViews; //using vector to boost performance
 }
 + (VZFViewReusePoolManager* )viewReusePoolManagerForView:(UIView* )view{
     
@@ -74,6 +75,23 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
         ++nextExistingViewPos;
     }
     _existedViews.clear();
+}
+
+- (UIView* )viewForNode:(VZFNode* )node ParentView:(UIView* )container{
+    if (!node.viewClass.hasView()) {
+        return nil;
+    }
+    
+    NSString* viewKey = [NSStringFromClass(node.class) stringByAppendingString:[[NSString alloc] initWithUTF8String:node.viewClass.identifier().c_str()]];
+    VZFViewReusePool* reusePool = _reusePoolMap[viewKey];
+    if (!reusePool) {
+        reusePool = [[VZFViewReusePool alloc]init];
+        _reusePoolMap[viewKey] = reusePool;
+    }
+    UIView* v = [reusePool viewForClass:node.viewClass ParentView:container];
+    _existedViews.push_back(v);
+    
+    return v;
 }
 
 - (UIView* )viewForClass:(const ViewClass&) viewclass Spec:(const NodeSpecs&)spec ParentView:(UIView* )container{

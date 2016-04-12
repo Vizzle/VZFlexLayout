@@ -57,21 +57,21 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
     //1, 绑定root hosting view
     layout.node.rootNodeView = container;
     
-    //保存计算结果
+    //保存mount出来的nodes
     NSMutableSet* mountedNodes = [NSMutableSet set];
     
     //2.1, 创建rootContext
     MountContext rootContext = MountContext::RootContext(container);
     //rootContext.position = layout.origin;
 
-    //2.2, 创建一个stack用来循环mount每个node
+    //2.2, 创建一个stack用来递归
     std::stack<MountItem> stack = {};
     stack.push({layout,rootContext,superNode,NO});
   
     //2.3, 每个节点深度优先遍历
     while (!stack.empty()) {
         
-        //取引用，因为要改变它的状态
+        //这里面取引用，因为要改变它的状态
         MountItem& item = stack.top();
         if(item.isVisited){
            
@@ -93,8 +93,6 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
             //will mount
             [item.layout.node willMount];
             
-            NSLog(@"<Context:%@>",NSStringFromCGPoint(item.context.position));
-            
             //加载node，创建backing view
             MountResult mountResult = [item.layout.node mountInContext:item.context
                                                                   Size:item.layout.size
@@ -106,9 +104,9 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
             if (mountResult.hasChildren) {
                 
                 /**
-                 *  moxin.xt:两点:
+                 *  @discussion：注意两点:
                  *
-                 *  1, 理论上使用FlexNode layout出来的 layout🌲和应该和FNode🌲应该严格一一对应
+                 *  1, 理论上使用FlexNode layout出来的 node🌲和应该和FNode🌲严格一一对应
                  *
                  *  2, 使用反向迭代器，保证最底部的FNode先被mount
                  */
@@ -117,7 +115,7 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
                     
                     stack.push(
                         {*reverseItor,
-                        mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size, (*reverseItor).size),
+                        mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size),
                         item.layout.node,
                         NO});
                 }
