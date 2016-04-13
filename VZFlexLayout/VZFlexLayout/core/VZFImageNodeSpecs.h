@@ -29,5 +29,3 @@ namespace VZ {
     };
 
 }
-
-typedef VZ::ImageNodeSpecs VZImageSpecs;

@@ -21,6 +21,8 @@
 #import "VZFNodeMountContext.h"
 #import "VZFNodeControllerInternal.h"
 #import "VZFNodeAttributeApplicator.h"
+#import "VZFNodeSpecs.h"
+#import "VZFNodeViewClass.h"
 
 struct VZFNodeMountedInfo{
     
@@ -29,6 +31,8 @@ struct VZFNodeMountedInfo{
     CGRect mountedFrame;
 };
 
+
+using namespace VZ;
 using namespace VZ::UIKit;
 
 @implementation VZFNode
@@ -41,9 +45,9 @@ using namespace VZ::UIKit;
     return nil;
 }
 
-+ (instancetype)newWithView:(ViewClass &&)viewclass NodeSpecs:(const NodeSpecs &)specs{
++ (instancetype)newWithView:(const ViewClass &)viewclass NodeSpecs:(const NodeSpecs &)specs{
 
-    return [[self alloc] initWithView: std::move(viewclass) Specs:specs];
+    return [[self alloc] initWithView: viewclass Specs:specs];
 }
 
 + (instancetype)new
@@ -51,7 +55,7 @@ using namespace VZ::UIKit;
     return [self newWithView:[UIView class] NodeSpecs:{}];
 }
 
-- (instancetype)initWithView:(ViewClass&& )viewclass Specs:(const NodeSpecs& )specs{
+- (instancetype)initWithView:(const ViewClass& )viewclass Specs:(const NodeSpecs& )specs{
     self = [super init];
     if (self) {
         
@@ -83,10 +87,10 @@ using namespace VZ::UIKit;
 }
 
 
-- (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz{
+- (NodeLayout)computeLayoutThatFits:(CGSize)sz{
     
     [_flexNode layout:sz];
-    VZFNodeLayout layout = { self,
+    NodeLayout layout = { self,
                              _flexNode.resultFrame.size,
                              _flexNode.resultFrame.origin,
                              _flexNode.resultMargin};

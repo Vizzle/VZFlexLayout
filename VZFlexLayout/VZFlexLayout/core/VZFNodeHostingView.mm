@@ -16,6 +16,8 @@
 #import "VZFNodeLayout.h"
 #import "VZFNodeLayoutManager.h"
 
+using namespace VZ;
+
 struct VZFNodeHostingViewInputs{
     VZFRootScope* rootScope;
     id model;
@@ -33,7 +35,7 @@ struct VZFNodeHostingViewInputs{
 
 struct VZFNodeHostingViewOutputs{
     
-    VZFNodeLayout mountedLayout;
+    NodeLayout mountedLayout;
     NSSet* mountedNodes;
     VZFNode* mountedNode;
 };
@@ -46,7 +48,7 @@ struct VZFNodeHostingViewOutputs{
     VZFNodeHostingViewInputs _pendingInputs;
 
     NSSet<VZFNode* >* _mountedNodes;
-    VZFNodeLayout _mountedLayout;
+    NodeLayout _mountedLayout;
     BOOL _isSynchronouslyUpdating;
     BOOL _isAsynchronouslyUpdatingScheduled;
     BOOL _shouldUpdate;

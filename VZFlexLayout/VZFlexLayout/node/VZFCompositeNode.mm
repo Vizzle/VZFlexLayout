@@ -10,9 +10,11 @@
 #import "VZFMacros.h"
 #import "VZFNodeInternal.h"
 #import "VZFNodeLayout.h"
-#import "VZFScopeHandler.h"
-#import "VZFlexNode+VZFNode.h"
+#import "VZFNodeViewClass.h"
+#import "VZFNodeLayout.h"
+#import "VZFNodeSpecs.h"
 
+using namespace VZ;
 @implementation VZFCompositeNode
 {
 }
@@ -22,7 +24,7 @@
     return _node.flexNode;
 }
 
-+ (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
++ (instancetype)newWithView:(const ViewClass &)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 
@@ -31,6 +33,8 @@
     if (!node) {
         return nil;
     }
+    
+
     
     VZFCompositeNode* compositeNode = [super newWithView:{} NodeSpecs:{}];
     if (compositeNode) {
@@ -43,10 +47,10 @@
 /**
  * @discussion: Composite Node同样参与Node🌲的构建
  */
-- (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz{
+- (NodeLayout)computeLayoutThatFits:(CGSize)sz{
 
 //    return [_node computeLayoutThatFits:sz];
-    VZFNodeLayout layout = [_node computeLayoutThatFits:sz];
+    NodeLayout layout = [_node computeLayoutThatFits:sz];
     return {self,layout.size,layout.origin,layout.margin, {{_node,layout.size,layout.origin,layout.margin,*layout.children}}};
 }
 

@@ -10,13 +10,16 @@
 #import "VZFNodeInternal.h"
 #import "VZFlexNode.h"
 #import "VZFMacros.h"
+#import "VZFNodeLayout.h"
+#import "VZFNodeSpecs.h"
+#import "VZFButtonNodeSpecs.h"
 
 @implementation VZFButtonNode
 
 //@synthesize specs = _specs;
 @synthesize buttonSpecs = _buttonSpecs;
 
-+ (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
++ (instancetype)newWithView:(const ViewClass &)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 + (instancetype)newWithNodeSpecs:(const NodeSpecs& )specs ButtonAttributes:(const ButtonNodeSpecs&) buttonSepcs{

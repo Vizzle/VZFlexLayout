@@ -9,12 +9,22 @@
 #ifndef VZFNodeInternal_h
 #define VZFNodeInternal_h
 
+#import <UIKit/UIKit.h>
 #import "VZFNode.h"
-#import "VZFNodeLayout.h"
-#import "VZFNodeViewClass.h"
-#import "VZFNodeSpecs.h"
-#import "VZFNodeMountContext.h"
 
+
+/**
+ *  前项声明
+ */
+namespace VZ {
+    class NodeLayout;
+    class ViewClass;
+    class NodeSpecs;
+    namespace UIKit{
+        class MountContext;
+        class MountResult;
+    }
+}
 
 using namespace VZ;
 
@@ -69,7 +79,7 @@ using namespace VZ;
  *
  *  @return
  */
-- (VZFNodeLayout)computeLayoutThatFits:(CGSize)sz;
+- (NodeLayout)computeLayoutThatFits:(CGSize)sz;
 
 
 

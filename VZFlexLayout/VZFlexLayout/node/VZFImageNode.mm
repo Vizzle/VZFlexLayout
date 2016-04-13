@@ -10,6 +10,8 @@
 #import "VZFNodeInternal.h"
 #import "VZFlexNode.h"
 #import "VZFMacros.h"
+#import "VZFImageNodeSpecs.h"
+#import "VZFNodeSpecs.h"
 
 
 
@@ -20,7 +22,7 @@
 
 }
 
-+ (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
++ (instancetype)newWithView:(const ViewClass &)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 

@@ -7,8 +7,14 @@
 //
 
 #import "VZFLineNode.h"
+#import "VZFMacros.h"
+#import "VZFNodeSpecs.h"
 
 @implementation VZFLineNode
+
++ (instancetype)newWithView:(const ViewClass &)viewClass NodeSpecs:(const NodeSpecs &)specs{
+    VZ_NOT_DESIGNATED_INITIALIZER();
+}
 
 + (instancetype)lineNode {
     return [self lineNodeWithColor:[UIColor colorWithWhite:0xDD/255.f alpha:1]];
@@ -31,12 +37,12 @@
         },
         .flex = {
             .flexShrink = 0,
-            .flexBasis = thickness,
+            .flexBasis = vzf_dim(thickness),
             .alignSelf = VZFlexStretch,
-            .marginLeft = margin.left,
-            .marginTop = margin.top,
-            .marginRight = margin.right,
-            .marginBottom = margin.bottom,
+            .marginLeft = vzf_dim(margin.left),
+            .marginTop = vzf_dim(margin.top),
+            .marginRight = vzf_dim(margin.right),
+            .marginBottom = vzf_dim(margin.bottom),
         }
     }];
 }

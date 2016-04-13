@@ -6,9 +6,13 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "VZFNodeSpecs.h"
-#import "VZFNodeViewClass.h"
+#import <UIKit/UIKit.h>
+
+
+namespace VZ {
+    class ViewClass;
+    class NodeSpecs;
+}
 
 using namespace VZ;
 @interface VZFNode : NSObject
@@ -20,7 +24,7 @@ using namespace VZ;
  *  @param specs     specification of the node
  * 
  */
-+(instancetype)newWithView:(ViewClass &&)viewClass
++(instancetype)newWithView:(const ViewClass &)viewClass
                  NodeSpecs:(const NodeSpecs& )specs;
 /**
  *  nextResponder of Node

@@ -7,6 +7,8 @@
 //
 
 #import "FBStarNode.h"
+#import "VZFNodeViewClass.h"
+#import "VZFNodeSpecs.h"
 #import "FBO2OStarView.h"
 
 
@@ -28,7 +30,7 @@
     },@"O2OStarView"} NodeSpecs:{
     
         .flex = {
-            .width = 100,
+            .width = vzf_dim(100),
             .height = 20
         }
     }];

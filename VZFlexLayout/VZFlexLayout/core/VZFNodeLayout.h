@@ -53,5 +53,4 @@ namespace VZ {
 
 }
 
-typedef VZ::NodeLayout VZFNodeLayout;
 

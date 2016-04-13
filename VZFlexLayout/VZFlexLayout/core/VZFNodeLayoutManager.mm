@@ -13,6 +13,7 @@
 #import "VZFNodeMountContext.h"
 #import <stack>
 
+using namespace VZ;
 using namespace VZ::UIKit;
 @implementation VZFNodeLayoutManager{
 
@@ -41,13 +42,13 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
     return self;
 }
 
-- (NSSet<VZFNode* >* )layoutRootNode:(const VZFNodeLayout& )layout InContainer:(UIView* )container WithPreviousNodes:(NSSet<VZFNode* >* )previousNodes AndSuperNode:(VZFNode* )superNode{
+- (NSSet<VZFNode* >* )layoutRootNode:(const NodeLayout& )layout InContainer:(UIView* )container WithPreviousNodes:(NSSet<VZFNode* >* )previousNodes AndSuperNode:(VZFNode* )superNode{
 
     //0, 计算出Root Node的layout
 //    VZFNodeLayout layout = [rootNode computeLayoutThatFits:sz];
     
     struct MountItem{
-        const VZFNodeLayout& layout;
+        const NodeLayout& layout;
         MountContext context;
         VZFNode* superNode; 
         BOOL isVisited;

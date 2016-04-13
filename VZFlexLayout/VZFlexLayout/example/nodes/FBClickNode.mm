@@ -10,6 +10,9 @@
 #import "VZFButtonNode.h"
 #import "VZFTextNode.h"
 #import "VZFStackNode.h"
+#import "VZFNodeSpecs.h"
+#import "VZFTextNodeSpecs.h"
+#import "VZFButtonNodeSpecs.h"
 
 @implementation FBClickNode
 

@@ -7,14 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VZFNodeLayout.h"
+
+namespace VZ {
+    class NodeLayout;
+}
+using namespace VZ;
 
 @class VZFNode;
 @interface VZFNodeLayoutManager : NSObject
 
 + (instancetype)sharedInstance;
 
-- (NSSet<VZFNode*>* )layoutRootNode:(const VZFNodeLayout& )layout
+- (NSSet<VZFNode*>* )layoutRootNode:(const NodeLayout& )layout
                         InContainer:(UIView* )container
                   WithPreviousNodes:(NSSet<VZFNode* >* )previousNodes
                        AndSuperNode:(VZFNode* )superNode;

@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "VZFNodeViewClass.h"
 
+
+
+namespace VZ {
+    class ViewClass;
+}
+using namespace VZ;
 @interface VZFViewReusePool : NSObject
 
 /**
@@ -19,7 +24,7 @@
  *
  *  @return view对象
  */
-- (UIView* )viewForClass:(const VZ::ViewClass&)viewClass ParentView:(UIView* )container;
+- (UIView* )viewForClass:(const ViewClass&)viewClass ParentView:(UIView* )container;
 - (void)reset;
 
 @end

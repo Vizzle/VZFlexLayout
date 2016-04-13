@@ -118,4 +118,3 @@ namespace VZ {
     };
 }
 
-typedef VZ::TextNodeSpecs VZTextSpecs;

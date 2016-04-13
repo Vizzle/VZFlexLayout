@@ -11,13 +11,16 @@
 #import "VZFSectionedArray.h"
 #import "VZFNodeInternal.h"
 #import "VZFNodeViewManager.h"
-#import "FBHostItem.h"
+#import "VZFNodeLayout.h"
+//#import "FBHostItem.h"
+
+using namespace VZ;
 
 @interface VZFItem : NSObject
 
 @property (nonatomic, strong) id item;
 @property (nonatomic, strong) VZFNode *node;
-@property (nonatomic) VZFNodeLayout layout;
+@property (nonatomic,assign) NodeLayout layout;
 //@property (nonatomic) 
 
 @end
@@ -53,7 +56,8 @@ static NSString *const kVZFTableViewCellReuseIdentifier = @"kVZFTableViewCellReu
     // wraps items into VZFItem
     changeset.enumerateItems(^id(id item) {
         VZFNode *node = [_nodeProvider nodeForItem:item context:nil];
-        VZFNodeLayout layout = [node computeLayoutThatFits:CGSizeMake(self.tableView.bounds.size.width, FlexInfinite)];
+        NodeLayout layout = [node computeLayoutThatFits:CGSizeMake(self.tableView.bounds.size.width, FlexAuto)];
+
         VZFItem *vzfItem = [[VZFItem alloc] init];
         vzfItem.item = item;
         vzfItem.node = node;
@@ -115,14 +119,14 @@ static NSString *const kVZFTableViewCellReuseIdentifier = @"kVZFTableViewCellReu
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kVZFTableViewCellReuseIdentifier forIndexPath:indexPath];
-//    VZFItem *item = [_sectionedArray itemAtIndexPath:indexPath];
-//    UIView *oldView = cell.contentView.subviews.count > 0 ? cell.contentView.subviews[0] : nil;
-//    UIView *view = [VZFNodeViewManager viewForNode:item.node withLayoutSpec:item.layout reuseView:oldView];
-//    view.frame = {item.layout.origin, view.frame.size};
-//    if (view != oldView) {
-//        [oldView removeFromSuperview];
-//        [cell.contentView addSubview:view];
-//    }
+    VZFItem *item = [_sectionedArray itemAtIndexPath:indexPath];
+    UIView *oldView = cell.contentView.subviews.count > 0 ? cell.contentView.subviews[0] : nil;
+    UIView *view = [VZFNodeViewManager viewForNode:item.node withLayoutSpec:item.layout reuseView:oldView];
+    view.frame = {item.layout.origin, view.frame.size};
+    if (view != oldView) {
+        [oldView removeFromSuperview];
+        [cell.contentView addSubview:view];
+    }
     
     return cell;
 }
@@ -140,8 +144,8 @@ static NSString *const kVZFTableViewCellReuseIdentifier = @"kVZFTableViewCellReu
             NSString* path = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"result%d", (rand()%2)+1] ofType:@"json"];
             NSData* data = [NSData dataWithContentsOfFile:path];
             NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONWritingPrettyPrinted error:nil];
-            FBHostItem* item = [FBHostItem newWithJSON:json];
-            changeset.insertItem({0, numberOfItems++}, item);
+//            FBHostItem* item = [FBHostItem newWithJSON:json];
+//            changeset.insertItem({0, numberOfItems++}, item);
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{

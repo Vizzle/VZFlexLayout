@@ -8,11 +8,12 @@
 
 #import "VZFScopeFrame.h"
 #import "VZFScopeHandler.h"
+#import "VZFRootScope.h"
 #include <unordered_map>
 #include <string>
 #import "VZFUtils.h"
 
-
+using namespace VZ;
 @implementation VZFScopeFrame{
     NSMutableDictionary* _children;
 }
@@ -27,7 +28,7 @@
     }
     return self;
 }
-+ (VZScopeFramePair)scopeFramePair:(const VZScopeFramePair& )pair
++ (ScopeFramePair)scopeFramePair:(const ScopeFramePair& )pair
                               NewRoot:(VZFRootScope* )newRoot
                             NodeClass:(Class )nodeClz
                            Identifier:(id)identifier

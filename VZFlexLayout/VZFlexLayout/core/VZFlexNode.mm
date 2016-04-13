@@ -8,6 +8,9 @@
 
 #import "VZFlexNode.h"
 #import "FlexLayout.h"
+#import "VZFLength.h"
+#import "VZFlexNode+VZFNode.h"      // 暂时 import 进来，后面直接代码放进来
+#import "VZFNode.h"
 
 
 NSString *vz_boolToNSString(BOOL value) {
@@ -31,14 +34,8 @@ NSString *vz_floatToNSString(CGFloat value) {
     if (value == FlexAuto) {
         return @"auto";
     }
-    else if (value == FlexContent) {
-        return @"content";
-    }
     else if (value == FlexUndefined) {
         return @"undefined";
-    }
-    else if (value == FlexInfinite) {
-        return @"infinite";
     }
     
     NSString *s = [NSString stringWithFormat:@"%f", value];
@@ -50,6 +47,36 @@ NSString *vz_floatToNSString(CGFloat value) {
     }
     if (i >= 0 && [s characterAtIndex:i] == '.') i--;
     return [s substringToIndex:i + 1];
+}
+
+NSString *vz_FlexLengthToNSString(FlexLength length) {
+    if (length.value == FlexAuto) {
+        return @"auto";
+    }
+    else if (length.value == FlexUndefined) {
+        return @"undefined";
+    }
+    else {
+        NSString *number = vz_floatToNSString(length.value);
+        NSString *suffix = length.type == FlexLengthTypePercent ? @"%"
+                            : length.type == FlexLengthTypePx ? @"px"
+                            : length.type == FlexLengthTypeCm ? @"cm"
+                            : length.type == FlexLengthTypeMm ? @"mm"
+                            : length.type == FlexLengthTypeCm ? @"cm"
+                            : length.type == FlexLengthTypeQ ? @"q"
+                            : length.type == FlexLengthTypeIn ? @"in"
+                            : length.type == FlexLengthTypePc ? @"pc"
+                            : length.type == FlexLengthTypePt ? @"pt"
+                            : length.type == FlexLengthTypeEm ? @"em"
+//                            : length.type == FlexLengthTypeEx ? @"ex"
+//                            : length.type == FlexLengthTypeCh ? @"ch"
+//                            : length.type == FlexLengthTypeRem ? @"rem"
+                            : length.type == FlexLengthTypeVw ? @"vw"
+                            : length.type == FlexLengthTypeVh ? @"vh"
+                            : length.type == FlexLengthTypeVmin ? @"vmin"
+                            : length.type == FlexLengthTypeVmax ? @"vmax" : @"";
+        return [number stringByAppendingString:suffix];
+    }
 }
 
 NSString *vz_alignToNSString(FlexAlign align) {
@@ -78,6 +105,58 @@ VZFlexNode *vz_defaultVZFlexNode() {
         node = [[VZFlexNode alloc] init];
     });
     return node;
+}
+
+extern "C" {
+    
+    extern bool flex_isAbsolute(FlexLength length);
+    
+    float flex_absoluteValue(FlexLength length, FlexNode* node) {
+        NSCAssert(flex_isAbsolute(length), @"absolute value requested!");
+        VZFlexNode *vzNode = (__bridge VZFlexNode *)node->context;
+        
+        switch (length.type) {
+            case FlexLengthTypePx:
+                return length.value / [UIScreen mainScreen].scale;
+            case FlexLengthTypeCm:
+                return length.value * 96 / 2.54;
+            case FlexLengthTypeMm:
+                return length.value * 96 / 2.54 / 10;
+            case FlexLengthTypeQ:
+                return length.value * 96 / 2.54 / 40;
+            case FlexLengthTypeIn:
+                return length.value * 96;
+            case FlexLengthTypePc:
+                return length.value * 96 / 6;
+            case FlexLengthTypePt:
+                return length.value * 96 / 72;
+            case FlexLengthTypeEm:
+            {
+                VZFNode *fNode = vzNode.fNode;
+#warning FIXME  这里 font 取不到
+                UIFont *font = [fNode respondsToSelector:@selector(font)] ? [(id)fNode font] : nil;
+                if (!font || ![font isKindOfClass:[UIFont class]]) {
+                    font = [UIFont systemFontOfSize:17];
+                }
+                return length.value * font.pointSize;
+            }
+//            case FlexLengthTypeEx:
+//            case FlexLengthTypeCh:
+//            case FlexLengthTypeRem:
+            case FlexLengthTypeVw:
+                return length.value / 100 * [UIScreen mainScreen].bounds.size.width;
+            case FlexLengthTypeVh:
+                return length.value / 100 * [UIScreen mainScreen].bounds.size.height;
+            case FlexLengthTypeVmin:
+                return length.value / 100 * MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+            case FlexLengthTypeVmax:
+                return length.value / 100 * MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+            case FlexLengthTypeDefault:
+            default:
+                return length.value;
+        }
+    }
+    
 }
 
 
@@ -167,11 +246,11 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     return _flex_node->justifyContent;
 }
 
-- (void)setFlexBasis:(CGFloat)flexBasis {
+- (void)setFlexBasis:(FlexLength)flexBasis {
     _flex_node->flexBasis = flexBasis;
 }
 
-- (CGFloat)flexBasis {
+- (FlexLength)flexBasis {
     return _flex_node->flexBasis;
 }
 
@@ -207,138 +286,138 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     return _flex_node->lineSpacing;
 }
 
-- (void)setWidth:(CGFloat)width {
+- (void)setWidth:(FlexLength)width {
     _flex_node->size[FLEX_WIDTH] = width;
 }
 
-- (CGFloat)width {
+- (FlexLength)width {
     return _flex_node->size[FLEX_WIDTH];
 }
 
-- (void)setHeight:(CGFloat)height {
+- (void)setHeight:(FlexLength)height {
     _flex_node->size[FLEX_HEIGHT] = height;
 }
 
-- (CGFloat)height {
+- (FlexLength)height {
     return _flex_node->size[FLEX_HEIGHT];
 }
 
-- (void)setMinWidth:(CGFloat)minWidth {
+- (void)setMinWidth:(FlexLength)minWidth {
     _flex_node->minSize[FLEX_WIDTH] = minWidth;
 }
 
-- (CGFloat)minWidth {
+- (FlexLength)minWidth {
     return _flex_node->minSize[FLEX_WIDTH];
 }
 
-- (void)setMinHeight:(CGFloat)minHeight {
+- (void)setMinHeight:(FlexLength)minHeight {
     _flex_node->minSize[FLEX_HEIGHT] = minHeight;
 }
 
-- (CGFloat)minHeight {
+- (FlexLength)minHeight {
     return _flex_node->minSize[FLEX_HEIGHT];
 }
 
-- (void)setMaxWidth:(CGFloat)maxWidth {
+- (void)setMaxWidth:(FlexLength)maxWidth {
     _flex_node->maxSize[FLEX_WIDTH] = maxWidth;
 }
 
-- (CGFloat)maxWidth {
+- (FlexLength)maxWidth {
     return _flex_node->maxSize[FLEX_WIDTH];
 }
 
-- (void)setMaxHeight:(CGFloat)maxHeight {
+- (void)setMaxHeight:(FlexLength)maxHeight {
     _flex_node->maxSize[FLEX_HEIGHT] = maxHeight;
 }
 
-- (CGFloat)maxHeight {
+- (FlexLength)maxHeight {
     return _flex_node->maxSize[FLEX_HEIGHT];
 }
 
-- (void)setMarginTop:(CGFloat)marginTop {
+- (void)setMarginTop:(FlexLength)marginTop {
     _flex_node->margin[FLEX_TOP] = marginTop;
 }
 
-- (CGFloat)marginTop {
+- (FlexLength)marginTop {
     return _flex_node->margin[FLEX_TOP];
 }
 
-- (void)setMarginLeft:(CGFloat)marginLeft {
+- (void)setMarginLeft:(FlexLength)marginLeft {
     _flex_node->margin[FLEX_LEFT] = marginLeft;
 }
 
-- (CGFloat)marginLeft {
+- (FlexLength)marginLeft {
     return _flex_node->margin[FLEX_LEFT];
 }
 
-- (void)setMarginBottom:(CGFloat)marginBottom {
+- (void)setMarginBottom:(FlexLength)marginBottom {
     _flex_node->margin[FLEX_BOTTOM] = marginBottom;
 }
 
-- (CGFloat)marginBottom {
+- (FlexLength)marginBottom {
     return _flex_node->margin[FLEX_BOTTOM];
 }
 
-- (void)setMarginRight:(CGFloat)marginRight {
+- (void)setMarginRight:(FlexLength)marginRight {
     _flex_node->margin[FLEX_RIGHT] = marginRight;
 }
 
-- (CGFloat)marginRight {
+- (FlexLength)marginRight {
     return _flex_node->margin[FLEX_RIGHT];
 }
 
-- (void)setMargin:(CGFloat)margin {
+- (void)setMargin:(FlexLength)margin {
     self.marginTop = margin;
     self.marginLeft = margin;
     self.marginBottom = margin;
     self.marginRight = margin;
 }
 
-- (CGFloat)margin {
+- (FlexLength)margin {
     NSAssert(false, @"");
     return self.marginTop;
 }
 
-- (void)setPaddingTop:(CGFloat)paddingTop {
+- (void)setPaddingTop:(FlexLength)paddingTop {
     _flex_node->padding[FLEX_TOP] = paddingTop;
 }
 
-- (CGFloat)paddingTop {
+- (FlexLength)paddingTop {
     return _flex_node->padding[FLEX_TOP];
 }
 
-- (void)setPaddingLeft:(CGFloat)paddingLeft {
+- (void)setPaddingLeft:(FlexLength)paddingLeft {
     _flex_node->padding[FLEX_LEFT] = paddingLeft;
 }
 
-- (CGFloat)paddingLeft {
+- (FlexLength)paddingLeft {
     return _flex_node->padding[FLEX_LEFT];
 }
 
-- (void)setPaddingBottom:(CGFloat)paddingBottom {
+- (void)setPaddingBottom:(FlexLength)paddingBottom {
     _flex_node->padding[FLEX_BOTTOM] = paddingBottom;
 }
 
-- (CGFloat)paddingBottom {
+- (FlexLength)paddingBottom {
     return _flex_node->padding[FLEX_BOTTOM];
 }
 
-- (void)setPaddingRight:(CGFloat)paddingRight {
+- (void)setPaddingRight:(FlexLength)paddingRight {
     _flex_node->padding[FLEX_RIGHT] = paddingRight;
 }
 
-- (CGFloat)paddingRight {
+- (FlexLength)paddingRight {
     return _flex_node->padding[FLEX_RIGHT];
 }
 
-- (void)setPadding:(CGFloat)padding {
+- (void)setPadding:(FlexLength)padding {
     self.paddingTop = padding;
     self.paddingLeft = padding;
     self.paddingBottom = padding;
     self.paddingRight = padding;
 }
 
-- (CGFloat)padding {
+- (FlexLength)padding {
     NSAssert(false, @"");
     return self.paddingTop;
 }
@@ -452,30 +531,30 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     PRINT_PROP(alignSelf, align);
     PRINT_PROP(alignContent, align);
     PRINT_PROP(justifyContent, align);
-    PRINT_PROP(flexBasis, float);
+    PRINT_PROP(flexBasis, FlexLength);
     PRINT_PROP(flexGrow, float);
     PRINT_PROP(flexShrink, float);
-    PRINT_PROP(width, float);
-    PRINT_PROP(height, float);
-    PRINT_PROP(minWidth, float);
-    PRINT_PROP(minHeight, float);
-    PRINT_PROP(maxWidth, float);
-    PRINT_PROP(maxHeight, float);
-    PRINT_PROP(marginTop, float);
-    PRINT_PROP(marginLeft, float);
-    PRINT_PROP(marginBottom, float);
-    PRINT_PROP(marginRight, float);
-//    PRINT_PROP(marginStart, float);
-//    PRINT_PROP(marginEnd, float);
-    PRINT_PROP(paddingTop, float);
-    PRINT_PROP(paddingLeft, float);
-    PRINT_PROP(paddingBottom, float);
-    PRINT_PROP(paddingRight, float);
-//    PRINT_PROP(paddingStart, float);
-//    PRINT_PROP(paddingEnd, float);
+    PRINT_PROP(width, FlexLength);
+    PRINT_PROP(height, FlexLength);
+    PRINT_PROP(minWidth, FlexLength);
+    PRINT_PROP(minHeight, FlexLength);
+    PRINT_PROP(maxWidth, FlexLength);
+    PRINT_PROP(maxHeight, FlexLength);
+    PRINT_PROP(marginTop, FlexLength);
+    PRINT_PROP(marginLeft, FlexLength);
+    PRINT_PROP(marginBottom, FlexLength);
+    PRINT_PROP(marginRight, FlexLength);
+//    PRINT_PROP(marginStart, FlexLength);
+//    PRINT_PROP(marginEnd, FlexLength);
+    PRINT_PROP(paddingTop, FlexLength);
+    PRINT_PROP(paddingLeft, FlexLength);
+    PRINT_PROP(paddingBottom, FlexLength);
+    PRINT_PROP(paddingRight, FlexLength);
+//    PRINT_PROP(paddingStart, FlexLength);
+//    PRINT_PROP(paddingEnd, FlexLength);
     PRINT_PROP(spacing, float);
     PRINT_PROP(lineSpacing, float);
-//    PRINT_PROP(borderWidth, float);
+//    PRINT_PROP(borderWidth, FlexLength);
     
 #undef PRINT_PROP
     

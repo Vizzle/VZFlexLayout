@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VZFScope.h"
-#import "VZFNodeController.h"
 #import "VZFScopeManager.h"
 
+@class VZFNodeController;
+@class VZFScopeHandler;
 @class VZFNode;
 /**
  *  每个Node持有一个ScopeHandler，用来管理Node的状态变化

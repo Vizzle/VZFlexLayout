@@ -16,6 +16,11 @@
 #import "VZFTextNode.h"
 #import "VZFNodeSpecs.h"
 #import "VZFNetworkImageView.h"
+#import "VZFTextNodeSpecs.h"
+#import "VZFImageNodeSpecs.h"
+#import "VZFButtonNodeSpecs.h"
+
+
 
 using namespace VZ;
 @implementation VZFNodeAttributeApplicator

@@ -8,6 +8,7 @@
 
 #import "VZFViewReusePool.h"
 #import "VZFUtils.h"
+#import "VZFNodeViewClass.h"
 #include <vector>
 
 @implementation VZFViewReusePool

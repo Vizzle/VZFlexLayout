@@ -7,23 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-
-@protocol VZFStateListener <NSObject>
-
-@optional
-/**
- *  node状态变化通过这个方法通知到HostingView
- *
- *  @param scopeId     发生状态变化的Node对应的ScopeId
- *  @param rootScopeId RootScopeId
- *  @param stateUpdate 更新状态的function
- */
-- (void)nodeScopeHandleWithIdentifier:(id)scopeId
-                            rootIdentifier:(id)rootScopeId
-                didReceiveStateUpdate:(id (^)(id))stateUpdate;
-
-@end
+#import "VZFScopeManager.h"
 
 @class VZFScopeFrame;
 @interface VZFRootScope : NSObject

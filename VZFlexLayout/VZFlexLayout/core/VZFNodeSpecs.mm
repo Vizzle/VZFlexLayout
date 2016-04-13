@@ -9,6 +9,7 @@
 #import "VZFNodeSpecs.h"
 #import "VZFSizeRange.h"
 #import "VZFlexNode.h"
+#import "VZFLength.h"
 
 namespace VZ {
     
@@ -16,25 +17,25 @@ namespace VZ {
     
     namespace DefaultFlexValue{
         
-        float width = FlexAuto;
-        float height = FlexAuto;
-        float maxWidth = FlexInfinite;
-        float maxHeight = FlexInfinite;
-        float minWidth = 0;
-        float minHeight = 0;
-        float marginTop = FlexUndefined;
-        float marginBottom = FlexUndefined;
-        float marginLeft = FlexUndefined;
-        float marginRight= FlexUndefined;
-        float paddingLeft = FlexUndefined;
-        float paddingTop = FlexUndefined;
-        float paddingRight = FlexUndefined;
-        float paddingBottom = FlexUndefined;
-        float margin = 0;
-        float padding = 0;
+        FlexLength width = FlexLengthAuto;
+        FlexLength height = FlexLengthAuto;
+        FlexLength maxWidth = FlexLengthUndefined;
+        FlexLength maxHeight = FlexLengthUndefined;
+        FlexLength minWidth = FlexLengthZero;
+        FlexLength minHeight = FlexLengthZero;
+        FlexLength marginTop = FlexLengthUndefined;
+        FlexLength marginBottom = FlexLengthUndefined;
+        FlexLength marginLeft = FlexLengthUndefined;
+        FlexLength marginRight= FlexLengthUndefined;
+        FlexLength paddingLeft = FlexLengthUndefined;
+        FlexLength paddingTop = FlexLengthUndefined;
+        FlexLength paddingRight = FlexLengthUndefined;
+        FlexLength paddingBottom = FlexLengthUndefined;
+        FlexLength margin = FlexLengthZero;
+        FlexLength padding = FlexLengthZero;
         float flexGrow = 0;
         float flexShrink = 1;
-        float flexBasis = FlexAuto;
+        FlexLength flexBasis = FlexLengthUndefined;
         bool fixed = 0;
         bool wrap = 0;
         int direction = FlexHorizontal;
@@ -65,14 +66,14 @@ namespace VZ {
     node.minWidth           = attrs.minWidth;
     node.maxHeight          = attrs.maxHeight;
     node.minWidth           = attrs.minWidth;
-    node.marginTop          = attrs.marginTop != FlexUndefined ? attrs.marginTop.value : attrs.margin.value;
-    node.marginLeft         = attrs.marginLeft != FlexUndefined ? attrs.marginLeft.value : attrs.margin.value;
-    node.marginRight        = attrs.marginRight != FlexUndefined ? attrs.marginRight.value : attrs.margin.value;
-    node.marginBottom       = attrs.marginBottom != FlexUndefined ? attrs.marginBottom.value : attrs.margin.value;
-    node.paddingTop         = attrs.paddingTop != FlexUndefined ? attrs.paddingTop.value : attrs.padding.value;
-    node.paddingLeft        = attrs.paddingLeft != FlexUndefined ? attrs.paddingLeft.value : attrs.padding.value;
-    node.paddingRight       = attrs.paddingRight != FlexUndefined ? attrs.paddingRight.value : attrs.padding.value;
-    node.paddingBottom      = attrs.paddingBottom != FlexUndefined ? attrs.paddingBottom.value : attrs.padding.value;
+    node.marginTop          = attrs.marginTop != FlexLengthUndefined ? (FlexLength)attrs.marginTop : (FlexLength)attrs.margin;
+    node.marginLeft         = attrs.marginLeft != FlexLengthUndefined ? (FlexLength)attrs.marginLeft : (FlexLength)attrs.margin;
+    node.marginRight        = attrs.marginRight != FlexLengthUndefined ? (FlexLength)attrs.marginRight : (FlexLength)attrs.margin;
+    node.marginBottom       = attrs.marginBottom != FlexLengthUndefined ? (FlexLength)attrs.marginBottom : (FlexLength)attrs.margin;
+    node.paddingTop         = attrs.paddingTop != FlexLengthUndefined ? (FlexLength)attrs.paddingTop : (FlexLength)attrs.padding;
+    node.paddingLeft        = attrs.paddingLeft != FlexLengthUndefined ? (FlexLength)attrs.paddingLeft : (FlexLength)attrs.padding;
+    node.paddingRight       = attrs.paddingRight != FlexLengthUndefined ? (FlexLength)attrs.paddingRight : (FlexLength)attrs.padding;
+    node.paddingBottom      = attrs.paddingBottom != FlexLengthUndefined ? (FlexLength)attrs.paddingBottom : (FlexLength)attrs.padding;
     node.flexGrow           = attrs.flexGrow;
     node.flexShrink         = attrs.flexShrink;
     node.flexBasis          = attrs.flexBasis;

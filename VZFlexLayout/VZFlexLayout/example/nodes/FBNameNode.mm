@@ -9,6 +9,9 @@
 #import "FBNameNode.h"
 #import "VZFStackNode.h"
 #import "VZFTextNode.h"
+#import "VZFNodeViewClass.h"
+#import "VZFNodeSpecs.h"
+#import "VZFTextNodeSpecs.h"
 
 @implementation FBNameNode
 

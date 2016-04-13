@@ -10,6 +10,8 @@
 #import "VZFStackNode.h"
 #import "VZFNetworkImageNode.h"
 #import "FBImageDownloader.h"
+#import "VZFNodeSpecs.h"
+#import "VZFImageNodeSpecs.h"
 #import <vector>
 
 @implementation FBGridImageNode

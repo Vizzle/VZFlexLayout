@@ -9,6 +9,8 @@
 #import "FBIconNode.h"
 #import "VZFNetworkImageNode.h"
 #import "FBImageDownloader.h"
+#import "VZFImageNodeSpecs.h"
+#import "VZFNodeSpecs.h"
 
 @implementation FBIconNode
 

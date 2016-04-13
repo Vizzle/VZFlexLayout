@@ -13,6 +13,8 @@
 #import "VZFMacros.h"
 #import "VZFNode.h"
 #import "VZFNodeInternal.h"
+#import "VZFNodeViewClass.h"
+#import "VZFNodeSpecs.h"
 #import <objc/runtime.h>
 #import <vector>
 

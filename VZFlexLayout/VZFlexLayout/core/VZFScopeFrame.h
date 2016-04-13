@@ -16,8 +16,8 @@ namespace VZ {
         VZFScopeFrame* oldScopeFrame;
     };
 };
-typedef VZ::ScopeFramePair VZScopeFramePair;
 
+using namespace VZ;
 @class VZFScopeHandler;
 @class VZFRootScope;
 @interface VZFScopeFrame : NSObject
@@ -25,7 +25,7 @@ typedef VZ::ScopeFramePair VZScopeFramePair;
 @property(nonatomic,strong,readonly) VZFScopeHandler* handler;
 
 - (id)initWithScopeHandler:(VZFScopeHandler* )scopeHandler;
-+ (VZScopeFramePair)scopeFramePair:(const VZScopeFramePair& )pair
++ (ScopeFramePair)scopeFramePair:(const ScopeFramePair& )pair
                 NewRoot:(VZFRootScope* )newRoot
               NodeClass:(Class )nodeClz
              Identifier:(id)identifier

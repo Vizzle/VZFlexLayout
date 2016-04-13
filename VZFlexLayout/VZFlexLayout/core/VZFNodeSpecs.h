@@ -17,6 +17,7 @@
 #import "VZFNodeViewClass.h"
 #import "VZFValue.h"
 #import "VZFActionWrapper.h"
+#import "VZFLength.h"
 
 using namespace VZ;
 namespace VZ {
@@ -45,31 +46,31 @@ namespace VZ {
         extern CGSize size;
         extern CGSize maxSize;
         extern CGSize minSize;
-        extern float width;
-        extern float height;
-        extern float maxWidth;
-        extern float maxHeight;
-        extern float minWidth;
-        extern float minHeight;
+        extern FlexLength width;
+        extern FlexLength height;
+        extern FlexLength maxWidth;
+        extern FlexLength maxHeight;
+        extern FlexLength minWidth;
+        extern FlexLength minHeight;
         
         //css attributes
-        extern float marginLeft;
-        extern float marginRight;
-        extern float marginTop;
-        extern float marginBottom;
+        extern FlexLength marginLeft;
+        extern FlexLength marginRight;
+        extern FlexLength marginTop;
+        extern FlexLength marginBottom;
         
-        extern float paddingLeft;
-        extern float paddingRight;
-        extern float paddingTop;
-        extern float paddingBottom;
+        extern FlexLength paddingLeft;
+        extern FlexLength paddingRight;
+        extern FlexLength paddingTop;
+        extern FlexLength paddingBottom;
         
-        extern float margin;
-        extern float padding;
+        extern FlexLength margin;
+        extern FlexLength padding;
         
         //flex attributes
         extern float flexGrow;
         extern float flexShrink;
-        extern float flexBasis;
+        extern FlexLength flexBasis;
         extern bool fixed;
         extern bool wrap;
         extern int direction;
@@ -95,29 +96,29 @@ namespace VZ {
 
     struct FlexAttrs{
 
-        Value<float, DefaultFlexValue::width> width;
-        Value<float, DefaultFlexValue::height> height;
-        Value<float, DefaultFlexValue::maxWidth> maxWidth;
-        Value<float, DefaultFlexValue::maxHeight> maxHeight;
-        Value<float, DefaultFlexValue::minWidth> minWidth;
-        Value<float, DefaultFlexValue::minHeight> minHeight;
+        Value<FlexLength, DefaultFlexValue::width> width;
+        Value<FlexLength, DefaultFlexValue::height> height;
+        Value<FlexLength, DefaultFlexValue::maxWidth> maxWidth;
+        Value<FlexLength, DefaultFlexValue::maxHeight> maxHeight;
+        Value<FlexLength, DefaultFlexValue::minWidth> minWidth;
+        Value<FlexLength, DefaultFlexValue::minHeight> minHeight;
         
-        Value<float, DefaultFlexValue::marginLeft> marginLeft;
-        Value<float, DefaultFlexValue::marginRight> marginRight;
-        Value<float, DefaultFlexValue::marginTop> marginTop;
-        Value<float, DefaultFlexValue::marginBottom> marginBottom;
+        Value<FlexLength, DefaultFlexValue::marginLeft> marginLeft;
+        Value<FlexLength, DefaultFlexValue::marginRight> marginRight;
+        Value<FlexLength, DefaultFlexValue::marginTop> marginTop;
+        Value<FlexLength, DefaultFlexValue::marginBottom> marginBottom;
         
-        Value<float, DefaultFlexValue::paddingLeft> paddingLeft;
-        Value<float, DefaultFlexValue::paddingRight> paddingRight;
-        Value<float, DefaultFlexValue::paddingTop> paddingTop;
-        Value<float, DefaultFlexValue::paddingBottom> paddingBottom;
+        Value<FlexLength, DefaultFlexValue::paddingLeft> paddingLeft;
+        Value<FlexLength, DefaultFlexValue::paddingRight> paddingRight;
+        Value<FlexLength, DefaultFlexValue::paddingTop> paddingTop;
+        Value<FlexLength, DefaultFlexValue::paddingBottom> paddingBottom;
         
-        Value<float, DefaultFlexValue::margin> margin;
-        Value<float, DefaultFlexValue::padding> padding;
+        Value<FlexLength, DefaultFlexValue::margin> margin;
+        Value<FlexLength, DefaultFlexValue::padding> padding;
         
         Value<float, DefaultFlexValue::flexGrow> flexGrow;
         Value<float, DefaultFlexValue::flexShrink> flexShrink;
-        Value<float, DefaultFlexValue::flexBasis> flexBasis;
+        Value<FlexLength, DefaultFlexValue::flexBasis> flexBasis;
         Value<int,  DefaultFlexValue::aliginSelf> alignSelf;
         Value<bool, DefaultFlexValue::fixed> fixed;
         Value<bool, DefaultFlexValue::wrap> wrap;
@@ -127,9 +128,6 @@ namespace VZ {
     
     };
     
-//    typedef struct{}ViewNodeSpecs;
-
-    using ViewNodeSpecs = struct{};
     
     template<>
     struct MultiMapKey<Class> {
@@ -142,9 +140,8 @@ namespace VZ {
         return { [GestureType class], action };
     }
     
-    
-    template<typename T>
-    struct UISpecs{
+
+    struct NodeSpecs{
         
         //name
         std::string identifier;
@@ -172,12 +169,9 @@ namespace VZ {
          */
         MultiMap<Class, ActionWrapper> gesture;
         
-        //other type of UISpecs
-        T attrs;
     };
-}
 
-typedef VZ::UISpecs<ViewNodeSpecs> NodeSpecs;
+}
 
 /**
  typedef enum {

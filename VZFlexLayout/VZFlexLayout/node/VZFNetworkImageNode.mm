@@ -11,18 +11,22 @@
 #import "VZFlexNode.h"
 #import "VZFNodeInternal.h"
 #import "VZFNetworkImageView.h"
+#import "VZFNodeViewClass.h"
+#import "VZFNodeLayout.h"
+#import "VZFImageNodeSpecs.h"
 
 @implementation VZFNetworkImageNode
 {
     
 }
-+ (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
++ (instancetype)newWithView:(const ViewClass &)viewClass NodeSpecs:(const NodeSpecs &)specs{
     
     VZ_NOT_DESIGNATED_INITIALIZER();
 
 }
 
 + (instancetype)newWithImageAttributes:(const VZ::ImageNodeSpecs &)imageSpecs NodeSpecs:(const NodeSpecs &)nodeSpecs ImageDownloader:(id<VZFNetworkImageDownloadProtocol>)imagedownloader ImageProcessingBlock:(UIImage *(^)(UIImage *))imageProcessingBlock{
+
     
     VZFNetworkImageNode* networkImageNode = [super newWithView:[VZFNetworkImageView class] NodeSpecs:nodeSpecs];
     

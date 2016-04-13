@@ -7,8 +7,12 @@
 //
 
 #import "VZFNode.h"
-#import "VZFNodeSpecs.h"
-#import "VZFImageNodeSpecs.h"
+
+namespace VZ {
+    class NodeSpecs;
+    class ImageNodeSpecs;
+}
+using namespace VZ;
 
 @interface VZFImageNode : VZFNode
 

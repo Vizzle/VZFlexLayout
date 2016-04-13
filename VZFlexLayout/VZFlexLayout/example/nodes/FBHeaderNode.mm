@@ -14,6 +14,8 @@
 #import "VZFNetworkImageNode.h"
 #import "FBImageDownloader.h"
 #import "FBIconNode.h"
+#import "VZFNodeViewClass.h"
+#import "VZFNodeSpecs.h"
 
 @implementation FBHeaderNode
 

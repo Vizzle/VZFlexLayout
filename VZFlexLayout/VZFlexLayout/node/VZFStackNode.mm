@@ -13,8 +13,10 @@
 #import "VZFNodeInternal.h"
 #import "VZFMacros.h"
 #import "VZFCompositeNode.h"
+#import "VZFNodeLayout.h"
+#import "VZFNodeViewClass.h"
 
-
+using namespace VZ;
 @implementation VZFStackNode
 {
 
@@ -26,7 +28,7 @@
     return _children;
 }
 
-+ (instancetype)newWithView:(ViewClass &&)viewClass NodeSpecs:(const NodeSpecs &)specs{
++ (instancetype)newWithView:(const ViewClass &)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 + (instancetype)newWithStackSpecs:(const NodeSpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children{
@@ -45,14 +47,14 @@
     return stacknode;
 }
 
-- (VZFNodeLayout)computeLayoutThatFits:(CGSize)constrainedSize{
+- (NodeLayout)computeLayoutThatFits:(CGSize)constrainedSize{
     
     //只计算一次
     [self.flexNode layout:constrainedSize];
     
 
     //重写了递归函数@2016/04/11
-    std::function<VZFNodeLayout(VZFNode* )> recursiveCalculateNodeLayoutFunc = [&recursiveCalculateNodeLayoutFunc](VZFNode* fNode) -> VZFNodeLayout{
+    std::function<NodeLayout(VZFNode* )> recursiveCalculateNodeLayoutFunc = [&recursiveCalculateNodeLayoutFunc](VZFNode* fNode) -> NodeLayout{
     
     
         //检查是否是CompositeNode
@@ -92,7 +94,7 @@
                     
                 }else{
                 
-                    std::vector<VZFNodeLayout> result = {};
+                    std::vector<NodeLayout> result = {};
                     for (const auto &child : stackNode.children) {
                         
                         VZFNode* childNode = child.node;
@@ -125,7 +127,7 @@
     
     };
     
-    VZFNodeLayout layout = recursiveCalculateNodeLayoutFunc(self);
+    NodeLayout layout = recursiveCalculateNodeLayoutFunc(self);
     return layout;
 }
 

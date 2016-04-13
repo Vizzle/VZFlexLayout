@@ -7,15 +7,17 @@
 //
 
 #import "VZFNode.h"
-#import "VZFImageNodeSpecs.h"
 #import "VZFNetworkImageDownloadProtocol.h"
 
-
+namespace VZ {
+    class NodeSpecs;
+    class ImageNodeSpecs;
+}
+using namespace VZ;
 @interface VZFNetworkImageNode : VZFNode
 
-//@property(nonatomic,copy,readonly)NSURL* url;
-@property(nonatomic,assign,readonly)VZImageSpecs imageSpecs;
-@property(nonatomic,strong,readonly)id<VZFNetworkImageDownloadProtocol> imageDownloader;
+@property(nonatomic,assign,readonly) ImageNodeSpecs imageSpecs;
+@property(nonatomic,strong,readonly) id<VZFNetworkImageDownloadProtocol> imageDownloader;
 @property(nonatomic, copy, readonly) UIImage*(^imageProcessingBlock)(UIImage* );
 
 + (instancetype)newWithImageAttributes:(const ImageNodeSpecs& )imageSpecs

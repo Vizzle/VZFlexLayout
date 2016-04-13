@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VZFNodeLayout.h"
-#import "VZFNodeViewClass.h"
 
+namespace VZ {
+    class NodeLayout;
+}
+using namespace VZ;
 @class VZFNode;
 @interface VZFNodeViewManager : NSObject
 
@@ -19,6 +21,8 @@
 
 - (UIView* )viewForNode:(VZFNode* )node;
 
+//即将废弃的方法
++ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const NodeLayout&)layout reuseView:(UIView *)oldView;
 
 @end
 

@@ -11,6 +11,7 @@
 #import "FBContentNode.h"
 #import "VZFStackNode.h"
 #import "FBHostItem.h"
+#import "VZFNodeSpecs.h"
 
 @implementation FBHostNode
 

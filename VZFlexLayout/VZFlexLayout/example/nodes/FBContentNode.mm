@@ -21,6 +21,9 @@
 #import "VZFLineNode.h"
 #import "FBActionNodes.h"
 #import "FBLocationNode.h"
+#import "VZFNodeSpecs.h"
+#import "VZFTextNodeSpecs.h"
+#import "VZFButtonNodeSpecs.h"
 
 @implementation FBContentNode
 

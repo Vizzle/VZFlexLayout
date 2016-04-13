@@ -12,6 +12,7 @@
 #import "VZFScope.h"
 #import "FBHostItem.h"
 #import "VZFNodeInternal.h"
+#import "VZFNodeSpecs.h"
 
 @implementation FBActionNodes
 

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "core/VZFNodeHostingView.h"
+#import "VZFNodeHostingView.h"
 #import "VZFChangeset.h"
 
 @interface VZFTableViewDataSource : NSObject

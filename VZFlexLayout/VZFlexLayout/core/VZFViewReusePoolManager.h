@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VZFNodeViewClass.h"
-#import "VZFNodeSpecs.h"
+
+namespace VZ {
+    class ViewClass;
+    class NodeSpecs;
+}
 /**
  *  管理每个view的ReusePool
  */

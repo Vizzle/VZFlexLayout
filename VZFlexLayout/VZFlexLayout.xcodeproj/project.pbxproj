@@ -63,6 +63,11 @@
 		45A7D7011CB4E47A00B072D5 /* result1.json in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D6FF1CB4E47A00B072D5 /* result1.json */; };
 		45A7D7021CB4E47A00B072D5 /* result2.json in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D7001CB4E47A00B072D5 /* result2.json */; };
 		45B15A621CBA923D00F408DA /* VZFNodeControllerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A611CBA923D00F408DA /* VZFNodeControllerManager.mm */; };
+		45B15A7F1CBE0F5200F408DA /* VZFChangeset.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A7A1CBE0F5200F408DA /* VZFChangeset.mm */; };
+		45B15A801CBE0F5200F408DA /* VZFSectionedArray.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A7C1CBE0F5200F408DA /* VZFSectionedArray.mm */; };
+		45B15A811CBE0F5200F408DA /* VZFTableViewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A7E1CBE0F5200F408DA /* VZFTableViewDataSource.mm */; };
+		45B15A841CBE0F7900F408DA /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A831CBE0F7900F408DA /* TableViewController.mm */; };
+		45B15A871CBE0F8E00F408DA /* VZFLength.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A861CBE0F8E00F408DA /* VZFLength.mm */; };
 		45C9874C1C2D0F2800D17A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874B1C2D0F2800D17A1D /* main.m */; };
 		45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874E1C2D0F2800D17A1D /* AppDelegate.mm */; };
 		45C987551C2D0F2800D17A1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987531C2D0F2800D17A1D /* Main.storyboard */; };
@@ -74,13 +79,9 @@
 		45CA3AAD1C81891600DA04C1 /* VZFNetworkImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AAC1C81891600DA04C1 /* VZFNetworkImageView.mm */; };
 		45CA3AB21C81A4EC00DA04C1 /* VZFUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AB01C81A4EC00DA04C1 /* VZFUtils.mm */; };
 		74D57AEAF919AB89D9844A8E /* libPods-VZFlexLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9866E37FDE793C917B86E54 /* libPods-VZFlexLayout.a */; };
-		B13A04B01C8871BA0023D3D5 /* VZFSectionedArray.mm in Sources */ = {isa = PBXBuildFile; fileRef = B13A04AF1C8871BA0023D3D5 /* VZFSectionedArray.mm */; };
-		B1C63E281C898B5D00AE0D14 /* VZFChangeset.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1C63E271C898B5D00AE0D14 /* VZFChangeset.mm */; };
 		B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.mm */; };
 		B1CB0BBA1C83E23900A9CAE7 /* VZFLineNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0BB91C83E23900A9CAE7 /* VZFLineNode.mm */; };
 		B1CB0BC11C840B2700A9CAE7 /* VZFActionWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0BC01C840B2700A9CAE7 /* VZFActionWrapper.mm */; };
-		B1CB0BCD1C85807A00A9CAE7 /* VZFTableViewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0BCC1C85807A00A9CAE7 /* VZFTableViewDataSource.mm */; };
-		E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -190,6 +191,16 @@
 		45A7D7001CB4E47A00B072D5 /* result2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result2.json; sourceTree = "<group>"; };
 		45B15A601CBA923D00F408DA /* VZFNodeControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeControllerManager.h; sourceTree = "<group>"; };
 		45B15A611CBA923D00F408DA /* VZFNodeControllerManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeControllerManager.mm; sourceTree = "<group>"; };
+		45B15A791CBE0F5200F408DA /* VZFChangeset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFChangeset.h; sourceTree = "<group>"; };
+		45B15A7A1CBE0F5200F408DA /* VZFChangeset.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFChangeset.mm; sourceTree = "<group>"; };
+		45B15A7B1CBE0F5200F408DA /* VZFSectionedArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFSectionedArray.h; sourceTree = "<group>"; };
+		45B15A7C1CBE0F5200F408DA /* VZFSectionedArray.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFSectionedArray.mm; sourceTree = "<group>"; };
+		45B15A7D1CBE0F5200F408DA /* VZFTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTableViewDataSource.h; sourceTree = "<group>"; };
+		45B15A7E1CBE0F5200F408DA /* VZFTableViewDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTableViewDataSource.mm; sourceTree = "<group>"; };
+		45B15A821CBE0F7900F408DA /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewController.h; path = VZFlexLayout/Example/controller/TableViewController.h; sourceTree = SOURCE_ROOT; };
+		45B15A831CBE0F7900F408DA /* TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TableViewController.mm; path = VZFlexLayout/Example/controller/TableViewController.mm; sourceTree = SOURCE_ROOT; };
+		45B15A851CBE0F8E00F408DA /* VZFLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLength.h; sourceTree = "<group>"; };
+		45B15A861CBE0F8E00F408DA /* VZFLength.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLength.mm; sourceTree = "<group>"; };
 		45C987471C2D0F2800D17A1D /* VZFlexLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZFlexLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C9874B1C2D0F2800D17A1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C9874D1C2D0F2800D17A1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -210,10 +221,6 @@
 		45CA3AB11C81A4EC00DA04C1 /* VZFUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFUtils.h; sourceTree = "<group>"; };
 		74855FEA5EBE78D66E20B2AC /* Pods-VZFlexLayout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout/Pods-VZFlexLayout.debug.xcconfig"; sourceTree = "<group>"; };
 		A9866E37FDE793C917B86E54 /* libPods-VZFlexLayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VZFlexLayout.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B13A04AE1C8871BA0023D3D5 /* VZFSectionedArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFSectionedArray.h; sourceTree = "<group>"; };
-		B13A04AF1C8871BA0023D3D5 /* VZFSectionedArray.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFSectionedArray.mm; sourceTree = "<group>"; };
-		B1C63E261C898B5D00AE0D14 /* VZFChangeset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFChangeset.h; sourceTree = "<group>"; };
-		B1C63E271C898B5D00AE0D14 /* VZFChangeset.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFChangeset.mm; sourceTree = "<group>"; };
 		B1CB0B9A1C7EEEEA00A9CAE7 /* VZFNodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeController.h; sourceTree = "<group>"; };
 		B1CB0B9B1C7EEEEA00A9CAE7 /* VZFNodeController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeController.mm; sourceTree = "<group>"; };
 		B1CB0BA71C7FF37D00A9CAE7 /* VZFNodeControllerInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeControllerInternal.h; sourceTree = "<group>"; };
@@ -221,13 +228,9 @@
 		B1CB0BB91C83E23900A9CAE7 /* VZFLineNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLineNode.mm; sourceTree = "<group>"; };
 		B1CB0BBF1C840B2700A9CAE7 /* VZFActionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFActionWrapper.h; sourceTree = "<group>"; };
 		B1CB0BC01C840B2700A9CAE7 /* VZFActionWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFActionWrapper.mm; sourceTree = "<group>"; };
-		B1CB0BCB1C85807A00A9CAE7 /* VZFTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTableViewDataSource.h; sourceTree = "<group>"; };
-		B1CB0BCC1C85807A00A9CAE7 /* VZFTableViewDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTableViewDataSource.mm; sourceTree = "<group>"; };
 		D30E0A8AD856BE61977DCF18 /* Pods-VZFlexLayout.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout.release.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout/Pods-VZFlexLayout.release.xcconfig"; sourceTree = "<group>"; };
 		E68FA0E51C86C9B700C97813 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		E68FA0E71C86C9BD00C97813 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		E6D13ADE1C7C3F6500F603AB /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
-		E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TableViewController.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +248,8 @@
 		4578E09B1C72F1CC00E52B79 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				45B15A851CBE0F8E00F408DA /* VZFLength.h */,
+				45B15A861CBE0F8E00F408DA /* VZFLength.mm */,
 				45A7D6A41CB4D99300B072D5 /* VZFunctor.h */,
 				4578E0BE1C72F1CC00E52B79 /* VZFValue.h */,
 				45A7D6A51CB4D99300B072D5 /* VZFValue.mm */,
@@ -410,6 +415,8 @@
 		45A7D6D61CB4DB7900B072D5 /* viewcontroller */ = {
 			isa = PBXGroup;
 			children = (
+				45B15A821CBE0F7900F408DA /* TableViewController.h */,
+				45B15A831CBE0F7900F408DA /* TableViewController.mm */,
 				45A7D6D71CB4DB7900B072D5 /* FBViewController.h */,
 				45A7D6D81CB4DB7900B072D5 /* FBViewController.mm */,
 			);
@@ -433,6 +440,19 @@
 			path = views;
 			sourceTree = "<group>";
 		};
+		45B15A781CBE0F5200F408DA /* tableview */ = {
+			isa = PBXGroup;
+			children = (
+				45B15A791CBE0F5200F408DA /* VZFChangeset.h */,
+				45B15A7A1CBE0F5200F408DA /* VZFChangeset.mm */,
+				45B15A7B1CBE0F5200F408DA /* VZFSectionedArray.h */,
+				45B15A7C1CBE0F5200F408DA /* VZFSectionedArray.mm */,
+				45B15A7D1CBE0F5200F408DA /* VZFTableViewDataSource.h */,
+				45B15A7E1CBE0F5200F408DA /* VZFTableViewDataSource.mm */,
+			);
+			path = tableview;
+			sourceTree = "<group>";
+		};
 		45C9873E1C2D0F2800D17A1D = {
 			isa = PBXGroup;
 			children = (
@@ -454,20 +474,13 @@
 		45C987491C2D0F2800D17A1D /* VZFlexLayout */ = {
 			isa = PBXGroup;
 			children = (
+				45B15A781CBE0F5200F408DA /* tableview */,
 				45A7D6B01CB4DB7900B072D5 /* Example */,
 				4578E09B1C72F1CC00E52B79 /* core */,
 				4578E0BF1C72F1CC00E52B79 /* layout */,
 				4578E0C21C72F1CC00E52B79 /* node */,
 				45C9874D1C2D0F2800D17A1D /* AppDelegate.h */,
 				45C9874E1C2D0F2800D17A1D /* AppDelegate.mm */,
-				E6D13ADE1C7C3F6500F603AB /* TableViewController.h */,
-				E6D13ADF1C7C3F6500F603AB /* TableViewController.mm */,
-				B1C63E261C898B5D00AE0D14 /* VZFChangeset.h */,
-				B1C63E271C898B5D00AE0D14 /* VZFChangeset.mm */,
-				B13A04AE1C8871BA0023D3D5 /* VZFSectionedArray.h */,
-				B13A04AF1C8871BA0023D3D5 /* VZFSectionedArray.mm */,
-				B1CB0BCB1C85807A00A9CAE7 /* VZFTableViewDataSource.h */,
-				B1CB0BCC1C85807A00A9CAE7 /* VZFTableViewDataSource.mm */,
 				45C987531C2D0F2800D17A1D /* Main.storyboard */,
 				45C987561C2D0F2800D17A1D /* Assets.xcassets */,
 				45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */,
@@ -619,8 +632,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45B15A871CBE0F8E00F408DA /* VZFLength.mm in Sources */,
 				45A7D6AD1CB4D99300B072D5 /* VZFViewReuseInfo.mm in Sources */,
 				45A7D6E31CB4DB7900B072D5 /* FBActionNodesController.mm in Sources */,
+				45B15A811CBE0F5200F408DA /* VZFTableViewDataSource.mm in Sources */,
 				4578E0FE1C7734E300E52B79 /* (null) in Sources */,
 				45A7D6EC1CB4DB7900B072D5 /* FBHeadNodeController.mm in Sources */,
 				45A7D6A01CB4D97900B072D5 /* VZFNodeAttributeApplicator.mm in Sources */,
@@ -633,7 +648,6 @@
 				4578E0ED1C74A68300E52B79 /* VZFTextNodeSpecs.mm in Sources */,
 				45A7D6F31CB4DB7900B072D5 /* FBStarNode.mm in Sources */,
 				B1CB0BC11C840B2700A9CAE7 /* VZFActionWrapper.mm in Sources */,
-				B1CB0BCD1C85807A00A9CAE7 /* VZFTableViewDataSource.mm in Sources */,
 				45A7D6EB1CB4DB7900B072D5 /* FBHeaderNode.mm in Sources */,
 				4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */,
 				4578E0DB1C73055400E52B79 /* VZFTextNode.mm in Sources */,
@@ -641,12 +655,12 @@
 				45A7D6F11CB4DB7900B072D5 /* FBLocationNode.mm in Sources */,
 				45CA3A851C7DDE5400DA04C1 /* VZFScope.mm in Sources */,
 				45A7D6F21CB4DB7900B072D5 /* FBNameNode.mm in Sources */,
+				45B15A7F1CBE0F5200F408DA /* VZFChangeset.mm in Sources */,
 				B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.mm in Sources */,
 				4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */,
 				45A7D6E61CB4DB7900B072D5 /* FBImageDownloader.mm in Sources */,
 				45CA3AAD1C81891600DA04C1 /* VZFNetworkImageView.mm in Sources */,
 				4578E0D21C72F1CC00E52B79 /* FlexLayout.c in Sources */,
-				B13A04B01C8871BA0023D3D5 /* VZFSectionedArray.mm in Sources */,
 				45CA3A8B1C7F35B000DA04C1 /* VZFRootScope.mm in Sources */,
 				45A7D6FA1CB4DB7900B072D5 /* FBO2OStarView.m in Sources */,
 				4578E0CE1C72F1CC00E52B79 /* VZFNodeViewClass.mm in Sources */,
@@ -655,7 +669,7 @@
 				45A7D6EE1CB4DB7900B072D5 /* FBIconNode.mm in Sources */,
 				4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */,
 				45A7D6E51CB4DB7900B072D5 /* FBHostItem.m in Sources */,
-				B1C63E281C898B5D00AE0D14 /* VZFChangeset.mm in Sources */,
+				45B15A801CBE0F5200F408DA /* VZFSectionedArray.mm in Sources */,
 				45A7D6ED1CB4DB7900B072D5 /* FBHostNode.mm in Sources */,
 				4578E0F01C75687D00E52B79 /* VZFImageNodeSpecs.mm in Sources */,
 				4578E0D51C73052F00E52B79 /* VZFImageNode.mm in Sources */,
@@ -672,11 +686,11 @@
 				45A7D6E71CB4DB7900B072D5 /* FBActionNodes.mm in Sources */,
 				45CA3AB21C81A4EC00DA04C1 /* VZFUtils.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
+				45B15A841CBE0F7900F408DA /* TableViewController.mm in Sources */,
 				4578E0F31C756D3400E52B79 /* VZFButtonNodeSpecs.mm in Sources */,
 				4578E0CF1C72F1CC00E52B79 /* VZFNodeViewManager.mm in Sources */,
 				45A7D6AC1CB4D99300B072D5 /* VZFValue.mm in Sources */,
 				45B15A621CBA923D00F408DA /* VZFNodeControllerManager.mm in Sources */,
-				E6D13AE01C7C3F6500F603AB /* TableViewController.mm in Sources */,
 				45CA3A8E1C80233E00DA04C1 /* VZFScopeFrame.mm in Sources */,
 				45A7D69F1CB4D97900B072D5 /* VZFlexNode+VZFNode.m in Sources */,
 			);

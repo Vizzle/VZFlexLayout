@@ -78,4 +78,3 @@ namespace VZ {
     };
 }
 
-typedef VZ::ButtonNodeSpecs VZButtonSpecs;

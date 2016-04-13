@@ -8,15 +8,18 @@
 
 #import "VZFScopeManager.h"
 #import "VZFScopeHandler.h"
+#import "VZFRootScope.h"
+#import "VZFScopeFrame.h"
 #include <stack>
 #include <string>
 
 
+using namespace VZ;
 @implementation VZFLocalScope
 {
     VZFRootScope* _newRootScope;
     NSDictionary* _funcs;
-    std::stack<VZScopeFramePair> _stack;
+    std::stack<ScopeFramePair> _stack;
 
 }
 
@@ -49,7 +52,7 @@
 
 }
 
-- (VZScopeFramePair)top{
+- (ScopeFramePair)top{
     
     if (_stack.size()) {
         return _stack.top();
@@ -58,7 +61,7 @@
         return {};
     }
 }
-- (void)push:(const VZScopeFramePair& )pair{
+- (void)push:(const ScopeFramePair& )pair{
 
     _stack.push(pair);
 }
@@ -73,7 +76,7 @@
     NSString* stackDesc=@"";
     
     std::string str("");
-    for (std::stack<VZScopeFramePair> dump = _stack; !dump.empty(); dump.pop()){
+    for (std::stack<ScopeFramePair> dump = _stack; !dump.empty(); dump.pop()){
         str += [NSString stringWithFormat:@"{new:%@,old:%@},",dump.top().newScopeFrame,dump.top().oldScopeFrame].UTF8String;
     }
     stackDesc = [[NSString alloc]initWithCString:str.c_str() encoding:NSUTF8StringEncoding];
