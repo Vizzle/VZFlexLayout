@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4517297B1C7C494700BF3B9E /* VZFScopeHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */; };
 		4517297E1C7C616C00BF3B9E /* VZFScopeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */; };
+		455F2B101CC097D2001BEA00 /* FBNodeProvider1.mm in Sources */ = {isa = PBXBuildFile; fileRef = 455F2B0F1CC097D2001BEA00 /* FBNodeProvider1.mm */; };
+		455F2B131CC097DA001BEA00 /* FBNodeProvider2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 455F2B121CC097DA001BEA00 /* FBNodeProvider2.mm */; };
 		4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */; };
 		4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0AA1C72F1CC00E52B79 /* VZFNodeHostingView.mm */; };
 		4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0AD1C72F1CC00E52B79 /* VZFNodeLayout.mm */; };
@@ -68,6 +70,10 @@
 		45B15A811CBE0F5200F408DA /* VZFTableViewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A7E1CBE0F5200F408DA /* VZFTableViewDataSource.mm */; };
 		45B15A841CBE0F7900F408DA /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A831CBE0F7900F408DA /* TableViewController.mm */; };
 		45B15A871CBE0F8E00F408DA /* VZFLength.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A861CBE0F8E00F408DA /* VZFLength.mm */; };
+		45B15A8A1CBE5BEB00F408DA /* FBClickToExpendNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A891CBE5BEB00F408DA /* FBClickToExpendNode.mm */; };
+		45B15A8D1CBE7EF900F408DA /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A8C1CBE7EF900F408DA /* ViewController.mm */; };
+		45B15A931CBFA25800F408DA /* CacheCleanerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A901CBFA25800F408DA /* CacheCleanerPlugin.m */; };
+		45B15A941CBFA25800F408DA /* RetainCycleLoggerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A921CBFA25800F408DA /* RetainCycleLoggerPlugin.m */; };
 		45C9874C1C2D0F2800D17A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874B1C2D0F2800D17A1D /* main.m */; };
 		45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874E1C2D0F2800D17A1D /* AppDelegate.mm */; };
 		45C987551C2D0F2800D17A1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987531C2D0F2800D17A1D /* Main.storyboard */; };
@@ -89,6 +95,10 @@
 		4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeHandler.mm; sourceTree = "<group>"; };
 		4517297C1C7C616C00BF3B9E /* VZFScopeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFScopeManager.h; sourceTree = "<group>"; };
 		4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeManager.mm; sourceTree = "<group>"; };
+		455F2B0E1CC097D2001BEA00 /* FBNodeProvider1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBNodeProvider1.h; sourceTree = "<group>"; };
+		455F2B0F1CC097D2001BEA00 /* FBNodeProvider1.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBNodeProvider1.mm; sourceTree = "<group>"; };
+		455F2B111CC097DA001BEA00 /* FBNodeProvider2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBNodeProvider2.h; sourceTree = "<group>"; };
+		455F2B121CC097DA001BEA00 /* FBNodeProvider2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBNodeProvider2.mm; sourceTree = "<group>"; };
 		4578E0A11C72F1CC00E52B79 /* VZFlexNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFlexNode.h; sourceTree = "<group>"; };
 		4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFlexNode.mm; sourceTree = "<group>"; };
 		4578E0A31C72F1CC00E52B79 /* VZFMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMacros.h; sourceTree = "<group>"; };
@@ -201,6 +211,14 @@
 		45B15A831CBE0F7900F408DA /* TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TableViewController.mm; path = VZFlexLayout/Example/controller/TableViewController.mm; sourceTree = SOURCE_ROOT; };
 		45B15A851CBE0F8E00F408DA /* VZFLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLength.h; sourceTree = "<group>"; };
 		45B15A861CBE0F8E00F408DA /* VZFLength.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLength.mm; sourceTree = "<group>"; };
+		45B15A881CBE5BEB00F408DA /* FBClickToExpendNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBClickToExpendNode.h; sourceTree = "<group>"; };
+		45B15A891CBE5BEB00F408DA /* FBClickToExpendNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBClickToExpendNode.mm; sourceTree = "<group>"; };
+		45B15A8B1CBE7EF900F408DA /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		45B15A8C1CBE7EF900F408DA /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		45B15A8F1CBFA25800F408DA /* CacheCleanerPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheCleanerPlugin.h; sourceTree = "<group>"; };
+		45B15A901CBFA25800F408DA /* CacheCleanerPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheCleanerPlugin.m; sourceTree = "<group>"; };
+		45B15A911CBFA25800F408DA /* RetainCycleLoggerPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetainCycleLoggerPlugin.h; sourceTree = "<group>"; };
+		45B15A921CBFA25800F408DA /* RetainCycleLoggerPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetainCycleLoggerPlugin.m; sourceTree = "<group>"; };
 		45C987471C2D0F2800D17A1D /* VZFlexLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZFlexLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C9874B1C2D0F2800D17A1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C9874D1C2D0F2800D17A1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -379,6 +397,10 @@
 				45A7D6B81CB4DB7900B072D5 /* FBHostItem.m */,
 				45A7D6B91CB4DB7900B072D5 /* FBImageDownloader.h */,
 				45A7D6BA1CB4DB7900B072D5 /* FBImageDownloader.mm */,
+				455F2B0E1CC097D2001BEA00 /* FBNodeProvider1.h */,
+				455F2B0F1CC097D2001BEA00 /* FBNodeProvider1.mm */,
+				455F2B111CC097DA001BEA00 /* FBNodeProvider2.h */,
+				455F2B121CC097DA001BEA00 /* FBNodeProvider2.mm */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -408,6 +430,8 @@
 				45A7D6D31CB4DB7900B072D5 /* FBNameNode.mm */,
 				45A7D6D41CB4DB7900B072D5 /* FBStarNode.h */,
 				45A7D6D51CB4DB7900B072D5 /* FBStarNode.mm */,
+				45B15A881CBE5BEB00F408DA /* FBClickToExpendNode.h */,
+				45B15A891CBE5BEB00F408DA /* FBClickToExpendNode.mm */,
 			);
 			path = nodes;
 			sourceTree = "<group>";
@@ -453,6 +477,17 @@
 			path = tableview;
 			sourceTree = "<group>";
 		};
+		45B15A8E1CBFA25800F408DA /* MemoryProfiler */ = {
+			isa = PBXGroup;
+			children = (
+				45B15A8F1CBFA25800F408DA /* CacheCleanerPlugin.h */,
+				45B15A901CBFA25800F408DA /* CacheCleanerPlugin.m */,
+				45B15A911CBFA25800F408DA /* RetainCycleLoggerPlugin.h */,
+				45B15A921CBFA25800F408DA /* RetainCycleLoggerPlugin.m */,
+			);
+			path = MemoryProfiler;
+			sourceTree = "<group>";
+		};
 		45C9873E1C2D0F2800D17A1D = {
 			isa = PBXGroup;
 			children = (
@@ -474,6 +509,7 @@
 		45C987491C2D0F2800D17A1D /* VZFlexLayout */ = {
 			isa = PBXGroup;
 			children = (
+				45B15A8E1CBFA25800F408DA /* MemoryProfiler */,
 				45B15A781CBE0F5200F408DA /* tableview */,
 				45A7D6B01CB4DB7900B072D5 /* Example */,
 				4578E09B1C72F1CC00E52B79 /* core */,
@@ -481,6 +517,8 @@
 				4578E0C21C72F1CC00E52B79 /* node */,
 				45C9874D1C2D0F2800D17A1D /* AppDelegate.h */,
 				45C9874E1C2D0F2800D17A1D /* AppDelegate.mm */,
+				45B15A8B1CBE7EF900F408DA /* ViewController.h */,
+				45B15A8C1CBE7EF900F408DA /* ViewController.mm */,
 				45C987531C2D0F2800D17A1D /* Main.storyboard */,
 				45C987561C2D0F2800D17A1D /* Assets.xcassets */,
 				45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */,
@@ -529,6 +567,7 @@
 				45C987441C2D0F2800D17A1D /* Frameworks */,
 				45C987451C2D0F2800D17A1D /* Resources */,
 				266F0BF1B9CD719BD4F58249 /* Copy Pods Resources */,
+				DAFDD9FE8745521E11290032 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -625,6 +664,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		DAFDD9FE8745521E11290032 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VZFlexLayout/Pods-VZFlexLayout-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -632,6 +686,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45B15A8D1CBE7EF900F408DA /* ViewController.mm in Sources */,
 				45B15A871CBE0F8E00F408DA /* VZFLength.mm in Sources */,
 				45A7D6AD1CB4D99300B072D5 /* VZFViewReuseInfo.mm in Sources */,
 				45A7D6E31CB4DB7900B072D5 /* FBActionNodesController.mm in Sources */,
@@ -655,11 +710,14 @@
 				45A7D6F11CB4DB7900B072D5 /* FBLocationNode.mm in Sources */,
 				45CA3A851C7DDE5400DA04C1 /* VZFScope.mm in Sources */,
 				45A7D6F21CB4DB7900B072D5 /* FBNameNode.mm in Sources */,
+				455F2B131CC097DA001BEA00 /* FBNodeProvider2.mm in Sources */,
 				45B15A7F1CBE0F5200F408DA /* VZFChangeset.mm in Sources */,
 				B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.mm in Sources */,
 				4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */,
 				45A7D6E61CB4DB7900B072D5 /* FBImageDownloader.mm in Sources */,
 				45CA3AAD1C81891600DA04C1 /* VZFNetworkImageView.mm in Sources */,
+				45B15A941CBFA25800F408DA /* RetainCycleLoggerPlugin.m in Sources */,
+				455F2B101CC097D2001BEA00 /* FBNodeProvider1.mm in Sources */,
 				4578E0D21C72F1CC00E52B79 /* FlexLayout.c in Sources */,
 				45CA3A8B1C7F35B000DA04C1 /* VZFRootScope.mm in Sources */,
 				45A7D6FA1CB4DB7900B072D5 /* FBO2OStarView.m in Sources */,
@@ -675,8 +733,10 @@
 				4578E0D51C73052F00E52B79 /* VZFImageNode.mm in Sources */,
 				4578E0D81C73054000E52B79 /* VZFButtonNode.mm in Sources */,
 				45A7D6F41CB4DB7900B072D5 /* FBViewController.mm in Sources */,
+				45B15A931CBFA25800F408DA /* CacheCleanerPlugin.m in Sources */,
 				4517297B1C7C494700BF3B9E /* VZFScopeHandler.mm in Sources */,
 				4578E0EA1C747A7800E52B79 /* VZFCompositeNode.mm in Sources */,
+				45B15A8A1CBE5BEB00F408DA /* FBClickToExpendNode.mm in Sources */,
 				45A7D6EA1CB4DB7900B072D5 /* FBGridImageNode.mm in Sources */,
 				4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */,
 				4578E0D01C72F1CC00E52B79 /* VZFSizeRange.mm in Sources */,

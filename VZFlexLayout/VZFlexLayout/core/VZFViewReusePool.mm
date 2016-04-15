@@ -29,6 +29,7 @@
     
     UIView* v = nil;
     if (_nextUsableViewPos == _reusePool.end()) {
+
         //push a new one
         v = viewClass.createView();
         if (container) {
@@ -37,11 +38,14 @@
         _reusePool.push_back(v);
         _nextUsableViewPos = _reusePool.end();
         VZ::Mounting::createView(v, viewClass, container);
+        
+        NSLog(@"[%@] --> Create:%@(%p)",[self class],[v class],v);
     }
     else{
-        //return a existing one
+        //return an existing one
          v = *_nextUsableViewPos;
         _nextUsableViewPos ++;
+        NSLog(@"[%@] --> Recycle:%@(%p)",[self class],[v class],v);
     }
     return v;
 

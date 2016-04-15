@@ -15,6 +15,7 @@
 #import "VZFImageNode.h"
 #import "FBHeaderNode.h"
 #import "FBContentNode.h"
+#import "FBClickToExpendNode.h"
 
 @interface FBViewController ()<VZFNodeHostingView>
 @property(nonatomic,strong)VZFNodeHostingView* hostingView;
@@ -24,11 +25,17 @@
 
 @implementation FBViewController
 
+- (void)dealloc{
+    NSLog(@"[%@]-->dealloc",self.class);
+}
+
+
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     
+    [super viewDidLoad];
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.hostingView = [[VZFNodeHostingView alloc]initWithNodeProvider:[self class]
                                                          RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
     self.hostingView.backgroundColor = [UIColor whiteColor];
@@ -51,9 +58,11 @@
 
 + (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
     
-    FBHeaderNode* node = [FBHeaderNode newWithItem:item];
+//    FBHeaderNode* node = [FBHeaderNode newWithItem:item];
 //    FBContentNode* node = [FBContentNode newWithItem:item];
 //    FBHostNode* node = [FBHostNode newWithItem:item];
+    
+    FBClickToExpendNode* node = [FBClickToExpendNode newWithItem:item];
     return node;
 }
 

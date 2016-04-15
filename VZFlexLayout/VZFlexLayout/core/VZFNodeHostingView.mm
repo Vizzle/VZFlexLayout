@@ -30,15 +30,16 @@ struct VZFNodeHostingViewInputs{
         context == i.context &&
         stateMap == i.stateMap;
     };
-
-};
-
-struct VZFNodeHostingViewOutputs{
     
-    NodeLayout mountedLayout;
-    NSSet* mountedNodes;
-    VZFNode* mountedNode;
+    void clear(){
+        rootScope = nil;
+        model = nil;
+        context = nil;
+        stateMap = nil;
+    }
+
 };
+
 
 @interface VZFNodeHostingView()<VZFStateListener>
 {
@@ -82,8 +83,13 @@ struct VZFNodeHostingViewOutputs{
 
 - (void)dealloc{
     
+    
+    NSLog(@"[%@]-->dealloc",self.class);
+    
     //主线程释放.
     [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
+    [[VZFScopeManager sharedInstance] releaseRootScopeById:_pendingInputs.rootScope.rootScopeId];
+    _pendingInputs.clear();
     
 }
 

@@ -45,7 +45,7 @@ using namespace VZ;
 
 @implementation VZFNodeViewManager
 {
-    VZFViewReusePoolManager* _managerReusePoolManager;
+    VZFViewReusePoolManager* _reusePoolManager;
 }
 
 - (instancetype)initWithView:(UIView *)view{
@@ -53,19 +53,20 @@ using namespace VZ;
     self = [super init];
     if (self) {
         _managedView = view;
-        _managerReusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view];
+        _reusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view];
     }
     return self;
 }
 
 - (UIView* )viewForNode:(VZFNode* )node{
 
-    UIView* v = [_managerReusePoolManager viewForClass:node.viewClass Spec:node.specs ParentView:_managedView];
+//    UIView* v = [_reusePoolManager viewForClass:node.viewClass Spec:node.specs ParentView:_managedView];
+    UIView* v=  [_reusePoolManager viewForNode:node ParentView:_managedView];
     return v;
 }
 
 - (void)dealloc{
-    [_managerReusePoolManager reset:_managedView];
+    [_reusePoolManager reset:_managedView];
 }
 
 

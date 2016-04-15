@@ -51,8 +51,6 @@ using namespace VZ;
  *  node的父节点
  */
 @property(nonatomic,weak)VZFNode* superNode;
-
-//@property(nonatomic,weak)UIView* backingView;
 /**
  *  root view
  */

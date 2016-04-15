@@ -26,6 +26,10 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
 }
 + (VZFViewReusePoolManager* )viewReusePoolManagerForView:(UIView* )view{
     
+    if (!view) {
+        return nil;
+    }
+    
     id manager = objc_getAssociatedObject(view, g_viewReusePoolManager);
     if (!manager) {
         
@@ -84,12 +88,19 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
         return nil;
     }
     
-    NSString* viewKey = [NSStringFromClass(node.class) stringByAppendingString:[[NSString alloc] initWithUTF8String:node.viewClass.identifier().c_str()]];
+    NSString* viewKey = [NSString stringWithFormat:@"%@+%@",
+                         NSStringFromClass(node.class),
+                         [[NSString alloc] initWithUTF8String:node.viewClass.identifier().c_str()]];
+    
+
+    
     VZFViewReusePool* reusePool = _reusePoolMap[viewKey];
     if (!reusePool) {
         reusePool = [[VZFViewReusePool alloc]init];
         _reusePoolMap[viewKey] = reusePool;
     }
+    
+    NSLog(@"[%@]-->[viewKey:%@],[ReuseMap:%@]",[self class],viewKey,reusePool);
     UIView* v = [reusePool viewForClass:node.viewClass ParentView:container];
     _existedViews.push_back(v);
     

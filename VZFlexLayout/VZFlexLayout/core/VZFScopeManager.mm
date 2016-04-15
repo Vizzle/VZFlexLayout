@@ -116,6 +116,14 @@ using namespace VZ;
     return self;
 }
 
++ (VZFLocalScope* )newLocalScopeWithRootScope:(VZFRootScope* )rootScope StateUpdateFuncs:(NSDictionary* )funcs{
+    
+    VZFLocalScope* localScope = [[VZFLocalScope alloc]initWithRootScope:rootScope StateUpdates:funcs];
+    [VZFScopeManager sharedInstance] -> _currentLocalScope = localScope;
+    return localScope;
+    
+}
+
 + (VZFBuildNodeResult)buildNodeWithFunction:(VZFNode*(^)(void))function
                                  RootScope:(VZFRootScope* )rootScope
                           StateUpdateFuncs:(NSDictionary* )funcs{
@@ -127,13 +135,12 @@ using namespace VZ;
     return {.node = node, .scopeRoot = localScope.newRootScope};
     
 }
-+ (VZFLocalScope* )newLocalScopeWithRootScope:(VZFRootScope* )rootScope StateUpdateFuncs:(NSDictionary* )funcs{
 
-    VZFLocalScope* localScope = [[VZFLocalScope alloc]initWithRootScope:rootScope StateUpdates:funcs];
-    [VZFScopeManager sharedInstance] -> _currentLocalScope = localScope;
-    return localScope;
-
+- (void)releaseRootScopeById:(int32_t)scopeId{
+    int32_t currentScopeId = [VZFScopeManager sharedInstance] -> _currentLocalScope.newRootScope.rootScopeId;
+    if (currentScopeId == scopeId) {
+        [VZFScopeManager sharedInstance] -> _currentLocalScope = nil;
+    }
 }
-
 
 @end

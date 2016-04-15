@@ -1,0 +1,1 @@
+../../../VZInspector/VZInspector/reveal/VZRevealInspectorNode.h

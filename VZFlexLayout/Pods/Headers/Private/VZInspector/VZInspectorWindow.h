@@ -1,0 +1,1 @@
+../../../VZInspector/VZInspector/core/VZInspectorWindow.h

@@ -70,6 +70,12 @@ struct VZFBuildNodeResult {
 + (VZFBuildNodeResult)buildNodeWithFunction:(VZFNode*(^)(void))function
                                  RootScope:(VZFRootScope* )rootScope
                           StateUpdateFuncs:(NSDictionary* )funcs;
+/**
+ *  @dicussion:小心使用这个方法
+ *
+ *  @param scopeId
+ */
+- (void)releaseRootScopeById:(int32_t)scopeId;
 
 
 @end

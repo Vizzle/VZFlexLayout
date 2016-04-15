@@ -6,6 +6,9 @@
 target 'VZFlexLayout' do
 
 pod 'SDWebImage'
+pod 'VZInspector'
+pod 'FBMemoryProfiler'
+
 
 end
 

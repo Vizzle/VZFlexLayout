@@ -45,6 +45,9 @@ namespace VZ{
         const void* g_reuseId = &g_reuseId;
         void mountingRootView(UIView* v){
             
+            if (!v) {
+                return;
+            }
             if (objc_getAssociatedObject(v, g_reuseId)) {
                 return;
             }

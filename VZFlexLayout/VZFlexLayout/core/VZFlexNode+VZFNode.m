@@ -13,7 +13,7 @@ const void* g_flexNode = &g_flexNode;
 @implementation VZFlexNode (VZFNode)
 
 - (void)setFNode:(VZFNode *)fNode{
-    objc_setAssociatedObject(self, g_flexNode, fNode, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, g_flexNode, fNode, OBJC_ASSOCIATION_ASSIGN);
 }
 
 - (VZFNode* )fNode{

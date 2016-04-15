@@ -30,7 +30,7 @@
 
 + (id)initialState{
 
-    return @{@"like":@(NO)};
+    return @{@"expend":@(NO)};
 }
 
 + (instancetype)newWithItem:(FBHostItem *)item

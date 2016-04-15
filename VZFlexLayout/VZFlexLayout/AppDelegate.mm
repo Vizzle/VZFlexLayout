@@ -7,24 +7,46 @@
 //
 
 #import "AppDelegate.h"
-#import "VZFNode.h"
-#import "VZFStackNode.h"
-#import "TableViewController.h"
-#import "FBViewController.h"
+#import "ViewController.h"
+#import <VZInspector/VZInspector.h>
+#import <FBAllocationTracker/FBAllocationTrackerManager.h>
+#import <FBMemoryProfiler/FBMemoryProfiler.h>
+#import <FBRetainCycleDetector/FBRetainCycleDetector.h>
+#import "CacheCleanerPlugin.h"
+#import "RetainCycleLoggerPlugin.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
+{
+    FBMemoryProfiler *_memoryProfiler;
+}
 
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//    TableViewController *controller = [[TableViewController alloc] init];
-    FBViewController* controller = [[FBViewController alloc]init];
-    _window.rootViewController = [[UINavigationController alloc] initWithRootViewController:controller];
+    _window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[ViewController new]];
+    
+    
+    [[FBAllocationTrackerManager sharedManager] startTrackingAllocations];
+    [[FBAllocationTrackerManager sharedManager] enableGenerations];
+//    FBMemoryProfiler *memoryProfiler = [FBMemoryProfiler new];
+    
+    _memoryProfiler = [[FBMemoryProfiler alloc] initWithPlugins:@[[CacheCleanerPlugin new],
+                                                                  [RetainCycleLoggerPlugin new]]
+                               retainCycleDetectorConfiguration:nil];
+    
+    [_memoryProfiler enable];
+
+
+    
+    [VZInspector setClassPrefixName:@"VZF"];
+    [VZInspector showOnStatusBar];
+    
+    
     [_window makeKeyAndVisible];
     
     return YES;

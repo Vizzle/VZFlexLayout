@@ -26,8 +26,9 @@
 
 struct VZFNodeMountedInfo{
     
-    VZFNode* parentNode;
-    UIView* mountedView;
+    //@notice: Becareful retain cycle
+    __weak VZFNode* parentNode;
+    __weak UIView* mountedView;
     CGRect mountedFrame;
 };
 
@@ -114,8 +115,7 @@ using namespace VZ::UIKit;
 
 - (id)nextResponderAfterController
 {
-    VZFNode* superNode = [self superNode];
-    return (superNode?:nil)?:self.rootNodeView;
+    return ([self superNode]?:nil)?:self.rootNodeView;
 }
 
 - (id)targetForAction:(SEL)action withSender:(id)sender
@@ -142,8 +142,7 @@ using namespace VZ::UIKit;
     if (view) {
         //不是当前的backingview
         if (view != _mountedInfo -> mountedView) {
-            
-            //如果获取
+        
             [self _recycleMountedView];
             [view.node unmount];
             view.node = self;
@@ -179,8 +178,6 @@ using namespace VZ::UIKit;
         return {.hasChildren = YES, .childContext = context};
         
     }
-    
-
 }
 
 
@@ -215,9 +212,7 @@ using namespace VZ::UIKit;
         view.node = nil;
         _mountedInfo -> mountedView = nil;
     }
-
-    
-
-    
 }
+
+
 @end

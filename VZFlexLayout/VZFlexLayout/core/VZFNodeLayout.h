@@ -26,6 +26,9 @@ namespace VZ {
         NodeLayout(VZFNode* _node,CGSize _sz, CGPoint _pt, UIEdgeInsets _margin,std::vector<NodeLayout> _childs):
         node(_node),size(_sz),origin(_pt),margin(_margin),children(new std::vector<NodeLayout>(std::move(_childs))){};
         
+        
+        ~NodeLayout(){node = nil; children = nullptr;}
+        
         const std::string description() const{
             
             auto print = [this]() -> std::string{
@@ -44,7 +47,7 @@ namespace VZ {
             return desc;
         };
 
-        VZFNode* node; //this does not create a retain cycle
+        __weak VZFNode* node; //this does not create a retain cycle
         CGSize size = {0,0};
         CGPoint origin = {0,0};
         UIEdgeInsets margin = {0,0,0,0};
