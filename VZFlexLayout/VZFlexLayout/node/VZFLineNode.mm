@@ -29,7 +29,7 @@
 }
 
 + (instancetype)lineNodeWithColor:(UIColor *)color thickness:(CGFloat)thickness margin:(UIEdgeInsets)margin {
-    NSAssert(thickness != VZFlexValueAuto, @"thickness can't be auto");
+    NSAssert(thickness != VZ::FlexValue::Auto, @"thickness can't be auto");
     
     return [super newWithView:[UIView class] NodeSpecs:{
         .view = {

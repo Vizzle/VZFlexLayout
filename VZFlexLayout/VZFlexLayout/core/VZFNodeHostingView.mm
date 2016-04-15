@@ -43,7 +43,7 @@ struct VZFNodeHostingViewInputs{
 
 @interface VZFNodeHostingView()<VZFStateListener>
 {
-    Class<VZFNodeProvider> _nodeProvider;
+    id<VZFNodeProvider> _nodeProvider;
     id<VZSizeRangeProvider> _sizeProvider;;
     VZFNode* _nodeToMount;
     VZFNodeHostingViewInputs _pendingInputs;
@@ -88,7 +88,7 @@ struct VZFNodeHostingViewInputs{
     
     //主线程释放.
     [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
-    [[VZFScopeManager sharedInstance] releaseRootScopeById:_pendingInputs.rootScope.rootScopeId];
+//    [[VZFScopeManager sharedInstance] releaseRootScopeById:_pendingInputs.rootScope.rootScopeId];
     _pendingInputs.clear();
     
 }
@@ -99,44 +99,44 @@ struct VZFNodeHostingViewInputs{
 - (void)layoutSubviews{
     
     [super layoutSubviews];
-    
-
-    if (!CGRectIsEmpty(self.bounds)) {
+            
+    //同步更新页面
+    [self _updateSynchronously];
+    CGSize sz = [_sizeProvider rangeSizeForBounds:self.bounds.size];
+    if (_mountedLayout.node!= _nodeToMount){
         
-        //同步更新页面
-        [self _updateSynchronously];
-        CGSize sz = self.bounds.size;
-        if (_mountedLayout.node!= _nodeToMount){
-            
-            
-            CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
-            _mountedLayout = [_nodeToMount computeLayoutThatFits:sz];
-            CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
-            
-            NSLog(@"layout计算:%.4f",t2-t1);
-    
-        }
-
         
         CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
-
-        _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
-                                                                  InContainer:self
-                                                            WithPreviousNodes:_mountedNodes
-                                                                 AndSuperNode:nil];
-        
+        _mountedLayout = [_nodeToMount computeLayoutThatFits:sz];
         CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
-        NSLog(@"node 加载:%.4f",t2-t1);
         
-        
+        NSLog(@"layout计算:%.4f",t2-t1);
 
-        
-        //resize the container view
-//        CGFloat containerWidth  = _mountedLayout.size.width + _mountedLayout.margin.left + _mountedLayout.margin.right;
-//        CGFloat containerHeight = _mountedLayout.size.height + _mountedLayout.margin.top + _mountedLayout.margin.bottom;
-    
     }
+
+    
+    CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
+
+    _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
+                                                              InContainer:self
+                                                        WithPreviousNodes:_mountedNodes
+                                                             AndSuperNode:nil];
+    
+    CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
+    NSLog(@"node 加载:%.4f",t2-t1);
         
+    CGFloat containerWidth  = _mountedLayout.size.width + _mountedLayout.margin.left + _mountedLayout.margin.right;
+    CGFloat containerHeight = _mountedLayout.size.height + _mountedLayout.margin.top + _mountedLayout.margin.bottom;
+
+    self.frame = CGRect{self.frame.origin, {containerWidth, containerHeight}};
+
+    if ([self.delegate respondsToSelector:@selector(hostingView:DidInvalidate:)]) {
+        [self.delegate hostingView:self DidInvalidate:_mountedLayout.size];
+    }
+        //resize the container view
+    
+
+    
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -185,10 +185,7 @@ struct VZFNodeHostingViewInputs{
     }
     else{
         [self setNeedsLayout];
-        
-        if ([self.delegate respondsToSelector:@selector(hostingViewDidInvalidate:)]){
-            [self.delegate hostingViewDidInvalidate:_mountedLayout.size];
-        }
+
     }
 }
 
@@ -243,9 +240,6 @@ struct VZFNodeHostingViewInputs{
                 _isAsynchronouslyUpdatingScheduled = NO;
                 [self _applyBuildResult:result];
                 [self setNeedsLayout];
-                if ([self.delegate respondsToSelector:@selector(hostingViewDidInvalidate:)]) {
-                    [self.delegate hostingViewDidInvalidate:_mountedLayout.size];
-                }
             }
             else{
                 [self _updateASynchronously];

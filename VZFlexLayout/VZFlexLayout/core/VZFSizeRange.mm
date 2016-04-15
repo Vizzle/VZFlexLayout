@@ -10,6 +10,7 @@
 #import "VZFNodeSpecs.h"
 #import "VZFValue.h"
 
+using namespace VZ;
 @implementation VZSizeRangeProvider
 {
     VZFSizeRange _range;
@@ -17,13 +18,13 @@
 - (CGSize)rangeSizeForBounds:(CGSize)size{
 
     if (_range == VZFlexibleSizeWidthAndHeight) {
-        return (CGSize){VZFlexValueInfinite,VZFlexValueInfinite};
+        return (CGSize){FlexValue::Auto,FlexValue::Auto};
     }
     else if (_range == VZFlexibleSizeHeight){
-        return (CGSize){size.width,VZFlexValueInfinite};
+        return (CGSize){size.width,FlexValue::Auto};
     }
     else if (_range == VZFlexibleSizeWidth){
-        return (CGSize){VZFlexValueInfinite,size.height};
+        return (CGSize){FlexValue::Auto,size.height};
     }
     else if (_range == VZFlexibleSizeNone){
         return size;

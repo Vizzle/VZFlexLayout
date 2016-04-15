@@ -21,6 +21,11 @@
 
 using namespace VZ;
 namespace VZ {
+
+    namespace FlexValue{
+        const float Undefined = FlexUndefined;
+        const float Auto = FlexAuto;
+    }
     
     struct LayerAttrs{
         
@@ -39,8 +44,7 @@ namespace VZ {
         void(^block)(UIView* view);
     };
     
-
-    namespace DefaultFlexValue{
+    namespace DefaultFlexAttributesValue{
         
         //UI attributes
         extern CGSize size;
@@ -85,43 +89,43 @@ namespace VZ {
 
     struct StackLayoutSpecs{
 
-        Value<int, DefaultFlexValue::direction> direction;
-        Value<int, DefaultFlexValue::alignItems> alignItems;
-        Value<int, DefaultFlexValue::justifyContent> justifyContent;
+        Value<int, DefaultFlexAttributesValue::direction> direction;
+        Value<int, DefaultFlexAttributesValue::alignItems> alignItems;
+        Value<int, DefaultFlexAttributesValue::justifyContent> justifyContent;
         
-        Value<float, DefaultFlexValue::spacing> spacing;
-        Value<float, DefaultFlexValue::lineSpacing> lineSpacing;
+        Value<float, DefaultFlexAttributesValue::spacing> spacing;
+        Value<float, DefaultFlexAttributesValue::lineSpacing> lineSpacing;
         
     };
 
     struct FlexAttrs{
 
-        Value<FlexLength, DefaultFlexValue::width> width;
-        Value<FlexLength, DefaultFlexValue::height> height;
-        Value<FlexLength, DefaultFlexValue::maxWidth> maxWidth;
-        Value<FlexLength, DefaultFlexValue::maxHeight> maxHeight;
-        Value<FlexLength, DefaultFlexValue::minWidth> minWidth;
-        Value<FlexLength, DefaultFlexValue::minHeight> minHeight;
+        Value<FlexLength, DefaultFlexAttributesValue::width> width;
+        Value<FlexLength, DefaultFlexAttributesValue::height> height;
+        Value<FlexLength, DefaultFlexAttributesValue::maxWidth> maxWidth;
+        Value<FlexLength, DefaultFlexAttributesValue::maxHeight> maxHeight;
+        Value<FlexLength, DefaultFlexAttributesValue::minWidth> minWidth;
+        Value<FlexLength, DefaultFlexAttributesValue::minHeight> minHeight;
         
-        Value<FlexLength, DefaultFlexValue::marginLeft> marginLeft;
-        Value<FlexLength, DefaultFlexValue::marginRight> marginRight;
-        Value<FlexLength, DefaultFlexValue::marginTop> marginTop;
-        Value<FlexLength, DefaultFlexValue::marginBottom> marginBottom;
+        Value<FlexLength, DefaultFlexAttributesValue::marginLeft> marginLeft;
+        Value<FlexLength, DefaultFlexAttributesValue::marginRight> marginRight;
+        Value<FlexLength, DefaultFlexAttributesValue::marginTop> marginTop;
+        Value<FlexLength, DefaultFlexAttributesValue::marginBottom> marginBottom;
         
-        Value<FlexLength, DefaultFlexValue::paddingLeft> paddingLeft;
-        Value<FlexLength, DefaultFlexValue::paddingRight> paddingRight;
-        Value<FlexLength, DefaultFlexValue::paddingTop> paddingTop;
-        Value<FlexLength, DefaultFlexValue::paddingBottom> paddingBottom;
+        Value<FlexLength, DefaultFlexAttributesValue::paddingLeft> paddingLeft;
+        Value<FlexLength, DefaultFlexAttributesValue::paddingRight> paddingRight;
+        Value<FlexLength, DefaultFlexAttributesValue::paddingTop> paddingTop;
+        Value<FlexLength, DefaultFlexAttributesValue::paddingBottom> paddingBottom;
         
-        Value<FlexLength, DefaultFlexValue::margin> margin;
-        Value<FlexLength, DefaultFlexValue::padding> padding;
+        Value<FlexLength, DefaultFlexAttributesValue::margin> margin;
+        Value<FlexLength, DefaultFlexAttributesValue::padding> padding;
         
-        Value<float, DefaultFlexValue::flexGrow> flexGrow;
-        Value<float, DefaultFlexValue::flexShrink> flexShrink;
-        Value<FlexLength, DefaultFlexValue::flexBasis> flexBasis;
-        Value<int,  DefaultFlexValue::aliginSelf> alignSelf;
-        Value<bool, DefaultFlexValue::fixed> fixed;
-        Value<bool, DefaultFlexValue::wrap> wrap;
+        Value<float, DefaultFlexAttributesValue::flexGrow> flexGrow;
+        Value<float, DefaultFlexAttributesValue::flexShrink> flexShrink;
+        Value<FlexLength, DefaultFlexAttributesValue::flexBasis> flexBasis;
+        Value<int,  DefaultFlexAttributesValue::aliginSelf> alignSelf;
+        Value<bool, DefaultFlexAttributesValue::fixed> fixed;
+        Value<bool, DefaultFlexAttributesValue::wrap> wrap;
         
         //describe stack layout specs
         struct StackLayoutSpecs stackLayout;
@@ -206,14 +210,6 @@ typedef NS_ENUM(int, VZFlexLayoutAlignment){
 
 };
 
-typedef NS_ENUM(int, VZFlexValue){
-
-    VZFlexValueUndefined = -999999,  // used in properties: marginTop, paddingTop, ...
-    VZFlexValueInfinite = -999998, // used in constraintedSize, maxWidth, maxHeight
-    VZFlexValueAuto = -999997,   // used in properties: flexBasis, width, height, margin, padding, marginTop, ...
-    VZFlexValueContent = -999996        // used in properties: flexBasis
-    
-};
 
 
 @class VZFlexNode;

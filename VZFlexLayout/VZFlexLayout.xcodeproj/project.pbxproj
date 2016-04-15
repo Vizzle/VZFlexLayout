@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		4517297B1C7C494700BF3B9E /* VZFScopeHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */; };
 		4517297E1C7C616C00BF3B9E /* VZFScopeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */; };
-		455F2B101CC097D2001BEA00 /* FBNodeProvider1.mm in Sources */ = {isa = PBXBuildFile; fileRef = 455F2B0F1CC097D2001BEA00 /* FBNodeProvider1.mm */; };
-		455F2B131CC097DA001BEA00 /* FBNodeProvider2.mm in Sources */ = {isa = PBXBuildFile; fileRef = 455F2B121CC097DA001BEA00 /* FBNodeProvider2.mm */; };
 		4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */; };
 		4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0AA1C72F1CC00E52B79 /* VZFNodeHostingView.mm */; };
 		4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0AD1C72F1CC00E52B79 /* VZFNodeLayout.mm */; };
@@ -95,10 +93,6 @@
 		4517297A1C7C494700BF3B9E /* VZFScopeHandler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeHandler.mm; sourceTree = "<group>"; };
 		4517297C1C7C616C00BF3B9E /* VZFScopeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFScopeManager.h; sourceTree = "<group>"; };
 		4517297D1C7C616C00BF3B9E /* VZFScopeManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScopeManager.mm; sourceTree = "<group>"; };
-		455F2B0E1CC097D2001BEA00 /* FBNodeProvider1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBNodeProvider1.h; sourceTree = "<group>"; };
-		455F2B0F1CC097D2001BEA00 /* FBNodeProvider1.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBNodeProvider1.mm; sourceTree = "<group>"; };
-		455F2B111CC097DA001BEA00 /* FBNodeProvider2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBNodeProvider2.h; sourceTree = "<group>"; };
-		455F2B121CC097DA001BEA00 /* FBNodeProvider2.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBNodeProvider2.mm; sourceTree = "<group>"; };
 		4578E0A11C72F1CC00E52B79 /* VZFlexNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFlexNode.h; sourceTree = "<group>"; };
 		4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFlexNode.mm; sourceTree = "<group>"; };
 		4578E0A31C72F1CC00E52B79 /* VZFMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMacros.h; sourceTree = "<group>"; };
@@ -397,10 +391,6 @@
 				45A7D6B81CB4DB7900B072D5 /* FBHostItem.m */,
 				45A7D6B91CB4DB7900B072D5 /* FBImageDownloader.h */,
 				45A7D6BA1CB4DB7900B072D5 /* FBImageDownloader.mm */,
-				455F2B0E1CC097D2001BEA00 /* FBNodeProvider1.h */,
-				455F2B0F1CC097D2001BEA00 /* FBNodeProvider1.mm */,
-				455F2B111CC097DA001BEA00 /* FBNodeProvider2.h */,
-				455F2B121CC097DA001BEA00 /* FBNodeProvider2.mm */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -710,14 +700,12 @@
 				45A7D6F11CB4DB7900B072D5 /* FBLocationNode.mm in Sources */,
 				45CA3A851C7DDE5400DA04C1 /* VZFScope.mm in Sources */,
 				45A7D6F21CB4DB7900B072D5 /* FBNameNode.mm in Sources */,
-				455F2B131CC097DA001BEA00 /* FBNodeProvider2.mm in Sources */,
 				45B15A7F1CBE0F5200F408DA /* VZFChangeset.mm in Sources */,
 				B1CB0B9C1C7EEEEA00A9CAE7 /* VZFNodeController.mm in Sources */,
 				4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */,
 				45A7D6E61CB4DB7900B072D5 /* FBImageDownloader.mm in Sources */,
 				45CA3AAD1C81891600DA04C1 /* VZFNetworkImageView.mm in Sources */,
 				45B15A941CBFA25800F408DA /* RetainCycleLoggerPlugin.m in Sources */,
-				455F2B101CC097D2001BEA00 /* FBNodeProvider1.mm in Sources */,
 				4578E0D21C72F1CC00E52B79 /* FlexLayout.c in Sources */,
 				45CA3A8B1C7F35B000DA04C1 /* VZFRootScope.mm in Sources */,
 				45A7D6FA1CB4DB7900B072D5 /* FBO2OStarView.m in Sources */,

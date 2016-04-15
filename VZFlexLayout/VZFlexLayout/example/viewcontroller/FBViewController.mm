@@ -16,9 +16,12 @@
 #import "FBHeaderNode.h"
 #import "FBContentNode.h"
 #import "FBClickToExpendNode.h"
+#import "VZFNodeSpecs.h"
 
-@interface FBViewController ()<VZFNodeHostingView>
-@property(nonatomic,strong)VZFNodeHostingView* hostingView;
+@interface FBViewController ()<VZFNodeHostingView,VZFNodeProvider>
+@property(nonatomic,strong)VZFNodeHostingView* hostingViewHeader;
+@property(nonatomic,strong)VZFNodeHostingView* hostingViewBody;
+@property(nonatomic,strong)VZFNodeHostingView* hostingViewFooter;
 
 @end
 
@@ -35,13 +38,37 @@
     
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor yellowColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.hostingView = [[VZFNodeHostingView alloc]initWithNodeProvider:[self class]
+    self.hostingViewHeader = [[VZFNodeHostingView alloc]initWithNodeProvider:self
                                                          RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
-    self.hostingView.backgroundColor = [UIColor whiteColor];
-    self.hostingView.frame = {{0,0},{CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds)-64}};
-    self.hostingView.delegate = self;
-    [self.view addSubview:self.hostingView];
+    
+    
+    self.hostingViewHeader.backgroundColor = [UIColor whiteColor];
+    self.hostingViewHeader.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 0);
+//    self.hostingViewHeader.frame = {{0,0},{CGRectGetWidth(self.view.bounds),VZFlexValueAuto}};
+    self.hostingViewHeader.delegate = self;
+    
+    
+//    self.hostingViewHeader = [[VZFNodeHostingView alloc]initWithNodeProvider:self
+//                                                               RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
+//    
+//    
+//    self.hostingViewHeader.backgroundColor = [UIColor whiteColor];
+//    self.hostingViewHeader.frame = {{0,0},{CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds)-64}};
+//    self.hostingViewHeader.delegate = self;
+//    
+//    self.hostingViewHeader = [[VZFNodeHostingView alloc]initWithNodeProvider:self
+//                                                               RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
+//    
+//    
+//    self.hostingViewHeader.backgroundColor = [UIColor whiteColor];
+//    self.hostingViewHeader.frame = {{0,0},{CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds)-64}};
+//    self.hostingViewHeader.delegate = self;
+
+
+    
+    [self.view addSubview:self.hostingViewHeader];
     
     
     [self loadData];
@@ -53,14 +80,15 @@
     NSData* data = [NSData dataWithContentsOfFile:path];
     NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONWritingPrettyPrinted error:nil];
     FBHostItem* item = [FBHostItem newWithJSON:json];
-    [self.hostingView update:item mode:VZFUpdateModeSynchronous];
+    [self.hostingViewHeader update:item mode:VZFUpdateModeSynchronous];
+    
 }
 
-+ (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
+- (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
     
-//    FBHeaderNode* node = [FBHeaderNode newWithItem:item];
-//    FBContentNode* node = [FBContentNode newWithItem:item];
-//    FBHostNode* node = [FBHostNode newWithItem:item];
+    //    FBHeaderNode* node = [FBHeaderNode newWithItem:item];
+    //    FBContentNode* node = [FBContentNode newWithItem:item];
+    //    FBHostNode* node = [FBHostNode newWithItem:item];
     
     FBClickToExpendNode* node = [FBClickToExpendNode newWithItem:item];
     return node;
@@ -68,8 +96,13 @@
 
 
 
-- (void)hostingViewDidInvalidate:(CGSize)newSize{
-    //    self.hostingView.frame = {self.hostingView.frame.origin, newSize};
+
+- (void)hostingView:(VZFNodeHostingView *)view DidInvalidate:(CGSize)newSize
+{
+    if (view.tag == 0) {
+        
+    }
 }
+
 
 @end

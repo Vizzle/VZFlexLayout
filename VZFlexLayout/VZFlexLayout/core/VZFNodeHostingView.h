@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "VZFSizeRange.h"
 
+@class VZFNodeHostingView;
 @class VZFNode;
 @protocol VZFNodeProvider <NSObject>
 
-+ (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context;
+- (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context;
 
 @end
 
@@ -20,7 +21,7 @@
 
 @optional
 
-- (void)hostingViewDidInvalidate:(CGSize)newSize;
+- (void)hostingView:(VZFNodeHostingView* )view DidInvalidate:(CGSize)newSize;
 
 @end
 
@@ -35,7 +36,7 @@ typedef NS_ENUM(NSUInteger,VZFUpdateMode){
 
 @property(nonatomic,weak)id<VZFNodeHostingView> delegate;
 
-- (id)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider RangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
+- (id)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider RangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
 - (void)update:(id)model mode:(VZFUpdateMode)updateMode;
 
 @end

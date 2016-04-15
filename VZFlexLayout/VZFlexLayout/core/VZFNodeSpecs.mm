@@ -15,7 +15,7 @@ namespace VZ {
     
     Class MultiMapKey<Class>::defaultKey = [UITapGestureRecognizer class];
     
-    namespace DefaultFlexValue{
+    namespace DefaultFlexAttributesValue{
         
         FlexLength width = FlexLengthAuto;
         FlexLength height = FlexLengthAuto;
