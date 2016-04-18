@@ -19,13 +19,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/node/VZFStackNode.mm"
-            timestampString = "482419182.405142"
+            filePath = "VZFlexLayout/core/VZFNodeHostingView.mm"
+            timestampString = "482667023.839697"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "-computeLayoutThatFits:"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "-layoutSubviews"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

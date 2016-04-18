@@ -178,7 +178,6 @@ static inline NSString *controllerStateName(VZFNodeControllerState state)
 
 - (void)node:(VZFNode* )node willReleaseBackingView:(UIView* )view{
     if (node == _node) {
-        VZFAssert(view == _view, @"Didn't expect to be relinquishing view %@ when _view is %@", view, _view);
         [self _releaseView];
     }
 

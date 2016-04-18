@@ -43,16 +43,16 @@ struct VZFNodeHostingViewInputs{
 
 @interface VZFNodeHostingView()<VZFStateListener>
 {
-    id<VZFNodeProvider> _nodeProvider;
-    id<VZSizeRangeProvider> _sizeProvider;;
+    __weak id<VZFNodeProvider> _nodeProvider;
+    __weak id<VZSizeRangeProvider> _sizeProvider;;
     VZFNode* _nodeToMount;
     VZFNodeHostingViewInputs _pendingInputs;
 
     NSSet<VZFNode* >* _mountedNodes;
     NodeLayout _mountedLayout;
+    BOOL _shouldUpdate; //这个状态用来控制外部调用updateModel
     BOOL _isSynchronouslyUpdating;
     BOOL _isAsynchronouslyUpdatingScheduled;
-    BOOL _shouldUpdate;
     VZFUpdateMode _updateMode;
 }
 
@@ -74,7 +74,6 @@ struct VZFNodeHostingViewInputs{
         _pendingInputs = {.rootScope = [VZFRootScope rootScopeWithListener:self],
             .stateMap = @{}};
 
-        _shouldUpdate = YES;
         _updateMode = VZFUpdateModeSynchronous;
         
     }
@@ -88,7 +87,7 @@ struct VZFNodeHostingViewInputs{
     
     //主线程释放.
     [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
-//    [[VZFScopeManager sharedInstance] releaseRootScopeById:_pendingInputs.rootScope.rootScopeId];
+    [[VZFScopeManager sharedInstance] releaseRootScopeById:_pendingInputs.rootScope.rootScopeId];
     _pendingInputs.clear();
     
 }
@@ -96,46 +95,64 @@ struct VZFNodeHostingViewInputs{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma UIKit
 
+
 - (void)layoutSubviews{
     
     [super layoutSubviews];
+    
+    //强制更新:对应两种情况：state改变 / 外部直接调用
+    if (_shouldUpdate) {
+        goto __update;
+        
+    }
+    else{
+    
+        //如果外部不手动控制大小，则不会重新layout
+        if (CGSizeEqualToSize(self.bounds.size, _mountedLayout.size)) {
+            return;
+        }
+        else{
+            goto __update;
+        }
+    }
+
+__update:
+    {
+     
+        //同步更新页面
+        [self _updateSynchronously];
+        
+        //确保node和数据都有
+        if (!_nodeToMount || !_pendingInputs.model) {
+            return;
+        }
+        
+        CGSize sz = [_sizeProvider rangeSizeForBounds:self.bounds.size];
+        
+        //node变化再重新计算layout
+        if (_mountedLayout.node!= _nodeToMount)
+        {
+            CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
+            _mountedLayout = [_nodeToMount computeLayoutThatFits:sz];
+            CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
             
-    //同步更新页面
-    [self _updateSynchronously];
-    CGSize sz = [_sizeProvider rangeSizeForBounds:self.bounds.size];
-    if (_mountedLayout.node!= _nodeToMount){
-        
-        
-        CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
-        _mountedLayout = [_nodeToMount computeLayoutThatFits:sz];
-        CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
-        
-        NSLog(@"layout计算:%.4f",t2-t1);
-
+            NSLog(@"layout计算:%.4f",t2-t1);
+            
+            //mount nodes
+            _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
+                                                                      InContainer:self
+                                                                WithPreviousNodes:_mountedNodes
+                                                                     AndSuperNode:nil];
+            
+            
+            if ([self.delegate respondsToSelector:@selector(hostingView:DidInvalidate:)]) {
+                [self.delegate hostingView:self DidInvalidate:[self containerSizeForHostingView:_mountedLayout]];
+            }
+            
+        }
     }
 
     
-    CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
-
-    _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
-                                                              InContainer:self
-                                                        WithPreviousNodes:_mountedNodes
-                                                             AndSuperNode:nil];
-    
-    CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
-    NSLog(@"node 加载:%.4f",t2-t1);
-        
-    CGFloat containerWidth  = _mountedLayout.size.width + _mountedLayout.margin.left + _mountedLayout.margin.right;
-    CGFloat containerHeight = _mountedLayout.size.height + _mountedLayout.margin.top + _mountedLayout.margin.bottom;
-
-    self.frame = CGRect{self.frame.origin, {containerWidth, containerHeight}};
-
-    if ([self.delegate respondsToSelector:@selector(hostingView:DidInvalidate:)]) {
-        [self.delegate hostingView:self DidInvalidate:_mountedLayout.size];
-    }
-        //resize the container view
-    
-
     
 }
 
@@ -144,8 +161,10 @@ struct VZFNodeHostingViewInputs{
 
 - (void)update:(id)model mode:(VZFUpdateMode)updateMode{
     
+    _shouldUpdate = YES;
     _pendingInputs.model = model;
     [self _update:updateMode];
+    _shouldUpdate = NO;
 }
 
 
@@ -166,6 +185,7 @@ struct VZFNodeHostingViewInputs{
     [funclist addObject:stateUpdate];
     mutableFuncs[scopeId] = funclist;
     _pendingInputs.stateMap = [mutableFuncs copy];
+    _shouldUpdate = YES;
     [self _update:VZFUpdateModeAsynchronous];
 }
 
@@ -175,10 +195,6 @@ struct VZFNodeHostingViewInputs{
 
 - (void)_update:(VZFUpdateMode)mode{
     
-//    if (_shouldUpdate && _updateMode == VZFUpdateModeSynchronous) {
-//        return;
-//    }
-    _shouldUpdate = YES;
     _updateMode = mode;
     if (mode == VZFUpdateModeAsynchronous) {
         [self _updateASynchronously];
@@ -192,7 +208,7 @@ struct VZFNodeHostingViewInputs{
 //同步更新页面
 - (void)_updateSynchronously{
     
-    if (_shouldUpdate == NO || _updateMode == VZFUpdateModeAsynchronous) {
+    if (_updateMode == VZFUpdateModeAsynchronous) {
         return;
     }
     
@@ -204,13 +220,15 @@ struct VZFNodeHostingViewInputs{
     
     _isSynchronouslyUpdating = true;
     
+    NSUInteger tag = self.tag;
     VZFBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
-        return [_nodeProvider nodeForItem:_pendingInputs.model context:nil];
+        return [_nodeProvider nodeForItem:_pendingInputs.model context:@(tag)];
     } RootScope:_pendingInputs.rootScope StateUpdateFuncs:_pendingInputs.stateMap];
     _pendingInputs.rootScope = result.scopeRoot;
     _pendingInputs.stateMap = @{};
     _nodeToMount = result.node;
     _nodeToMount.rootNodeView = self;
+    
     _isSynchronouslyUpdating = false;
 
 }
@@ -223,18 +241,19 @@ struct VZFNodeHostingViewInputs{
         return;
     }
     
+    NSUInteger tag = self.tag;
     const auto inputs = std::make_shared<const VZFNodeHostingViewInputs>(_pendingInputs);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
        
         VZFBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
-            return [_nodeProvider nodeForItem:_pendingInputs.model context:nil];
+            return [_nodeProvider nodeForItem:_pendingInputs.model context:@(tag)];
         } RootScope:_pendingInputs.rootScope StateUpdateFuncs:_pendingInputs.stateMap];
         
         dispatch_async(dispatch_get_main_queue(), ^{
            
-            if (!_shouldUpdate) {
-                return ;
-            }
+//            if (!_shouldUpdate) {
+//                return ;
+//            }
             
             if (_pendingInputs == *inputs) {
                 _isAsynchronouslyUpdatingScheduled = NO;
@@ -255,48 +274,14 @@ struct VZFNodeHostingViewInputs{
     _pendingInputs.rootScope = result.scopeRoot;
     _pendingInputs.stateMap = @{};
     _nodeToMount = result.node;
-    _shouldUpdate = NO;
     
 }
 
-- (void)_update{
-
-//    if (_isRendering) {
-//        return;
-//    }
-//    
-//    _isRendering = YES;
-//    
-//    VZFBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
-//        return [_nodeProvider nodeForItem:_pendingInputs.model context:nil];
-//    } RootScope:_pendingInputs.rootScope StateUpdateFuncs:_pendingInputs.stateMap];
-//    _pendingInputs.rootScope = result.scopeRoot;
-//    _pendingInputs.stateMap = @{};
-//    _node = result.node;
-//    _node.rootNodeView = self;
-//    
-//    CGSize size = [_sizeProvider rangeSizeForBounds:self.bounds.size];
-//    VZFNodeLayout layout = [_node computeLayoutThatFits:size];
-//    NSLog(@"%@",_node);
-//    CGFloat containerWidth = layout.nodeSize().width + layout.nodeMargin().left + layout.nodeMargin().right;
-//    CGFloat containerHeight = layout.nodeSize().height + layout.nodeMargin().top + layout.nodeMargin().bottom;
-//    _containerView.frame = {{0,0}, {containerWidth, containerHeight}};
-//    UIView* fView = [VZFNodeViewManager viewForNode:_node withLayoutSpec:layout reuseView:self->_resultView];
-//    
-//    //整体View如果是新创建的，则需要移除hostingView上原有的subView
-//    if (fView != self->_resultView) {
-//        self->_resultView = fView;
-//        [_containerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-//        [_containerView addSubview:fView];
-//        
-//        if ([self.delegate respondsToSelector:@selector(hostingViewDidInvalidate:)]) {
-//            [self.delegate hostingViewDidInvalidate:_containerView.frame.size];
-//        }
-//    }
-//    
-//    _isRendering = NO;
-
-
+- (CGSize)containerSizeForHostingView:(const NodeLayout& )layout
+{
+    CGFloat containerWidth  = layout.size.width + layout.margin.left + layout.margin.right;
+    CGFloat containerHeight = layout.size.height + layout.margin.top + layout.margin.bottom;
+    return {containerWidth,containerHeight};
 }
 
 - (id)targetForAction:(SEL)action withSender:(id)sender

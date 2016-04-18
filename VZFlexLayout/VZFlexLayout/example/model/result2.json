@@ -11,9 +11,16 @@
               ],
     
     "location":"阿里巴巴西溪园区(高教路)",
-    "zanCount":"10",
-    "likeCount":"23",
-    "zanPersons":["凌万","贤哲","胖砸","大狗","威曼","何灵","净枫","志宗"],
+    "likeCount":"255",
+    "rewardedCount":"40",
+    "commentCount":"25",
+    
+    "islike":"0",
+    "isComment":"0",
+    "isReward":"0",
+    
+    "rewardedPersons":["凌万","贤哲","胖砸","大狗","威曼"],
     "likePersons":["凌万","贤哲","胖砸","大狗","威曼","何灵","净枫","志宗"],
-    "replyContent":"搞定技术问题并不简单，但与人打交到也并非易事。作为一个技术专家，你是否在走上管理岗位时遇到了各种不适“症状”？《技术领导之路：解决问题的有机方法》一书将帮助你成为一个成功的解决问题的领导者"
+    "comments":["View layer with MVP becomes so simple, so it does not even need to have callbacks when requesting for data. View logic becomes very linear.",
+                "If you have enrolled in the class or plan to, please install Haskell stack and (optionally) the Haskell Platform on your machine so as to be able to do the assignments. Moreover, please bring your laptop to class."]
 }

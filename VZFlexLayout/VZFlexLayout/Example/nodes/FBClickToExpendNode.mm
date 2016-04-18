@@ -71,9 +71,9 @@
         .flex = {.stackLayout = { .direction = VZFlexVertical}}
     
     } Children:{
-        {nameNode},
-        {textNode},
-        {buttonNode}
+        {item.nick?nameNode:nil},
+        {item.content?textNode:nil},
+        {item.content?buttonNode:nil}
     }];
     
     return [super newWithNode:stackNode];
