@@ -101,8 +101,8 @@
 
 - (void)onItemSizeChanged:(CGSize)sz Index:(NSIndexPath *)indexPath{
 
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-
+//    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadData];
 }
 
 @end

@@ -71,6 +71,7 @@
 
     CGSize newSize = state.layout.size;
     _recycleState = state;
+    
     [self.delegate onItemSizeChanged:newSize Index:self.indexPath];
     
 

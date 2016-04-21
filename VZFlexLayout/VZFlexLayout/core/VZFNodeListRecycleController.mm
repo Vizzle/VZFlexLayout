@@ -217,6 +217,8 @@ const void* g_recycleId = &g_recycleId;
     
     [self updateState:state];
     
+    [self _mountedLayout];
+    
     if (sizeChanged) {
         if([self.delegate respondsToSelector:@selector(onNodeStateDidChanged:)]){
             [self.delegate onNodeStateDidChanged:_state];
