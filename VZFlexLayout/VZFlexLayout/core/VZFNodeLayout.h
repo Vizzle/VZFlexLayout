@@ -47,7 +47,7 @@ namespace VZ {
             return desc;
         };
 
-        __weak VZFNode* node; //this does not create a retain cycle
+        VZFNode* node; //this does not create a retain cycle
         CGSize size = {0,0};
         CGPoint origin = {0,0};
         UIEdgeInsets margin = {0,0,0,0};

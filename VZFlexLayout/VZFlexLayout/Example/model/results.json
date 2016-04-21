@@ -1,0 +1,105 @@
+{
+    "results":[
+    
+           {
+               "icon":"http://www.collegedj.net/wp-content/uploads/2015/02/mike-zombie-philly-event-voltage-lounge-50x50.jpg",
+               "nick":"Kevin",
+               "time":"2016-03-01",
+               "score":"3.7",
+               "content":"多年前，惨绝人寰的连环灭门谋杀案震惊了整个小镇，当时唯一的生还者至今仍下落不明。多年后，单亲妈妈考特尼（莎妮·索萨蒙 Shannyn Sossamon 饰），带着双胞胎儿子迪伦（罗伯特·丹尼尔·斯隆 Robert Daniel Sloan 饰）与扎克（达塔尼安·斯隆 Dartanian Sloan 饰）搬入这栋看似宁静的凶宅，却意外的引来了骇人的“好兄弟”，“好兄弟”除了想当这对双胞胎的玩伴，更想要他们的命",
+               "images":["http://www.collegedj.net/wp-content/uploads/2015/02/k-michelle--150x150.jpg",
+                         "http://www.collegedj.net/wp-content/uploads/2015/02/k-michelle-stay-with-me-150x150.jpg",
+                         "http://www.collegedj.net/wp-content/uploads/2015/02/mike-zombie-philly-event-voltage-lounge-150x150.jpg",
+                         "http://www.collegedj.net/wp-content/uploads/2016/01/lapsley-long-way-home-album-cover-150x150.png"
+                         ],
+               
+               "location":"阿里巴巴西溪园区",
+               
+               "likeCount":"8",
+               "rewardedCount":"5",
+               "commentCount":"4",
+               
+               "islike":"1",
+               "isComment":"1",
+               "isReward":"0",
+           
+           },
+           {
+               "icon":"http://www.collegedj.net/wp-content/uploads/2016/03/CdhHsytUMAA8-Lg-50x50.jpg",
+               "nick":"Cathy",
+               "time":"2016-03-02",
+               "score":"3.7",
+               "content":"One of the aspects of building an application is deciding how data will flow through it. Many iOS developers use dictionaries for this purpose, or use handwritten, simple objects instead. We've seen these patterns in our use of Objective-C at Facebook, and we've found some drawbacks in these approaches. Passing dictionaries of data around proved dangerous because dictionary fields are not type-safe. We also found that maintaining custom model objects was time-consuming, tedious, and error-prone.",
+               
+               "images":["http://www.collegedj.net/wp-content/uploads/2016/03/CcuzEnlWwAAvx3g-150x150.jpg",
+                         "http://www.collegedj.net/wp-content/uploads/2016/03/CdhHsxsUEAAwzFW-150x150.jpg"],
+               
+               "location":"下城区",
+               
+               "likeCount":"3",
+               "rewardedCount":"2",
+               "commentCount":"11",
+               
+               "islike":"1",
+               "isComment":"1",
+               "isReward":"0",
+               
+           
+           },
+           {
+               "icon":"http://www.collegedj.net/wp-content/uploads/2016/03/artworks-000148430387-nl8w7s-t500x500-50x50.jpg",
+               "nick":"Bruce.A",
+               "time":"2016-03-11",
+               "score":"4.5",
+               "content":"To solve these problems, we built Remodel, an Objective-C code generation tool specialized for quickly creating and editing model objects.",
+               
+               "likeCount":"123",
+               "rewardedCount":"567",
+               "commentCount":"88",
+               
+               "islike":"1",
+               "isComment":"1",
+               "isReward":"0",
+           
+           },
+           {
+               "icon":"http://www.collegedj.net/wp-content/uploads/2015/02/mike-zombie-philly-event-voltage-lounge-50x50.jpg",
+               "nick":"Andrew Guno",
+               "time":"2016-04-01",
+               "score":"2.2",
+               "content":"As our codebase scaled, we found that giving these objects certain properties enforced good patterns (such as the separation of data and behavior), enabled a simpler programming model, allowed us to explore lock-free multi-threading strategies, and simplified unit test writing.",
+               "images":["http://www.collegedj.net/wp-content/uploads/2016/03/img_0801-1-1-150x150.jpg"],
+               
+               "location":"支付宝大楼B座",
+               
+               "likeCount":"44",
+               "rewardedCount":"45",
+               "commentCount":"4",
+               
+               "islike":"1",
+               "isComment":"1",
+               "isReward":"0",
+            
+           },
+           {
+               "icon":"http://www.collegedj.net/wp-content/uploads/2016/04/SUCVnSXj-50x50.jpg",
+               "nick":"Jayson",
+               "time":"2016-04-21",
+               "score":"1.4",
+               "content":"If you take this approach, you'll quickly run into type safety issues — the compiler won't help you be sure that, for example, a dictionary passed into your method would contain the entries you're expecting or that they're the right type. If someone decided to pass an NSNumber as the nickname value, the compiler would successfully build your application, yet a crash would be likely when your app is run. Relying on the compiler is an important part of working in iOS, and the benefits of compile-time errors over runtime errors should not be disregarded.",
+               "images":["http://www.collegedj.net/wp-content/uploads/2016/04/Ce02meYUYAAvDeC-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/02/Cb27jGVUAAAr4t4-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/02/CbgPYkWWAAABdjC-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/02/Russ-Ft.-Bugus-To-Be-Honest-300x300-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/02/St-Jude-Talk-It-Out-Radio-150x150.png","http://www.collegedj.net/wp-content/uploads/2016/02/Thrillz-For-The-Thrill-Of-It-150x150.png","http://www.collegedj.net/wp-content/uploads/2016/02/Will-Wildfire-on-stoop-150x150.png"],
+               
+               "likeCount":"3",
+               "rewardedCount":"4",
+               "commentCount":"5",
+               
+               "islike":"1",
+               "isComment":"1",
+               "isReward":"0",
+           
+           }
+               
+    ]
+
+}
+

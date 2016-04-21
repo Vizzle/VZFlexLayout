@@ -48,6 +48,7 @@ using namespace VZ;
 }
 
 - (NodeLayout)computeLayoutThatFits:(CGSize)constrainedSize{
+        
     
     //只计算一次
     [self.flexNode layout:constrainedSize];

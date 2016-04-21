@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "FBViewController.h"
+#import "FBTableViewController.h"
 
 @implementation ViewController
 
@@ -25,8 +26,8 @@
 
 - (void)go:(id)sender
 {
-    //    FBListViewController* v = [FBListViewController new];
-    FBViewController* v = [FBViewController new];
+    FBTableViewController* v = [FBTableViewController new];
+//    FBViewController* v = [FBViewController new];
     [self.navigationController pushViewController:v animated:YES];
 }
 

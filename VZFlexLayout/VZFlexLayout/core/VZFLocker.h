@@ -91,7 +91,7 @@ namespace VZ {
         pthread_mutex_t _m;
         
     };
-    typedef Locker<Mutex> MutexLaocker;
+    typedef Locker<Mutex> MutexLocker;
     
     
     struct StaticMutex{

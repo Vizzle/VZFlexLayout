@@ -81,6 +81,7 @@ using namespace VZ;
 
 
 
+- (BOOL)shouldMemoizeLayout;
 
 @end
 

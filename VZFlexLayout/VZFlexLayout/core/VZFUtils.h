@@ -49,6 +49,47 @@ namespace VZ {
     
     namespace Hash{
         
+        // Default is not an ObjC class
+        template<typename T, typename V = bool>
+        struct is_objc_class : std::false_type { };
+        
+        // Conditionally enable this template specialization on whether T is convertible to id, makes the is_objc_class a true_type
+        template<typename T>
+        struct is_objc_class<T, typename std::enable_if<std::is_convertible<T, id>::value, bool>::type> : std::true_type { };
+        
+        // CKUtils::hash<T>()(value) -> either std::hash<T> if c++ or [o hash] if ObjC object.
+        template <typename T, typename Enable = void> struct hash;
+        
+        // For non-objc types, defer to std::hash
+        template <typename T> struct hash<T, typename std::enable_if<!is_objc_class<T>::value>::type> {
+            size_t operator ()(const T& a) {
+                return std::hash<T>()(a);
+            }
+        };
+        
+        // For objc types, call [o hash]
+        template <typename T> struct hash<T, typename std::enable_if<is_objc_class<T>::value>::type> {
+            size_t operator ()(id o) {
+                return [o hash];
+            }
+        };
+        
+        template <typename T, typename Enable = void> struct is_equal;
+        
+        // For non-objc types use == operator
+        template <typename T> struct is_equal<T, typename std::enable_if<!is_objc_class<T>::value>::type> {
+            bool operator ()(const T& a, const T& b) {
+                return a == b;
+            }
+        };
+        
+        // For objc types, check pointer equality, then use -isEqual:
+        template <typename T> struct is_equal<T, typename std::enable_if<is_objc_class<T>::value>::type> {
+            bool operator ()(id a, id b) {
+                return a == b || [a isEqual:b];
+            }
+        };
+        
         // From folly:
         // This is the Hash128to64 function from Google's cityhash (available
         // under the MIT License).  We use it to reduce multiple 64 bit hashes

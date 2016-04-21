@@ -56,7 +56,7 @@ using namespace VZ::UIKit;
     return [self newWithView:[UIView class] NodeSpecs:{}];
 }
 
-- (instancetype)initWithView:(const ViewClass& )viewclass Specs:(const NodeSpecs& )specs{
+- (instancetype)initWithView:(const ViewClass& )viewclass Specs:(const NodeSpecs& )specs {
     self = [super init];
     if (self) {
         
@@ -78,7 +78,7 @@ using namespace VZ::UIKit;
 
 - (void)dealloc{
 
-    NSLog(@"[%@]-->dealloc",self.class);
+    //NSLog(@"[%@]-->dealloc",self.class);
     _flexNode.fNode = nil;
 }
 

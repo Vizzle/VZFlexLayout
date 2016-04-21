@@ -29,6 +29,7 @@ using namespace VZ;
 
     const ViewAttrs vs = node.specs.view;
     [self _applyAttributes:vs ToUIView:view];
+    [self _applyGestures:node.specs.gesture ToUIView:view];
 
     if ([node isKindOfClass:[VZFImageNode class]]) {
         VZFImageNode* imageNode = (VZFImageNode* )node;
@@ -67,7 +68,30 @@ using namespace VZ;
         vs.block(view);
     }
     
-    
+ 
+}
+
+
++ (void)_applyGestures:(MultiMap<Class, ActionWrapper>)gestures ToUIView:(UIView* )view{
+    [view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj conformsToProtocol:@protocol(VZFActionWrapper)]) {
+            [view removeGestureRecognizer:obj];
+        }
+    }];
+    static const void* _id = &_id;
+    NSMutableArray *gestureArray = [NSMutableArray array];
+    objc_setAssociatedObject(view, _id, gestureArray, OBJC_ASSOCIATION_RETAIN);
+    for (auto iter=gestures.begin(); iter!=gestures.end(); iter=gestures.equal_range(iter->first).second){
+        auto key = iter->first;
+        UIGestureRecognizer *gestureRecognizer = [[key alloc] initWithTarget:nil action:nil];
+        auto range = gestures.equal_range(key);
+        for (auto it=range.first; it!=range.second; it++){
+            id<VZFActionWrapper> wrapper = vz_actionWrapper(it->second);
+            [gestureArray addObject:wrapper];
+            [gestureRecognizer addTarget:wrapper action:@selector(invoke:)];
+        }
+        [view addGestureRecognizer:gestureRecognizer];
+    }
 }
 
 + (void)_applyImageAttributes:(const ImageNodeSpecs& )imageNodeSpecs ToImageView:(UIImageView* )imageView{
@@ -108,6 +132,7 @@ using namespace VZ;
         [actionArray addObject:wrapper];
         [btn addTarget:wrapper action:@selector(invoke:event:) forControlEvents:action.first];
     }
+    
 }
 
 + (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs ToUILabel:(UILabel* )label{

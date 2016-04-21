@@ -10,9 +10,10 @@
 #import "VZFScopeHandler.h"
 #import "VZFRootScope.h"
 #import "VZFScopeFrame.h"
+#import "VZFNodeThreadLocalScope.h"
 #include <stack>
 #include <string>
-
+#include <pthread.h>
 
 using namespace VZ;
 @implementation VZFLocalScope
@@ -90,6 +91,7 @@ using namespace VZ;
 
 
 
+
 @implementation VZFScopeManager
 {
 
@@ -106,6 +108,7 @@ using namespace VZ;
     return instance;
 
 }
+
 
 - (id)init{
 
@@ -129,6 +132,8 @@ using namespace VZ;
                           StateUpdateFuncs:(NSDictionary* )funcs{
 
 
+//    VZFNodeThreadLocalScope localScope(rootScope,funcs);
+    
     VZFLocalScope* localScope = [VZFScopeManager newLocalScopeWithRootScope:rootScope StateUpdateFuncs:funcs];
     VZFNode* node = function();
     [localScope pop];

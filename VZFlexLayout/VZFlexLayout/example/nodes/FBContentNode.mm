@@ -35,7 +35,7 @@
 
 + (instancetype)newWithItem:(FBHostItem *)item
 {
-    VZ::Scope scope(self);
+    VZ::Scope scope(self,@"asdfds");
     NSDictionary* state = scope.state();
 
     VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
@@ -55,9 +55,6 @@
         .title = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         .font = [UIFont systemFontOfSize:14.0f],
-//        .action = ^(id sender){
-
-//        }
         .action = @selector(onExpendClicked:),
     }];
     

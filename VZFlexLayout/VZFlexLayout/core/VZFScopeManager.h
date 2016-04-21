@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
+#import  <Foundation/Foundation.h>
+#include <stack>
 
 
 @protocol VZFStateListener <NSObject>
@@ -46,6 +46,10 @@ using namespace VZ;
 - (void)push:(const ScopeFramePair& )pair;
 
 @end
+
+
+
+
 
 struct VZFBuildNodeResult {
     VZFNode *node;
