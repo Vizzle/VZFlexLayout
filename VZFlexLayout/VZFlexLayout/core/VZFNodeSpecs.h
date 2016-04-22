@@ -17,6 +17,7 @@
 #import "VZFNodeViewClass.h"
 #import "VZFValue.h"
 #import "VZFActionWrapper.h"
+#import "FlexLayout.h"
 #import "VZFLength.h"
 
 using namespace VZ;

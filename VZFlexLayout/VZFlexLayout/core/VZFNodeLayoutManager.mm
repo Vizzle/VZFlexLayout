@@ -63,7 +63,7 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
     
     //2.1, 创建rootContext
     MountContext rootContext = MountContext::RootContext(container);
-    //rootContext.position = layout.origin;
+    rootContext.position = layout.origin;
 
     //2.2, 创建一个stack用来递归
     std::stack<MountItem> stack = {};

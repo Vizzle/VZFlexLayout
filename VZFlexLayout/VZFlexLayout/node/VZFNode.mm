@@ -98,6 +98,12 @@ using namespace VZ::UIKit;
     return layout;
 }
 
+- (BOOL)shouldMemoizeLayout{
+    
+    return NO;
+}
+
+
 
 - (NSString *)description {
     

@@ -54,9 +54,5 @@ using namespace VZ;
     return {self,layout.size,layout.origin,layout.margin, {{_node,layout.size,layout.origin,layout.margin,*layout.children}}};
 }
 
-- (BOOL)shouldMemoizeLayout{
-
-    return NO;
-}
 
 @end
