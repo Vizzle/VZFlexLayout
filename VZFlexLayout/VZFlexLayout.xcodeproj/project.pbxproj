@@ -72,7 +72,6 @@
 		45B15A7F1CBE0F5200F408DA /* VZFChangeset.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A7A1CBE0F5200F408DA /* VZFChangeset.mm */; };
 		45B15A801CBE0F5200F408DA /* VZFSectionedArray.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A7C1CBE0F5200F408DA /* VZFSectionedArray.mm */; };
 		45B15A811CBE0F5200F408DA /* VZFTableViewDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A7E1CBE0F5200F408DA /* VZFTableViewDataSource.mm */; };
-		45B15A841CBE0F7900F408DA /* TableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A831CBE0F7900F408DA /* TableViewController.mm */; };
 		45B15A871CBE0F8E00F408DA /* VZFLength.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A861CBE0F8E00F408DA /* VZFLength.mm */; };
 		45B15A8A1CBE5BEB00F408DA /* FBClickToExpendNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A891CBE5BEB00F408DA /* FBClickToExpendNode.mm */; };
 		45B15A8D1CBE7EF900F408DA /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A8C1CBE7EF900F408DA /* ViewController.mm */; };
@@ -219,8 +218,6 @@
 		45B15A7C1CBE0F5200F408DA /* VZFSectionedArray.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFSectionedArray.mm; sourceTree = "<group>"; };
 		45B15A7D1CBE0F5200F408DA /* VZFTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTableViewDataSource.h; sourceTree = "<group>"; };
 		45B15A7E1CBE0F5200F408DA /* VZFTableViewDataSource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTableViewDataSource.mm; sourceTree = "<group>"; };
-		45B15A821CBE0F7900F408DA /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TableViewController.h; path = VZFlexLayout/Example/controller/TableViewController.h; sourceTree = SOURCE_ROOT; };
-		45B15A831CBE0F7900F408DA /* TableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TableViewController.mm; path = VZFlexLayout/Example/controller/TableViewController.mm; sourceTree = SOURCE_ROOT; };
 		45B15A851CBE0F8E00F408DA /* VZFLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLength.h; sourceTree = "<group>"; };
 		45B15A861CBE0F8E00F408DA /* VZFLength.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLength.mm; sourceTree = "<group>"; };
 		45B15A881CBE5BEB00F408DA /* FBClickToExpendNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBClickToExpendNode.h; sourceTree = "<group>"; };
@@ -453,8 +450,6 @@
 		45A7D6D61CB4DB7900B072D5 /* viewcontroller */ = {
 			isa = PBXGroup;
 			children = (
-				45B15A821CBE0F7900F408DA /* TableViewController.h */,
-				45B15A831CBE0F7900F408DA /* TableViewController.mm */,
 				45A7D6D71CB4DB7900B072D5 /* FBViewController.h */,
 				45A7D6D81CB4DB7900B072D5 /* FBViewController.mm */,
 				454477831CC50CF8000B54E7 /* FBTableViewController.h */,
@@ -769,7 +764,6 @@
 				45CA3AB21C81A4EC00DA04C1 /* VZFUtils.mm in Sources */,
 				4544778B1CC5C818000B54E7 /* VZFNodeItem.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
-				45B15A841CBE0F7900F408DA /* TableViewController.mm in Sources */,
 				4578E0F31C756D3400E52B79 /* VZFButtonNodeSpecs.mm in Sources */,
 				4578E0CF1C72F1CC00E52B79 /* VZFNodeViewManager.mm in Sources */,
 				45A7D6AC1CB4D99300B072D5 /* VZFValue.mm in Sources */,

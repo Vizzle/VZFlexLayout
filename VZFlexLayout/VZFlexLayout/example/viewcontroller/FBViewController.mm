@@ -105,13 +105,13 @@
         return nil;
     }
     
-    NSNumber* tag = (NSNumber* )context;
-    if ([tag integerValue] == 0) {
-        return [FBHostNode newWithItem:item];
-    }
-    else{
+//    NSNumber* tag = (NSNumber* )context;
+//    if ([tag integerValue] == 0) {
+//        return [FBHostNode newWithItem:item];
+//    }
+//    else{
         return [FBClickToExpendNode newWithItem:item];
-    }
+//    }
 }
 
 - (void)hostingView:(VZFNodeHostingView *)view DidInvalidate:(CGSize)newSize

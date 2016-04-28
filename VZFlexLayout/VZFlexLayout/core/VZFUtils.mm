@@ -51,6 +51,7 @@ namespace VZ{
             if (objc_getAssociatedObject(v, g_reuseId)) {
                 return;
             }
+            NSLog(@"mount RootView: %@",v.class);
             VZFViewReuseInfo* reuseInfo = [[VZFViewReuseInfo alloc]initWithView:v didEnterReusePoolBlock:nil willLeaveReusePoolBlock:nil];
             objc_setAssociatedObject(v, g_reuseId, reuseInfo, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         }
@@ -61,6 +62,7 @@ namespace VZ{
                 return;
             }
             
+            NSLog(@"mount ChildView: %@",child.class);
             VZFViewReuseInfo* reuseInfo = [[VZFViewReuseInfo alloc]initWithView:child didEnterReusePoolBlock:nil willLeaveReusePoolBlock:nil];
             objc_setAssociatedObject(child, g_reuseId, reuseInfo,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             VZFViewReuseInfo* parentReuseInfo = objc_getAssociatedObject(parent, g_reuseId);
@@ -113,11 +115,15 @@ namespace VZ{
             
         }
         void hide(UIView* v){
+            
+            NSLog(@"hide: %@",v.class);
             VZFViewReuseInfo* reuseInfo = objc_getAssociatedObject(v, g_reuseId);
             VZFCAssertNotNil(reuseInfo, @"reuse info is missing!");
             [reuseInfo hide];
         }
         void unhide(UIView* v){
+            
+            NSLog(@"unhide: %@",v.class);
             VZFViewReuseInfo* reuseInfo = objc_getAssociatedObject(v, g_reuseId);
             VZFCAssertNotNil(reuseInfo, @"reuse info is missing!");
             [reuseInfo unHide];

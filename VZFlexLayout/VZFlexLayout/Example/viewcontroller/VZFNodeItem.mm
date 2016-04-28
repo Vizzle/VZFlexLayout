@@ -12,7 +12,7 @@
 #import "VZFNodeProvider.h"
 #import "FBHostNode.h"
 #import "VZFNodeSpecs.h"
-
+#import "FBContentNode.h"
 
 @interface VZFNodeItem()<VZFNodeProvider,VZFNodeListRecycleController>
 {
@@ -63,7 +63,9 @@
 - (VZFNode* )nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
 
     NSLog(@"%s",__PRETTY_FUNCTION__);
-    return [FBHostNode newWithItem:item];
+    
+    return [FBContentNode newWithItem:item];
+//    return [FBHostNode newWithItem:item];
 
 }
 

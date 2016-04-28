@@ -34,8 +34,6 @@ using namespace VZ;
         return nil;
     }
     
-
-    
     VZFCompositeNode* compositeNode = [super newWithView:{} NodeSpecs:{}];
     if (compositeNode) {
         compositeNode -> _node = node;
