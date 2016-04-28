@@ -33,7 +33,10 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     id manager = objc_getAssociatedObject(view, g_viewReusePoolManager);
     if (!manager) {
         
+        static int index = 0;
         manager = [[VZFViewReusePoolManager alloc]init];
+        index ++ ;
+        NSLog(@"!!!!ReusePoolManagerCount:%d",index);
         objc_setAssociatedObject(view, g_viewReusePoolManager, manager, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return manager;
@@ -98,6 +101,11 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     if (!reusePool) {
         reusePool = [[VZFViewReusePool alloc]init];
         _reusePoolMap[viewKey] = reusePool;
+    
+        NSLog(@"!!!!Create Reuse Pool");
+    }
+    else{
+        NSLog(@"!!!Recycle Reuse Pool");
     }
 
     UIView* v = [reusePool viewForClass:node.viewClass ParentView:container];
@@ -118,6 +126,7 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     if (!reusePool) {
         reusePool = [[VZFViewReusePool alloc]init];
         _reusePoolMap[viewKey] = reusePool;
+
     }
     UIView* v = [reusePool viewForClass:viewclass ParentView:container];
     _existedViews.push_back(v);

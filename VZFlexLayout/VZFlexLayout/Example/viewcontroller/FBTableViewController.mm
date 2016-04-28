@@ -14,6 +14,7 @@
 #import "VZFNodeLayout.h"
 #import "VZFNodeInternal.h"
 #import "VZFNodeSpecs.h"
+#import "FBTextNode.h"
 
 
 @interface FBTableViewController()<UITableViewDataSource,UITableViewDelegate,VZFNodeItemCallback>
@@ -37,7 +38,7 @@
     
     _items = [NSMutableArray new];
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-64)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];

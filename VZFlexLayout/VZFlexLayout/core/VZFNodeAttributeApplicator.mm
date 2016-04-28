@@ -19,7 +19,7 @@
 #import "VZFTextNodeSpecs.h"
 #import "VZFImageNodeSpecs.h"
 #import "VZFButtonNodeSpecs.h"
-
+#import "VZFMacros.h"
 
 
 using namespace VZ;
@@ -27,7 +27,7 @@ using namespace VZ;
 
 + (void)applyNodeAttributes:(VZFNode* )node toView:(UIView* )view{
 
-    const ViewAttrs vs = node.specs.view;
+    const ViewAttributes vs = node.specs.view;
     [self _applyAttributes:vs ToUIView:view];
     [self _applyGestures:node.specs.gesture ToUIView:view];
 
@@ -53,7 +53,7 @@ using namespace VZ;
 }
 
 
-+ (void)_applyAttributes:(const ViewAttrs&)vs ToUIView:(UIView* )view {
++ (void)_applyAttributes:(const ViewAttributes&)vs ToUIView:(UIView* )view {
     
     view.tag                    = vs.tag;
     view.backgroundColor        = vs.backgroundColor?:[UIColor clearColor];
@@ -63,12 +63,17 @@ using namespace VZ;
     if (vs.layer.contents.CGImage) {
         view.layer.contents     = (__bridge id)vs.layer.contents.CGImage;
     }
-    
-    if (vs.block) {
-        vs.block(view);
+    else{
+        view.layer.contents  = nil;
     }
     
- 
+    if (vs.unapplicator) {
+        vs.unapplicator(view);
+    }
+    
+    if (vs.applicator) {
+        vs.applicator(view);
+    }
 }
 
 

@@ -181,7 +181,8 @@ struct VZFNodeHostingViewInputs{
         _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
                                                                   InContainer:self
                                                             WithPreviousNodes:_mountedNodes
-                                                                 AndSuperNode:nil];
+                                                                 AndSuperNode:nil
+                                                                      Context:nil];
         
         
         if ([self.delegate respondsToSelector:@selector(hostingView:DidInvalidate:)]) {

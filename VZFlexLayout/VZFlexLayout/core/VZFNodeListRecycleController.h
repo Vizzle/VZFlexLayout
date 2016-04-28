@@ -41,6 +41,7 @@ struct VZFNodeListRecycleState{
 @interface VZFNodeListRecycleController : NSObject
 
 @property(nonatomic,weak)id<VZFNodeListRecycleController> delegate;
+@property(nonatomic,strong) NSIndexPath* indexPath;
 
 - (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider
                    SizeRangeProvider:(id<VZSizeRangeProvider>)sizeProvider;

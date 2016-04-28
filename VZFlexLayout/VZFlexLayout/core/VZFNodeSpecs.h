@@ -28,7 +28,7 @@ namespace VZ {
         const float Auto = FlexAuto;
     }
     
-    struct LayerAttrs{
+    struct LayerAttributes{
         
         CGFloat cornerRadius;
         CGFloat borderWidth;
@@ -36,13 +36,17 @@ namespace VZ {
         UIImage* contents;
     };
     
-    struct ViewAttrs{
+    /**
+     *  枚举常用的view属性
+     */
+    struct ViewAttributes{
         
         NSInteger tag;
         BOOL clipsToBounds;
         UIColor* backgroundColor;
-        struct LayerAttrs layer;
-        void(^block)(UIView* view);
+        struct LayerAttributes layer;
+        void(^unapplicator)(UIView* view);
+        void(^applicator)(UIView* view);
     };
     
     namespace DefaultFlexAttributesValue{
@@ -152,7 +156,7 @@ namespace VZ {
         std::string identifier;
 
         //view / layer properties
-        struct ViewAttrs view;
+        struct ViewAttributes view;
         
         //flex
         struct FlexAttrs flex;

@@ -24,7 +24,7 @@
         VZFNetworkImageNode* node = [VZFNetworkImageNode newWithImageAttributes:{.contentMode = UIViewContentModeScaleAspectFill,.url = [NSURL URLWithString:list[i]]} NodeSpecs:{
             .view = {
                 .clipsToBounds = YES,
-                .block = ^(UIView *view){
+                .applicator = ^(UIView *view){
                     
                     view.userInteractionEnabled = YES;
                 },

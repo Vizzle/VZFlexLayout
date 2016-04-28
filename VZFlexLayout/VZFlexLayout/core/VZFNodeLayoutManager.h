@@ -21,7 +21,8 @@ using namespace VZ;
 - (NSSet<VZFNode*>* )layoutRootNode:(const NodeLayout& )layout
                         InContainer:(UIView* )container
                   WithPreviousNodes:(NSSet<VZFNode* >* )previousNodes
-                       AndSuperNode:(VZFNode* )superNode;
+                       AndSuperNode:(VZFNode* )superNode
+                            Context:(id)ctx;
 
 - (void)unmountNodes:(NSSet<VZFNode* >* )nodes;
 

@@ -7,12 +7,7 @@
                "time":"2016-03-01",
                "score":"3.7",
                "content":"多年前，惨绝人寰的连环灭门谋杀案震惊了整个小镇，当时唯一的生还者至今仍下落不明。多年后，单亲妈妈考特尼（莎妮·索萨蒙 Shannyn Sossamon 饰），带着双胞胎儿子迪伦（罗伯特·丹尼尔·斯隆 Robert Daniel Sloan 饰）与扎克（达塔尼安·斯隆 Dartanian Sloan 饰）搬入这栋看似宁静的凶宅，却意外的引来了骇人的“好兄弟”，“好兄弟”除了想当这对双胞胎的玩伴，更想要他们的命",
-               "images":["http://www.collegedj.net/wp-content/uploads/2015/02/k-michelle--150x150.jpg",
-                         "http://www.collegedj.net/wp-content/uploads/2015/02/k-michelle-stay-with-me-150x150.jpg",
-                         "http://www.collegedj.net/wp-content/uploads/2015/02/mike-zombie-philly-event-voltage-lounge-150x150.jpg",
-                         "http://www.collegedj.net/wp-content/uploads/2016/01/lapsley-long-way-home-album-cover-150x150.png"
-                         ],
-               
+        
                "location":"阿里巴巴西溪园区",
                
                "likeCount":"8",
@@ -121,24 +116,7 @@
                "nick":"Ruby",
                "time":"2016-05-01",
                "score":"5.0",
-               "content":"GNUstep is a mature Framework, suited both for advanced GUI desktop applications as well as server applications. The framework closely follows Apple's Cocoa (formerly NeXT's OpenStep) APIs but is portable to a variety of platforms and architectures..",
-               "images":["http://www.collegedj.net/wp-content/uploads/2016/04/angelicavilasorryremix-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/collegedj-sound-check-mixtape-volume-13-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/unnamed-150x150.jpg"],
-               
-               "likeCount":"10",
-               "rewardedCount":"14",
-               "commentCount":"5",
-               
-               "islike":"1",
-               "isComment":"1",
-               "isReward":"0",
-               
-               },
-               {
-               "icon":"http://www.collegedj.net/wp-content/uploads/2016/04/Ce02meYUYAAvDeC-50x50.jpg",
-               "nick":"Ruby",
-               "time":"2016-05-01",
-               "score":"5.0",
-               "content":"323.",
+               "content":"For a given object, an ivar layout describes where we should look for other objects that it references. It will provide us with an “index,” which represents an offset we have to add to the object address in order to get the address of an object it references. What runtime also lets us do is grab a “weak ivar layout,” which is a layout of all weak instance variables of that object. We can assume that the difference between these two layouts will be a strong layout.",
                "images":["http://www.collegedj.net/wp-content/uploads/2016/04/angelicavilasorryremix-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/collegedj-sound-check-mixtape-volume-13-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/unnamed-150x150.jpg"],
                
                "location":"支付宝大楼A座",
@@ -156,9 +134,28 @@
                "nick":"Ruby",
                "time":"2016-05-01",
                "score":"5.0",
-               "content":"123",
+               "content":"For a given object, an ivar layout describes where we should look for other objects that it references. It will provide us with an “index,” which represents an offset we have to add to the object address in order to get the address of an object it references. What runtime also lets us do is grab a “weak ivar layout,” which is a layout of all weak instance variables of that object. We can assume that the difference between these two layouts will be a strong layout.",
                "images":["http://www.collegedj.net/wp-content/uploads/2016/04/angelicavilasorryremix-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/collegedj-sound-check-mixtape-volume-13-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/unnamed-150x150.jpg"],
                
+               "location":"支付宝大楼A座",
+               "likeCount":"10",
+               "rewardedCount":"14",
+               "commentCount":"5",
+               
+               "islike":"1",
+               "isComment":"1",
+               "isReward":"0",
+               
+               },
+               {
+               "icon":"http://www.collegedj.net/wp-content/uploads/2016/04/Ce02meYUYAAvDeC-50x50.jpg",
+               "nick":"Ruby",
+               "time":"2016-05-01",
+               "score":"5.0",
+               "content":"For a given object, an ivar layout describes where we should look for other objects that it references. It will provide us with an “index,” which represents an offset we have to add to the object address in order to get the address of an object it references. What runtime also lets us do is grab a “weak ivar layout,” which is a layout of all weak instance variables of that object. We can assume that the difference between these two layouts will be a strong layout.",
+               "images":["http://www.collegedj.net/wp-content/uploads/2016/04/angelicavilasorryremix-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/collegedj-sound-check-mixtape-volume-13-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/unnamed-150x150.jpg"],
+               
+               "location":"支付宝大楼A座",
                "likeCount":"10",
                "rewardedCount":"14",
                "commentCount":"5",

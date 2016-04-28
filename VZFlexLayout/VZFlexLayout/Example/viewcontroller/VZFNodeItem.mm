@@ -13,6 +13,10 @@
 #import "FBHostNode.h"
 #import "VZFNodeSpecs.h"
 #import "FBContentNode.h"
+#import "VZFTextNode.h"
+#import "VZFTextNodeSpecs.h"
+#import "FBHostItem.h"
+#import "FBTextNode.h"
 
 @interface VZFNodeItem()<VZFNodeProvider,VZFNodeListRecycleController>
 {
@@ -40,6 +44,12 @@
     return self;
 }
 
+- (void)setIndexPath:(NSIndexPath *)indexPath{
+
+    _indexPath = indexPath;
+    
+    _nodeRecycleController.indexPath = indexPath;
+}
 
 - (void)setModel:(id)model{
     _model = model;
@@ -61,10 +71,10 @@
 
 
 - (VZFNode* )nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
-
-    NSLog(@"%s",__PRETTY_FUNCTION__);
     
-    return [FBContentNode newWithItem:item];
+    return [FBTextNode newWithItem:item];
+    
+//    return [FBContentNode newWithItem:item];
 //    return [FBHostNode newWithItem:item];
 
 }

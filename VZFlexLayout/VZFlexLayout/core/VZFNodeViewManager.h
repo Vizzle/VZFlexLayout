@@ -21,8 +21,6 @@ using namespace VZ;
 
 - (UIView* )viewForNode:(VZFNode* )node;
 
-//即将废弃的方法
-+ (UIView* )viewForNode:(VZFNode* )node withLayoutSpec:(const NodeLayout&)layout reuseView:(UIView *)oldView;
 
 @end
 

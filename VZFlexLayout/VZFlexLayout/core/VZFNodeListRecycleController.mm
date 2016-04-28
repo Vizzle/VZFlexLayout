@@ -64,10 +64,13 @@ const void* g_recycleId = &g_recycleId;
     VZFRootScope *_previousRoot;
     NSDictionary* _stateFuncMap;
     VZFNodeListRecycleState _state;
+    
+    NSIndexPath* _indexPath;
 }
 
 - (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider
                    SizeRangeProvider:(id<VZSizeRangeProvider>)sizeProvider
+
 {
     
     self = [super init];
@@ -75,8 +78,7 @@ const void* g_recycleId = &g_recycleId;
     
         _nodeProvider       = nodeProvider;
         _sizeRangeProvider  = sizeProvider;
-        _stateFuncMap       = @{};
-        
+        _stateFuncMap       = @{};        
         
     }
     return self;
@@ -106,12 +108,18 @@ const void* g_recycleId = &g_recycleId;
 
     VZFNodeMemoizer memoizer(_state.memoizerState);
     
+
+    CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
+    
     VZFBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
         return [_nodeProvider nodeForItem:item context:context];
     } RootScope:rootScope StateUpdateFuncs:_stateFuncMap];
     
     const VZ::NodeLayout layout = [result.node computeLayoutThatFits:constrainedSize];
     
+    CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
+    
+    NSLog(@"[%@]-->计算node:%.3f ms",self.class, (t2 - t1)*1000 );
     _previousRoot = result.scopeRoot;
     _stateFuncMap = @{};
     
@@ -137,7 +145,6 @@ const void* g_recycleId = &g_recycleId;
         [self detachFromView];
         [view.vz_recycleController detachFromView];
         
-        NSLog(@"attach!");
         _mountedView = view;
         view.vz_recycleController = self;
     }
@@ -150,8 +157,6 @@ const void* g_recycleId = &g_recycleId;
     
     if (_mountedView) {
         
-        NSLog(@"detach!");
-    
         [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
         _mountedNodes = nil;
         _mountedView.vz_recycleController = nil;
@@ -206,7 +211,11 @@ const void* g_recycleId = &g_recycleId;
 
 
 - (void)_mountedLayout{
-    _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_state.layout InContainer:_mountedView WithPreviousNodes:_mountedNodes AndSuperNode:nil];
+    _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_state.layout
+                                                              InContainer:_mountedView
+                                                        WithPreviousNodes:_mountedNodes
+                                                             AndSuperNode:nil
+                                                                  Context:_indexPath];
     
 }
 
