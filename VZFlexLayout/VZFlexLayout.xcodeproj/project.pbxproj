@@ -107,6 +107,7 @@
 		454098741CD5D20900D99B7F /* VZFNodeListItemRecycler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeListItemRecycler.mm; sourceTree = "<group>"; };
 		454098761CD5D5E200D99B7F /* FBNetworkImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBNetworkImageView.h; sourceTree = "<group>"; };
 		454098771CD5D5E200D99B7F /* FBNetworkImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBNetworkImageView.mm; sourceTree = "<group>"; };
+		4540987C1CD5FEF700D99B7F /* khash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = khash.h; sourceTree = "<group>"; };
 		454477831CC50CF8000B54E7 /* FBTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTableViewController.h; sourceTree = "<group>"; };
 		454477841CC50CF8000B54E7 /* FBTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBTableViewController.mm; sourceTree = "<group>"; };
 		454477861CC510E8000B54E7 /* FBHostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBHostCell.h; sourceTree = "<group>"; };
@@ -355,6 +356,7 @@
 		4578E0BF1C72F1CC00E52B79 /* layout */ = {
 			isa = PBXGroup;
 			children = (
+				4540987C1CD5FEF700D99B7F /* khash.h */,
 				4578E0C01C72F1CC00E52B79 /* FlexLayout.c */,
 				4578E0C11C72F1CC00E52B79 /* FlexLayout.h */,
 			);
