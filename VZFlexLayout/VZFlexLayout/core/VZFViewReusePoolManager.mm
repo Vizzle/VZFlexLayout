@@ -26,17 +26,10 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
 }
 + (VZFViewReusePoolManager* )viewReusePoolManagerForView:(UIView* )view{
     
-    if (!view) {
-        return nil;
-    }
-    
     id manager = objc_getAssociatedObject(view, g_viewReusePoolManager);
     if (!manager) {
         
-        static int index = 0;
         manager = [[VZFViewReusePoolManager alloc]init];
-        index ++ ;
-        NSLog(@"!!!!ReusePoolManagerCount:%d",index);
         objc_setAssociatedObject(view, g_viewReusePoolManager, manager, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return manager;
@@ -91,47 +84,35 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
         return nil;
     }
     
-    NSString* viewKey = [NSString stringWithFormat:@"%@+%@",
-                         NSStringFromClass(node.class),
-                         [[NSString alloc] initWithUTF8String:node.viewClass.identifier().c_str()]];
-    
-
-    
+    NSString* viewKey = [NSString stringWithFormat:@"%@-%@",NSStringFromClass(node.class),[[NSString alloc] initWithUTF8String:node.viewClass.identifier().c_str()]];
     VZFViewReusePool* reusePool = _reusePoolMap[viewKey];
     if (!reusePool) {
         reusePool = [[VZFViewReusePool alloc]init];
         _reusePoolMap[viewKey] = reusePool;
-    
-        NSLog(@"!!!!Create Reuse Pool");
     }
-    else{
-        NSLog(@"!!!Recycle Reuse Pool");
-    }
-
     UIView* v = [reusePool viewForClass:node.viewClass ParentView:container];
     _existedViews.push_back(v);
     
     return v;
 }
-
-- (UIView* )viewForClass:(const ViewClass&) viewclass Spec:(const NodeSpecs&)spec ParentView:(UIView* )container{
-
-    if (!viewclass.hasView()) {
-        return nil;
-    }
-    
-    //moxin: viewkey的计算不合理，后面优化
-    NSString* viewKey = [[NSString alloc] initWithUTF8String:viewclass.identifier().c_str()];
-    VZFViewReusePool* reusePool = _reusePoolMap[viewKey];
-    if (!reusePool) {
-        reusePool = [[VZFViewReusePool alloc]init];
-        _reusePoolMap[viewKey] = reusePool;
-
-    }
-    UIView* v = [reusePool viewForClass:viewclass ParentView:container];
-    _existedViews.push_back(v);
-    
-    return v;
-}
+//
+//- (UIView* )viewForClass:(const ViewClass&) viewclass Spec:(const NodeSpecs&)spec ParentView:(UIView* )container{
+//
+//    if (!viewclass.hasView()) {
+//        return nil;
+//    }
+//    
+//    //moxin: viewkey的计算不合理，后面优化
+//    NSString* viewKey = [[NSString alloc] initWithUTF8String:viewclass.identifier().c_str()];
+//    VZFViewReusePool* reusePool = _reusePoolMap[viewKey];
+//    if (!reusePool) {
+//        reusePool = [[VZFViewReusePool alloc]init];
+//        _reusePoolMap[viewKey] = reusePool;
+//    }
+//    UIView* v = [reusePool viewForClass:viewclass ParentView:container];
+//    _existedViews.push_back(v);
+//    
+//    return v;
+//}
 
 @end

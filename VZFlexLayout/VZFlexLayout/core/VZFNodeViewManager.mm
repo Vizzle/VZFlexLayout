@@ -8,24 +8,8 @@
 
 #import "VZFNodeViewManager.h"
 #import "VZFNode.h"
-#import "VZFNodeInternal.h"
-#import "VZFNodeViewClass.h"
-#import "VZFNodeSpecs.h"
-#import "VZFCompositeNode.h"
-#import "VZFStackNode.h"
-#import "VZFImageNode.h"
-#import "VZFTextNode.h"
-#import "VZFButtonNode.h"
-#import "VZFNetworkImageNode.h"
-#import "VZFNetworkImageView.h"
 #import <objc/runtime.h>
-#import "VZFNodeControllerInternal.h"
-#import "VZFActionWrapper.h"
 #import "VZFViewReusePoolManager.h"
-#import "VZFNodeLayout.h"
-#import "VZFTextNodeSpecs.h"
-#import "VZFImageNodeSpecs.h"
-#import "VZFButtonNodeSpecs.h"
 
 
 @implementation UIView(VZFNode)
@@ -45,7 +29,7 @@ using namespace VZ;
 
 @implementation VZFNodeViewManager
 {
-    VZFViewReusePoolManager* _reusePoolManager;
+    VZFViewReusePoolManager* _managerReusePoolManager;
 }
 
 - (instancetype)initWithView:(UIView *)view{
@@ -53,21 +37,22 @@ using namespace VZ;
     self = [super init];
     if (self) {
         _managedView = view;
-        _reusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view];
+        _managerReusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view];
     }
     return self;
 }
 
 - (UIView* )viewForNode:(VZFNode* )node{
 
-//    UIView* v = [_reusePoolManager viewForClass:node.viewClass Spec:node.specs ParentView:_managedView];
-    UIView* v=  [_reusePoolManager viewForNode:node ParentView:_managedView];
+    UIView* v = [_managerReusePoolManager viewForNode:node ParentView:_managedView];
     return v;
+    
 }
 
 - (void)dealloc{
-    [_reusePoolManager reset:_managedView];
+    [_managerReusePoolManager reset:_managedView];
 }
+
 
 
 @end

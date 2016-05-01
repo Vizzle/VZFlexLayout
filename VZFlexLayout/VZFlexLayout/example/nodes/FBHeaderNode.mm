@@ -11,7 +11,6 @@
 #import "FBStarNode.h"
 #import "VZFStackNode.h"
 #import "FBHostItem.h"
-#import "VZFNetworkImageNode.h"
 #import "FBImageDownloader.h"
 #import "FBIconNode.h"
 #import "VZFNodeViewClass.h"
@@ -23,7 +22,7 @@
     
     return [super newWithNode:[VZFStackNode newWithStackSpecs:{}Children:{
     
-        {[FBIconNode newWithURL:[NSURL URLWithString:item.headIconURL]]},//头像
+        {[FBIconNode newWithURL:item.headIconURL]},//头像
         {[VZFStackNode newWithStackSpecs:{
             
             .flex = {

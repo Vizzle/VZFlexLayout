@@ -31,7 +31,7 @@
     }];
     VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
         .text = text,
-        .font = [UIFont systemFontOfSize:12.0f],
+        .fontSize = 12.0f,
         .color = [UIColor lightGrayColor]
         
     }];

@@ -8,9 +8,9 @@
 
 #import "FBGridImageNode.h"
 #import "VZFStackNode.h"
-#import "VZFNetworkImageNode.h"
-#import "FBImageDownloader.h"
+#import "FBNetworkImageView.h"
 #import "VZFNodeSpecs.h"
+#import "VZFImageNode.h"
 #import "VZFImageNodeSpecs.h"
 #import <vector>
 
@@ -21,9 +21,17 @@
     std::vector<VZFStackChildNode > imageNodes{};
     for(int i=0; i<list.count; i++)
     {
-        VZFNetworkImageNode* node = [VZFNetworkImageNode newWithImageAttributes:{.contentMode = UIViewContentModeScaleAspectFill,.url = [NSURL URLWithString:list[i]]} NodeSpecs:{
+        
+        VZFImageNode* node = [VZFImageNode newWithImageAttributes:{
+        
+            .contentMode = UIViewContentModeScaleAspectFill,
+            .imageUrl    = list[i]
+        
+        } NodeSpecs:{
+        
+        
             .view = {
-                .clipsToBounds = YES,
+                .clip = YES,
                 .applicator = ^(UIView *view){
                     
                     view.userInteractionEnabled = YES;
@@ -33,7 +41,7 @@
                     .borderWidth = 0.5f,
                     .borderColor = [UIColor grayColor]
                     
-                
+                    
                 }
             },
             .gesture = @selector(imageDidTap),
@@ -41,8 +49,12 @@
                 .width = 76,
                 .height = 76
             }
-        } ImageDownloader:[FBImageDownloader sharedInstance] ImageProcessingBlock:nil];
-       
+        
+        
+        } BackingImageViewClass:[FBNetworkImageView class]];
+        
+        
+
         imageNodes.push_back({.node = node});
     }
     

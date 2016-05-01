@@ -21,7 +21,6 @@ using namespace VZ;
 
 - (UIView* )viewForNode:(VZFNode* )node;
 
-
 @end
 
 

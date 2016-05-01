@@ -33,7 +33,7 @@ using namespace VZ;
     if (!node) {
         return nil;
     }
-    
+
     VZFCompositeNode* compositeNode = [super newWithView:{} NodeSpecs:{}];
     if (compositeNode) {
         compositeNode -> _node = node;
@@ -47,10 +47,8 @@ using namespace VZ;
  */
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz{
 
-//    return [_node computeLayoutThatFits:sz];
     NodeLayout layout = [_node computeLayoutThatFits:sz];
     return {self,layout.size,layout.origin,layout.margin, {{_node,layout.size,layout.origin,layout.margin,*layout.children}}};
 }
-
 
 @end

@@ -39,7 +39,7 @@
             
             NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
             style.alignment = buttonSpecs.textAlignment;
-            CGSize size = [buttonSpecs.title[UIControlStateNormal] boundingRectWithSize:CGSizeMake(constraintedSize.width, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:buttonSpecs.font?:[UIFont systemFontOfSize:17], NSParagraphStyleAttributeName:style} context:nil].size;
+            CGSize size = [buttonSpecs.title[UIControlStateNormal] boundingRectWithSize:CGSizeMake(constraintedSize.width, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:buttonSpecs.getFont()?:[UIFont systemFontOfSize:[UIFont systemFontSize]], NSParagraphStyleAttributeName:style} context:nil].size;
             
             CGFloat scale = [UIScreen mainScreen].scale;
             size.width = ceil(size.width * scale) / scale;

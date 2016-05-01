@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import  <Foundation/Foundation.h>
-#include <stack>
+#import <Foundation/Foundation.h>
+
 
 
 @protocol VZFStateListener <NSObject>
@@ -47,10 +47,6 @@ using namespace VZ;
 
 @end
 
-
-
-
-
 struct VZFBuildNodeResult {
     VZFNode *node;
     VZFRootScope *scopeRoot;
@@ -75,7 +71,7 @@ struct VZFBuildNodeResult {
                                  RootScope:(VZFRootScope* )rootScope
                           StateUpdateFuncs:(NSDictionary* )funcs;
 /**
- *  @dicussion:小心使用这个方法
+ *  @dicussion:释放掉rootscope对应的localscope
  *
  *  @param scopeId
  */

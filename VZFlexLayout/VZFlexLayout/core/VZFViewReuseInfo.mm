@@ -10,7 +10,7 @@
 
 @implementation VZFViewReuseInfo
 {
-    __weak UIView * _view;
+    UIView *__weak _view;
     void (^_didEnterReusePoolBlock)(UIView *);
     void (^_willLeaveReusePoolBlock)(UIView *);
     NSMutableArray<VZFViewReuseInfo* >* _childInfos;

@@ -10,7 +10,8 @@
 #import "VZFMacros.h"
 #import "VZFNodeControllerInternal.h"
 #import "VZFNode.h"
-#import "VZFNodeInternal.h"
+#import "VZFNodeSubClass.h"
+
 
 typedef NS_ENUM(NSUInteger, VZFNodeControllerState) {
     VZFNodeControllerStateUnmounted = 0,
@@ -178,6 +179,7 @@ static inline NSString *controllerStateName(VZFNodeControllerState state)
 
 - (void)node:(VZFNode* )node willReleaseBackingView:(UIView* )view{
     if (node == _node) {
+        VZFAssert(view == _view, @"Didn't expect to be relinquishing view %@ when _view is %@", view, _view);
         [self _releaseView];
     }
 

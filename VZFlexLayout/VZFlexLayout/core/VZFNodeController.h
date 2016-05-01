@@ -11,6 +11,9 @@
 @class VZFNode;
 @class UIView;
 
+/**
+ *  Controller对应Node生命周期的callback，
+ */
 @interface VZFNodeController : NSObject
 
 @property (nonatomic,weak,readonly) VZFNode *node;

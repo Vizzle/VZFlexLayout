@@ -20,13 +20,12 @@
 #import "VZFNodeViewManager.h"
 #import "VZFNodeMountContext.h"
 #import "VZFNodeControllerInternal.h"
-#import "VZFNodeAttributeApplicator.h"
 #import "VZFNodeSpecs.h"
 #import "VZFNodeViewClass.h"
+#import "UIView+VZAttributes.h"
 
 struct VZFNodeMountedInfo{
     
-    //@notice: Becareful retain cycle
     __weak VZFNode* parentNode;
     __weak UIView* mountedView;
     CGRect mountedFrame;
@@ -56,7 +55,7 @@ using namespace VZ::UIKit;
     return [self newWithView:[UIView class] NodeSpecs:{}];
 }
 
-- (instancetype)initWithView:(const ViewClass& )viewclass Specs:(const NodeSpecs& )specs {
+- (instancetype)initWithView:(const ViewClass& )viewclass Specs:(const NodeSpecs& )specs{
     self = [super init];
     if (self) {
         
@@ -78,8 +77,20 @@ using namespace VZ::UIKit;
 
 - (void)dealloc{
 
-    //NSLog(@"[%@]-->dealloc",self.class);
+    NSLog(@"[%@]-->dealloc",self.class);
     _flexNode.fNode = nil;
+    _mountedInfo.reset();
+    _mountedInfo = nullptr;
+}
+
+- (UIView* )mountedView{
+
+    if (_mountedInfo) {
+        return _mountedInfo -> mountedView;
+    }
+    else{
+        return nil;
+    }
 }
 
 
@@ -104,7 +115,6 @@ using namespace VZ::UIKit;
 }
 
 
-
 - (NSString *)description {
     
     NSString* className = NSStringFromClass([self class]);
@@ -121,7 +131,8 @@ using namespace VZ::UIKit;
 
 - (id)nextResponderAfterController
 {
-    return ([self superNode]?:nil)?:self.rootNodeView;
+    VZFNode* superNode = [self superNode];
+    return (superNode?:nil)?:self.rootNodeView;
 }
 
 - (id)targetForAction:(SEL)action withSender:(id)sender
@@ -144,31 +155,36 @@ using namespace VZ::UIKit;
     //获取一个reuse view
     UIView* view = [context.viewManager viewForNode:self];
     
+    
     //说明reusepool中有view
     if (view) {
         //不是当前的backingview
         if (view != _mountedInfo -> mountedView) {
-        
+            
             [self _recycleMountedView];
             [view.node unmount];
-            view.node = self;
-
-            //apply attributes
-            [VZFNodeAttributeApplicator applyNodeAttributes:self toView:view];
-            [self.controller node:self didAquireBackingView:view];
-            _mountedInfo -> mountedView = view;
+         
         }
-        else{
-            VZFAssert(view.node == self, @"");
-        }
+        
+        view.node = self;
+        _mountedInfo -> mountedView = view;
 
         //计算公式:
         //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
         //position.y = frame.origin.y + anchorPoint.y * bounds.size.height；
-        const CGPoint anchorPoint = view.layer.anchorPoint;
+ /*       const CGPoint anchorPoint = view.layer.anchorPoint;
         view.center = context.position + CGPoint({anchorPoint.x * size.width, anchorPoint.y * size.height});
         view.bounds = {view.bounds.origin,size};
-
+  */
+        //apply frame
+        view.frame  = {context.position, size};
+        
+        //apply attributes
+        [view applyAttributes];
+        
+        //notify controller
+        [self.controller node:self didAquireBackingView:view];
+    
         _mountedInfo -> mountedFrame = {context.position, view.bounds.size};
         
         return {.hasChildren = YES, .childContext = context.childContextForSubview(view)};
@@ -181,9 +197,13 @@ using namespace VZ::UIKit;
         _mountedInfo -> mountedView = view;
         _mountedInfo -> mountedFrame = {context.position,size};
         
+        [self.controller node:self didAquireBackingView:view];
+        
         return {.hasChildren = YES, .childContext = context};
         
     }
+    
+
 }
 
 
@@ -218,7 +238,9 @@ using namespace VZ::UIKit;
         view.node = nil;
         _mountedInfo -> mountedView = nil;
     }
+
+    
+
+    
 }
-
-
 @end

@@ -12,11 +12,6 @@
 
 @class VZFNodeHostingView;
 @class VZFNode;
-//@protocol VZFNodeProvider <NSObject>
-//
-//- (VZFNode *)nodeForItem:(id<NSObject>)item context:(id<NSObject>)context;
-//
-//@end
 
 @protocol VZFNodeHostingView <NSObject>
 

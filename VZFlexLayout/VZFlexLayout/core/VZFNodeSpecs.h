@@ -17,37 +17,57 @@
 #import "VZFNodeViewClass.h"
 #import "VZFValue.h"
 #import "VZFActionWrapper.h"
-#import "FlexLayout.h"
 #import "VZFLength.h"
+
+/**
+ typedef enum {
+ FlexHorizontal,
+ FlexVertical,
+ FlexHorizontalReverse,
+ FlexVerticalReverse
+ } FlexDirection;
+ */
+typedef NS_ENUM(int, VZFlexLayoutDirection){
+    VZFlexHorizontal,
+    VZFlexVertical,
+    VZFlexHorizontalReverse,
+    VZFlexVerticalReverse
+};
+/**
+ typedef enum {
+ FlexInherit,
+ FlexStretch,
+ FlexStart,
+ FlexCenter,
+ FlexEnd,
+ FlexSpaceBetween,
+ FlexSpaceAround
+ } FlexAlign;
+ */
+typedef NS_ENUM(int, VZFlexLayoutAlignment){
+    
+    VZFlexInherit,
+    VZFlexStretch,
+    VZFlexStart,
+    VZFlexCenter,
+    VZFlexEnd,
+    VZFlexSpaceBetween,
+    VZFlexSpaceAround
+    
+};
+
 
 using namespace VZ;
 namespace VZ {
-
+    
+    
     namespace FlexValue{
+        
         const float Undefined = FlexUndefined;
         const float Auto = FlexAuto;
+        
     }
     
-    struct LayerAttributes{
-        
-        CGFloat cornerRadius;
-        CGFloat borderWidth;
-        UIColor* borderColor;
-        UIImage* contents;
-    };
-    
-    /**
-     *  枚举常用的view属性
-     */
-    struct ViewAttributes{
-        
-        NSInteger tag;
-        BOOL clipsToBounds;
-        UIColor* backgroundColor;
-        struct LayerAttributes layer;
-        void(^unapplicator)(UIView* view);
-        void(^applicator)(UIView* view);
-    };
     
     namespace DefaultFlexAttributesValue{
         
@@ -82,21 +102,45 @@ namespace VZ {
         extern FlexLength flexBasis;
         extern bool fixed;
         extern bool wrap;
-        extern int direction;
-        extern int justifyContent;
-        extern int alignItems;
-        extern int aliginSelf;
-
+        extern VZFlexLayoutDirection direction;
+        extern VZFlexLayoutAlignment justifyContent;
+        extern VZFlexLayoutAlignment alignItems;
+        extern VZFlexLayoutAlignment alignSelf;
+        extern VZFlexLayoutAlignment alignContent;
+        
         extern float spacing;
         extern float lineSpacing;
+        
+        extern int userInteractionEnabled;
+    };
+    
+    
+    struct LayerAttrs{
+        
+        CGFloat cornerRadius;
+        CGFloat borderWidth;
+        UIColor* borderColor;
+        UIImage* contents;
+    };
+    
+    struct ViewAttrs{
+        BOOL hidden;
+        NSInteger tag;
+        BOOL clip;
+        Value<int, DefaultFlexAttributesValue::userInteractionEnabled> userInteractionEnabled;
+        UIColor* backgroundColor;
+        struct LayerAttrs layer;
+        void(^unapplicator)(UIView* view);
+        void(^applicator)(UIView* view);
     };
     
 
     struct StackLayoutSpecs{
 
-        Value<int, DefaultFlexAttributesValue::direction> direction;
-        Value<int, DefaultFlexAttributesValue::alignItems> alignItems;
-        Value<int, DefaultFlexAttributesValue::justifyContent> justifyContent;
+        Value<VZFlexLayoutDirection, DefaultFlexAttributesValue::direction> direction;
+        Value<VZFlexLayoutAlignment, DefaultFlexAttributesValue::alignItems> alignItems;
+        Value<VZFlexLayoutAlignment, DefaultFlexAttributesValue::justifyContent> justifyContent;
+        Value<VZFlexLayoutAlignment,  DefaultFlexAttributesValue::alignContent> alignContent;
         
         Value<float, DefaultFlexAttributesValue::spacing> spacing;
         Value<float, DefaultFlexAttributesValue::lineSpacing> lineSpacing;
@@ -128,7 +172,7 @@ namespace VZ {
         Value<float, DefaultFlexAttributesValue::flexGrow> flexGrow;
         Value<float, DefaultFlexAttributesValue::flexShrink> flexShrink;
         Value<FlexLength, DefaultFlexAttributesValue::flexBasis> flexBasis;
-        Value<int,  DefaultFlexAttributesValue::aliginSelf> alignSelf;
+        Value<VZFlexLayoutAlignment,  DefaultFlexAttributesValue::alignSelf> alignSelf;
         Value<bool, DefaultFlexAttributesValue::fixed> fixed;
         Value<bool, DefaultFlexAttributesValue::wrap> wrap;
         
@@ -156,7 +200,7 @@ namespace VZ {
         std::string identifier;
 
         //view / layer properties
-        struct ViewAttributes view;
+        struct ViewAttrs view;
         
         //flex
         struct FlexAttrs flex;
@@ -177,44 +221,9 @@ namespace VZ {
             }
          */
         MultiMap<Class, ActionWrapper> gesture;
-        
     };
 
 }
-
-/**
- typedef enum {
- FlexHorizontal,
- FlexVertical
- } FlexDirection;
- */
-typedef NS_ENUM(int, VZFlexLayoutDirection){
-    VZFlexHorizontal,
-    VZFlexVertical
-};
-/**
- typedef enum {
- FlexInherit,
- FlexStretch,
- FlexStart,
- FlexCenter,
- FlexEnd,
- FlexSpaceBetween,
- FlexSpaceAround
- } FlexAlign;
- */
-typedef NS_ENUM(int, VZFlexLayoutAlignment){
-
-    VZFlexInherit,
-    VZFlexStretch,
-    VZFlexStart,
-    VZFlexCenter,
-    VZFlexEnd,
-    VZFlexSpaceBetween,
-    VZFlexSpaceAround
-
-};
-
 
 
 @class VZFlexNode;

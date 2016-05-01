@@ -11,7 +11,7 @@
 
 #import <Foundation/Foundation.h>
 
-/* 定义一些 functors */
+/* functors */
 
 namespace VZ {
     
@@ -20,7 +20,7 @@ namespace VZ {
         NSString *operator()(const T &t) const {
             return [NSString stringWithFormat:@"%d", static_cast<int>(t)];
         }
-    };
+    }__unused;
     
 }
 #endif /* VZFunctor_h */

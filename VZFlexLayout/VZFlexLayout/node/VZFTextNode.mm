@@ -41,10 +41,10 @@
             
             CGSize size = [textSpecs.getAttributedString() boundingRectWithSize:CGSizeMake(constraintedSize.width, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
             
-            if (textSpecs.maximumNumberOfLines > 1) {
-                NSAssert(textSpecs.attributedString == nil, @"maximumNumberOfLines is not supported on attributedString yet");
-                CGFloat lineHeight = (textSpecs.font?:[UIFont systemFontOfSize:17.0f]).lineHeight;
-                size.height = std::min(size.height, lineHeight * textSpecs.maximumNumberOfLines);
+            if (textSpecs.lines > 1) {
+                NSAssert(textSpecs.attributedString == nil, @"'lines' is not supported on attributedString yet");
+                CGFloat lineHeight = (textSpecs.getFont()?:[UIFont systemFontOfSize:[UIFont systemFontSize]]).lineHeight;
+                size.height = std::min(size.height, lineHeight * textSpecs.lines);
             }
             
             CGFloat scale = [UIScreen mainScreen].scale;

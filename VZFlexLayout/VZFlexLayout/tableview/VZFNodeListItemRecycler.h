@@ -27,7 +27,7 @@ struct VZFNodeListRecycleState{
     
 };
 
-@protocol VZFNodeListRecycleController <NSObject>
+@protocol VZFNodeListItemRecycleController <NSObject>
 
 @optional
 - (void)onNodeStateDidChanged:(const VZFNodeListRecycleState& )state;
@@ -38,10 +38,11 @@ struct VZFNodeListRecycleState{
 /**
  *  列表node的适配器
  */
-@interface VZFNodeListRecycleController : NSObject
+@interface VZFNodeListItemRecycler : NSObject
 
-@property(nonatomic,weak)id<VZFNodeListRecycleController> delegate;
-@property(nonatomic,strong) NSIndexPath* indexPath;
+@property(nonatomic,weak)id<VZFNodeListItemRecycleController> delegate;
+
+@property(nonatomic,strong)NSIndexPath* indexPath;
 
 - (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider
                    SizeRangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
@@ -73,6 +74,6 @@ struct VZFNodeListRecycleState{
 
 @interface UIView(ListRecycleController)
 
-@property(nonatomic,assign)VZFNodeListRecycleController*  vz_recycleController;
+@property(nonatomic,assign)VZFNodeListItemRecycler*  vz_recycler;
 
 @end

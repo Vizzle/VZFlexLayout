@@ -8,7 +8,8 @@
 
 #import "VZFActionWrapper.h"
 #import "VZFNodeViewManager.h"
-#import "VZFNodeInternal.h"
+#import "VZFNodeSubClass.h"
+
 
 @implementation VZFBlockWrapper
 - (instancetype)initWithBlock:(UIControlActionBlock)block {

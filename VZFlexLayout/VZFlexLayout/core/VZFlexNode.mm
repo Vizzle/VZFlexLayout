@@ -113,7 +113,7 @@ extern "C" {
     
     float flex_absoluteValue(FlexLength length, FlexNode* node) {
         NSCAssert(flex_isAbsolute(length), @"absolute value requested!");
-        VZFlexNode *vzNode = (__bridge VZFlexNode *)node->context;
+//        VZFlexNode *vzNode = (__bridge VZFlexNode *)node->context;
         
         switch (length.type) {
             case FlexLengthTypePx:
@@ -130,16 +130,16 @@ extern "C" {
                 return length.value * 96 / 6;
             case FlexLengthTypePt:
                 return length.value * 96 / 72;
-            case FlexLengthTypeEm:
-            {
-                VZFNode *fNode = vzNode.fNode;
-#warning FIXME  这里 font 取不到
-                UIFont *font = [fNode respondsToSelector:@selector(font)] ? [(id)fNode font] : nil;
-                if (!font || ![font isKindOfClass:[UIFont class]]) {
-                    font = [UIFont systemFontOfSize:17];
-                }
-                return length.value * font.pointSize;
-            }
+//            case FlexLengthTypeEm:
+//            {
+//                VZFNode *fNode = vzNode.fNode;
+//#warning FIXME  这里 font 取不到
+//                UIFont *font = [fNode respondsToSelector:@selector(font)] ? [(id)fNode font] : nil;
+//                if (!font || ![font isKindOfClass:[UIFont class]]) {
+//                    font = [UIFont systemFontOfSize:17];
+//                }
+//                return length.value * font.pointSize;
+//            }
 //            case FlexLengthTypeEx:
 //            case FlexLengthTypeCh:
 //            case FlexLengthTypeRem:
@@ -446,7 +446,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 
 - (void)dealloc{
     
-    free(_flex_node);
+    freeFlexNode(_flex_node);
     _flex_node = NULL;
 }
 

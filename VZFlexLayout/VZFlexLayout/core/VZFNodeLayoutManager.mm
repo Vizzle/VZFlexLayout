@@ -42,9 +42,11 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
     return self;
 }
 
-- (NSSet<VZFNode* >* )layoutRootNode:(const NodeLayout& )layout InContainer:(UIView* )container WithPreviousNodes:(NSSet<VZFNode* >* )previousNodes AndSuperNode:(VZFNode* )superNode Context:(id)ctx{
-    
+- (NSSet<VZFNode* >* )layoutRootNode:(const NodeLayout& )layout InContainer:(UIView* )container WithPreviousNodes:(NSSet<VZFNode* >* )previousNodes AndSuperNode:(VZFNode* )superNode{
+
     //0, 计算出Root Node的layout
+//    VZFNodeLayout layout = [rootNode computeLayoutThatFits:sz];
+    
     struct MountItem{
         const NodeLayout& layout;
         MountContext context;
@@ -98,7 +100,7 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
                                                             ParentNode:item.superNode];
             [mountedNodes addObject:item.layout.node];
             
-//            NSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
+            //NSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
         
             if (mountResult.hasChildren) {
                 
@@ -141,6 +143,16 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
     for(VZFNode* node in nodes){
         [node unmount];
     }
+}
+
+- (UIView* )viewForRootNode:(const VZ::NodeLayout &)layout ConstrainedSize:(CGSize)sz{
+
+    
+    UIView* container = [[UIView alloc]initWithFrame:CGRect{{0,0},sz}];
+    
+    [[VZFNodeLayoutManager sharedInstance] layoutRootNode:layout InContainer:container WithPreviousNodes:nil AndSuperNode:nil];
+    
+    return container;
 }
 
 @end

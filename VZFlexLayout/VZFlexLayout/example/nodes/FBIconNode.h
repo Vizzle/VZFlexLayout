@@ -10,6 +10,6 @@
 
 @interface FBIconNode : VZFCompositeNode
 
-+ (instancetype)newWithURL:(NSURL* )url;
++ (instancetype)newWithURL:(NSString* )url;
 
 @end

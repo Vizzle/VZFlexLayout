@@ -13,10 +13,16 @@
 typedef void(^UIControlActionBlock)(id sender);
 
 namespace VZ {
-    
+    /**
+     *  构造ActionWrapper
+     *
+     *  ActionWrapper action = @selector(sel);
+     *  ActionWrapper action = ^(id sender){};
+     */
     struct ActionWrapper {
         UIControlActionBlock block;
         SEL selector;
+        ActionWrapper() : block(nil), selector(nil) {}
         ActionWrapper(UIControlActionBlock block) : block([block copy]) {}
         ActionWrapper(SEL selector) : selector(selector) {}
         

@@ -10,21 +10,45 @@
 
 @implementation FBActionNodesController
 
-- (id)init{
-    self = [super init];
-    if (self) {
-        
-        NSLog(@"a");
-    }
-    return self;
+
+- (void)willUpdateNode{
+    [super willUpdateNode];
+    NSLog(@"%s\n",__PRETTY_FUNCTION__);
+}
+- (void)willMountNode{
+    [super willMountNode];
+        NSLog(@"%s\n",__PRETTY_FUNCTION__);
+}
+- (void)willRemountNode{
+    [super willRemountNode];
+        NSLog(@"%s\n",__PRETTY_FUNCTION__);
+}
+- (void)didUpdateNode{
+    [super didUpdateNode];
+        NSLog(@"%s\n",__PRETTY_FUNCTION__);
+
+}
+- (void)didRemountNode{
+    [super didRemountNode];
+        NSLog(@"%s\n",__PRETTY_FUNCTION__);
 }
 
-- (void)onLiked:(id)sender{
-    NSLog(@"like clicked");
+- (void)willUnmountNode {
+    [super willUnmountNode];
+        NSLog(@"%s\n",__PRETTY_FUNCTION__);
+}
+- (void)didUnmountNode{
+    [super didUnmountNode];
+        NSLog(@"%s\n",__PRETTY_FUNCTION__);
 }
 
-- (void)onReward:(id)sender{
-    NSLog(@"rewarded clicked");
+- (void)willReleaseBackingView{
+    [super willReleaseBackingView];
+        NSLog(@"%s\n",__PRETTY_FUNCTION__);
+}
+- (void)didAquireView{
+    [super didAquireView];
+        NSLog(@"%s\n",__PRETTY_FUNCTION__);
 }
 
 - (void)dealloc{

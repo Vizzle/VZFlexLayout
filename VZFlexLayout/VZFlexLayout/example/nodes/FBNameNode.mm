@@ -27,7 +27,7 @@
         {.node = [VZFTextNode newWithNodeSpecs:{.view = {.backgroundColor = [UIColor clearColor]}} TextAttributes:{
             .text = name,
             .color = [UIColor blackColor],
-            .font = [UIFont systemFontOfSize:14.0f],
+            .fontSize = 14.0f,
         }]},
         {
             .node = [VZFTextNode newWithNodeSpecs:{
@@ -36,8 +36,8 @@
             
                 .text = time,
                 .color = [UIColor lightGrayColor],
-                .font = [UIFont systemFontOfSize:12.0f],
-                .textAlignment = NSTextAlignmentRight
+                .fontSize = 12.0f,
+                .alignment = NSTextAlignmentRight
             
             }]
         }

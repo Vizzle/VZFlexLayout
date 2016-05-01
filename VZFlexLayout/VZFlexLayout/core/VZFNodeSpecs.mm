@@ -38,12 +38,14 @@ namespace VZ {
         FlexLength flexBasis = FlexLengthUndefined;
         bool fixed = 0;
         bool wrap = 0;
-        int direction = FlexHorizontal;
-        int justifyContent = FlexStart;
-        int alignItems = FlexStretch;
-        int aliginSelf = FlexInherit;
+        VZFlexLayoutDirection direction = VZFlexHorizontal;
+        VZFlexLayoutAlignment justifyContent = VZFlexStart;
+        VZFlexLayoutAlignment alignItems = VZFlexStretch;
+        VZFlexLayoutAlignment alignSelf = VZFlexInherit;
+        VZFlexLayoutAlignment alignContent = VZFlexStretch;
         float spacing = 0;
         float lineSpacing = 0;
+        int userInteractionEnabled = INT_MIN;
     };
     
 }
@@ -83,6 +85,7 @@ namespace VZ {
     node.direction          = (FlexDirection)((int)attrs.stackLayout.direction);
     node.justifyContent     = (FlexAlign)((int)attrs.stackLayout.justifyContent);
     node.alignItems         = (FlexAlign)((int)attrs.stackLayout.alignItems);
+    node.alignContent       = (FlexAlign)((int)attrs.stackLayout.alignContent);
     node.spacing            = attrs.stackLayout.spacing;
     node.lineSpacing        = attrs.stackLayout.lineSpacing;
 

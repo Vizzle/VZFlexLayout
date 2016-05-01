@@ -16,14 +16,12 @@ namespace VZ {
         struct _Value <FlexLength, defaultValue, true> : public FlexLength {
             _Value() : FlexLength(defaultValue) {}
             _Value(FlexLength value) : FlexLength(value) {}
-            _Value(float value) : FlexLength(flexLength(value, FlexLengthTypeDefault)) {}
-            
+            _Value(float value) : FlexLength{value, FlexLengthTypeDefault} {}
             bool isDefault() const { return *this == defaultValue; }
         };
 
     }
 }
-
 
 // comparasion between FlexLengths
 inline bool operator == (const FlexLength& l1, const FlexLength& l2) {

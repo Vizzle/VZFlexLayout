@@ -47,8 +47,17 @@ using namespace VZ;
     return stacknode;
 }
 
+
+#define _BuldResult(x) \
+
+
+    
+
+
+
+
+
 - (NodeLayout)computeLayoutThatFits:(CGSize)constrainedSize{
-        
     
     //只计算一次
     [self.flexNode layout:constrainedSize];

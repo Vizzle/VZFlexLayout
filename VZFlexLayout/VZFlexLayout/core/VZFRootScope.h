@@ -10,6 +10,10 @@
 #import "VZFScopeManager.h"
 
 @class VZFScopeFrame;
+
+/**
+ *  @discussion: RootScope用来表示一颗
+ */
 @interface VZFRootScope : NSObject
 
 @property(nonatomic,strong,readonly) VZFScopeFrame* rootFrame;

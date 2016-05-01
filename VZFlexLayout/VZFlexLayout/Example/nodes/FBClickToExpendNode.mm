@@ -33,7 +33,7 @@
     VZFTextNode* nameNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
     
         .text = item.nick,
-        .font = [UIFont systemFontOfSize:14.0f],
+        .fontSize  = 14.0f,
         
     }];
     
@@ -45,8 +45,8 @@
     } TextAttributes:{
         
         .text = item.content,
-        .font = [UIFont systemFontOfSize:14.0f],
-        .maximumNumberOfLines = [state[@"expend"] boolValue] ? 0UL : 4UL
+        ._font = [UIFont systemFontOfSize:14.0f],
+        .lines = [state[@"expend"] boolValue] ? 0UL : 4UL
         
     }];
     
@@ -58,7 +58,7 @@
         
         .title = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
-        .font = [UIFont systemFontOfSize:14.0f],
+        ._font = [UIFont systemFontOfSize:14.0f],
         //        .action = ^(id sender){
         
         //        }

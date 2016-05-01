@@ -24,4 +24,5 @@ typedef struct {
 
 + (instancetype)newWithStackSpecs:(const NodeSpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children;
 
+
 @end

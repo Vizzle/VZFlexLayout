@@ -30,8 +30,8 @@
         {[VZFTextNode newWithNodeSpecs:{} TextAttributes:{
             
             .text = item.content,
-            .font = [UIFont systemFontOfSize:14.0f],
-            .maximumNumberOfLines = 0
+            .fontSize = 14,
+            .lines = 0
             
         }]},
         

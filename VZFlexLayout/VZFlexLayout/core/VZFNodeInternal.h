@@ -51,6 +51,8 @@ using namespace VZ;
  *  node的父节点
  */
 @property(nonatomic,weak)VZFNode* superNode;
+
+//@property(nonatomic,weak)UIView* backingView;
 /**
  *  root view
  */
@@ -80,8 +82,8 @@ using namespace VZ;
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz;
 
 
-
 - (BOOL)shouldMemoizeLayout;
+
 
 @end
 

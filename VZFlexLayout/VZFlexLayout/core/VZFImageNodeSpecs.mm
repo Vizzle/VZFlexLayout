@@ -15,7 +15,8 @@ namespace VZ {
         NSUInteger subhashes[] = {
             [image hash],
             std::hash<NSInteger>()(contentMode),
-            [url hash]
+            [imageUrl hash],
+            [errorImage hash]
         };
         return VZ::Hash::IntegerArrayHash(subhashes, sizeof(subhashes) / sizeof(subhashes[0]));
     }

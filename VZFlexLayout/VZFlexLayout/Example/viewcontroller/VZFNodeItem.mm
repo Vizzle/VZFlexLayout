@@ -7,7 +7,7 @@
 //
 
 #import "VZFNodeItem.h"
-#import "VZFNodeListRecycleController.h"
+#import "VZFNodeListItemRecycler.h"
 #import "VZFSizeRange.h"
 #import "VZFNodeProvider.h"
 #import "FBHostNode.h"
@@ -18,11 +18,11 @@
 #import "FBHostItem.h"
 #import "FBTextNode.h"
 
-@interface VZFNodeItem()<VZFNodeProvider,VZFNodeListRecycleController>
+@interface VZFNodeItem()<VZFNodeProvider,VZFNodeListItemRecycleController>
 {
     VZFNodeListRecycleState _recycleState;
 }
-@property(nonatomic,strong) VZFNodeListRecycleController* nodeRecycleController;
+@property(nonatomic,strong) VZFNodeListItemRecycler* nodeRecycleController;
 @end
 
 @implementation VZFNodeItem
@@ -36,9 +36,10 @@
     self = [super init];
     if (self) {
         
-        _nodeRecycleController = [[VZFNodeListRecycleController alloc]initWithNodeProvider:self
+        _nodeRecycleController = [[VZFNodeListItemRecycler alloc]initWithNodeProvider:self
                                                                          SizeRangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
         _nodeRecycleController.delegate = self;
+        
         
     }
     return self;
@@ -72,10 +73,10 @@
 
 - (VZFNode* )nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
     
-    return [FBTextNode newWithItem:item];
+//    return [FBTextNode newWithItem:item];
     
 //    return [FBContentNode newWithItem:item];
-//    return [FBHostNode newWithItem:item];
+    return [FBHostNode newWithItem:item];
 
 }
 

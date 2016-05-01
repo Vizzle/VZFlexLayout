@@ -11,7 +11,6 @@
 #include <libkern/OSAtomic.h>
 #import "VZFScopeManager.h"
 #import "VZFScopeHandler.h"
-#import "VZFNodeInternal.h"
 #import "VZFScopeFrame.h"
 #import "VZFMacros.h"
 
@@ -35,11 +34,11 @@ namespace VZ {
             [localScope push:newPair];
             _state = newPair.newScopeFrame.handler.state;
         }
-//        else{
-//        
-//            //assert here
-//            VZFCAssertNil(true, @"local scope is nil!");
-//        }
+        else{
+        
+            //assert here
+            VZFCAssertNil(true, @"local scope is nil!");
+        }
 
     };
     

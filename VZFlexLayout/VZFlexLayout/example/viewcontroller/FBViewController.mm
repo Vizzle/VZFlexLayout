@@ -105,13 +105,13 @@
         return nil;
     }
     
-//    NSNumber* tag = (NSNumber* )context;
-//    if ([tag integerValue] == 0) {
-//        return [FBHostNode newWithItem:item];
-//    }
-//    else{
+    NSNumber* tag = (NSNumber* )context;
+    if ([tag integerValue] == 0) {
+        return [FBHostNode newWithItem:item];
+    }
+    else{
         return [FBClickToExpendNode newWithItem:item];
-//    }
+    }
 }
 
 - (void)hostingView:(VZFNodeHostingView *)view DidInvalidate:(CGSize)newSize
@@ -125,7 +125,7 @@
     }
     
     
-    CGFloat h = MAX( CGRectGetHeight(self.topView.bounds) + CGRectGetHeight(self.bottomView.bounds) + 100, CGRectGetHeight(self.view.bounds) + 100);
+    CGFloat h = MAX( CGRectGetHeight(self.topView.bounds) + CGRectGetHeight(self.bottomView.bounds) + 64, CGRectGetHeight(self.view.bounds) + 64);
     
     self.scrollView.contentSize = {CGRectGetWidth(self.view.bounds),h};
 

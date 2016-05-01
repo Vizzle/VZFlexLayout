@@ -7,7 +7,7 @@
 //
 
 #import "VZFScopeHandler.h"
-#import "VZFNodeInternal.h"
+#import "VZFNodeSubClass.h"
 #import "VZFNodeController.h"
 #import "VZFScopeFrame.h"
 #include <libkern/OSAtomic.h>

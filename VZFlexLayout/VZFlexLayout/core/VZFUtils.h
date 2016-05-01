@@ -200,11 +200,7 @@ namespace VZ {
         
     }
     
-    namespace Layout{
-    
-        bool shouldRelayout(VZFNode* newNode, VZFNode* oldNode);
-    
-    }
+ 
     
     class ViewClass;
     namespace Mounting {

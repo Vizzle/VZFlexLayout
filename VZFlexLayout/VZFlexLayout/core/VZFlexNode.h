@@ -17,6 +17,9 @@ typedef NS_OPTIONS(NSUInteger, VZFlexNodeDescriptionOption) {
     VZFlexNodeDescriptionOptionHideChildren = 1 << 2,
 };
 
+/**
+ *  Objective-C wrapper of FlexLayout
+ */
 @interface VZFlexNode : NSObject
 
 @property (nonatomic,assign,readonly) CGRect resultFrame;

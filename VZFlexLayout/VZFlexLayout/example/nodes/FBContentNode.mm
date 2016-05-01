@@ -12,7 +12,6 @@
 #import "VZFStackNode.h"
 #import "VZFButtonNode.h"
 #import "VZFTextNode.h"
-#import "VZFNetworkImageNode.h"
 #import "VZFScope.h"
 #import "FBImageDownloader.h"
 #import "VZFImageNode.h"
@@ -40,9 +39,9 @@
 
     VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
         
-        .text = item.content,
-        .font = [UIFont systemFontOfSize:14.0f],
-        .maximumNumberOfLines = [state[@"expend"] boolValue] ? 0UL : 4UL
+        .text       = item.content,
+        .fontSize   = 14.0f,
+        .lines      = [state[@"expend"] boolValue] ? 0UL : 4UL
     
     }];
     
@@ -52,10 +51,10 @@
     
     } ButtonAttributes:{
         
-        .title = [state[@"expend"] boolValue] ? @"收起":@"展开",
+        .title      = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
-        .font = [UIFont systemFontOfSize:14.0f],
-        .action = @selector(onExpendClicked:),
+        .fontSize   = 14.0f,
+        .action     = @selector(onExpendClicked:),
     }];
     
     FBGridImageNode* imageNode = [FBGridImageNode newWithImageURLs:item.images];

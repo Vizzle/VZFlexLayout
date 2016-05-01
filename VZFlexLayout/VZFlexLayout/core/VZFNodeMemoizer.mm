@@ -8,7 +8,7 @@
 
 #import "VZFNodeMemoizer.h"
 #import "VZFNode.h"
-#import "VZFNodeInternal.h"
+#import "VZFNodeSubClass.h"
 #import "VZFNodeLayout.h"
 #import "VZFUtils.h"
 #include <map>

@@ -10,6 +10,7 @@
 #import "VZFUtils.h"
 #import "VZFValue.h"
 #import "VZFActionWrapper.h"
+#import "VZFTextNodeSpecs.h"
 
 namespace VZ {
     
@@ -24,12 +25,15 @@ namespace VZ {
     }
     
     struct ButtonNodeSpecs{
-        UIFont *font;
+        CGFloat fontSize;
+        NSString *fontName;
+        VZFFontStyle fontStyle;
         NSTextAlignment textAlignment;
         StatefulValue<NSString *>title;     // IMPORTANT: node won't re-layout when the title is changed by state-changing.
         StatefulValue<UIColor *> titleColor;
         StatefulValue<UIImage *> backgroundImage;
         StatefulValue<UIImage *> image;
+        UIFont *_font;
         
         /*
             .action = @selector(xx),
@@ -46,6 +50,10 @@ namespace VZ {
          */
         MultiMap<UIControlEvents, ActionWrapper> action;
         // the image property was not supported, use an image node nested in a button node instead.
+        
+        UIFont *getFont() const {
+            return _font ?: createFont(fontName, fontSize, fontStyle);
+        }
         
         const ButtonNodeSpecs copy() const{
             return *this;
@@ -66,7 +74,9 @@ namespace VZ {
         
         bool operator == (const ButtonNodeSpecs& other) const{
         
-            return VZ::Hash::_ObjectsEqual(font, other.font)
+            return Hash::_ObjectsEqual(fontName, other.fontName)
+                && fontSize == other.fontSize
+                && fontStyle == other.fontStyle
                 && title == other.title
                 && titleColor == other.titleColor
                 && backgroundImage == other.backgroundImage

@@ -1,5 +1,5 @@
 //
-//  VZFImageNode.m
+//  VZFNetworkImageNode.m
 //  VZFlexLayout
 //
 //  Created by moxin on 16/2/16.
@@ -7,28 +7,40 @@
 //
 
 #import "VZFImageNode.h"
-#import "VZFNodeInternal.h"
-#import "VZFlexNode.h"
 #import "VZFMacros.h"
+#import "VZFlexNode.h"
+#import "VZFNodeInternal.h"
+#import "VZFNetworkImageView.h"
+#import "VZFNodeViewClass.h"
+#import "VZFNodeLayout.h"
 #import "VZFImageNodeSpecs.h"
-#import "VZFNodeSpecs.h"
-
-
-
 
 @implementation VZFImageNode
 {
-
-
+    
 }
-
 + (instancetype)newWithView:(const ViewClass &)viewClass NodeSpecs:(const NodeSpecs &)specs{
+    
     VZ_NOT_DESIGNATED_INITIALIZER();
+
 }
 
-+ (instancetype)newWithNodeSpecs:(const NodeSpecs &)specs ImageAttributes:(const ImageNodeSpecs &)imageSpecs
-{
-    VZFImageNode* imageNode = [super newWithView:[UIImageView class] NodeSpecs:specs];
++ (instancetype)newWithImageAttributes:(const ImageNodeSpecs& )imageSpecs
+                             NodeSpecs:(const NodeSpecs& )nodeSpecs{
+
+    
+    return [VZFImageNode newWithImageAttributes:imageSpecs NodeSpecs:nodeSpecs BackingImageViewClass:[VZFNetworkImageView class]];
+
+}
+
+
+
++ (instancetype)newWithImageAttributes:(const ImageNodeSpecs& )imageSpecs
+                             NodeSpecs:(const NodeSpecs& )nodeSpecs
+                 BackingImageViewClass:(Class<VZFNetworkImageDownloadProtocol>)backingImageViewClass{
+    
+    VZFImageNode* imageNode = [super newWithView:backingImageViewClass NodeSpecs:nodeSpecs];
+    
     if (imageNode) {
         imageNode -> _imageSpecs = imageSpecs.copy();
         
@@ -37,14 +49,40 @@
             __strong typeof(weakNode) strongNode = weakNode;
             if (!strongNode) return CGSizeZero;
             
-            VZ::ImageNodeSpecs imageSpecs = strongNode.imageSpecs;
+            VZ::ImageNodeSpecs imageSpecs = strongNode->_imageSpecs;
             return imageSpecs.image ? imageSpecs.image.size : CGSizeZero;
-            
-      
         };
     }
+
     return imageNode;
+}
+
++ (instancetype)newWithImageAttributes:(const VZ::ImageNodeSpecs &)imageSpecs NodeSpecs:(const NodeSpecs &)nodeSpecs ImageDownloader:(id<VZFNetworkImageDownloadProtocol>)imagedownloader ImageProcessingBlock:(UIImage *(^)(UIImage *))imageProcessingBlock{
+
     
+    VZFImageNode* networkImageNode = [super newWithView:[VZFNetworkImageView class] NodeSpecs:nodeSpecs];
+    
+    if (networkImageNode) {
+        networkImageNode -> _imageSpecs = imageSpecs.copy();
+        networkImageNode -> _imageDownloader = imagedownloader;
+        networkImageNode -> _imageProcessingBlock = imageProcessingBlock;
+        
+        
+        __weak typeof(networkImageNode) weakNode = networkImageNode;
+        networkImageNode.flexNode.measure = ^(CGSize constraintedSize) {
+            __strong typeof(weakNode) strongNode = weakNode;
+            if (!strongNode) return CGSizeZero;
+            
+            VZ::ImageNodeSpecs imageSpecs = strongNode->_imageSpecs;
+            return imageSpecs.image ? imageSpecs.image.size : CGSizeZero;
+            
+            
+        };
+
+        
+    }
+    return networkImageNode;
 }
 
 @end
+

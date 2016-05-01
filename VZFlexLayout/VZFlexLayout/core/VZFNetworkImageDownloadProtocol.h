@@ -7,18 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VZFActionWrapper.h"
+
+typedef void(^VZFNetworkImageCompletionBlock)(UIImage* img, NSError* err);
 
 
 @protocol VZFNetworkImageDownloadProtocol <NSObject>
 
 @optional
-- (id)downloadImageWithURL:(NSURL *)URL
-             callbackQueue:(dispatch_queue_t)callbackQueue
-     downloadProgressBlock:(void (^)(CGFloat progress))downloadProgressBlock
-         imageProcessBlock:(UIImage*(^)(UIImage* rawImage))imageProcessBlock
-                completion:(void (^)(UIImage* image, NSError *error))completion;
+//- (id)downloadImageWithURL:(NSURL *)URL
+//                      size:(CGSize)size
+//             callbackQueue:(dispatch_queue_t)callbackQueue
+//     downloadProgressBlock:(void (^)(CGFloat progress))downloadProgressBlock
+//         imageProcessBlock:(UIImage*(^)(UIImage* rawImage))imageProcessBlock
+//                completion:(VZFNetworkImageCompletionBlock)completion;
+//
+//
+//- (void)cancelImageDownload:(id)download;
 
-
-- (void)cancelImageDownload:(id)download;
+- (void)vz_setImageWithURL:(NSURL *)url
+                      size:(CGSize)sz
+          placeholderImage:(UIImage *)loadingImage
+                errorImage:(UIImage* )errorImage
+                   context:(id)ctx
+           completionBlock:(id<VZFActionWrapper>) completion;
 
 @end
+

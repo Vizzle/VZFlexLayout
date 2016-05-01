@@ -11,7 +11,7 @@
 #ifdef __cplusplus
 extern "C"{
 #endif
-    
+
 #include <stddef.h>
 #ifndef __cplusplus
 #   include <stdbool.h>
@@ -123,13 +123,18 @@ typedef struct FlexNode {
     float resolvedMargin[4];
     float resolvedPadding[4];
     
+    // cache measure results
+    void* measuredSizeCache;
+    
     void* context;
     size_t childrenCount;
     FlexSize (*measure)(void* context, FlexSize constraintedSize);
     struct FlexNode* (*childAt)(void* context, size_t index);
 } FlexNode;
 
+FlexNode* newFlexNode();
 void initFlexNode(FlexNode* node);
+void freeFlexNode(FlexNode* node);
 void layoutFlexNode(FlexNode* node, float constraintedWidth, float constraintedHeight);
    
 #ifdef __cplusplus

@@ -20,14 +20,15 @@ namespace VZ {
         NodeLayout():
         node(nil),size({0,0}),origin({0,0}),margin({0,0,0,0}),children(new std::vector<NodeLayout>()){}
         
-        NodeLayout(VZFNode* _node,CGSize _sz, CGPoint _pt, UIEdgeInsets _margin):
-        node(_node),size(_sz),origin(_pt),margin(_margin),children(new std::vector<NodeLayout>()){};
+        NodeLayout(VZFNode* _node,CGSize _sz, CGPoint _pt, UIEdgeInsets _margin)
+            :NodeLayout(_node, _sz, _pt, _margin, {}) {}
         
         NodeLayout(VZFNode* _node,CGSize _sz, CGPoint _pt, UIEdgeInsets _margin,std::vector<NodeLayout> _childs):
-        node(_node),size(_sz),origin(_pt),margin(_margin),children(new std::vector<NodeLayout>(std::move(_childs))){};
-        
-        
-        ~NodeLayout(){node = nil; children = nullptr;}
+        node(_node),margin(_margin),children(new std::vector<NodeLayout>(std::move(_childs))) {
+            CGRect alignedFrame = CGRectIntegral(CGRect{_pt, _sz});
+            origin = alignedFrame.origin;
+            size = alignedFrame.size;
+        }
         
         const std::string description() const{
             
@@ -47,7 +48,7 @@ namespace VZ {
             return desc;
         };
 
-        VZFNode* node; //this does not create a retain cycle
+        VZFNode* node; //这里小心产生循环引用
         CGSize size = {0,0};
         CGPoint origin = {0,0};
         UIEdgeInsets margin = {0,0,0,0};

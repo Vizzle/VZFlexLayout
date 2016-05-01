@@ -30,16 +30,22 @@
         }
     } Children:{
         
-        {[VZFImageNode newWithNodeSpecs:{
-            .flex = {
-                .marginLeft = 5,
-                .marginTop = 10,
-                .marginBottom = 10,
-            }
-        } ImageAttributes:{.image = [UIImage imageNamed:@"comment_location"]}]},
+        {
+            [VZFImageNode newWithImageAttributes:{.image = [UIImage imageNamed:@"comment_location"]}
+                                       NodeSpecs:{
+                
+                .flex = {
+                    .marginLeft = 5,
+                    .marginTop = 10,
+                    .marginBottom = 10,
+                }
+            
+            }]
+        
+        },
         {[VZFTextNode newWithNodeSpecs:{}
                         TextAttributes:{.text = location,
-                            .font = [UIFont systemFontOfSize:14.0f],
+                            .fontSize = 14.0f,
                             .color = [UIColor blackColor]}]}
         
     }];

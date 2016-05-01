@@ -6,10 +6,10 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "VZFNodeListRecycleController.h"
+#import "VZFNodeListItemRecycler.h"
 #import "VZFSizeRange.h"
 #import "VZFNode.h"
-#import "VZFNodeInternal.h"
+#import "VZFNodeSubClass.h"
 #import "VZFRootScope.h"
 #import "VZFNodeProvider.h"
 #import "VZFLocker.h"
@@ -30,14 +30,14 @@
 const void* g_recycleId = &g_recycleId;
 @implementation UIView(ListRecycleController)
 
-- (void)setVz_recycleController:(VZFNodeListRecycleController *)vz_recycleController{
+- (void)setVz_recycler:(VZFNodeListItemRecycler *)vz_recycler{
     
     VZFWeakObjectWrapper* wrapper = [VZFWeakObjectWrapper new];
-    wrapper.object = vz_recycleController;
+    wrapper.object = vz_recycler;
     objc_setAssociatedObject(self, &g_recycleId, wrapper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (VZFNodeListRecycleController* )vz_recycleController{
+- (VZFNodeListItemRecycler* )vz_recycler{
     
     VZFWeakObjectWrapper* wrapper = objc_getAssociatedObject(self, g_recycleId);
     return wrapper.object;
@@ -48,11 +48,11 @@ const void* g_recycleId = &g_recycleId;
 
 
 
-@interface VZFNodeListRecycleController()<VZFStateListener>
+@interface VZFNodeListItemRecycler()<VZFStateListener>
 
 @end
 
-@implementation VZFNodeListRecycleController{
+@implementation VZFNodeListItemRecycler{
 
     __weak UIView *_mountedView;
     NSSet *_mountedNodes;
@@ -64,13 +64,10 @@ const void* g_recycleId = &g_recycleId;
     VZFRootScope *_previousRoot;
     NSDictionary* _stateFuncMap;
     VZFNodeListRecycleState _state;
-    
-    NSIndexPath* _indexPath;
 }
 
 - (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider
                    SizeRangeProvider:(id<VZSizeRangeProvider>)sizeProvider
-
 {
     
     self = [super init];
@@ -78,7 +75,8 @@ const void* g_recycleId = &g_recycleId;
     
         _nodeProvider       = nodeProvider;
         _sizeRangeProvider  = sizeProvider;
-        _stateFuncMap       = @{};        
+        _stateFuncMap       = @{};
+        
         
     }
     return self;
@@ -108,18 +106,12 @@ const void* g_recycleId = &g_recycleId;
 
     VZFNodeMemoizer memoizer(_state.memoizerState);
     
-
-    CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
-    
     VZFBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
         return [_nodeProvider nodeForItem:item context:context];
     } RootScope:rootScope StateUpdateFuncs:_stateFuncMap];
     
     const VZ::NodeLayout layout = [result.node computeLayoutThatFits:constrainedSize];
     
-    CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
-    
-    NSLog(@"[%@]-->计算node:%.3f ms",self.class, (t2 - t1)*1000 );
     _previousRoot = result.scopeRoot;
     _stateFuncMap = @{};
     
@@ -140,13 +132,14 @@ const void* g_recycleId = &g_recycleId;
 
 - (void)attachToView:(UIView *)view{
 
-    if(view.vz_recycleController != self){
+    if(view.vz_recycler != self){
     
         [self detachFromView];
-        [view.vz_recycleController detachFromView];
-        
+        [view.vz_recycler detachFromView];
         _mountedView = view;
-        view.vz_recycleController = self;
+        view.vz_recycler = self;
+        
+        NSLog(@"attach:%ld, mountedview:%p",self.indexPath.row,_mountedView);
     }
     
     [self _mountedLayout];
@@ -157,9 +150,11 @@ const void* g_recycleId = &g_recycleId;
     
     if (_mountedView) {
         
+        NSLog(@"detach:%ld, mountedview:%p",self.indexPath.row,_mountedView);
+    
         [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
         _mountedNodes = nil;
-        _mountedView.vz_recycleController = nil;
+        _mountedView.vz_recycler = nil;
         _mountedView = nil;
     }
 }
@@ -211,11 +206,7 @@ const void* g_recycleId = &g_recycleId;
 
 
 - (void)_mountedLayout{
-    _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_state.layout
-                                                              InContainer:_mountedView
-                                                        WithPreviousNodes:_mountedNodes
-                                                             AndSuperNode:nil
-                                                                  Context:_indexPath];
+    _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_state.layout InContainer:_mountedView WithPreviousNodes:_mountedNodes AndSuperNode:nil];
     
 }
 

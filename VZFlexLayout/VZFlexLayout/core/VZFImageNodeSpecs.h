@@ -7,22 +7,31 @@
 //
 
 #import "VZFNode.h"
+#import "VZFActionWrapper.h"
+
 
 namespace VZ {
     
     struct ImageNodeSpecs{
     
         UIImage* image;
-        NSURL* url;
+        NSString* imageUrl;
+        UIImage* errorImage;
         UIViewContentMode contentMode;
+        ActionWrapper completion;
+        id context;
+
+        
         const ImageNodeSpecs copy() const{
-            return {[image copy] , [url copy],contentMode};
+            return {[image copy], [imageUrl copy], [errorImage copy],contentMode, completion, context};
         }
         
         bool operator == (const ImageNodeSpecs &other) const {
             return (image == other.image
                     && contentMode == other.contentMode
-                    && url == other.url);
+                    && imageUrl == other.imageUrl
+                    && completion == other.completion
+                    && context == other.context);
         }
         
         size_t hash() const;
