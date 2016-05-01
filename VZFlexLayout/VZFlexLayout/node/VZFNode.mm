@@ -28,7 +28,11 @@ struct VZFNodeMountedInfo{
     
     __weak VZFNode* parentNode;
     __weak UIView* mountedView;
-    CGRect mountedFrame;
+    
+    struct {
+        UIView* v;
+        CGRect frame;
+    } mountedContext;
 };
 
 
@@ -163,7 +167,9 @@ using namespace VZ::UIKit;
             
             [self _recycleMountedView];
             [view.node unmount];
-         
+            
+            //notify controller
+            [self.controller node:self didAquireBackingView:view];
         }
         
         view.node = self;
@@ -181,23 +187,18 @@ using namespace VZ::UIKit;
         
         //apply attributes
         [view applyAttributes];
-        
-        //notify controller
-        [self.controller node:self didAquireBackingView:view];
-    
-        _mountedInfo -> mountedFrame = {context.position, view.bounds.size};
+
+        //update mountedInfo
+        _mountedInfo -> mountedContext = {view,{context.position,size}};
         
         return {.hasChildren = YES, .childContext = context.childContextForSubview(view)};
         
 
     }
     else{
-        //reuse Pool中没有,则使用viewManager中保存的view
-        UIView* view = context.viewManager.managedView;
-        _mountedInfo -> mountedView = view;
-        _mountedInfo -> mountedFrame = {context.position,size};
-        
-        [self.controller node:self didAquireBackingView:view];
+        //这种情况对应于没有viewclass的node，例如compositeNode，他没有backingview，mount过程中使用的是view的是上一个view
+        _mountedInfo -> mountedView = nil;
+        _mountedInfo -> mountedContext = {context.viewManager.managedView,{context.position,size}};
         
         return {.hasChildren = YES, .childContext = context};
         
