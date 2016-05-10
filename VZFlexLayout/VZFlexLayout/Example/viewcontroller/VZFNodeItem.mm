@@ -73,10 +73,10 @@
 
 - (VZFNode* )nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
     
-//    return [FBTextNode newWithItem:item];
+    return [FBTextNode newWithItem:item];
     
 //    return [FBContentNode newWithItem:item];
-    return [FBHostNode newWithItem:item];
+//    return [FBHostNode newWithItem:item];
 
 }
 

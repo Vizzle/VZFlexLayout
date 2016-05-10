@@ -19,18 +19,17 @@ struct VZFNodeListRecycleState{
     
     id item;
     id<NSObject> context;
-    NSObject* object;
     CGSize constrainedSize;
     NodeLayout layout;
     id memoizerState;
     VZFRootScope* rootScope;
-    
 };
 
 @protocol VZFNodeListItemRecycleController <NSObject>
 
 @optional
-- (void)onNodeStateDidChanged:(const VZFNodeListRecycleState& )state;
+- (void)nodeStateDidChanged:(id)scopeId ShouldInvalidateToNewSize:(BOOL)b;
+
 
 @end
 
@@ -40,9 +39,8 @@ struct VZFNodeListRecycleState{
  */
 @interface VZFNodeListItemRecycler : NSObject
 
+@property(nonatomic,strong) NSIndexPath* indexPath;
 @property(nonatomic,weak)id<VZFNodeListItemRecycleController> delegate;
-
-@property(nonatomic,strong)NSIndexPath* indexPath;
 
 - (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider
                    SizeRangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
@@ -57,17 +55,7 @@ struct VZFNodeListRecycleState{
 
 - (BOOL)isAttachedToView;
 
-/** The current top-level layout size for the component */
-- (CGSize)size;
 
-/** The last model associated with this lifecycle manager */
-- (id)item;
-
-/** The current scope frame associated with this lifecycle manager */
-- (VZFRootScope *)scopeRoot;
-
-/** The current component layout associated with this lifecycle manager */
-- (const VZ::NodeLayout &)nodeLayout;
 
 @end
 

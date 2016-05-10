@@ -113,8 +113,8 @@ typedef struct FlexNode {
     FlexLength margin[6];       // length, percentage(relative to the flex container's inner width), auto
     FlexLength padding[6];      // length, percentage(relative to the flex container's inner width)
     FlexLength border[6];       // length
-    float spacing;
-    float lineSpacing;
+    FlexLength spacing;         // length, percentage(relative to its inner main size)
+    FlexLength lineSpacing;     // length, percentage(relative to its inner cross size)
     
     FlexResult result;
     
@@ -135,8 +135,8 @@ typedef struct FlexNode {
 FlexNode* newFlexNode();
 void initFlexNode(FlexNode* node);
 void freeFlexNode(FlexNode* node);
-void layoutFlexNode(FlexNode* node, float constraintedWidth, float constraintedHeight);
-   
+void layoutFlexNode(FlexNode* node, float constraintedWidth, float constraintedHeight, float scale);
+
 #ifdef __cplusplus
 }
 #endif

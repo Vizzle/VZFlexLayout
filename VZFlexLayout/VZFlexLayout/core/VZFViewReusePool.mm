@@ -33,6 +33,7 @@
         v = viewClass.createView();
         if (container) {
             [container addSubview:v];
+            NSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
         }
         _reusePool.push_back(v);
         _nextUsableViewPos = _reusePool.end();
@@ -41,6 +42,7 @@
     else{
         //return a existing one
          v = *_nextUsableViewPos;
+         NSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
         _nextUsableViewPos ++;
     }
     return v;

@@ -28,11 +28,29 @@ typedef NS_ENUM(NSUInteger,VZFUpdateMode){
     VZFUpdateModeSynchronous
 };
 
+/**
+ *  HostingView用来承载RootNode
+ *
+ *  @discussion:如果需要考虑view复用的场景，不建议使用hostingview
+ *  tableView cell复用的场景请使用VZFNodeListItemRecycler
+ *
+ */
 @interface VZFNodeHostingView : UIView
 
 @property(nonatomic,weak)id<VZFNodeHostingView> delegate;
 
+
 - (id)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider RangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
+
+/**
+ *  更新hostingview的数据
+ *
+ *  @param model      被更新的数据
+ *  @param updateMode 同步/异步更新
+ *
+ *  @discussion: 如果是异步更新，node创建和layout将会在next main runloop中执行
+ *
+ */
 - (void)update:(id)model mode:(VZFUpdateMode)updateMode;
 
 

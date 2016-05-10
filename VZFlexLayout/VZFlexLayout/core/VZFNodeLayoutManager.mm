@@ -95,6 +95,7 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
             [item.layout.node willMount];
             
             //加载node，创建backing view
+            //这个方法必须在主线程调用
             MountResult mountResult = [item.layout.node mountInContext:item.context
                                                                   Size:item.layout.size
                                                             ParentNode:item.superNode];

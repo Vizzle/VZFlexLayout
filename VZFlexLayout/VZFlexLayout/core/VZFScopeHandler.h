@@ -13,7 +13,7 @@
 @class VZFScopeHandler;
 @class VZFNode;
 /**
- *  每个Node持有一个ScopeHandler，用来管理Node的状态变化
+ *  每个Node持有一个ScopeHandler，用来管理node的state
  */
 @interface VZFScopeHandler : NSObject<NSCopying>
 
@@ -24,7 +24,8 @@
 + (VZFScopeHandler* )scopeHandlerForNode:(VZFNode* )node;
 
 - (instancetype)initWithListener:(id<VZFStateListener>)listener
-             RootScopeIdentifier:(id)identifier
+             RootScopeIdentifier:(id)rootScopeId
+          CurrentScopeIdentifier:(id)currentScopeId
                        NodeClass:(Class )nodeClass
                 InitialStateFunc:(id(^)(void))stateFunc;
 

@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @class VZFNodeController;
+
+/**
+ *  统一管理Node的Controller
+ */
 @interface VZFNodeControllerManager : NSObject
 
 + (instancetype)sharedInstance;

@@ -10,6 +10,9 @@
 
 @interface UIView (VZAttributes)
 
+/**
+ *  应用view的各种属性
+ */
 - (void)applyAttributes;
 
 @end

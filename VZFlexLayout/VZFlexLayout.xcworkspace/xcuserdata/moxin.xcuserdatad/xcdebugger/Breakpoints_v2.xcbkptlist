@@ -6,16 +6,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/Example/controller/FBActionNodesController.mm"
-            timestampString = "483782578.290792"
+            filePath = "VZFlexLayout/node/VZFScrollNode.mm"
+            timestampString = "484485255.681453"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "-didAquireView"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
+            landmarkName = "-nodeDidLayout:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VZFlexLayout/node/VZFScrollNode.mm"
+            timestampString = "484485255.681453"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
+            landmarkName = "-nodeDidLayout:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

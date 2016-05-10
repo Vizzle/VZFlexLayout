@@ -43,8 +43,8 @@ namespace VZ {
         VZFlexLayoutAlignment alignItems = VZFlexStretch;
         VZFlexLayoutAlignment alignSelf = VZFlexInherit;
         VZFlexLayoutAlignment alignContent = VZFlexStretch;
-        float spacing = 0;
-        float lineSpacing = 0;
+        FlexLength spacing = FlexLengthZero;
+        FlexLength lineSpacing = FlexLengthZero;
         int userInteractionEnabled = INT_MIN;
     };
     

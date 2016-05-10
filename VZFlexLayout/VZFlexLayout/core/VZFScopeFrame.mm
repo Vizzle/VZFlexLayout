@@ -55,6 +55,7 @@ using namespace VZ;
     else{
         newHandler = [[VZFScopeHandler alloc]initWithListener:newRoot.listener
                                           RootScopeIdentifier:@(newRoot.rootScopeId)
+                                       CurrentScopeIdentifier:identifier
                                                     NodeClass:nodeClz
                                              InitialStateFunc:initialStateCreator];
     }

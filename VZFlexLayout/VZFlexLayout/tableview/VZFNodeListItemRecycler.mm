@@ -110,6 +110,8 @@ const void* g_recycleId = &g_recycleId;
         return [_nodeProvider nodeForItem:item context:context];
     } RootScope:rootScope StateUpdateFuncs:_stateFuncMap];
     
+    
+    
     const VZ::NodeLayout layout = [result.node computeLayoutThatFits:constrainedSize];
     
     _previousRoot = result.scopeRoot;
@@ -139,18 +141,18 @@ const void* g_recycleId = &g_recycleId;
         _mountedView = view;
         view.vz_recycler = self;
         
-        NSLog(@"attach:%ld, mountedview:%p",self.indexPath.row,_mountedView);
+        NSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
     }
     
     [self _mountedLayout];
-    
+ 
 }
 
 - (void)detachFromView{
     
     if (_mountedView) {
         
-        NSLog(@"detach:%ld, mountedview:%p",self.indexPath.row,_mountedView);
+        NSLog(@"[%@]--->detach:<%ld,%p>",self.class, self.indexPath.row, _mountedView);
     
         [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
         _mountedNodes = nil;
@@ -181,7 +183,7 @@ const void* g_recycleId = &g_recycleId;
     //计算新的size
     CGSize sz = [_sizeRangeProvider rangeSizeForBounds:_state.constrainedSize];
     
-    [self _updateStateInternal:[self calculate:_state.item constrainedSize:sz context:_state.context]];
+    [self _updateStateInternal:[self calculate:_state.item constrainedSize:sz context:_state.context] scopeId:scopeId];
 }
 
 - (CGSize)size{
@@ -211,7 +213,7 @@ const void* g_recycleId = &g_recycleId;
 }
 
 
-- (void)_updateStateInternal:(const VZFNodeListRecycleState& )state{
+- (void)_updateStateInternal:(const VZFNodeListRecycleState& )state scopeId:(id)scopeId{
 
     BOOL sizeChanged = !CGSizeEqualToSize(_state.layout.size, state.layout.size);
     
@@ -219,12 +221,9 @@ const void* g_recycleId = &g_recycleId;
     
     [self _mountedLayout];
     
-    if (sizeChanged) {
-        if([self.delegate respondsToSelector:@selector(onNodeStateDidChanged:)]){
-            [self.delegate onNodeStateDidChanged:_state];
-        }
+    if ([self.delegate respondsToSelector:@selector(nodeStateDidChanged:ShouldInvalidateToNewSize:)]) {
+        [self.delegate nodeStateDidChanged:scopeId ShouldInvalidateToNewSize:sizeChanged];
     }
-    
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFUtils.h"
+#import "VZFValue.h"
 
 typedef NS_ENUM(NSUInteger, VZFFontStyle) {
     VZFFontStyleNormal,
@@ -20,6 +21,11 @@ namespace VZ {
     
     UIFont *createFont(NSString *fontName, CGFloat fontSize, VZFFontStyle fontStyle);
 
+    namespace DefaultFlexAttributesValue{
+        extern NSUInteger lines;
+        extern NSLineBreakMode lineBreakMode;
+    }
+    
     struct TextNodeSpecs{
         
         NSString *text;
@@ -31,8 +37,8 @@ namespace VZ {
         NSAttributedString *attributedString;
 //        NSAttributedString *truncationAttributedString;
 //        NSCharacterSet *avoidTailTruncationSet;
-        NSLineBreakMode lineBreakMode;
-        NSUInteger lines;
+        Value<NSLineBreakMode, DefaultFlexAttributesValue::lineBreakMode> lineBreakMode;
+        Value<NSUInteger, DefaultFlexAttributesValue::lines> lines;
 //        CGSize shadowOffset;
 //        UIColor *shadowColor;
 //        CGFloat shadowOpacity;

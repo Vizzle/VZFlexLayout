@@ -80,8 +80,6 @@ using namespace VZ::UIKit;
 }
 
 - (void)dealloc{
-
-    NSLog(@"[%@]-->dealloc",self.class);
     _flexNode.fNode = nil;
     _mountedInfo.reset();
     _mountedInfo = nullptr;
@@ -110,12 +108,18 @@ using namespace VZ::UIKit;
                              _flexNode.resultFrame.size,
                              _flexNode.resultFrame.origin,
                              _flexNode.resultMargin};
-    return layout;
+    return [self nodeDidLayout:layout];
 }
 
 - (BOOL)shouldMemoizeLayout{
     
     return NO;
+}
+
+- (NodeLayout)nodeDidLayout:(const VZ::NodeLayout &)layout{
+    
+    NSLog(@"[%@]-->nodeDidLayout:%@",self.class, NSStringFromCGSize(layout.size));
+    return layout;
 }
 
 

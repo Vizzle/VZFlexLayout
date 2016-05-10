@@ -11,6 +11,11 @@
 
 namespace VZ {
     
+    namespace DefaultFlexAttributesValue{
+        NSUInteger lines = 1;
+        NSLineBreakMode lineBreakMode = NSLineBreakByTruncatingTail;
+    }
+    
     UIFont *createFont(NSString *fontName, CGFloat fontSize, VZFFontStyle fontStyle) {
         if (fontSize == 0) fontSize = [UIFont systemFontSize];
         UIFontDescriptorSymbolicTraits traits = UIFontDescriptorSymbolicTraits();

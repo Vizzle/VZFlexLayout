@@ -13,6 +13,11 @@
 namespace VZ{
 
 typedef void(^VZViewReuseBlock)(UIView* v);
+    
+    
+/**
+ *  ViewClass对应于node的backingview的描述
+ */
 struct ViewClass{
 
     

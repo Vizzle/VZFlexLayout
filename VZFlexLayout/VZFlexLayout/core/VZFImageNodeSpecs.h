@@ -19,7 +19,7 @@ namespace VZ {
         UIImage* errorImage;
         UIViewContentMode contentMode;
         ActionWrapper completion;
-        id context;
+        id context; 
 
         
         const ImageNodeSpecs copy() const{

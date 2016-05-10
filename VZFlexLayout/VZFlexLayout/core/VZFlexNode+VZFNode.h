@@ -10,6 +10,10 @@
 #import "VZFlexNode.h"
 
 @class VZFNode;
+
+/**
+ *  give flexnode backwards access
+ */
 @interface VZFlexNode (VZFNode)
 
 @property(nonatomic,assign)VZFNode* fNode;

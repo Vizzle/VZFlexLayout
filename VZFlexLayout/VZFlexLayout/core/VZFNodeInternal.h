@@ -81,8 +81,13 @@ using namespace VZ;
  */
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz;
 
+@end
+
+@interface VZFNode(Layout)
 
 - (BOOL)shouldMemoizeLayout;
+
+- (NodeLayout)nodeDidLayout:(const NodeLayout& )layout;
 
 
 @end

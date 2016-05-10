@@ -21,9 +21,6 @@
 #define VZ_MUTEX_INITIALIZER {PTHREAD_MUTEX_INITIALIZER}
 #define VZ_MUTEX_RECURSIVE_INITIALIZER {PTHREAD_RECURSIVE_MUTEX_INITIALIZER}
 
-// This MUST always execute, even when assertions are disabled. Otherwise all lock operations become no-ops!
-// (To be explicit, do not turn this into an CKAssert, NSAssert, assert(), or any other kind of statement where the
-// evaluation of x_ can be compiled out.)
 #define VZ_THREAD_ASSERT_ON_ERROR(x_) do { \
 _Pragma("clang diagnostic push"); \
 _Pragma("clang diagnostic ignored \"-Wunused-variable\""); \
@@ -32,6 +29,10 @@ NSCAssert(res == 0, @" %@ returned %d",@#x_, res)\
 _Pragma("clang diagnostic pop"); \
 } while (0)
 
+
+/**
+ *  locker
+ */
 namespace VZ {
     
     template<typename T>

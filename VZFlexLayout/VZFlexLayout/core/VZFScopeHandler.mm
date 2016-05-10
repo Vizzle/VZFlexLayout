@@ -37,22 +37,19 @@
 
 - (instancetype)initWithListener:(id<VZFStateListener>)listener
              RootScopeIdentifier:(id)rootScopeId
+          CurrentScopeIdentifier:(id)currentScopeId
                        NodeClass:(Class )nodeClass
                 InitialStateFunc:(id(^)(void))stateFunc{
 
     static int32_t scopeId = 0;
     return  [self initWithListener:listener
-                   ScopeIdentifier: @(OSAtomicIncrement32(&scopeId))
+                   ScopeIdentifier:currentScopeId?:@(OSAtomicIncrement32(&scopeId))
                RootScopeIdentifier:rootScopeId
                          NodeClass:nodeClass
                       InitialState:stateFunc?stateFunc():[nodeClass initialState]
                         Controller:[VZFNodeControllerManager controllerForNodeClass:nodeClass]];
 
 }
-
-
-
-
 
 - (instancetype)initWithListener:(id<VZFStateListener>)listener
                  ScopeIdentifier:(id)identifier

@@ -107,58 +107,6 @@ VZFlexNode *vz_defaultVZFlexNode() {
     return node;
 }
 
-extern "C" {
-    
-    extern bool flex_isAbsolute(FlexLength length);
-    
-    float flex_absoluteValue(FlexLength length, FlexNode* node) {
-        NSCAssert(flex_isAbsolute(length), @"absolute value requested!");
-//        VZFlexNode *vzNode = (__bridge VZFlexNode *)node->context;
-        
-        switch (length.type) {
-            case FlexLengthTypePx:
-                return length.value / [UIScreen mainScreen].scale;
-            case FlexLengthTypeCm:
-                return length.value * 96 / 2.54;
-            case FlexLengthTypeMm:
-                return length.value * 96 / 2.54 / 10;
-            case FlexLengthTypeQ:
-                return length.value * 96 / 2.54 / 40;
-            case FlexLengthTypeIn:
-                return length.value * 96;
-            case FlexLengthTypePc:
-                return length.value * 96 / 6;
-            case FlexLengthTypePt:
-                return length.value * 96 / 72;
-//            case FlexLengthTypeEm:
-//            {
-//                VZFNode *fNode = vzNode.fNode;
-//#warning FIXME  这里 font 取不到
-//                UIFont *font = [fNode respondsToSelector:@selector(font)] ? [(id)fNode font] : nil;
-//                if (!font || ![font isKindOfClass:[UIFont class]]) {
-//                    font = [UIFont systemFontOfSize:17];
-//                }
-//                return length.value * font.pointSize;
-//            }
-//            case FlexLengthTypeEx:
-//            case FlexLengthTypeCh:
-//            case FlexLengthTypeRem:
-            case FlexLengthTypeVw:
-                return length.value / 100 * [UIScreen mainScreen].bounds.size.width;
-            case FlexLengthTypeVh:
-                return length.value / 100 * [UIScreen mainScreen].bounds.size.height;
-            case FlexLengthTypeVmin:
-                return length.value / 100 * MIN([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-            case FlexLengthTypeVmax:
-                return length.value / 100 * MAX([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
-            case FlexLengthTypeDefault:
-            default:
-                return length.value;
-        }
-    }
-    
-}
-
 
 @interface VZFlexNode()
 {
@@ -270,19 +218,19 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     return _flex_node->flexShrink;
 }
 
-- (void)setSpacing:(CGFloat)spacing {
+- (void)setSpacing:(FlexLength)spacing {
     _flex_node->spacing = spacing;
 }
 
-- (CGFloat)spacing {
+- (FlexLength)spacing {
     return _flex_node->spacing;
 }
 
-- (void)setLineSpacing:(CGFloat)lineSpacing {
+- (void)setLineSpacing:(FlexLength)lineSpacing {
     _flex_node->lineSpacing = lineSpacing;
 }
 
-- (CGFloat)lineSpacing {
+- (FlexLength)lineSpacing {
     return _flex_node->lineSpacing;
 }
 
@@ -499,7 +447,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     //prepare layout递归
     [self prepareLayout];
     
-    layoutFlexNode(_flex_node, constrainedSize.width, constrainedSize.height);
+    layoutFlexNode(_flex_node, constrainedSize.width, constrainedSize.height, [UIScreen mainScreen].scale);
     
 }
 
@@ -552,8 +500,8 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     PRINT_PROP(paddingRight, FlexLength);
 //    PRINT_PROP(paddingStart, FlexLength);
 //    PRINT_PROP(paddingEnd, FlexLength);
-    PRINT_PROP(spacing, float);
-    PRINT_PROP(lineSpacing, float);
+    PRINT_PROP(spacing, FlexLength);
+    PRINT_PROP(lineSpacing, FlexLength);
 //    PRINT_PROP(borderWidth, FlexLength);
     
 #undef PRINT_PROP

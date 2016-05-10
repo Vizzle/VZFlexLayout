@@ -65,7 +65,6 @@ namespace VZ {
         
         const float Undefined = FlexUndefined;
         const float Auto = FlexAuto;
-        
     }
     
     
@@ -108,8 +107,8 @@ namespace VZ {
         extern VZFlexLayoutAlignment alignSelf;
         extern VZFlexLayoutAlignment alignContent;
         
-        extern float spacing;
-        extern float lineSpacing;
+        extern FlexLength spacing;
+        extern FlexLength lineSpacing;
         
         extern int userInteractionEnabled;
     };
@@ -142,8 +141,8 @@ namespace VZ {
         Value<VZFlexLayoutAlignment, DefaultFlexAttributesValue::justifyContent> justifyContent;
         Value<VZFlexLayoutAlignment,  DefaultFlexAttributesValue::alignContent> alignContent;
         
-        Value<float, DefaultFlexAttributesValue::spacing> spacing;
-        Value<float, DefaultFlexAttributesValue::lineSpacing> lineSpacing;
+        Value<FlexLength, DefaultFlexAttributesValue::spacing> spacing;
+        Value<FlexLength, DefaultFlexAttributesValue::lineSpacing> lineSpacing;
         
     };
 

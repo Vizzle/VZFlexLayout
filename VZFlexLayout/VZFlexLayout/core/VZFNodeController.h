@@ -12,7 +12,12 @@
 @class UIView;
 
 /**
- *  Controller对应Node生命周期的callback，
+ *  Controller对应Node生命周期的callback
+ *
+ *  controller会被默认创建，并被node的scopeHandler引用
+ *
+ *  @subclass: 所有controller的基类，
+ *
  */
 @interface VZFNodeController : NSObject
 

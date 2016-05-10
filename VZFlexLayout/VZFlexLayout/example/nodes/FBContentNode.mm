@@ -34,7 +34,7 @@
 
 + (instancetype)newWithItem:(FBHostItem *)item
 {
-    VZ::Scope scope(self,@"asdfds");
+    VZ::Scope scope(self);
     NSDictionary* state = scope.state();
 
     VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{

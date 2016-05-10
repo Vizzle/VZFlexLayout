@@ -48,15 +48,6 @@ using namespace VZ;
 }
 
 
-#define _BuldResult(x) \
-
-
-    
-
-
-
-
-
 - (NodeLayout)computeLayoutThatFits:(CGSize)constrainedSize{
     
     //只计算一次
@@ -72,7 +63,7 @@ using namespace VZ;
         {
             
             VZFCompositeNode* compositeNode = (VZFCompositeNode* )fNode;
-            return {
+            NodeLayout result{
                 
                 compositeNode,
                 compositeNode.flexNode.resultFrame.size,
@@ -83,6 +74,7 @@ using namespace VZ;
                 }
                 
             };
+            return [compositeNode nodeDidLayout:result];
         }
         else
         {
@@ -94,13 +86,13 @@ using namespace VZ;
                 if (stackNode.children.size() == 0)
                 {
                     
-                    return {
+                    return [stackNode nodeDidLayout:{
                         
                         stackNode,
                         stackNode.flexNode.resultFrame.size,
                         stackNode.flexNode.resultFrame.origin,
                         stackNode.flexNode.resultMargin,{}
-                    };
+                    }];
                     
                 }else{
                 
@@ -110,27 +102,27 @@ using namespace VZ;
                         VZFNode* childNode = child.node;
                         result.push_back(recursiveCalculateNodeLayoutFunc(childNode));
                     }
-                    return {
+                    return [stackNode nodeDidLayout:{
                         stackNode,
                         stackNode.flexNode.resultFrame.size,
                         stackNode.flexNode.resultFrame.origin,
                         stackNode.flexNode.resultMargin,
                         result
                     
-                    };
+                    }];
                     
                 }
                 
             }
             else
             {
-                return {
+                return [fNode nodeDidLayout:{
                     
                     fNode,
                     fNode.flexNode.resultFrame.size,
                     fNode.flexNode.resultFrame.origin,
                     fNode.flexNode.resultMargin,{}
-                };
+                }];
             }
             
         }

@@ -36,7 +36,7 @@ using namespace VZ;
                        AndSuperNode:(VZFNode* )superNode;
 
 /**
- *  从根节点layout一颗树，并返回最终的view
+ *  从根节点layout一颗树，并返回RootNode的container view
  *
  *  @param layout 根节点layout的描述
  *  @param sz     constraind size -> @example: CGSize{VZ::FlexValue::Auto, VZ::FlexValue::Auto}
@@ -46,7 +46,7 @@ using namespace VZ;
 - (UIView* )viewForRootNode:(const NodeLayout& )layout ConstrainedSize:(CGSize)sz;
 /**
  *
- *
+ *  释放node加载出来的view
  *  @param nodes
  */
 - (void)unmountNodes:(NSSet<VZFNode* >* )nodes;

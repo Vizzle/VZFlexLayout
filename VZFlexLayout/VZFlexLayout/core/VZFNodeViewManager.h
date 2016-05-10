@@ -13,6 +13,10 @@ namespace VZ {
 }
 using namespace VZ;
 @class VZFNode;
+
+/**
+ *  管理node的backingview的subview的创建和复用
+ */
 @interface VZFNodeViewManager : NSObject
 
 @property(nonatomic,weak,readonly)UIView* managedView;

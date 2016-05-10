@@ -12,8 +12,13 @@
 #import "FlexLayout.h"
 #import "VZFNode.h"
 
+#define FLEX_PIXEL_ASSERT(value) NSCAssert(fabs(value * [UIScreen mainScreen].scale - round(value * [UIScreen mainScreen].scale)) < 1e-3, @"value %@ not snap to pixel", @(value))
+
 namespace VZ {
     
+    /**
+     *  保存nodelayout的结果
+     */
     struct NodeLayout{
             
         //constructor
@@ -23,11 +28,16 @@ namespace VZ {
         NodeLayout(VZFNode* _node,CGSize _sz, CGPoint _pt, UIEdgeInsets _margin)
             :NodeLayout(_node, _sz, _pt, _margin, {}) {}
         
-        NodeLayout(VZFNode* _node,CGSize _sz, CGPoint _pt, UIEdgeInsets _margin,std::vector<NodeLayout> _childs):
-        node(_node),margin(_margin),children(new std::vector<NodeLayout>(std::move(_childs))) {
-            CGRect alignedFrame = CGRectIntegral(CGRect{_pt, _sz});
-            origin = alignedFrame.origin;
-            size = alignedFrame.size;
+        NodeLayout(VZFNode* _node,CGSize _sz, CGPoint _pt, UIEdgeInsets _margin,std::vector<NodeLayout> _childs)
+            :node(_node),size(_sz),origin(_pt),margin(_margin),children(new std::vector<NodeLayout>(std::move(_childs)))
+        {
+            FLEX_PIXEL_ASSERT(_pt.x);
+            FLEX_PIXEL_ASSERT(_pt.y);
+            FLEX_PIXEL_ASSERT(_sz.width);
+            FLEX_PIXEL_ASSERT(_sz.height);
+            
+            origin = _pt;
+            size = _sz;
         }
         
         const std::string description() const{
@@ -52,7 +62,7 @@ namespace VZ {
         CGSize size = {0,0};
         CGPoint origin = {0,0};
         UIEdgeInsets margin = {0,0,0,0};
-        std::shared_ptr<const std::vector<NodeLayout>> children;
+        std::shared_ptr<std::vector<NodeLayout>> children;
     };
 
 }

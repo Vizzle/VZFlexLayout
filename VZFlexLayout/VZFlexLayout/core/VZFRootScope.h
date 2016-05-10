@@ -11,8 +11,8 @@
 
 @class VZFScopeFrame;
 
-/**
- *  @discussion: RootScope用来表示一颗
+/*
+ *  @discussion: RootScope用来构建一颗node树的state
  */
 @interface VZFRootScope : NSObject
 

@@ -33,8 +33,8 @@ typedef NS_OPTIONS(NSUInteger, VZFlexNodeDescriptionOption) {
 @property (nonatomic,assign) FlexAlign alignSelf;
 @property (nonatomic,assign) FlexAlign alignContent;
 @property (nonatomic,assign) FlexAlign justifyContent;
-@property (nonatomic,assign) CGFloat spacing;
-@property (nonatomic,assign) CGFloat lineSpacing;
+@property (nonatomic,assign) FlexLength spacing;
+@property (nonatomic,assign) FlexLength lineSpacing;
 @property (nonatomic,assign) FlexLength flexBasis;
 @property (nonatomic,assign) CGFloat flexGrow;
 @property (nonatomic,assign) CGFloat flexShrink;

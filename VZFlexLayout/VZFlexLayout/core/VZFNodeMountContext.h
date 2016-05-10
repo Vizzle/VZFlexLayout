@@ -14,7 +14,9 @@ namespace VZ
 {
     namespace UIKit
     {
-        
+        /**
+         *  Node在mount过程中缓存的数据
+         */
         struct MountContext{
         
             //类方法
@@ -36,12 +38,17 @@ namespace VZ
             //view据root view的边距
             UIEdgeInsets rootLayoutInsect;
             
+            /**
+             *  相对根节点的位置
+             */
             MountContext rootOffset(const CGPoint p, const CGSize parentSize, const CGSize childSize) const{
                 
                 const UIEdgeInsets rootLayout = transformToRootLayout(rootLayoutInsect,p,parentSize,childSize);
                 return MountContext(viewManager,position + p, rootLayout);
             };
-            
+            /**
+             *  相对父节点的位置
+             */
             MountContext parentOffset(const CGPoint p, const CGSize parentSize) const{
             
                 return MountContext(viewManager,p,{});

@@ -16,7 +16,7 @@ namespace VZ {
         struct _Value <FlexLength, defaultValue, true> : public FlexLength {
             _Value() : FlexLength(defaultValue) {}
             _Value(FlexLength value) : FlexLength(value) {}
-            _Value(float value) : FlexLength{value, FlexLengthTypeDefault} {}
+            _Value(double value) : FlexLength{static_cast<float>(value), FlexLengthTypeDefault} {}
             bool isDefault() const { return *this == defaultValue; }
         };
 
