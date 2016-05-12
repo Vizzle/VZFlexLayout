@@ -85,7 +85,7 @@ struct VZFNodeHostingViewInputs{
     
     //主线程释放.
     [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
-    [[VZFScopeManager sharedInstance] releaseRootScopeById:_pendingInputs.rootScope.rootScopeId];
+   // [[VZFScopeManager sharedInstance] releaseRootScopeById:_pendingInputs.rootScope.rootScopeId];
     _pendingInputs.clear();
     
 }

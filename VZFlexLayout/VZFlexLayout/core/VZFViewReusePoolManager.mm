@@ -28,9 +28,12 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     
     id manager = objc_getAssociatedObject(view, g_viewReusePoolManager);
     if (!manager) {
-        
+        NSLog(@"[%@]-->创建ReusePoolManager:<%@,%p>",self.class,view.class,view);
         manager = [[VZFViewReusePoolManager alloc]init];
         objc_setAssociatedObject(view, g_viewReusePoolManager, manager, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    else{
+        NSLog(@"[%@]-->复用ReusePoolManager:<%@,%p>",self.class,view.class,view);
     }
     return manager;
 }
@@ -79,6 +82,16 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     _existedViews.clear();
 }
 
+- (void)clearReusePool{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+    
+    for(VZFViewReusePool* reusePool in [_reusePoolMap allValues]){
+        [reusePool reset];
+        [reusePool clear];
+    }
+    [_reusePoolMap removeAllObjects];
+}
+
 - (UIView* )viewForNode:(VZFNode* )node ParentView:(UIView* )container{
     if (!node.viewClass.hasView()) {
         return nil;
@@ -89,6 +102,10 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     if (!reusePool) {
         reusePool = [[VZFViewReusePool alloc]init];
         _reusePoolMap[viewKey] = reusePool;
+        NSLog(@"[VZFViewReusePool]-->创建ReusePool(%@) 容器:%p",viewKey,container);
+    }
+    else{
+        NSLog(@"[VZFViewReusePool]-->复用ReusePool(%@) 容器:%p",viewKey,container);
     }
     UIView* v = [reusePool viewForClass:node.viewClass ParentView:container];
     _existedViews.push_back(v);

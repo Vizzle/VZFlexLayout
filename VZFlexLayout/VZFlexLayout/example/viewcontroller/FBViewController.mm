@@ -108,8 +108,8 @@
     
     NSNumber* tag = (NSNumber* )context;
     if ([tag integerValue] == 0) {
-        return [FBScrollNode newWithItem:item];
-        //   return [FBHostNode newWithItem:item];
+        //return [FBScrollNode newWithItem:item];
+           return [FBHostNode newWithItem:item];
     }
     else{
         return [FBClickToExpendNode newWithItem:item];

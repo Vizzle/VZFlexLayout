@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '4E43EC556AA22731767F0CCF'
+               BlueprintIdentifier = 'E9DCD64633B92C813874DB98'
                BlueprintName = 'FBAllocationTracker'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libFBAllocationTracker.a'>

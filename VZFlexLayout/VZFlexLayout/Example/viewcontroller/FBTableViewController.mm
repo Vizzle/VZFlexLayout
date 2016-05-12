@@ -9,15 +9,15 @@
 #import "FBTableViewController.h"
 #import "FBHostItem.h"
 #import "FBHostCell.h"
-#import "VZFNodeItem.h"
 #import "FBHostNode.h"
 #import "VZFNodeLayout.h"
 #import "VZFNodeInternal.h"
 #import "VZFNodeSpecs.h"
 #import "FBTextNode.h"
+#import "FBHostCellItem.h"
 
 
-@interface FBTableViewController()<UITableViewDataSource,UITableViewDelegate,VZFNodeItemCallback>
+@interface FBTableViewController()<UITableViewDataSource,UITableViewDelegate,FBHostItemDelegate>
 
 @property(nonatomic,strong)UITableView* tableView;
 
@@ -34,7 +34,7 @@
     
     self.view.backgroundColor = [UIColor yellowColor];
     self.edgesForExtendedLayout = UIRectEdgeNone;
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reloadData)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reloadData)];
     
     _items = [NSMutableArray new];
     
@@ -48,22 +48,31 @@
 }
 
 - (void)loadData{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+       
+        NSString* path = [[NSBundle mainBundle] pathForResource:@"results" ofType:@"json"];
+        NSData* data = [NSData dataWithContentsOfFile:path];
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONWritingPrettyPrinted error:nil];
+        
+        NSArray* results = json[@"results"];
+        
+        for(NSDictionary* dict in results){
+            
+            FBHostItem* model = [FBHostItem newWithJSON:dict];
+            FBHostCellItem* item = [FBHostCellItem new];
+            [item updateModel:model constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::Auto)];
+            item.delegate = self;
+            [_items addObject:item];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.tableView reloadData];
+        });
+    });
 
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"results" ofType:@"json"];
-    NSData* data = [NSData dataWithContentsOfFile:path];
-    NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONWritingPrettyPrinted error:nil];
-    
-    NSArray* results = json[@"results"];
-    
-    for(NSDictionary* dict in results){
-    
-        FBHostItem* fbHostItem = [FBHostItem newWithJSON:dict];
-        VZFNodeItem* item = [VZFNodeItem new];
-        item.delegate = self;
-        item.constrainedWidth = CGRectGetWidth(self.view.bounds);
-        item.model = fbHostItem;
-        [_items addObject:item];
-    }
+
     
 }
 
@@ -80,8 +89,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    VZFNodeItem* item = _items[indexPath.row];
-    return item.height;
+    FBHostCellItem* item = _items[indexPath.row];
+    return item.itemHeight;
 }
 
 - (UITableViewCell* )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -93,17 +102,26 @@
 //        cell.delegate = self;
     }
 //    cell.indexPath = indexPath;
-    VZFNodeItem* item = _items[indexPath.row];
+    FBHostCellItem* item = _items[indexPath.row];
     item.indexPath = indexPath;
     [item attachToView:cell.contentView];
 
     return cell;
 }
 
-- (void)onItemSizeChanged:(CGSize)sz Index:(NSIndexPath *)indexPath{
+- (void)itemState:(id)scopeId ChangedAtIndex:(NSIndexPath* )indexPath SizeChanged:(BOOL)b{
+    
+    if (b) {
+        [self.tableView reloadData];
+    }
 
-//    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView reloadData];
+}
+
+- (void)reloadData{
+
+    [_items removeAllObjects];
+    [self loadData];
+    
 }
 
 @end

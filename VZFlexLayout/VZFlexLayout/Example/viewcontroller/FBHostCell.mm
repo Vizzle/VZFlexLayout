@@ -10,7 +10,6 @@
 #import "VZFNode.h"
 #import "VZFNodeHostingView.h"
 #import "VZFSizeRange.h"
-#import "VZFNodeItem.h"
 #import "FBHostNode.h"
 
 @interface FBHostCell()<VZFNodeHostingView,VZFNodeProvider>{

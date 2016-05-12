@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <stack>
 
 
 @protocol VZFStateListener <NSObject>
@@ -36,25 +36,12 @@ namespace VZ {
 }
 
 using namespace VZ;
-@interface VZFLocalScope:NSObject
-
-- (id)initWithRootScope:(VZFRootScope* )rootScope StateUpdates:(NSDictionary* )funcs;
-- (VZFRootScope* )newRootScope;
-- (NSDictionary* )stateUpdateFunctions;
-- (ScopeFramePair )top;
-- (void)pop;
-- (void)push:(const ScopeFramePair& )pair;
-
-@end
-
 struct VZFBuildNodeResult {
     VZFNode *node;
     VZFRootScope *scopeRoot;
 };
 
 @interface VZFScopeManager : NSObject
-
-@property(nonatomic,strong,readonly) VZFLocalScope* currentLocalScope;
 
 + (instancetype)sharedInstance;
 
@@ -70,12 +57,7 @@ struct VZFBuildNodeResult {
 + (VZFBuildNodeResult)buildNodeWithFunction:(VZFNode*(^)(void))function
                                  RootScope:(VZFRootScope* )rootScope
                           StateUpdateFuncs:(NSDictionary* )funcs;
-/**
- *  @dicussion:释放掉rootscope对应的localscope
- *
- *  @param scopeId
- */
-- (void)releaseRootScopeById:(int32_t)scopeId;
+
 
 
 @end

@@ -27,7 +27,7 @@ namespace VZ {
 /**
  *  返回node关联的view
  */
-@property(nonatomic,weak)UIView* mountedView;
+@property(nonatomic,readonly,weak)UIView* mountedView;
 
 /**
  *  Node的初始状态

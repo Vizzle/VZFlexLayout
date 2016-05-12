@@ -18,22 +18,38 @@ namespace VZ {
     
     Scope::Scope(Class clz, id scopeIdentifier, id(^initialStateCreator)(void)):_scopeIdentifier(scopeIdentifier),_nodeClass(clz){
 
+        _threadLocalScope = VZFThreadLocalNodeScope::currentScope();
         
-        VZFLocalScope* localScope = [VZFScopeManager sharedInstance].currentLocalScope;
-        if (localScope) {
-            
-            const auto currentPair = [localScope top];
+        if (_threadLocalScope != nullptr) {
+          
+            const auto currentPair = _threadLocalScope->stack.top();
             
             const auto newPair = [VZFScopeFrame scopeFramePair:currentPair
-                                                    NewRoot:[localScope newRootScope]
-                                                  NodeClass:clz
-                                                 Identifier:scopeIdentifier
-                                        InitialStateCreator:initialStateCreator
-                                               StateUpdates:[localScope stateUpdateFunctions]];
+                                                       NewRoot:_threadLocalScope->newScopeRoot
+                                                     NodeClass:clz
+                                                    Identifier:scopeIdentifier
+                                           InitialStateCreator:initialStateCreator
+                                                  StateUpdates:_threadLocalScope->stateUpdateFunc];
             
-            [localScope push:newPair];
+//            [localScope push:newPair];
+            _threadLocalScope -> stack.push({.newScopeFrame = newPair.newScopeFrame,.oldScopeFrame = newPair.oldScopeFrame});
             _state = newPair.newScopeFrame.handler.state;
         }
+//        VZFLocalScope* localScope = [VZFScopeManager sharedInstance].currentLocalScope;
+//        if (localScope) {
+//            
+//            const auto currentPair = [localScope top];
+//            
+//            const auto newPair = [VZFScopeFrame scopeFramePair:currentPair
+//                                                    NewRoot:[localScope newRootScope]
+//                                                  NodeClass:clz
+//                                                 Identifier:scopeIdentifier
+//                                        InitialStateCreator:initialStateCreator
+//                                               StateUpdates:[localScope stateUpdateFunctions]];
+//            
+//            [localScope push:newPair];
+//            _state = newPair.newScopeFrame.handler.state;
+//        }
         else{
         
             //assert here
@@ -44,9 +60,13 @@ namespace VZ {
     
     Scope::~Scope(){
         
-        VZFLocalScope* localScope = [VZFScopeManager sharedInstance].currentLocalScope;
-        if (localScope) {
-            [localScope pop];
+//        VZFLocalScope* localScope = [VZFScopeManager sharedInstance].currentLocalScope;
+//        if (localScope) {
+//            [localScope pop];
+//        }
+        
+        if (_threadLocalScope != nullptr) {
+            _threadLocalScope->stack.pop();
         }
         
     }

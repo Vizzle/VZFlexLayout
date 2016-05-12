@@ -48,6 +48,7 @@ using namespace VZ;
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz{
 
     NodeLayout layout = [_node computeLayoutThatFits:sz];
+    
     return {self,layout.size,layout.origin,layout.margin, {{_node,layout.size,layout.origin,layout.margin,*layout.children}}};
 }
 

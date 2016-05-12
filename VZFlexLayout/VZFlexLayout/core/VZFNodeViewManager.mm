@@ -10,7 +10,7 @@
 #import "VZFNode.h"
 #import <objc/runtime.h>
 #import "VZFViewReusePoolManager.h"
-
+#import "VZFNodeInternal.h"
 
 @implementation UIView(VZFNode)
 
@@ -36,6 +36,7 @@ using namespace VZ;
 
     self = [super init];
     if (self) {
+        
         _managedView = view;
         _managerReusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view];
     }
@@ -47,6 +48,12 @@ using namespace VZ;
     UIView* v = [_managerReusePoolManager viewForNode:node ParentView:_managedView];
     return v;
     
+}
+
+- (void)clearViewReusePoolForNode:(VZFNode *)node{
+    
+    
+
 }
 
 - (void)dealloc{

@@ -33,7 +33,7 @@
         v = viewClass.createView();
         if (container) {
             [container addSubview:v];
-            NSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
+            NSLog(@"[%@]-->创建View:<%@,%p> 容器:<%@,%p>",self.class,v.class,v,container.class,container);
         }
         _reusePool.push_back(v);
         _nextUsableViewPos = _reusePool.end();
@@ -42,7 +42,7 @@
     else{
         //return a existing one
          v = *_nextUsableViewPos;
-         NSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
+         NSLog(@"[%@]-->复用View:<%@,%p> 容器:<%@,%p>",self.class,v.class,v,container.class,container);
         _nextUsableViewPos ++;
     }
     return v;
@@ -61,6 +61,10 @@
         VZ::Mounting::hide(view);
         [view setHidden:YES];
     }
+    _nextUsableViewPos = _reusePool.begin();
+}
+- (void)clear{
+    _reusePool.clear();
     _nextUsableViewPos = _reusePool.begin();
 }
 

@@ -12,6 +12,7 @@
 #import "VZFScopeFrame.h"
 #include <libkern/OSAtomic.h>
 #import "VZFNodeControllerManager.h"
+#import "VZFThreadLocalNodeScope.h"
 
 @implementation VZFScopeHandler
 {
@@ -24,9 +25,11 @@
 
 + (VZFScopeHandler* )scopeHandlerForNode:(VZFNode* )node{
 
-    VZFLocalScope* localScope = [VZFScopeManager sharedInstance].currentLocalScope;
+  //  VZFLocalScope* localScope = [VZFScopeManager sharedInstance].currentLocalScope;
+    
+    VZFThreadLocalNodeScope* localScope = VZFThreadLocalNodeScope::currentScope();
     if (localScope) {
-        VZFScopeHandler* handler = [localScope top].newScopeFrame.handler;
+        VZFScopeHandler* handler = localScope->stack.top().newScopeFrame.handler;
         if ([handler bindToNode:node]) {
             return handler;
         }

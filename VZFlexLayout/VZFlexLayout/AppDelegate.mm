@@ -31,15 +31,15 @@
     _window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[ViewController new]];
     
     
-    [[FBAllocationTrackerManager sharedManager] startTrackingAllocations];
-    [[FBAllocationTrackerManager sharedManager] enableGenerations];
+//    [[FBAllocationTrackerManager sharedManager] startTrackingAllocations];
+//    [[FBAllocationTrackerManager sharedManager] enableGenerations];
 //    FBMemoryProfiler *memoryProfiler = [FBMemoryProfiler new];
     
-    _memoryProfiler = [[FBMemoryProfiler alloc] initWithPlugins:@[[CacheCleanerPlugin new],
-                                                                  [RetainCycleLoggerPlugin new]]
-                               retainCycleDetectorConfiguration:nil];
-    
-    [_memoryProfiler enable];
+//    _memoryProfiler = [[FBMemoryProfiler alloc] initWithPlugins:@[[CacheCleanerPlugin new],
+//                                                                  [RetainCycleLoggerPlugin new]]
+//                               retainCycleDetectorConfiguration:nil];
+//    
+//    [_memoryProfiler enable];
 
 
     

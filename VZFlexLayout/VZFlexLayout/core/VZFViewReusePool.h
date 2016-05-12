@@ -28,5 +28,6 @@ using namespace VZ;
  */
 - (UIView* )viewForClass:(const ViewClass&)viewClass ParentView:(UIView* )container;
 - (void)reset;
+- (void)clear;
 
 @end
