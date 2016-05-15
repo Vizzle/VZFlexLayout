@@ -25,6 +25,4 @@ using namespace VZ;
 //- (UIView* )viewForClass:(const ViewClass&) viewclass Spec:(const NodeSpecs&)spec ParentView:(UIView* )container;
 - (void)reset:(UIView* )containerView;
 
-- (void)clearReusePool;
-
 @end

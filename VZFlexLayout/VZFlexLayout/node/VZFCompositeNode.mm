@@ -16,9 +16,6 @@
 
 using namespace VZ;
 @implementation VZFCompositeNode
-{
-}
-
 
 - (VZFlexNode* )flexNode{
     return _node.flexNode;
@@ -47,9 +44,17 @@ using namespace VZ;
  */
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz{
 
-    NodeLayout layout = [_node computeLayoutThatFits:sz];
+    NodeLayout compositeLayout = [_node computeLayoutThatFits:sz];
+    VZ::NodeLayout layout = [super nodeDidLayout];
+    layout.children->push_back(compositeLayout);
+    return layout;
+}
+
+- (VZ::NodeLayout)nodeDidLayout {
+    VZ::NodeLayout layout = [super nodeDidLayout];
+    layout.children->push_back([self.node nodeDidLayout]);
     
-    return {self,layout.size,layout.origin,layout.margin, {{_node,layout.size,layout.origin,layout.margin,*layout.children}}};
+    return layout;
 }
 
 @end

@@ -35,10 +35,6 @@ using namespace VZ;
 @interface VZFNode()
 
 /**
- *  返回node关联的view
- */
-@property(nonatomic,readonly,weak)UIView* mountedView;
-/**
  *  Node对应到UIKit的类型
  */
 @property(nonatomic,assign,readonly)ViewClass viewClass;
@@ -91,8 +87,7 @@ using namespace VZ;
 
 - (BOOL)shouldMemoizeLayout;
 
-- (NodeLayout)nodeDidLayout:(const NodeLayout& )layout;
-
+- (NodeLayout)nodeDidLayout;
 
 @end
 

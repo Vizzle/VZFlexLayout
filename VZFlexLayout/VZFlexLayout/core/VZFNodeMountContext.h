@@ -22,8 +22,8 @@ namespace VZ
             //类方法
             static MountContext RootContext(UIView* v){
             
-                NSLog(@"MountRoot:<%@,%p>",v.class,v);
                 Mounting::mountingRootView(v);
+                
                 return MountContext([[VZFNodeViewManager alloc]initWithView:v],{0,0},{});
                 
             };
@@ -56,7 +56,6 @@ namespace VZ
             
             MountContext childContextForSubview(UIView *subview) const {
               
-                NSLog(@"MountChild:<%@,%p>",subview.class,subview);
                 Mounting::mountingChildView(subview, viewManager.managedView);
                 return MountContext([[ VZFNodeViewManager alloc ] initWithView:subview] , {0,0}, rootLayoutInsect);
             };

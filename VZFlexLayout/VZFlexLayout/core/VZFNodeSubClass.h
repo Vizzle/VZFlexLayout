@@ -27,7 +27,7 @@ namespace VZ {
 /**
  *  返回node关联的view
  */
-@property(nonatomic,readonly,weak)UIView* mountedView;
+@property(nonatomic,weak)UIView* mountedView;
 
 /**
  *  Node的初始状态
@@ -58,6 +58,13 @@ namespace VZ {
  *  @return true/false
  */
 - (BOOL)shouldMemoizeLayout;
+
+/**
+ *  自定义node需要override这个方法
+ *
+ *  @return layout
+ */
+- (NodeLayout)nodeDidLayout NS_REQUIRES_SUPER;
 /**
  *  返回controller的下一个responder
  *

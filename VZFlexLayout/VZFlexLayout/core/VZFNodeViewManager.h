@@ -25,8 +25,6 @@ using namespace VZ;
 
 - (UIView* )viewForNode:(VZFNode* )node;
 
-- (void)clearViewReusePoolForNode:(VZFNode* )node;
-
 @end
 
 

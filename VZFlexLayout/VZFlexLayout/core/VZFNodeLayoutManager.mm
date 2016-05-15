@@ -70,6 +70,11 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
     stack.push({layout,rootContext,superNode,NO});
   
     //2.3, 每个节点深度优先遍历
+    /**
+     * @discussion:
+     * 这里从根节点开始遍历每一个子节点，会产生频繁的递归调用
+     * 可以使用lambda表达式做函数式递归，但考虑这个过程很频繁，这里使用while+stack的递归方式，减少栈空间的频繁开销
+     */
     while (!stack.empty()) {
         
         //这里面取引用，因为要改变它的状态

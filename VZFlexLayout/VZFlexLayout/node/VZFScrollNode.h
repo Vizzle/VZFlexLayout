@@ -10,20 +10,15 @@
 #import "VZFNode.h"
 #import "VZFScrollNodeSpecs.h"
 
-typedef struct {
-    VZFNode *node;
-}VZFScrollChildNode;
-
 using namespace VZ;
 @interface VZFScrollNode : VZFNode
 
 @property(nonatomic,assign,readonly)ScrollNodeSpecs scrollNodeSpecs;
-@property(nonatomic,assign,readonly)std::vector<VZFScrollChildNode> children;
+@property(nonatomic,assign,readonly)std::vector<VZFNode*> children;
+@property(nonatomic,assign,readonly)CGSize contentSize;
 
 + (instancetype)newWithScrollAttributes:(const ScrollNodeSpecs &)scrollSpecs
                               NodeSpecs:(const NodeSpecs &)nodeSpecs
-                               Children:(std::vector<VZFScrollChildNode>)children;
-
-- (CGSize)contentSize;
+                               Children:(std::vector<VZFNode*>)children;
 
 @end

@@ -30,9 +30,9 @@
     } Children:{
     
         { [VZFScrollNode newWithScrollAttributes:{
-            .direction = VZ::ScrollDirection::Horizontal,
+            .scrollDirection = VZ::ScrollDirection::ScrollHorizontal,
             .paging = true,
-            .spacing = 10
+//            .spacing = 10
             
         } NodeSpecs:{
             .flex = {
@@ -46,7 +46,7 @@
             
         } Children:{
             
-            {[VZFImageNode newWithImageAttributes:{
+            [VZFImageNode newWithImageAttributes:{
                 .imageUrl = item.images[0],
                 
                 
@@ -56,8 +56,8 @@
                     .width = 100,
                 }
                 
-            }]},
-            {
+            }],
+            
                 [VZFStackNode newWithStackSpecs:{
                     .flex=  {
                         .width = 100,
@@ -96,10 +96,8 @@
                 
                 
                 
-                }]
-            
-            },
-            {[VZFImageNode newWithImageAttributes:{
+                }],
+            [VZFImageNode newWithImageAttributes:{
                 .imageUrl = item.images[2],
                 
             } NodeSpecs:{
@@ -108,9 +106,9 @@
                     .width = 100,
                 }
                 
-            }]},
+            }],
             
-            {[VZFImageNode newWithImageAttributes:{
+            [VZFImageNode newWithImageAttributes:{
                 
                 .imageUrl = item.images[3],
                 
@@ -120,7 +118,7 @@
                     .width = 100,
                 }
                 
-            }]},
+            }],
             
         }]}
     

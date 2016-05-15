@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VZFThreadLocalNodeScope.h"
+#import "VZFThreadLocalScope.h"
 
 namespace VZ {
 
@@ -33,7 +33,7 @@ namespace VZ {
         id _state;
         id _scopeIdentifier;
         Class _nodeClass;
-        VZFThreadLocalNodeScope* _threadLocalScope;
+        VZFThreadLocalScope* _threadLocalScope;
 
     };
 }

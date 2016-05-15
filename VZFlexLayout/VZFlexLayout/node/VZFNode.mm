@@ -108,7 +108,7 @@ using namespace VZ::UIKit;
                              _flexNode.resultFrame.size,
                              _flexNode.resultFrame.origin,
                              _flexNode.resultMargin};
-    return [self nodeDidLayout:layout];
+    return [self nodeDidLayout];
 }
 
 - (BOOL)shouldMemoizeLayout{
@@ -116,8 +116,16 @@ using namespace VZ::UIKit;
     return NO;
 }
 
-- (NodeLayout)nodeDidLayout:(const VZ::NodeLayout &)layout{
+- (NodeLayout)nodeDidLayout{
+    NodeLayout layout{
+        self,
+        self.flexNode.resultFrame.size,
+        self.flexNode.resultFrame.origin,
+        self.flexNode.resultMargin,
+        {}
+    };
     
+//    NSLog(@"[%@]-->nodeDidLayout:%@",self.class, NSStringFromCGSize(layout.size));
     return layout;
 }
 
@@ -152,9 +160,7 @@ using namespace VZ::UIKit;
 }
 
 -(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
-{
-    
-    NSLog(@"[%@]-->mount!",self.class);
+{    
     if (!_mountedInfo) {
         _mountedInfo.reset( new VZFNodeMountedInfo() );
     }
@@ -163,6 +169,7 @@ using namespace VZ::UIKit;
     
     //获取一个reuse view
     UIView* view = [context.viewManager viewForNode:self];
+    
     
     //说明reusepool中有view
     if (view) {
@@ -200,7 +207,7 @@ using namespace VZ::UIKit;
 
     }
     else{
-        //这种情况对应于没有viewclass的node，例如compositeNode，他没有backingview，mount过程中使用的view的是上一个view
+        //这种情况对应于没有viewclass的node，例如compositeNode，他没有backingview，mount过程中使用的是view的是上一个view
         _mountedInfo -> mountedView = nil;
         _mountedInfo -> mountedContext = {context.viewManager.managedView,{context.position,size}};
         
@@ -215,8 +222,6 @@ using namespace VZ::UIKit;
 -(void)unmount{
     
     if (_mountedInfo != nullptr) {
-        
-        NSLog(@"[%@]-->unmount!",self.class);
         [self.controller nodeWillUnmount:self];
         [self _recycleMountedView];
         _mountedInfo.reset();
@@ -245,9 +250,7 @@ using namespace VZ::UIKit;
         view.node = nil;
         view = nil;
     }
-
-    
-
-    
 }
+
+
 @end

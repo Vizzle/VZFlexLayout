@@ -47,90 +47,21 @@ using namespace VZ;
     return stacknode;
 }
 
+- (VZ::NodeLayout)nodeDidLayout {
+    VZ::NodeLayout layout = [super nodeDidLayout];
+    for (const auto &child : _children) {
+        layout.children->push_back([child.node nodeDidLayout]);
+    }
+    
+    return layout;
+}
 
 - (NodeLayout)computeLayoutThatFits:(CGSize)constrainedSize{
     
     //只计算一次
     [self.flexNode layout:constrainedSize];
     
-
-    //重写了递归函数@2016/04/11
-    std::function<NodeLayout(VZFNode* )> recursiveCalculateNodeLayoutFunc = [&recursiveCalculateNodeLayoutFunc](VZFNode* fNode) -> NodeLayout{
-    
-    
-        //检查是否是CompositeNode
-        if ([fNode isKindOfClass:[VZFCompositeNode class]])
-        {
-            
-            VZFCompositeNode* compositeNode = (VZFCompositeNode* )fNode;
-            NodeLayout result{
-                
-                compositeNode,
-                compositeNode.flexNode.resultFrame.size,
-                compositeNode.flexNode.resultFrame.origin,
-                compositeNode.flexNode.resultMargin,
-                {
-                    {recursiveCalculateNodeLayoutFunc(compositeNode.node)}
-                }
-                
-            };
-            return [compositeNode nodeDidLayout:result];
-        }
-        else
-        {
-            if ([fNode isKindOfClass:[VZFStackNode class]])
-            {
-                
-                VZFStackNode* stackNode = (VZFStackNode* )fNode;
-                
-                if (stackNode.children.size() == 0)
-                {
-                    
-                    return [stackNode nodeDidLayout:{
-                        
-                        stackNode,
-                        stackNode.flexNode.resultFrame.size,
-                        stackNode.flexNode.resultFrame.origin,
-                        stackNode.flexNode.resultMargin,{}
-                    }];
-                    
-                }else{
-                
-                    std::vector<NodeLayout> result = {};
-                    for (const auto &child : stackNode.children) {
-                        
-                        VZFNode* childNode = child.node;
-                        result.push_back(recursiveCalculateNodeLayoutFunc(childNode));
-                    }
-                    return [stackNode nodeDidLayout:{
-                        stackNode,
-                        stackNode.flexNode.resultFrame.size,
-                        stackNode.flexNode.resultFrame.origin,
-                        stackNode.flexNode.resultMargin,
-                        result
-                    
-                    }];
-                    
-                }
-                
-            }
-            else
-            {
-                return [fNode nodeDidLayout:{
-                    
-                    fNode,
-                    fNode.flexNode.resultFrame.size,
-                    fNode.flexNode.resultFrame.origin,
-                    fNode.flexNode.resultMargin,{}
-                }];
-            }
-            
-        }
-    
-    };
-    
-    NodeLayout layout = recursiveCalculateNodeLayoutFunc(self);
-    return layout;
+    return [self nodeDidLayout];
 }
 
 @end

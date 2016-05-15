@@ -7,50 +7,35 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VZFValue.h"
 
 namespace VZ {
     
-    enum ScrollDirection{
-        Vertical,
-        Horizontal
-    };
+    typedef enum {
+        ScrollNone = 0,
+        ScrollVertical = 1 << 0,
+        ScrollHorizontal = 1 << 1,
+        ScrollBoth = ScrollVertical | ScrollHorizontal
+    } ScrollDirection;
+    
+    namespace DefaultFlexAttributesValue{
+        extern ScrollDirection scrollDirection;
+        extern bool scrollEnabled;
+    }
     
     struct ScrollNodeSpecs{
-        
-        
-        bool scrollEnabled;
-        ScrollDirection direction;
-        float spacing;
+        Value<ScrollDirection, DefaultFlexAttributesValue::scrollDirection> scrollDirection;
+        Value<bool, DefaultFlexAttributesValue::scrollEnabled> scrollEnabled;
         bool paging;
-        bool autoScroll; //not implemented
-        float autoScrollerTimeInterval; //not implemented
-        bool infiniteLoop; //not implemented
-        
-        struct{
-            bool enabled;
-            float scale;
-            float height;
-            UIColor* defaultColor;
-            UIColor* highlightColor;
-        }pageControl; //not implemented
         
         const ScrollNodeSpecs copy() const{
-            return {scrollEnabled,direction,spacing,paging,autoScroll, autoScrollerTimeInterval,infiniteLoop,pageControl };
+            return {scrollDirection,scrollEnabled,paging};
         }
         
         bool operator == (const ScrollNodeSpecs &other) const {
-            return (scrollEnabled == other.scrollEnabled
-                    && spacing == other.spacing
-                    && paging == other.paging
-                    && direction == other.direction
-                    && autoScroll == other.autoScroll
-                    && autoScrollerTimeInterval == other.autoScrollerTimeInterval
-                    && infiniteLoop == other.infiniteLoop
-                    && pageControl.enabled == other.pageControl.enabled
-                    && pageControl.scale == other.pageControl.scale
-                    && pageControl.height == other.pageControl.height
-                    && pageControl.defaultColor == other.pageControl.defaultColor
-                    && pageControl.highlightColor == other.pageControl.highlightColor);
+            return (scrollDirection == other.scrollDirection
+                    && scrollEnabled == other.scrollEnabled
+                    && paging == other.paging);
         }
         
         size_t hash() const;

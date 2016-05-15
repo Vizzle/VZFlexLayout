@@ -20,6 +20,11 @@
 #import "VZFActionWrapper.h"
 #import "VZFScrollNode.h"
 #import "VZFScrollNodeSpecs.h"
+#import "VZFPagingNode.h"
+#import "VZFPagingNodeSpecs.h"
+#import "VZFPagingView.h"
+#import "VZFlexNode.h"
+#import "VZFNodeLayoutManager.h"
 #import <objc/runtime.h>
 
 @implementation UIView (VZAttributes)
@@ -46,8 +51,13 @@
     {
         [self _applyTextAttributes:((VZFTextNode* )node).textSpecs];
     }
-    else if ([node isKindOfClass:[VZFScrollNode class]]){
+    else if ([node isKindOfClass:[VZFScrollNode class]])
+    {
         [self _applyScrollAttributes:((VZFScrollNode* )node).scrollNodeSpecs];
+    }
+    else if ([node isKindOfClass:[VZFPagingNode class]])
+    {
+        [self _applyPagingAttributes:((VZFPagingNode* )node).pagingNodeSpecs];
     }
 }
 
@@ -191,10 +201,46 @@
     scrollView.pagingEnabled = scrollSpecs.paging;
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.showsHorizontalScrollIndicator = NO;
-
-    UIScrollView* node = (UIScrollView* )scrollView.node;
-    scrollView.contentSize = node.contentSize;
+    VZFScrollNode* scrollNode = (VZFScrollNode* )scrollView.node;
+    scrollView.contentSize = scrollNode.contentSize;
     [scrollView setNeedsLayout];
+    
+}
+
+- (void)_applyPagingAttributes:(const VZ::PagingNodeSpecs& )pagingSpecs{
+    
+    VZFPagingView* pagingView = (VZFPagingView* )self;
+    VZFPagingNode* pagingNode = (VZFPagingNode* )self.node;
+    pagingView.scroll = pagingSpecs.scrollEnabled;
+    pagingView.autoScroll = pagingSpecs.autoScroll;
+    pagingView.loopScroll = pagingSpecs.infiniteLoop;
+    pagingView.vertical = pagingNode.flexNode.direction == FlexVertical || pagingNode.flexNode.direction == FlexVerticalReverse;
+    UICollectionView* collectionView = pagingView.collectionView;
+    collectionView.pagingEnabled = pagingSpecs.paging;
+    collectionView.showsVerticalScrollIndicator = NO;
+    collectionView.showsHorizontalScrollIndicator = NO;
+    
+    pagingView.pageControlEnabled = pagingSpecs.paging;
+    if (pagingSpecs.pageControl) {
+        UIPageControl *pageControl = pagingView.pageControl;
+        pageControl.backgroundColor = [UIColor clearColor];
+        pageControl.userInteractionEnabled = NO;
+        pageControl.hidesForSinglePage = YES;
+        pageControl.frame = pagingNode.pageControlNode.flexNode.resultFrame;
+        pageControl.transform = CGAffineTransformMakeScale(pagingSpecs.pageControlScale, pagingSpecs.pageControlScale);
+        pageControl.pageIndicatorTintColor = pagingSpecs.pageControlColor;
+        pageControl.currentPageIndicatorTintColor = pagingSpecs.pageControlSelectedColor;
+        pageControl.numberOfPages = pagingNode.children.size();
+    }
+    
+    NSMutableArray *subviews = [NSMutableArray array];
+    for (const auto& layout : pagingNode.childrenLayout) {
+        UIView* view = [[VZFNodeLayoutManager sharedInstance] viewForRootNode:layout ConstrainedSize:self.frame.size];
+        [subviews addObject:view];
+    }
+    [pagingView setChildrenViews:subviews];
+    
+    [pagingView setNeedsLayout];
     
 }
 

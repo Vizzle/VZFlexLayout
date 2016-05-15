@@ -16,7 +16,6 @@
 #import "VZFNodeMemoizer.h"
 #import "VZFScopeManager.h"
 #import "VZFNodeLayoutManager.h"
-#import "VZFViewReusePoolManager.h"
 #include <objc/runtime.h>
 
 
@@ -88,27 +87,14 @@ const void* g_recycleId = &g_recycleId;
 
     if (_mountedNodes) {
         if ([NSThread isMainThread]) {
-            
-            
-            //清空reuse pool里的view
-//            for(VZFNode* node in _mountedNodes){
-//                if (node.mountedView) {
-//                    VZFViewReusePoolManager* reusePoolManager=[VZFViewReusePoolManager viewReusePoolManagerForView:node.mountedView];
-//                    if (reusePoolManager) {
-//                        [reusePoolManager clearReusePool];
-//                    }
-//                }
-//            }
             [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
-            
-            
-            //[[VZFScopeManager sharedInstance] releaseRootScopeById:_state.rootScope.rootScopeId];
+//            [[VZFScopeManager sharedInstance] releaseRootScopeById:_state.rootScope.rootScopeId];
         }
         else{
             dispatch_async(dispatch_get_main_queue(), ^{
                
                 [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
-                //[[VZFScopeManager sharedInstance] releaseRootScopeById:_state.rootScope.rootScopeId];
+//                [[VZFScopeManager sharedInstance] releaseRootScopeById:_state.rootScope.rootScopeId];
             });
         }
     }
@@ -155,7 +141,7 @@ const void* g_recycleId = &g_recycleId;
         _mountedView = view;
         view.vz_recycler = self;
         
-        NSLog(@"[%@]--->attach:<ROW:%ld>",self.class,self.indexPath.row);
+        NSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
     }
     
     [self _mountedLayout];
@@ -166,7 +152,7 @@ const void* g_recycleId = &g_recycleId;
     
     if (_mountedView) {
         
-        NSLog(@"[%@]--->detach:<ROW:%ld>",self.class, self.indexPath.row);
+        NSLog(@"[%@]--->detach:<%ld,%p>",self.class, self.indexPath.row, _mountedView);
     
         [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
         _mountedNodes = nil;

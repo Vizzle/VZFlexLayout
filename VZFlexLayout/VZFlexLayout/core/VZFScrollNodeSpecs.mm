@@ -11,16 +11,16 @@
 
 namespace VZ {
     
+    namespace DefaultFlexAttributesValue{
+        ScrollDirection scrollDirection = ScrollHorizontal;
+        bool scrollEnabled = true;
+    }
+    
     size_t ScrollNodeSpecs::hash() const{
         NSUInteger subhashes[] = {
+            std::hash<bool>()(scrollDirection),
             std::hash<bool>()(scrollEnabled),
-            std::hash<int>()(direction),
-            std::hash<float>()(spacing),
-            std::hash<bool>()(paging),
-            std::hash<bool>()(autoScroll),
-            std::hash<float>()(autoScrollerTimeInterval),
-            std::hash<bool>()(infiniteLoop)
-            
+            std::hash<bool>()(paging)
         };
         return VZ::Hash::IntegerArrayHash(subhashes, sizeof(subhashes) / sizeof(subhashes[0]));
     }

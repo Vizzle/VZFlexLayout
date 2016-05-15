@@ -8,6 +8,7 @@
 
 #import "FlexLayout.h"
 #import "VZFValue.h"
+#import "VZFUtils.h"
 
 namespace VZ {
     namespace Internal {
@@ -21,6 +22,19 @@ namespace VZ {
         };
 
     }
+}
+
+namespace std {
+    template<>
+    struct hash<FlexLength>{
+        size_t operator()(const FlexLength &length) const {
+            NSUInteger subhashes[] = {
+                std::hash<int>()(length.type),
+                std::hash<float>()(length.value),
+            };
+            return VZ::Hash::IntegerArrayHash(subhashes, sizeof(subhashes) / sizeof(subhashes[0]));
+        }
+    };
 }
 
 // comparasion between FlexLengths
