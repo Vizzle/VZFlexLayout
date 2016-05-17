@@ -23,6 +23,7 @@
 #import "VZFNodeSpecs.h"
 #import "VZFNodeViewClass.h"
 #import "UIView+VZAttributes.h"
+#import "VZFNodeBackingViewInterface.h"
 
 struct VZFNodeMountedInfo{
     
@@ -247,6 +248,9 @@ using namespace VZ::UIKit;
     UIView* view = _mountedInfo -> mountedView;
     if(view){
         [_scopeHandler.controller node:self willReleaseBackingView:view];
+        
+        //@discussion:reset state
+        VZ::Mounting::reset(view);
         view.node = nil;
         view = nil;
     }

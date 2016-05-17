@@ -29,6 +29,7 @@
 + (instancetype)newWithJSON:(NSDictionary* )json{
 
     FBHostItem* item        = [FBHostItem new];
+    item -> _type           = json[@"type"];
     item -> _headIconURL    = json[@"icon"];
     item -> _nick           = json[@"nick"];
     item -> _time           = json[@"time"];
@@ -37,6 +38,7 @@
     item -> _dishes         = json[@"dishes"];
     item -> _images         = json[@"images"];
     item -> _location       = json[@"location"];
+    item -> _cards          = json[@"cards"];
     
 
     item -> _rewardCount       = json[@"rewardedCount"];

@@ -11,7 +11,7 @@
 @interface FBHostItem : NSObject
 
 
-
+@property(nonatomic,strong,readonly)NSString* type;
 @property(nonatomic,strong,readonly)NSString* headIconURL;
 @property(nonatomic,strong,readonly)NSString* nick;
 @property(nonatomic,strong,readonly)NSString* time;
@@ -20,7 +20,7 @@
 @property(nonatomic,strong,readonly)NSString* location;
 @property(nonatomic,strong,readonly)NSArray<NSString* >* dishes;
 @property(nonatomic,strong,readonly)NSArray<NSString* >* images;
-
+@property(nonatomic,strong,readonly)NSArray<NSDictionary* >* cards;
 
 @property(nonatomic,strong,readonly)NSString* commentCount;
 @property(nonatomic,strong,readonly)NSString* rewardCount;

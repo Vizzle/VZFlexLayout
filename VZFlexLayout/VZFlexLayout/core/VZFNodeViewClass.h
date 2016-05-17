@@ -10,40 +10,30 @@
 #import <string>
 
 
+
 namespace VZ{
+    
+    /**
+     *  ViewClass对应于node的backingview的描述
+     */
+    struct ViewClass{
 
-typedef void(^VZViewReuseBlock)(UIView* v);
-    
-    
-/**
- *  ViewClass对应于node的backingview的描述
- */
-struct ViewClass{
+        ViewClass();
+        ViewClass(Class clz);
+        ViewClass(UIView *(^factory)(void),NSString* identifier);
 
-    
-    ViewClass();
-    ViewClass(Class clz);
-    ViewClass(Class clz, SEL enter, SEL leave);
-    ViewClass(UIView *(^factory)(void), NSString* identifier, void(^enter)(UIView* v)= nil,void(^leave)(UIView* v)  = nil);
+        NSString* identifier() const;
+        UIView* createView() const;
+        bool hasView() const;
 
-    const std::string &identifier() const;
-    UIView* createView() const;
-    bool hasView() const;
-    VZViewReuseBlock didEnterReusePool() const;
-    VZViewReuseBlock willLeaveReusePool() const;
-
-    
-    bool operator==(const ViewClass &other) const { return other.identifier() == _identifier; }
-    bool operator!=(const ViewClass &other) const { return other.identifier() != _identifier; }
-    
-private:
-    std::string _identifier;
-    UIView *(^_factory)(void);
-    VZViewReuseBlock _didEnterReusePool;
-    VZViewReuseBlock _willLeaveReusePool;
-
-    
-};
+        
+        bool operator==(const ViewClass &other) const { return [other.identifier() isEqualToString:_identifier]; }
+        bool operator!=(const ViewClass &other) const { return ![other.identifier() isEqualToString: _identifier]; }
+        
+    private:
+        NSString*  _identifier;
+        UIView *(^_factory)(void);
+    };
     
 }
 
@@ -54,7 +44,7 @@ namespace std {
     struct hash<VZ::ViewClass>{
         size_t operator()(const VZ::ViewClass &cl) const
         {
-            return hash<std::string>()(cl.identifier());
+            return [cl.identifier() hash];
         }
     };
 }

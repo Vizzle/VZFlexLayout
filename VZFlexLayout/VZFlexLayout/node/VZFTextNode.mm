@@ -37,7 +37,8 @@
                 return CGSizeZero;
             }
             
-            VZ::TextNodeSpecs textSpecs = strongNode.textSpecs;
+            // 使用引用，这样 getFont() 缓存才有效果
+            VZ::TextNodeSpecs& textSpecs = strongNode->_textSpecs;
             
             CGSize size = [textSpecs.getAttributedString() boundingRectWithSize:CGSizeMake(constraintedSize.width, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
             

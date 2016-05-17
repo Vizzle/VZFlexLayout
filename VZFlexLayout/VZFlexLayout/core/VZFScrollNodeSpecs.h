@@ -24,10 +24,11 @@ namespace VZ {
     }
     
     struct ScrollNodeSpecs{
+        
         Value<ScrollDirection, DefaultFlexAttributesValue::scrollDirection> scrollDirection;
         Value<bool, DefaultFlexAttributesValue::scrollEnabled> scrollEnabled;
         bool paging;
-        
+
         const ScrollNodeSpecs copy() const{
             return {scrollDirection,scrollEnabled,paging};
         }

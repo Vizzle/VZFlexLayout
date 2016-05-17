@@ -11,6 +11,7 @@
 #import "FBContentNode.h"
 #import "FBHostNode.h"
 #import "FBTextNode.h"
+#import "FBScrollNode.h"
 #import "FBHostItem.h"
 #import "FBHostCellItem.h"
 
@@ -71,8 +72,12 @@
 
 - (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context
 {
-//    return [FBHostNode newWithItem:item];
-    return [FBTextNode newWithItem:item];
+    if([item.type isEqualToString:@"scroll"]){
+        return [FBScrollNode newWithItem:item];
+    }
+    else{
+        return [FBTextNode newWithItem:item];
+    }    
 }
 
 - (void)nodeStateDidChanged:(id)scopeId ShouldInvalidateToNewSize:(BOOL)b

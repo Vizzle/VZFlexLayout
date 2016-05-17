@@ -35,7 +35,7 @@
             __strong typeof(weakNode) strongNode = weakNode;
             if (!strongNode) return CGSizeZero;
             
-            VZ::ButtonNodeSpecs buttonSpecs = strongNode.buttonSpecs;
+            VZ::ButtonNodeSpecs& buttonSpecs = strongNode->_buttonSpecs;
             
             NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
             style.alignment = buttonSpecs.textAlignment;

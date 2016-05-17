@@ -49,7 +49,7 @@
             __strong typeof(weakNode) strongNode = weakNode;
             if (!strongNode) return CGSizeZero;
             
-            VZ::ImageNodeSpecs imageSpecs = strongNode->_imageSpecs;
+            const VZ::ImageNodeSpecs& imageSpecs = strongNode->_imageSpecs;
             return imageSpecs.image ? imageSpecs.image.size : CGSizeZero;
         };
     }

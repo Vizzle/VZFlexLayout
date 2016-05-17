@@ -33,7 +33,7 @@ namespace VZ {
         StatefulValue<UIColor *> titleColor;
         StatefulValue<UIImage *> backgroundImage;
         StatefulValue<UIImage *> image;
-        UIFont *_font;
+        mutable UIFont *_font;
         
         /*
             .action = @selector(xx),
@@ -52,7 +52,10 @@ namespace VZ {
         // the image property was not supported, use an image node nested in a button node instead.
         
         UIFont *getFont() const {
-            return _font ?: createFont(fontName, fontSize, fontStyle);
+            if (!_font) {
+                _font = createFont(fontName, fontSize, fontStyle);
+            }
+            return _font;
         }
         
         const ButtonNodeSpecs copy() const{

@@ -8,13 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNetworkImageDownloadProtocol.h"
+#import "VZFNodeBackingViewInterface.h"
 
 /**
  *  ImageNode默认的backing view
  */
-@interface VZFNetworkImageView : UIImageView<VZFNetworkImageDownloadProtocol>
+@interface VZFNetworkImageView : UIImageView<VZFNetworkImageDownloadProtocol,VZFNodeBackingViewInterface>
 
-- (void)enterReusePool; //default implementation is empty
-- (void)leaveReusePool; //default implementation is empty
 
 @end

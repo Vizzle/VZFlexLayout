@@ -7,12 +7,13 @@
 //
 
 #import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 #import "VZFUtils.h"
 #import "VZFMacros.h"
-#import "VZFViewReuseInfo.h"
 #import "VZFNodeViewClass.h"
 #import "VZFStackNode.h"
 #import "VZFCompositeNode.h"
+#import "VZFNodeBackingViewInterface.h"
 
 namespace VZ{
     namespace Helper{
@@ -30,92 +31,75 @@ namespace VZ{
         const void* g_reuseId = &g_reuseId;
         void mountingRootView(UIView* v){
             
-            
-            if (!v) {
-                return;
-            }
-            
-            if (objc_getAssociatedObject(v, g_reuseId)) {
-                return;
-            }
-            VZFViewReuseInfo* reuseInfo = [[VZFViewReuseInfo alloc]initWithView:v didEnterReusePoolBlock:nil willLeaveReusePoolBlock:nil];
-            objc_setAssociatedObject(v, g_reuseId, reuseInfo, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            //todo//
         }
         
         void mountingChildView(UIView* child, UIView* parent){
             
-            if (!child || !parent) {
-                return;
-            }
-            
-            if (objc_getAssociatedObject(child, g_reuseId)) {
-                return;
-            }
-            
-            VZFViewReuseInfo* reuseInfo = [[VZFViewReuseInfo alloc]initWithView:child didEnterReusePoolBlock:nil willLeaveReusePoolBlock:nil];
-            objc_setAssociatedObject(child, g_reuseId, reuseInfo,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            VZFViewReuseInfo* parentReuseInfo = objc_getAssociatedObject(parent, g_reuseId);
-            VZFCAssertNotNil(parentReuseInfo, @"Expected parent reuse info !");
-            [parentReuseInfo addChildReuseInfo:reuseInfo];
+            //todo//
         
         }
         
-        bool nodeHaveChildren(VZFNode* node){
-            
-            if ([node isKindOfClass:[VZFCompositeNode class]]) {
-                VZFCompositeNode* compoundNode  = (VZFCompositeNode* )node;
-                return nodeHaveChildren(compoundNode.node);
-                
-            }
-            else{
-                
-                if ([node isKindOfClass:[VZFStackNode class]]) {
-                    VZFStackNode* stackNode = (VZFStackNode* )node;
-                    return stackNode.children.size() > 0;
-                }
-                else{
-                    return NO;
+        void destroyView(UIView* v){
+        
+            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
+                if ([backingView respondsToSelector:@selector(dead)]) {
+                    [backingView dead];
                 }
             }
         }
         
-        VZFNode* unwrapNode(VZFNode* node){
+        void createView(UIView* v){
         
-            if ([node isKindOfClass:[VZFCompositeNode class]]) {
-                VZFCompositeNode* compoundNode = (VZFCompositeNode* )node;
-                return compoundNode.node;
-            }
-            else{
-                return node;
+            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
+                if ([backingView respondsToSelector:@selector(born)]) {
+                    [backingView born];
+                }
             }
         }
         
-        void createView(UIView* v, const ViewClass& clz, UIView* parentView){
+        void reset(UIView* v){
         
-            if (!v || !parentView) {
-                return;
+            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
+                if ([backingView respondsToSelector:@selector(resetState)]) {
+                    [backingView resetState];
+                }
             }
-            
-            VZFCAssertNil(objc_getAssociatedObject(v, g_reuseId), @"a resuse info is found on a new created view!");
-            
-            VZFViewReuseInfo* reuseInfo = [[VZFViewReuseInfo alloc]initWithView:v
-                                                         didEnterReusePoolBlock:clz.didEnterReusePool()
-                                                        willLeaveReusePoolBlock:clz.willLeaveReusePool()];
-            objc_setAssociatedObject(v,g_reuseId, reuseInfo,OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            VZFViewReuseInfo* parentReuseInfo = objc_getAssociatedObject(parentView, g_reuseId);
-            VZFCAssertNotNil(parentReuseInfo, @"parent reuse info not exist!");
-            [parentReuseInfo addChildReuseInfo:reuseInfo];
-            
+        
         }
+        
+        void prepareForReuse(UIView* v){
+            
+            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
+                if ([backingView respondsToSelector:@selector(prepareForReuse)]) {
+                    [backingView prepareForReuse];
+                }
+
+            }
+        }
+        
         void hide(UIView* v){
-            VZFViewReuseInfo* reuseInfo = objc_getAssociatedObject(v, g_reuseId);
-            VZFCAssertNotNil(reuseInfo, @"reuse info is missing!");
-            [reuseInfo hide];
+            
+            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
+                if ([backingView respondsToSelector:@selector(willEnterReusePool)]) {
+                    [backingView willEnterReusePool];
+                }
+            }
         }
         void unhide(UIView* v){
-            VZFViewReuseInfo* reuseInfo = objc_getAssociatedObject(v, g_reuseId);
-            VZFCAssertNotNil(reuseInfo, @"reuse info is missing!");
-            [reuseInfo unHide];
+            
+            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
+                if ([backingView respondsToSelector:@selector(didLeaveReusePool)]) {
+                    [backingView didLeaveReusePool];
+                }
+
+            }
         }
 
     }

@@ -207,9 +207,11 @@ namespace VZ {
     
         void mountingRootView(UIView* v);
         void mountingChildView(UIView* child, UIView* parent);
-        bool nodeHaveChildren(VZFNode* node);
-        VZFNode* unwrapNode(VZFNode* node);
-        void createView(UIView* v, const ViewClass& clz, UIView* parentView);
+        
+        void createView(UIView* v);
+        void destroyView(UIView* v);
+        void reset(UIView* v);
+        void prepareForReuse(UIView* v);
         void hide(UIView* v);
         void unhide(UIView* v);
     

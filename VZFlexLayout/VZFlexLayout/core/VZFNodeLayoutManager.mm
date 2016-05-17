@@ -17,7 +17,7 @@ using namespace VZ;
 using namespace VZ::UIKit;
 @implementation VZFNodeLayoutManager{
 
-    dispatch_queue_t _layoutSerialQueue;
+    dispatch_queue_t _layoutSerialQueue __unused;
 }
 
 + (instancetype)sharedInstance{
@@ -37,12 +37,12 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
     self = [super init];
 
     if (self) {
-        _layoutSerialQueue = dispatch_queue_create(g_layoutQueueId, DISPATCH_QUEUE_SERIAL);
+        _layoutSerialQueue = dispatch_queue_create(g_layoutQueueId, DISPATCH_QUEUE_SERIAL) ;
     }
     return self;
 }
 
-- (NSSet<VZFNode* >* )layoutRootNode:(const NodeLayout& )layout InContainer:(UIView* )container WithPreviousNodes:(NSSet<VZFNode* >* )previousNodes AndSuperNode:(VZFNode* )superNode{
+- (NSSet<VZFNode* >* )layoutRootNode:(NodeLayout)layout InContainer:(UIView* )container WithPreviousNodes:(NSSet<VZFNode* >* )previousNodes AndSuperNode:(VZFNode* )superNode{
 
     //0, 计算出Root Node的layout
 //    VZFNodeLayout layout = [rootNode computeLayoutThatFits:sz];

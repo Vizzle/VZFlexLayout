@@ -21,15 +21,13 @@ namespace VZ
         
             //类方法
             static MountContext RootContext(UIView* v){
-            
-                Mounting::mountingRootView(v);
-                
+        
                 return MountContext([[VZFNodeViewManager alloc]initWithView:v],{0,0},{});
                 
             };
             
             //每个context关联一个view manager
-            VZFNodeViewManager* viewManager;
+            __strong VZFNodeViewManager* viewManager;
 //            std::shared_ptr<VZFNodeViewManager> viewManager;
             
             //view manager关联view的原点，子view根据这个点计算位置
@@ -56,9 +54,11 @@ namespace VZ
             
             MountContext childContextForSubview(UIView *subview) const {
               
-                Mounting::mountingChildView(subview, viewManager.managedView);
                 return MountContext([[ VZFNodeViewManager alloc ] initWithView:subview] , {0,0}, rootLayoutInsect);
             };
+            
+            
+            ~MountContext(){ viewManager = nil; }
             
         private:
             

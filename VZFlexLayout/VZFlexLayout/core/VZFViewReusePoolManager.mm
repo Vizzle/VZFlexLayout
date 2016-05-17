@@ -84,35 +84,21 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
         return nil;
     }
     
-    NSString* viewKey = [NSString stringWithFormat:@"%@-%@",NSStringFromClass(node.class),[[NSString alloc] initWithUTF8String:node.viewClass.identifier().c_str()]];
+    NSString* viewKey = [NSString stringWithFormat:@"%@-%@",NSStringFromClass(node.class),[node.viewClass.identifier() copy]];
     VZFViewReusePool* reusePool = _reusePoolMap[viewKey];
     if (!reusePool) {
         reusePool = [[VZFViewReusePool alloc]init];
         _reusePoolMap[viewKey] = reusePool;
     }
     UIView* v = [reusePool viewForClass:node.viewClass ParentView:container];
-    _existedViews.push_back(v);
+    
+    if (v) {
+        _existedViews.push_back(v);
+    }
+   
     
     return v;
 }
-//
-//- (UIView* )viewForClass:(const ViewClass&) viewclass Spec:(const NodeSpecs&)spec ParentView:(UIView* )container{
-//
-//    if (!viewclass.hasView()) {
-//        return nil;
-//    }
-//    
-//    //moxin: viewkey的计算不合理，后面优化
-//    NSString* viewKey = [[NSString alloc] initWithUTF8String:viewclass.identifier().c_str()];
-//    VZFViewReusePool* reusePool = _reusePoolMap[viewKey];
-//    if (!reusePool) {
-//        reusePool = [[VZFViewReusePool alloc]init];
-//        _reusePoolMap[viewKey] = reusePool;
-//    }
-//    UIView* v = [reusePool viewForClass:viewclass ParentView:container];
-//    _existedViews.push_back(v);
-//    
-//    return v;
-//}
+
 
 @end

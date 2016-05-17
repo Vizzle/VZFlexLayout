@@ -30,7 +30,7 @@ using namespace VZ;
  *
  *  @return layout的结果
  */
-- (NSSet<VZFNode*>* )layoutRootNode:(const NodeLayout& )layout
+- (NSSet<VZFNode*>* )layoutRootNode:(NodeLayout)layout  // 此处使用值传递，如果传引用可能会被释放，导致内存错误
                         InContainer:(UIView* )container
                   WithPreviousNodes:(NSSet<VZFNode* >* )previousNodes
                        AndSuperNode:(VZFNode* )superNode;

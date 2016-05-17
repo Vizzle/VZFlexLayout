@@ -298,4 +298,11 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     return number;
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - backing view interface 
+
+- (void)resetState{
+    self.currentPage = 0;
+}
+
 @end

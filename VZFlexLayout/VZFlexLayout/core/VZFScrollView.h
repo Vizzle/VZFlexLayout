@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VZFNodeBackingViewInterface.h"
 
-@interface VZFScrollView : UIScrollView
+@interface VZFScrollView : UIScrollView<VZFNodeBackingViewInterface>
 
-- (void)reset;
-- (void)willEnterReusePool;
-- (void)didLeaveReusePool;
 
 @end

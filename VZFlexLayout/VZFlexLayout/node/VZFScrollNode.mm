@@ -16,13 +16,14 @@
 #import "VZFUtils.h"
 #import "VZFNodeViewClass.h"
 #import "VZFMacros.h"
+#import "VZFScrollView.h"
 
 @implementation VZFScrollNode
 
 + (instancetype)newWithScrollAttributes:(const VZ::ScrollNodeSpecs &)scrollSpecs NodeSpecs:(const VZ::NodeSpecs &)nodeSpecs Children:(std::vector<VZFNode*>)children{
 
 
-    VZFScrollNode* scrollNode = [VZFScrollNode newWithView:[UIScrollView class] NodeSpecs:nodeSpecs];
+    VZFScrollNode* scrollNode = [VZFScrollNode newWithView:{[VZFScrollView class]}NodeSpecs:nodeSpecs];
     
     if (scrollNode) {
         
@@ -57,5 +58,7 @@
     
     return layout;
 }
+
+
 
 @end

@@ -31,6 +31,7 @@ namespace VZ {
         NodeLayout(VZFNode* _node,CGSize _sz, CGPoint _pt, UIEdgeInsets _margin,std::vector<NodeLayout> _childs)
             :node(_node),size(_sz),origin(_pt),margin(_margin),children(new std::vector<NodeLayout>(std::move(_childs)))
         {
+            //像素对齐
             FLEX_PIXEL_ASSERT(_pt.x);
             FLEX_PIXEL_ASSERT(_pt.y);
             FLEX_PIXEL_ASSERT(_sz.width);
@@ -38,6 +39,9 @@ namespace VZ {
             
             origin = _pt;
             size = _sz;
+        }
+        ~NodeLayout(){
+            node = nil;
         }
         
         const std::string description() const{
@@ -58,7 +62,7 @@ namespace VZ {
             return desc;
         };
 
-        VZFNode* node; //这里小心产生循环引用
+        __strong VZFNode* node; //这里小心产生循环引用
         CGSize size = {0,0};
         CGPoint origin = {0,0};
         UIEdgeInsets margin = {0,0,0,0};

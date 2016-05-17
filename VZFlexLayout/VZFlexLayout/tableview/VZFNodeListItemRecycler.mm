@@ -86,17 +86,8 @@ const void* g_recycleId = &g_recycleId;
 - (void)dealloc{
 
     if (_mountedNodes) {
-        if ([NSThread isMainThread]) {
-            [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
-//            [[VZFScopeManager sharedInstance] releaseRootScopeById:_state.rootScope.rootScopeId];
-        }
-        else{
-            dispatch_async(dispatch_get_main_queue(), ^{
-               
-                [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
-//                [[VZFScopeManager sharedInstance] releaseRootScopeById:_state.rootScope.rootScopeId];
-            });
-        }
+        
+        [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
     }
 }
 

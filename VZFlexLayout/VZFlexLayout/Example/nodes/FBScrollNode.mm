@@ -16,115 +16,35 @@
 #import "VZFStackNode.h"
 #import "VZFTextNode.h"
 #import "VZFTextNodeSpecs.h"
+#import "FBScrollChildNode.h"
 
 @implementation FBScrollNode
 
 + (instancetype)newWithItem:(FBHostItem *)item{
-
-    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
     
+    std::vector<VZFNode* > childs{};
+    for (int i=0;i<item.cards.count; i++) {
+        FBScrollChildNode* childNode = [FBScrollChildNode newWithDictionary:item.cards[i]];
+        childs.push_back(childNode);
+    }
+    VZFScrollNode* scrollNode = [VZFScrollNode newWithScrollAttributes:{
+        .scrollDirection = VZ::ScrollDirection::ScrollHorizontal,
+        .paging = true,
+        
+    } NodeSpecs:{
         .flex = {
-            .height = 200
+            .height = 180,
+            .stackLayout = {.spacing = 10},
+            .marginTop = 5,
+            .marginBottom = 5,
+        },
+        .view = {
+            .clip = YES,
         }
+        
+    } Children:childs];
     
-    } Children:{
-    
-        { [VZFScrollNode newWithScrollAttributes:{
-            .scrollDirection = VZ::ScrollDirection::ScrollHorizontal,
-            .paging = true,
-//            .spacing = 10
-            
-        } NodeSpecs:{
-            .flex = {
-                .flexGrow = 1,
-                .margin = 20
-            },
-            .view = {
-                .clip = YES,
-            }
-            
-            
-        } Children:{
-            
-            [VZFImageNode newWithImageAttributes:{
-                .imageUrl = item.images[0],
-                
-                
-            } NodeSpecs:{
-                .view = {.backgroundColor = [UIColor redColor]},
-                .flex = {
-                    .width = 100,
-                }
-                
-            }],
-            
-                [VZFStackNode newWithStackSpecs:{
-                    .flex=  {
-                        .width = 100,
-                        .stackLayout = {.direction = VZFlexVertical},
-                    }
-                
-                } Children:{
-                    
-                    {[VZFImageNode newWithImageAttributes:{
-                        
-                    } NodeSpecs:{
-                        .view = {.backgroundColor = [UIColor cyanColor]},
-                        .flex = {
-                            .width = 80,
-                            .height = 80,
-                            .marginTop = 10,
-                            .marginLeft = 10,
-                            .marginRight = 10,
-                        }
-                    }]},
-                    
-                    {
-                        [VZFTextNode newWithNodeSpecs:{
-                            
-                            .flex = {
-                                .marginTop = 10
-                            }
-                            
-                        } TextAttributes:{
-                            
-                            .text = item.nick,
-                            .fontSize = 14
-                        
-                        }],
-                    }
-                
-                
-                
-                }],
-            [VZFImageNode newWithImageAttributes:{
-                .imageUrl = item.images[2],
-                
-            } NodeSpecs:{
-                .view = {.backgroundColor = [UIColor grayColor]},
-                .flex = {
-                    .width = 100,
-                }
-                
-            }],
-            
-            [VZFImageNode newWithImageAttributes:{
-                
-                .imageUrl = item.images[3],
-                
-            } NodeSpecs:{
-                .view = {.backgroundColor = [UIColor greenColor]},
-                .flex = {
-                    .width = 100,
-                }
-                
-            }],
-            
-        }]}
-    
-    }];
-    
-    return [super newWithNode:stackNode];
+    return [super newWithNode:scrollNode];
 }
 
 @end

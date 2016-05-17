@@ -10,6 +10,8 @@
 #import "VZFUtils.h"
 #import "VZFNodeViewClass.h"
 #include <vector>
+#import "VZFMacros.h"
+#import "VZFNodeBackingViewInterface.h"
 
 @implementation VZFViewReusePool
 {
@@ -25,23 +27,28 @@
     }
     return self;
 }
-- (UIView* )viewForClass:(const VZ::ViewClass&)viewClass ParentView:(UIView* )container{
+- (UIView* )viewForClass:(const ViewClass&)viewClass ParentView:(UIView* )container{
     
     UIView* v = nil;
     if (_nextUsableViewPos == _reusePool.end()) {
         //push a new one
         v = viewClass.createView();
-        if (container) {
-            [container addSubview:v];
-//            NSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
+        
+        if (v) {
+            
+            if (container) {
+                [container addSubview:v];
+                //            NSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
+            }
+            _reusePool.push_back(v);
+            _nextUsableViewPos = _reusePool.end();
+            VZ::Mounting::createView(v);
         }
-        _reusePool.push_back(v);
-        _nextUsableViewPos = _reusePool.end();
-        VZ::Mounting::createView(v, viewClass, container);
     }
     else{
-        //return a existing one
+        //return an existing one
          v = *_nextUsableViewPos;
+         VZ::Mounting::prepareForReuse(v);
 //         NSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
         _nextUsableViewPos ++;
     }

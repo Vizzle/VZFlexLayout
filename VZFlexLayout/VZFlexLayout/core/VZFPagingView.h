@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VZFNodeBackingViewInterface.h"
 
-@interface VZFPagingView : UIView
+@interface VZFPagingView : UIView<VZFNodeBackingViewInterface>
 
 @property (nonatomic, strong, readonly) UICollectionView *collectionView;
 @property (nonatomic, strong, readonly) UIPageControl *pageControl;

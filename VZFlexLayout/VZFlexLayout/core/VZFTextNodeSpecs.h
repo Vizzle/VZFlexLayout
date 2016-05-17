@@ -95,7 +95,10 @@ namespace VZ {
         size_t hash() const;
         
         UIFont *getFont() const {
-            return _font ?: createFont(fontName, fontSize, fontStyle);
+            if (!_font) {
+                _font = createFont(fontName, fontSize, fontStyle);
+            }
+            return _font;
         }
         
         NSDictionary* getAttributes() const {

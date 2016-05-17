@@ -33,9 +33,7 @@
 
     VZFNode* node = self.node;
     
-    const ViewAttrs vs = node.specs.view;
-    
-    [self _applyAttributes:vs];
+    [self _applyAttributes:node.specs.view];
     
     [self _applyGestures:node.specs.gesture];
     

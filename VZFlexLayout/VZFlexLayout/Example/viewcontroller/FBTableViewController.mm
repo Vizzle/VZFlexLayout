@@ -51,7 +51,7 @@
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
        
-        NSString* path = [[NSBundle mainBundle] pathForResource:@"results" ofType:@"json"];
+        NSString* path = [[NSBundle mainBundle] pathForResource:@"result_text" ofType:@"json"];
         NSData* data = [NSData dataWithContentsOfFile:path];
         NSDictionary* json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONWritingPrettyPrinted error:nil];
         
