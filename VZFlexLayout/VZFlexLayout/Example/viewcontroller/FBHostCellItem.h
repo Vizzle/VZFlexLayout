@@ -19,6 +19,7 @@
 @class VZFNode;
 @interface FBHostCellItem : NSObject
 
+@property(nonatomic,strong) NSString* reuseIdentifier;
 @property(nonatomic,strong) NSIndexPath* indexPath;
 @property(nonatomic,weak) id<FBHostItemDelegate> delegate;
 //计算后的item宽度
