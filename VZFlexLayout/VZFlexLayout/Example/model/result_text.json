@@ -2,18 +2,21 @@
     "results":[
     
            {
+               "type":"content",
                "content":"多年前，惨绝人寰的连环灭门谋杀案震惊了整个小镇，当时唯一的生还者至今仍下落不明。多年后，单亲妈妈考特尼（莎妮·索萨蒙 Shannyn Sossamon 饰），带着双胞胎儿子迪伦（罗伯特·丹尼尔·斯隆 Robert Daniel Sloan 饰）与扎克（达塔尼安·斯隆 Dartanian Sloan 饰）搬入这栋看似宁静的凶宅，却意外的引来了骇人的“好兄弟”，“好兄弟”除了想当这对双胞胎的玩伴，更想要他们的命",
         
                "location":"阿里巴巴西溪园区",
                
            },
            {
+               "type":"content",
                "content":"One of the aspects of building an application is deciding how data will flow through it. Many iOS developers use dictionaries for this purpose, or use handwritten, simple objects instead. We've seen these patterns in our use of Objective-C at Facebook, and we've found some drawbacks in these approaches. Passing dictionaries of data around proved dangerous because dictionary fields are not type-safe. We also found that maintaining custom model objects was time-consuming, tedious, and error-prone.",
                
                "location":"下城区"
            
            },
            {
+               "type":"content",
                "content":"To solve these problems, we built Remodel, an Objective-C code generation tool specialized for quickly creating and editing model objects.",
                
            },
@@ -30,22 +33,34 @@
                
            },
            {
+               "type":"content",
                "content":"As our codebase scaled, we found that giving these objects certain properties enforced good patterns (such as the separation of data and behavior), enabled a simpler programming model, allowed us to explore lock-free multi-threading strategies, and simplified unit test writing.",
             
            },
            {
+               "type":"profile",
+               "icon":"http://www.collegedj.net/wp-content/uploads/2015/02/mike-zombie-philly-event-voltage-lounge-50x50.jpg",
+               "nick":"Kevin",
+               "time":"2016-03-01",
+               "score":"3.7"
+           },
+           {
+               "type":"content",
                "content":"The runtime has a lot of tools that allow us to introspect objects and learn a lot about them.",
            },
            {
+               "type":"content",
                "content":"For a given object, an ivar layout describes where we should look for other objects that it references. It will provide us with an “index,” which represents an offset we have to add to the object address in order to get the address of an object it references. What runtime also lets us do is grab a “weak ivar layout,” which is a layout of all weak instance variables of that object. We can assume that the difference between these two layouts will be a strong layout.",
 
                "location":"支付宝大楼A座",
                
             },
             {
+               "type":"content",
                "content":"For a given object, an ivar layout describes where we should look for other objects that it references. It will provide us with an “index,” which represents an offset we have to add to the object address in order to get the address of an object it references. What runtime also lets us do is grab a “weak ivar layout,” which is a layout of all weak instance variables of that object. We can assume that the difference between these two layouts will be a strong layout.",
            },
            {
+               "type":"content",
                "content":"For a given object, an ivar layout describes where we should look for other objects that it references. It will provide us with an “index,” which represents an offset we have to add to the object address in order to get the address of an object it references. What runtime also lets us do is grab a “weak ivar layout,” which is a layout of all weak instance variables of that object. We can assume that the difference between these two layouts will be a strong layout.",
                
                "location":"翡翠城东北区",
@@ -53,6 +68,7 @@
                
             },
             {
+               "type":"content",
                "content":"RTP represents a new style of protocol following the principles of application level framing and integrated layer processing proposed by Clark and Tennenhouse [10].  That is, RTP is intended to be malleable",
                
                "location":"翡翠城西南区",
@@ -69,6 +85,7 @@
            
             },
             {
+               "type":"content",
                "content":"For a given object, an ivar layout describes where we should look for other objects that it references. It will provide us with an “index,” which represents an offset we have to add to the object address in order to get the address of an object it references. What runtime also lets us do is grab a “weak ivar layout,” which is a layout of all weak instance variables of that object. We can assume that the difference between these two layouts will be a strong layout.",
    
                "location":"支付宝大楼A座",

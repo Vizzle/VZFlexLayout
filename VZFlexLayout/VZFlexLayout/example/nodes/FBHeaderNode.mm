@@ -20,7 +20,12 @@
 
 + (instancetype)newWithItem:(FBHostItem* )item{
     
-    return [super newWithNode:[VZFStackNode newWithStackSpecs:{}Children:{
+    return [super newWithNode:[VZFStackNode newWithStackSpecs:{
+        .flex = {
+            .margin = 10,
+        }
+    
+    }Children:{
     
         {[FBIconNode newWithURL:item.headIconURL]},//头像
         {[VZFStackNode newWithStackSpecs:{

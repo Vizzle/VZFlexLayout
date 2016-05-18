@@ -12,6 +12,7 @@
 #import "FBHostNode.h"
 #import "FBTextNode.h"
 #import "FBScrollNode.h"
+#import "FBHeaderNode.h"
 #import "FBHostItem.h"
 #import "FBHostCellItem.h"
 
@@ -24,6 +25,7 @@
 @implementation FBHostCellItem
 {
     VZFNodeListRecycleState _recycleState;
+    FBHostItem* _model;
 }
 
 - (float)itemHeight
@@ -45,6 +47,11 @@
     return self;
 }
 
+- (NSString* )reuseIdentifier{
+    
+    return _model.type;
+}
+
 - (void)setIndexPath:(NSIndexPath *)indexPath{
     _indexPath = indexPath;
     _recycler.indexPath = indexPath;
@@ -52,13 +59,13 @@
 
 - (void)updateModel:(id)model constrainedSize:(CGSize)sz{
     
+    _model = model;
+    
     _recycleState = [_recycler calculate:model constrainedSize:sz context:nil];
     
     [_recycler updateState:_recycleState];
 
 }
-
-
 
 - (void)attachToView:(UIView *)view
 {
@@ -72,12 +79,22 @@
 
 - (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context
 {
-    if([item.type isEqualToString:@"scroll"]){
-        return [FBScrollNode newWithItem:item];
+    if([item.type isEqualToString:@"content"])
+    {
+        return [FBTextNode newWithItem:item];
     }
     else{
-        return [FBTextNode newWithItem:item];
-    }    
+        return nil;
+    }
+//    if([item.type isEqualToString:@"scroll"]){
+//        return [FBScrollNode newWithItem:item];
+//    }
+//    else if ([item.type isEqualToString:@"profile"]){
+//        return [FBHeaderNode newWithItem:item];
+//    }
+//    else{
+//        return [FBTextNode newWithItem:item];
+//    }    
 }
 
 - (void)nodeStateDidChanged:(id)scopeId ShouldInvalidateToNewSize:(BOOL)b

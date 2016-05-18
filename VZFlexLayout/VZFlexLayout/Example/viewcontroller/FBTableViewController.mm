@@ -95,14 +95,15 @@
 
 - (UITableViewCell* )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"abc"];
+    FBHostCellItem* item = _items[indexPath.row];
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:item.reuseIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"abc"];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:item.reuseIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //        cell.delegate = self;
     }
 //    cell.indexPath = indexPath;
-    FBHostCellItem* item = _items[indexPath.row];
+    
     item.indexPath = indexPath;
     [item attachToView:cell.contentView];
 

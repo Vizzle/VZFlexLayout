@@ -161,8 +161,9 @@ using namespace VZ::UIKit;
 }
 
 -(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
-{    
-    if (!_mountedInfo) {
+{
+    NSLog(@"mount:%@",self.class);
+    if (_mountedInfo == nullptr) {
         _mountedInfo.reset( new VZFNodeMountedInfo() );
     }
     
@@ -171,7 +172,7 @@ using namespace VZ::UIKit;
     //获取一个reuse view
     UIView* view = [context.viewManager viewForNode:self];
     
-    
+    NSLog(@"{mountedView:%@, view:%@}",_mountedInfo->mountedContext.v, view);
     //说明reusepool中有view
     if (view) {
         //不是当前的backingview
@@ -223,9 +224,11 @@ using namespace VZ::UIKit;
 -(void)unmount{
     
     if (_mountedInfo != nullptr) {
+        NSLog(@"unmount:%@",self.class);
         [self.controller nodeWillUnmount:self];
         [self _recycleMountedView];
         _mountedInfo.reset();
+        _mountedInfo = nullptr;
         [self.controller nodeDidUnmount:self];
     }
 
@@ -248,9 +251,6 @@ using namespace VZ::UIKit;
     UIView* view = _mountedInfo -> mountedView;
     if(view){
         [_scopeHandler.controller node:self willReleaseBackingView:view];
-        
-        //@discussion:reset state
-        VZ::Mounting::reset(view);
         view.node = nil;
         view = nil;
     }
