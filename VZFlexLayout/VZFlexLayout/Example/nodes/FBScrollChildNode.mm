@@ -16,7 +16,7 @@
 #import "FBNetworkImageView.h"
 #import "VZFButtonNode.h"
 #import "VZFScope.h"
-#import "VZFNodeSubClass.h"
+
 
 @implementation FBScrollChildNode
 
@@ -80,12 +80,6 @@
     return [super newWithNode:stackNode];
 }
 
-- (void)clicked:(id)sender{
-    
-    [self updateState:^id(id oldState) {
-        
-        return oldState;
-    }];
-}
+
 
 @end

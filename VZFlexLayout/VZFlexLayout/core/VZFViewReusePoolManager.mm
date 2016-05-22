@@ -28,9 +28,10 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     
     id manager = objc_getAssociatedObject(view, g_viewReusePoolManager);
     if (!manager) {
-        
+    
         manager = [[VZFViewReusePoolManager alloc]init];
         objc_setAssociatedObject(view, g_viewReusePoolManager, manager, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        NSLog(@"[%@]-->create_reusepool_manager:<%p>",view.class,manager);
     }
     return manager;
 }
@@ -87,8 +88,15 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     NSString* viewKey = [NSString stringWithFormat:@"%@-%@",NSStringFromClass(node.class),[node.viewClass.identifier() copy]];
     VZFViewReusePool* reusePool = _reusePoolMap[viewKey];
     if (!reusePool) {
+        
+        NSLog(@"[%@:%p]-->create_reusePool:%@",self.class,self,viewKey);
         reusePool = [[VZFViewReusePool alloc]init];
         _reusePoolMap[viewKey] = reusePool;
+        
+    }
+    else{
+        NSLog(@"[%@:%p]-->recycle_reusePool:%@",self.class,self,viewKey);
+    
     }
     UIView* v = [reusePool viewForClass:node.viewClass ParentView:container];
     

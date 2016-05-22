@@ -50,9 +50,7 @@
            },
            {
                "type":"content",
-               "content":"For a given object, an ivar layout describes where we should look for other objects that it references. It will provide us with an “index,” which represents an offset we have to add to the object address in order to get the address of an object it references. What runtime also lets us do is grab a “weak ivar layout,” which is a layout of all weak instance variables of that object. We can assume that the difference between these two layouts will be a strong layout.",
-
-               "location":"支付宝大楼A座",
+               "content":"For a given object, an ivar layout describes where we should look for other objects that it references. It will provide us with an “index,” which represents an offset we have to add to the object address in order to get the address of an object it references. What runtime also lets us do is grab a “weak ivar layout,” which is a layout of all weak instance variables of that object. We can assume that the difference between these two layouts will be a strong layout."
                
             },
             {

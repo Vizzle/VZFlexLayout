@@ -17,8 +17,10 @@
 #import "VZFTextNode.h"
 #import "VZFTextNodeSpecs.h"
 #import "FBScrollChildNode.h"
+#import "VZFNodeSubClass.h"
 
 @implementation FBScrollNode
+
 
 + (instancetype)newWithItem:(FBHostItem *)item{
     
@@ -47,4 +49,11 @@
     return [super newWithNode:scrollNode];
 }
 
+- (void)clicked:(id)sender{
+    
+//    [self updateState:^id(id oldState) {
+//        
+//        return oldState;
+//    }];
+}
 @end

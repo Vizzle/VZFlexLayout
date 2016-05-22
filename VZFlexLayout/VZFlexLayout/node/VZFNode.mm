@@ -172,7 +172,6 @@ using namespace VZ::UIKit;
     //获取一个reuse view
     UIView* view = [context.viewManager viewForNode:self];
     
-    NSLog(@"{mountedView:%@, view:%@}",_mountedInfo->mountedContext.v, view);
     //说明reusepool中有view
     if (view) {
         //不是当前的backingview
@@ -186,6 +185,7 @@ using namespace VZ::UIKit;
         }
         
         view.node = self;
+
         _mountedInfo -> mountedView = view;
 
         //计算公式:

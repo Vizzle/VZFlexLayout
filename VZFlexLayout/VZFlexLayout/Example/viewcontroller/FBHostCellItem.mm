@@ -79,22 +79,23 @@
 
 - (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context
 {
-    if([item.type isEqualToString:@"content"])
-    {
-        return [FBTextNode newWithItem:item];
-    }
-    else{
-        return nil;
-    }
-//    if([item.type isEqualToString:@"scroll"]){
-//        return [FBScrollNode newWithItem:item];
-//    }
-//    else if ([item.type isEqualToString:@"profile"]){
-//        return [FBHeaderNode newWithItem:item];
+//    if([item.type isEqualToString:@"content"])
+//    {
+//        return [FBTextNode newWithItem:item];
 //    }
 //    else{
-//        return [FBTextNode newWithItem:item];
-//    }    
+//        return nil;
+//    }
+    if([item.type isEqualToString:@"scroll"]){
+        return [FBScrollNode newWithItem:item];
+    }
+    else if ([item.type isEqualToString:@"profile"]){
+        //return [FBHeaderNode newWithItem:item];
+        return nil;
+    }
+    else{
+        return [FBTextNode newWithItem:item];
+    }    
 }
 
 - (void)nodeStateDidChanged:(id)scopeId ShouldInvalidateToNewSize:(BOOL)b
