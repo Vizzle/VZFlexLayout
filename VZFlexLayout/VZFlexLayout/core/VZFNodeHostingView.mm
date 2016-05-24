@@ -15,6 +15,8 @@
 #import "VZFScopeManager.h"
 #import "VZFNodeLayout.h"
 #import "VZFNodeLayoutManager.h"
+#import "VZFUtils.h"
+#import "VZFNodeSubClass.h"
 
 using namespace VZ;
 
@@ -101,9 +103,16 @@ struct VZFNodeHostingViewInputs{
 
 }
 
+- (void)reset{
 
-
-
+    if (_mountedNodes) {
+        
+        for(VZFNode* node in _mountedNodes){
+            VZ::Mounting::reset(node.mountedView);
+        }
+        [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
+    }
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma state callback

@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger,VZFUpdateMode){
  *
  */
 - (void)update:(id)model mode:(VZFUpdateMode)updateMode;
-
+- (void)reset;
 
 - (instancetype)init __attribute__((unavailable("Not the designated initializer")));
 - (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("Not the designated initializer")));

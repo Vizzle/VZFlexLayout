@@ -17,7 +17,7 @@
 #import "VZFScopeManager.h"
 #import "VZFNodeLayoutManager.h"
 #include <objc/runtime.h>
-
+#import "VZFUtils.h"
 
 @interface VZFWeakObjectWrapper : NSObject
 @property(nonatomic,weak) id object;
@@ -87,6 +87,9 @@ const void* g_recycleId = &g_recycleId;
 
     if (_mountedNodes) {
         
+        for(VZFNode* node in _mountedNodes){
+            VZ::Mounting::reset(node.mountedView);
+        }
         [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
     }
 }
