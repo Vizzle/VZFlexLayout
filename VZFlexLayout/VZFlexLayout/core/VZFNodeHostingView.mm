@@ -51,9 +51,9 @@ struct VZFNodeHostingViewInputs{
 
     NSSet<VZFNode* >* _mountedNodes;
     NodeLayout _mountedLayout;
-    BOOL _isSynchronouslyUpdating;
-    BOOL _isAsynchronouslyUpdatingScheduled;
+    BOOL _isUpdating;
     VZFUpdateMode _updateMode;
+    dispatch_queue_t _serialQueue;
 }
 
 @end
@@ -73,7 +73,8 @@ struct VZFNodeHostingViewInputs{
         _sizeProvider = sizeProvider;
         _pendingInputs = {.rootScope = [VZFRootScope rootScopeWithListener:self],
             .stateMap = @{}};
-
+        
+        _serialQueue = dispatch_queue_create("com.fnode.hostingview", DISPATCH_QUEUE_SERIAL);
         _updateMode = VZFUpdateModeSynchronous;
         
     }
@@ -150,21 +151,18 @@ struct VZFNodeHostingViewInputs{
 //同步更新页面
 - (void)_updateSynchronously{
     
-    if (_updateMode == VZFUpdateModeAsynchronous) {
-        return;
-    }
-    
-    if (_isSynchronouslyUpdating) {
-        
-        VZFAssert(NO, @"理论上同步更新不会有重复更新的问题，这里需要检查下哪里嵌套了-layoutSubviews的调用");
-        return ;
-    }
     
     if (!_pendingInputs.model) {
         return;
     }
     
-    _isSynchronouslyUpdating = true;
+    if (_isUpdating) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self _updateSynchronously];
+        });
+    }
+    
+    _isUpdating = true;
     
     NSUInteger tag = self.tag;
     VZFBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
@@ -173,64 +171,64 @@ struct VZFNodeHostingViewInputs{
     _pendingInputs.rootScope = result.scopeRoot;
     _pendingInputs.stateMap = @{};
     
-    VZFNode* nodeToMount = result.node;
     
-    if (nodeToMount != _mountedLayout.node) {
+    //container size
+    CGSize sz = [_sizeProvider rangeSizeForBounds:self.bounds.size];
         
-        //container size
-        CGSize sz = [_sizeProvider rangeSizeForBounds:self.bounds.size];
+    CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
+    _mountedLayout = [result.node computeLayoutThatFits:sz];
+    CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
         
-        CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
-        _mountedLayout = [nodeToMount computeLayoutThatFits:sz];
-        CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
-        
-        NSLog(@"[%@]-->layout:%.3f ms",self.class,(t2-t1)*1000);
+    NSLog(@"[%@]-->layout:%.3f ms",self.class,(t2-t1)*1000);
         
         //mount nodes
-        _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
+    _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
                                                                   InContainer:self
                                                             WithPreviousNodes:_mountedNodes
                                                                  AndSuperNode:nil];
         
         
-        if ([self.delegate respondsToSelector:@selector(hostingView:DidInvalidate:)]) {
-            [self.delegate hostingView:self DidInvalidate:[self containerSizeForHostingView:_mountedLayout]];
-        }
+    if ([self.delegate respondsToSelector:@selector(hostingView:DidInvalidate:)]) {
+        [self.delegate hostingView:self DidInvalidate:[self containerSizeForHostingView:_mountedLayout]];
     }
     
-    _isSynchronouslyUpdating = false;
+    _isUpdating = false;
 
 }
 
 //异步更新页面
 - (void)_updateASynchronously{
     
-    if (_updateMode != VZFUpdateModeAsynchronous) {
-        _isAsynchronouslyUpdatingScheduled = NO;
+    if (!_pendingInputs.model) {
         return;
     }
-    
     NSUInteger tag = self.tag;
-    const auto inputs = std::make_shared<const VZFNodeHostingViewInputs>(_pendingInputs);
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(_serialQueue, ^{
        
         VZFBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
             return [_nodeProvider nodeForItem:_pendingInputs.model context:@(tag)];
         } RootScope:_pendingInputs.rootScope StateUpdateFuncs:_pendingInputs.stateMap];
         
+        
+        CGSize sz = [_sizeProvider rangeSizeForBounds:self.bounds.size];
+        
+        CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
+        _mountedLayout = [result.node computeLayoutThatFits:sz];
+        CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
+        
+        NSLog(@"[%@]-->layout:%.3f ms",self.class,(t2-t1)*1000);
+
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-           
-//            if (!_shouldUpdate) {
-//                return ;
-//            }
             
-            if (_pendingInputs == *inputs) {
-                _isAsynchronouslyUpdatingScheduled = NO;
-//                [self _applyBuildResult:result];
-                [self setNeedsLayout];
-            }
-            else{
-                [self _updateASynchronously];
+            _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
+                                                                      InContainer:self
+                                                                WithPreviousNodes:_mountedNodes
+                                                                     AndSuperNode:nil];
+            
+            
+            if ([self.delegate respondsToSelector:@selector(hostingView:DidInvalidate:)]) {
+                [self.delegate hostingView:self DidInvalidate:[self containerSizeForHostingView:_mountedLayout]];
             }
         });
     });
