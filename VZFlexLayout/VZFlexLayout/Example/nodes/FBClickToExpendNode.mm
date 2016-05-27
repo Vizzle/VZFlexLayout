@@ -30,6 +30,8 @@
     VZ::Scope scope(self);
     NSDictionary* state = scope.state();
     
+    NSLog(@"%s => {state:%@, thread:%@}",__PRETTY_FUNCTION__,state,[NSThread currentThread]);
+    
     VZFTextNode* nameNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
     
         .text = item.nick,

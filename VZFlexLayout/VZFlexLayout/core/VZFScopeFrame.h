@@ -14,6 +14,10 @@ namespace VZ {
     struct ScopeFramePair{
         VZFScopeFrame* newScopeFrame;
         VZFScopeFrame* oldScopeFrame;
+        
+        ~ScopeFramePair(){
+            NSLog(@"%s",__PRETTY_FUNCTION__);
+        }
     };
 };
 

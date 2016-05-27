@@ -128,7 +128,10 @@ using namespace VZ;
     VZFThreadLocalScope localScope = VZFThreadLocalScope(rootScope,funcs);
     VZFNode* node = function();
 //    [localScope pop];
-    return {.node = node, .scopeRoot = localScope.newScopeRoot};
+    return {
+        .node = node,
+        .scopeRoot = localScope.newScopeRoot
+    };
     
 }
 //+ (VZFLocalScope* )newLocalScopeWithRootScope:(VZFRootScope* )rootScope StateUpdateFuncs:(NSDictionary* )funcs{

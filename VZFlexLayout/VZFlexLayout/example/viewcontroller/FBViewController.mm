@@ -85,7 +85,7 @@
     NSDictionary* json1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONWritingPrettyPrinted error:nil];
     FBHostItem* item1 = [FBHostItem newWithJSON:json1];
     
-   [self.topView update:item1 mode:VZFUpdateModeSynchronous];
+   [self.topView update:item1 mode:VZFUpdateModeAsynchronous];
 
 }
 
@@ -96,7 +96,7 @@
     NSDictionary* json2 = [NSJSONSerialization JSONObjectWithData:data2 options:NSJSONWritingPrettyPrinted error:nil];
     FBHostItem* item2 = [FBHostItem newWithJSON:json2];
     
-    [self.bottomView update:item2 mode:VZFUpdateModeSynchronous];
+    [self.bottomView update:item2 mode:VZFUpdateModeAsynchronous];
 
 }
 
@@ -105,19 +105,20 @@
     if (!item) {
         return nil;
     }
-    
-    NSNumber* tag = (NSNumber* )context;
-    if ([tag integerValue] == 0) {
-        //return [FBScrollNode newWithItem:item];
-           return [FBHostNode newWithItem:item];
-    }
-    else{
-        return [FBClickToExpendNode newWithItem:item];
-    }
+    return [FBHostNode newWithItem:item];
+//    NSNumber* tag = (NSNumber* )context;
+//    if ([tag integerValue] == 0) {
+//        //return [FBScrollNode newWithItem:item];
+//           return [FBHostNode newWithItem:item];
+//    }
+//    else{
+//        return [FBClickToExpendNode newWithItem:item];
+//    }
 }
 
 - (void)hostingView:(VZFNodeHostingView *)view DidInvalidate:(CGSize)newSize
 {
+    NSLog(@"%s=>Size:%@",__PRETTY_FUNCTION__,NSStringFromCGSize(newSize));
     if (view.tag == 0) {
         view.frame = CGRect{{0,0},newSize};
         self.bottomView.frame = CGRect{{0,view.frame.size.height},self.bottomView.frame.size};

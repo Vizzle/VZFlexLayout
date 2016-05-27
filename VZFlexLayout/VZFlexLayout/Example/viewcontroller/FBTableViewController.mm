@@ -96,9 +96,9 @@
 - (UITableViewCell* )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     FBHostCellItem* item = _items[indexPath.row];
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:item.reuseIdentifier];
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"123"];
     if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:item.reuseIdentifier];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"123"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //        cell.delegate = self;
     }
