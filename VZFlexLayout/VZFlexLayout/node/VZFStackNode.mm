@@ -15,6 +15,7 @@
 #import "VZFCompositeNode.h"
 #import "VZFNodeLayout.h"
 #import "VZFNodeViewClass.h"
+#import "VZFView.h"
 
 using namespace VZ;
 @implementation VZFStackNode
@@ -33,7 +34,7 @@ using namespace VZ;
 }
 + (instancetype)newWithStackSpecs:(const NodeSpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children{
 
-    VZFStackNode* stacknode =  [super newWithView:[UIView class] NodeSpecs:specs];
+    VZFStackNode* stacknode =  [super newWithView:[VZFView class] NodeSpecs:specs];
     if (stacknode)
     {
         stacknode -> _children = VZ::Function::filter(children, [](const VZFStackChildNode &child){return child.node != nil;});

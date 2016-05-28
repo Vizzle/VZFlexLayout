@@ -160,11 +160,8 @@ const void* g_recycleId = &g_recycleId;
     return (_mountedView != nil);
 }
 
+- (void)nodeScopeHandleWithIdentifier:(id)scopeId rootIdentifier:(id)rootScopeId didReceiveStateUpdate:(id (^)(id))stateUpdate{
 
-- (void)nodeScopeHandleWithIdentifier:(id)scopeId
-                       rootIdentifier:(id)rootScopeId
-                didReceiveStateUpdate:(id (^)(id))stateUpdate{
-    
     NSMutableDictionary* mutableFuncs = [_stateFuncMap mutableCopy];
     NSMutableArray* funclist = mutableFuncs[scopeId];
     if (!funclist) {
@@ -178,6 +175,7 @@ const void* g_recycleId = &g_recycleId;
     CGSize sz = [_sizeRangeProvider rangeSizeForBounds:_state.constrainedSize];
     
     [self _updateStateInternal:[self calculate:_state.item constrainedSize:sz context:_state.context] scopeId:scopeId];
+
 }
 
 - (CGSize)size{

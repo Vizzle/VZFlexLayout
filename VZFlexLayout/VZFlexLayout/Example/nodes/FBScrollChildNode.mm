@@ -20,7 +20,7 @@
 
 @implementation FBScrollChildNode
 
-+ (instancetype)newWithDictionary:(NSDictionary* )dictionary{
++ (instancetype)newWithDictionary:(NSDictionary* )dictionary ActionSelector:(SEL)sel{
 
     
     VZ::Scope scope(self,dictionary[@"name"]);
@@ -49,14 +49,15 @@
                 .flex = {
                     .width = 100,
                     .marginTop = 20,
-                    .marginBottom = 20
+                    .marginBottom = 20,
+                    .alignSelf = VZFlexCenter,
                 }
             } ButtonAttributes:{
             
                 .fontSize = 14,
                 .title = dictionary[@"name"],
                 .titleColor = [UIColor redColor],
-                .action = @selector(clicked:)
+                .action = sel
             
             }],
 //            [VZFTextNode newWithNodeSpecs:{

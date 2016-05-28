@@ -10,6 +10,6 @@
 
 @interface FBScrollChildNode : VZFCompositeNode
 
-+ (instancetype)newWithDictionary:(NSDictionary* )dictionary;
++ (instancetype)newWithDictionary:(NSDictionary* )dictionary ActionSelector:(SEL)sel;
 
 @end

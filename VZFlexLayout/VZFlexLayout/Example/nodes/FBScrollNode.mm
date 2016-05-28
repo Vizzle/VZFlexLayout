@@ -26,7 +26,7 @@
     
     std::vector<VZFNode* > childs{};
     for (int i=0;i<item.cards.count; i++) {
-        FBScrollChildNode* childNode = [FBScrollChildNode newWithDictionary:item.cards[i]];
+        FBScrollChildNode* childNode = [FBScrollChildNode newWithDictionary:item.cards[i] ActionSelector:@selector(clicked:)];
         childs.push_back(childNode);
     }
     VZFScrollNode* scrollNode = [VZFScrollNode newWithScrollAttributes:{

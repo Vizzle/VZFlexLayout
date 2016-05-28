@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "VZFSizeRange.h"
 #import "VZFNodeProvider.h"
+#import "VZFStateUpdateMode.h"
 
 @class VZFNodeHostingView;
 @class VZFNode;
@@ -20,13 +21,6 @@
 - (void)hostingView:(VZFNodeHostingView* )view DidInvalidate:(CGSize)newSize;
 
 @end
-
-
-typedef NS_ENUM(NSUInteger,VZFUpdateMode){
-
-    VZFUpdateModeAsynchronous,
-    VZFUpdateModeSynchronous
-};
 
 /**
  *  HostingView用来承载RootNode
@@ -51,7 +45,7 @@ typedef NS_ENUM(NSUInteger,VZFUpdateMode){
  *  @discussion: 如果是异步更新，node创建和layout将会在next main runloop中执行
  *
  */
-- (void)update:(id)model mode:(VZFUpdateMode)updateMode;
+- (void)update:(id)model mode:(VZFStateUpdateMode)updateMode;
 - (void)reset;
 
 - (instancetype)init __attribute__((unavailable("Not the designated initializer")));

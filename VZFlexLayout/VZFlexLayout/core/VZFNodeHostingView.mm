@@ -96,7 +96,7 @@ struct VZFNodeHostingViewInputs{
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma public API
 
-- (void)update:(id)model mode:(VZFUpdateMode)updateMode{
+- (void)update:(id)model mode:(VZFStateUpdateMode)updateMode{
     _pendingInputs.model = model;
     [self _update:updateMode];
 
@@ -128,16 +128,16 @@ struct VZFNodeHostingViewInputs{
     mutableFuncs[scopeId] = funclist;
     _pendingInputs.stateMap = [mutableFuncs copy];
 //    [self _update:VZFUpdateModeAsynchronous];
-    [self _update:VZFUpdateModeAsynchronous];
+    [self _update:VZFStateUpdateModeAsynchronous];
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma private methods
 
-- (void)_update:(VZFUpdateMode)mode{
+- (void)_update:(VZFStateUpdateMode)mode{
     
-    if (mode == VZFUpdateModeAsynchronous) {
+    if (mode == VZFStateUpdateModeAsynchronous) {
         [self _updateASynchronously];
     }
     else{
