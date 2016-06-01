@@ -23,8 +23,12 @@
 #import "VZFPagingNode.h"
 #import "VZFPagingNodeSpecs.h"
 #import "VZFPagingView.h"
+#import "VZFButtonView.h"
 #import "VZFlexNode.h"
 #import "VZFNodeLayoutManager.h"
+#import "VZFStackNode.h"
+#import "VZFStackNodeSpecs.h"
+#import "VZFStackView.h"
 #import <objc/runtime.h>
 
 @implementation UIView (VZAttributes)
@@ -62,7 +66,7 @@
 - (void)_applyAttributes:(const ViewAttrs&)vs {
     
     self.tag                    = vs.tag;
-    self.backgroundColor        = vs.backgroundColor?:[UIColor clearColor];
+    self.backgroundColor        = vs.backgroundColor;
     self.clipsToBounds          = vs.clip;
     self.hidden                 = vs.hidden;
     
@@ -76,6 +80,12 @@
     self.layer.borderWidth      = vs.layer.borderWidth;
     if (vs.layer.contents.CGImage) {
         self.layer.contents     = (__bridge id)vs.layer.contents.CGImage;
+    }
+    
+    if ([self isKindOfClass:[VZFStackView class]]) {
+        VZFStackView* stackView = (VZFStackView* )self;
+        stackView.defaultColor = vs.backgroundColor;
+        stackView.highlightColor = vs.highlightBackgroundColor;
     }
     
     if (vs.unapplicator) {
@@ -124,9 +134,18 @@
 
 - (void)_applyButtonAttributes:(const ButtonNodeSpecs& )buttonNodeSpecs{
     
-    UIButton* btn = (UIButton* )self;
+    VZFButtonView* btn = (VZFButtonView* )self;
     
     btn.titleLabel.font = buttonNodeSpecs.getFont();
+    
+    // reset
+    for (int state=UIControlStateNormal;state<=UIControlStateFocused;state++) {
+        [btn setTitle:nil forState:state];
+        [btn setTitleColor:nil forState:state];
+        [btn setBackgroundImage:nil forState:state];
+        [btn setImage:nil forState:state];
+    }
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     for (auto title : buttonNodeSpecs.title) {
         [btn setTitle:title.second forState:title.first];
@@ -142,6 +161,15 @@
     
     for (auto image : buttonNodeSpecs.image){
         [btn setImage:image.second forState:image.first];
+    }
+    
+    //enlarge touch area
+    if (!CGSizeEqualToSize(CGSizeZero,buttonNodeSpecs.enlargeSize))
+    {
+        btn.enlargeTouchSize = buttonNodeSpecs.enlargeSize;
+    }
+    else{
+        btn.enlargeTouchSize = CGSizeZero;
     }
     
     [btn removeTarget:nil action:nil forControlEvents:UIControlEventAllEvents];
@@ -218,7 +246,7 @@
     collectionView.showsVerticalScrollIndicator = NO;
     collectionView.showsHorizontalScrollIndicator = NO;
     
-    pagingView.pageControlEnabled = pagingSpecs.paging;
+    pagingView.pageControlEnabled = pagingSpecs.paging && pagingSpecs.pageControl;
     if (pagingSpecs.pageControl) {
         UIPageControl *pageControl = pagingView.pageControl;
         pageControl.backgroundColor = [UIColor clearColor];

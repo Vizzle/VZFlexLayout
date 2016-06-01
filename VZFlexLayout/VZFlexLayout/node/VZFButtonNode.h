@@ -18,6 +18,6 @@ using namespace VZ;
 @interface VZFButtonNode : VZFNode
 
 @property(nonatomic,assign,readonly) ButtonNodeSpecs buttonSpecs;
-+ (instancetype)newWithNodeSpecs:(const NodeSpecs& )specs ButtonAttributes:(const ButtonNodeSpecs&) buttonSepcs;
++ (instancetype)newWithButtonAttributes:(const ButtonNodeSpecs&) buttonSepcs NodeSpecs:(const NodeSpecs& )specs;
 
 @end

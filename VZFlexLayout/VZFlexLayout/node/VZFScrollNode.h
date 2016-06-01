@@ -9,15 +9,18 @@
 #import <vector>
 #import "VZFNode.h"
 #import "VZFScrollNodeSpecs.h"
+#import "VZFStackNodeSpecs.h"
 
 using namespace VZ;
 @interface VZFScrollNode : VZFNode
 
 @property(nonatomic,assign,readonly)ScrollNodeSpecs scrollNodeSpecs;
+@property(nonatomic,assign,readonly)StackNodeSpecs stackNodeSpecs;
 @property(nonatomic,assign,readonly)std::vector<VZFNode*> children;
 @property(nonatomic,assign,readonly)CGSize contentSize;
 
 + (instancetype)newWithScrollAttributes:(const ScrollNodeSpecs &)scrollSpecs
+                        StackAttributes:(const StackNodeSpecs &)stackSpecs
                               NodeSpecs:(const NodeSpecs &)nodeSpecs
                                Children:(std::vector<VZFNode*>)children;
 

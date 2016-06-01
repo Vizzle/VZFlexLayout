@@ -1,10 +1,9 @@
-
 //
 //  VZFStateUpdateMode.h
-//  VZFlexLayout
+//  O2OReact
 //
 //  Created by moxin on 16/5/27.
-//  Copyright © 2016年 Vizlab. All rights reserved.
+//  Copyright © 2016年 Alipay. All rights reserved.
 //
 
 #ifndef VZFStateUpdateMode_h

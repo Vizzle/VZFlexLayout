@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-
+#import "VZFStateUpdateMode.h"
 
 @protocol VZFStateListener <NSObject>
 
@@ -22,7 +21,8 @@
  */
 - (void)nodeScopeHandleWithIdentifier:(id)scopeId
                        rootIdentifier:(id)rootScopeId
-                didReceiveStateUpdate:(id (^)(id))stateUpdate;
+                didReceiveStateUpdate:(id (^)(id))stateUpdate
+                           updateMode:(VZFStateUpdateMode)updateMode;
 
 @end
 
@@ -36,16 +36,6 @@ namespace VZ {
 }
 
 using namespace VZ;
-//@interface VZFLocalScope:NSObject
-//
-//- (id)initWithRootScope:(VZFRootScope* )rootScope StateUpdates:(NSDictionary* )funcs;
-//- (VZFRootScope* )newRootScope;
-//- (NSDictionary* )stateUpdateFunctions;
-//- (ScopeFramePair )top;
-//- (void)pop;
-//- (void)push:(const ScopeFramePair& )pair;
-//
-//@end
 
 struct VZFBuildNodeResult {
     VZFNode *node;
@@ -54,28 +44,9 @@ struct VZFBuildNodeResult {
 
 @interface VZFScopeManager : NSObject
 
-//@property(nonatomic,strong,readonly) VZFLocalScope* currentLocalScope;
-
-//+ (instancetype)sharedInstance;
-
-/**
- *  构建node和RootScope
- *
- *  @param function  用来创建node
- *  @param rootScope HostingView持有的RootScope
- *  @param funcs     <id,NSArray<id(^state)(id)>>
- *
- *  @return node对象和新的RootScope
- */
 + (VZFBuildNodeResult)buildNodeWithFunction:(VZFNode*(^)(void))function
                                  RootScope:(VZFRootScope* )rootScope
                           StateUpdateFuncs:(NSDictionary* )funcs;
-/**
- *  @dicussion:释放掉rootscope对应的localscope
- *
- *  @param scopeId
- */
-//- (void)releaseRootScopeById:(int32_t)scopeId;
 
 
 @end

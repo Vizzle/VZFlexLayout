@@ -59,18 +59,12 @@
     }
     
 
-    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
-        .flex = {
-            .wrap = YES,
-            .marginTop = 10,
-            .stackLayout = {
-                .spacing = 10,
-                .lineSpacing = 10
-            }
-        },
-        
-    } Children:imageNodes];
+    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
+        .spacing = 10,
+        .lineSpacing = 10
     
+    } NodeSpecs:{} Children:imageNodes];
+
     return [super newWithNode:stackNode];
 
 }

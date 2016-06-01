@@ -17,13 +17,10 @@
 
 + (instancetype)newWithItem:(FBHostItem* )item{
 
-    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
-        
-        .flex = {
-            .margin = 10,
-            .stackLayout = {.direction = VZFlexVertical}
-        }
-    
+    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
+        .direction = VZFlexVertical
+    } NodeSpecs:{
+        .flex = {.padding = 10}
     } Children:{
     
         {[FBHeaderNode newWithItem:item]},

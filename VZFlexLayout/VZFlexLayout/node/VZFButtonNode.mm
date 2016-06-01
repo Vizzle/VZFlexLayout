@@ -13,6 +13,7 @@
 #import "VZFNodeLayout.h"
 #import "VZFNodeSpecs.h"
 #import "VZFButtonNodeSpecs.h"
+#import "VZFButtonView.h"
 
 @implementation VZFButtonNode
 
@@ -22,9 +23,9 @@
 + (instancetype)newWithView:(const ViewClass &)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
-+ (instancetype)newWithNodeSpecs:(const NodeSpecs& )specs ButtonAttributes:(const ButtonNodeSpecs&) buttonSepcs{
++ (instancetype)newWithButtonAttributes:(const ButtonNodeSpecs&) buttonSepcs NodeSpecs:(const NodeSpecs& )specs{
     
-    VZFButtonNode* buttonNode = [super newWithView:[UIButton class] NodeSpecs:specs];
+    VZFButtonNode* buttonNode = [super newWithView:[VZFButtonView class] NodeSpecs:specs];
     
     if (buttonNode) {
 //        buttonNode -> _specs = specs;
@@ -38,14 +39,16 @@
             VZ::ButtonNodeSpecs& buttonSpecs = strongNode->_buttonSpecs;
             
             NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-            style.alignment = buttonSpecs.textAlignment;
             CGSize size = [buttonSpecs.title[UIControlStateNormal] boundingRectWithSize:CGSizeMake(constraintedSize.width, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:buttonSpecs.getFont()?:[UIFont systemFontOfSize:[UIFont systemFontSize]], NSParagraphStyleAttributeName:style} context:nil].size;
             
             CGFloat scale = [UIScreen mainScreen].scale;
             size.width = ceil(size.width * scale) / scale;
             size.height = ceil(size.height * scale) / scale;
             
-            return size;
+            UIImage *image = buttonSpecs.image[UIControlStateNormal];
+            CGSize imageSize = image.size;
+            
+            return CGSizeMake(size.width + imageSize.width, MAX(size.height, imageSize.height));
         };
     }
     return buttonNode;

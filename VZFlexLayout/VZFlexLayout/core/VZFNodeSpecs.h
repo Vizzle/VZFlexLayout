@@ -19,58 +19,37 @@
 #import "VZFActionWrapper.h"
 #import "VZFLength.h"
 
-/**
- typedef enum {
- FlexHorizontal,
- FlexVertical,
- FlexHorizontalReverse,
- FlexVerticalReverse
- } FlexDirection;
- */
-typedef NS_ENUM(int, VZFlexLayoutDirection){
-    VZFlexHorizontal,
-    VZFlexVertical,
-    VZFlexHorizontalReverse,
-    VZFlexVerticalReverse
-};
-/**
- typedef enum {
- FlexInherit,
- FlexStretch,
- FlexStart,
- FlexCenter,
- FlexEnd,
- FlexSpaceBetween,
- FlexSpaceAround
- } FlexAlign;
- */
-typedef NS_ENUM(int, VZFlexLayoutAlignment){
-    
-    VZFlexInherit,
-    VZFlexStretch,
-    VZFlexStart,
-    VZFlexCenter,
-    VZFlexEnd,
-    VZFlexSpaceBetween,
-    VZFlexSpaceAround
-    
-};
 
 
+/**
+ *  
+ *  @Design Philosophy: 
+ *  NodeSpecs 用来描述node具备的属性，通过对属性的描述，得到一个具备该属性的实体(node)
+ *  也可以理解为node是一组属性的纯函数映射：f(specs) -> node， 这个映射是没有Side Effect的，固定的输入产生固定的输出
+ *
+ *  @Code Style: 
+ *   使用C++ Struct描述，使用C++11的统一初始化函数构造Specs : {...}
+ *
+ *  @属性：
+ *  1, 对UI属性的描述，包括UIView和CALayer常用的属性
+ *  2, 对布局属性的描述，包括常用的css属性和flexbox属性
+ *  3, 对手势的描述，见gesture注释
+ *
+ */
 using namespace VZ;
 namespace VZ {
     
-    
-    namespace FlexValue{
-        
-        const float Undefined = FlexUndefined;
-        const float Auto = FlexAuto;
+
+    namespace DefaultUIAttributesValue{
+        extern int userInteractionEnabled;
+        extern UIColor* backgroundColor;
+        extern UIColor* highlightBackgroundColor;
     }
     
     
     namespace DefaultFlexAttributesValue{
         
-        //UI attributes
+        //css attributes
         extern CGSize size;
         extern CGSize maxSize;
         extern CGSize minSize;
@@ -80,18 +59,14 @@ namespace VZ {
         extern FlexLength maxHeight;
         extern FlexLength minWidth;
         extern FlexLength minHeight;
-        
-        //css attributes
         extern FlexLength marginLeft;
         extern FlexLength marginRight;
         extern FlexLength marginTop;
         extern FlexLength marginBottom;
-        
         extern FlexLength paddingLeft;
         extern FlexLength paddingRight;
         extern FlexLength paddingTop;
         extern FlexLength paddingBottom;
-        
         extern FlexLength margin;
         extern FlexLength padding;
         
@@ -101,16 +76,8 @@ namespace VZ {
         extern FlexLength flexBasis;
         extern bool fixed;
         extern bool wrap;
-        extern VZFlexLayoutDirection direction;
-        extern VZFlexLayoutAlignment justifyContent;
-        extern VZFlexLayoutAlignment alignItems;
         extern VZFlexLayoutAlignment alignSelf;
-        extern VZFlexLayoutAlignment alignContent;
-        
-        extern FlexLength spacing;
-        extern FlexLength lineSpacing;
-        
-        extern int userInteractionEnabled;
+
     };
     
     
@@ -126,25 +93,14 @@ namespace VZ {
         BOOL hidden;
         NSInteger tag;
         BOOL clip;
-        Value<int, DefaultFlexAttributesValue::userInteractionEnabled> userInteractionEnabled;
-        UIColor* backgroundColor;
+        Value<int, DefaultUIAttributesValue::userInteractionEnabled> userInteractionEnabled;
+        Value<UIColor*, DefaultUIAttributesValue::backgroundColor>backgroundColor;
+        Value<UIColor*, DefaultUIAttributesValue::highlightBackgroundColor>highlightBackgroundColor; //only implemented in stacknode
         struct LayerAttrs layer;
         void(^unapplicator)(UIView* view);
         void(^applicator)(UIView* view);
     };
     
-
-    struct StackLayoutSpecs{
-
-        Value<VZFlexLayoutDirection, DefaultFlexAttributesValue::direction> direction;
-        Value<VZFlexLayoutAlignment, DefaultFlexAttributesValue::alignItems> alignItems;
-        Value<VZFlexLayoutAlignment, DefaultFlexAttributesValue::justifyContent> justifyContent;
-        Value<VZFlexLayoutAlignment,  DefaultFlexAttributesValue::alignContent> alignContent;
-        
-        Value<FlexLength, DefaultFlexAttributesValue::spacing> spacing;
-        Value<FlexLength, DefaultFlexAttributesValue::lineSpacing> lineSpacing;
-        
-    };
 
     struct FlexAttrs{
 
@@ -175,9 +131,6 @@ namespace VZ {
         Value<bool, DefaultFlexAttributesValue::fixed> fixed;
         Value<bool, DefaultFlexAttributesValue::wrap> wrap;
         
-        //describe stack layout specs
-        struct StackLayoutSpecs stackLayout;
-    
     };
     
     
@@ -223,11 +176,3 @@ namespace VZ {
     };
 
 }
-
-
-@class VZFlexNode;
-@interface VZFNodeUISpecs : NSObject
-
-+ (VZFlexNode* )flexNodeWithAttributes:(const VZ::FlexAttrs& )attrs;
-
-@end

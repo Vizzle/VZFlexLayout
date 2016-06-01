@@ -30,26 +30,25 @@
     BOOL isLike = [state[@"like"] boolValue];
     BOOL isRewarded = [state[@"reward"] boolValue];
     
-    VZFStackNode* actions = [VZFStackNode newWithStackSpecs:{
-        .flex = {
+    VZFStackNode* actions = [VZFStackNode newWithStackAttributes:{
+        .spacing = 5
+    } NodeSpecs:{
+        .flex=  {
             .alignSelf = VZFlexEnd,
             .marginTop = 10,
-            .stackLayout = {.spacing = 5}
         }
-        
     } Children:{
         { [FBClickNode newWithImage:isLike?[UIImage imageNamed:@"comment_liked"]:[UIImage imageNamed:@"comment_like"]
                                Text:item.likeCount
                              Action:@selector(onLikeClicked:)]
-           },
+        },
         
         
         { [FBClickNode newWithImage:isRewarded?[UIImage imageNamed:@"comment_rewarded"]:[UIImage imageNamed:@"comment_reward"]
                                Text:item.rewardCount
                              Action:@selector(onRewardClicked:)]
-        },
+        }
     }];
-    
     return  [super newWithNode:actions];
 
 }
@@ -63,7 +62,7 @@
         mutableOldState[@"like"] = @(![oldState[@"like"] boolValue]);
         return [mutableOldState copy];
 
-    }];
+    } Mode:VZFStateUpdateModeSynchronous];
 }
 
 - (void)onRewardClicked:(id)sender{
@@ -74,7 +73,7 @@
         mutableOldState[@"reward"] = @(![oldState[@"reward"] boolValue]);
         return [mutableOldState copy];
 
-    }];
+    } Mode:VZFStateUpdateModeSynchronous];
 }
 
 @end

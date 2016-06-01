@@ -8,14 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFlexNode.h"
+#import "VZFNodeSpecs.h"
+#import "VZFStackNodeSpecs.h"
 
 @class VZFNode;
 
+using namespace VZ;
 /**
  *  give flexnode backwards access
  */
 @interface VZFlexNode (VZFNode)
 
 @property(nonatomic,assign)VZFNode* fNode;
+
++ (VZFlexNode* )flexNodeWithFlexAttributes:(const FlexAttrs& )flexAttrs;
+
+- (void)applyStackLayoutAttributes:(const StackNodeSpecs& )stackAttrs;
 
 @end

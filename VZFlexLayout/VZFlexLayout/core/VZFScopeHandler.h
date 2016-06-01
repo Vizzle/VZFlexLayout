@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "VZFScopeManager.h"
+#import "VZFStateUpdateMode.h"
 
 @class VZFNodeController;
 @class VZFScopeHandler;
@@ -34,7 +35,7 @@
 
 - (BOOL)bindToNode:(VZFNode* )node;
 
-- (void)updateState:(id(^)(id))stateBlock;
+- (void)updateState:(id(^)(id))stateBlock mode:(VZFStateUpdateMode)mode;
 
 
 

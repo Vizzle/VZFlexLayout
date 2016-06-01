@@ -37,36 +37,32 @@
     VZ::Scope scope(self);
     NSDictionary* state = scope.state();
 
-    VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
+    VZFTextNode* textNode = [VZFTextNode newWithTextAttributes:{
         
         .text       = item.content,
         .fontSize   = 14.0f,
         .lines      = [state[@"expend"] boolValue] ? 0UL : 4UL
+        
+    }NodeSpecs:{} ];
     
-    }];
-    
-    VZFButtonNode* buttonNode = [VZFButtonNode newWithNodeSpecs:{
-    
-        .flex = {.alignSelf = VZFlexStart,.marginTop = 5}
-    
-    } ButtonAttributes:{
+    VZFButtonNode* buttonNode = [VZFButtonNode newWithButtonAttributes:{
         
         .title      = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         .fontSize   = 14.0f,
         .action     = @selector(onExpendClicked:),
-    }];
+    }NodeSpecs:{
+    
+        .flex = {.alignSelf = VZFlexStart,.marginTop = 5}
+    
+    } ];
     
     FBGridImageNode* imageNode = [FBGridImageNode newWithImageURLs:item.images];
 
-    
-    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
-        
-        .flex = {
-            .marginLeft = 40,
-            .stackLayout = { .direction = VZFlexVertical }
-        }
-    
+    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
+        .direction = VZFlexVertical,
+    } NodeSpecs:{
+        .flex = {.marginLeft = 40}
     } Children:{
         
         {item.content?textNode:nil},
@@ -74,8 +70,10 @@
         {item.images.count?imageNode:nil},
         {item.location?[FBLocationNode newWithLocation:item.location]:nil},
         {[FBActionNodes newWithItem:item]}
-    
+        
     }];
+    
+
     
     FBContentNode* contentNode =  [super newWithNode:stackNode];
 
@@ -92,7 +90,7 @@
         NSMutableDictionary* mutableOldState = [oldState mutableCopy];
         mutableOldState[@"expend"] = @(![oldState[@"expend"] boolValue]);
         return [mutableOldState copy];
-    }];
+    } Mode:VZFStateUpdateModeSynchronous];
 }
 
 @end

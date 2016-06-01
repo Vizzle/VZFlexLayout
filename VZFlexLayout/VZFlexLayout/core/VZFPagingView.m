@@ -58,11 +58,14 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     NSTimer *_timer;
     
     BOOL _autoScrollAnimated;
+    
+    CGFloat _lastContentOffset;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        _lastContentOffset = FLT_MIN;
         _scroll = YES;
         _loopScroll = NO;
         _autoScroll = 0;
@@ -237,8 +240,6 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 //
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    static CGFloat lastContentOffset = FLT_MIN;
-    
     BOOL isVertical = _flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical;
     
     CGFloat currentOffsetX = scrollView.contentOffset.x;
@@ -248,8 +249,8 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     
     // We can ignore the first time scroll,
     // because it is caused by the call scrollToItemAtIndexPath: in ViewWillAppear
-    if (FLT_MIN == lastContentOffset) {
-        lastContentOffset = *currectOffset;
+    if (FLT_MIN == _lastContentOffset) {
+        _lastContentOffset = *currectOffset;
         return;
     }
     
@@ -258,24 +259,24 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     
     if ([self loopScrollEnabled]) {
         // the first page(showing the last item) is visible and user's finger is still scrolling to the right
-        if (*currectOffset < pageLength && lastContentOffset > *currectOffset) {
-            lastContentOffset = *currectOffset + offset;
-            *currectOffset = lastContentOffset;
+        if (*currectOffset < pageLength / 2 && _lastContentOffset > *currectOffset) {
+            _lastContentOffset = *currectOffset + offset;
+            *currectOffset = _lastContentOffset;
             scrollView.contentOffset = (CGPoint){currentOffsetX, currentOffsetY};
         }
         // the last page (showing the first item) is visible and the user's finger is still scrolling to the left
-        else if (*currectOffset > offset && lastContentOffset < *currectOffset) {
-            lastContentOffset = *currectOffset - offset;
-            *currectOffset = lastContentOffset;
+        else if (*currectOffset > offset + pageLength / 2 && _lastContentOffset < *currectOffset) {
+            _lastContentOffset = *currectOffset - offset;
+            *currectOffset = _lastContentOffset;
             scrollView.contentOffset = (CGPoint){currentOffsetX, currentOffsetY};
         } else {
-            lastContentOffset = *currectOffset;
+            _lastContentOffset = *currectOffset;
         }
     } else {
-        lastContentOffset = *currectOffset;
+        _lastContentOffset = *currectOffset;
     }
     
-    NSInteger index = round((float)lastContentOffset / pageLength);
+    NSInteger index = round((float)_lastContentOffset / pageLength);
     self.currentPage = [self indexForCellIndex:index];
 }
 
@@ -286,6 +287,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kO2OPagingNodeReuseId forIndexPath:indexPath];
     [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [cell.contentView addSubview:_childViews[index]];
+    cell.contentView.clipsToBounds = YES;
     return cell;
 }
 
@@ -302,6 +304,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 #pragma mark - backing view interface 
 
 - (void)resetState{
+    _lastContentOffset = FLT_MIN;
     self.currentPage = 0;
 }
 

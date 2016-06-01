@@ -21,7 +21,7 @@
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 
-+ (instancetype)newWithNodeSpecs:(const NodeSpecs &)specs TextAttributes:(const VZ::TextNodeSpecs &)textSpecs{
++ (instancetype)newWithTextAttributes:(const TextNodeSpecs&) textSpecs NodeSpecs:(const NodeSpecs&) specs{
 
     VZFTextNode* textNode = [super newWithView:[UILabel class] NodeSpecs:specs];
     

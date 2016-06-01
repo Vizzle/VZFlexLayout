@@ -64,11 +64,11 @@ using namespace VZ::UIKit;
     self = [super init];
     if (self) {
         
-        _specs = specs;
-        _viewClass = viewclass;
-        _flexNode = [VZFNodeUISpecs flexNodeWithAttributes:_specs.flex];
-        _flexNode.name = [NSString stringWithUTF8String:specs.identifier.c_str()];
-        _scopeHandler = [VZFScopeHandler scopeHandlerForNode:self];
+        _specs          = specs;
+        _viewClass      = viewclass;
+        _flexNode       = [VZFlexNode flexNodeWithFlexAttributes:specs.flex];
+        _flexNode.name  = [NSString stringWithUTF8String:specs.identifier.c_str()];
+        _scopeHandler   = [VZFScopeHandler scopeHandlerForNode:self];
         _flexNode.fNode = self;
 
     }
@@ -81,6 +81,7 @@ using namespace VZ::UIKit;
 }
 
 - (void)dealloc{
+    
     _flexNode.fNode = nil;
     _mountedInfo.reset();
     _mountedInfo = nullptr;
@@ -97,8 +98,9 @@ using namespace VZ::UIKit;
 }
 
 
-- (void)updateState:(id (^)(id))updateBlock{
-    [_scopeHandler updateState:updateBlock];
+- (void)updateState:(id(^)(id))updateBlock Mode:(VZFStateUpdateMode)mode
+{
+    [_scopeHandler updateState:updateBlock mode:mode];
 }
 
 
@@ -161,8 +163,7 @@ using namespace VZ::UIKit;
 }
 
 -(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
-{
-    NSLog(@"mount:%@",self.class);
+{    
     if (_mountedInfo == nullptr) {
         _mountedInfo.reset( new VZFNodeMountedInfo() );
     }
@@ -185,7 +186,6 @@ using namespace VZ::UIKit;
         }
         
         view.node = self;
-
         _mountedInfo -> mountedView = view;
 
         //计算公式:
@@ -224,11 +224,9 @@ using namespace VZ::UIKit;
 -(void)unmount{
     
     if (_mountedInfo != nullptr) {
-        NSLog(@"unmount:%@",self.class);
         [self.controller nodeWillUnmount:self];
         [self _recycleMountedView];
         _mountedInfo.reset();
-        _mountedInfo = nullptr;
         [self.controller nodeDidUnmount:self];
     }
 
@@ -251,6 +249,9 @@ using namespace VZ::UIKit;
     UIView* view = _mountedInfo -> mountedView;
     if(view){
         [_scopeHandler.controller node:self willReleaseBackingView:view];
+        
+        //@discussion:reset state
+//        VZ::Mounting::reset(view);
         view.node = nil;
         view = nil;
     }

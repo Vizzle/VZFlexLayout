@@ -26,6 +26,10 @@ KHASH_INIT(FlexSize, FlexSize, FlexSize, 1, kh_FlexSize_hash_func, kh_FlexSize_h
 #define FLEX_PIXEL_ROUND(value, scale) (roundf((value) * (scale)) / (scale))
 
 
+
+ const float FlexUndefined = 999999;
+ const float FlexAuto = 999998;
+
 typedef struct {
     float viewportWidth;
     float viewportHeight;

@@ -27,7 +27,8 @@ VZFThreadLocalScope *VZFThreadLocalScope::currentScope()
     return scope;
 }
 
-VZFThreadLocalScope::VZFThreadLocalScope(VZFRootScope *previousScopeRoot,NSDictionary* updates)
+VZFThreadLocalScope::VZFThreadLocalScope(VZFRootScope *previousScopeRoot,
+                                                 NSDictionary* updates)
 : newScopeRoot([previousScopeRoot newRootScope]), stateUpdateFunc(updates), stack()
 {
     VZFCAssert(VZFThreadLocalScope::currentScope() == nullptr, @"LocalScope已经存在");

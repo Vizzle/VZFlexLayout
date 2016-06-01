@@ -15,7 +15,7 @@
 #import "VZFCompositeNode.h"
 #import "VZFNodeLayout.h"
 #import "VZFNodeViewClass.h"
-#import "VZFView.h"
+#import "VZFStackView.h"
 
 using namespace VZ;
 @implementation VZFStackNode
@@ -32,13 +32,19 @@ using namespace VZ;
 + (instancetype)newWithView:(const ViewClass &)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
-+ (instancetype)newWithStackSpecs:(const NodeSpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children{
++ (instancetype)newWithStackAttributes:(const StackNodeSpecs& )stackSpecs
+                             NodeSpecs:(const NodeSpecs& )specs
+                              Children:(const std::vector<VZFStackChildNode> &)children{
 
-    VZFStackNode* stacknode =  [super newWithView:[VZFView class] NodeSpecs:specs];
+    VZFStackNode* stacknode =  [super newWithView:[VZFStackView class] NodeSpecs:specs];
     if (stacknode)
     {
-        stacknode -> _children = VZ::Function::filter(children, [](const VZFStackChildNode &child){return child.node != nil;});
-  
+        stacknode -> _stackSpecs    = stackSpecs;
+        stacknode -> _children      = VZ::Function::filter(children, [](const VZFStackChildNode &child){return child.node != nil;});
+        
+        //apply container attributes
+        [stacknode.flexNode applyStackLayoutAttributes:stackSpecs];
+        
         for (const auto  &child:stacknode->_children)
         {
             [stacknode.flexNode addSubNode:child.node.flexNode];
@@ -46,6 +52,7 @@ using namespace VZ;
     }
     
     return stacknode;
+
 }
 
 - (VZ::NodeLayout)nodeDidLayout {

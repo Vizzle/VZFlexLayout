@@ -11,6 +11,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNode.h"
+#import "VZFStateUpdateMode.h"
 
 
 /**
@@ -70,7 +71,7 @@ using namespace VZ;
  *
  *  @param updateBlock
  */
-- (void)updateState:(id(^)(id))updateBlock;
+- (void)updateState:(id(^)(id))updateBlock Mode:(VZFStateUpdateMode)mode;
 
 /**
  *  计算Node的layout

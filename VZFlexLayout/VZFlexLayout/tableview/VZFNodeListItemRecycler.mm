@@ -19,6 +19,7 @@
 #include <objc/runtime.h>
 #import "VZFUtils.h"
 
+
 @interface VZFWeakObjectWrapper : NSObject
 @property(nonatomic,weak) id object;
 @end
@@ -90,6 +91,7 @@ const void* g_recycleId = &g_recycleId;
         for(VZFNode* node in _mountedNodes){
             VZ::Mounting::reset(node.mountedView);
         }
+        
         [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
     }
 }
@@ -103,8 +105,6 @@ const void* g_recycleId = &g_recycleId;
     VZFBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
         return [_nodeProvider nodeForItem:item context:context];
     } RootScope:rootScope StateUpdateFuncs:_stateFuncMap];
-    
-    
     
     const VZ::NodeLayout layout = [result.node computeLayoutThatFits:constrainedSize];
     
@@ -160,8 +160,12 @@ const void* g_recycleId = &g_recycleId;
     return (_mountedView != nil);
 }
 
-- (void)nodeScopeHandleWithIdentifier:(id)scopeId rootIdentifier:(id)rootScopeId didReceiveStateUpdate:(id (^)(id))stateUpdate{
+- (void)nodeScopeHandleWithIdentifier:(id)scopeId
+                       rootIdentifier:(id)rootScopeId
+                didReceiveStateUpdate:(id (^)(id))stateUpdate
+                           updateMode:(VZFStateUpdateMode)updateMode{
 
+    
     NSMutableDictionary* mutableFuncs = [_stateFuncMap mutableCopy];
     NSMutableArray* funclist = mutableFuncs[scopeId];
     if (!funclist) {
@@ -175,6 +179,7 @@ const void* g_recycleId = &g_recycleId;
     CGSize sz = [_sizeRangeProvider rangeSizeForBounds:_state.constrainedSize];
     
     [self _updateStateInternal:[self calculate:_state.item constrainedSize:sz context:_state.context] scopeId:scopeId];
+
 
 }
 
@@ -200,7 +205,10 @@ const void* g_recycleId = &g_recycleId;
 
 
 - (void)_mountedLayout{
-    _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_state.layout InContainer:_mountedView WithPreviousNodes:_mountedNodes AndSuperNode:nil];
+    _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_state.layout
+                                                              InContainer:_mountedView
+                                                        WithPreviousNodes:_mountedNodes
+                                                             AndSuperNode:nil];
     
 }
 

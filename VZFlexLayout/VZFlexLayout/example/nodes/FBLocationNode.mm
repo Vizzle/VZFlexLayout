@@ -19,34 +19,37 @@
 
 + (instancetype)newWithLocation:(NSString* )location{
 
-    VZFStackNode* node = [VZFStackNode newWithStackSpecs:{
-        
+    
+    VZFStackNode* node = [VZFStackNode newWithStackAttributes:{
+        .spacing = 10
+    }NodeSpecs:{
         .view = {
             .backgroundColor = [UIColor lightGrayColor]
         },
         .flex= {
             .marginTop = 10,
-            .stackLayout = {.spacing = 10}
+
         }
     } Children:{
-        
+    
         {
             [VZFImageNode newWithImageAttributes:{.image = [UIImage imageNamed:@"comment_location"]}
                                        NodeSpecs:{
-                
-                .flex = {
-                    .marginLeft = 5,
-                    .marginTop = 10,
-                    .marginBottom = 10,
-                }
+                                           
+                                           .flex = {
+                                               .marginLeft = 5,
+                                               .marginTop = 10,
+                                               .marginBottom = 10,
+                                           }
+                                           
+                                       }]
             
-            }]
-        
         },
-        {[VZFTextNode newWithNodeSpecs:{}
-                        TextAttributes:{.text = location,
-                            .fontSize = 14.0f,
-                            .color = [UIColor blackColor]}]}
+        {[VZFTextNode newWithTextAttributes:{
+            .text = location,
+            .fontSize = 14.0f,
+            .color = [UIColor blackColor]
+        }NodeSpecs:{}]}
         
     }];
     

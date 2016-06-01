@@ -19,31 +19,30 @@
 + (instancetype)newWithImage:(UIImage* )img Text:(NSString* )text Action:(SEL)action{
 
 
-    VZFButtonNode* btnNode=[VZFButtonNode newWithNodeSpecs:{
+    VZFButtonNode* btnNode=[VZFButtonNode newWithButtonAttributes:{
+        .image = img,
+        .action = action
+    }NodeSpecs:{
         .flex = {
             .width = 20,
             .height = 20,
         }
         
-    } ButtonAttributes:{
-        .image = img,
-        .action = action
-    }];
-    VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
+    } ];
+    VZFTextNode* textNode = [VZFTextNode newWithTextAttributes:{
         .text = text,
         .fontSize = 12.0f,
         .color = [UIColor lightGrayColor]
         
-    }];
+    }NodeSpecs:{} ];
     
-    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
-        .flex= {.stackLayout = {.spacing = 5}}
-        
-    } Children:{
+    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
+        .spacing = 5,
+    } NodeSpecs:{} Children:{
         {btnNode},
         {textNode}
     }];
-    
+        
     return [super newWithNode:stackNode];
 }
 

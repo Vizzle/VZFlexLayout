@@ -17,32 +17,32 @@
 
 + (instancetype)newWithName:(NSString* )name createTime:(NSString* )time{
 
-    
-    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
-        .flex = {
-            .stackLayout = { .justifyContent = VZFlexSpaceBetween }
-        }
+    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
+        .justifyContent = VZFlexSpaceBetween
+    } NodeSpecs:{
+        
     } Children:{
-    
-        {.node = [VZFTextNode newWithNodeSpecs:{.view = {.backgroundColor = [UIColor clearColor]}} TextAttributes:{
+        {[VZFTextNode newWithTextAttributes:{
             .text = name,
             .color = [UIColor blackColor],
             .fontSize = 14.0f,
-        }]},
+        } NodeSpecs:{.view = {.backgroundColor = [UIColor clearColor]}}]},
         {
-            .node = [VZFTextNode newWithNodeSpecs:{
-                .view = {.backgroundColor = [UIColor clearColor]}
-            } TextAttributes:{
-            
+            [VZFTextNode newWithTextAttributes:{
+                
                 .text = time,
                 .color = [UIColor lightGrayColor],
                 .fontSize = 12.0f,
                 .alignment = NSTextAlignmentRight
-            
-            }]
+                
+            }NodeSpecs:{
+                .view = {.backgroundColor = [UIColor clearColor]}
+            } ]
+
         }
     
     }];
+    
     return [super newWithNode:stackNode];
 
 }

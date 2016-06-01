@@ -18,9 +18,6 @@ using namespace VZ;
     NSMutableDictionary* _children;
 }
 
-- (void)dealloc{
-    NSLog(@"%s",__PRETTY_FUNCTION__);
-}
 
 - (id)initWithScopeHandler:(VZFScopeHandler *)scopeHandler{
 
@@ -80,7 +77,7 @@ using namespace VZ;
 
 - (NSString* )description{
     
-    return [NSString stringWithFormat:@"%@ -> {children:%@}",[self class],_children];
+    return [NSString stringWithFormat:@"%@ -> {\n handler:%@\n children:%@\n}",[self class],_handler,_children];
     
 }
 

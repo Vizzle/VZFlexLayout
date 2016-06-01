@@ -17,10 +17,15 @@
 #import "VZFNodeViewClass.h"
 #import "VZFMacros.h"
 #import "VZFScrollView.h"
+#import "VZFlexNode+VZFNode.h"
 
 @implementation VZFScrollNode
 
-+ (instancetype)newWithScrollAttributes:(const VZ::ScrollNodeSpecs &)scrollSpecs NodeSpecs:(const VZ::NodeSpecs &)nodeSpecs Children:(std::vector<VZFNode*>)children{
+
++ (instancetype)newWithScrollAttributes:(const ScrollNodeSpecs &)scrollSpecs
+                        StackAttributes:(const StackNodeSpecs &)stackSpecs
+                              NodeSpecs:(const NodeSpecs &)nodeSpecs
+                               Children:(std::vector<VZFNode*>)children{
 
 
     VZFScrollNode* scrollNode = [VZFScrollNode newWithView:{[VZFScrollView class]}NodeSpecs:nodeSpecs];
@@ -28,8 +33,12 @@
     if (scrollNode) {
         
         scrollNode -> _scrollNodeSpecs = scrollSpecs;
+        scrollNode -> _stackNodeSpecs = stackSpecs;
         scrollNode -> _children = VZ::Function::filter(children, [](VZFNode* child){return child != nil;});
         
+        //apply stack attributes
+        [scrollNode.flexNode applyStackLayoutAttributes:stackSpecs];
+
     }
     
     return scrollNode;

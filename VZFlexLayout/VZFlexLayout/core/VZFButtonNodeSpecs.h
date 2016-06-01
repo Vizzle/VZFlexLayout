@@ -24,15 +24,21 @@ namespace VZ {
         return { EventType, action };
     }
     
+    namespace  DefaultButtonAttributesValue{
+        extern CGSize enlargeSize;
+    };
+    
     struct ButtonNodeSpecs{
         CGFloat fontSize;
         NSString *fontName;
         VZFFontStyle fontStyle;
-        NSTextAlignment textAlignment;
         StatefulValue<NSString *>title;     // IMPORTANT: node won't re-layout when the title is changed by state-changing.
         StatefulValue<UIColor *> titleColor;
         StatefulValue<UIImage *> backgroundImage;
         StatefulValue<UIImage *> image;
+        
+        //enlarge touch area
+        Value<CGSize, DefaultButtonAttributesValue::enlargeSize> enlargeSize;
         mutable UIFont *_font;
         
         /*

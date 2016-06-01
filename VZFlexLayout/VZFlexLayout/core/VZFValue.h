@@ -14,6 +14,46 @@
 #import <UIKit/UIKit.h>
 
 
+/**
+ typedef enum {
+ FlexHorizontal,
+ FlexVertical,
+ FlexHorizontalReverse,
+ FlexVerticalReverse
+ } FlexDirection;
+ */
+typedef NS_ENUM(int, VZFlexLayoutDirection){
+    VZFlexHorizontal,
+    VZFlexVertical,
+    VZFlexHorizontalReverse,
+    VZFlexVerticalReverse
+};
+/**
+ typedef enum {
+ FlexInherit,
+ FlexStretch,
+ FlexStart,
+ FlexCenter,
+ FlexEnd,
+ FlexSpaceBetween,
+ FlexSpaceAround
+ } FlexAlign;
+ */
+typedef NS_ENUM(int, VZFlexLayoutAlignment){
+    
+    VZFlexInherit,
+    VZFlexStretch,
+    VZFlexStart,
+    VZFlexCenter,
+    VZFlexEnd,
+    VZFlexSpaceBetween,
+    VZFlexSpaceAround
+    
+};
+
+extern float FlexUndefined;
+extern float FlexAuto;
+
 namespace VZ{
     
     //moxin:自定义一组抽象的数据类型
@@ -86,6 +126,14 @@ namespace VZ{
     
     template<typename Type>
     using StatefulValue = Internal::_StatefulValue<Type, std::is_convertible<Type, id>::value>;
+    
+    
+
+    namespace FlexValue{
+        
+        const float Undefined = FlexUndefined;
+        const float Auto = FlexAuto;
+    }
 }
 
 

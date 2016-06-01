@@ -42,7 +42,7 @@
  *  @param model      被更新的数据
  *  @param updateMode 同步/异步更新
  *
- *  @discussion: 如果是异步更新，node创建和layout将会在next main runloop中执行
+ *  @discussion: 如果是异步更新，node创建和layout将会在异步线程中执行
  *
  */
 - (void)update:(id)model mode:(VZFStateUpdateMode)updateMode;

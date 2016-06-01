@@ -17,6 +17,6 @@ using namespace VZ;
 @interface VZFTextNode : VZFNode
 
 @property(nonatomic,assign,readonly) TextNodeSpecs textSpecs;
-+ (instancetype)newWithNodeSpecs:(const NodeSpecs&) specs TextAttributes:(const TextNodeSpecs&) textSpecs;
++ (instancetype)newWithTextAttributes:(const TextNodeSpecs&) textSpecs NodeSpecs:(const NodeSpecs&) specs;
 
 @end

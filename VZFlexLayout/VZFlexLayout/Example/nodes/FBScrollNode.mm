@@ -29,22 +29,24 @@
         FBScrollChildNode* childNode = [FBScrollChildNode newWithDictionary:item.cards[i] ActionSelector:@selector(clicked:)];
         childs.push_back(childNode);
     }
+    
     VZFScrollNode* scrollNode = [VZFScrollNode newWithScrollAttributes:{
         .scrollDirection = VZ::ScrollDirection::ScrollHorizontal,
         .paging = true,
-        
+    } StackAttributes:{
+        .spacing = 10
+    
     } NodeSpecs:{
         .flex = {
             .height = 180,
-            .stackLayout = {.spacing = 10},
             .marginTop = 5,
             .marginBottom = 5,
         },
         .view = {
             .clip = YES,
         }
-        
     } Children:childs];
+
     
     return [super newWithNode:scrollNode];
 }

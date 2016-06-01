@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "VZFNode.h"
 #import <vector>
+#import "VZFStackNodeSpecs.h"
 
 
 typedef struct {
@@ -20,9 +21,13 @@ typedef struct {
 
 @interface VZFStackNode : VZFNode
 
+@property(nonatomic,assign,readonly) StackNodeSpecs stackSpecs;
 @property(nonatomic,assign,readonly) std::vector<VZFStackChildNode> children;
 
-+ (instancetype)newWithStackSpecs:(const NodeSpecs& )specs Children:(const std::vector<VZFStackChildNode> &)children;
++ (instancetype)newWithStackAttributes:(const StackNodeSpecs& )stackSpecs
+                             NodeSpecs:(const NodeSpecs& )specs
+                              Children:(const std::vector<VZFStackChildNode> &)children;
+
 
 
 @end

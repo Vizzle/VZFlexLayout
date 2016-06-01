@@ -17,9 +17,6 @@ extern "C"{
 #   include <stdbool.h>
 #endif
 
-static const float FlexUndefined = 999999;
-static const float FlexAuto = 999998;
-
 typedef enum {
     FlexHorizontal,
     FlexVertical,

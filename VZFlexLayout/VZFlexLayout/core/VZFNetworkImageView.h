@@ -13,7 +13,8 @@
 /**
  *  ImageNode默认的backing view
  */
-@interface VZFNetworkImageView : UIImageView<VZFNetworkImageDownloadProtocol,VZFNodeBackingViewInterface>
+@interface VZFNetworkImageView : UIImageView<VZFNetworkImageDownloadProtocol,
+VZFNodeBackingViewInterface>
 
 
 @end

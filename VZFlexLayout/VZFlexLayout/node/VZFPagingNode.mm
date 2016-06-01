@@ -29,7 +29,7 @@
         
         pagingNode -> _pagingNodeSpecs = pagingSpecs;
         pagingNode -> _children = VZ::Function::filter(children, [](VZFNode* child){return child != nil;});
-        
+
         if (pagingSpecs.pageControl) {
             pagingNode -> _pageControlNode = [VZFNode newWithView:[UIPageControl class] NodeSpecs:{
                 .flex = {

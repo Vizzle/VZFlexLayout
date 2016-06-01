@@ -22,7 +22,7 @@ namespace VZ {
     UIFont *createFont(NSString *fontName, CGFloat fontSize, VZFFontStyle fontStyle);
 
     namespace DefaultFlexAttributesValue{
-        extern NSUInteger lines;
+        extern unsigned int lines;
         extern NSLineBreakMode lineBreakMode;
     }
     
@@ -30,7 +30,7 @@ namespace VZ {
         
         NSString *text;
         UIColor *color;
-        CGFloat fontSize;
+        float fontSize;
         NSString *fontName;
         VZFFontStyle fontStyle;
         NSTextAlignment alignment;
@@ -38,7 +38,7 @@ namespace VZ {
 //        NSAttributedString *truncationAttributedString;
 //        NSCharacterSet *avoidTailTruncationSet;
         Value<NSLineBreakMode, DefaultFlexAttributesValue::lineBreakMode> lineBreakMode;
-        Value<NSUInteger, DefaultFlexAttributesValue::lines> lines;
+        Value<unsigned int, DefaultFlexAttributesValue::lines> lines;
 //        CGSize shadowOffset;
 //        UIColor *shadowColor;
 //        CGFloat shadowOpacity;

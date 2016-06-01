@@ -119,17 +119,24 @@
     }
 }
 
-- (void)updateState:(id(^)(id))stateBlock{
+- (void)updateState:(id(^)(id))stateBlock mode:(VZFStateUpdateMode)m{
 
     if (![NSThread isMainThread]) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateState:stateBlock];
+            [self updateState:stateBlock mode:m];
         });
         return;
     }
-    if (_listener) {
-        [_listener nodeScopeHandleWithIdentifier:_scopeIdentifier rootIdentifier:_rootScopeId didReceiveStateUpdate:stateBlock];
+
+    if ([_listener respondsToSelector:@selector(nodeScopeHandleWithIdentifier:rootIdentifier:didReceiveStateUpdate:updateMode:)]) {
+
+        [_listener nodeScopeHandleWithIdentifier:_scopeIdentifier
+                                  rootIdentifier:_rootScopeId
+                           didReceiveStateUpdate:stateBlock
+                                      updateMode:m];
     }
+    
+    
 
 }
 

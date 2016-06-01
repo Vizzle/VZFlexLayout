@@ -7,7 +7,6 @@
 //
 
 #import "VZFNode.h"
-#import "VZFImageNodeSpecs.h"
 #import "VZFNetworkImageDownloadProtocol.h"
 
 namespace VZ {

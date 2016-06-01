@@ -24,59 +24,55 @@
 
     
     VZ::Scope scope(self,dictionary[@"name"]);
-    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
     
-        .flex = {
-            .stackLayout = {.direction = VZFlexVertical}
-        }
+    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
+        .direction = VZFlexVertical
     
-    } Children:{
-    
+    } NodeSpecs:{} Children:{
         {
             [VZFImageNode newWithImageAttributes:{
                 .imageUrl = dictionary[@"image"]
-            
+                
             } NodeSpecs:{
                 .flex= {
                     .width  =150,
                     .height = 150
                 }
-            
+                
             } BackingImageViewClass:[FBNetworkImageView class]]
         },
         {
-            [VZFButtonNode newWithNodeSpecs:{
+            [VZFButtonNode newWithButtonAttributes:{
+                
+                .fontSize = 14,
+                .title = dictionary[@"name"],
+                .titleColor = [UIColor redColor],
+                .action = sel
+                
+            }NodeSpecs:{
                 .flex = {
                     .width = 100,
                     .marginTop = 20,
                     .marginBottom = 20,
                     .alignSelf = VZFlexCenter,
                 }
-            } ButtonAttributes:{
-            
-                .fontSize = 14,
-                .title = dictionary[@"name"],
-                .titleColor = [UIColor redColor],
-                .action = sel
-            
-            }],
-//            [VZFTextNode newWithNodeSpecs:{
-//                .flex= {
-//                    .flexGrow = 1,
-//                    .alignSelf = VZFlexStretch
-//                }
-//            
-//            } TextAttributes:{
-//            
-//                .text = dictionary[@"name"],
-//                .fontSize = 14,
-//                .color = [UIColor redColor],
-//                .alignment = NSTextAlignmentCenter,
-//            }]
+            } ],
+            //            [VZFTextNode newWithNodeSpecs:{
+            //                .flex= {
+            //                    .flexGrow = 1,
+            //                    .alignSelf = VZFlexStretch
+            //                }
+            //
+            //            } TextAttributes:{
+            //
+            //                .text = dictionary[@"name"],
+            //                .fontSize = 14,
+            //                .color = [UIColor redColor],
+            //                .alignment = NSTextAlignmentCenter,
+            //            }]
         }
 
     }];
-
     
     return [super newWithNode:stackNode];
 }

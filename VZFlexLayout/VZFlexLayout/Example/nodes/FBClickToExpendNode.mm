@@ -32,47 +32,42 @@
     
     NSLog(@"%s => {state:%@, thread:%@}",__PRETTY_FUNCTION__,state,[NSThread currentThread]);
     
-    VZFTextNode* nameNode = [VZFTextNode newWithNodeSpecs:{} TextAttributes:{
-    
+    VZFTextNode* nameNode = [VZFTextNode newWithTextAttributes:{
+        
         .text = item.nick,
         .fontSize  = 14.0f,
         
-    }];
+    }NodeSpecs:{} ];
     
     
-    VZFTextNode* textNode = [VZFTextNode newWithNodeSpecs:{
-        
-        .flex=  {.marginTop = 20}
-    
-    } TextAttributes:{
+    VZFTextNode* textNode = [VZFTextNode newWithTextAttributes:{
         
         .text = item.content,
         ._font = [UIFont systemFontOfSize:14.0f],
         .lines = [state[@"expend"] boolValue] ? 0UL : 4UL
         
-    }];
+    }NodeSpecs:{
+        
+        .flex=  {.marginTop = 20}
     
-    VZFButtonNode* buttonNode = [VZFButtonNode newWithNodeSpecs:{
-        
-        .flex = {.alignSelf = VZFlexStart,.marginTop = 5}
-        
-    } ButtonAttributes:{
+    } ];
+    
+    VZFButtonNode* buttonNode = [VZFButtonNode newWithButtonAttributes:{
         
         .title = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         ._font = [UIFont systemFontOfSize:14.0f],
-        //        .action = ^(id sender){
-        
-        //        }
         .action = @selector(onExpendClicked:),
+    }NodeSpecs:{
+        
+        .flex = {.alignSelf = VZFlexStart,.marginTop = 5}
+        
     }];
 
+    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
+        .direction = VZFlexVertical
+    } NodeSpecs:{} Children:{
     
-    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
-        
-        .flex = {.stackLayout = { .direction = VZFlexVertical}}
-    
-    } Children:{
         {item.nick?nameNode:nil},
         {item.content?textNode:nil},
         {item.content?buttonNode:nil}
@@ -83,12 +78,15 @@
 
 - (void)onExpendClicked:(id)sender {
     
-    [self updateState:^id(NSDictionary* oldState) {
+    [self updateState:^id(id oldState) {
         
         NSMutableDictionary* mutableOldState = [oldState mutableCopy];
         mutableOldState[@"expend"] = @(![oldState[@"expend"] boolValue]);
         return [mutableOldState copy];
-    }];
+        
+    } Mode:VZFStateUpdateModeSynchronous];
+    
+
 }
 
 @end

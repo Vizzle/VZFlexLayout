@@ -18,29 +18,20 @@
 
 + (instancetype)newWithItem:(FBHostItem* )item{
 
-
-    VZFStackNode* stackNode = [VZFStackNode newWithStackSpecs:{
-        .flex = {
-            .stackLayout = VZFlexVertical,
-            .margin = 10
-        }
-
+    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
+        .direction = VZFlexVertical,
+    } NodeSpecs:{
+        .flex = {.padding = 10},
     } Children:{
-        
-        {[VZFTextNode newWithNodeSpecs:{} TextAttributes:{
-            
+        {[VZFTextNode newWithTextAttributes:{
             .text = item.content,
             .fontSize = 14,
             .lines = 0
-            
-        }]},
-        
+        } NodeSpecs:{}]},
         {item.location?[FBLocationNode newWithLocation:item.location]:nil}
-    
     }];
     
     return [super newWithNode:stackNode];
-
 }
 
 

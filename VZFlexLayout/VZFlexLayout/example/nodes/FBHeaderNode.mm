@@ -20,33 +20,25 @@
 
 + (instancetype)newWithItem:(FBHostItem* )item{
     
-    return [super newWithNode:[VZFStackNode newWithStackSpecs:{
-        .flex = {
-            .margin = 10,
-        }
     
-    }Children:{
-    
+    return [super newWithNode:[VZFStackNode newWithStackAttributes:{} NodeSpecs:{
+        .flex = {.margin = 10}
+    } Children:{
         {[FBIconNode newWithURL:item.headIconURL]},//头像
-        {[VZFStackNode newWithStackSpecs:{
-            
+        {[VZFStackNode newWithStackAttributes:{
+            .direction = VZFlexVertical,
+            .justifyContent = VZFlexSpaceBetween
+        } NodeSpecs:{
             .flex = {
                 .marginLeft = 10,
                 .flexGrow = 1,
-                .stackLayout = {
-//                    .spacing = 10,
-                    .direction = VZFlexVertical,
-                    .justifyContent = VZFlexSpaceBetween
-                }
             }
-        
         } Children:{
-        
             {[FBNameNode newWithName:item.nick createTime:item.time]},//姓名+时间
             {[FBStarNode newWithScore:[item.score floatValue]]}, //星星
-        }]},
+        }]}
     }]];
-
+    
 }
 
 @end

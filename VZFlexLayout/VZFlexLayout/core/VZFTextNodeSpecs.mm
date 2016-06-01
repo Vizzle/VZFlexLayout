@@ -12,12 +12,28 @@
 namespace VZ {
     
     namespace DefaultFlexAttributesValue{
-        NSUInteger lines = 1;
+        unsigned int lines = 1;
         NSLineBreakMode lineBreakMode = NSLineBreakByTruncatingTail;
     }
     
     UIFont *createFont(NSString *fontName, CGFloat fontSize, VZFFontStyle fontStyle) {
         if (fontSize == 0) fontSize = [UIFont systemFontSize];
+        
+        // 加快字体创建
+        if (fontName.length == 0 && fontStyle != VZFFontStyleBoldItalic) {
+            switch (fontStyle) {
+                case VZFFontStyleBold:
+                    return [UIFont boldSystemFontOfSize:fontSize];
+                case VZFFontStyleItalic:
+                    return [UIFont italicSystemFontOfSize:fontSize];
+                default:
+                    return [UIFont systemFontOfSize:fontSize];
+            }
+        }
+        else if (fontStyle == VZFFontStyleNormal) {
+            return [UIFont fontWithName:fontName size:fontSize];
+        }
+        
         UIFontDescriptorSymbolicTraits traits = UIFontDescriptorSymbolicTraits();
         switch (fontStyle) {
             case VZFFontStyleNormal:

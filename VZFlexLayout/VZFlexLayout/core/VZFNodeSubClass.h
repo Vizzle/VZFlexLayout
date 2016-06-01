@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNode.h"
+#import "VZFStateUpdateMode.h"
 
 /**
  *  前项声明
@@ -35,14 +36,6 @@ namespace VZ {
  *  @return state
  */
 + (id)initialState;
-
-/**
- *  更新状态，(old) -> (new)
- *
- *  @param updateBlock
- */
-- (void)updateState:(id(^)(id))updateBlock;
-
 /**
  *  计算Node的layout
  *
@@ -51,6 +44,13 @@ namespace VZ {
  *  @return void
  */
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz;
+
+/**
+ *  更新状态，(old) -> (new)
+ *
+ *  @param updateBlock
+ */
+- (void)updateState:(id(^)(id))updateBlock Mode:(VZFStateUpdateMode)mode;
 
 /**
  *  是否需要缓存计算过的layout
