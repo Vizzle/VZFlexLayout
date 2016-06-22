@@ -11,7 +11,7 @@
 #import "VZFLength.h"
 #import "VZFlexNode+VZFNode.h"      // 暂时 import 进来，后面直接代码放进来
 #import "VZFNode.h"
-
+#import <libkern/OSAtomic.h>
 
 NSString *vz_boolToNSString(BOOL value) {
     return value ? @"true" : @"false";
@@ -112,6 +112,7 @@ VZFlexNode *vz_defaultVZFlexNode() {
 {
     FlexNode* _flex_node;
     NSMutableArray* _childNodes;
+    OSSpinLock _lock;
 
 }
 
@@ -382,11 +383,19 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     if (self) {
         
         _flex_node = (FlexNode* )calloc(1, sizeof(*_flex_node));
-        initFlexNode(_flex_node);
-        _flex_node->context = (__bridge void* )self;
-        _flex_node->measure = flexNodeMeasure;
-        _flex_node->childAt = flexNodeChildAt;
-        _childNodes = [NSMutableArray new];
+       
+        if (_flex_node != NULL) {
+            
+            initFlexNode(_flex_node);
+            _flex_node->context = (__bridge void* )self;
+            _flex_node->measure = flexNodeMeasure;
+            _flex_node->childAt = flexNodeChildAt;
+            _childNodes = [NSMutableArray new];
+            
+            //使用一个spinlock来保护 _childNodes的多线程读写情况
+            _lock = OS_SPINLOCK_INIT;
+        }
+
         
     }
     return self;
@@ -453,13 +462,19 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 
 - (void)addSubNode:(VZFlexNode* )node{
     
+    OSSpinLockLock(&_lock);
     [_childNodes addObject:node];
+    OSSpinLockUnlock(&_lock);
+    
     _flex_node -> childrenCount = (int)self.childNodes.count;
 }
 
 - (void)removeSubNode:(VZFlexNode* )node{
     
+    OSSpinLockLock(&_lock);
     [_childNodes removeObject:node];
+    OSSpinLockUnlock(&_lock);
+    
     _flex_node -> childrenCount = (int)self.childNodes.count;
 
 }

@@ -55,7 +55,10 @@
     NSString* controllerClassString = map[nodeKey];
     if (!controllerClassString) {
         controllerClassString = [NSStringFromClass(nodeClass) stringByAppendingString:@"Controller"];
-        map[nodeKey] = controllerClassString;
+        if (nodeKey.length > 0) {
+             map[nodeKey] = controllerClassString;
+        }
+       
     }
     return NSClassFromString(controllerClassString);
 }

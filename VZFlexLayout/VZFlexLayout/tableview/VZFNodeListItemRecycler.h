@@ -21,7 +21,6 @@ struct VZFNodeListRecycleState{
     id<NSObject> context;
     CGSize constrainedSize;
     NodeLayout layout;
-    id memoizerState;
     VZFRootScope* rootScope;
 };
 
@@ -62,6 +61,6 @@ struct VZFNodeListRecycleState{
 
 @interface UIView(ListRecycleController)
 
-@property(nonatomic,assign)VZFNodeListItemRecycler*  vz_recycler;
+@property(nonatomic,weak)VZFNodeListItemRecycler*  vz_recycler;
 
 @end

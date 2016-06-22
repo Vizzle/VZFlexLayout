@@ -24,6 +24,7 @@
 #import "VZFNodeViewClass.h"
 #import "UIView+VZAttributes.h"
 #import "VZFNodeBackingViewInterface.h"
+#import "VZFNodeMemoizer.h"
 
 struct VZFNodeMountedInfo{
     

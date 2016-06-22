@@ -18,6 +18,7 @@
 #import "FBClickToExpendNode.h"
 #import "VZFNodeSpecs.h"
 #import "FBScrollNode.h"
+#import "FBIconNode.h"
 
 @interface FBViewController ()<VZFNodeHostingView,VZFNodeProvider>
 {
@@ -105,7 +106,10 @@
     if (!item) {
         return nil;
     }
-    return [FBHostNode newWithItem:item];
+    
+    return [FBIconNode newWithURL:@"http://www.collegedj.net/wp-content/uploads/2016/04/collegedj-sound-check-mixtape-volume-13-130x50.jpg"];
+    
+//    return [FBHostNode newWithItem:item];
 //    NSNumber* tag = (NSNumber* )context;
 //    if ([tag integerValue] == 0) {
 //        //return [FBScrollNode newWithItem:item];

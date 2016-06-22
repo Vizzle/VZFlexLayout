@@ -9,12 +9,17 @@
 #import "VZFActionWrapper.h"
 #import "VZFNodeViewManager.h"
 #import "VZFNodeSubClass.h"
-
+#import <libkern/OSAtomic.h>
 
 @implementation VZFBlockWrapper
 - (instancetype)initWithBlock:(UIControlActionBlock)block {
     if (self = [super init]) {
         self.block = block;
+        
+        //moxin.xt:
+        //add a memory fence
+        //force the block to be copied
+        OSMemoryBarrier();
     }
     return self;
 }
@@ -24,6 +29,9 @@
 }
 
 - (void) invoke:(UIControl *)sender event:(UIEvent *)event {
+    
+    //moxin.xt: wired crash at this line :
+    //libobjc.A.dylib 0x0000000182d8c0b0 objc_retain + 16
     self.block(sender.node);
 }
 

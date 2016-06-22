@@ -44,6 +44,7 @@ namespace VZ {
         extern int userInteractionEnabled;
         extern UIColor* backgroundColor;
         extern UIColor* highlightBackgroundColor;
+        extern CGFloat cornerRadiusUndefined;
     }
     
     
@@ -84,6 +85,11 @@ namespace VZ {
     struct LayerAttrs{
         
         CGFloat cornerRadius;
+        Value<CGFloat, DefaultUIAttributesValue::cornerRadiusUndefined> cornerRadiusTopLeft;
+        Value<CGFloat, DefaultUIAttributesValue::cornerRadiusUndefined> cornerRadiusTopRight;
+        Value<CGFloat, DefaultUIAttributesValue::cornerRadiusUndefined> cornerRadiusBottomLeft;
+        Value<CGFloat, DefaultUIAttributesValue::cornerRadiusUndefined> cornerRadiusBottomRight;
+        
         CGFloat borderWidth;
         UIColor* borderColor;
         UIImage* contents;

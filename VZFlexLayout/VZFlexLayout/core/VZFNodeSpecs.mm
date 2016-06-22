@@ -46,7 +46,7 @@ namespace VZ {
         UIColor* backgroundColor = [UIColor clearColor];
         UIColor* highlightBackgroundColor = nil;
         int userInteractionEnabled = INT_MIN;
-    
+        CGFloat cornerRadiusUndefined = VZ::FlexValue::Undefined;
     }
     
 }

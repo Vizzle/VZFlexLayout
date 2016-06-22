@@ -39,6 +39,7 @@ namespace VZ {
 //        NSCharacterSet *avoidTailTruncationSet;
         Value<NSLineBreakMode, DefaultFlexAttributesValue::lineBreakMode> lineBreakMode;
         Value<unsigned int, DefaultFlexAttributesValue::lines> lines;
+        float kern;
 //        CGSize shadowOffset;
 //        UIColor *shadowColor;
 //        CGFloat shadowOpacity;
@@ -61,6 +62,7 @@ namespace VZ {
 //                [avoidTailTruncationSet copy],
                 lineBreakMode,
                 lines,
+                kern,
 //                shadowOffset,
 //                [shadowColor copy],
 //                shadowOpacity,
@@ -81,6 +83,7 @@ namespace VZ {
             && fontStyle == other.fontStyle
             && alignment == other.alignment
             && lines == other.lines
+            && kern == other.kern
 //            && shadowOpacity == other.shadowOpacity
 //            && shadowRadius == other.shadowRadius
 //            && layoutManagerFactory == other.layoutManagerFactory
@@ -108,7 +111,10 @@ namespace VZ {
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
             dict[NSParagraphStyleAttributeName] = style;
             dict[NSForegroundColorAttributeName] = color;
-            
+            if (kern != 0) {
+                dict[NSKernAttributeName] = @(kern);
+                dict[NSLigatureAttributeName] = @0;
+            }
             dict[NSFontAttributeName] = getFont();
             return dict;
         }

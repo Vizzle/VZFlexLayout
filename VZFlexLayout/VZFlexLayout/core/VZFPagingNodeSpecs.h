@@ -12,6 +12,11 @@
 
 namespace VZ {
     
+    typedef enum {
+        PagingHorizontal,
+        PagingVertical
+    } PagingDirection;
+    
     namespace PagingNodeSpecsDefault{
         extern bool scrollEnabled;
         extern bool paging;
@@ -20,6 +25,7 @@ namespace VZ {
     }
     
     struct PagingNodeSpecs{
+        PagingDirection direction;
         Value<bool, PagingNodeSpecsDefault::scrollEnabled> scrollEnabled;
         Value<bool, PagingNodeSpecsDefault::scrollEnabled> paging;
         float autoScroll;   // 自动滚动的时间间隔，为 0 表示不自动滚动
@@ -35,11 +41,12 @@ namespace VZ {
         UIColor* pageControlSelectedColor;
         
         const PagingNodeSpecs copy() const{
-            return {scrollEnabled,paging,autoScroll,infiniteLoop,pageControl,pageControlMarginLeft,pageControlMarginRight,pageControlMarginTop,pageControlMarginBottom,pageControlScale,pageControlColor,pageControlSelectedColor };
+            return {direction, scrollEnabled,paging,autoScroll,infiniteLoop,pageControl,pageControlMarginLeft,pageControlMarginRight,pageControlMarginTop,pageControlMarginBottom,pageControlScale,pageControlColor,pageControlSelectedColor };
         }
         
         bool operator == (const PagingNodeSpecs &other) const {
-            return (scrollEnabled == other.scrollEnabled
+            return (direction == other.direction
+                    && scrollEnabled == other.scrollEnabled
                     && paging == other.paging
                     && autoScroll == other.autoScroll
                     && infiniteLoop == other.infiniteLoop

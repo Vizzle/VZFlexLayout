@@ -18,7 +18,7 @@
 #import "VZFNodeLayoutManager.h"
 #include <objc/runtime.h>
 #import "VZFUtils.h"
-
+#import "VZFMacros.h"
 
 @interface VZFWeakObjectWrapper : NSObject
 @property(nonatomic,weak) id object;
@@ -86,6 +86,8 @@ const void* g_recycleId = &g_recycleId;
 
 - (void)dealloc{
 
+    VZFAssert([NSThread isMainThread], @"object must be dealloced on Main Thread");
+    
     if (_mountedNodes) {
         
         for(VZFNode* node in _mountedNodes){
@@ -94,21 +96,21 @@ const void* g_recycleId = &g_recycleId;
         
         [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
     }
+    if (_mountedView) {
+        _mountedView.vz_recycler = nil;
+    }
 }
 
 - (VZFNodeListRecycleState)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context{
 
     VZFRootScope* rootScope = _previousRoot?:[VZFRootScope rootScopeWithListener:self];
-
-    VZFNodeMemoizer memoizer(_state.memoizerState);
-    
     VZFBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
         return [_nodeProvider nodeForItem:item context:context];
     } RootScope:rootScope StateUpdateFuncs:_stateFuncMap];
     
     const VZ::NodeLayout layout = [result.node computeLayoutThatFits:constrainedSize];
     
-    _previousRoot = result.scopeRoot;
+    _previousRoot = result.scopeRoot; //potential crash here, can't figure out why, might be the threading problem
     _stateFuncMap = @{};
     
     return {
@@ -116,7 +118,6 @@ const void* g_recycleId = &g_recycleId;
         .context = context,
         .constrainedSize = constrainedSize,
         .layout = layout,
-        .memoizerState = memoizer.nextMemoizerState(),
         .rootScope = result.scopeRoot
     };
 }

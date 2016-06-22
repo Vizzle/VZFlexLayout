@@ -101,9 +101,14 @@ float flex_absoluteValue(FlexLength length, FlexLayoutContext *context) {
 }
 
 float flex_resolve(FlexLength length, FlexLayoutContext *context, float relativeTo) {
-    float value = flex_isAbsolute(length) ? flex_absoluteValue(length, context) : length.type == FlexLengthTypePercent && relativeTo != FlexAuto ? length.value / 100 * relativeTo : FlexAuto;
+    if (flex_isAbsolute(length)) {
+        return flex_absoluteValue(length, context);
+    }
+    else if (length.type == FlexLengthTypePercent && relativeTo != FlexAuto) {
+        return length.value / 100 * relativeTo;
+    }
     
-    return value;
+    return FlexAuto;
 }
 
 float clamp(float value, float minValue, float maxValue) {
@@ -539,7 +544,7 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
         item->size[mainAxis] = flexLength(item->result.size[mainAxis], FlexLengthTypeDefault);
         FlexSize childConstraintedSize;
         childConstraintedSize.size[mainAxis] = item->result.size[mainAxis] - flex_inset(item->resolvedMargin, mainAxis);
-        childConstraintedSize.size[crossAxis] = availableSize.size[crossAxis] - flex_inset(item->resolvedMargin, crossAxis);
+        childConstraintedSize.size[crossAxis] = availableSize.size[crossAxis] == FlexAuto ? FlexAuto : availableSize.size[crossAxis] - flex_inset(item->resolvedMargin, crossAxis);
         _layoutFlexNode(item, context, childConstraintedSize, flags, false);
         item->size[mainAxis] = oldMainSize;
     }

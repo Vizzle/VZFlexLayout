@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/core/VZFNodeHostingView.mm"
-            timestampString = "486018092.860054"
+            filePath = "VZFlexLayout/Example/views/FBNetworkImageView.mm"
+            timestampString = "487075880.09803"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "-nodeScopeHandleWithIdentifier:rootIdentifier:didReceiveStateUpdate:"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "-resizeImage:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/core/VZFNodeHostingView.mm"
-            timestampString = "486019414.382032"
+            filePath = "VZFlexLayout/node/VZFImageNode.mm"
+            timestampString = "487074106.563886"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "153"
-            endingLineNumber = "153"
-            landmarkName = "-_updateSynchronously"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "+newWithImageAttributes:NodeSpecs:BackingImageViewClass:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/core/VZFNodeHostingView.mm"
-            timestampString = "486019427.740513"
+            filePath = "VZFlexLayout/node/VZFNode.mm"
+            timestampString = "487074756.943436"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
-            landmarkName = "-_update:"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "-updateState:Mode:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/core/VZFScopeFrame.mm"
-            timestampString = "486019873.478399"
+            filePath = "VZFlexLayout/core/VZFScopeHandler.mm"
+            timestampString = "487074765.470316"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "+scopeFramePair:NewRoot:NodeClass:Identifier:InitialStateCreator:StateUpdates:"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
+            landmarkName = "-updateState:mode:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VZFlexLayout/core/VZFScopeHandler.mm"
+            timestampString = "487074849.398716"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "-updateState:mode:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VZFlexLayout/core/VZFScopeHandler.mm"
+            timestampString = "487074854.854599"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
+            landmarkName = "-updateState:mode:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

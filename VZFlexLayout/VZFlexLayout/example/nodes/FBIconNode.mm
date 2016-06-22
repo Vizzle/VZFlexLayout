@@ -11,6 +11,9 @@
 #import "VZFImageNodeSpecs.h"
 #import "VZFNodeSpecs.h"
 #import "FBNetworkImageView.h"
+#import "VZFStackNode.h"
+
+#import "VZFTextNode.h"
 
 @implementation FBIconNode
 
@@ -19,7 +22,8 @@
     VZFImageNode* iconNode = [VZFImageNode newWithImageAttributes:{
     
         .contentMode = UIViewContentModeScaleAspectFill,
-        .imageUrl = url
+        .imageUrl = url,
+
     
     
     } NodeSpecs:{
@@ -35,8 +39,7 @@
         }
     
     } BackingImageViewClass:[FBNetworkImageView class]];
-    
-    
+
 
     return [super newWithNode:iconNode];
 
