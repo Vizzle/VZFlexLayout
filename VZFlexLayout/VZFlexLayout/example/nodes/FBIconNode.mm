@@ -24,8 +24,6 @@
         .contentMode = UIViewContentModeScaleAspectFill,
         .imageUrl = url,
 
-    
-    
     } NodeSpecs:{
         
         .view = {

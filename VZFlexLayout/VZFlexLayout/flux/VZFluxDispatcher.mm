@@ -8,15 +8,29 @@
 
 #import "VZFluxDispatcher.h"
 
-@implementation VZFluxDispatcher
 
-+ (instancetype)sharedInstance{
-    static dispatch_once_t onceToken = 0;
-    static VZFluxDispatcher* instance = nil;
-    dispatch_once(&onceToken, ^{
-        instance = [VZFluxDispatcher new];
-    });
-    return instance;
+const NSString* gFluxPrefix = @"ID_";
+
+@implementation VZFluxDispatcher
+{
+    //{key:dispatchToken, value:callback}
+    NSMutableDictionary<NSNumber*, DispatchPayload>*  _callbacks;
+    
+    //dispatching
+    BOOL _isDispatching;
+    
+}
+
+
+- (id)init{
+
+    self = [super init];
+    if (self) {
+        
+        _callbacks = [NSMutableDictionary new];
+        
+    }
+    return self;
 }
 
 + (void)handleAction:(const VZ::FluxAction &)action{

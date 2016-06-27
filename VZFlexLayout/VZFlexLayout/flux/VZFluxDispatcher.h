@@ -11,6 +11,7 @@
 
 
 using namespace VZ;
+typedef void(^DispatchPayload) (id payload);
 
 /**
  *  The dispatcher is a singleton, and operates as the central hub of data flow in a Flux application. 
@@ -21,10 +22,6 @@ using namespace VZ;
  This payload is typically synonymous with an action.
  */
 @interface VZFluxDispatcher : NSObject
-
-
-+ (instancetype)sharedInstance;
-
 /*
  * Dispatcher is used to broadcast payloads to registered callbacks. This is different from generic pub-sub systems in two ways:
  
