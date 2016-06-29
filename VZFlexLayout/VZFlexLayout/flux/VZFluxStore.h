@@ -30,7 +30,6 @@ typedef void(^VZFluxStoreListener)(NSString* eventType);
 @property(nonatomic,strong)NSString* changeEvent;
 
 - (id)initWithDispatcher:(VZFluxDispatcher* )dispatcher;
-
 - (void)addListener:(VZFluxStoreListener)listener;
 - (void)removeListener;
 - (void)emitChange;
@@ -41,10 +40,7 @@ typedef void(^VZFluxStoreListener)(NSString* eventType);
 
 @interface VZFluxStore(Subclasses)
 
-+ (id)initialState;
-
 - (void)invokeOnDispatch:(const FluxAction&)action;
-
 - (void)onDispatch:(const FluxAction&)action;
 
 @end

@@ -22,7 +22,7 @@
 - (void)nodeScopeHandleWithIdentifier:(id)scopeId
                        rootIdentifier:(id)rootScopeId
                 didReceiveStateUpdate:(id (^)(id))stateUpdate
-                           updateMode:(VZFStateUpdateMode)updateMode;
+                           updateMode:(VZFActionUpdateMode)updateMode;
 
 @end
 

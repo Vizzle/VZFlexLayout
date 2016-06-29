@@ -119,7 +119,7 @@
     }
 }
 
-- (void)updateState:(id(^)(id))stateBlock mode:(VZFStateUpdateMode)m{
+- (void)updateState:(id(^)(id))stateBlock mode:(VZFActionUpdateMode)m{
 
     if (![NSThread isMainThread]) {
         dispatch_async(dispatch_get_main_queue(), ^{

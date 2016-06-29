@@ -95,7 +95,7 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
     OSSpinLockUnlock(&_lock);
 }
 
-- (void)waitFor:(NSArray<NSString *> *)list mode:(VZFStateUpdateMode)m{
+- (void)waitFor:(NSArray<NSString *> *)list mode:(VZFActionUpdateMode)m{
    
     if(self.isDispatching){
         _invariant(!self.isDispatching, @"Dispatcher.waitFor(...): Must be invoked while dispatching.");
@@ -120,7 +120,7 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
     
 }
 
-- (void)dispatch:(const VZ::FluxAction &)action mode:(VZFStateUpdateMode)m{
+- (void)dispatch:(const VZ::FluxAction &)action mode:(VZFActionUpdateMode)m{
 
     if (_isDispatching) {
 
@@ -160,11 +160,11 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
     
 }
 
-- (void)_invokeCallback:(NSString* )token mode:(VZFStateUpdateMode)m{
+- (void)_invokeCallback:(NSString* )token mode:(VZFActionUpdateMode)m{
     
     _pendingMap[token] = true;
     
-    if (m == VZFStateUpdateModeAsynchronous) {
+    if (m == VZFActionUpdateModeAsynchronous) {
        
         dispatch_async(_serialDispatchQueue, ^{
             

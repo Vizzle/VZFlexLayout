@@ -164,7 +164,7 @@ const void* g_recycleId = &g_recycleId;
 - (void)nodeScopeHandleWithIdentifier:(id)scopeId
                        rootIdentifier:(id)rootScopeId
                 didReceiveStateUpdate:(id (^)(id))stateUpdate
-                           updateMode:(VZFStateUpdateMode)updateMode{
+                           updateMode:(VZFActionUpdateMode)updateMode{
 
     
     NSMutableDictionary* mutableFuncs = [_stateFuncMap mutableCopy];

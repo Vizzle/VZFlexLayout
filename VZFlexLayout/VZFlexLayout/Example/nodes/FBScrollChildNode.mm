@@ -55,6 +55,12 @@
                     .marginTop = 20,
                     .marginBottom = 20,
                     .alignSelf = VZFlexCenter,
+                },
+                .view = {
+                    .layer = {
+                        .borderWidth = 2.0f,
+                        .borderColor = [UIColor redColor]
+                    }
                 }
             } ],
             //            [VZFTextNode newWithNodeSpecs:{

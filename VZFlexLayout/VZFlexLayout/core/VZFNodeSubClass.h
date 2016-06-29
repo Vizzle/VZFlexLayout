@@ -51,14 +51,14 @@ namespace VZ {
  *
  *  @param updateBlock
  */
-- (void)updateState:(id(^)(id))updateBlock Mode:(VZFStateUpdateMode)mode;
+- (void)updateState:(id(^)(id))updateBlock Mode:(VZFActionUpdateMode)mode;
 
 /**
  *  dispatch action
  *
  *  @param mode
  */
-- (void)dispatch:(const VZ::FluxAction&)action Mode:(VZFStateUpdateMode)mode;
+- (void)dispatch:(const VZ::FluxAction&)action Mode:(VZFActionUpdateMode)mode;
 
 /**
  *  是否需要缓存计算过的layout

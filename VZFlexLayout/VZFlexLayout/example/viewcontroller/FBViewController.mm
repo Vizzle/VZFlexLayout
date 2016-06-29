@@ -86,7 +86,7 @@
     NSDictionary* json1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONWritingPrettyPrinted error:nil];
     FBHostItem* item1 = [FBHostItem newWithJSON:json1];
     
-   [self.topView update:item1 mode:VZFStateUpdateModeAsynchronous];
+   [self.topView update:item1 mode:VZFActionUpdateModeAsynchronous];
 
 }
 
@@ -97,7 +97,7 @@
     NSDictionary* json2 = [NSJSONSerialization JSONObjectWithData:data2 options:NSJSONWritingPrettyPrinted error:nil];
     FBHostItem* item2 = [FBHostItem newWithJSON:json2];
     
-    [self.bottomView update:item2 mode:VZFStateUpdateModeAsynchronous];
+    [self.bottomView update:item2 mode:VZFActionUpdateModeAsynchronous];
 
 }
 

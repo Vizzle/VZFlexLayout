@@ -11,23 +11,14 @@
 namespace VZ {
     
     enum ActionType{
-        state,
-        stateless
+        view_state,
+        view_action
     };
-    class FluxAction{
-        
-        FluxAction(SEL action, NSString* identifier, ActionType type, id data):
-        _action(action),
-        _identifier(identifier),
-        _type(type),
-        _data(data){}
-        
-    private:
-        __strong id _data;
-        __strong NSString* _identifier;
-        SEL _action;
-        ActionType _type;
-        
+    
+    struct FluxAction{
+        ActionType source;
+        int32_t actionType;
+        __strong id payload;
     };
     
     void sendAction(const FluxAction& action, id sender, id context);

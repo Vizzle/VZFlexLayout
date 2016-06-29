@@ -30,7 +30,7 @@
         _emitter = [[VZFluxEventEmitter alloc]init];
         
         __weak typeof(self) weakSelf = self;
-        _dispatchToken = [dispatcher registerWithCallback:^(VZ::FluxAction payload) {
+        _dispatchToken = [dispatcher registerWithCallback:^(const VZ::FluxAction& payload) {
             __strong typeof(weakSelf) strongSelf = weakSelf;
             if (strongSelf) {
                 [strongSelf invokeOnDispatch:payload];

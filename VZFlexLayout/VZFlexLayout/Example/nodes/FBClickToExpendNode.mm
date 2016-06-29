@@ -84,7 +84,7 @@
         mutableOldState[@"expend"] = @(![oldState[@"expend"] boolValue]);
         return [mutableOldState copy];
         
-    } Mode:VZFStateUpdateModeSynchronous];
+    } Mode:VZFActionUpdateModeSynchronous];
     
 
 }

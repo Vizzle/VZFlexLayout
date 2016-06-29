@@ -99,7 +99,7 @@ using namespace VZ::UIKit;
 }
 
 
-- (void)updateState:(id(^)(id))updateBlock Mode:(VZFStateUpdateMode)mode
+- (void)updateState:(id(^)(id))updateBlock Mode:(VZFActionUpdateMode)mode
 {
     [_scopeHandler updateState:updateBlock mode:mode];
 }

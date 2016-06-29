@@ -7,11 +7,12 @@
 //
 
 #import "VZFluxAction.h"
+#import "VZFluxAppDispatcher.h"
 
 namespace VZ {
     
-    void sendAction(const FluxAction& action, id sender, id context){
-        
-        //todo..
+    void sendAction(const FluxAction& action, id sender, id context)
+    {
+        [[VZFluxAppDispatcher sharedInstance] handleAction:action];
     }
 }

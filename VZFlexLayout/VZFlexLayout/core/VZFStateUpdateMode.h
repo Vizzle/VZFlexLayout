@@ -9,10 +9,10 @@
 #ifndef VZFStateUpdateMode_h
 #define VZFStateUpdateMode_h
 
-typedef NS_ENUM(NSUInteger,VZFStateUpdateMode){
+typedef NS_ENUM(NSUInteger,VZFActionUpdateMode){
     
-    VZFStateUpdateModeAsynchronous,
-    VZFStateUpdateModeSynchronous
+    VZFActionUpdateModeAsynchronous,
+    VZFActionUpdateModeSynchronous
 };
 
 #endif /* VZFStateUpdateMode_h */

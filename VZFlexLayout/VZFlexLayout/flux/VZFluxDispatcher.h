@@ -15,7 +15,7 @@
  *  Implementation based on Dispatcher.js
  */
 using namespace VZ;
-typedef void(^DispatchPayload) (FluxAction payload);
+typedef void(^DispatchPayload) (const FluxAction& payload);
 
 /**
  Dispatcher is used to broadcast payloads to registered callbacks. This is different from generic pub-sub systems in two ways:
@@ -48,14 +48,14 @@ typedef void(^DispatchPayload) (FluxAction payload);
  *  @param list wait for callback list
  *  @param m    update mode
  */
-- (void)waitFor:(NSArray<NSString* > *)list mode:(VZFStateUpdateMode)m;
+- (void)waitFor:(NSArray<NSString* > *)list mode:(VZFActionUpdateMode)m;
 /**
  *  Dispatches a payload to all registered callbacks.
  *
  *  @param action
  *  @param m      
  */
-- (void)dispatch:(const FluxAction& )action mode:(VZFStateUpdateMode)m;
+- (void)dispatch:(const FluxAction& )action mode:(VZFActionUpdateMode)m;
 
 
 @end

@@ -57,7 +57,7 @@
         return [NSValue valueWithCGSize:sz];
         
         
-    } Mode:VZFStateUpdateModeSynchronous];
+    } Mode:VZFActionUpdateModeSynchronous];
 //
     
 //    self.node

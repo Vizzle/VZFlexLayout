@@ -13,7 +13,6 @@
 		452C98B01D1A3FCC005C38F7 /* VZFluxDispatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 452C98AC1D1A3FCC005C38F7 /* VZFluxDispatcher.mm */; };
 		452C98B11D1A3FCC005C38F7 /* VZFluxStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 452C98AE1D1A3FCC005C38F7 /* VZFluxStore.mm */; };
 		4539ABD01CD1B1E40011E91C /* FBTextNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4539ABCF1CD1B1E40011E91C /* FBTextNode.mm */; };
-		4539ABD21CD1BA140011E91C /* result_text.json in Resources */ = {isa = PBXBuildFile; fileRef = 4539ABD11CD1BA140011E91C /* result_text.json */; };
 		453CB8D41D22B52B00CB4C45 /* VZFluxEventEmitter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 453CB8D31D22B52B00CB4C45 /* VZFluxEventEmitter.mm */; };
 		453CB8D71D22B6C000CB4C45 /* VZFluxEventSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 453CB8D61D22B6C000CB4C45 /* VZFluxEventSubscriber.m */; };
 		453CB8DA1D22B6D100CB4C45 /* VZFluxEventSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 453CB8D91D22B6D100CB4C45 /* VZFluxEventSubscription.m */; };
@@ -28,6 +27,9 @@
 		4565BF921CE1FFCA0010FA5F /* FBHostCellItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4565BF911CE1FFCA0010FA5F /* FBHostCellItem.mm */; };
 		456BDF801CEB0215008A5348 /* FBScrollChildNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456BDF7F1CEB0215008A5348 /* FBScrollChildNode.mm */; };
 		457399441D23B129001B804A /* VZFluxReduceStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 457399431D23B129001B804A /* VZFluxReduceStore.mm */; };
+		457399471D23B8AC001B804A /* VZFluxStoreGroup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 457399461D23B8AC001B804A /* VZFluxStoreGroup.mm */; };
+		4573994A1D23C998001B804A /* VZFluxAppDispatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 457399491D23C998001B804A /* VZFluxAppDispatcher.mm */; };
+		4573994F1D23ED53001B804A /* FBListStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4573994E1D23ED53001B804A /* FBListStore.mm */; };
 		4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */; };
 		4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0AA1C72F1CC00E52B79 /* VZFNodeHostingView.mm */; };
 		4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0AD1C72F1CC00E52B79 /* VZFNodeLayout.mm */; };
@@ -124,7 +126,6 @@
 		452C98AE1D1A3FCC005C38F7 /* VZFluxStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFluxStore.mm; sourceTree = "<group>"; };
 		4539ABCE1CD1B1E40011E91C /* FBTextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTextNode.h; sourceTree = "<group>"; };
 		4539ABCF1CD1B1E40011E91C /* FBTextNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBTextNode.mm; sourceTree = "<group>"; };
-		4539ABD11CD1BA140011E91C /* result_text.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result_text.json; sourceTree = "<group>"; };
 		453CB8D21D22B52B00CB4C45 /* VZFluxEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFluxEventEmitter.h; sourceTree = "<group>"; };
 		453CB8D31D22B52B00CB4C45 /* VZFluxEventEmitter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFluxEventEmitter.mm; sourceTree = "<group>"; };
 		453CB8D51D22B6C000CB4C45 /* VZFluxEventSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFluxEventSubscriber.h; sourceTree = "<group>"; };
@@ -158,6 +159,13 @@
 		457399411D23AEC8001B804A /* VZFluxStoreAbstractMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFluxStoreAbstractMethods.h; sourceTree = "<group>"; };
 		457399421D23B129001B804A /* VZFluxReduceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFluxReduceStore.h; sourceTree = "<group>"; };
 		457399431D23B129001B804A /* VZFluxReduceStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFluxReduceStore.mm; sourceTree = "<group>"; };
+		457399451D23B8AC001B804A /* VZFluxStoreGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFluxStoreGroup.h; sourceTree = "<group>"; };
+		457399461D23B8AC001B804A /* VZFluxStoreGroup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFluxStoreGroup.mm; sourceTree = "<group>"; };
+		457399481D23C998001B804A /* VZFluxAppDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFluxAppDispatcher.h; sourceTree = "<group>"; };
+		457399491D23C998001B804A /* VZFluxAppDispatcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFluxAppDispatcher.mm; sourceTree = "<group>"; };
+		4573994C1D23EC87001B804A /* VZFlux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFlux.h; sourceTree = "<group>"; };
+		4573994D1D23ED53001B804A /* FBListStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBListStore.h; sourceTree = "<group>"; };
+		4573994E1D23ED53001B804A /* FBListStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBListStore.mm; sourceTree = "<group>"; };
 		4578E0A11C72F1CC00E52B79 /* VZFlexNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFlexNode.h; sourceTree = "<group>"; };
 		4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFlexNode.mm; sourceTree = "<group>"; };
 		4578E0A31C72F1CC00E52B79 /* VZFMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMacros.h; sourceTree = "<group>"; };
@@ -343,6 +351,11 @@
 				457399421D23B129001B804A /* VZFluxReduceStore.h */,
 				457399431D23B129001B804A /* VZFluxReduceStore.mm */,
 				457399411D23AEC8001B804A /* VZFluxStoreAbstractMethods.h */,
+				457399451D23B8AC001B804A /* VZFluxStoreGroup.h */,
+				457399461D23B8AC001B804A /* VZFluxStoreGroup.mm */,
+				457399481D23C998001B804A /* VZFluxAppDispatcher.h */,
+				457399491D23C998001B804A /* VZFluxAppDispatcher.mm */,
+				4573994C1D23EC87001B804A /* VZFlux.h */,
 			);
 			path = flux;
 			sourceTree = "<group>";
@@ -522,7 +535,6 @@
 		45A7D6B61CB4DB7900B072D5 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				4539ABD11CD1BA140011E91C /* result_text.json */,
 				4544778C1CC5CF3A000B54E7 /* results.json */,
 				45A7D6FF1CB4E47A00B072D5 /* result1.json */,
 				45A7D7001CB4E47A00B072D5 /* result2.json */,
@@ -530,6 +542,8 @@
 				45A7D6B81CB4DB7900B072D5 /* FBHostItem.m */,
 				45A7D6B91CB4DB7900B072D5 /* FBImageDownloader.h */,
 				45A7D6BA1CB4DB7900B072D5 /* FBImageDownloader.mm */,
+				4573994D1D23ED53001B804A /* FBListStore.h */,
+				4573994E1D23ED53001B804A /* FBListStore.mm */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -754,7 +768,6 @@
 				45A7D6F91CB4DB7900B072D5 /* comment_rewarded@2x.png in Resources */,
 				45A7D6F81CB4DB7900B072D5 /* comment_reward@2x.png in Resources */,
 				45A7D7021CB4E47A00B072D5 /* result2.json in Resources */,
-				4539ABD21CD1BA140011E91C /* result_text.json in Resources */,
 				45A7D7011CB4E47A00B072D5 /* result1.json in Resources */,
 				45A7D6F51CB4DB7900B072D5 /* comment_like@2x.png in Resources */,
 				45A7D6F61CB4DB7900B072D5 /* comment_liked@2x.png in Resources */,
@@ -824,6 +837,8 @@
 				45B15A871CBE0F8E00F408DA /* VZFLength.mm in Sources */,
 				45A7D6E31CB4DB7900B072D5 /* FBActionNodesController.mm in Sources */,
 				457399441D23B129001B804A /* VZFluxReduceStore.mm in Sources */,
+				4573994A1D23C998001B804A /* VZFluxAppDispatcher.mm in Sources */,
+				457399471D23B8AC001B804A /* VZFluxStoreGroup.mm in Sources */,
 				4578E0FE1C7734E300E52B79 /* (null) in Sources */,
 				454098701CD5D1D700D99B7F /* UIView+VZAttributes.mm in Sources */,
 				4539ABD01CD1B1E40011E91C /* FBTextNode.mm in Sources */,
@@ -896,6 +911,7 @@
 				45A7D6E71CB4DB7900B072D5 /* FBActionNodes.mm in Sources */,
 				45CA3AB21C81A4EC00DA04C1 /* VZFUtils.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
+				4573994F1D23ED53001B804A /* FBListStore.mm in Sources */,
 				4597A3741CFEAC0A00888B5F /* VZFButtonView.mm in Sources */,
 				4578E0F31C756D3400E52B79 /* VZFButtonNodeSpecs.mm in Sources */,
 				457D91C81CDB175900013377 /* VZFScrollNodeSpecs.mm in Sources */,

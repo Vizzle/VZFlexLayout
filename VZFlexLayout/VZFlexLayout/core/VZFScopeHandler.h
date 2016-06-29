@@ -35,7 +35,7 @@
 
 - (BOOL)bindToNode:(VZFNode* )node;
 
-- (void)updateState:(id(^)(id))stateBlock mode:(VZFStateUpdateMode)mode;
+- (void)updateState:(id(^)(id))stateBlock mode:(VZFActionUpdateMode)mode;
 
 
 

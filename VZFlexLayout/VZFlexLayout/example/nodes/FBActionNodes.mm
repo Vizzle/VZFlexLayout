@@ -62,7 +62,7 @@
         mutableOldState[@"like"] = @(![oldState[@"like"] boolValue]);
         return [mutableOldState copy];
 
-    } Mode:VZFStateUpdateModeSynchronous];
+    } Mode:VZFActionUpdateModeSynchronous];
 }
 
 - (void)onRewardClicked:(id)sender{
@@ -73,7 +73,7 @@
         mutableOldState[@"reward"] = @(![oldState[@"reward"] boolValue]);
         return [mutableOldState copy];
 
-    } Mode:VZFStateUpdateModeSynchronous];
+    } Mode:VZFActionUpdateModeSynchronous];
 }
 
 @end

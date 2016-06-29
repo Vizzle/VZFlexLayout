@@ -45,7 +45,7 @@
  *  @discussion: 如果是异步更新，node创建和layout将会在异步线程中执行
  *
  */
-- (void)update:(id)model mode:(VZFStateUpdateMode)updateMode;
+- (void)update:(id)model mode:(VZFActionUpdateMode)updateMode;
 - (void)reset;
 
 - (instancetype)init __attribute__((unavailable("Not the designated initializer")));

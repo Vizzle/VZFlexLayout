@@ -18,6 +18,7 @@
 #import "VZFTextNodeSpecs.h"
 #import "FBScrollChildNode.h"
 #import "VZFNodeSubClass.h"
+#import "VZFlux.h"
 
 @implementation FBScrollNode
 

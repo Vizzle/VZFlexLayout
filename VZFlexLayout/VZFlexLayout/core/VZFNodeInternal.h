@@ -71,7 +71,7 @@ using namespace VZ;
  *
  *  @param updateBlock
  */
-- (void)updateState:(id(^)(id))updateBlock Mode:(VZFStateUpdateMode)mode;
+- (void)updateState:(id(^)(id))updateBlock Mode:(VZFActionUpdateMode)mode;
 
 /**
  *  计算Node的layout
