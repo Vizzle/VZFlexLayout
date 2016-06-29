@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <string>
 
 namespace VZ {
     
@@ -17,7 +16,7 @@ namespace VZ {
     };
     class FluxAction{
         
-        FluxAction(SEL action, std::string identifier, ActionType type, id data):
+        FluxAction(SEL action, NSString* identifier, ActionType type, id data):
         _action(action),
         _identifier(identifier),
         _type(type),
@@ -25,8 +24,8 @@ namespace VZ {
         
     private:
         __strong id _data;
+        __strong NSString* _identifier;
         SEL _action;
-        std::string _identifier;
         ActionType _type;
         
     };

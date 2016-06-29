@@ -31,3 +31,5 @@ return nil; \
 
 #define VZFAssertFalse(condition) VZFAssert(!(condition), nil, nil)
 #define VZFCAssertFalse(condition) VZFCAssert(!(condition), nil, nil)
+
+#define _invariant(condition,description,...) NSAssert(condition, description, ##__VA_ARGS__)

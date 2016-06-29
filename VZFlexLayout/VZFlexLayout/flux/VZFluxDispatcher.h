@@ -8,28 +8,54 @@
 
 #import <Foundation/Foundation.h>
 #import "VZFluxAction.h"
+#import "VZFStateUpdateMode.h"
 
-
-using namespace VZ;
-typedef void(^DispatchPayload) (id payload);
 
 /**
- *  The dispatcher is a singleton, and operates as the central hub of data flow in a Flux application. 
- It is essentially a registry of callbacks, and can invoke these callbacks in order. 
- Each store registers a callback with the dispatcher.
- When new data comes into the dispatcher, it then uses these callbacks to propagate that data to all of the stores. 
- The process of invoking the callbacks is initiated through the dispatch() method, which takes a data payload object as its sole argument. 
- This payload is typically synonymous with an action.
+ *  Implementation based on Dispatcher.js
  */
-@interface VZFluxDispatcher : NSObject
-/*
- * Dispatcher is used to broadcast payloads to registered callbacks. This is different from generic pub-sub systems in two ways:
+using namespace VZ;
+typedef void(^DispatchPayload) (FluxAction payload);
+
+/**
+ Dispatcher is used to broadcast payloads to registered callbacks. This is different from generic pub-sub systems in two ways:
  
  Callbacks are not subscribed to particular events. Every payload is dispatched to every registered callback.
  Callbacks can be deferred in whole or part until other callbacks have been executed.
- *
  */
+@interface VZFluxDispatcher : NSObject
 
-+ (void)handleAction:(const FluxAction& )action;
+@property(nonatomic,assign,readonly)BOOL isDispatching;
+
+/**
+ *  Registers a callback to be invoked with every dispatched payload. Returns a token that can be used with waitFor().
+ *
+ *  @param callback function
+ *
+ *  @return registered token
+ */
+- (NSString* )registerWithCallback:(DispatchPayload)callback;
+/**
+ *  Removes a callback based on its token.
+ *
+ *  @param token registered token
+ */
+- (void)unregister:(NSString* )token;
+/**
+ *  Waits for the callbacks specified to be invoked before continuing execution of the current callback. 
+ *  This method should only be used by a callback in response to a dispatched payload.
+ *
+ *  @param list wait for callback list
+ *  @param m    update mode
+ */
+- (void)waitFor:(NSArray<NSString* > *)list mode:(VZFStateUpdateMode)m;
+/**
+ *  Dispatches a payload to all registered callbacks.
+ *
+ *  @param action
+ *  @param m      
+ */
+- (void)dispatch:(const FluxAction& )action mode:(VZFStateUpdateMode)m;
+
 
 @end

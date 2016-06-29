@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "VZFNode.h"
 #import "VZFStateUpdateMode.h"
+#import "VZFluxAction.h"
 
 /**
  *  前项声明
@@ -51,6 +52,13 @@ namespace VZ {
  *  @param updateBlock
  */
 - (void)updateState:(id(^)(id))updateBlock Mode:(VZFStateUpdateMode)mode;
+
+/**
+ *  dispatch action
+ *
+ *  @param mode
+ */
+- (void)dispatch:(const VZ::FluxAction&)action Mode:(VZFStateUpdateMode)mode;
 
 /**
  *  是否需要缓存计算过的layout
