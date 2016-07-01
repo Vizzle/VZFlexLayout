@@ -18,16 +18,16 @@
 #import "VZFTextNodeSpecs.h"
 #import "FBScrollChildNode.h"
 #import "VZFNodeSubClass.h"
-#import "VZFlux.h"
+
 
 @implementation FBScrollNode
 
 
-+ (instancetype)newWithItem:(FBHostItem *)item{
++ (instancetype)newWithItem:(FBHostItem *)item IndexPath:(NSIndexPath *)indexpath{
     
     std::vector<VZFNode* > childs{};
     for (int i=0;i<item.cards.count; i++) {
-        FBScrollChildNode* childNode = [FBScrollChildNode newWithDictionary:item.cards[i] ActionSelector:@selector(clicked:)];
+        FBScrollChildNode* childNode = [FBScrollChildNode newWithDictionary:item.cards[i] Index:i];
         childs.push_back(childNode);
     }
     
@@ -52,11 +52,5 @@
     return [super newWithNode:scrollNode];
 }
 
-- (void)clicked:(id)sender{
-    
-//    [self updateState:^id(id oldState) {
-//        
-//        return oldState;
-//    }];
-}
+
 @end

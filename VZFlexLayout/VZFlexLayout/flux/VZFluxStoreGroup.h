@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class VZFluxStore;
+@class VZFluxDispatcher;
 @interface VZFluxStoreGroup : NSObject
 
 @end

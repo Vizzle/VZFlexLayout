@@ -64,12 +64,12 @@
 
 }
 
-- (void)emitEvent:(NSString* )eventType withData:(VZFTuple* )data{
+- (void)emit:(NSString* )event withData:(id)data{
     
-    NSArray* listeners = [self listenersForEvent:eventType];
+    NSArray* listeners = [self listenersForEvent:event];
     for (VZFluxEventListener listener in listeners) {
         if (listener) {
-            [VZDynamicBlock invokeBlock:listener withArguments:data];
+            listener(event,data);
         }
     }
     

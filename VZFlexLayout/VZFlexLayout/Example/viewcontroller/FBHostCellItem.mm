@@ -24,17 +24,17 @@
 
 @implementation FBHostCellItem
 {
-    VZFNodeListRecycleState _recycleState;
+//    VZFNodeListRecycleState _recycleState;
     FBHostItem* _model;
 }
 
 - (float)itemHeight
 {
-    return _recycleState.layout.size.height + _recycleState.layout.margin.top + _recycleState.layout.margin.bottom;
+    return _recycler.resultSize.height;
 }
 - (float)itemWidth
 {
-    return _recycleState.layout.size.width + _recycleState.layout.margin.left + _recycleState.layout.margin.right;
+    return _recycler.resultSize.width;
 }
 
 - (instancetype)init
@@ -61,10 +61,14 @@
     
     _model = model;
     
-    _recycleState = [_recycler calculate:model constrainedSize:sz context:nil];
+    [_recycler calculate:model constrainedSize:sz context:self.indexPath];
     
-    [_recycler updateState:_recycleState];
 
+}
+
+- (void)updateState{
+    
+    [_recycler updateState];
 }
 
 - (void)attachToView:(UIView *)view
@@ -77,14 +81,14 @@
     [_recycler detachFromView];
 }
 
-- (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context
+- (VZFNode *)nodeForItem:(FBHostItem* )item context:(NSIndexPath* )context
 {
 
     if([item.type isEqualToString:@"scroll"]){
-        return [FBScrollNode newWithItem:item];
+        return [FBScrollNode newWithItem:item IndexPath:context];
     }
     else{
-        return [FBHostNode newWithItem:item];
+        return [FBHostNode newWithItem:item IndexPath:context];
     }    
 }
 

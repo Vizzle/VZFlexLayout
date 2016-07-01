@@ -1,13 +1,14 @@
 //
-//  FBListStore.h
+//  FBContentNodeStore.h
 //  VZFlexLayout
 //
-//  Created by moxin on 16/6/29.
+//  Created by moxin on 16/6/30.
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import "VZFluxReduceStore.h"
 
-@interface FBListStore : VZFluxReduceStore
+@interface FBContentNodeStore : VZFluxReduceStore
+
 
 @end

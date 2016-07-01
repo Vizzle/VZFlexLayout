@@ -21,7 +21,7 @@ namespace VZ {
         __strong id payload;
     };
     
-    void sendAction(const FluxAction& action, id sender, id context);
+    void sendAction(const FluxAction& action);
 }
 
 

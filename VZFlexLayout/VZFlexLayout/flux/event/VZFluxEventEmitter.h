@@ -43,7 +43,7 @@
 
 - (NSArray* )listenersForEvent:(NSString* )eventType;
 
-- (void)emitEvent:(NSString* )eventType withData:(VZFTuple* )data;
+- (void)emit:(NSString* )event withData:(id)data;
 
 
 @end

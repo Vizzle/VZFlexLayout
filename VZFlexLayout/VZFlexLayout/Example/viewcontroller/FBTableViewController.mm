@@ -15,11 +15,17 @@
 #import "VZFNodeSpecs.h"
 #import "FBTextNode.h"
 #import "FBHostCellItem.h"
+#import "VZFlux.h"
+#import "FBActionType.h"
+#import "FBScrollNodeStore.h"
+#import "FBContentNodeStore.h"
 
 
 @interface FBTableViewController()<UITableViewDataSource,UITableViewDelegate,FBHostItemDelegate>
 
 @property(nonatomic,strong)UITableView* tableView;
+@property(nonatomic,strong)FBScrollNodeStore* scrollStore;
+@property(nonatomic,strong)FBContentNodeStore* contentStore;
 
 @end
 
@@ -43,7 +49,28 @@
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     
+    
+    self.contentStore = (FBContentNodeStore* )[VZFluxStoreFactory storeWithClass:[FBContentNodeStore class]];
+    __weak typeof(self) weakSelf = self;
+    [self.contentStore addListener:^(NSString *eventType, NSDictionary*  data) {
+       
+        if ([eventType isEqualToString:@"change"]) {
+            
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            NSIndexPath* indexPath = data[@"index"];
+            unsigned long row = indexPath.row;
+            FBHostCellItem* item = strongSelf->_items[row];
+            [item updateState];
+            [weakSelf.tableView reloadData];
+            
+        }
+        
+    }];
+    
+    
     [self loadData];
+    
+    
 
 }
 
@@ -57,10 +84,11 @@
         
         NSArray* results = json[@"results"];
         
-        for(NSDictionary* dict in results){
+        for(int i = 0; i<results.count; i++){
             
-            FBHostItem* model = [FBHostItem newWithJSON:dict];
+            FBHostItem* model = [FBHostItem newWithJSON:results[i]];
             FBHostCellItem* item = [FBHostCellItem new];
+            item.indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             [item updateModel:model constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::Auto)];
             item.delegate = self;
             [_items addObject:item];

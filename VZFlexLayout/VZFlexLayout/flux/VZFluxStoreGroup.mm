@@ -7,6 +7,8 @@
 //
 
 #import "VZFluxStoreGroup.h"
+#import "VZFluxStore.h"
+#import "VZFluxReduceStore.h"
 
 @implementation VZFluxStoreGroup
 

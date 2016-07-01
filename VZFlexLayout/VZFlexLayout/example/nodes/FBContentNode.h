@@ -11,9 +11,7 @@
 @class FBHostItem;
 @interface FBContentNode : VZFCompositeNode
 
-@property (nonatomic, readonly) BOOL expanded;
-
-+ (instancetype)newWithItem:(FBHostItem* )item;
++ (instancetype)newWithItem:(FBHostItem* )item IndexPath:(NSIndexPath* )index;
 
 @end
 

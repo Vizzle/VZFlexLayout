@@ -11,7 +11,7 @@
 
 namespace VZ {
     
-    void sendAction(const FluxAction& action, id sender, id context)
+    void sendAction(const FluxAction& action)
     {
         [[VZFluxAppDispatcher sharedInstance] handleAction:action];
     }

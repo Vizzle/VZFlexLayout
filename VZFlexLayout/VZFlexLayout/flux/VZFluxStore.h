@@ -13,15 +13,17 @@
 using namespace VZ;
 @class VZFluxDispatcher;
 @class VZFluxEventEmitter;
-@class VZFTuple;
 
-typedef void(^VZFluxStoreListener)(NSString* eventType);
+typedef void(^VZFluxStoreListener)(NSString* eventType, id data);
 
 /**
  * Port from FluxStore.js
  *
  */
-@interface VZFluxStore : NSObject
+@interface VZFluxStore : NSObject{
+@protected
+    BOOL _changed;
+}
 
 @property(nonatomic,assign,readonly) BOOL changed;
 @property(nonatomic,strong,readonly) VZFluxDispatcher* dispatcher;

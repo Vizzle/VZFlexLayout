@@ -10,6 +10,10 @@
 #import "VZFluxStoreAbstractMethods.h"
 
 @interface VZFluxReduceStore : VZFluxStore <VZFluxStoreAbstractMethods>
+{
+@protected
+    id _state;
+}
 
 @property(nonatomic,strong,readonly) id state;
 

@@ -57,7 +57,7 @@
 - (VZFNode* )nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
     
 //    return self.item.node;
-    FBHostNode* node = [FBHostNode newWithItem:item];
+    FBHostNode* node = [FBHostNode newWithItem:item IndexPath:nil];
     return node;
     
 }

@@ -11,6 +11,6 @@
 @class FBHostItem;
 @interface FBScrollNode : VZFCompositeNode
 
-+ (instancetype)newWithItem:(FBHostItem* )item;
++ (instancetype)newWithItem:(FBHostItem* )item IndexPath:(NSIndexPath* )indexpath;
 
 @end

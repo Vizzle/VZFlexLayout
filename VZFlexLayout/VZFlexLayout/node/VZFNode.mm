@@ -25,6 +25,7 @@
 #import "UIView+VZAttributes.h"
 #import "VZFNodeBackingViewInterface.h"
 #import "VZFNodeMemoizer.h"
+#import "VZFlux.h"
 
 struct VZFNodeMountedInfo{
     
@@ -101,7 +102,8 @@ using namespace VZ::UIKit;
 
 - (void)updateState:(id(^)(id))updateBlock Mode:(VZFActionUpdateMode)mode
 {
-    [_scopeHandler updateState:updateBlock mode:mode];
+
+   // [_scopeHandler updateState:updateBlock mode:mode];
 }
 
 

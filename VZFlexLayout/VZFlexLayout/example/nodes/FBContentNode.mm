@@ -23,19 +23,21 @@
 #import "VZFNodeSpecs.h"
 #import "VZFTextNodeSpecs.h"
 #import "VZFButtonNodeSpecs.h"
+#import "FBContentNodeStore.h"
+#import "VZFlux.h"
+#import "FBActionType.h"
 
 @implementation FBContentNode
 
 
 + (id)initialState{
 
-    return @{@"expend":@(NO)};
+    return [ VZFluxStoreFactory storeWithClass:[FBContentNodeStore class]].state;
 }
 
-+ (instancetype)newWithItem:(FBHostItem *)item
++ (instancetype)newWithItem:(FBHostItem* )item IndexPath:(NSIndexPath* )index
 {
-    VZ::Scope scope(self);
-    NSDictionary* state = scope.state();
+    NSDictionary* state = [self initialState];
 
     VZFTextNode* textNode = [VZFTextNode newWithTextAttributes:{
         
@@ -50,7 +52,15 @@
         .title      = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         .fontSize   = 14.0f,
-        .action     = @selector(onExpendClicked:),
+        .action     = ^(id sender){
+    
+            FluxAction action = {
+                .source = ActionType::view_state,
+                .actionType = EXPEND_CLICKED_STATE,
+                .payload = @{@"index":index?:[NSNull null]}
+            };
+            sendAction(action);
+        },
     }NodeSpecs:{
     
         .flex = {.alignSelf = VZFlexStart,.marginTop = 5}
@@ -69,7 +79,7 @@
         {item.content?buttonNode:nil},
         {item.images.count?imageNode:nil},
         {item.location?[FBLocationNode newWithLocation:item.location]:nil},
-        {[FBActionNodes newWithItem:item]}
+        {[FBActionNodes newWithItem:item index:index]}
         
     }];
     
@@ -81,16 +91,5 @@
 }
 
 
-
-
-- (void)onExpendClicked:(id)sender {
-
-    [self updateState:^id(NSDictionary* oldState) {
-        
-        NSMutableDictionary* mutableOldState = [oldState mutableCopy];
-        mutableOldState[@"expend"] = @(![oldState[@"expend"] boolValue]);
-        return [mutableOldState copy];
-    } Mode:VZFActionUpdateModeSynchronous];
-}
 
 @end

@@ -11,6 +11,6 @@
 @class FBHostItem;
 @interface FBActionNodes : VZFCompositeNode
 
-+ (instancetype)newWithItem:(FBHostItem* )item;
++ (instancetype)newWithItem:(FBHostItem* )item index:(NSIndexPath* )indexpath;
 
 @end

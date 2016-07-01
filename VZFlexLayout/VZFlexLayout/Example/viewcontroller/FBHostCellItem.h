@@ -22,6 +22,7 @@
 @property(nonatomic,strong) NSString* reuseIdentifier;
 @property(nonatomic,strong) NSIndexPath* indexPath;
 @property(nonatomic,weak) id<FBHostItemDelegate> delegate;
+@property(nonatomic,strong,readonly)FBHostItem* model;
 //计算后的item宽度
 @property(nonatomic,assign,readonly)float itemWidth;
 @property(nonatomic,assign,readonly)float itemHeight;
@@ -31,6 +32,7 @@
  *  @param model 
  */
 - (void)updateModel:(id)model constrainedSize:(CGSize)sz;
+- (void)updateState;
 - (void)attachToView:(UIView* )view;
 - (void)detachFromView;
 

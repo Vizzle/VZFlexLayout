@@ -13,20 +13,26 @@
 #import "FBHostItem.h"
 #import "VZFNodeInternal.h"
 #import "VZFNodeSpecs.h"
+#import "VZFlux.h"
+#import "FBActionType.h"
+#import "FBContentNodeStore.h"
 
 @implementation FBActionNodes
+{
+    NSIndexPath* _indexPath;
+}
 
 
 + (id)initialState{
     
-    return @{@"like":@(NO),@"reward":@(NO)};
+    return [VZFluxStoreFactory storeWithClass:[FBContentNodeStore class]].state;
+
 }
-+ (instancetype)newWithItem:(FBHostItem* )item{
++ (instancetype)newWithItem:(FBHostItem* )item index:(NSIndexPath* )indexpath{
     
     
+    NSDictionary* state = [self initialState];
     
-    VZ::Scope scope(self);
-    NSDictionary* state = scope.state();
     BOOL isLike = [state[@"like"] boolValue];
     BOOL isRewarded = [state[@"reward"] boolValue];
     
@@ -49,31 +55,35 @@
                              Action:@selector(onRewardClicked:)]
         }
     }];
-    return  [super newWithNode:actions];
-
+    FBActionNodes* actionNode =  [super newWithNode:actions];
+    actionNode -> _indexPath = indexpath;
+    return  actionNode;
+    
 }
 
 
 - (void)onLikeClicked:(id)sender{
     
-    [self updateState:^id(NSDictionary* oldState) {
-
-        NSMutableDictionary* mutableOldState = [oldState mutableCopy];
-        mutableOldState[@"like"] = @(![oldState[@"like"] boolValue]);
-        return [mutableOldState copy];
-
-    } Mode:VZFActionUpdateModeSynchronous];
+    FluxAction action = {
+        
+        .source = view_state,
+        .actionType = LIKE_CLICKED_STATE,
+        .payload = @{@"index":self->_indexPath}
+    
+    };
+    sendAction(action);
 }
 
 - (void)onRewardClicked:(id)sender{
     
-    [self updateState:^id(NSDictionary* oldState) {
-
-        NSMutableDictionary* mutableOldState = [oldState mutableCopy];
-        mutableOldState[@"reward"] = @(![oldState[@"reward"] boolValue]);
-        return [mutableOldState copy];
-
-    } Mode:VZFActionUpdateModeSynchronous];
+    FluxAction action = {
+        
+        .source = view_state,
+        .actionType = REWARD_CLICKED_STATE,
+        .payload = @{@"index":self->_indexPath}
+        
+    };
+    sendAction(action);
 }
 
 @end

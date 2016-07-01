@@ -43,9 +43,7 @@
 
 - (void)addListener:(VZFluxStoreListener)listener{
     
-    VZFluxEventSubscription* subscription = [_emitter addListener:^{
-        
-    } withEvent:_changeEvent Context:nil];
+    [_emitter addListener:listener withEvent:_changeEvent Context:nil];
 
 }
 
@@ -55,8 +53,6 @@
 
 }
 
-
-
 - (void)emitChange{
 
     _invariant(_dispatcher.isDispatching, @"%@.emitChange(): Must be invoked while dispatching.",[self class]);
@@ -64,12 +60,12 @@
 }
 
 
-- (void)invokeOnDispatch:(const FluxAction& )payload{
+- (void)invokeOnDispatch:(const FluxAction& )action{
 
     _changed = NO;
-    [self onDispatch:payload];
+    [self onDispatch:action];
     if (_changed) {
-        [_emitter emitEvent:self.changeEvent withData:nil];
+        [_emitter emit:_changeEvent withData:action.payload];
     }
     
 }

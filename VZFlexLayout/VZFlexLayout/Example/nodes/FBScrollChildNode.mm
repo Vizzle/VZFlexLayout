@@ -15,74 +15,88 @@
 #import "VZFImageNodeSpecs.h"
 #import "FBNetworkImageView.h"
 #import "VZFButtonNode.h"
-#import "VZFScope.h"
+#import "VZFlux.h"
+#import "FBActionType.h"
+#import "FBScrollNodeStore.h"
 
 
 @implementation FBScrollChildNode
 
-+ (instancetype)newWithDictionary:(NSDictionary* )dictionary ActionSelector:(SEL)sel{
++ (id)initialState{
+    return [VZFluxStoreFactory storeWithClass:[FBScrollNodeStore class]].initialState;
+}
 
++ (instancetype)newWithDictionary:(NSDictionary* )dictionary Index:(uint32_t)index{
+
+
+    bool initialState = [[self initialState] boolValue];
     
-    VZ::Scope scope(self,dictionary[@"name"]);
     
-    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
-        .direction = VZFlexVertical
-    
-    } NodeSpecs:{} Children:{
-        {
-            [VZFImageNode newWithImageAttributes:{
-                .imageUrl = dictionary[@"image"]
-                
-            } NodeSpecs:{
-                .flex= {
-                    .width  =150,
-                    .height = 150
-                }
-                
-            } BackingImageViewClass:[FBNetworkImageView class]]
+    VZFNode* buttonNode = [VZFButtonNode newWithButtonAttributes:{
+        .fontSize = 13,
+        .titleColor = [UIColor whiteColor],
+        .title = dictionary[@"name"],
+        .action = ^(id sender){
+            
+            FluxAction action = {
+                .source = ActionType::view_action,
+                .actionType = LOAD_DETAIL,
+                .payload = @{@"data":dictionary, @"index":@(index)}
+            };
+            sendAction(action);}
+
+    }NodeSpecs:{
+        .view = {
+            .clip = YES,
+            .layer = {.cornerRadius = 12},
+            .backgroundColor = [UIColor redColor],
         },
-        {
-            [VZFButtonNode newWithButtonAttributes:{
-                
-                .fontSize = 14,
-                .title = dictionary[@"name"],
-                .titleColor = [UIColor redColor],
-                .action = sel
-                
-            }NodeSpecs:{
-                .flex = {
-                    .width = 100,
-                    .marginTop = 20,
-                    .marginBottom = 20,
-                    .alignSelf = VZFlexCenter,
-                },
-                .view = {
-                    .layer = {
-                        .borderWidth = 2.0f,
-                        .borderColor = [UIColor redColor]
-                    }
-                }
-            } ],
-            //            [VZFTextNode newWithNodeSpecs:{
-            //                .flex= {
-            //                    .flexGrow = 1,
-            //                    .alignSelf = VZFlexStretch
-            //                }
-            //
-            //            } TextAttributes:{
-            //
-            //                .text = dictionary[@"name"],
-            //                .fontSize = 14,
-            //                .color = [UIColor redColor],
-            //                .alignment = NSTextAlignmentCenter,
-            //            }]
+        .flex = {
+            .alignSelf = VZFlexCenter,
+            .height = 24,
+            .width = 100,
+            .marginTop = 10,
+            .marginBottom = 10
         }
+    } ];
+    
+    VZFNode* spinnerNode = [VZFNode newWithView:{
+        ^{
+            UIActivityIndicatorView *loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+            loadingIndicator.transform = CGAffineTransformMakeScale(0.75f, 0.75f);
+            loadingIndicator.color = [UIColor redColor];
+            return loadingIndicator;
+        },@"spinnerNode"} NodeSpecs:{
+        
+            .flex = {
+                .width = 20,
+                .height = 20,
+                .marginTop = 10,
+                .marginBottom = 10
+            },
+            .view = {
+                .applicator = ^(UIView *view){
+                    UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)view;
+                    [indicator startAnimating];
+                }
+            }
+        
+        }];
+
+
+    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{.direction = VZFlexVertical}
+                                                         NodeSpecs:{}
+                                                          Children:{
+        {
+            [VZFImageNode newWithImageAttributes:{.imageUrl = dictionary[@"image"]}
+                                       NodeSpecs:{.flex= {.width  =150,.height = 150}}
+                            BackingImageViewClass:[FBNetworkImageView class]]
+        },
+        { initialState ? spinnerNode : buttonNode }
 
     }];
     
     return [super newWithNode:stackNode];
 }
-
-
 
 @end

@@ -15,7 +15,7 @@
 
 @implementation FBHostNode
 
-+ (instancetype)newWithItem:(FBHostItem* )item{
++ (instancetype)newWithItem:(FBHostItem* )item IndexPath:(NSIndexPath* )index{
 
     VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
         .direction = VZFlexVertical
@@ -24,7 +24,7 @@
     } Children:{
     
         {[FBHeaderNode newWithItem:item]},
-        {[FBContentNode newWithItem:item]},
+        {[FBContentNode newWithItem:item IndexPath:index]},
     }];
     
     return [super newWithNode:stackNode];

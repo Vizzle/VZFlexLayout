@@ -15,14 +15,14 @@ using namespace VZ;
 
 @class VZFRootScope;
 
-struct VZFNodeListRecycleState{
-    
-    id item;
-    id<NSObject> context;
-    CGSize constrainedSize;
-    NodeLayout layout;
-    VZFRootScope* rootScope;
-};
+//struct VZFNodeListRecycleState{
+//    
+//    id item;
+//    id<NSObject> context;
+//    CGSize constrainedSize;
+//    NodeLayout layout;
+//    VZFRootScope* rootScope;
+//};
 
 @protocol VZFNodeListItemRecycleController <NSObject>
 
@@ -40,13 +40,18 @@ struct VZFNodeListRecycleState{
 
 @property(nonatomic,strong) NSIndexPath* indexPath;
 @property(nonatomic,weak)id<VZFNodeListItemRecycleController> delegate;
+@property(nonatomic,readonly,assign) CGSize resultSize;
 
 - (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider
                    SizeRangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
 
-- (VZFNodeListRecycleState)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context;
+//- (VZFNodeListRecycleState)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context;
+//
+//- (void)updateState:(const VZFNodeListRecycleState&)state;
 
-- (void)updateState:(const VZFNodeListRecycleState&)state;
+- (void)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context;
+
+- (void)updateState;
 
 - (void)attachToView:(UIView *)view;
 

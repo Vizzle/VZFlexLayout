@@ -47,7 +47,12 @@ const void* g_recycleId = &g_recycleId;
 @end
 
 
+struct VZFNodeListItemRecyclerState{
 
+    __strong id item;
+    NodeLayout layout;
+    CGSize constrainedSize;
+};
 
 @interface VZFNodeListItemRecycler()<VZFStateListener>
 
@@ -57,14 +62,15 @@ const void* g_recycleId = &g_recycleId;
 
     __weak UIView *_mountedView;
     NSSet *_mountedNodes;
+    VZFNodeListItemRecyclerState _state;
     
     __weak id<VZFNodeProvider> _nodeProvider;
     __weak id<VZSizeRangeProvider> _sizeRangeProvider;
     
-    VZ::Mutex _lock; // protects _previousRoot and _pendingStateUpdates
-    VZFRootScope *_previousRoot;
-    NSDictionary* _stateFuncMap;
-    VZFNodeListRecycleState _state;
+//    VZ::Mutex _lock; // protects _previousRoot and _pendingStateUpdates
+//    VZFRootScope *_previousRoot;
+//    NSDictionary* _stateFuncMap;
+//    VZFNodeListRecycleState _state;
 }
 
 - (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider
@@ -76,7 +82,7 @@ const void* g_recycleId = &g_recycleId;
     
         _nodeProvider       = nodeProvider;
         _sizeRangeProvider  = sizeProvider;
-        _stateFuncMap       = @{};
+//        _stateFuncMap       = @{};
         
         
     }
@@ -86,7 +92,7 @@ const void* g_recycleId = &g_recycleId;
 
 - (void)dealloc{
 
-    VZFAssert([NSThread isMainThread], @"object must be dealloced on Main Thread");
+    //VZFAssert([NSThread isMainThread], @"object must be dealloced on Main Thread");
     
     if (_mountedNodes) {
         
@@ -101,29 +107,41 @@ const void* g_recycleId = &g_recycleId;
     }
 }
 
-- (VZFNodeListRecycleState)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context{
+- (void)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context{
 
-    VZFRootScope* rootScope = _previousRoot?:[VZFRootScope rootScopeWithListener:self];
-    VZFBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
-        return [_nodeProvider nodeForItem:item context:context];
-    } RootScope:rootScope StateUpdateFuncs:_stateFuncMap];
+//    VZFRootScope* rootScope = _previousRoot?:[VZFRootScope rootScopeWithListener:self];
+//    VZFBuildNodeResult result = [VZFScopeManager buildNodeWithFunction:^VZFNode *{
+//        return [_nodeProvider nodeForItem:item context:context];
+//    } RootScope:rootScope StateUpdateFuncs:_stateFuncMap];
+//    
+//    
+    VZFNode* node = [_nodeProvider nodeForItem:item context:context];
     
-    const VZ::NodeLayout layout = [result.node computeLayoutThatFits:constrainedSize];
+    const VZ::NodeLayout layout = [node computeLayoutThatFits:constrainedSize];
     
-    _previousRoot = result.scopeRoot; //potential crash here, can't figure out why, might be the threading problem
-    _stateFuncMap = @{};
+    _state = {.item = item, .layout = layout, .constrainedSize = constrainedSize};
     
-    return {
-        .item = item,
-        .context = context,
-        .constrainedSize = constrainedSize,
-        .layout = layout,
-        .rootScope = result.scopeRoot
-    };
+    
+//    _previousRoot = result.scopeRoot; //potential crash here, can't figure out why, might be the threading problem
+//    _stateFuncMap = @{};
+    
+//    return {
+//        .item = item,
+//        .context = context,
+//        .constrainedSize = constrainedSize,
+//        .layout = layout,
+////        .rootScope = result.scopeRoot
+//    };
+    
+    
 }
 
-- (void)updateState:(const VZFNodeListRecycleState& )state{
-    _state = state;
+- (void)updateState{
+    
+    [self calculate:_state.item constrainedSize:_state.constrainedSize context:self.indexPath];
+    
+    [self _mountedLayout];
+
 }
 
 
@@ -161,32 +179,35 @@ const void* g_recycleId = &g_recycleId;
     return (_mountedView != nil);
 }
 
-- (void)nodeScopeHandleWithIdentifier:(id)scopeId
-                       rootIdentifier:(id)rootScopeId
-                didReceiveStateUpdate:(id (^)(id))stateUpdate
-                           updateMode:(VZFActionUpdateMode)updateMode{
+//- (void)nodeScopeHandleWithIdentifier:(id)scopeId
+//                       rootIdentifier:(id)rootScopeId
+//                didReceiveStateUpdate:(id (^)(id))stateUpdate
+//                           updateMode:(VZFActionUpdateMode)updateMode{
+//
+//    
+//    NSMutableDictionary* mutableFuncs = [_stateFuncMap mutableCopy];
+//    NSMutableArray* funclist = mutableFuncs[scopeId];
+//    if (!funclist) {
+//        funclist = [NSMutableArray new];
+//    }
+//    [funclist addObject:stateUpdate];
+//    mutableFuncs[scopeId] = funclist;
+//    _stateFuncMap = [mutableFuncs copy];
+//    
+//    //计算新的size
+//    CGSize sz = [_sizeRangeProvider rangeSizeForBounds:_state.constrainedSize];
+//    
+//    [self _updateStateInternal:[self calculate:_state.item constrainedSize:sz context:_state.context] scopeId:scopeId];
+//
+//
+//}
 
-    
-    NSMutableDictionary* mutableFuncs = [_stateFuncMap mutableCopy];
-    NSMutableArray* funclist = mutableFuncs[scopeId];
-    if (!funclist) {
-        funclist = [NSMutableArray new];
-    }
-    [funclist addObject:stateUpdate];
-    mutableFuncs[scopeId] = funclist;
-    _stateFuncMap = [mutableFuncs copy];
-    
-    //计算新的size
-    CGSize sz = [_sizeRangeProvider rangeSizeForBounds:_state.constrainedSize];
-    
-    [self _updateStateInternal:[self calculate:_state.item constrainedSize:sz context:_state.context] scopeId:scopeId];
+- (CGSize)resultSize{
 
-
-}
-
-- (CGSize)size{
-
-    return _state.layout.size;
+    return (CGSize){
+        (_state.layout.size.width + _state.layout.margin.left + _state.layout.margin.right),
+        (_state.layout.size.height + _state.layout.margin.top + _state.layout.margin.bottom)
+    };
 }
 
 - (id)item{
@@ -194,10 +215,10 @@ const void* g_recycleId = &g_recycleId;
     return _state.item;
 }
 
-- (VZFRootScope* )scopeRoot{
-    
-    return _state.rootScope;
-}
+//- (VZFRootScope* )scopeRoot{
+//    
+//    return _state.rootScope;
+//}
 
 - (const VZ::NodeLayout& )nodeLayout{
 
@@ -214,18 +235,18 @@ const void* g_recycleId = &g_recycleId;
 }
 
 
-- (void)_updateStateInternal:(const VZFNodeListRecycleState& )state scopeId:(id)scopeId{
+//- (void)_updateStateInternal:(const VZFNodeListRecycleState& )state scopeId:(id)scopeId{
 
-    BOOL sizeChanged = !CGSizeEqualToSize(_state.layout.size, state.layout.size);
+//    BOOL sizeChanged = !CGSizeEqualToSize(_state.layout.size, state.layout.size);
+
+//    [self updateState:state];
     
-    [self updateState:state];
+//    [self _mountedLayout];
     
-    [self _mountedLayout];
-    
-    if ([self.delegate respondsToSelector:@selector(nodeStateDidChanged:ShouldInvalidateToNewSize:)]) {
-        [self.delegate nodeStateDidChanged:scopeId ShouldInvalidateToNewSize:sizeChanged];
-    }
-}
+//    if ([self.delegate respondsToSelector:@selector(nodeStateDidChanged:ShouldInvalidateToNewSize:)]) {
+//        [self.delegate nodeStateDidChanged:scopeId ShouldInvalidateToNewSize:sizeChanged];
+//    }
+//}
 
 @end
 

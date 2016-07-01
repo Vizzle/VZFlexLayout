@@ -19,6 +19,9 @@
 #import "VZFNodeSpecs.h"
 #import "FBScrollNode.h"
 #import "FBIconNode.h"
+#import "VZFlux.h"
+#import "FBScrollNodeStore.h"
+#import "FBActionType.h"
 
 @interface FBViewController ()<VZFNodeHostingView,VZFNodeProvider>
 {
@@ -27,6 +30,7 @@
 @property(nonatomic,strong)UIScrollView* scrollView;
 @property(nonatomic,strong)VZFNodeHostingView* topView;
 @property(nonatomic,strong)VZFNodeHostingView* bottomView;
+@property(nonatomic,strong)FBScrollNodeStore* store;
 
 @end
 
@@ -48,6 +52,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reloadData)];
     
     
+
     self.scrollView = [[UIScrollView alloc]initWithFrame:self.view.bounds];
     self.scrollView.bounces = YES;
     [self.view addSubview:self.scrollView];
@@ -76,6 +81,11 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self loadData];
     });
+    
+    
+
+    
+
  
 }
 

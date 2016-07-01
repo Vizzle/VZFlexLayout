@@ -9,19 +9,20 @@
 #import "VZFluxReduceStore.h"
 #import "VZFMacros.h"
 #import "VZFluxEventEmitter.h"
+#import "VZFluxAction.h"
+
 
 @implementation VZFluxReduceStore
 {
-    BOOL _changed;
+
 }
 
 - (id)initialState{
     return nil;
 }
 
-- (id)reduceState:(id)state WithAction:(id)action{
-    return nil;
-
+- (id)reduceState:(id)state WithAction:(const FluxAction& )action{
+    return state;
 }
 
 
@@ -39,24 +40,38 @@
 
 - (void)invokeOnDispatch:(const VZ::FluxAction &)action{
     
-    _changed = false;
+    _changed = NO;
     
-     // Reduce the stream of incoming actions to state, update when necessary.
-    id startingState = _state;
-    id endState = [self reduceState:_state WithAction:action];
-    
-    _invariant([startingState class] == [endState class], @"state class inconsistancy!");
-    
-    if (startingState != endState) {
+    if (action.source == view_state) {
         
-        _state = endState;
-        [self emitChange];
+        // Reduce the stream of incoming actions to state, update when necessary.
+        id startingState = _state;
+        id endState = [self reduceState:_state WithAction:action];
+        
+        _invariant([startingState class] == [endState class], @"state class inconsistancy!");
+        
+        if (startingState != endState) {
+            
+            _state = endState;
+            [self emitChange];
+        }
+        
     }
+    else{
     
-    if (_changed) {
-        [self.emitter emitEvent:self.changeEvent withData:nil];
+        [self onDispatch:action];
+    
     }
 
+    if (_changed) {
+        [self.emitter emit:self.changeEvent withData:action.payload];
+    }
+
+}
+
+- (void)onDispatch:(const VZ::FluxAction &)action{
+
+    //empty
 }
 
 
@@ -71,4 +86,5 @@
     }
     
 }
+
 @end

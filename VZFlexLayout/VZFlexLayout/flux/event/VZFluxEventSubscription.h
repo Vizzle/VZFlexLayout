@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-typedef void(^VZFluxEventListener)(void);
+typedef void(^VZFluxEventListener)(NSString* eventType, id data);
 
 @class VZFluxEventSubscriber;
 @interface VZFluxEventSubscription : NSObject
