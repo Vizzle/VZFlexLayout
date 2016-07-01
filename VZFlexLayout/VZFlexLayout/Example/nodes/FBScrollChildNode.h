@@ -7,9 +7,10 @@
 //
 
 #import "VZFCompositeNode.h"
+#import "FBHostItem.h"
 
 @interface FBScrollChildNode : VZFCompositeNode
 
-+ (instancetype)newWithDictionary:(NSDictionary* )dictionary Index:(uint32_t)index;
++ (instancetype)newWithScrollItem:(FBScrollItem* )item Index:(uint32_t)index;
 
 @end

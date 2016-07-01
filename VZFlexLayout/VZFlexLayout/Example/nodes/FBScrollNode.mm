@@ -18,6 +18,7 @@
 #import "VZFTextNodeSpecs.h"
 #import "FBScrollChildNode.h"
 #import "VZFNodeSubClass.h"
+#
 
 
 @implementation FBScrollNode
@@ -27,7 +28,7 @@
     
     std::vector<VZFNode* > childs{};
     for (int i=0;i<item.cards.count; i++) {
-        FBScrollChildNode* childNode = [FBScrollChildNode newWithDictionary:item.cards[i] Index:i];
+        FBScrollChildNode* childNode = [FBScrollChildNode newWithScrollItem:item.cards[i] Index:i];
         childs.push_back(childNode);
     }
     

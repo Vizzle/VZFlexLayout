@@ -8,6 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef NS_ENUM(int,FBScrollItemState){
+    
+    kDefault = 0,
+    kLoading = 1,
+    kLoaded = 2
+
+};
+
+
+
+@interface FBScrollItem : NSObject
+
+@property(nonatomic,assign)FBScrollItemState state;
+@property(nonatomic,strong)NSString* name;
+@property(nonatomic,strong)NSString* imagePath;
+
+
+@end
+
+
 @interface FBHostItem : NSObject
 
 
@@ -20,7 +41,7 @@
 @property(nonatomic,strong,readonly)NSString* location;
 @property(nonatomic,strong,readonly)NSArray<NSString* >* dishes;
 @property(nonatomic,strong,readonly)NSArray<NSString* >* images;
-@property(nonatomic,strong,readonly)NSArray<NSDictionary* >* cards;
+@property(nonatomic,strong,readonly)NSArray<FBScrollItem* >* cards;
 
 @property(nonatomic,strong,readonly)NSString* commentCount;
 @property(nonatomic,strong,readonly)NSString* rewardCount;

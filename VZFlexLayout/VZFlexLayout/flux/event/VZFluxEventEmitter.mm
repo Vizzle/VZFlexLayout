@@ -7,7 +7,7 @@
 //
 
 #import "VZFluxEventEmitter.h"
-#import "VZDynamicBlock.h"
+
 
 @implementation VZFluxEventEmitter
 {

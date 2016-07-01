@@ -12,6 +12,7 @@
 
 - (id)initialState{
 
+    
     return @{@"expend":@(NO), @"like":@(NO), @"reward":@(NO)};
 }
 

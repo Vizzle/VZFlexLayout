@@ -22,26 +22,22 @@
 
 @implementation FBScrollChildNode
 
-+ (id)initialState{
-    return [VZFluxStoreFactory storeWithClass:[FBScrollNodeStore class]].initialState;
-}
-
-+ (instancetype)newWithDictionary:(NSDictionary* )dictionary Index:(uint32_t)index{
++ (instancetype)newWithScrollItem:(FBScrollItem *)item Index:(uint32_t)index{
 
 
-    bool initialState = [[self initialState] boolValue];
     
+    FBScrollItemState state = item.state;
     
     VZFNode* buttonNode = [VZFButtonNode newWithButtonAttributes:{
         .fontSize = 13,
         .titleColor = [UIColor whiteColor],
-        .title = dictionary[@"name"],
+        .title = item.name,
         .action = ^(id sender){
             
             FluxAction action = {
                 .source = ActionType::view_action,
                 .actionType = LOAD_DETAIL,
-                .payload = @{@"data":dictionary, @"index":@(index)}
+                .payload = @{@"data":item, @"index":@(index)}
             };
             sendAction(action);}
 
@@ -67,7 +63,7 @@
             loadingIndicator.color = [UIColor redColor];
             return loadingIndicator;
         },@"spinnerNode"} NodeSpecs:{
-        
+            
             .flex = {
                 .width = 20,
                 .height = 20,
@@ -80,19 +76,32 @@
                     [indicator startAnimating];
                 }
             }
-        
+            
         }];
-
-
+    
+    VZFNode* node = nil;
+    switch (state) {
+        case kDefault:
+            node = buttonNode;
+            break;
+        case kLoaded:
+            node =spinnerNode;
+            break;
+            
+        default:
+            node = buttonNode;
+            break;
+    }
+    
     VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{.direction = VZFlexVertical}
                                                          NodeSpecs:{}
                                                           Children:{
         {
-            [VZFImageNode newWithImageAttributes:{.imageUrl = dictionary[@"image"]}
+            [VZFImageNode newWithImageAttributes:{.imageUrl = item.imagePath}
                                        NodeSpecs:{.flex= {.width  =150,.height = 150}}
                             BackingImageViewClass:[FBNetworkImageView class]]
         },
-        { initialState ? spinnerNode : buttonNode }
+        { node }
 
     }];
     

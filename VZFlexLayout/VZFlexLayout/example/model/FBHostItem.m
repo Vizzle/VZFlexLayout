@@ -38,7 +38,18 @@
     item -> _dishes         = json[@"dishes"];
     item -> _images         = json[@"images"];
     item -> _location       = json[@"location"];
-    item -> _cards          = json[@"cards"];
+    
+    
+    NSMutableArray* tmp = [NSMutableArray new];
+    NSArray* cards = json[@"cards"];
+    for (NSDictionary* card in cards) {
+        FBScrollItem* scrollItem = [FBScrollItem new];
+        scrollItem.imagePath = card[@"image"];
+        scrollItem.name = card[@"name"];
+        scrollItem.state = kDefault;
+        [tmp addObject:scrollItem];
+    }
+    item -> _cards = [tmp copy];
     
 
     item -> _rewardCount       = json[@"rewardedCount"];
@@ -60,5 +71,14 @@
     return  item;
 
 }
+
+
+
+@end
+
+
+@implementation FBScrollItem
+
+
 
 @end

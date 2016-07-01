@@ -67,6 +67,12 @@
         
     }];
     
+    self.scrollStore = (FBScrollNodeStore* )[VZFluxStoreFactory storeWithClass:[FBScrollNodeStore class]];
+    [self.scrollStore addListener:^(NSString *eventType, id data) {
+        NSLog(@"%@",data);
+        
+    }];
+    
     
     [self loadData];
     
