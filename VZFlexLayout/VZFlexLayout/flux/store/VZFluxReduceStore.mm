@@ -25,6 +25,11 @@
     return state;
 }
 
+- (BOOL)compareOldState:(id)oldState withNewState:(id)state{
+    
+    return NO;
+}
+
 
 - (id)initWithDispatcher:(VZFluxDispatcher *)dispatcher{
     
@@ -48,11 +53,15 @@
         id startingState = _state;
         id endState = [self reduceState:_state WithAction:action];
         
-        _invariant([startingState class] == [endState class], @"state class inconsistancy!");
+//        _invariant([startingState class] == [endState class], @"state class inconsistancy!");
         
-        if (startingState != endState) {
-            
+        if ([self compareOldState:startingState withNewState:endState]) {
+           
             _state = endState;
+            
+            // `__emitChange()` sets `this.__changed` to true and then the actual
+            // change will be fired from the emitter at the end of the dispatch, this
+            // is required in order to support methods like `hasChanged()`
             [self emitChange];
         }
         

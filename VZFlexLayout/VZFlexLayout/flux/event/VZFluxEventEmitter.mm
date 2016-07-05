@@ -35,6 +35,21 @@
 
 }
 
+- (VZFluxEmitterSubscription* )once:(NSString* )eventType do:(VZFluxEventListener)listener Context:(id)context{
+
+    __weak typeof(self) weakSelf = self;
+    return [self addListener:^(NSString *eventType, id data) {
+        
+        [weakSelf removeCurrentListener];
+        if (listener) {
+            listener(eventType,data);
+        }
+        
+    } withEvent:eventType Context:context];
+}
+
+
+
 - (void)removeAllListenersForEvent:(NSString* )eventType{
     
     [_subscriber removeAllSubscriptions:eventType];

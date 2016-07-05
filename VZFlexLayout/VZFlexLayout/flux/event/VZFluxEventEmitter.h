@@ -11,14 +11,10 @@
 #import "VZFluxEventSubscription.h"
 #import "VZFValue.h"
 /**
- *  In order to build "Flux Store" I have to build EventEmitter first.Sad story 😢
- *  Implementation based on EventEmitter.js. see:https://github.com/facebook/emitter
- *
- *
- *
+ *   In order to build "Flux Store" I have to build EventEmitter first.
+ *   Sad story 😢
+ *   Implementation based on EventEmitter.js. see:https://github.com/facebook/emitter
  */
-
-
 @interface VZFluxEventEmitter : NSObject
 
 /**
@@ -31,6 +27,18 @@
  *  @param context   Optional context object to use when invoking the listener
  */
 - (VZFluxEmitterSubscription* )addListener:(VZFluxEventListener)listener withEvent:(NSString* )eventType Context:(id)context;
+
+/**
+ * Similar to addListener, except that the listener is removed after it is
+ * invoked once.
+ *
+ * @param {string} eventType - Name of the event to listen to
+ * @param {function} listener - Function to invoke only once when the
+ *   specified event is emitted
+ * @param {*} context - Optional context object to use when invoking the
+ *   listener
+ */
+- (VZFluxEmitterSubscription* )once:(NSString* )eventType do:(VZFluxEventListener)listener Context:(id)context;
 /**
  * Removes all of the registered listeners, including those registered as
  * listener maps.

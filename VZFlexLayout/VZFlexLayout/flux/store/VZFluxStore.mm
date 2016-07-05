@@ -47,10 +47,23 @@
 
 }
 
+- (void)addListener:(VZFluxStoreListener)listener forEventType:(NSString *)eventType {
+    
+    _changeEvent = eventType;
+    [_emitter addListener:listener withEvent:eventType Context:nil];
+    
+}
+
 - (void)removeListener{
     
     [_emitter removeAllListenersForEvent:_changeEvent];
 
+}
+
+- (void)removeListenerForEventType:(NSString *)eventType{
+    _changeEvent = eventType;
+    [_emitter removeAllListenersForEvent:eventType];
+    
 }
 
 - (void)emitChange{

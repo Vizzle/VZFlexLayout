@@ -16,7 +16,7 @@
 #import "VZFluxStoreGroup.h"
 #import "VZFluxStoreFactory.h"
 #import "VZFluxAppDispatcher.h"
-
+#import "VZFluxEventEmitter.h"
 
 
 #endif /* Header_h */

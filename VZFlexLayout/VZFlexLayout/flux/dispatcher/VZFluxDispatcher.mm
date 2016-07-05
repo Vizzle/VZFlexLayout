@@ -34,8 +34,6 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
     dispatch_queue_t _serialDispatchQueue;
     
     std::shared_ptr<FluxAction> _pendingPayload;
-//    FluxAction _pendingPayload;
-
 }
 
 
@@ -156,7 +154,7 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
 
 - (void)_stopDispatching{
     _pendingPayload = nullptr;
-    _isDispatching = false;
+    _isDispatching = NO;
     
 }
 
