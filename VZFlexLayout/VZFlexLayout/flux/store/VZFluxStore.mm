@@ -8,8 +8,6 @@
 
 #import "VZFluxStore.h"
 #import "VZFluxDispatcher.h"
-#import "VZFluxEventEmitter.h"
-#import "VZFluxEventSubscription.h"
 #import "VZFMacros.h"
 
 @implementation VZFluxStore
@@ -28,8 +26,6 @@
         _changed = false;
         _changeEvent = @"change";
         _dispatcher = dispatcher;
-        _emitter = [[VZFluxEventEmitter alloc]init];
-        
         __weak typeof(self) weakSelf = self;
         _dispatchToken = [dispatcher registerWithCallback:^(const VZ::FluxAction& action) {
             __strong typeof(weakSelf) strongSelf = weakSelf;

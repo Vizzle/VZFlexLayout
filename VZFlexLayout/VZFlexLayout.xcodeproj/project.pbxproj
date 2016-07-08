@@ -21,9 +21,6 @@
 		457399861D262F5D001B804A /* VZFluxAppDispatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4573996F1D262F5D001B804A /* VZFluxAppDispatcher.mm */; };
 		457399871D262F5D001B804A /* VZFluxDispatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 457399711D262F5D001B804A /* VZFluxDispatcher.mm */; };
 		4573998D1D262F5D001B804A /* VZFluxStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4573997F1D262F5D001B804A /* VZFluxStore.mm */; };
-		457399971D26308A001B804A /* VZFluxEventEmitter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 457399921D26308A001B804A /* VZFluxEventEmitter.mm */; };
-		457399981D26308A001B804A /* VZFluxEventSubscriber.m in Sources */ = {isa = PBXBuildFile; fileRef = 457399941D26308A001B804A /* VZFluxEventSubscriber.m */; };
-		457399991D26308A001B804A /* VZFluxEventSubscription.m in Sources */ = {isa = PBXBuildFile; fileRef = 457399961D26308A001B804A /* VZFluxEventSubscription.m */; };
 		4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */; };
 		4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0AA1C72F1CC00E52B79 /* VZFNodeHostingView.mm */; };
 		4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4578E0AD1C72F1CC00E52B79 /* VZFNodeLayout.mm */; };
@@ -141,12 +138,6 @@
 		457399711D262F5D001B804A /* VZFluxDispatcher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFluxDispatcher.mm; sourceTree = "<group>"; };
 		4573997E1D262F5D001B804A /* VZFluxStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFluxStore.h; sourceTree = "<group>"; };
 		4573997F1D262F5D001B804A /* VZFluxStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFluxStore.mm; sourceTree = "<group>"; };
-		457399911D26308A001B804A /* VZFluxEventEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFluxEventEmitter.h; sourceTree = "<group>"; };
-		457399921D26308A001B804A /* VZFluxEventEmitter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFluxEventEmitter.mm; sourceTree = "<group>"; };
-		457399931D26308A001B804A /* VZFluxEventSubscriber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFluxEventSubscriber.h; sourceTree = "<group>"; };
-		457399941D26308A001B804A /* VZFluxEventSubscriber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFluxEventSubscriber.m; sourceTree = "<group>"; };
-		457399951D26308A001B804A /* VZFluxEventSubscription.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFluxEventSubscription.h; sourceTree = "<group>"; };
-		457399961D26308A001B804A /* VZFluxEventSubscription.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFluxEventSubscription.m; sourceTree = "<group>"; };
 		4578E0A11C72F1CC00E52B79 /* VZFlexNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFlexNode.h; sourceTree = "<group>"; };
 		4578E0A21C72F1CC00E52B79 /* VZFlexNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFlexNode.mm; sourceTree = "<group>"; };
 		4578E0A31C72F1CC00E52B79 /* VZFMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMacros.h; sourceTree = "<group>"; };
@@ -321,7 +312,6 @@
 		452C98A81D1A3FCC005C38F7 /* flux */ = {
 			isa = PBXGroup;
 			children = (
-				457399901D26305E001B804A /* event */,
 				4573996A1D262F5D001B804A /* action */,
 				4573996D1D262F5D001B804A /* dispatcher */,
 				4573997B1D262F5D001B804A /* store */,
@@ -366,19 +356,6 @@
 				4573997F1D262F5D001B804A /* VZFluxStore.mm */,
 			);
 			path = store;
-			sourceTree = "<group>";
-		};
-		457399901D26305E001B804A /* event */ = {
-			isa = PBXGroup;
-			children = (
-				457399911D26308A001B804A /* VZFluxEventEmitter.h */,
-				457399921D26308A001B804A /* VZFluxEventEmitter.mm */,
-				457399931D26308A001B804A /* VZFluxEventSubscriber.h */,
-				457399941D26308A001B804A /* VZFluxEventSubscriber.m */,
-				457399951D26308A001B804A /* VZFluxEventSubscription.h */,
-				457399961D26308A001B804A /* VZFluxEventSubscription.m */,
-			);
-			path = event;
 			sourceTree = "<group>";
 		};
 		4578E09B1C72F1CC00E52B79 /* core */ = {
@@ -837,7 +814,6 @@
 				457399851D262F5D001B804A /* VZFluxAction.mm in Sources */,
 				4565BF921CE1FFCA0010FA5F /* FBHostCellItem.mm in Sources */,
 				45E593371CDF5F880044987C /* FBScrollNode.mm in Sources */,
-				457399991D26308A001B804A /* VZFluxEventSubscription.m in Sources */,
 				45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */,
 				B1CB0BBA1C83E23900A9CAE7 /* VZFLineNode.mm in Sources */,
 				457399871D262F5D001B804A /* VZFluxDispatcher.mm in Sources */,
@@ -885,7 +861,6 @@
 				457D91C41CDB15D000013377 /* VZFScrollNode.mm in Sources */,
 				4597A36F1CFEA48C00888B5F /* VZFlexNode+VZFNode.mm in Sources */,
 				4578E0D01C72F1CC00E52B79 /* VZFSizeRange.mm in Sources */,
-				457399971D26308A001B804A /* VZFluxEventEmitter.mm in Sources */,
 				45A7D6E81CB4DB7900B072D5 /* FBClickNode.mm in Sources */,
 				456BDF801CEB0215008A5348 /* FBScrollChildNode.mm in Sources */,
 				45FB68401D2E22500097038E /* VZFIndicatorNodeSpecs.mm in Sources */,
@@ -898,7 +873,6 @@
 				4597A3741CFEAC0A00888B5F /* VZFButtonView.mm in Sources */,
 				4578E0F31C756D3400E52B79 /* VZFButtonNodeSpecs.mm in Sources */,
 				457D91C81CDB175900013377 /* VZFScrollNodeSpecs.mm in Sources */,
-				457399981D26308A001B804A /* VZFluxEventSubscriber.m in Sources */,
 				45FB683A1D2BF8FD0097038E /* VZFIndicatorNode.mm in Sources */,
 				4578E0CF1C72F1CC00E52B79 /* VZFNodeViewManager.mm in Sources */,
 				45A7D6AC1CB4D99300B072D5 /* VZFValue.mm in Sources */,
