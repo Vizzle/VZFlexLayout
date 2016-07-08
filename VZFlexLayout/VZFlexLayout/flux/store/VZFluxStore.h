@@ -30,7 +30,7 @@ typedef void(^VZFluxStoreListener)(NSString* eventType, id data);
 @interface VZFluxStore : NSObject{
 @protected
     BOOL _changed;
-    NSString* _changeEvent;
+//    NSString* _changeEvent;
     id _state;
 }
 
@@ -38,12 +38,12 @@ typedef void(^VZFluxStoreListener)(NSString* eventType, id data);
 @property(nonatomic,strong,readonly) VZFluxDispatcher* dispatcher;
 @property(nonatomic,strong,readonly) NSString* dispatchToken;
 @property(nonatomic,strong,readonly) VZFluxEventEmitter* emitter;
-@property(nonatomic,strong,readonly) NSString* changeEvent;
+//@property(nonatomic,strong,readonly) NSString* changeEvent;
 
 - (id)initWithDispatcher:(VZFluxDispatcher* )dispatcher;
 - (void)addListener:(VZFluxStoreListener)listener;
 - (void)removeListener;
-- (void)emitChange;
+- (void)emitChange:(NSString* )evenType;
 
 
 

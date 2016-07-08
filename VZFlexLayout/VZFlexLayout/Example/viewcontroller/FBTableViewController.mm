@@ -52,7 +52,7 @@
     __weak typeof(self) weakSelf = self;
     [self.contentStore addListener:^(NSString *eventType, NSDictionary*  data) {
        
-        if ([eventType isEqualToString:@"change"]) {
+        if ([eventType isEqualToString:@"View-State"]) {
             
             __strong typeof(weakSelf) strongSelf = weakSelf;
             NSIndexPath* indexPath = data[@"index"];
@@ -60,6 +60,9 @@
             FBHostCellItem* item = strongSelf->_items[row];
             [item updateState];
             [weakSelf.tableView reloadData];
+            
+        }
+        else{
             
         }
         

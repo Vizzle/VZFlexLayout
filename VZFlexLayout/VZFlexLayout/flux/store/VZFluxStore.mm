@@ -15,6 +15,7 @@
 @implementation VZFluxStore
 {
     NSString* _dispatchToken;
+    NSString* _changeEvent;
     VZFluxStoreListener _listener;
 }
 
@@ -49,11 +50,15 @@
     _listener = nil;
     
 }
-
 - (void)emitChange{
+    [self emitChange:_changeEvent];
+}
+
+- (void)emitChange:(NSString* )evenType{
 
     _invariant(_dispatcher.isDispatching, @"%@.emitChange(): Must be invoked while dispatching.",[self class]);
     _changed = true;
+    _changeEvent = evenType;
 }
 
 - (void)invokeOnDispatch:(const FluxAction& )action{

@@ -63,7 +63,7 @@
         _state = [_states copy];
         
         //fire change state;
-        [self emitChange];
+        [self emitChange:@"View-State"];
     }
     else{
         switch (action.actionType) {
@@ -71,7 +71,7 @@
             {
                 //如果需要controller做操作就emmit change
                 NSLog(@"%@",action.payload);
-                [self emitChange];
+                [self emitChange:@"View-Action"];
                 break;
             }
                 
