@@ -68,10 +68,10 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
         if(pos != nextExistingViewPos){
         
             NSUInteger swapIndex = [subviews indexOfObjectIdenticalTo:*nextExistingViewPos];
-            VZFCAssert(swapIndex != NSNotFound, @"Expected to find view: %@ in %@",[*nextExistingViewPos class],[containerView class]);
-            
-            [subviews exchangeObjectAtIndex:i withObjectAtIndex:swapIndex];
-            [containerView exchangeSubviewAtIndex:i withSubviewAtIndex:swapIndex];
+            if(swapIndex != NSNotFound){
+                [subviews exchangeObjectAtIndex:i withObjectAtIndex:swapIndex];
+                [containerView exchangeSubviewAtIndex:i withSubviewAtIndex:swapIndex];
+            }
         }
     
         ++nextExistingViewPos;

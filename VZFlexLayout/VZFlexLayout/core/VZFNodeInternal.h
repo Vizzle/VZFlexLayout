@@ -52,29 +52,12 @@ using namespace VZ;
  *  node的父节点
  */
 @property(nonatomic,weak)VZFNode* superNode;
+
+//@property(nonatomic,weak)UIView* backingView;
 /**
  *  root view
  */
 @property(nonatomic,weak)UIView* rootNodeView;
-/**
- *   a stateful context
- */
-//@property(nonatomic,strong)id statefulContext;
-
-/**
- *  Node的初始状态
- *
- *  @return state
- */
-+ (id)initialState;
-
-/**
- *  更新状态，(old) -> (new)
- *
- *  @param updateBlock
- */
-- (void)updateState:(id(^)(id))updateBlock Mode:(VZFActionUpdateMode)mode;
-
 /**
  *  计算Node的layout
  *
@@ -83,12 +66,22 @@ using namespace VZ;
  *  @return
  */
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz;
+/**
+ *  nextResponder of Node
+ *
+ *  1, Node's controller
+ *  2, Node's parent node
+ *  3, Hosting view if this node is the root node
+ *
+ */
+- (id)nextResponder;
+
 
 @end
 
 @interface VZFNode(Layout)
 
-- (BOOL)shouldMemoizeLayout;
+//- (BOOL)shouldMemoizeLayout;
 
 - (NodeLayout)nodeDidLayout;
 

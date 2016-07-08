@@ -6,13 +6,14 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "VZFluxReduceStore.h"
+#import "VZFluxStore.h"
 
-@interface FBContentNodeStore : VZFluxReduceStore
+@interface FBContentNodeStore : VZFluxStore
 
+@property(nonatomic,strong,readonly)NSArray* items;
 
+- (void)addNewState;
 
-
-
+- (id)initialStateAtIndex:(NSInteger)index;
 
 @end

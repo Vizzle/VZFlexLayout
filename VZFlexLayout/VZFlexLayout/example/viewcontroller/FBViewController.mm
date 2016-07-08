@@ -58,10 +58,7 @@
     [self.view addSubview:self.scrollView];
     
     
-    self.topView = [[VZFNodeHostingView alloc]initWithNodeProvider:self
-                                                         RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
-    
-
+    self.topView = [[VZFNodeHostingView alloc]initWithNodeProvider:self RangeType:VZFlexibleSizeHeight ];
     self.topView.backgroundColor = [UIColor whiteColor];
     self.topView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 1);
     self.topView.delegate = self;
@@ -70,7 +67,7 @@
     
     
     
-    self.bottomView = [[VZFNodeHostingView alloc]initWithNodeProvider:self RangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
+    self.bottomView = [[VZFNodeHostingView alloc]initWithNodeProvider:self RangeType:VZFlexibleSizeHeight];
     self.bottomView.tag = 1;
     self.bottomView.backgroundColor = [UIColor whiteColor];
     self.bottomView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 1);
@@ -81,12 +78,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self loadData];
     });
-    
-    
 
-    
-
- 
 }
 
 - (void)loadData
@@ -95,9 +87,7 @@
     NSData* data1 = [NSData dataWithContentsOfFile:path1];
     NSDictionary* json1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONWritingPrettyPrinted error:nil];
     FBHostItem* item1 = [FBHostItem newWithJSON:json1];
-    
-   [self.topView update:item1 mode:VZFActionUpdateModeAsynchronous];
-
+    [self.topView update:item1 context:nil];
 }
 
 - (void)reloadData{
@@ -106,29 +96,18 @@
     NSData* data2 = [NSData dataWithContentsOfFile:path2];
     NSDictionary* json2 = [NSJSONSerialization JSONObjectWithData:data2 options:NSJSONWritingPrettyPrinted error:nil];
     FBHostItem* item2 = [FBHostItem newWithJSON:json2];
-    
-    [self.bottomView update:item2 mode:VZFActionUpdateModeAsynchronous];
+    [self.bottomView update:item2 context:nil];
 
 }
 
-- (VZFNode *)nodeForItem:(FBHostItem* )item context:(id<NSObject>)context{
-
+- (VZFNode<VZFNodeCreationAPI>* )nodeForItem:(id)item Store:(id)store Context:(id)context{
     if (!item) {
         return nil;
     }
-    
-    return [FBIconNode newWithURL:@"http://www.collegedj.net/wp-content/uploads/2016/04/collegedj-sound-check-mixtape-volume-13-130x50.jpg"];
-    
-//    return [FBHostNode newWithItem:item];
-//    NSNumber* tag = (NSNumber* )context;
-//    if ([tag integerValue] == 0) {
-//        //return [FBScrollNode newWithItem:item];
-//           return [FBHostNode newWithItem:item];
-//    }
-//    else{
-//        return [FBClickToExpendNode newWithItem:item];
-//    }
+    return [FBHostNode newWithProps:item Store:store Context:context];
 }
+
+
 
 - (void)hostingView:(VZFNodeHostingView *)view DidInvalidate:(CGSize)newSize
 {

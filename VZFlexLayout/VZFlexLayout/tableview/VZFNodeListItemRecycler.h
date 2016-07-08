@@ -11,43 +11,19 @@
 #import "VZFNodeLayout.h"
 #import "VZFNodeProvider.h"
 
+@class VZFluxReduceStore;
 using namespace VZ;
-
-@class VZFRootScope;
-
-//struct VZFNodeListRecycleState{
-//    
-//    id item;
-//    id<NSObject> context;
-//    CGSize constrainedSize;
-//    NodeLayout layout;
-//    VZFRootScope* rootScope;
-//};
-
-@protocol VZFNodeListItemRecycleController <NSObject>
-
-@optional
-- (void)nodeStateDidChanged:(id)scopeId ShouldInvalidateToNewSize:(BOOL)b;
-
-
-@end
-
 
 /**
  *  列表node的适配器
  */
 @interface VZFNodeListItemRecycler : NSObject
 
+@property(nonatomic,weak)VZFluxReduceStore* store;
 @property(nonatomic,strong) NSIndexPath* indexPath;
-@property(nonatomic,weak)id<VZFNodeListItemRecycleController> delegate;
-@property(nonatomic,readonly,assign) CGSize resultSize;
+@property(nonatomic,assign,readonly) CGSize layoutSize;
 
-- (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider
-                   SizeRangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
-
-//- (VZFNodeListRecycleState)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context;
-//
-//- (void)updateState:(const VZFNodeListRecycleState&)state;
+- (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider;
 
 - (void)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context;
 

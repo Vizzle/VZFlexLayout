@@ -9,7 +9,6 @@
 #import "FBActionNodes.h"
 #import "FBClickNode.h"
 #import "VZFStackNode.h"
-#import "VZFScope.h"
 #import "FBHostItem.h"
 #import "VZFNodeInternal.h"
 #import "VZFNodeSpecs.h"
@@ -20,19 +19,13 @@
 @implementation FBActionNodes
 {
     NSIndexPath* _indexPath;
+    __weak FBContentNodeStore* _store;
 }
 
 
-+ (id)initialState{
++ (instancetype)newWithProps:(FBHostItem* )item Store:(FBContentNodeStore* )store Context:(NSIndexPath* )indexpath{
     
-    return [VZFluxStoreFactory storeWithClass:[FBContentNodeStore class]].state;
-
-}
-+ (instancetype)newWithItem:(FBHostItem* )item index:(NSIndexPath* )indexpath{
-    
-    
-    NSDictionary* state = [self initialState];
-    
+    NSDictionary* state = [store initialStateAtIndex:indexpath.row];
     BOOL isLike = [state[@"like"] boolValue];
     BOOL isRewarded = [state[@"reward"] boolValue];
     
@@ -57,6 +50,7 @@
     }];
     FBActionNodes* actionNode =  [super newWithNode:actions];
     actionNode -> _indexPath = indexpath;
+    actionNode -> _store = store;
     return  actionNode;
     
 }
@@ -64,26 +58,26 @@
 
 - (void)onLikeClicked:(id)sender{
     
-    FluxAction action = {
-        
+    FluxAction::send({
+       
         .source = view_state,
         .actionType = LIKE_CLICKED_STATE,
-        .payload = @{@"index":self->_indexPath}
+        .payload = @{@"index":self->_indexPath},
+        .dispatcher = self ->_store.dispatcher,
+    });
     
-    };
-    sendAction(action);
 }
 
 - (void)onRewardClicked:(id)sender{
     
-    FluxAction action = {
+    FluxAction::send ({
         
         .source = view_state,
         .actionType = REWARD_CLICKED_STATE,
-        .payload = @{@"index":self->_indexPath}
+        .payload = @{@"index":self->_indexPath},
+        .dispatcher = self->_store.dispatcher
         
-    };
-    sendAction(action);
+    });
 }
 
 @end

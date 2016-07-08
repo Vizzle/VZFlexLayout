@@ -11,9 +11,10 @@
 #import "VZFNodeProvider.h"
 #import "VZFStateUpdateMode.h"
 
+
 @class VZFNodeHostingView;
 @class VZFNode;
-
+@class VZFluxReduceStore;
 @protocol VZFNodeHostingView <NSObject>
 
 @optional
@@ -32,20 +33,12 @@
 @interface VZFNodeHostingView : UIView
 
 @property(nonatomic,weak)id<VZFNodeHostingView> delegate;
+@property(nonatomic,weak)VZFluxReduceStore* store;
 
 
-- (id)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider RangeProvider:(id<VZSizeRangeProvider>)sizeProvider;
-
-/**
- *  更新hostingview的数据
- *
- *  @param model      被更新的数据
- *  @param updateMode 同步/异步更新
- *
- *  @discussion: 如果是异步更新，node创建和layout将会在异步线程中执行
- *
- */
-- (void)update:(id)model mode:(VZFActionUpdateMode)updateMode;
+- (id)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider RangeType:(VZFSizeRange)rangeType;
+- (void)update:(id)model context:(id)context;
+- (void)updateState;
 - (void)reset;
 
 - (instancetype)init __attribute__((unavailable("Not the designated initializer")));

@@ -48,14 +48,14 @@ typedef void(^DispatchPayload) (const FluxAction& payload);
  *  @param list wait for callback list
  *  @param m    update mode
  */
-- (void)waitFor:(NSArray<NSString* > *)list mode:(VZFActionUpdateMode)m;
+- (void)waitFor:(NSArray<NSString* > *)list mode:(VZFStateUpdateMode)m;
 /**
  *  Dispatches a payload to all registered callbacks.
  *
  *  @param action
  *  @param m      
  */
-- (void)dispatch:(const FluxAction& )action mode:(VZFActionUpdateMode)m;
+- (void)dispatch:(const FluxAction& )action mode:(VZFStateUpdateMode)m;
 
 
 @end

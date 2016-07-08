@@ -8,7 +8,9 @@
 
 #import "VZFluxAppDispatcher.h"
 
-@implementation VZFluxAppDispatcher
+@implementation VZFluxAppDispatcher{
+
+}
 
 + (instancetype)sharedInstance{
     
@@ -20,9 +22,14 @@
     return instance;
 }
 
++ (VZFluxDispatcher* )dispatcher{
+
+    return [VZFluxDispatcher new];
+}
+
 - (void)handleAction:(const FluxAction&) action
 {
-    [self dispatch:action mode:VZFActionUpdateModeSynchronous];
+    [self dispatch:action mode:VZFStateUpdateModeSynchronous];
 }
 
 

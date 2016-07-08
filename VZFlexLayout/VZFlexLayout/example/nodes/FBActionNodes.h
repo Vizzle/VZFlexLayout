@@ -7,10 +7,11 @@
 //
 
 #import "VZFCompositeNode.h"
-
+#import "VZFNodeCreationAPI.h"
 @class FBHostItem;
-@interface FBActionNodes : VZFCompositeNode
+@interface FBActionNodes : VZFCompositeNode<VZFNodeCreationAPI>
 
-+ (instancetype)newWithItem:(FBHostItem* )item index:(NSIndexPath* )indexpath;
++ (instancetype)newWithProps:(id)props Store:(id)store Context:(id)context;
+
 
 @end

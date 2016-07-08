@@ -14,6 +14,8 @@ using namespace VZ;
 
 + (instancetype)sharedInstance;
 
++ (VZFluxDispatcher* )dispatcher;
+
 - (void)handleAction:(const FluxAction&) action;
 
 

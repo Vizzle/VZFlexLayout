@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "VZFluxReduceStore.h"
+#import "VZFluxStore.h"
 
-@interface FBScrollNodeStore : VZFluxReduceStore
+@interface FBScrollNodeStore : VZFluxStore
 
 @end

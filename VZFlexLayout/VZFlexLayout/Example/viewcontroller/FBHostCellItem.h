@@ -8,21 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol FBHostItemDelegate <NSObject>
 
-@optional
-- (void)itemState:(id)scopeId ChangedAtIndex:(NSIndexPath* )indexPath SizeChanged:(BOOL)b;
-
-@end
-
-
+@class VZFluxStore;
 @class VZFNode;
 @interface FBHostCellItem : NSObject
 
 @property(nonatomic,strong) NSString* reuseIdentifier;
 @property(nonatomic,strong) NSIndexPath* indexPath;
-@property(nonatomic,weak) id<FBHostItemDelegate> delegate;
 @property(nonatomic,strong,readonly)FBHostItem* model;
+@property(nonatomic,strong)VZFluxStore* store;
 //计算后的item宽度
 @property(nonatomic,assign,readonly)float itemWidth;
 @property(nonatomic,assign,readonly)float itemHeight;

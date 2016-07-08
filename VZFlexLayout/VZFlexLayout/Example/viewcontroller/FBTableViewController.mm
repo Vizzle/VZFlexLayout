@@ -8,7 +8,6 @@
 
 #import "FBTableViewController.h"
 #import "FBHostItem.h"
-#import "FBHostCell.h"
 #import "FBHostNode.h"
 #import "VZFNodeLayout.h"
 #import "VZFNodeInternal.h"
@@ -21,10 +20,9 @@
 #import "FBContentNodeStore.h"
 
 
-@interface FBTableViewController()<UITableViewDataSource,UITableViewDelegate,FBHostItemDelegate>
+@interface FBTableViewController()<UITableViewDataSource,UITableViewDelegate>
 
 @property(nonatomic,strong)UITableView* tableView;
-@property(nonatomic,strong)FBScrollNodeStore* scrollStore;
 @property(nonatomic,strong)FBContentNodeStore* contentStore;
 
 @end
@@ -50,7 +48,7 @@
     [self.view addSubview:self.tableView];
     
     
-    self.contentStore = (FBContentNodeStore* )[VZFluxStoreFactory storeWithClass:[FBContentNodeStore class]];
+    self.contentStore = [[FBContentNodeStore alloc]initWithDispatcher:[VZFluxAppDispatcher dispatcher]];
     __weak typeof(self) weakSelf = self;
     [self.contentStore addListener:^(NSString *eventType, NSDictionary*  data) {
        
@@ -67,11 +65,11 @@
         
     }];
     
-    self.scrollStore = (FBScrollNodeStore* )[VZFluxStoreFactory storeWithClass:[FBScrollNodeStore class]];
-    [self.scrollStore addListener:^(NSString *eventType, id data) {
-        NSLog(@"%@",data);
-        
-    }];
+//    self.scrollStore = (FBScrollNodeStore* )[VZFluxStoreFactory storeWithClass:[FBScrollNodeStore class]];
+//    [self.scrollStore addListener:^(NSString *eventType, id data) {
+//        NSLog(@"%@",data);
+//        
+//    }];
     
     
     [self loadData];
@@ -95,11 +93,11 @@
             FBHostItem* model = [FBHostItem newWithJSON:results[i]];
             FBHostCellItem* item = [FBHostCellItem new];
             item.indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            [self.contentStore addNewState];
+            item.store = self.contentStore;
             [item updateModel:model constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::Auto)];
-            item.delegate = self;
             [_items addObject:item];
-        }
-        
+        }        
         dispatch_async(dispatch_get_main_queue(), ^{
             
             [self.tableView reloadData];

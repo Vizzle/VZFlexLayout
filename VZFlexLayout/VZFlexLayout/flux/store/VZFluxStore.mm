@@ -15,7 +15,7 @@
 @implementation VZFluxStore
 {
     NSString* _dispatchToken;
-    
+    VZFluxStoreListener _listener;
 }
 
 
@@ -30,10 +30,10 @@
         _emitter = [[VZFluxEventEmitter alloc]init];
         
         __weak typeof(self) weakSelf = self;
-        _dispatchToken = [dispatcher registerWithCallback:^(const VZ::FluxAction& payload) {
+        _dispatchToken = [dispatcher registerWithCallback:^(const VZ::FluxAction& action) {
             __strong typeof(weakSelf) strongSelf = weakSelf;
             if (strongSelf) {
-                [strongSelf invokeOnDispatch:payload];
+                [strongSelf invokeOnDispatch:action];
             }
         }];
         
@@ -42,27 +42,11 @@
 }
 
 - (void)addListener:(VZFluxStoreListener)listener{
-    
-    [_emitter addListener:listener withEvent:_changeEvent Context:nil];
-
-}
-
-- (void)addListener:(VZFluxStoreListener)listener forEventType:(NSString *)eventType {
-    
-    _changeEvent = eventType;
-    [_emitter addListener:listener withEvent:eventType Context:nil];
-    
+    _listener  = [listener copy];
 }
 
 - (void)removeListener{
-    
-    [_emitter removeAllListenersForEvent:_changeEvent];
-
-}
-
-- (void)removeListenerForEventType:(NSString *)eventType{
-    _changeEvent = eventType;
-    [_emitter removeAllListenersForEvent:eventType];
+    _listener = nil;
     
 }
 
@@ -72,13 +56,20 @@
     _changed = true;
 }
 
-
 - (void)invokeOnDispatch:(const FluxAction& )action{
 
     _changed = NO;
+  
+    
+    //sub class override
     [self onDispatch:action];
+    
+
     if (_changed) {
-        [_emitter emit:_changeEvent withData:action.payload];
+        
+        if (_listener) {
+            _listener(_changeEvent,action.payload);
+        }
     }
     
 }

@@ -12,6 +12,6 @@
 @class FBHostItem;
 @interface FBHeaderNode : VZFCompositeNode
 
-+ (instancetype)newWithItem:(FBHostItem* )item;
++ (instancetype)newWithProps:(id)props Store:(id)store Context:(id)context;
 
 @end

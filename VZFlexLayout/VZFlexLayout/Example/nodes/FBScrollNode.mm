@@ -18,13 +18,13 @@
 #import "VZFTextNodeSpecs.h"
 #import "FBScrollChildNode.h"
 #import "VZFNodeSubClass.h"
-#
+
 
 
 @implementation FBScrollNode
 
++ (instancetype)newWithProps:(FBHostItem* )item Store:(id)store Context:(NSIndexPath* )indexpath{
 
-+ (instancetype)newWithItem:(FBHostItem *)item IndexPath:(NSIndexPath *)indexpath{
     
     std::vector<VZFNode* > childs{};
     for (int i=0;i<item.cards.count; i++) {

@@ -14,22 +14,17 @@
 #import "VZFTextNodeSpecs.h"
 #import "VZFButtonNode.h"
 #import "VZFButtonNodeSpecs.h"
-#import "VZFScope.h"
 #import "FBHostItem.h"
 #import "VZFNodeInternal.h"
+#import "FBContentNodeStore.h"
+#import <UIKit/UIKit.h>
 
 @implementation FBClickToExpendNode
 
-+ (id)initialState{
-
-    return @{@"expend":@(NO)};
-}
-
-+ (instancetype)newWithItem:(FBHostItem* )item{
-
-    VZ::Scope scope(self);
-    NSDictionary* state = scope.state();
++ (instancetype)newWithProps:(FBHostItem* )item Store:(FBContentNodeStore* )store Context:(NSIndexPath* )indexPath{
     
+    
+    NSDictionary* state = [store initialStateAtIndex:indexPath.row];
     NSLog(@"%s => {state:%@, thread:%@}",__PRETTY_FUNCTION__,state,[NSThread currentThread]);
     
     VZFTextNode* nameNode = [VZFTextNode newWithTextAttributes:{
@@ -78,14 +73,14 @@
 
 - (void)onExpendClicked:(id)sender {
     
-    [self updateState:^id(id oldState) {
-        
-        NSMutableDictionary* mutableOldState = [oldState mutableCopy];
-        mutableOldState[@"expend"] = @(![oldState[@"expend"] boolValue]);
-        return [mutableOldState copy];
-        
-    } Mode:VZFActionUpdateModeSynchronous];
-    
+//    [self updateState:^id(id oldState) {
+//        
+//        NSMutableDictionary* mutableOldState = [oldState mutableCopy];
+//        mutableOldState[@"expend"] = @(![oldState[@"expend"] boolValue]);
+//        return [mutableOldState copy];
+//        
+//    } Mode:VZFActionUpdateModeSynchronous];
+//    
 
 }
 

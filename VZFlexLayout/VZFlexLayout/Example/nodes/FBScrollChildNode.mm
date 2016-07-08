@@ -34,12 +34,14 @@
         .title = item.name,
         .action = ^(id sender){
             
-            FluxAction action = {
+            FluxAction::send({
+                
                 .source = ActionType::view_action,
                 .actionType = LOAD_DETAIL,
                 .payload = @{@"data":item, @"index":@(index)}
-            };
-            sendAction(action);}
+            
+            });
+        }
 
     }NodeSpecs:{
         .view = {

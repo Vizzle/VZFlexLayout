@@ -12,7 +12,6 @@
 #import "VZFStackNode.h"
 #import "VZFButtonNode.h"
 #import "VZFTextNode.h"
-#import "VZFScope.h"
 #import "FBImageDownloader.h"
 #import "VZFImageNode.h"
 #import "FBHostItem.h"
@@ -27,17 +26,12 @@
 #import "VZFlux.h"
 #import "FBActionType.h"
 
+
 @implementation FBContentNode
 
-
-+ (id)initialState{
-
-    return [ VZFluxStoreFactory storeWithClass:[FBContentNodeStore class]].state;
-}
-
-+ (instancetype)newWithItem:(FBHostItem* )item IndexPath:(NSIndexPath* )index
-{
-    NSDictionary* state = [self initialState];
++ (instancetype)newWithProps:(FBHostItem* )item Store:(FBContentNodeStore* )store Context:(NSIndexPath* )index{
+    
+    NSDictionary* state = [store initialStateAtIndex:index.row];
 
     VZFTextNode* textNode = [VZFTextNode newWithTextAttributes:{
         
@@ -54,13 +48,14 @@
         .fontSize   = 14.0f,
         .action     = ^(id sender){
     
-            FluxAction action = {
+            FluxAction::send({
                 .source = ActionType::view_state,
                 .actionType = EXPEND_CLICKED_STATE,
-                .payload = @{@"index":index?:[NSNull null]}
-            };
-            sendAction(action);
-        },
+                .payload = @{@"index":index?:[NSNull null]},
+                .dispatcher = store.dispatcher
+                
+            });
+        }
     }NodeSpecs:{
     
         .flex = {.alignSelf = VZFlexStart,.marginTop = 5}
@@ -79,14 +74,11 @@
         {item.content?buttonNode:nil},
         {item.images.count?imageNode:nil},
         {item.location?[FBLocationNode newWithLocation:item.location]:nil},
-        {[FBActionNodes newWithItem:item index:index]}
-        
+        {[FBActionNodes newWithProps:item Store:store Context:index]}
     }];
     
-
     
     FBContentNode* contentNode =  [super newWithNode:stackNode];
-
     return contentNode;
 }
 

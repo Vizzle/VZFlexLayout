@@ -16,12 +16,16 @@ namespace VZ {
     };
     
     struct FluxAction{
+        
+        static void send(const FluxAction& action);
+        
         ActionType source;
         int32_t actionType;
         __strong id payload;
+        
+        //指定投递的dispatcher，如果不指定默认投递到全局单例对象
+        __weak id dispatcher;
     };
-    
-    void sendAction(const FluxAction& action);
 }
 
 

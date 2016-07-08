@@ -22,6 +22,7 @@ namespace VZ {
         }
     }__unused;
     
+    
     struct ObjectHashFunctor {
         size_t operator()(const __unsafe_unretained id key) const {
             return (size_t)(key);

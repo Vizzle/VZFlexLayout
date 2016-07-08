@@ -16,7 +16,7 @@
 #import "FBHostItem.h"
 #import "FBHostCellItem.h"
 
-@interface FBHostCellItem () <VZFNodeProvider, VZFNodeListItemRecycleController>
+@interface FBHostCellItem () <VZFNodeProvider>
 
 @property (nonatomic, strong) VZFNodeListItemRecycler *recycler;
 @end
@@ -30,19 +30,18 @@
 
 - (float)itemHeight
 {
-    return _recycler.resultSize.height;
+    return _recycler.layoutSize.height;
 }
 - (float)itemWidth
 {
-    return _recycler.resultSize.width;
+    return _recycler.layoutSize.width;
 }
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        _recycler = [[VZFNodeListItemRecycler alloc] initWithNodeProvider:self SizeRangeProvider:[VZSizeRangeProvider defaultRangeProvider:VZFlexibleSizeHeight]];
-        _recycler.delegate = self;
+        _recycler = [[VZFNodeListItemRecycler alloc] initWithNodeProvider:self ];
     }
     return self;
 }
@@ -57,13 +56,17 @@
     _recycler.indexPath = indexPath;
 }
 
+- (void)setStore:(VZFluxStore *)store{
+
+    _store = store;
+    _recycler.store = (VZFluxReduceStore* )store;
+}
+
 - (void)updateModel:(id)model constrainedSize:(CGSize)sz{
     
     _model = model;
-    
     [_recycler calculate:model constrainedSize:sz context:self.indexPath];
     
-
 }
 
 - (void)updateState{
@@ -81,21 +84,14 @@
     [_recycler detachFromView];
 }
 
-- (VZFNode *)nodeForItem:(FBHostItem* )item context:(NSIndexPath* )context
-{
 
+- (VZFNode<VZFNodeCreationAPI>* )nodeForItem:(FBHostItem* )item Store:(id)store Context:(NSIndexPath* )context{
+    
     if([item.type isEqualToString:@"scroll"]){
-        return [FBScrollNode newWithItem:item IndexPath:context];
+        return [FBScrollNode newWithProps:item Store:store Context:context];
     }
     else{
-        return [FBHostNode newWithItem:item IndexPath:context];
-    }    
-}
-
-- (void)nodeStateDidChanged:(id)scopeId ShouldInvalidateToNewSize:(BOOL)b
-{
-    if ([self.delegate respondsToSelector:@selector(itemState:ChangedAtIndex:SizeChanged:)]) {
-        [self.delegate itemState:scopeId ChangedAtIndex:self.indexPath SizeChanged:b];
+        return [FBHostNode newWithProps:item Store:store Context:context];
     }
 }
 

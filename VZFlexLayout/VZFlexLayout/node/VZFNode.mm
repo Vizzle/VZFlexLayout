@@ -12,8 +12,6 @@
 #import "VZFlexNode.h"
 #import "VZFNodeLayout.h"
 #import "VZFNodeInternal.h"
-#import "VZFScopeHandler.h"
-#import "VZFScopeManager.h"
 #import "VZFNodeController.h"
 #import "VZFlexNode+VZFNode.h"
 #import "VZFNodeMountContext.h"
@@ -24,8 +22,7 @@
 #import "VZFNodeViewClass.h"
 #import "UIView+VZAttributes.h"
 #import "VZFNodeBackingViewInterface.h"
-#import "VZFNodeMemoizer.h"
-#import "VZFlux.h"
+#import "VZFNodeControllerManager.h"
 
 struct VZFNodeMountedInfo{
     
@@ -44,13 +41,10 @@ using namespace VZ::UIKit;
 
 @implementation VZFNode
 {
-    VZFScopeHandler* _scopeHandler;
+
     std::unique_ptr<VZFNodeMountedInfo> _mountedInfo;
 }
 
-+ (id)initialState{
-    return nil;
-}
 
 + (instancetype)newWithView:(const ViewClass &)viewclass NodeSpecs:(const NodeSpecs &)specs{
 
@@ -70,7 +64,6 @@ using namespace VZ::UIKit;
         _viewClass      = viewclass;
         _flexNode       = [VZFlexNode flexNodeWithFlexAttributes:specs.flex];
         _flexNode.name  = [NSString stringWithUTF8String:specs.identifier.c_str()];
-        _scopeHandler   = [VZFScopeHandler scopeHandlerForNode:self];
         _flexNode.fNode = self;
 
     }
@@ -92,20 +85,12 @@ using namespace VZ::UIKit;
 - (UIView* )mountedView{
 
     if (_mountedInfo) {
-        return _mountedInfo -> mountedView;
+        return _mountedInfo -> mountedView?:_mountedInfo->mountedContext.v;
     }
     else{
         return nil;
     }
 }
-
-
-- (void)updateState:(id(^)(id))updateBlock Mode:(VZFActionUpdateMode)mode
-{
-
-   // [_scopeHandler updateState:updateBlock mode:mode];
-}
-
 
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz{
     
@@ -147,7 +132,8 @@ using namespace VZ::UIKit;
 }
 
 - (id)nextResponder {
-    return _scopeHandler.controller ?: [self nextResponderAfterController];
+    return [self nextResponderAfterController];
+//    return _scopeHandler.controller ?: [self nextResponderAfterController];
 }
 
 - (id)nextResponderAfterController
@@ -162,7 +148,11 @@ using namespace VZ::UIKit;
 }
 
 - (VZFNodeController* )controller {
-    return _scopeHandler.controller;
+  
+    return nil;
+//    return [VZFNodeControllerManager controllerForNodeClass:[self class]];
+//    
+//    return _scopeHandler.controller;
 }
 
 -(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
@@ -251,7 +241,6 @@ using namespace VZ::UIKit;
     
     UIView* view = _mountedInfo -> mountedView;
     if(view){
-        [_scopeHandler.controller node:self willReleaseBackingView:view];
         
         //@discussion:reset state
 //        VZ::Mounting::reset(view);

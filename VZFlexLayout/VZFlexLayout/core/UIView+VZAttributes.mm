@@ -17,6 +17,8 @@
 #import "VZFTextNodeSpecs.h"
 #import "VZFImageNode.h"
 #import "VZFImageNodeSpecs.h"
+#import "VZFIndicatorNode.h"
+#import "VZFIndicatorNodeSpecs.h"
 #import "VZFActionWrapper.h"
 #import "VZFScrollNode.h"
 #import "VZFScrollNodeSpecs.h"
@@ -60,6 +62,10 @@
     else if ([node isKindOfClass:[VZFPagingNode class]])
     {
         [self _applyPagingAttributes:((VZFPagingNode* )node).pagingNodeSpecs];
+    }
+    else if ([node isKindOfClass:[VZFIndicatorNode class]])
+    {
+        [self _applyIndicatorAttributes:((VZFIndicatorNode* )node).indicatorSpecs];
     }
 }
 
@@ -299,7 +305,7 @@
         label.attributedText = textNodeSpecs.attributedString;
     }
     else {
-        if (textNodeSpecs.kern != 0) {
+        if (textNodeSpecs.kern != 0 && textNodeSpecs.text.length > 0) {
             NSDictionary *dict = @{NSKernAttributeName:@(textNodeSpecs.kern),
                                    NSLigatureAttributeName:@0};
             label.attributedText = [[NSAttributedString alloc] initWithString:textNodeSpecs.text attributes:dict];
@@ -330,6 +336,14 @@
                                      context:imageSpec.context
                              completionBlock:vz_actionWrapper(imageSpec.completion)];   
     }
+    
+}
+
+- (void)_applyIndicatorAttributes:(const IndicatorNodeSpecs& )indicatorSpecs{
+    
+    UIActivityIndicatorView *indicatorView = (UIActivityIndicatorView *)self;
+    indicatorView.color = indicatorSpecs.color;
+    [indicatorView startAnimating];
     
 }
 

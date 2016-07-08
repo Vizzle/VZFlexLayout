@@ -18,7 +18,7 @@
 
 @implementation FBHeaderNode
 
-+ (instancetype)newWithItem:(FBHostItem* )item{
++ (instancetype)newWithProps:(FBHostItem* )item Store:(id)store Context:(id)context{
     
     
     return [super newWithNode:[VZFStackNode newWithStackAttributes:{} NodeSpecs:{
