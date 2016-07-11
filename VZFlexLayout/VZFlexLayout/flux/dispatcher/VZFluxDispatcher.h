@@ -52,10 +52,10 @@ typedef void(^DispatchPayload) (const FluxAction& payload);
 /**
  *  Dispatches a payload to all registered callbacks.
  *
- *  @param action
+ *  @param action, this will create a copy of FluxAction
  *  @param m      
  */
-- (void)dispatch:(const FluxAction& )action mode:(VZFStateUpdateMode)m;
+- (void)dispatch:(FluxAction)action mode:(VZFStateUpdateMode)m;
 
 
 @end

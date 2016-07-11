@@ -118,11 +118,15 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
     
 }
 
-- (void)dispatch:(const VZ::FluxAction &)action mode:(VZFStateUpdateMode)m{
+- (void)dispatch:(VZ::FluxAction)action mode:(VZFStateUpdateMode)m{
 
     if (_isDispatching) {
-
-        _invariant(!_isDispatching, @"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.");
+//        _invariant(!_isDispatching, @"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.");
+        if (m == VZFStateUpdateModeSynchronous) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self dispatch:action mode:m]; 
+            });
+        }
         return;
     }
     

@@ -40,6 +40,7 @@ typedef void(^VZFluxStoreListener)(NSString* eventType, id data);
 - (id)initWithDispatcher:(VZFluxDispatcher* )dispatcher;
 - (void)addListener:(VZFluxStoreListener)listener;
 - (void)removeListener;
+- (void)emitChange;
 - (void)emitChange:(NSString* )evenType;
 
 

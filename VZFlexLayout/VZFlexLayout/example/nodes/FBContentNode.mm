@@ -47,7 +47,7 @@
         .titleColor = [UIColor redColor],
         .fontSize   = 14.0f,
         .action     = ^(id sender){
-    
+            
             FluxAction::send({
                 .source = ActionType::view_state,
                 .actionType = EXPEND_CLICKED_STATE,
