@@ -31,37 +31,6 @@ namespace VZ {
         }
     }
 }
-using namespace VZ;
-@implementation VZSizeRangeProvider
-{
-    VZFSizeRange _range;
-}
-- (CGSize)rangeSizeForBounds:(CGSize)size{
 
-    if (_range == VZFlexibleSizeWidthAndHeight) {
-        return (CGSize){FlexValue::Auto,FlexValue::Auto};
-    }
-    else if (_range == VZFlexibleSizeHeight){
-        return (CGSize){size.width,FlexValue::Auto};
-    }
-    else if (_range == VZFlexibleSizeWidth){
-        return (CGSize){FlexValue::Auto,size.height};
-    }
-    else if (_range == VZFlexibleSizeNone){
-        return size;
-    }
-    else{
-        return size;
-    }
-}
-
-+ (instancetype)rangeProvider:(VZFSizeRange)range{
-
-    VZSizeRangeProvider* provider = [VZSizeRangeProvider new];
-    provider -> _range = range;
-    return provider;
-}
-
-@end
 
 

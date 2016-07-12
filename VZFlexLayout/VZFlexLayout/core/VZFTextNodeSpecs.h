@@ -13,6 +13,7 @@
 typedef NS_ENUM(NSUInteger, VZFFontStyle) {
     VZFFontStyleNormal,
     VZFFontStyleBold,
+    VZFFontStyleThin,
     VZFFontStyleItalic,
     VZFFontStyleBoldItalic,
 };

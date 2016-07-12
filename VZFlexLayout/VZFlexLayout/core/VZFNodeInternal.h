@@ -11,7 +11,9 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNode.h"
-#import "VZFStateUpdateMode.h"
+#import "VZFNodeLifeCycle.h"
+
+
 
 
 /**
@@ -30,11 +32,14 @@ namespace VZ {
 using namespace VZ;
 
 @class VZFlexNode;
-@class VZFNodeController;
 @class VZFNodeHostingView;
 
 @interface VZFNode()
 
+/**
+ *  声明周期状态
+ */
+@property(nonatomic,assign,readonly)VZFNodeLifeCycleState state;
 /**
  *  Node对应到UIKit的类型
  */
@@ -58,6 +63,7 @@ using namespace VZ;
  *  root view
  */
 @property(nonatomic,weak)UIView* rootNodeView;
+
 /**
  *  计算Node的layout
  *
@@ -118,18 +124,17 @@ using namespace VZ;
  *
  *  @return 加载结果
  */
--(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context
+- (VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context
                                    Size:(CGSize) size
                              ParentNode:(VZFNode* )parentNode;
--(void)unmount;
--(void)willMount;
--(void)didMount;
+- (void)unmount;
+
+
+
+
+
 
 @end
 
-@interface VZFNode(Controller)
 
-- (VZFNodeController* )controller;
-
-@end
 #endif /* VZFNodeInternal_h */

@@ -11,7 +11,7 @@
 #import "VZFNodeLayout.h"
 #import "VZFNodeProvider.h"
 
-@class VZFluxReduceStore;
+
 using namespace VZ;
 
 /**
@@ -19,7 +19,7 @@ using namespace VZ;
  */
 @interface VZFNodeListItemRecycler : NSObject
 
-@property(nonatomic,weak)VZFluxReduceStore* store;
+@property(nonatomic,weak)VZFluxStore* store;
 @property(nonatomic,strong) NSIndexPath* indexPath;
 @property(nonatomic,assign,readonly) CGSize layoutSize;
 

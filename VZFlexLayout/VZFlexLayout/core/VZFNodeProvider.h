@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VZFNodeCreationAPI.h"
+#import "VZFNodeRequiredMethods.h"
+
 @class VZFNode;
 @class VZFluxStore;
 @protocol VZFNodeProvider <NSObject>
-- (VZFNode<VZFNodeCreationAPI>* )nodeForItem:(id)item Store:(id)store Context:(id)context;
-
+- (VZFNode<VZFNodeRequiredMethods>* )nodeForItem:(id)item Store:(VZFluxStore* )store Context:(id)ctx;
 @end

@@ -103,8 +103,7 @@ struct VZItemRecyclerState{
 
 - (void)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context{
     
-    VZFNode* node = nil;
-    node = [_nodeProvider nodeForItem:item Store:self.store Context:context];
+    VZFNode* node = [_nodeProvider nodeForItem:item Store:self.store Context:context];
     
     if (node) {
         const VZ::NodeLayout layout = [node computeLayoutThatFits:constrainedSize];

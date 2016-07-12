@@ -11,8 +11,8 @@
 #import "VZFNodeSubClass.h"
 #import "VZFNodeInternal.h"
 #import "VZFIndicatorView.h"
-#import "VZFlexNode.h"
 #import "VZFMacros.h"
+#import "VZFlexNode.h"
 
 @implementation VZFIndicatorNode
 

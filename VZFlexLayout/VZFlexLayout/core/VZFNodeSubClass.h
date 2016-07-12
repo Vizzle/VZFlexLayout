@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNode.h"
-#import "VZFStateUpdateMode.h"
+#import "VZFNodeLifeCycle.h"
 
 /**
  *  前项声明
@@ -67,15 +67,9 @@ namespace VZ {
  *  @return object
  */
 - (id)targetForAction:(SEL)action withSender:(id)sender;
-/**
- *  node mount view之前调用
- */
--(void)willMount NS_REQUIRES_SUPER;
-
-/**
- *  node mount view之后调用
- */
--(void)didMount NS_REQUIRES_SUPER ;
 
 
 @end
+
+
+

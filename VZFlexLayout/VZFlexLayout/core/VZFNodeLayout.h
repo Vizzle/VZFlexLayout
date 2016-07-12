@@ -42,6 +42,8 @@ namespace VZ {
         }
         ~NodeLayout(){
             node = nil;
+            children.reset();
+            children = nullptr;
         }
         
         const std::string description() const{

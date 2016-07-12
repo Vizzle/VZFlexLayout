@@ -100,7 +100,7 @@
 
 }
 
-- (VZFNode<VZFNodeCreationAPI>* )nodeForItem:(id)item Store:(id)store Context:(id)context{
+- (VZFNode<VZFNodeRequiredMethods>* )nodeForItem:(id)item Store:(id)store Context:(id)context{
     if (!item) {
         return nil;
     }

@@ -25,9 +25,6 @@ using namespace VZ;
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
 
-+ (instancetype)newWithProps:(id)props Store:(id)store Context:(id)context{
-    return nil;
-}
 + (instancetype)newWithNode:(VZFNode *)node{
 
     if (!node) {

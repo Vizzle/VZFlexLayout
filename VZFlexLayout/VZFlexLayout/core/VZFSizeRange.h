@@ -19,16 +19,3 @@ typedef NS_ENUM(NSUInteger,VZFSizeRange) {
 namespace VZ {
     CGSize containerSize(VZFSizeRange type, CGSize givenSize);
 }
-
-@protocol VZSizeRangeProvider <NSObject>
-
-@optional
-- (CGSize)rangeSizeForBounds:(CGSize)size;
-
-@end
-
-@interface VZSizeRangeProvider : NSObject<VZSizeRangeProvider>
-
-+ (instancetype)rangeProvider:(VZFSizeRange)range;
-
-@end

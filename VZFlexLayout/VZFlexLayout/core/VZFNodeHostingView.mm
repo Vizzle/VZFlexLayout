@@ -133,10 +133,8 @@ using namespace VZ;
     
     VZFNode* node = [_nodeProvider nodeForItem:_model Store:_store Context:_context];
     
-        if (node) {
-        
-//        CGSize sz = [_sizeProvider rangeSizeForBounds:self.bounds.size];
-        
+    if (node) {
+                
         CGSize sz = VZ::containerSize(_rangeType, self.bounds.size);
         
         _mountedLayout = [node computeLayoutThatFits:sz];

@@ -14,7 +14,7 @@
 
 @class VZFNodeHostingView;
 @class VZFNode;
-@class VZFluxReduceStore;
+@class VZFluxStore;
 @protocol VZFNodeHostingView <NSObject>
 
 @optional
@@ -33,7 +33,7 @@
 @interface VZFNodeHostingView : UIView
 
 @property(nonatomic,weak)id<VZFNodeHostingView> delegate;
-@property(nonatomic,weak)VZFluxReduceStore* store;
+@property(nonatomic,weak)VZFluxStore* store;
 
 
 - (id)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider RangeType:(VZFSizeRange)rangeType;

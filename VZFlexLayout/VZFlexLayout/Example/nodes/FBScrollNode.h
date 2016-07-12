@@ -7,10 +7,10 @@
 //
 
 #import "VZFCompositeNode.h"
-#import "VZFNodeCreationAPI.h"
+#import "VZFNodeRequiredMethods.h"
 
 @class FBHostItem;
-@interface FBScrollNode : VZFCompositeNode<VZFNodeCreationAPI>
+@interface FBScrollNode : VZFCompositeNode<VZFNodeRequiredMethods>
 
 + (instancetype)newWithProps:(id)props Store:(id)store Context:(id)context;
 

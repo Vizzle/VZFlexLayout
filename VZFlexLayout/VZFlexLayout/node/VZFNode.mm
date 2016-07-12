@@ -12,25 +12,23 @@
 #import "VZFlexNode.h"
 #import "VZFNodeLayout.h"
 #import "VZFNodeInternal.h"
-#import "VZFNodeController.h"
+#import "VZFNodeLifeCycle.h"
 #import "VZFlexNode+VZFNode.h"
 #import "VZFNodeMountContext.h"
 #import "VZFNodeViewManager.h"
 #import "VZFNodeMountContext.h"
-#import "VZFNodeControllerInternal.h"
 #import "VZFNodeSpecs.h"
 #import "VZFNodeViewClass.h"
 #import "UIView+VZAttributes.h"
 #import "VZFNodeBackingViewInterface.h"
-#import "VZFNodeControllerManager.h"
 
 struct VZFNodeMountedInfo{
-    
+  
     __weak VZFNode* parentNode;
     __weak UIView* mountedView;
     
     struct {
-        UIView* v;
+        __weak UIView* v;
         CGRect frame;
     } mountedContext;
 };
@@ -41,7 +39,8 @@ using namespace VZ::UIKit;
 
 @implementation VZFNode
 {
-
+    
+    VZFNodeLifeCycleState _lifeCycleState;
     std::unique_ptr<VZFNodeMountedInfo> _mountedInfo;
 }
 
@@ -147,13 +146,12 @@ using namespace VZ::UIKit;
     return [self respondsToSelector:action] ? self : [[self nextResponder] targetForAction:action withSender:sender];
 }
 
-- (VZFNodeController* )controller {
-  
-    return nil;
-//    return [VZFNodeControllerManager controllerForNodeClass:[self class]];
+//- (VZFNodeController* )controller {
 //    
-//    return _scopeHandler.controller;
-}
+//    return [VZFNodeControllerManager controllerForNodeClass:[self class]];
+////    
+////    return _scopeHandler.controller;
+//}
 
 -(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
 {    
@@ -170,16 +168,12 @@ using namespace VZ::UIKit;
     if (view) {
         //不是当前的backingview
         if (view != _mountedInfo -> mountedView) {
-            
-            [self _recycleMountedView];
             [view.node unmount];
-            
-            //notify controller
-            [self.controller node:self didAquireBackingView:view];
         }
         
         view.node = self;
         _mountedInfo -> mountedView = view;
+        [self didAquireBackingView];
 
         //计算公式:
         //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
@@ -217,37 +211,124 @@ using namespace VZ::UIKit;
 -(void)unmount{
     
     if (_mountedInfo != nullptr) {
-        [self.controller nodeWillUnmount:self];
-        [self _recycleMountedView];
+        [self  willUnmount];
+        
+        UIView* currentMountedView = _mountedInfo -> mountedView;
+        if (currentMountedView) {
+            [self willReleaseBackingView];
+            
+            //        //@discussion:reset state
+            //        //VZ::Mounting::reset(view);
+            
+            
+            currentMountedView.node = nil;
+            currentMountedView = nil;
+        }
         _mountedInfo.reset();
-        [self.controller nodeDidUnmount:self];
+        [self didUnmount];
     }
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - life cycle
+
+-(void)willMount{
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
+    switch (_state) {
+        case VZFNodeStateUnmounted:
+        {
+            _state = VZFNodeStateMounting;
+            break;
+        }
+        case VZFNodeStateMounted:
+        {
+            _state = VZFNodeStateRemounting;
+            [self willRemount];
+            break;
+        }
+        default:
+        {
+            VZFAssert(NO, @"Controller State:[%@] Error: willmount -> '%@' ",[self class],VZFNodeStateName(_state));
+            break;
+        }
+    }
+}
+
+- (void)willRemount{
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
 
 }
 
 -(void)didMount{
-    
-    [[self controller] nodeDidMount:self];
-}
-
--(void)willMount{
-    
-    [[self controller] nodeWillMount:self];
-    
-}
-
-
-- (void)_recycleMountedView{
-    
-    UIView* view = _mountedInfo -> mountedView;
-    if(view){
-        
-        //@discussion:reset state
-//        VZ::Mounting::reset(view);
-        view.node = nil;
-        view = nil;
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
+    switch (_state) {
+        case VZFNodeStateMounting:
+        {
+            _state = VZFNodeStateMounted;
+            break;
+        }
+        case VZFNodeStateRemounting:{
+            _state = VZFNodeStateMounted;
+            [self didRemount];
+            break;
+        }
+        default:
+        {
+            VZFAssert(NO, @"Controller State:[%@] Error: didmount -> '%@' ",[self class],VZFNodeStateName(_state));
+            break;
+        }
     }
 }
+
+- (void)didRemount{
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+
+- (void)willUnmount{
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
+    
+    switch (_state) {
+        case VZFNodeStateMounted:
+        {
+            _state = VZFNodeStateUnmounting;
+            break;
+        }
+        default:
+        {
+            VZFAssert(NO, @"Controller State:[%@] Error: will unmount -> '%@' ",[self class],VZFNodeStateName(_state));
+            break;
+        }
+    }
+
+    
+}
+
+- (void)didUnmount{
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
+    switch (_state) {
+        case VZFNodeStateUnmounting:
+            _state = VZFNodeStateUnmounted;
+            break;
+            
+        default:{
+            VZFAssert(NO, @"Controller State:[%@] Error: did unmount -> '%@' ",[self class],VZFNodeStateName(_state));
+            break;
+        }
+    }
+}
+
+- (void)willReleaseBackingView{
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+
+- (void)didAquireBackingView{
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+
+
+
+
 
 
 @end

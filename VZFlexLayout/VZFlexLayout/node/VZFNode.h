@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNodeSpecs.h"
-#import "VZFNodeViewClass.h"
 
+namespace VZ {
+    class ViewClass;
+    class NodeSpecs;
+}
 
 using namespace VZ;
 @interface VZFNode : NSObject
@@ -25,5 +28,3 @@ using namespace VZ;
                  NodeSpecs:(const NodeSpecs& )specs;
 
 @end
-
-

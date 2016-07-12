@@ -10,6 +10,7 @@
 #import "VZFUtils.h"
 #import "VZFNodeLayout.h"
 #import "VZFNodeInternal.h"
+#import "VZFNodeLifeCycle.h"
 #import "VZFNodeMountContext.h"
 #import <stack>
 

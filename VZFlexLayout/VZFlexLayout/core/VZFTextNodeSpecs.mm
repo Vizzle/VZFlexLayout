@@ -18,46 +18,63 @@ namespace VZ {
     
     UIFont *createFont(NSString *fontName, CGFloat fontSize, VZFFontStyle fontStyle) {
         if (fontSize == 0) fontSize = [UIFont systemFontSize];
-        
+        UIFont *font = nil;
         // 加快字体创建
         if (fontName.length == 0 && fontStyle != VZFFontStyleBoldItalic) {
             switch (fontStyle) {
                 case VZFFontStyleBold:
-                    return [UIFont boldSystemFontOfSize:fontSize];
+                    font = [UIFont boldSystemFontOfSize:fontSize];
+                    break;
                 case VZFFontStyleItalic:
-                    return [UIFont italicSystemFontOfSize:fontSize];
+                    font = [UIFont italicSystemFontOfSize:fontSize];
+                    break;
+                case VZFFontStyleThin:
+                    // iOS8+才能支持细体
+                    if ([UIFont respondsToSelector:@selector(systemFontOfSize:weight:)]) {
+                        font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightThin];
+                    } else {
+                        font = [UIFont systemFontOfSize:fontSize];
+                    }
+                    break;
                 default:
-                    return [UIFont systemFontOfSize:fontSize];
+                    font = [UIFont systemFontOfSize:fontSize];
             }
         }
         else if (fontStyle == VZFFontStyleNormal) {
-            return [UIFont fontWithName:fontName size:fontSize];
+            font = [UIFont fontWithName:fontName size:fontSize];
         }
-        
-        UIFontDescriptorSymbolicTraits traits = UIFontDescriptorSymbolicTraits();
-        switch (fontStyle) {
-            case VZFFontStyleNormal:
-                break;
-            case VZFFontStyleBold:
-                traits |= UIFontDescriptorTraitBold;
-                break;
-            case VZFFontStyleItalic:
-                traits |= UIFontDescriptorTraitItalic;
-                break;
-            case VZFFontStyleBoldItalic:
-                traits |= UIFontDescriptorTraitBold;
-                traits |= UIFontDescriptorTraitItalic;
-                break;
+        else {
+            // 指定字体名称时暂时无法支持细体
+            UIFontDescriptorSymbolicTraits traits = UIFontDescriptorSymbolicTraits();
+            switch (fontStyle) {
+                case VZFFontStyleNormal:
+                case VZFFontStyleThin:
+                    break;
+                case VZFFontStyleBold:
+                    traits |= UIFontDescriptorTraitBold;
+                    break;
+                case VZFFontStyleItalic:
+                    traits |= UIFontDescriptorTraitItalic;
+                    break;
+                case VZFFontStyleBoldItalic:
+                    traits |= UIFontDescriptorTraitBold;
+                    traits |= UIFontDescriptorTraitItalic;
+                    break;
+            }
+            UIFontDescriptor *fontDescriptor;
+            if (fontName.length > 0) {
+                fontDescriptor = [UIFontDescriptor fontDescriptorWithName:fontName size:fontSize];
+            } else {
+                fontDescriptor = [[UIFontDescriptor alloc] init];
+                fontDescriptor = [fontDescriptor fontDescriptorWithSize:fontSize];
+            }
+            fontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:traits];
+            font = [UIFont fontWithDescriptor:fontDescriptor size:fontSize];
         }
-        UIFontDescriptor *fontDescriptor;
-        if (fontName.length > 0) {
-            fontDescriptor = [UIFontDescriptor fontDescriptorWithName:fontName size:fontSize];
-        } else {
-            fontDescriptor = [[UIFontDescriptor alloc] init];
-            fontDescriptor = [fontDescriptor fontDescriptorWithSize:fontSize];
+        if (!font) {
+            font = [UIFont systemFontOfSize:fontSize];
         }
-        fontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:traits];
-        return [UIFont fontWithDescriptor:fontDescriptor size:fontSize];
+        return font;
     }
     
     size_t TextNodeSpecs::hash() const

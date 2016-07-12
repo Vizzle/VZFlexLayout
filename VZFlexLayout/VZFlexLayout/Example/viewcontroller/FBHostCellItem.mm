@@ -59,7 +59,7 @@
 - (void)setStore:(VZFluxStore *)store{
 
     _store = store;
-    _recycler.store = (VZFluxReduceStore* )store;
+    _recycler.store = store;
 }
 
 - (void)updateModel:(id)model constrainedSize:(CGSize)sz{
@@ -85,7 +85,7 @@
 }
 
 
-- (VZFNode<VZFNodeCreationAPI>* )nodeForItem:(FBHostItem* )item Store:(id)store Context:(NSIndexPath* )context{
+- (VZFNode<VZFNodeRequiredMethods>* )nodeForItem:(FBHostItem* )item Store:(id)store Context:(NSIndexPath* )context{
     
     if([item.type isEqualToString:@"scroll"]){
         return [FBScrollNode newWithProps:item Store:store Context:context];
