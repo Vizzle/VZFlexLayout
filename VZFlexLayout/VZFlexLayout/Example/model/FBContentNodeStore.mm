@@ -67,11 +67,15 @@
     }
     else{
         switch (action.actionType) {
-            case LOAD_DETAIL:
+            case IMG_CLICKED:
             {
                 //如果需要controller做操作就emmit change
                 NSLog(@"%@",action.payload);
                 [self emitChange:@"View-Action"];
+                break;
+            }
+            case BUTTON_CLICKED:{
+            
                 break;
             }
                 

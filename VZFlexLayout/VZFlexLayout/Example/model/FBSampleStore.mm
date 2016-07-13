@@ -17,11 +17,12 @@
         switch (action.actionType) {
             case IMG_CLICKED:{
                 
-                
+                [self emitChange:IMG_EVENT];
                 break;
             }
             case BUTTON_CLICKED:{
                 
+                [self emitChange:BTN_EVENT];
                 break;
             }
             default:
