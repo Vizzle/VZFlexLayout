@@ -60,7 +60,7 @@ struct VZItemRecyclerState{
     __weak UIView *_mountedView;
     NSSet *_mountedNodes;
     
-    __weak id<VZFNodeProvider> _nodeProvider;
+    __weak Class<VZFNodeProvider> _nodeProvider;
     VZItemRecyclerState _state;
 
 }
@@ -74,7 +74,7 @@ struct VZItemRecyclerState{
 }
 
 
-- (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider{
+- (instancetype)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider{
     
     self = [super init];
     if (self) {

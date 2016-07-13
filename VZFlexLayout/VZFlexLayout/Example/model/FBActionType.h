@@ -14,4 +14,7 @@ const int32_t EXPEND_CLICKED_STATE = 101;
 const int32_t LIKE_CLICKED_STATE = 102;
 const int32_t REWARD_CLICKED_STATE = 103;
 
+const int32_t IMG_CLICKED = 104;
+const int32_t BUTTON_CLICKED = 105;
+
 #endif /* FBActionType_h */

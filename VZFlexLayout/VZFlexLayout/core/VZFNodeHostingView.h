@@ -36,7 +36,7 @@
 @property(nonatomic,weak)VZFluxStore* store;
 
 
-- (id)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider RangeType:(VZFSizeRange)rangeType;
+- (id)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider RangeType:(VZFSizeRange)rangeType;
 - (void)update:(id)model context:(id)context;
 - (void)updateState;
 - (void)reset;

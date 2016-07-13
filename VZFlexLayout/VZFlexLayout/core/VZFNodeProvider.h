@@ -12,5 +12,5 @@
 @class VZFNode;
 @class VZFluxStore;
 @protocol VZFNodeProvider <NSObject>
-- (VZFNode<VZFNodeRequiredMethods>* )nodeForItem:(id)item Store:(VZFluxStore* )store Context:(id)ctx;
++ (VZFNode<VZFNodeRequiredMethods>* )nodeForItem:(id)item Store:(VZFluxStore* )store Context:(id)ctx;
 @end

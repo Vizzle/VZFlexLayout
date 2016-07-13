@@ -41,7 +41,7 @@
 {
     self = [super init];
     if (self) {
-        _recycler = [[VZFNodeListItemRecycler alloc] initWithNodeProvider:self ];
+        _recycler = [[VZFNodeListItemRecycler alloc] initWithNodeProvider:[self class] ];
     }
     return self;
 }
@@ -85,7 +85,7 @@
 }
 
 
-- (VZFNode<VZFNodeRequiredMethods>* )nodeForItem:(FBHostItem* )item Store:(id)store Context:(NSIndexPath* )context{
++ (VZFNode<VZFNodeRequiredMethods>* )nodeForItem:(FBHostItem* )item Store:(id)store Context:(NSIndexPath* )context{
     
     if([item.type isEqualToString:@"scroll"]){
         return [FBScrollNode newWithProps:item Store:store Context:context];

@@ -21,7 +21,7 @@ using namespace VZ;
 
 @interface VZFNodeHostingView()
 {
-    __weak id<VZFNodeProvider> _nodeProvider;
+    __weak Class<VZFNodeProvider> _nodeProvider;
     
     VZFSizeRange _rangeType;
     NSSet<VZFNode* >* _mountedNodes;
@@ -45,7 +45,7 @@ using namespace VZ;
 }
 
 
-- (id)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider RangeType:(VZFSizeRange)rangeType{
+- (id)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider RangeType:(VZFSizeRange)rangeType{
 
     self = [super initWithFrame:CGRectZero];
     if(self){

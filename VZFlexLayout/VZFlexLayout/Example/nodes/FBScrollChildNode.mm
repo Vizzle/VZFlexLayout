@@ -17,15 +17,14 @@
 #import "VZFButtonNode.h"
 #import "VZFlux.h"
 #import "FBActionType.h"
-#import "FBScrollNodeStore.h"
+
+
 
 
 @implementation FBScrollChildNode
 
-+ (instancetype)newWithScrollItem:(FBScrollItem *)item Index:(uint32_t)index{
-
-
-    
++ (instancetype)newWithProps:(FBScrollItem* )item Store:(VZFluxStore *)store Context:(NSNumber* )ctx{
+//+ (instancetype)newWithScrollItem:(FBScrollItem *)item Index:(uint32_t)index{
     FBScrollItemState state = item.state;
     
     VZFNode* buttonNode = [VZFButtonNode newWithButtonAttributes:{
@@ -37,9 +36,10 @@
             FluxAction::send({
                 
                 .source = ActionType::view_action,
-                .actionType = LOAD_DETAIL,
-                .payload = @{@"data":item, @"index":@(index)}
-            
+                .actionType = BUTTON_CLICKED,
+                .payload = @{@"data":item, @"index":ctx},
+                .dispatcher = store.dispatcher
+                
             });
         }
 
@@ -98,11 +98,24 @@
     VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{.direction = VZFlexVertical}
                                                          NodeSpecs:{}
                                                           Children:{
-        {
-            [VZFImageNode newWithImageAttributes:{.imageUrl = item.imagePath}
-                                       NodeSpecs:{.flex= {.width  =150,.height = 150}}
-                            BackingImageViewClass:[FBNetworkImageView class]]
-        },
+        {[VZFImageNode newWithImageAttributes:{.imageUrl = item.imagePath}
+                                       NodeSpecs:{
+                                           
+                                           .flex= {.width  =150,.height = 150},
+                                           .gesture = ^(id sender){
+                                               
+                                               FluxAction::send({
+                                                   
+                                                   .source = ActionType::view_action,
+                                                   .actionType = IMG_CLICKED,
+                                                   .payload = @{@"data":item, @"index":ctx},
+                                                   .dispatcher = store.dispatcher
+                                                   
+                                               });
+                                           }
+                                       
+                                       }
+                            BackingImageViewClass:[FBNetworkImageView class]]},
         { node }
 
     }];

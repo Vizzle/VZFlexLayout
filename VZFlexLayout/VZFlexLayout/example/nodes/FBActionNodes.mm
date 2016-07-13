@@ -62,7 +62,7 @@
        
         .source = view_state,
         .actionType = LIKE_CLICKED_STATE,
-        .payload = @{@"index":self->_indexPath},
+        .payload = @{@"index":self->_indexPath?:[NSNull null]},
         .dispatcher = self ->_store.dispatcher,
     });
     
@@ -74,7 +74,7 @@
         
         .source = view_state,
         .actionType = REWARD_CLICKED_STATE,
-        .payload = @{@"index":self->_indexPath},
+        .payload = @{@"index":self->_indexPath?:[NSNull null]},
         .dispatcher = self->_store.dispatcher
         
     });

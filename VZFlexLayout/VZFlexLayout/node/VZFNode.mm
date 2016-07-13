@@ -131,27 +131,13 @@ using namespace VZ::UIKit;
 }
 
 - (id)nextResponder {
-    return [self nextResponderAfterController];
-//    return _scopeHandler.controller ?: [self nextResponderAfterController];
+    return ([self superNode]?:nil)?:self.rootNodeView;
 }
 
-- (id)nextResponderAfterController
-{
-    VZFNode* superNode = [self superNode];
-    return (superNode?:nil)?:self.rootNodeView;
-}
-
-- (id)targetForAction:(SEL)action withSender:(id)sender
-{
+- (id)targetForAction:(SEL)action withSender:(id)sender{
     return [self respondsToSelector:action] ? self : [[self nextResponder] targetForAction:action withSender:sender];
 }
 
-//- (VZFNodeController* )controller {
-//    
-//    return [VZFNodeControllerManager controllerForNodeClass:[self class]];
-////    
-////    return _scopeHandler.controller;
-//}
 
 -(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
 {    
@@ -249,7 +235,7 @@ using namespace VZ::UIKit;
         }
         default:
         {
-            VZFAssert(NO, @"Controller State:[%@] Error: willmount -> '%@' ",[self class],VZFNodeStateName(_state));
+            VZFAssert(NO, @"State:[%@] Error: willmount -> '%@' ",[self class],VZFNodeStateName(_state));
             break;
         }
     }
@@ -275,7 +261,7 @@ using namespace VZ::UIKit;
         }
         default:
         {
-            VZFAssert(NO, @"Controller State:[%@] Error: didmount -> '%@' ",[self class],VZFNodeStateName(_state));
+            VZFAssert(NO, @"State:[%@] Error: didmount -> '%@' ",[self class],VZFNodeStateName(_state));
             break;
         }
     }
@@ -296,7 +282,7 @@ using namespace VZ::UIKit;
         }
         default:
         {
-            VZFAssert(NO, @"Controller State:[%@] Error: will unmount -> '%@' ",[self class],VZFNodeStateName(_state));
+            VZFAssert(NO, @"State:[%@] Error: will unmount -> '%@' ",[self class],VZFNodeStateName(_state));
             break;
         }
     }
@@ -312,7 +298,7 @@ using namespace VZ::UIKit;
             break;
             
         default:{
-            VZFAssert(NO, @"Controller State:[%@] Error: did unmount -> '%@' ",[self class],VZFNodeStateName(_state));
+            VZFAssert(NO, @"State:[%@] Error: did unmount -> '%@' ",[self class],VZFNodeStateName(_state));
             break;
         }
     }

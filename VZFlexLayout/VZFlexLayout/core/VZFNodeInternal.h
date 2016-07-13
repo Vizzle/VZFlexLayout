@@ -95,13 +95,6 @@ using namespace VZ;
 
 
 @interface VZFNode(ResponderChain)
-
-/**
- *  返回controller的下一个responder
- *
- *  @return object
- */
-- (id)nextResponderAfterController;
 /**
  *  response响应事件的方法
  *

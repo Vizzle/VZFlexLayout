@@ -28,7 +28,7 @@
     
     std::vector<VZFNode* > childs{};
     for (int i=0;i<item.cards.count; i++) {
-        FBScrollChildNode* childNode = [FBScrollChildNode newWithScrollItem:item.cards[i] Index:i];
+        FBScrollChildNode* childNode = [FBScrollChildNode newWithProps:item.cards[i] Store:store Context:@(i)];
         childs.push_back(childNode);
     }
     

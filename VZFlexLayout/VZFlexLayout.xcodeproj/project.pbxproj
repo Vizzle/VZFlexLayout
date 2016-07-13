@@ -15,7 +15,6 @@
 		4544778D1CC5CF3A000B54E7 /* results.json in Resources */ = {isa = PBXBuildFile; fileRef = 4544778C1CC5CF3A000B54E7 /* results.json */; };
 		4565BF921CE1FFCA0010FA5F /* FBHostCellItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4565BF911CE1FFCA0010FA5F /* FBHostCellItem.mm */; };
 		456BDF801CEB0215008A5348 /* FBScrollChildNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 456BDF7F1CEB0215008A5348 /* FBScrollChildNode.mm */; };
-		4573994F1D23ED53001B804A /* FBScrollNodeStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4573994E1D23ED53001B804A /* FBScrollNodeStore.mm */; };
 		457399691D253D52001B804A /* FBContentNodeStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 457399681D253D52001B804A /* FBContentNodeStore.mm */; };
 		457399851D262F5D001B804A /* VZFluxAction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4573996C1D262F5D001B804A /* VZFluxAction.mm */; };
 		457399861D262F5D001B804A /* VZFluxAppDispatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4573996F1D262F5D001B804A /* VZFluxAppDispatcher.mm */; };
@@ -41,6 +40,8 @@
 		4578E0FE1C7734E300E52B79 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		457D91C41CDB15D000013377 /* VZFScrollNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 457D91C31CDB15D000013377 /* VZFScrollNode.mm */; };
 		457D91C81CDB175900013377 /* VZFScrollNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 457D91C71CDB175900013377 /* VZFScrollNodeSpecs.mm */; };
+		4587709A1D34E35C0008A6A2 /* FBSampleNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458770991D34E35C0008A6A2 /* FBSampleNode.mm */; };
+		4587709D1D34E6280008A6A2 /* FBSampleStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4587709C1D34E6280008A6A2 /* FBSampleStore.mm */; };
 		4597A36F1CFEA48C00888B5F /* VZFlexNode+VZFNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4597A36A1CFEA48C00888B5F /* VZFlexNode+VZFNode.mm */; };
 		4597A3701CFEA48C00888B5F /* VZFStackNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4597A36C1CFEA48C00888B5F /* VZFStackNodeSpecs.mm */; };
 		4597A3711CFEA48C00888B5F /* VZFStackView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4597A36E1CFEA48C00888B5F /* VZFStackView.mm */; };
@@ -71,8 +72,8 @@
 		45A7D6FB1CB4DB7900B072D5 /* o2o_gray_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D6E11CB4DB7900B072D5 /* o2o_gray_star@2x.png */; };
 		45A7D6FC1CB4DB7900B072D5 /* o2o_yellow_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D6E21CB4DB7900B072D5 /* o2o_yellow_star@2x.png */; };
 		45A7D6FE1CB4DEEC00B072D5 /* heartstone.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D6FD1CB4DEEC00B072D5 /* heartstone.jpg */; };
-		45A7D7011CB4E47A00B072D5 /* result1.json in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D6FF1CB4E47A00B072D5 /* result1.json */; };
-		45A7D7021CB4E47A00B072D5 /* result2.json in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D7001CB4E47A00B072D5 /* result2.json */; };
+		45A7D7011CB4E47A00B072D5 /* result.json in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D6FF1CB4E47A00B072D5 /* result.json */; };
+		45A7D7021CB4E47A00B072D5 /* scroll.json in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D7001CB4E47A00B072D5 /* scroll.json */; };
 		45B15A871CBE0F8E00F408DA /* VZFLength.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A861CBE0F8E00F408DA /* VZFLength.mm */; };
 		45B15A8A1CBE5BEB00F408DA /* FBClickToExpendNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A891CBE5BEB00F408DA /* FBClickToExpendNode.mm */; };
 		45B15A8D1CBE7EF900F408DA /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A8C1CBE7EF900F408DA /* ViewController.mm */; };
@@ -120,8 +121,6 @@
 		456BDF7E1CEB0215008A5348 /* FBScrollChildNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBScrollChildNode.h; sourceTree = "<group>"; };
 		456BDF7F1CEB0215008A5348 /* FBScrollChildNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBScrollChildNode.mm; sourceTree = "<group>"; };
 		4573994C1D23EC87001B804A /* VZFlux.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFlux.h; sourceTree = "<group>"; };
-		4573994D1D23ED53001B804A /* FBScrollNodeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBScrollNodeStore.h; sourceTree = "<group>"; };
-		4573994E1D23ED53001B804A /* FBScrollNodeStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBScrollNodeStore.mm; sourceTree = "<group>"; };
 		457399521D23EFAC001B804A /* FBActionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBActionType.h; sourceTree = "<group>"; };
 		457399671D253D52001B804A /* FBContentNodeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBContentNodeStore.h; sourceTree = "<group>"; };
 		457399681D253D52001B804A /* FBContentNodeStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBContentNodeStore.mm; sourceTree = "<group>"; };
@@ -178,6 +177,10 @@
 		457D91C71CDB175900013377 /* VZFScrollNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFScrollNodeSpecs.mm; sourceTree = "<group>"; };
 		458770961D33D7E70008A6A2 /* VZFNodeLifeCycle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeLifeCycle.h; sourceTree = "<group>"; };
 		458770971D33D8F00008A6A2 /* VZFNodeRequiredMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeRequiredMethods.h; sourceTree = "<group>"; };
+		458770981D34E35C0008A6A2 /* FBSampleNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSampleNode.h; sourceTree = "<group>"; };
+		458770991D34E35C0008A6A2 /* FBSampleNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBSampleNode.mm; sourceTree = "<group>"; };
+		4587709B1D34E6280008A6A2 /* FBSampleStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSampleStore.h; sourceTree = "<group>"; };
+		4587709C1D34E6280008A6A2 /* FBSampleStore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBSampleStore.mm; sourceTree = "<group>"; };
 		4597A36A1CFEA48C00888B5F /* VZFlexNode+VZFNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "VZFlexNode+VZFNode.mm"; sourceTree = "<group>"; };
 		4597A36B1CFEA48C00888B5F /* VZFStackNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFStackNodeSpecs.h; sourceTree = "<group>"; };
 		4597A36C1CFEA48C00888B5F /* VZFStackNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFStackNodeSpecs.mm; sourceTree = "<group>"; };
@@ -230,8 +233,8 @@
 		45A7D6E11CB4DB7900B072D5 /* o2o_gray_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "o2o_gray_star@2x.png"; sourceTree = "<group>"; };
 		45A7D6E21CB4DB7900B072D5 /* o2o_yellow_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "o2o_yellow_star@2x.png"; sourceTree = "<group>"; };
 		45A7D6FD1CB4DEEC00B072D5 /* heartstone.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = heartstone.jpg; sourceTree = "<group>"; };
-		45A7D6FF1CB4E47A00B072D5 /* result1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result1.json; sourceTree = "<group>"; };
-		45A7D7001CB4E47A00B072D5 /* result2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result2.json; sourceTree = "<group>"; };
+		45A7D6FF1CB4E47A00B072D5 /* result.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = result.json; sourceTree = "<group>"; };
+		45A7D7001CB4E47A00B072D5 /* scroll.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = scroll.json; sourceTree = "<group>"; };
 		45B15A851CBE0F8E00F408DA /* VZFLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLength.h; sourceTree = "<group>"; };
 		45B15A861CBE0F8E00F408DA /* VZFLength.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLength.mm; sourceTree = "<group>"; };
 		45B15A881CBE5BEB00F408DA /* FBClickToExpendNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBClickToExpendNode.h; sourceTree = "<group>"; };
@@ -472,17 +475,17 @@
 			isa = PBXGroup;
 			children = (
 				4544778C1CC5CF3A000B54E7 /* results.json */,
-				45A7D6FF1CB4E47A00B072D5 /* result1.json */,
-				45A7D7001CB4E47A00B072D5 /* result2.json */,
+				45A7D6FF1CB4E47A00B072D5 /* result.json */,
+				45A7D7001CB4E47A00B072D5 /* scroll.json */,
 				45A7D6B71CB4DB7900B072D5 /* FBHostItem.h */,
 				45A7D6B81CB4DB7900B072D5 /* FBHostItem.m */,
 				45A7D6B91CB4DB7900B072D5 /* FBImageDownloader.h */,
 				45A7D6BA1CB4DB7900B072D5 /* FBImageDownloader.mm */,
-				4573994D1D23ED53001B804A /* FBScrollNodeStore.h */,
-				4573994E1D23ED53001B804A /* FBScrollNodeStore.mm */,
 				457399521D23EFAC001B804A /* FBActionType.h */,
 				457399671D253D52001B804A /* FBContentNodeStore.h */,
 				457399681D253D52001B804A /* FBContentNodeStore.mm */,
+				4587709B1D34E6280008A6A2 /* FBSampleStore.h */,
+				4587709C1D34E6280008A6A2 /* FBSampleStore.mm */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -518,6 +521,8 @@
 				45E593361CDF5F880044987C /* FBScrollNode.mm */,
 				456BDF7E1CEB0215008A5348 /* FBScrollChildNode.h */,
 				456BDF7F1CEB0215008A5348 /* FBScrollChildNode.mm */,
+				458770981D34E35C0008A6A2 /* FBSampleNode.h */,
+				458770991D34E35C0008A6A2 /* FBSampleNode.mm */,
 			);
 			path = nodes;
 			sourceTree = "<group>";
@@ -702,8 +707,8 @@
 				45C987551C2D0F2800D17A1D /* Main.storyboard in Resources */,
 				45A7D6F91CB4DB7900B072D5 /* comment_rewarded@2x.png in Resources */,
 				45A7D6F81CB4DB7900B072D5 /* comment_reward@2x.png in Resources */,
-				45A7D7021CB4E47A00B072D5 /* result2.json in Resources */,
-				45A7D7011CB4E47A00B072D5 /* result1.json in Resources */,
+				45A7D7021CB4E47A00B072D5 /* scroll.json in Resources */,
+				45A7D7011CB4E47A00B072D5 /* result.json in Resources */,
 				45A7D6F51CB4DB7900B072D5 /* comment_like@2x.png in Resources */,
 				45A7D6F61CB4DB7900B072D5 /* comment_liked@2x.png in Resources */,
 				45A7D6FB1CB4DB7900B072D5 /* o2o_gray_star@2x.png in Resources */,
@@ -812,6 +817,7 @@
 				4578E0F01C75687D00E52B79 /* VZFImageNodeSpecs.mm in Sources */,
 				454098781CD5D5E200D99B7F /* FBNetworkImageView.mm in Sources */,
 				457399691D253D52001B804A /* FBContentNodeStore.mm in Sources */,
+				4587709A1D34E35C0008A6A2 /* FBSampleNode.mm in Sources */,
 				4578E0D51C73052F00E52B79 /* VZFImageNode.mm in Sources */,
 				4578E0D81C73054000E52B79 /* VZFButtonNode.mm in Sources */,
 				45A7D6F41CB4DB7900B072D5 /* FBViewController.mm in Sources */,
@@ -831,12 +837,12 @@
 				45A7D6E71CB4DB7900B072D5 /* FBActionNodes.mm in Sources */,
 				45CA3AB21C81A4EC00DA04C1 /* VZFUtils.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
-				4573994F1D23ED53001B804A /* FBScrollNodeStore.mm in Sources */,
 				45FB68411D2E22500097038E /* VZFIndicatorView.m in Sources */,
 				4597A3741CFEAC0A00888B5F /* VZFButtonView.mm in Sources */,
 				4578E0F31C756D3400E52B79 /* VZFButtonNodeSpecs.mm in Sources */,
 				457D91C81CDB175900013377 /* VZFScrollNodeSpecs.mm in Sources */,
 				45FB683A1D2BF8FD0097038E /* VZFIndicatorNode.mm in Sources */,
+				4587709D1D34E6280008A6A2 /* FBSampleStore.mm in Sources */,
 				4578E0CF1C72F1CC00E52B79 /* VZFNodeViewManager.mm in Sources */,
 				45A7D6AC1CB4D99300B072D5 /* VZFValue.mm in Sources */,
 			);

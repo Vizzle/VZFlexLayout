@@ -1,13 +1,13 @@
 //
-//  FBListStore.h
+//  FBSampleStore.h
 //  VZFlexLayout
 //
-//  Created by moxin on 16/6/29.
+//  Created by moxin on 16/7/12.
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
 #import "VZFluxStore.h"
 
-@interface FBScrollNodeStore : VZFluxStore
+@interface FBSampleStore : VZFluxStore
 
 @end

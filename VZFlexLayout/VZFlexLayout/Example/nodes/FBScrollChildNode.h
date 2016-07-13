@@ -8,9 +8,10 @@
 
 #import "VZFCompositeNode.h"
 #import "FBHostItem.h"
+#import "VZFNodeRequiredMethods.h"
 
-@interface FBScrollChildNode : VZFCompositeNode
+@interface FBScrollChildNode : VZFCompositeNode<VZFNodeRequiredMethods>
 
-+ (instancetype)newWithScrollItem:(FBScrollItem* )item Index:(uint32_t)index;
++ (instancetype)newWithProps:(FBScrollItem* )props Store:(VZFluxStore *)store Context:(id)ctx;
 
 @end

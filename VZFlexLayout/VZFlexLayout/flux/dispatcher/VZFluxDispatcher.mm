@@ -55,6 +55,7 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
 }
 
 - (void)dealloc{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
     _pendingPayload = nullptr;
 }
 
@@ -125,6 +126,11 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
         if (m == VZFStateUpdateModeSynchronous) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self dispatch:action mode:m]; 
+            });
+        }
+        else{
+            dispatch_async(_serialDispatchQueue, ^{
+                [self dispatch:action mode:m];
             });
         }
         return;
