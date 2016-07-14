@@ -41,6 +41,8 @@
 
 
 - (void)resetState{
+    
+    NSLog(@"%s",__PRETTY_FUNCTION__);
     self.contentOffset = CGPointZero;
 }
 

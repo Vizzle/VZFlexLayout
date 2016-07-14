@@ -35,7 +35,8 @@
     [super viewDidLoad];
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
-
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reloadData)];
+    
     NSString* path1 = [[NSBundle mainBundle] pathForResource:@"scroll" ofType:@"json"];
     NSData* data1 = [NSData dataWithContentsOfFile:path1];
     NSDictionary* json1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONWritingPrettyPrinted error:nil];
@@ -55,19 +56,16 @@
     }];
     [self.view addSubview:_hostingView];
     
-   // [self.topView update:item1 context:nil];
-    
-    
-    //FBHostItem* item =
-    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reloadData)];
-    
-    
 
 }
 
-- (void)loadData
+- (void)reloadData
 {
-
+    NSString* path1 = [[NSBundle mainBundle] pathForResource:@"scroll" ofType:@"json"];
+    NSData* data1 = [NSData dataWithContentsOfFile:path1];
+    NSDictionary* json1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONWritingPrettyPrinted error:nil];
+    FBHostItem* item1 = [FBHostItem newWithJSON:json1];
+    [_hostingView update:item1 context:nil];
 }
 //
 //- (void)reloadData{

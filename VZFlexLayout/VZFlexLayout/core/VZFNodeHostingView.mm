@@ -131,6 +131,9 @@ using namespace VZ;
     
     _isUpdating = true;
     
+    //reset state before remounting
+    [self reset];
+    
     VZFNode* node = [_nodeProvider nodeForItem:_model Store:_store Context:_context];
     
     if (node) {
@@ -149,9 +152,15 @@ using namespace VZ;
             [self.delegate hostingView:self DidInvalidate:[self containerSizeForHostingView:_mountedLayout]];
         }
         else {
-            CGRect frame = self.frame;
-            frame.size = [self containerSizeForHostingView:_mountedLayout];
-            [self setFrame:frame];
+            if(_rangeType == VZFlexibleSizeHeight){
+                self.frame = {self.frame.origin, {CGRectGetWidth(self.frame),[self containerSizeForHostingView:_mountedLayout].height}};
+            }
+            else if (_rangeType == VZFlexibleSizeWidth){
+                self.frame = {self.frame.origin, {[self containerSizeForHostingView:_mountedLayout].width,CGRectGetHeight(self.frame)}};
+            }
+//            CGRect frame = self.frame;
+//            frame.size = [self containerSizeForHostingView:_mountedLayout];
+//            [self setFrame:frame];
         }
         
     }
