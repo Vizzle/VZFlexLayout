@@ -148,27 +148,44 @@ using namespace VZ;
                                                                  AndSuperNode:nil];
         
         
-        if ([self.delegate respondsToSelector:@selector(hostingView:DidInvalidate:)]) {
-            [self.delegate hostingView:self DidInvalidate:[self containerSizeForHostingView:_mountedLayout]];
+        
+        
+        if(self.shouldResize){
+            self.frame = {self.frame.origin, [self newSize]};
         }
-        else {
-            if(_rangeType == VZFlexibleSizeHeight){
-                self.frame = {self.frame.origin, {CGRectGetWidth(self.frame),[self containerSizeForHostingView:_mountedLayout].height}};
-            }
-            else if (_rangeType == VZFlexibleSizeWidth){
-                self.frame = {self.frame.origin, {[self containerSizeForHostingView:_mountedLayout].width,CGRectGetHeight(self.frame)}};
-            }
-//            CGRect frame = self.frame;
-//            frame.size = [self containerSizeForHostingView:_mountedLayout];
-//            [self setFrame:frame];
+
+        if ([self.delegate respondsToSelector:@selector(hostingViewDidInvalidate:)]) {
+            [self.delegate hostingViewDidInvalidate:[self newSize]];
         }
         
     }
 
-       _isUpdating = false;
+    _isUpdating = false;
 
 }
 
+- (CGSize)newSize{
+    
+    CGSize oldSize = self.frame.size;
+    
+    switch (_rangeType) {
+        case VZFlexibleSizeHeight:
+            oldSize.height = [self containerSizeForHostingView:_mountedLayout].height;
+            break;
+        case VZFlexibleSizeWidth:
+            oldSize.width = [self containerSizeForHostingView:_mountedLayout].width;
+            break;
+        case VZFlexibleSizeWidthAndHeight:
+            oldSize = [self containerSizeForHostingView:_mountedLayout];
+            break;
+        case VZFlexibleSizeNone:
+        default:
+            break;
+    }
+
+    return oldSize;
+    
+}
 
 - (CGSize)containerSizeForHostingView:(const NodeLayout& )layout
 {

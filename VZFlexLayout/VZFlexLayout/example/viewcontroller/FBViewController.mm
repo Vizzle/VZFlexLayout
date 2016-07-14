@@ -45,6 +45,8 @@
     _store = [[FBSampleStore alloc]initWithDispatcher:[VZFluxDispatcher new]];
     _hostingView = [[VZFNodeHostingView alloc]initWithNodeProvider:[self class] RangeType:VZFlexibleSizeHeight];
     _hostingView.backgroundColor = [UIColor whiteColor];
+    _hostingView.shouldResize = YES;
+    _hostingView.delegate = self;
     _hostingView.store = _store;
     _hostingView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 0);
     [_hostingView update:item1 context:nil];
@@ -87,7 +89,11 @@
 }
 
 
+- (void)hostingViewDidInvalidate:(CGSize)sz{
 
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+}
 
 
 

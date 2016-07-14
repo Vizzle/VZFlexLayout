@@ -29,6 +29,8 @@ namespace VZ {
  *  返回node关联的view
  */
 @property(nonatomic,weak)UIView* mountedView;
+@property(nonatomic,strong,readonly) VZFNode* rootNode;
+@property(nonatomic,weak)UIView* rootView;
 /**
  *  计算Node的layout
  *

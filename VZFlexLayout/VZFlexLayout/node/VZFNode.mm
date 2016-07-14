@@ -81,6 +81,27 @@ using namespace VZ::UIKit;
     _mountedInfo = nullptr;
 }
 
+- (VZFNode* )rootNode{
+
+    VZFNode* rootNode = self;
+    while (rootNode.superNode) {
+        rootNode = rootNode.superNode;
+    }
+    return rootNode;
+}
+
+- (UIView* )rootView
+{
+    VZFNode* rootNode = [self rootNode];
+    if (rootNode) {
+        return rootNode -> _mountedInfo -> mountedView?:
+        _mountedInfo->mountedContext.v;
+    }
+    else{
+        return nil;
+    }
+}
+
 - (UIView* )mountedView{
 
     if (_mountedInfo) {
@@ -131,7 +152,7 @@ using namespace VZ::UIKit;
 }
 
 - (id)nextResponder {
-    return ([self superNode]?:nil)?:self.rootNodeView;
+    return ([self superNode]?:nil)?:self.rootView;
 }
 
 - (id)targetForAction:(SEL)action withSender:(id)sender{

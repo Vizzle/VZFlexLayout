@@ -57,7 +57,7 @@ static const char* g_layoutQueueId = "com.React.layout.queue";
     
     
     //1, 绑定root hosting view
-    layout.node.rootNodeView = container;
+//    layout.node.rootNodeView = container;
     
     //保存mount出来的nodes
     NSMutableSet* mountedNodes = [NSMutableSet set];

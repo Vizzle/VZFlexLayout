@@ -54,7 +54,14 @@
 }
 
 
+- (void)didMount{
 
-
+    [super didMount];
+    
+    VZFNode* rootNode = [self rootNode];
+    UIView* view = [self rootView];
+    
+    NSLog(@"abc");
+}
 
 @end

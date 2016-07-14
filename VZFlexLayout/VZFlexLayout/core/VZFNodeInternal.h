@@ -62,7 +62,7 @@ using namespace VZ;
 /**
  *  root view
  */
-@property(nonatomic,weak)UIView* rootNodeView;
+//@property(nonatomic,weak)UIView* rootNodeView;
 
 /**
  *  计算Node的layout
