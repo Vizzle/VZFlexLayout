@@ -16,9 +16,8 @@
 @class VZFNode;
 @class VZFluxStore;
 @protocol VZFNodeHostingView <NSObject>
-
 @optional
-- (void)hostingViewDidInvalidate:(CGSize )sz;
+- (void)hostingView:(VZFNodeHostingView* )view DidInvalidate:(CGSize )sz;
 
 @end
 
@@ -36,7 +35,7 @@
 @property(nonatomic,assign)BOOL shouldResize;
 
 
-- (id)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider RangeType:(VZFSizeRange)rangeType;
+- (id)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider RangeType:(VZFSizeRange)rangeType;
 - (void)update:(id)model context:(id)context;
 - (void)updateState;
 - (void)reset;

@@ -15,6 +15,7 @@
 #include <objc/runtime.h>
 #import "VZFUtils.h"
 #import "VZFMacros.h"
+#import "VZFluxStore.h"
 
 
 @interface VZFWeakObjectWrapper : NSObject
@@ -60,7 +61,7 @@ struct VZItemRecyclerState{
     __weak UIView *_mountedView;
     NSSet *_mountedNodes;
     
-    __weak Class<VZFNodeProvider> _nodeProvider;
+    __weak id<VZFNodeProvider> _nodeProvider;
     VZItemRecyclerState _state;
 
 }
@@ -74,7 +75,7 @@ struct VZItemRecyclerState{
 }
 
 
-- (instancetype)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider{
+- (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider{
     
     self = [super init];
     if (self) {
@@ -88,6 +89,15 @@ struct VZItemRecyclerState{
 
 - (void)dealloc{
 
+    [self reset];
+    
+    if (_mountedView) {
+        _mountedView.vz_recycler = nil;
+    }
+}
+
+- (void)reset{
+
     if (_mountedNodes) {
         
         for(VZFNode* node in _mountedNodes){
@@ -96,15 +106,11 @@ struct VZItemRecyclerState{
         
         [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
     }
-    if (_mountedView) {
-        _mountedView.vz_recycler = nil;
-    }
 }
 
 - (void)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context{
     
-    VZFNode* node = [_nodeProvider nodeForItem:item Store:self.store Context:context];
-    
+    VZFNode* node = [_nodeProvider nodeForItem:item Store:_store Context:context];
     if (node) {
         const VZ::NodeLayout layout = [node computeLayoutThatFits:constrainedSize];
         _state = {
@@ -118,10 +124,12 @@ struct VZItemRecyclerState{
 
 - (void)updateState{
 
-    [self calculate:_state.props constrainedSize:_state.constrainedSize context:_state.context];
+    [self calculate:_state.props
+    constrainedSize:_state.constrainedSize
+            context:_state.context];
     
     //mount layout
-    [self _mountedLayout];
+    //[self _mount];
 }
 
 - (void)attachToView:(UIView *)view{
@@ -133,10 +141,10 @@ struct VZItemRecyclerState{
         _mountedView = view;
         view.vz_recycler = self;
         
-        NSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
+//        NSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
     }
     
-    [self _mountedLayout];
+    [self _mount];
  
 }
 
@@ -144,7 +152,7 @@ struct VZItemRecyclerState{
     
     if (_mountedView) {
         
-        NSLog(@"[%@]--->detach:<%ld,%p>",self.class, self.indexPath.row, _mountedView);
+//        NSLog(@"[%@]--->detach:<%ld,%p>",self.class, self.indexPath.row, _mountedView);
     
         [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
         _mountedNodes = nil;
@@ -160,7 +168,7 @@ struct VZItemRecyclerState{
 
 
 
-- (void)_mountedLayout{
+- (void)_mount{
     _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_state.layout
                                                               InContainer:_mountedView
                                                         WithPreviousNodes:_mountedNodes

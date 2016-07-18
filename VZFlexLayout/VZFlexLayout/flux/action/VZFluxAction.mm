@@ -12,7 +12,7 @@
 
 namespace VZ {
 
-    void FluxAction::send(const VZ::FluxAction &action) {
+    void FluxAction::send(FluxAction action) {
         
         if ([action.dispatcher isKindOfClass:[VZFluxDispatcher class]]) {
             VZFluxDispatcher* dispatcher = (VZFluxDispatcher* )action.dispatcher;

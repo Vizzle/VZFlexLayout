@@ -67,6 +67,7 @@
     NSData* data1 = [NSData dataWithContentsOfFile:path1];
     NSDictionary* json1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONWritingPrettyPrinted error:nil];
     FBHostItem* item1 = [FBHostItem newWithJSON:json1];
+    [_hostingView reset];
     [_hostingView update:item1 context:nil];
 }
 //

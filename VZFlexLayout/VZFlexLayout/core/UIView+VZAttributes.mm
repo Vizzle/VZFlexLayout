@@ -156,7 +156,7 @@
     CGFloat cornerRadiusTopRight = vs.layer.cornerRadiusTopRight != VZ::FlexValue::Undefined ? vs.layer.cornerRadiusTopRight.value : vs.layer.cornerRadius;
     CGFloat cornerRadiusBottomLeft = vs.layer.cornerRadiusBottomLeft != VZ::FlexValue::Undefined ? vs.layer.cornerRadiusBottomLeft.value : vs.layer.cornerRadius;
     CGFloat cornerRadiusBottomRight = vs.layer.cornerRadiusBottomRight != VZ::FlexValue::Undefined ? vs.layer.cornerRadiusBottomRight.value : vs.layer.cornerRadius;
-    if (cornerRadiusTopLeft > 0 || cornerRadiusTopRight > 0 || cornerRadiusBottomLeft > 0 || cornerRadiusBottomRight > 0) {
+    if (cornerRadiusTopLeft != cornerRadiusTopRight || cornerRadiusTopLeft != cornerRadiusBottomLeft || cornerRadiusTopLeft != cornerRadiusBottomRight) {
         self.layer.borderWidth      = 0;
         UIBezierPath *path = [self _roundRectPathWithWidth:self.bounds.size.width
                                                     height:self.bounds.size.height
@@ -180,6 +180,7 @@
         }
     }
     else {
+        self.layer.cornerRadius     = cornerRadiusTopLeft;
         self.layer.borderColor      = vs.layer.borderColor.CGColor;
         self.layer.borderWidth      = vs.layer.borderWidth;
         self.layer.mask = nil;

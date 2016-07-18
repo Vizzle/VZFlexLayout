@@ -21,7 +21,7 @@ using namespace VZ;
 
 @interface VZFNodeHostingView()
 {
-    __weak Class<VZFNodeProvider> _nodeProvider;
+    __weak id<VZFNodeProvider> _nodeProvider;
     
     VZFSizeRange _rangeType;
     NSSet<VZFNode* >* _mountedNodes;
@@ -45,13 +45,13 @@ using namespace VZ;
 }
 
 
-- (id)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider RangeType:(VZFSizeRange)rangeType{
+- (id)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider RangeType:(VZFSizeRange)rangeType{
 
     self = [super initWithFrame:CGRectZero];
     if(self){
         _rangeType = rangeType;
         _nodeProvider = nodeProvider;
-    
+        _shouldResize = YES;
     }
     return self;
 }
@@ -94,23 +94,6 @@ using namespace VZ;
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//#pragma state callback
-//- (void)nodeScopeHandleWithIdentifier:(id)scopeId
-//                       rootIdentifier:(id)rootScopeId
-//                didReceiveStateUpdate:(id (^)(id))stateUpdate{
-//
-//    NSMutableDictionary* mutableFuncs = [_pendingInputs.stateMap mutableCopy];
-//    NSMutableArray* funclist = mutableFuncs[scopeId];
-//    if (!funclist) {
-//        funclist = [NSMutableArray new];
-//    }
-//    [funclist addObject:stateUpdate];
-//    mutableFuncs[scopeId] = funclist;
-//    _pendingInputs.stateMap = [mutableFuncs copy];
-////    [self _update:VZFUpdateModeAsynchronous];
-//    [self _update:VZFStateUpdateModeAsynchronous];
-//}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -131,36 +114,36 @@ using namespace VZ;
     
     _isUpdating = true;
     
-    //reset state before remounting
-    [self reset];
+    //1, reset state before remounting
+//    [self reset];
     
+    //2, create node
     VZFNode* node = [_nodeProvider nodeForItem:_model Store:_store Context:_context];
     
     if (node) {
                 
         CGSize sz = VZ::containerSize(_rangeType, self.bounds.size);
         
+        
+        //3, calculate layout
         _mountedLayout = [node computeLayoutThatFits:sz];
         
+        
+        //4, mount
         _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
                                                                   InContainer:self
                                                             WithPreviousNodes:_mountedNodes
                                                                  AndSuperNode:nil];
         
-        
-        
-        
-        if(self.shouldResize){
+        if (self.shouldResize) {
             self.frame = {self.frame.origin, [self newSize]};
         }
-
-        if ([self.delegate respondsToSelector:@selector(hostingViewDidInvalidate:)]) {
-            [self.delegate hostingViewDidInvalidate:[self newSize]];
-        }
-        
+        if ([self.delegate respondsToSelector:@selector(hostingView:DidInvalidate:)]) {
+            [self.delegate hostingView:self DidInvalidate:[self newSize]];
+        }        
     }
 
-    _isUpdating = false;
+       _isUpdating = false;
 
 }
 
@@ -182,10 +165,11 @@ using namespace VZ;
         default:
             break;
     }
-
+    
     return oldSize;
     
 }
+
 
 - (CGSize)containerSizeForHostingView:(const NodeLayout& )layout
 {

@@ -11,7 +11,7 @@
 #import "VZFNodeLayout.h"
 #import "VZFNodeProvider.h"
 
-
+@class VZFluxStore;
 using namespace VZ;
 
 /**
@@ -23,7 +23,7 @@ using namespace VZ;
 @property(nonatomic,strong) NSIndexPath* indexPath;
 @property(nonatomic,assign,readonly) CGSize layoutSize;
 
-- (instancetype)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider;
+- (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider;
 
 - (void)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context;
 

@@ -20,5 +20,6 @@
 @property (nonatomic) BOOL vertical;
 
 - (void)setChildrenViews:(NSArray *)childrenViews;
+- (void)resetTimer;
 
 @end

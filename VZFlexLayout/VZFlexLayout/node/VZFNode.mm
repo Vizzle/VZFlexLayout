@@ -81,31 +81,10 @@ using namespace VZ::UIKit;
     _mountedInfo = nullptr;
 }
 
-- (VZFNode* )rootNode{
-
-    VZFNode* rootNode = self;
-    while (rootNode.superNode) {
-        rootNode = rootNode.superNode;
-    }
-    return rootNode;
-}
-
-- (UIView* )rootView
-{
-    VZFNode* rootNode = [self rootNode];
-    if (rootNode) {
-        return rootNode -> _mountedInfo -> mountedView?:
-        _mountedInfo->mountedContext.v;
-    }
-    else{
-        return nil;
-    }
-}
-
 - (UIView* )mountedView{
 
     if (_mountedInfo) {
-        return _mountedInfo -> mountedView;
+        return _mountedInfo -> mountedView?:_mountedInfo->mountedContext.v;
     }
     else{
         return nil;
@@ -151,8 +130,29 @@ using namespace VZ::UIKit;
     return _mountedInfo -> parentNode;
 }
 
+- (VZFNode* )rootNode{
+    
+    VZFNode* rootNode = self;
+    while (rootNode.superNode) {
+        rootNode = rootNode.superNode;
+    }
+    return rootNode;
+}
+
+- (UIView* )rootView
+{
+    VZFNode* rootNode = [self rootNode];
+    if (rootNode) {
+        return rootNode -> _mountedInfo -> mountedView?:
+        _mountedInfo->mountedContext.v;
+    }
+    else{
+        return nil;
+    }
+}
+
 - (id)nextResponder {
-    return ([self superNode]?:nil)?:self.rootView;
+    return ([self superNode]?:nil)?:[self rootView];
 }
 
 - (id)targetForAction:(SEL)action withSender:(id)sender{
@@ -217,22 +217,31 @@ using namespace VZ::UIKit;
 
 -(void)unmount{
     
-    if (_mountedInfo != nullptr) {
+
+    
+    if (_mountedInfo != nullptr)
+    {
         [self  willUnmount];
         
-        UIView* currentMountedView = _mountedInfo -> mountedView;
-        if (currentMountedView) {
-            [self willReleaseBackingView];
-            
-            //        //@discussion:reset state
-            //        //VZ::Mounting::reset(view);
-            
-            
-            currentMountedView.node = nil;
-            currentMountedView = nil;
-        }
+        [self _recycleMountedView];
+
         _mountedInfo.reset();
+        
         [self didUnmount];
+    }
+
+}
+
+- (void)_recycleMountedView{
+    
+    UIView* view = _mountedInfo -> mountedView;
+    
+    if (view) {
+        
+        [self willReleaseBackingView];
+        view.node = nil;
+        view = nil;
+
     }
 
 }
@@ -241,7 +250,7 @@ using namespace VZ::UIKit;
 #pragma mark - life cycle
 
 -(void)willMount{
-
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
     switch (_state) {
         case VZFNodeStateUnmounted:
         {
@@ -260,19 +269,15 @@ using namespace VZ::UIKit;
             break;
         }
     }
-    
-    NSLog(@"[%@] --> willMount --> state:%@",[self class],VZFNodeStateName(_state));
 }
 
 - (void)willRemount{
-    
-    NSLog(@"[%@] --> willRemount --> state:%@",[self class],VZFNodeStateName(_state));
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
 
 }
 
 -(void)didMount{
-
-
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
     switch (_state) {
         case VZFNodeStateMounting:
         {
@@ -290,18 +295,14 @@ using namespace VZ::UIKit;
             break;
         }
     }
-    
-    NSLog(@"[%@] --> didMount --> state:%@",[self class],VZFNodeStateName(_state));
 }
 
 - (void)didRemount{
-
-    NSLog(@"[%@] --> didRemount --> state:%@",[self class],VZFNodeStateName(_state));
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
 }
 
 - (void)willUnmount{
-
-
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
     
     switch (_state) {
         case VZFNodeStateMounted:
@@ -315,13 +316,12 @@ using namespace VZ::UIKit;
             break;
         }
     }
-    
-    NSLog(@"[%@] --> willUnmount --> state:%@",[self class],VZFNodeStateName(_state));
+
     
 }
 
 - (void)didUnmount{
-
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
     switch (_state) {
         case VZFNodeStateUnmounting:
             _state = VZFNodeStateUnmounted;
@@ -332,19 +332,14 @@ using namespace VZ::UIKit;
             break;
         }
     }
-    
-    NSLog(@"[%@] --> didUnmount --> state:%@",[self class],VZFNodeStateName(_state));
 }
 
 - (void)willReleaseBackingView{
-    
-    NSLog(@"[%@] --> willReleaseBackingView --> state:%@",[self class],VZFNodeStateName(_state));
-    
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
 }
 
 - (void)didAquireBackingView{
-
-    NSLog(@"[%@] --> didAquireBackingView --> state:%@",[self class],VZFNodeStateName(_state));
+//    NSLog(@"%s",__PRETTY_FUNCTION__);
 }
 
 

@@ -17,7 +17,7 @@ namespace VZ {
     
     struct FluxAction{
         
-        static void send(const FluxAction& action);
+        static void send(FluxAction);
         
         ActionType source;
         int32_t actionType;

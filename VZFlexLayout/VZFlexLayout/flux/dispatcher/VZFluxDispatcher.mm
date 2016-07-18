@@ -55,7 +55,6 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
 }
 
 - (void)dealloc{
-    NSLog(@"%s",__PRETTY_FUNCTION__);
     _pendingPayload = nullptr;
 }
 
@@ -68,6 +67,7 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
         _invariant(!self.isDispatching, @"Dispatcher.register(...): Cannot register in the middle of a dispatch.");
         return nil;
     }
+    
     
     NSString* token = [gFluxTokenPrefix stringByAppendingString:[NSString stringWithFormat:@"%d",OSAtomicIncrement32(&_lastId)]];
     
@@ -122,17 +122,12 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
 - (void)dispatch:(VZ::FluxAction)action mode:(VZFStateUpdateMode)m{
 
     if (_isDispatching) {
+
 //        _invariant(!_isDispatching, @"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.");
-        if (m == VZFStateUpdateModeSynchronous) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self dispatch:action mode:m]; 
-            });
-        }
-        else{
-            dispatch_async(_serialDispatchQueue, ^{
-                [self dispatch:action mode:m];
-            });
-        }
+        dispatch_queue_t queue = m==VZFStateUpdateModeAsynchronous?_serialDispatchQueue:dispatch_get_main_queue();
+        dispatch_async(queue, ^{
+             [self dispatch:action mode:m];
+        });
         return;
     }
     
@@ -154,10 +149,14 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
 #pragma mark - private APIs
 
 - (void)_startDispathcing:(const FluxAction& )payload{
+    
+    OSSpinLockLock(&_lock);
     for (NSString* token in [_callbacks allKeys]) {
         _pendingMap[token] = false;
         _handledMap[token] = false;
     }
+    OSSpinLockUnlock(&_lock);
+    
     _pendingPayload = std::make_shared<FluxAction>(payload);
     _isDispatching = YES;
 }
@@ -170,7 +169,9 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
 
 - (void)_invokeCallback:(NSString* )token mode:(VZFStateUpdateMode)m{
     
+    OSSpinLockLock(&_lock);
     _pendingMap[token] = true;
+    OSSpinLockUnlock(&_lock);
     
     if (m == VZFStateUpdateModeAsynchronous) {
        
@@ -185,9 +186,10 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
         DispatchPayload payload = _callbacks[token];
         payload(*_pendingPayload);
     }
-
     
+    OSSpinLockLock(&_lock);
     _handledMap[token] = true;
+    OSSpinLockUnlock(&_lock);
     
 }
 

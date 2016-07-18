@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Alipay. All rights reserved.
 //
 
+#import "VZFNode.h"
 #import "VZFIndicatorNode.h"
-#import "VZFIndicatorNodeSpecs.h"
 
 namespace VZ {
     class NodeSpecs;
