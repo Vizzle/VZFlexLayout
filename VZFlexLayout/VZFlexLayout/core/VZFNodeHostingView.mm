@@ -67,6 +67,8 @@ using namespace VZ;
 
 
 
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma public API
 
@@ -88,6 +90,7 @@ using namespace VZ;
     if (_mountedNodes) {
         
         for(VZFNode* node in _mountedNodes){
+            NSLog(@"Reset <Node:%@, View:%@>",[node class],[node.mountedView class]);
             VZ::Mounting::reset(node.mountedView);
         }
         [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
@@ -134,6 +137,7 @@ using namespace VZ;
                                                                   InContainer:self
                                                             WithPreviousNodes:_mountedNodes
                                                                  AndSuperNode:nil];
+        
         
         if (self.shouldResize) {
             self.frame = {self.frame.origin, [self newSize]};
@@ -182,5 +186,44 @@ using namespace VZ;
 {
     return [self respondsToSelector:action] ? self : [[self nextResponder] targetForAction:action withSender:sender];
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma HostingView as backingview methods
+
+
+- (void)born{
+
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+}
+
+- (void)dead{
+
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+
+- (void)resetState{
+
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+
+
+- (void)prepareForReuse{
+
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+
+
+- (void)willEnterReusePool{
+
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+
+
+- (void)didLeaveReusePool{
+
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+
 
 @end

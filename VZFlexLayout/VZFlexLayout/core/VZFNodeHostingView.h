@@ -10,7 +10,7 @@
 #import "VZFSizeRange.h"
 #import "VZFNodeProvider.h"
 #import "VZFStateUpdateMode.h"
-
+#import "VZFNodeBackingViewInterface.h"
 
 @class VZFNodeHostingView;
 @class VZFNode;
@@ -28,7 +28,7 @@
  *  tableView cell复用的场景请使用VZFNodeListItemRecycler
  *
  */
-@interface VZFNodeHostingView : UIView
+@interface VZFNodeHostingView : UIView<VZFNodeBackingViewInterface>
 
 @property(nonatomic,weak)id<VZFNodeHostingView> delegate;
 @property(nonatomic,weak)VZFluxStore* store;

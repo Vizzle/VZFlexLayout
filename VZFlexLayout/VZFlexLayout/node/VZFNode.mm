@@ -84,7 +84,7 @@ using namespace VZ::UIKit;
 - (UIView* )mountedView{
 
     if (_mountedInfo) {
-        return _mountedInfo -> mountedView?:_mountedInfo->mountedContext.v;
+        return _mountedInfo -> mountedView;
     }
     else{
         return nil;
