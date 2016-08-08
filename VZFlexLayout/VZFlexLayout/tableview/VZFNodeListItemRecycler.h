@@ -23,13 +23,14 @@ using namespace VZ;
 @property(nonatomic,strong) NSIndexPath* indexPath;
 @property(nonatomic,assign,readonly) CGSize layoutSize;
 
-- (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider;
+- (instancetype)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider;
 
 - (void)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context;
 
 - (void)updateState;
 
 - (void)attachToView:(UIView *)view;
+- (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay;
 
 - (void)detachFromView;
 

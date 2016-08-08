@@ -60,6 +60,9 @@ namespace VZ {
 // for gesture recognizer
 - (void)invoke:(id)sender;
 
+// for custom invoke
+- (void)invoke:(id)sender withCustomParam:(id)param;
+
 @end
 
 

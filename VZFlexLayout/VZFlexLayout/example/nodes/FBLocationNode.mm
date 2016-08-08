@@ -23,24 +23,24 @@
     VZFStackNode* node = [VZFStackNode newWithStackAttributes:{
         .spacing = 10
     }NodeSpecs:{
-        .view = {
-            .backgroundColor = [UIColor lightGrayColor]
-        },
-        .flex= {
+
+            .backgroundColor = [UIColor lightGrayColor],
+
+
             .marginTop = 10,
 
-        }
+
     } Children:{
     
         {
             [VZFImageNode newWithImageAttributes:{.image = [UIImage imageNamed:@"comment_location"]}
                                        NodeSpecs:{
                                            
-                                           .flex = {
+                                           
                                                .marginLeft = 5,
                                                .marginTop = 10,
                                                .marginBottom = 10,
-                                           }
+                                           
                                            
                                        }]
             

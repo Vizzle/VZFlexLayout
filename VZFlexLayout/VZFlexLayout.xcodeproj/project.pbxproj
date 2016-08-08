@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45102EDB1D58790E0093CDBD /* VZFPagingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45102EDA1D58790E0093CDBD /* VZFPagingView.mm */; };
+		45102EE01D5879690093CDBD /* VZFLineNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45102EDD1D5879690093CDBD /* VZFLineNodeSpecs.mm */; };
+		45102EE11D5879690093CDBD /* VZFLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45102EDF1D5879690093CDBD /* VZFLineView.m */; };
 		4539ABD01CD1B1E40011E91C /* FBTextNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4539ABCF1CD1B1E40011E91C /* FBTextNode.mm */; };
 		454098701CD5D1D700D99B7F /* UIView+VZAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4540986F1CD5D1D700D99B7F /* UIView+VZAttributes.mm */; };
 		454098751CD5D20900D99B7F /* VZFNodeListItemRecycler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 454098741CD5D20900D99B7F /* VZFNodeListItemRecycler.mm */; };
@@ -90,7 +93,6 @@
 		45F0C71B1CE8A1B9004DF6DF /* VZFPagingNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F0C71A1CE8A1B9004DF6DF /* VZFPagingNode.mm */; };
 		45F0C7201CE8A1D0004DF6DF /* VZFScrollView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F0C71D1CE8A1D0004DF6DF /* VZFScrollView.mm */; };
 		45F0C7261CE8A206004DF6DF /* VZFPagingNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F0C7231CE8A206004DF6DF /* VZFPagingNodeSpecs.mm */; };
-		45F0C7271CE8A206004DF6DF /* VZFPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45F0C7251CE8A206004DF6DF /* VZFPagingView.m */; };
 		45FB683A1D2BF8FD0097038E /* VZFIndicatorNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45FB68391D2BF8FD0097038E /* VZFIndicatorNode.mm */; };
 		45FB68401D2E22500097038E /* VZFIndicatorNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45FB683D1D2E22500097038E /* VZFIndicatorNodeSpecs.mm */; };
 		45FB68411D2E22500097038E /* VZFIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FB683F1D2E22500097038E /* VZFIndicatorView.m */; };
@@ -100,6 +102,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45102EDA1D58790E0093CDBD /* VZFPagingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFPagingView.mm; sourceTree = "<group>"; };
+		45102EDC1D5879690093CDBD /* VZFLineNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLineNodeSpecs.h; sourceTree = "<group>"; };
+		45102EDD1D5879690093CDBD /* VZFLineNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLineNodeSpecs.mm; sourceTree = "<group>"; };
+		45102EDE1D5879690093CDBD /* VZFLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLineView.h; sourceTree = "<group>"; };
+		45102EDF1D5879690093CDBD /* VZFLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFLineView.m; sourceTree = "<group>"; };
 		4539ABCE1CD1B1E40011E91C /* FBTextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTextNode.h; sourceTree = "<group>"; };
 		4539ABCF1CD1B1E40011E91C /* FBTextNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBTextNode.mm; sourceTree = "<group>"; };
 		4540986E1CD5D1D700D99B7F /* UIView+VZAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VZAttributes.h"; sourceTree = "<group>"; };
@@ -267,7 +274,6 @@
 		45F0C7221CE8A206004DF6DF /* VZFPagingNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFPagingNodeSpecs.h; sourceTree = "<group>"; };
 		45F0C7231CE8A206004DF6DF /* VZFPagingNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFPagingNodeSpecs.mm; sourceTree = "<group>"; };
 		45F0C7241CE8A206004DF6DF /* VZFPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFPagingView.h; sourceTree = "<group>"; };
-		45F0C7251CE8A206004DF6DF /* VZFPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFPagingView.m; sourceTree = "<group>"; };
 		45FB68381D2BF8FD0097038E /* VZFIndicatorNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFIndicatorNode.h; sourceTree = "<group>"; };
 		45FB68391D2BF8FD0097038E /* VZFIndicatorNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFIndicatorNode.mm; sourceTree = "<group>"; };
 		45FB683C1D2E22500097038E /* VZFIndicatorNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFIndicatorNodeSpecs.h; sourceTree = "<group>"; };
@@ -349,6 +355,11 @@
 		4578E09B1C72F1CC00E52B79 /* core */ = {
 			isa = PBXGroup;
 			children = (
+				45102EDC1D5879690093CDBD /* VZFLineNodeSpecs.h */,
+				45102EDD1D5879690093CDBD /* VZFLineNodeSpecs.mm */,
+				45102EDE1D5879690093CDBD /* VZFLineView.h */,
+				45102EDF1D5879690093CDBD /* VZFLineView.m */,
+				45102EDA1D58790E0093CDBD /* VZFPagingView.mm */,
 				458770961D33D7E70008A6A2 /* VZFNodeLifeCycle.h */,
 				45FB683C1D2E22500097038E /* VZFIndicatorNodeSpecs.h */,
 				45FB683D1D2E22500097038E /* VZFIndicatorNodeSpecs.mm */,
@@ -365,7 +376,6 @@
 				45F0C7221CE8A206004DF6DF /* VZFPagingNodeSpecs.h */,
 				45F0C7231CE8A206004DF6DF /* VZFPagingNodeSpecs.mm */,
 				45F0C7241CE8A206004DF6DF /* VZFPagingView.h */,
-				45F0C7251CE8A206004DF6DF /* VZFPagingView.m */,
 				45F0C71C1CE8A1D0004DF6DF /* VZFScrollView.h */,
 				45F0C71D1CE8A1D0004DF6DF /* VZFScrollView.mm */,
 				454098711CD5D1EB00D99B7F /* VZFNodeSubClass.h */,
@@ -773,6 +783,7 @@
 				4597A3711CFEA48C00888B5F /* VZFStackView.mm in Sources */,
 				45F0C7261CE8A206004DF6DF /* VZFPagingNodeSpecs.mm in Sources */,
 				45B15A8D1CBE7EF900F408DA /* ViewController.mm in Sources */,
+				45102EDB1D58790E0093CDBD /* VZFPagingView.mm in Sources */,
 				45B15A871CBE0F8E00F408DA /* VZFLength.mm in Sources */,
 				4578E0FE1C7734E300E52B79 /* (null) in Sources */,
 				454098701CD5D1D700D99B7F /* UIView+VZAttributes.mm in Sources */,
@@ -792,7 +803,6 @@
 				45A7D6F31CB4DB7900B072D5 /* FBStarNode.mm in Sources */,
 				B1CB0BC11C840B2700A9CAE7 /* VZFActionWrapper.mm in Sources */,
 				45A7D6EB1CB4DB7900B072D5 /* FBHeaderNode.mm in Sources */,
-				45F0C7271CE8A206004DF6DF /* VZFPagingView.m in Sources */,
 				4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */,
 				4578E0DB1C73055400E52B79 /* VZFTextNode.mm in Sources */,
 				45A7D6AF1CB4D99300B072D5 /* VZFViewReusePoolManager.mm in Sources */,
@@ -808,6 +818,7 @@
 				45A7D6FA1CB4DB7900B072D5 /* FBO2OStarView.m in Sources */,
 				4573998D1D262F5D001B804A /* VZFluxStore.mm in Sources */,
 				4578E0CE1C72F1CC00E52B79 /* VZFNodeViewClass.mm in Sources */,
+				45102EE11D5879690093CDBD /* VZFLineView.m in Sources */,
 				45A7D6A31CB4D98300B072D5 /* VZFNodeLayoutManager.mm in Sources */,
 				45A7D6EE1CB4DB7900B072D5 /* FBIconNode.mm in Sources */,
 				4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */,
@@ -815,6 +826,7 @@
 				45A7D6E51CB4DB7900B072D5 /* FBHostItem.m in Sources */,
 				45A7D6ED1CB4DB7900B072D5 /* FBHostNode.mm in Sources */,
 				4578E0F01C75687D00E52B79 /* VZFImageNodeSpecs.mm in Sources */,
+				45102EE01D5879690093CDBD /* VZFLineNodeSpecs.mm in Sources */,
 				454098781CD5D5E200D99B7F /* FBNetworkImageView.mm in Sources */,
 				457399691D253D52001B804A /* FBContentNodeStore.mm in Sources */,
 				4587709A1D34E35C0008A6A2 /* FBSampleNode.mm in Sources */,

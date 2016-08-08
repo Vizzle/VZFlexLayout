@@ -7,12 +7,10 @@
 //
 
 #import "VZFIndicatorNode.h"
-#import "VZFIndicatorNodeSpecs.h"
 #import "VZFNodeSubClass.h"
 #import "VZFNodeInternal.h"
 #import "VZFIndicatorView.h"
 #import "VZFMacros.h"
-#import "VZFNodeViewClass.h"
 #import "VZFlexNode.h"
 
 @implementation VZFIndicatorNode

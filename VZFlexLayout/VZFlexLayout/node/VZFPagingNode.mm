@@ -32,15 +32,15 @@
 
         if (pagingSpecs.pageControl) {
             pagingNode -> _pageControlNode = [VZFNode newWithView:[UIPageControl class] NodeSpecs:{
-                .flex = {
-                    .fixed = true,
-                    .height = 7 * pagingSpecs.pageControlScale,
-                    .width = (7 * pagingNode->_children.size() + 9 * MAX(0, pagingNode->_children.size() - 1)) * pagingSpecs.pageControlScale,
-                    .marginLeft = pagingSpecs.pageControlMarginLeft,
-                    .marginRight = pagingSpecs.pageControlMarginRight,
-                    .marginTop = pagingSpecs.pageControlMarginTop,
-                    .marginBottom = pagingSpecs.pageControlMarginBottom,
-                }
+
+                .fixed = true,
+                .height = 7 * pagingSpecs.pageControlScale,
+                .width = (7 * pagingNode->_children.size() + 9 * MAX(0, pagingNode->_children.size() - 1)) * pagingSpecs.pageControlScale,
+                .marginLeft = pagingSpecs.pageControlMarginLeft,
+                .marginRight = pagingSpecs.pageControlMarginRight,
+                .marginTop = pagingSpecs.pageControlMarginTop,
+                .marginBottom = pagingSpecs.pageControlMarginBottom,
+
             }];
         }
         

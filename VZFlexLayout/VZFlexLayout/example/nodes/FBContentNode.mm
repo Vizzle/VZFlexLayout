@@ -58,7 +58,8 @@
         }
     }NodeSpecs:{
     
-        .flex = {.alignSelf = VZFlexStart,.marginTop = 5}
+        .alignSelf = VZFlexStart,
+        .marginTop = 5
     
     } ];
     
@@ -67,7 +68,7 @@
     VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
         .direction = VZFlexVertical,
     } NodeSpecs:{
-        .flex = {.marginLeft = 40}
+        .marginLeft = 40
     } Children:{
         
         {item.content?textNode:nil},

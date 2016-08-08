@@ -32,10 +32,10 @@
     VZFStackNode* actions = [VZFStackNode newWithStackAttributes:{
         .spacing = 5
     } NodeSpecs:{
-        .flex=  {
+
             .alignSelf = VZFlexEnd,
             .marginTop = 10,
-        }
+
     } Children:{
         { [FBClickNode newWithImage:isLike?[UIImage imageNamed:@"comment_liked"]:[UIImage imageNamed:@"comment_like"]
                                Text:item.likeCount

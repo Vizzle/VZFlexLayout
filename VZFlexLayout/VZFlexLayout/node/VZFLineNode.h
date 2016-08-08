@@ -7,12 +7,11 @@
 //
 
 #import "VZFNode.h"
+#import "VZFLineNodeSpecs.h"
 
 @interface VZFLineNode : VZFNode
 
-+ (instancetype)lineNode;
-+ (instancetype)lineNodeWithColor:(UIColor *)color;
-+ (instancetype)lineNodeWithColor:(UIColor *)color thickness:(CGFloat)thickness;
-+ (instancetype)lineNodeWithColor:(UIColor *)color thickness:(CGFloat)thickness margin:(UIEdgeInsets)margin;
+@property(nonatomic,assign,readonly) VZ::LineNodeSpecs lineSpecs;
++ newWithLineAttributes:(const VZ::LineNodeSpecs&)lineSpecs NodeSpecs:(const VZ::NodeSpecs&)specs;
 
 @end

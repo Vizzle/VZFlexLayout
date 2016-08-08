@@ -44,18 +44,18 @@
         }
 
     }NodeSpecs:{
-        .view = {
+
             .clip = YES,
-            .layer = {.cornerRadius = 12},
+            .cornerRadius = 12,
             .backgroundColor = [UIColor redColor],
-        },
-        .flex = {
+
+
             .alignSelf = VZFlexCenter,
             .height = 24,
             .width = 100,
             .marginTop = 10,
             .marginBottom = 10
-        }
+
     } ];
     
     VZFNode* spinnerNode = [VZFNode newWithView:{
@@ -66,18 +66,18 @@
             return loadingIndicator;
         },@"spinnerNode"} NodeSpecs:{
             
-            .flex = {
+
                 .width = 20,
                 .height = 20,
                 .marginTop = 10,
-                .marginBottom = 10
-            },
-            .view = {
+                .marginBottom = 10,
+
+
                 .applicator = ^(UIView *view){
                     UIActivityIndicatorView *indicator = (UIActivityIndicatorView *)view;
                     [indicator startAnimating];
                 }
-            }
+
             
         }];
     
@@ -101,7 +101,8 @@
         {[VZFImageNode newWithImageAttributes:{.imageUrl = item.imagePath}
                                        NodeSpecs:{
                                            
-                                           .flex= {.width  =150,.height = 150},
+                                           .width  =150,
+                                           .height = 150,
                                            .gesture = ^(id sender){
                                                
                                                FluxAction::send({

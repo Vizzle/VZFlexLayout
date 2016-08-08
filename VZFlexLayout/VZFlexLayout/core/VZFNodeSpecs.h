@@ -39,16 +39,11 @@
 using namespace VZ;
 namespace VZ {
     
-
-    namespace DefaultUIAttributesValue{
+    namespace DefaultAttributesValue{
         extern int userInteractionEnabled;
         extern UIColor* backgroundColor;
         extern UIColor* highlightBackgroundColor;
         extern CGFloat cornerRadiusUndefined;
-    }
-    
-    
-    namespace DefaultFlexAttributesValue{
         
         //css attributes
         extern CGSize size;
@@ -82,64 +77,6 @@ namespace VZ {
     };
     
     
-    struct LayerAttrs{
-        
-        CGFloat cornerRadius;
-        Value<CGFloat, DefaultUIAttributesValue::cornerRadiusUndefined> cornerRadiusTopLeft;
-        Value<CGFloat, DefaultUIAttributesValue::cornerRadiusUndefined> cornerRadiusTopRight;
-        Value<CGFloat, DefaultUIAttributesValue::cornerRadiusUndefined> cornerRadiusBottomLeft;
-        Value<CGFloat, DefaultUIAttributesValue::cornerRadiusUndefined> cornerRadiusBottomRight;
-        
-        CGFloat borderWidth;
-        UIColor* borderColor;
-        UIImage* contents;
-    };
-    
-    struct ViewAttrs{
-        BOOL hidden;
-        NSInteger tag;
-        BOOL clip;
-        Value<int, DefaultUIAttributesValue::userInteractionEnabled> userInteractionEnabled;
-        Value<UIColor*, DefaultUIAttributesValue::backgroundColor>backgroundColor;
-        Value<UIColor*, DefaultUIAttributesValue::highlightBackgroundColor>highlightBackgroundColor; //only implemented in stacknode
-        struct LayerAttrs layer;
-        void(^unapplicator)(UIView* view);
-        void(^applicator)(UIView* view);
-    };
-    
-
-    struct FlexAttrs{
-
-        Value<FlexLength, DefaultFlexAttributesValue::width> width;
-        Value<FlexLength, DefaultFlexAttributesValue::height> height;
-        Value<FlexLength, DefaultFlexAttributesValue::maxWidth> maxWidth;
-        Value<FlexLength, DefaultFlexAttributesValue::maxHeight> maxHeight;
-        Value<FlexLength, DefaultFlexAttributesValue::minWidth> minWidth;
-        Value<FlexLength, DefaultFlexAttributesValue::minHeight> minHeight;
-        
-        Value<FlexLength, DefaultFlexAttributesValue::marginLeft> marginLeft;
-        Value<FlexLength, DefaultFlexAttributesValue::marginRight> marginRight;
-        Value<FlexLength, DefaultFlexAttributesValue::marginTop> marginTop;
-        Value<FlexLength, DefaultFlexAttributesValue::marginBottom> marginBottom;
-        
-        Value<FlexLength, DefaultFlexAttributesValue::paddingLeft> paddingLeft;
-        Value<FlexLength, DefaultFlexAttributesValue::paddingRight> paddingRight;
-        Value<FlexLength, DefaultFlexAttributesValue::paddingTop> paddingTop;
-        Value<FlexLength, DefaultFlexAttributesValue::paddingBottom> paddingBottom;
-        
-        Value<FlexLength, DefaultFlexAttributesValue::margin> margin;
-        Value<FlexLength, DefaultFlexAttributesValue::padding> padding;
-        
-        Value<float, DefaultFlexAttributesValue::flexGrow> flexGrow;
-        Value<float, DefaultFlexAttributesValue::flexShrink> flexShrink;
-        Value<FlexLength, DefaultFlexAttributesValue::flexBasis> flexBasis;
-        Value<VZFlexLayoutAlignment,  DefaultFlexAttributesValue::alignSelf> alignSelf;
-        Value<bool, DefaultFlexAttributesValue::fixed> fixed;
-        Value<bool, DefaultFlexAttributesValue::wrap> wrap;
-        
-    };
-    
-    
     template<>
     struct MultiMapKey<Class> {
         static Class defaultKey;
@@ -156,12 +93,54 @@ namespace VZ {
         
         //name
         std::string identifier;
-
-        //view / layer properties
-        struct ViewAttrs view;
         
-        //flex
-        struct FlexAttrs flex;
+        //view attributes
+        BOOL hidden;
+        NSInteger tag;
+        BOOL clip;
+        Value<int, DefaultAttributesValue::userInteractionEnabled> userInteractionEnabled;
+        Value<UIColor*, DefaultAttributesValue::backgroundColor>backgroundColor;
+        Value<UIColor*, DefaultAttributesValue::highlightBackgroundColor>highlightBackgroundColor; //only implemented in stacknode
+
+        //layer attributes
+        CGFloat cornerRadius;
+        Value<CGFloat, DefaultAttributesValue::cornerRadiusUndefined> cornerRadiusTopLeft;
+        Value<CGFloat, DefaultAttributesValue::cornerRadiusUndefined> cornerRadiusTopRight;
+        Value<CGFloat, DefaultAttributesValue::cornerRadiusUndefined> cornerRadiusBottomLeft;
+        Value<CGFloat, DefaultAttributesValue::cornerRadiusUndefined> cornerRadiusBottomRight;
+        CGFloat borderWidth;
+        UIColor* borderColor;
+        UIImage* contents;
+        void(^unapplicator)(UIView* view);
+        void(^applicator)(UIView* view);
+        
+        //flex attributes
+        Value<FlexLength, DefaultAttributesValue::width> width;
+        Value<FlexLength, DefaultAttributesValue::height> height;
+        Value<FlexLength, DefaultAttributesValue::maxWidth> maxWidth;
+        Value<FlexLength, DefaultAttributesValue::maxHeight> maxHeight;
+        Value<FlexLength, DefaultAttributesValue::minWidth> minWidth;
+        Value<FlexLength, DefaultAttributesValue::minHeight> minHeight;
+        
+        Value<FlexLength, DefaultAttributesValue::marginLeft> marginLeft;
+        Value<FlexLength, DefaultAttributesValue::marginRight> marginRight;
+        Value<FlexLength, DefaultAttributesValue::marginTop> marginTop;
+        Value<FlexLength, DefaultAttributesValue::marginBottom> marginBottom;
+        
+        Value<FlexLength, DefaultAttributesValue::paddingLeft> paddingLeft;
+        Value<FlexLength, DefaultAttributesValue::paddingRight> paddingRight;
+        Value<FlexLength, DefaultAttributesValue::paddingTop> paddingTop;
+        Value<FlexLength, DefaultAttributesValue::paddingBottom> paddingBottom;
+        
+        Value<FlexLength, DefaultAttributesValue::margin> margin;
+        Value<FlexLength, DefaultAttributesValue::padding> padding;
+        
+        Value<float, DefaultAttributesValue::flexGrow> flexGrow;
+        Value<float, DefaultAttributesValue::flexShrink> flexShrink;
+        Value<FlexLength, DefaultAttributesValue::flexBasis> flexBasis;
+        Value<VZFlexLayoutAlignment,  DefaultAttributesValue::alignSelf> alignSelf;
+        Value<bool, DefaultAttributesValue::fixed> fixed;
+        Value<bool, DefaultAttributesValue::wrap> wrap;
         
         /*
             gestures

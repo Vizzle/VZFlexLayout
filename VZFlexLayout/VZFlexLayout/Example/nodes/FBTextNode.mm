@@ -21,7 +21,7 @@
     VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
         .direction = VZFlexVertical,
     } NodeSpecs:{
-        .flex = {.padding = 10},
+        .padding = 10,
     } Children:{
         {[VZFTextNode newWithTextAttributes:{
             .text = item.content,

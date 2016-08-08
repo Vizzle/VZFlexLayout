@@ -7,44 +7,22 @@
 //
 
 #import "VZFLineNode.h"
-#import "VZFMacros.h"
-#import "VZFNodeSpecs.h"
+#import "VZFNodeSubClass.h"
+#import "VZFNodeInternal.h"
+#import "VZFLineView.h"
 
+using namespace VZ;
 @implementation VZFLineNode
 
-+ (instancetype)newWithView:(const ViewClass &)viewClass NodeSpecs:(const NodeSpecs &)specs{
-    VZ_NOT_DESIGNATED_INITIALIZER();
-}
-
-+ (instancetype)lineNode {
-    return [self lineNodeWithColor:[UIColor colorWithWhite:0xDD/255.f alpha:1]];
-}
-
-+ (instancetype)lineNodeWithColor:(UIColor *)color {
-    return [self lineNodeWithColor:color thickness:1/[UIScreen mainScreen].scale];
-}
-
-+ (instancetype)lineNodeWithColor:(UIColor *)color thickness:(CGFloat)thickness {
-    return [self lineNodeWithColor:color thickness:thickness margin:UIEdgeInsetsZero];
-}
-
-+ (instancetype)lineNodeWithColor:(UIColor *)color thickness:(CGFloat)thickness margin:(UIEdgeInsets)margin {
-    NSAssert(thickness != VZ::FlexValue::Auto, @"thickness can't be auto");
++ (id)newWithLineAttributes:(const VZ::LineNodeSpecs &)lineSpecs NodeSpecs:(const VZ::NodeSpecs &)specs {
     
-    return [super newWithView:[UIView class] NodeSpecs:{
-        .view = {
-            .backgroundColor = color,
-        },
-        .flex = {
-            .flexShrink = 0,
-            .flexBasis = vzf_dim(thickness),
-            .alignSelf = VZFlexStretch,
-            .marginLeft = vzf_dim(margin.left),
-            .marginTop = vzf_dim(margin.top),
-            .marginRight = vzf_dim(margin.right),
-            .marginBottom = vzf_dim(margin.bottom),
-        }
-    }];
+    VZFLineNode* lineNode = [super newWithView:[VZFLineView class] NodeSpecs:specs];
+    
+    if (lineNode) {
+        lineNode -> _lineSpecs = lineSpecs.copy();
+    }
+    
+    return lineNode;
 }
 
 @end

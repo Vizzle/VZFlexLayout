@@ -20,7 +20,7 @@ const void* g_flexNode = &g_flexNode;
     return objc_getAssociatedObject(self, g_flexNode);
 }
 
-+ (VZFlexNode* )flexNodeWithFlexAttributes:(const FlexAttrs& )attrs{
++ (VZFlexNode* )flexNodeWithSpecs:(const NodeSpecs& )attrs{
 
     VZFlexNode* node = [VZFlexNode new];
     

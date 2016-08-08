@@ -26,7 +26,9 @@
             .text = name,
             .color = [UIColor blackColor],
             .fontSize = 14.0f,
-        } NodeSpecs:{.view = {.backgroundColor = [UIColor clearColor]}}]},
+        } NodeSpecs:{
+            .backgroundColor = [UIColor clearColor]}
+        ]},
         {
             [VZFTextNode newWithTextAttributes:{
                 
@@ -36,7 +38,7 @@
                 .alignment = NSTextAlignmentRight
                 
             }NodeSpecs:{
-                .view = {.backgroundColor = [UIColor clearColor]}
+                .backgroundColor = [UIColor clearColor]
             } ]
 
         }

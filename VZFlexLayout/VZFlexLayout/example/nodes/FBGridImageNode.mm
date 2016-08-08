@@ -28,28 +28,19 @@
             .imageUrl    = list[i]
         
         } NodeSpecs:{
-        
-        
-            .view = {
-                .clip = YES,
-                .applicator = ^(UIView *view){
-                    
-                    view.userInteractionEnabled = YES;
-                },
-                .layer = {
-                    .cornerRadius = 2.0f,
-                    .borderWidth = 0.5f,
-                    .borderColor = [UIColor grayColor]
-                    
-                    
-                }
+    
+            .clip = YES,
+            .applicator = ^(UIView *view){
+
+                view.userInteractionEnabled = YES;
             },
+
+            .cornerRadius = 2.0f,
+            .borderWidth = 0.5f,
+            .borderColor = [UIColor grayColor],
             .gesture = @selector(imageDidTap),
-            .flex = {
-                .width = 76,
-                .height = 76
-            }
-        
+            .width = 76,
+            .height = 76
         
         } BackingImageViewClass:[FBNetworkImageView class]];
         

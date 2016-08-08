@@ -7,12 +7,7 @@
 //
 
 #import "VZFNode.h"
-#import "VZFIndicatorNode.h"
-
-namespace VZ {
-    class NodeSpecs;
-    class IndicatorNodeSpecs;
-}
+#import "VZFIndicatorNodeSpecs.h"
 
 @interface VZFIndicatorNode : VZFNode
 

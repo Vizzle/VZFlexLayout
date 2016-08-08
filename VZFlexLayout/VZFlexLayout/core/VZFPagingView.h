@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "VZFNodeBackingViewInterface.h"
 
+@protocol VZFActionWrapper;
+
 @interface VZFPagingView : UIView<VZFNodeBackingViewInterface>
 
 @property (nonatomic, strong, readonly) UICollectionView *collectionView;
@@ -18,6 +20,10 @@
 @property (nonatomic) NSTimeInterval autoScroll;
 @property (nonatomic) BOOL loopScroll;
 @property (nonatomic) BOOL vertical;
+
+@property (nonatomic) NSInteger currentPage;
+@property (nonatomic, strong) id<VZFActionWrapper> switched;
+
 
 - (void)setChildrenViews:(NSArray *)childrenViews;
 - (void)resetTimer;

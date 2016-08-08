@@ -21,7 +21,7 @@ using namespace VZ;
 
 @property(nonatomic,assign)VZFNode* fNode;
 
-+ (VZFlexNode* )flexNodeWithFlexAttributes:(const FlexAttrs& )flexAttrs;
++ (VZFlexNode* )flexNodeWithSpecs:(const NodeSpecs& )nodeAttrs;
 
 - (void)applyStackLayoutAttributes:(const StackNodeSpecs& )stackAttrs;
 

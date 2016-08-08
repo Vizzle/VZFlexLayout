@@ -78,5 +78,8 @@ using namespace VZ;
     return [self->_identifier isEqualToString:object.identifier] && (self ->_nodeClass == object.nodeClass);
 }
 
+- (NSUInteger)hash {
+    return [_identifier hash] ^ [_nodeClass hash];
+}
 
 @end

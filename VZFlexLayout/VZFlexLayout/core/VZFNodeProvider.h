@@ -12,5 +12,9 @@
 @class VZFNode;
 @class VZFluxStore;
 @protocol VZFNodeProvider <NSObject>
+
+//make it immutable, no side effect
 + (VZFNode<VZFNodeRequiredMethods>* )nodeForItem:(id)item Store:(VZFluxStore* )store Context:(id)ctx;
+
+
 @end

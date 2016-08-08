@@ -35,6 +35,11 @@
     self.block(sender.node);
 }
 
+- (void)invoke:(UIControl *)sender withCustomParam:(id)param{
+    
+    self.block(param);
+}
+
 - (void)invoke:(UIGestureRecognizer *)sender {
     self.block(sender.view.node);
 }
@@ -76,6 +81,18 @@
 #pragma clang diagnostic pop
 }
 
+
+- (void)invoke:(UIControl *)sender withCustomParam:(id)param{
+    
+    VZFNode *node = sender.node;
+    id responder = [node targetForAction:_selector withSender:sender];
+    NSAssert(responder, @"could not found responder for action '%@'", NSStringFromSelector(_selector));
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [responder performSelector:_selector withObject:param];
+#pragma clang diagnostic pop
+}
 @end
 
 

@@ -61,7 +61,7 @@ using namespace VZ::UIKit;
         
         _specs          = specs;
         _viewClass      = viewclass;
-        _flexNode       = [VZFlexNode flexNodeWithFlexAttributes:specs.flex];
+        _flexNode       = [VZFlexNode flexNodeWithSpecs:specs];
         _flexNode.name  = [NSString stringWithUTF8String:specs.identifier.c_str()];
         _flexNode.fNode = self;
 
@@ -175,12 +175,18 @@ using namespace VZ::UIKit;
     if (view) {
         //不是当前的backingview
         if (view != _mountedInfo -> mountedView) {
+            
+            //释放当前mountedView绑定的node
             [view.node unmount];
+            view.node = self;
+            _mountedInfo -> mountedView = view;
+            [self didAquireBackingView];
+        }
+        else{
+            VZFAssert(view.node == self, @"");
         }
         
-        view.node = self;
-        _mountedInfo -> mountedView = view;
-        [self didAquireBackingView];
+
 
         //计算公式:
         //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
@@ -240,7 +246,7 @@ using namespace VZ::UIKit;
         
         [self willReleaseBackingView];
         view.node = nil;
-        view = nil;
+        _mountedInfo -> mountedView = nil;
 
     }
 

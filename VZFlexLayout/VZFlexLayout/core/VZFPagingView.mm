@@ -7,6 +7,7 @@
 //
 
 #import "VZFPagingView.h"
+#import "VZFActionWrapper.h"
 
 static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 
@@ -45,8 +46,6 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 
 
 @interface VZFPagingView () <UICollectionViewDataSource, UICollectionViewDelegate>
-
-@property (nonatomic) NSInteger currentPage;
 
 @end
 
@@ -88,12 +87,33 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
         [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kO2OPagingNodeReuseId];
         self.backgroundColor = [UIColor clearColor];
         [self addSubview:_collectionView];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopTimer) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTimer) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self stopTimer];
+    
+    // 避免一个 crash，详见 http://stackoverflow.com/a/26104397
+    self.collectionView.delegate = nil;
+    self.collectionView.dataSource = nil;
+}
+
 - (void)setFrame:(CGRect)frame
 {
+    // 如果 UICollectionView 的滚动方向上的尺寸不是整数，滚动时会出现空白的问题
+    if ((!_vertical && (int)frame.size.width != frame.size.width)
+        || (_vertical && (int)frame.size.height != frame.size.height)) {
+        NSLog(@"VZFPagingView 滚动方向的尺寸必须是整数，现在是 %@", NSStringFromCGSize(frame.size));
+        assert(false);  // 不知道为啥，用 NSAssert 的话，断下来的地方不对
+        frame.size.width = ceil(frame.size.width);
+        frame.size.height = ceil(frame.size.height);
+    }
+    
     [super setFrame:frame];
     [_collectionView setFrame:self.bounds];
     _flowLayout.itemSize = frame.size;
@@ -210,6 +230,11 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 
 - (void)setCurrentPage:(NSInteger)currentPage
 {
+    
+    if (![self autoScrollEnabled] && _currentPage != currentPage) {
+        [self.switched invoke:self withCustomParam:self];
+    }
+    
     _currentPage = currentPage;
     if (_pageControl && _pageControl.currentPage != currentPage) {
         _pageControl.currentPage = currentPage;
@@ -278,6 +303,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     
     NSInteger index = round((float)_lastContentOffset / pageLength);
     self.currentPage = [self indexForCellIndex:index];
+    
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

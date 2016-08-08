@@ -41,11 +41,7 @@
         ._font = [UIFont systemFontOfSize:14.0f],
         .lines = [state[@"expend"] boolValue] ? 0UL : 4UL
         
-    }NodeSpecs:{
-        
-        .flex=  {.marginTop = 20}
-    
-    } ];
+    }NodeSpecs:{.marginTop = 20} ];
     
     VZFButtonNode* buttonNode = [VZFButtonNode newWithButtonAttributes:{
         
@@ -54,8 +50,8 @@
         ._font = [UIFont systemFontOfSize:14.0f],
         .action = @selector(onExpendClicked:),
     }NodeSpecs:{
-        
-        .flex = {.alignSelf = VZFlexStart,.marginTop = 5}
+        .alignSelf = VZFlexStart,
+        .marginTop = 5
         
     }];
 

@@ -479,7 +479,6 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 
 }
 
-
 - (NSString *)propertiesDescription:(VZFlexNodeDescriptionOption)option {
     NSMutableString *ret = [[NSMutableString alloc] init];
     BOOL showUnspecified = !(option & VZFlexNodeDescriptionOptionHideUnspecified);

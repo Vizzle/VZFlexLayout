@@ -26,15 +26,13 @@
 
     } NodeSpecs:{
         
-        .view = {
+        
             .clip = YES,
             .backgroundColor = [UIColor grayColor],
-            .layer = {.cornerRadius = 20.0f}
-        },
-        .flex = {
+            .cornerRadius = 20.0f,
             .width = 40,
             .height = 40
-        }
+        
     
     } BackingImageViewClass:[FBNetworkImageView class]];
 

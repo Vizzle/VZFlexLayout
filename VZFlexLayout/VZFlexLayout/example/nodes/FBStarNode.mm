@@ -29,10 +29,9 @@
     
     },@"O2OStarView"} NodeSpecs:{
     
-        .flex = {
-            .width = vzf_dim(100),
-            .height = 20
-        }
+        .width = vzf_dim(100),
+        .height = 20
+
     }];
     return [super newWithNode:starNode];
 

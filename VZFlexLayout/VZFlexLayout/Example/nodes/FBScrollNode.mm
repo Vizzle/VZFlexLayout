@@ -39,14 +39,12 @@
         .spacing = 10
     
     } NodeSpecs:{
-        .flex = {
-            .height = 180,
-            .marginTop = 5,
-            .marginBottom = 5,
-        },
-        .view = {
-            .clip = YES,
-        }
+
+        .height = 180,
+        .marginTop = 5,
+        .marginBottom = 5,
+        .clip = YES,
+
     } Children:childs];
 
     

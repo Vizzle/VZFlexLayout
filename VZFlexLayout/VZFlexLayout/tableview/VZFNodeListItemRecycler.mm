@@ -16,7 +16,7 @@
 #import "VZFUtils.h"
 #import "VZFMacros.h"
 #import "VZFluxStore.h"
-
+#import "VZFNodeInternal.h"
 
 @interface VZFWeakObjectWrapper : NSObject
 @property(nonatomic,weak) id object;
@@ -61,10 +61,11 @@ struct VZItemRecyclerState{
     __weak UIView *_mountedView;
     NSSet *_mountedNodes;
     
-    __weak id<VZFNodeProvider> _nodeProvider;
+    __weak Class<VZFNodeProvider> _nodeProvider;
     VZItemRecyclerState _state;
 
 }
+
 
 - (CGSize)layoutSize{
 
@@ -75,13 +76,13 @@ struct VZItemRecyclerState{
 }
 
 
-- (instancetype)initWithNodeProvider:(id<VZFNodeProvider>)nodeProvider{
+- (instancetype)initWithNodeProvider:(Class<VZFNodeProvider>)nodeProvider{
     
     self = [super init];
     if (self) {
     
-        _nodeProvider       = nodeProvider;
-        _state = {};
+        _nodeProvider = nodeProvider;
+        _state        = {};
     }
     return self;
 
@@ -132,7 +133,16 @@ struct VZItemRecyclerState{
     //[self _mount];
 }
 
-- (void)attachToView:(UIView *)view{
+- (void)attachToView:(UIView *)view {
+    [self attachToView:view asyncDisplay:NO];
+}
+
+//为了替换这个方法 单独抽离出来
+-(BOOL)asyncDisplayLogic:(BOOL)asyncDisplay{
+    return asyncDisplay;
+}
+
+- (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay {
 
     if(view.vz_recycler != self){
     
@@ -146,6 +156,15 @@ struct VZItemRecyclerState{
     
     [self _mount];
  
+}
+-(void)cleanVZFNodeView:(UIView *)v{
+    NSArray *subView = [v.subviews copy];
+    for (UIView *v in subView) {
+        NSString *className = [NSString stringWithUTF8String:class_getName([v class])];
+        if (![@"_VZAView" isEqualToString:className]){
+            [v removeFromSuperview];
+        }
+    }
 }
 
 - (void)detachFromView{
@@ -162,7 +181,6 @@ struct VZItemRecyclerState{
 }
 
 - (BOOL)isAttachedToView{
-
     return (_mountedView != nil);
 }
 

@@ -20,7 +20,7 @@
     VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
         .direction = VZFlexVertical
     } NodeSpecs:{
-        .flex = {.padding = 10}
+        .padding = 10
     } Children:{
     
         {[FBHeaderNode  newWithProps:props Store:store Context:context]},

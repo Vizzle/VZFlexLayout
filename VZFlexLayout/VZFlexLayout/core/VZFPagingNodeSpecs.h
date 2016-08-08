@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "VZFValue.h"
 #import "VZFLength.h"
+#import "VZFActionWrapper.h"
 
 namespace VZ {
     
@@ -39,6 +40,8 @@ namespace VZ {
         Value<float, PagingNodeSpecsDefault::pageControlScale> pageControlScale;
         UIColor* pageControlColor;
         UIColor* pageControlSelectedColor;
+        
+        ActionWrapper switched;
         
         const PagingNodeSpecs copy() const{
             return {direction, scrollEnabled,paging,autoScroll,infiniteLoop,pageControl,pageControlMarginLeft,pageControlMarginRight,pageControlMarginTop,pageControlMarginBottom,pageControlScale,pageControlColor,pageControlSelectedColor };

@@ -23,10 +23,10 @@
         .image = img,
         .action = action
     }NodeSpecs:{
-        .flex = {
+
             .width = 20,
             .height = 20,
-        }
+
         
     } ];
     VZFTextNode* textNode = [VZFTextNode newWithTextAttributes:{

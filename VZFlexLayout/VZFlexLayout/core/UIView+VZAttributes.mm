@@ -19,6 +19,9 @@
 #import "VZFImageNodeSpecs.h"
 #import "VZFIndicatorNode.h"
 #import "VZFIndicatorNodeSpecs.h"
+#import "VZFLineNode.h"
+#import "VZFLineNodeSpecs.h"
+#import "VZFLineView.h"
 #import "VZFActionWrapper.h"
 #import "VZFScrollNode.h"
 #import "VZFScrollNodeSpecs.h"
@@ -39,7 +42,7 @@
 
     VZFNode* node = self.node;
     
-    [self _applyAttributes:node.specs.view];
+    [self _applyAttributes:node.specs];
     
     [self _applyGestures:node.specs.gesture];
     
@@ -66,6 +69,10 @@
     else if ([node isKindOfClass:[VZFIndicatorNode class]])
     {
         [self _applyIndicatorAttributes:((VZFIndicatorNode* )node).indicatorSpecs];
+    }
+    else if ([node isKindOfClass:[VZFLineNode class]])
+    {
+        [self _applyLineAttributes:((VZFLineNode* )node).lineSpecs];
     }
 }
 
@@ -104,10 +111,10 @@
         top_right_y *= factor;
         bottom_right_y *= factor;
     }
-    CGFloat top_left = MIN(top_left_x, top_left_y);
-    CGFloat top_right = MIN(top_right_x, top_right_y);
-    CGFloat bottom_left = MIN(bottom_left_x, bottom_left_y);
-    CGFloat bottom_right = MIN(bottom_right_x, bottom_right_y);
+    CGFloat top_left = std::min(top_left_x, top_left_y);
+    CGFloat top_right = std::min(top_right_x, top_right_y);
+    CGFloat bottom_left = std::min(bottom_left_x, bottom_left_y);
+    CGFloat bottom_right = std::min(bottom_right_x, bottom_right_y);
     
     UIBezierPath *path = [UIBezierPath bezierPath];
     [path moveToPoint:CGPointMake(top_left, 0)];
@@ -132,7 +139,7 @@
     return path;
 }
 
-- (void)_applyAttributes:(const ViewAttrs&)vs {
+- (void)_applyAttributes:(const NodeSpecs&)vs {
     
     self.tag                    = vs.tag;
     self.backgroundColor        = vs.backgroundColor;
@@ -144,50 +151,10 @@
         self.userInteractionEnabled = YES;
     }
     
-    static const void* _id = &_id;
-    // 移除重用的 layer
-    [self.layer.sublayers.copy enumerateObjectsUsingBlock:^(__kindof CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (objc_getAssociatedObject(obj, _id)) {
-            [obj removeFromSuperlayer];
-        }
-    }];
+    [self _applyBorder:vs];
     
-    CGFloat cornerRadiusTopLeft = vs.layer.cornerRadiusTopLeft != VZ::FlexValue::Undefined ? vs.layer.cornerRadiusTopLeft.value : vs.layer.cornerRadius;
-    CGFloat cornerRadiusTopRight = vs.layer.cornerRadiusTopRight != VZ::FlexValue::Undefined ? vs.layer.cornerRadiusTopRight.value : vs.layer.cornerRadius;
-    CGFloat cornerRadiusBottomLeft = vs.layer.cornerRadiusBottomLeft != VZ::FlexValue::Undefined ? vs.layer.cornerRadiusBottomLeft.value : vs.layer.cornerRadius;
-    CGFloat cornerRadiusBottomRight = vs.layer.cornerRadiusBottomRight != VZ::FlexValue::Undefined ? vs.layer.cornerRadiusBottomRight.value : vs.layer.cornerRadius;
-    if (cornerRadiusTopLeft != cornerRadiusTopRight || cornerRadiusTopLeft != cornerRadiusBottomLeft || cornerRadiusTopLeft != cornerRadiusBottomRight) {
-        self.layer.borderWidth      = 0;
-        UIBezierPath *path = [self _roundRectPathWithWidth:self.bounds.size.width
-                                                    height:self.bounds.size.height
-                                             topLeftRadius:cornerRadiusTopLeft
-                                            topRightRadius:cornerRadiusTopRight
-                                          bottomLeftRadius:cornerRadiusBottomLeft
-                                         bottomRightRadius:cornerRadiusBottomRight];
-        CAShapeLayer *maskLayer = [CAShapeLayer layer];
-        maskLayer.path = path.CGPath;
-        objc_setAssociatedObject(maskLayer, _id, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        [self.layer addSublayer:maskLayer];
-        self.layer.mask = maskLayer;
-        if (vs.layer.borderWidth > 0 && vs.layer.borderColor) {
-            CAShapeLayer *strokeLayer = [CAShapeLayer layer];
-            strokeLayer.path = path.CGPath;
-            strokeLayer.fillColor = [UIColor clearColor].CGColor;
-            strokeLayer.strokeColor = vs.layer.borderColor.CGColor;
-            strokeLayer.lineWidth = vs.layer.borderWidth * 2;
-            objc_setAssociatedObject(strokeLayer, _id, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            [self.layer addSublayer:strokeLayer];
-        }
-    }
-    else {
-        self.layer.cornerRadius     = cornerRadiusTopLeft;
-        self.layer.borderColor      = vs.layer.borderColor.CGColor;
-        self.layer.borderWidth      = vs.layer.borderWidth;
-        self.layer.mask = nil;
-    }
-    
-    if (vs.layer.contents.CGImage) {
-        self.layer.contents     = (__bridge id)vs.layer.contents.CGImage;
+    if (vs.contents.CGImage) {
+        self.layer.contents     = (__bridge id)vs.contents.CGImage;
     }
     
     if ([self isKindOfClass:[VZFStackView class]]) {
@@ -204,6 +171,50 @@
         vs.applicator(self);
     }
 
+}
+
+- (void)_applyBorder:(const NodeSpecs&)vs {
+    static const void* _id = &_id;
+    // 移除重用的 layer
+    [self.layer.sublayers.copy enumerateObjectsUsingBlock:^(__kindof CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (objc_getAssociatedObject(obj, _id)) {
+            [obj removeFromSuperlayer];
+        }
+    }];
+    
+    CGFloat cornerRadiusTopLeft = vs.cornerRadiusTopLeft != VZ::FlexValue::Undefined ? vs.cornerRadiusTopLeft.value : vs.cornerRadius;
+    CGFloat cornerRadiusTopRight = vs.cornerRadiusTopRight != VZ::FlexValue::Undefined ? vs.cornerRadiusTopRight.value : vs.cornerRadius;
+    CGFloat cornerRadiusBottomLeft = vs.cornerRadiusBottomLeft != VZ::FlexValue::Undefined ? vs.cornerRadiusBottomLeft.value : vs.cornerRadius;
+    CGFloat cornerRadiusBottomRight = vs.cornerRadiusBottomRight != VZ::FlexValue::Undefined ? vs.cornerRadiusBottomRight.value : vs.cornerRadius;
+    if (cornerRadiusTopLeft != cornerRadiusTopRight || cornerRadiusTopLeft != cornerRadiusBottomLeft || cornerRadiusTopLeft != cornerRadiusBottomRight) {
+        self.layer.borderWidth      = 0;
+        UIBezierPath *path = [self _roundRectPathWithWidth:self.bounds.size.width
+                                                    height:self.bounds.size.height
+                                             topLeftRadius:cornerRadiusTopLeft
+                                            topRightRadius:cornerRadiusTopRight
+                                          bottomLeftRadius:cornerRadiusBottomLeft
+                                         bottomRightRadius:cornerRadiusBottomRight];
+        CAShapeLayer *maskLayer = [CAShapeLayer layer];
+        maskLayer.path = path.CGPath;
+        objc_setAssociatedObject(maskLayer, _id, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        [self.layer addSublayer:maskLayer];
+        self.layer.mask = maskLayer;
+        if (vs.borderWidth > 0 && vs.borderColor) {
+            CAShapeLayer *strokeLayer = [CAShapeLayer layer];
+            strokeLayer.path = path.CGPath;
+            strokeLayer.fillColor = [UIColor clearColor].CGColor;
+            strokeLayer.strokeColor = vs.borderColor.CGColor;
+            strokeLayer.lineWidth = vs.borderWidth * 2;
+            objc_setAssociatedObject(strokeLayer, _id, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            [self.layer addSublayer:strokeLayer];
+        }
+    }
+    else {
+        self.layer.cornerRadius     = cornerRadiusTopLeft;
+        self.layer.borderColor      = vs.borderColor.CGColor;
+        self.layer.borderWidth      = vs.borderWidth;
+        self.layer.mask = nil;
+    }
 }
 
 
@@ -344,7 +355,17 @@
     
     UIActivityIndicatorView *indicatorView = (UIActivityIndicatorView *)self;
     indicatorView.color = indicatorSpecs.color;
+    indicatorView.transform = CGAffineTransformMakeScale(indicatorView.frame.size.width / 20, indicatorView.frame.size.height / 20);
     [indicatorView startAnimating];
+    
+}
+
+- (void)_applyLineAttributes:(const LineNodeSpecs& )lineSpecs{
+    
+    VZFLineView *lineView = (VZFLineView *)self;
+    lineView.color = lineSpecs.color;
+    lineView.dashLength = lineSpecs.dashLength;
+    lineView.spaceLength = lineSpecs.spaceLength;
     
 }
 
@@ -394,6 +415,8 @@
         [subviews addObject:view];
     }
     [pagingView setChildrenViews:subviews];
+    
+    pagingView.switched = vz_actionWrapper(pagingSpecs.switched);
     
     [pagingView setNeedsLayout];
     
