@@ -11,6 +11,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNode.h"
+#import "VZFNodeMountContext.h"
 #import "VZFNodeLifeCycle.h"
 
 

@@ -15,6 +15,7 @@
 #import "VZFButtonNodeSpecs.h"
 #import "VZFTextNode.h"
 #import "VZFTextNodeSpecs.h"
+#import "VZFTextNodeBackingView.h"
 #import "VZFImageNode.h"
 #import "VZFImageNodeSpecs.h"
 #import "VZFIndicatorNode.h"
@@ -312,25 +313,28 @@
 
 - (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs{
     
-    UILabel* label = (UILabel* )self;
-    if (textNodeSpecs.attributedString) {
-        label.attributedText = textNodeSpecs.attributedString;
-    }
-    else {
-        if (textNodeSpecs.kern != 0 && textNodeSpecs.text.length > 0) {
-            NSDictionary *dict = @{NSKernAttributeName:@(textNodeSpecs.kern),
-                                   NSLigatureAttributeName:@0};
-            label.attributedText = [[NSAttributedString alloc] initWithString:textNodeSpecs.text attributes:dict];
-        }
-        else {
-            label.text = textNodeSpecs.text;
-        }
-        label.font = textNodeSpecs.getFont();
-        label.textColor = textNodeSpecs.color;
-    }
-    label.textAlignment = textNodeSpecs.alignment;
-    label.lineBreakMode = textNodeSpecs.lineBreakMode;
-    label.numberOfLines = textNodeSpecs.lines;
+    VZFTextNodeBackingView* textView = self;
+//    textView.textl
+    
+//    UILabel* label = (UILabel* )self;
+//    if (textNodeSpecs.attributedString) {
+//        label.attributedText = textNodeSpecs.attributedString;
+//    }
+//    else {
+//        if (textNodeSpecs.kern != 0 && textNodeSpecs.text.length > 0) {
+//            NSDictionary *dict = @{NSKernAttributeName:@(textNodeSpecs.kern),
+//                                   NSLigatureAttributeName:@0};
+//            label.attributedText = [[NSAttributedString alloc] initWithString:textNodeSpecs.text attributes:dict];
+//        }
+//        else {
+//            label.text = textNodeSpecs.text;
+//        }
+//        label.font = textNodeSpecs.getFont();
+//        label.textColor = textNodeSpecs.color;
+//    }
+//    label.textAlignment = textNodeSpecs.alignment;
+//    label.lineBreakMode = textNodeSpecs.lineBreakMode;
+//    label.numberOfLines = textNodeSpecs.lines;
 }
 
 - (void)_applyImageAttributes:(const ImageNodeSpecs& )imageSpec{

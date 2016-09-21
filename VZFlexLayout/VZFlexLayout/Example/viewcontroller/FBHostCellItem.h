@@ -11,6 +11,7 @@
 
 @class VZFluxStore;
 @class VZFNode;
+@class FBHostItem;
 @interface FBHostCellItem : NSObject
 
 @property(nonatomic,strong) NSString* reuseIdentifier;

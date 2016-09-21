@@ -36,17 +36,14 @@ namespace VZ {
         VZFFontStyle fontStyle;
         NSTextAlignment alignment;
         NSAttributedString *attributedString;
-//        NSAttributedString *truncationAttributedString;
-//        NSCharacterSet *avoidTailTruncationSet;
+        NSAttributedString *truncationAttributedString;
         Value<NSLineBreakMode, DefaultFlexAttributesValue::lineBreakMode> lineBreakMode;
         Value<unsigned int, DefaultFlexAttributesValue::lines> lines;
         float kern;
-//        CGSize shadowOffset;
-//        UIColor *shadowColor;
-//        CGFloat shadowOpacity;
-//        CGFloat shadowRadius;
+        float lineSpacing;
 //        NSLayoutManager *(*layoutManagerFactory)(void);
         
+    
         mutable UIFont *_font;
         
         TextNodeSpecs copy() const
@@ -59,17 +56,12 @@ namespace VZ {
                 fontStyle,
                 alignment,
                 [attributedString copy],
-//                [truncationAttributedString copy],
-//                [avoidTailTruncationSet copy],
+                [truncationAttributedString copy],
                 lineBreakMode,
                 lines,
                 kern,
-//                shadowOffset,
-//                [shadowColor copy],
-//                shadowOpacity,
-//                shadowRadius,
-//                layoutManagerFactory
-                _font,    // _font
+                lineSpacing,
+                _font    // _font
             };
         };
         
@@ -85,15 +77,9 @@ namespace VZ {
             && alignment == other.alignment
             && lines == other.lines
             && kern == other.kern
-//            && shadowOpacity == other.shadowOpacity
-//            && shadowRadius == other.shadowRadius
-//            && layoutManagerFactory == other.layoutManagerFactory
-//            && CGSizeEqualToSize(shadowOffset, other.shadowOffset)
-//            && Hash::_ObjectsEqual(avoidTailTruncationSet, other.avoidTailTruncationSet)
-//            && Hash::_ObjectsEqual(shadowColor, other.shadowColor)
+            && lineSpacing == other.lineSpacing
             && Hash::_ObjectsEqual(attributedString, other.attributedString)
-//            && Hash::_ObjectsEqual(truncationAttributedString, other.truncationAttributedString)
-            ;
+            && Hash::_ObjectsEqual(truncationAttributedString, other.truncationAttributedString);
         }
         
         size_t hash() const;
@@ -108,9 +94,10 @@ namespace VZ {
         NSDictionary* getAttributes() const {
             NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
             style.alignment = alignment;
-            if (lines == 1) style.lineBreakMode = lineBreakMode;
+            style.lineSpacing = lineSpacing;
+            
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-            dict[NSParagraphStyleAttributeName] = style;
+            dict[NSParagraphStyleAttributeName] = [style copy];
             dict[NSForegroundColorAttributeName] = color;
             if (kern != 0) {
                 dict[NSKernAttributeName] = @(kern);

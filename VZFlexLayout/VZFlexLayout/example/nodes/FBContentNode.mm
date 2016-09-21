@@ -37,7 +37,11 @@
         
         .text       = item.content,
         .fontSize   = 14.0f,
-        .lines      = [state[@"expend"] boolValue] ? 0UL : 4UL
+//        .fontName   = @"Helvetica Neue",
+//        .lines      = [state[@"expend"] boolValue] ? 0UL : 4UL,
+        .color      = [UIColor blackColor],
+        .lines      = 0,
+        .lineSpacing = 10
         
     }NodeSpecs:{} ];
     

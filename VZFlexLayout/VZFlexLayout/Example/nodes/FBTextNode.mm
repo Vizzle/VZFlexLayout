@@ -25,6 +25,7 @@
     } Children:{
         {[VZFTextNode newWithTextAttributes:{
             .text = item.content,
+            .fontName = @"Helvetica Neue",
             .fontSize = 14,
             .lines = 0
         } NodeSpecs:{}]},

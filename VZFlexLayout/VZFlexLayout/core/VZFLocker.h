@@ -95,6 +95,13 @@ namespace VZ {
     typedef Locker<Mutex> MutexLocker;
     
     
+    struct RecursiveMutex:Mutex{
+        
+        RecursiveMutex():Mutex(true){};
+    
+    };
+    typedef Locker<RecursiveMutex> RecursiveMutexLocker;
+
     struct StaticMutex{
         
         pthread_mutex_t _m;
@@ -114,6 +121,31 @@ namespace VZ {
     };
     
     typedef Locker<StaticMutex>StaticMutexLocker;
+    
+    struct SpinLock{
+    
+        SpinLock(){
+            _l = OS_SPINLOCK_INIT;
+        }
+        
+        void lock(){
+            OSSpinLockLock(&_l);
+        }
+        void unlock(){
+            OSSpinLockUnlock(&_l);
+        }
+   
+        SpinLock &operator = (bool value){
+            _l = value ? ~0:0;
+            return *this;
+        }
+        SpinLock(const SpinLock&) = delete;
+        SpinLock &operator=(const SpinLock&) = delete;
+        
+        private:
+            OSSpinLock _l;
+    };
+    typedef Locker<SpinLock> SpinLocker;
 }
 
 

@@ -197,11 +197,11 @@ namespace VZ {
     namespace Helper{
     
         std::string stringFromPointer(const void* ptr);
+        CGFloat screenScale();
         
     }
     
  
-    
     class ViewClass;
     namespace Mounting {
     

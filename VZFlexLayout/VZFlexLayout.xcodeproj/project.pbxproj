@@ -10,6 +10,12 @@
 		45102EDB1D58790E0093CDBD /* VZFPagingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45102EDA1D58790E0093CDBD /* VZFPagingView.mm */; };
 		45102EE01D5879690093CDBD /* VZFLineNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45102EDD1D5879690093CDBD /* VZFLineNodeSpecs.mm */; };
 		45102EE11D5879690093CDBD /* VZFLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45102EDF1D5879690093CDBD /* VZFLineView.m */; };
+		45102EE51D587D540093CDBD /* VZFAsyncLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45102EE41D587D540093CDBD /* VZFAsyncLayer.mm */; };
+		45102EE81D58827D0093CDBD /* FBSearchListNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45102EE71D58827D0093CDBD /* FBSearchListNode.mm */; };
+		45102FEF1D58A7280093CDBD /* FBTextListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45102FEE1D58A7280093CDBD /* FBTextListItem.m */; };
+		452B54CB1D839F8000C20EDB /* FBTextListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 452B54CA1D839F8000C20EDB /* FBTextListViewController.mm */; };
+		4532BE731D8E6F7000223B62 /* VZFTextNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4532BE721D8E6F7000223B62 /* VZFTextNodeBackingView.mm */; };
+		4532BE761D8E70C100223B62 /* VZFTextNodeBackingLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4532BE751D8E70C100223B62 /* VZFTextNodeBackingLayer.mm */; };
 		4539ABD01CD1B1E40011E91C /* FBTextNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4539ABCF1CD1B1E40011E91C /* FBTextNode.mm */; };
 		454098701CD5D1D700D99B7F /* UIView+VZAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4540986F1CD5D1D700D99B7F /* UIView+VZAttributes.mm */; };
 		454098751CD5D20900D99B7F /* VZFNodeListItemRecycler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 454098741CD5D20900D99B7F /* VZFNodeListItemRecycler.mm */; };
@@ -82,6 +88,11 @@
 		45B15A8D1CBE7EF900F408DA /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A8C1CBE7EF900F408DA /* ViewController.mm */; };
 		45B15A931CBFA25800F408DA /* CacheCleanerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A901CBFA25800F408DA /* CacheCleanerPlugin.m */; };
 		45B15A941CBFA25800F408DA /* RetainCycleLoggerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A921CBFA25800F408DA /* RetainCycleLoggerPlugin.m */; };
+		45B630C71D8FD19000154B90 /* VZFAsyncDrawingTransaction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B630C61D8FD19000154B90 /* VZFAsyncDrawingTransaction.mm */; };
+		45B630CF1D90099100154B90 /* VZFAsyncDrawingTransactionContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B630CE1D90099100154B90 /* VZFAsyncDrawingTransactionContainer.m */; };
+		45B6312D1D901CD000154B90 /* VZFAsyncDrawingTransactionGroup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B6312C1D901CD000154B90 /* VZFAsyncDrawingTransactionGroup.mm */; };
+		45BAA12E1D928CC2008B69A1 /* VZFTextNodeTailTruncator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45BAA12D1D928CC2008B69A1 /* VZFTextNodeTailTruncator.mm */; };
+		45BAA1311D928CCF008B69A1 /* VZFTextNodeTextKitContext.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45BAA1301D928CCF008B69A1 /* VZFTextNodeTextKitContext.mm */; };
 		45C9874C1C2D0F2800D17A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874B1C2D0F2800D17A1D /* main.m */; };
 		45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874E1C2D0F2800D17A1D /* AppDelegate.mm */; };
 		45C987551C2D0F2800D17A1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987531C2D0F2800D17A1D /* Main.storyboard */; };
@@ -90,6 +101,7 @@
 		45CA3AAD1C81891600DA04C1 /* VZFNetworkImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AAC1C81891600DA04C1 /* VZFNetworkImageView.mm */; };
 		45CA3AB21C81A4EC00DA04C1 /* VZFUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AB01C81A4EC00DA04C1 /* VZFUtils.mm */; };
 		45E593371CDF5F880044987C /* FBScrollNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45E593361CDF5F880044987C /* FBScrollNode.mm */; };
+		45E6C7CD1D8E26D80001BBFF /* VZFTextNodeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45E6C7CC1D8E26D80001BBFF /* VZFTextNodeRenderer.mm */; };
 		45F0C71B1CE8A1B9004DF6DF /* VZFPagingNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F0C71A1CE8A1B9004DF6DF /* VZFPagingNode.mm */; };
 		45F0C7201CE8A1D0004DF6DF /* VZFScrollView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F0C71D1CE8A1D0004DF6DF /* VZFScrollView.mm */; };
 		45F0C7261CE8A206004DF6DF /* VZFPagingNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F0C7231CE8A206004DF6DF /* VZFPagingNodeSpecs.mm */; };
@@ -107,6 +119,18 @@
 		45102EDD1D5879690093CDBD /* VZFLineNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLineNodeSpecs.mm; sourceTree = "<group>"; };
 		45102EDE1D5879690093CDBD /* VZFLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLineView.h; sourceTree = "<group>"; };
 		45102EDF1D5879690093CDBD /* VZFLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFLineView.m; sourceTree = "<group>"; };
+		45102EE31D587D540093CDBD /* VZFAsyncLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFAsyncLayer.h; sourceTree = "<group>"; };
+		45102EE41D587D540093CDBD /* VZFAsyncLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFAsyncLayer.mm; sourceTree = "<group>"; };
+		45102EE61D58827D0093CDBD /* FBSearchListNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSearchListNode.h; sourceTree = "<group>"; };
+		45102EE71D58827D0093CDBD /* FBSearchListNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBSearchListNode.mm; sourceTree = "<group>"; };
+		45102FED1D58A7280093CDBD /* FBTextListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTextListItem.h; sourceTree = "<group>"; };
+		45102FEE1D58A7280093CDBD /* FBTextListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBTextListItem.m; sourceTree = "<group>"; };
+		452B54C91D839F8000C20EDB /* FBTextListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTextListViewController.h; sourceTree = "<group>"; };
+		452B54CA1D839F8000C20EDB /* FBTextListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBTextListViewController.mm; sourceTree = "<group>"; };
+		4532BE711D8E6F7000223B62 /* VZFTextNodeBackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeBackingView.h; sourceTree = "<group>"; };
+		4532BE721D8E6F7000223B62 /* VZFTextNodeBackingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextNodeBackingView.mm; sourceTree = "<group>"; };
+		4532BE741D8E70C100223B62 /* VZFTextNodeBackingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeBackingLayer.h; sourceTree = "<group>"; };
+		4532BE751D8E70C100223B62 /* VZFTextNodeBackingLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextNodeBackingLayer.mm; sourceTree = "<group>"; };
 		4539ABCE1CD1B1E40011E91C /* FBTextNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBTextNode.h; sourceTree = "<group>"; };
 		4539ABCF1CD1B1E40011E91C /* FBTextNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBTextNode.mm; sourceTree = "<group>"; };
 		4540986E1CD5D1D700D99B7F /* UIView+VZAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VZAttributes.h"; sourceTree = "<group>"; };
@@ -252,6 +276,18 @@
 		45B15A901CBFA25800F408DA /* CacheCleanerPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheCleanerPlugin.m; sourceTree = "<group>"; };
 		45B15A911CBFA25800F408DA /* RetainCycleLoggerPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetainCycleLoggerPlugin.h; sourceTree = "<group>"; };
 		45B15A921CBFA25800F408DA /* RetainCycleLoggerPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetainCycleLoggerPlugin.m; sourceTree = "<group>"; };
+		45B630C51D8FD19000154B90 /* VZFAsyncDrawingTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFAsyncDrawingTransaction.h; sourceTree = "<group>"; };
+		45B630C61D8FD19000154B90 /* VZFAsyncDrawingTransaction.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFAsyncDrawingTransaction.mm; sourceTree = "<group>"; };
+		45B630CC1D9001DA00154B90 /* VZFAsyncDrawingTransactionInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFAsyncDrawingTransactionInterface.h; sourceTree = "<group>"; };
+		45B630CD1D90099100154B90 /* VZFAsyncDrawingTransactionContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFAsyncDrawingTransactionContainer.h; sourceTree = "<group>"; };
+		45B630CE1D90099100154B90 /* VZFAsyncDrawingTransactionContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFAsyncDrawingTransactionContainer.m; sourceTree = "<group>"; };
+		45B631281D90175200154B90 /* VZFAsyncDrawingTransactionContainer+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VZFAsyncDrawingTransactionContainer+Private.h"; sourceTree = "<group>"; };
+		45B6312B1D901CD000154B90 /* VZFAsyncDrawingTransactionGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFAsyncDrawingTransactionGroup.h; sourceTree = "<group>"; };
+		45B6312C1D901CD000154B90 /* VZFAsyncDrawingTransactionGroup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFAsyncDrawingTransactionGroup.mm; sourceTree = "<group>"; };
+		45BAA12C1D928CC2008B69A1 /* VZFTextNodeTailTruncator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeTailTruncator.h; sourceTree = "<group>"; };
+		45BAA12D1D928CC2008B69A1 /* VZFTextNodeTailTruncator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextNodeTailTruncator.mm; sourceTree = "<group>"; };
+		45BAA12F1D928CCF008B69A1 /* VZFTextNodeTextKitContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeTextKitContext.h; sourceTree = "<group>"; };
+		45BAA1301D928CCF008B69A1 /* VZFTextNodeTextKitContext.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextNodeTextKitContext.mm; sourceTree = "<group>"; };
 		45C987471C2D0F2800D17A1D /* VZFlexLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VZFlexLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45C9874B1C2D0F2800D17A1D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		45C9874D1C2D0F2800D17A1D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -267,6 +303,8 @@
 		45CA3AB11C81A4EC00DA04C1 /* VZFUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFUtils.h; sourceTree = "<group>"; };
 		45E593351CDF5F880044987C /* FBScrollNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBScrollNode.h; sourceTree = "<group>"; };
 		45E593361CDF5F880044987C /* FBScrollNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBScrollNode.mm; sourceTree = "<group>"; };
+		45E6C7CB1D8E26D80001BBFF /* VZFTextNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeRenderer.h; sourceTree = "<group>"; };
+		45E6C7CC1D8E26D80001BBFF /* VZFTextNodeRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextNodeRenderer.mm; sourceTree = "<group>"; };
 		45F0C7191CE8A1B9004DF6DF /* VZFPagingNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFPagingNode.h; sourceTree = "<group>"; };
 		45F0C71A1CE8A1B9004DF6DF /* VZFPagingNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFPagingNode.mm; sourceTree = "<group>"; };
 		45F0C71C1CE8A1D0004DF6DF /* VZFScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFScrollView.h; sourceTree = "<group>"; };
@@ -303,6 +341,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45102EE21D587D400093CDBD /* render */ = {
+			isa = PBXGroup;
+			children = (
+				45102EE31D587D540093CDBD /* VZFAsyncLayer.h */,
+				45102EE41D587D540093CDBD /* VZFAsyncLayer.mm */,
+				45B630CC1D9001DA00154B90 /* VZFAsyncDrawingTransactionInterface.h */,
+				45B630C51D8FD19000154B90 /* VZFAsyncDrawingTransaction.h */,
+				45B630C61D8FD19000154B90 /* VZFAsyncDrawingTransaction.mm */,
+				45B631281D90175200154B90 /* VZFAsyncDrawingTransactionContainer+Private.h */,
+				45B630CD1D90099100154B90 /* VZFAsyncDrawingTransactionContainer.h */,
+				45B630CE1D90099100154B90 /* VZFAsyncDrawingTransactionContainer.m */,
+				45B6312B1D901CD000154B90 /* VZFAsyncDrawingTransactionGroup.h */,
+				45B6312C1D901CD000154B90 /* VZFAsyncDrawingTransactionGroup.mm */,
+				45E6C7CB1D8E26D80001BBFF /* VZFTextNodeRenderer.h */,
+				45E6C7CC1D8E26D80001BBFF /* VZFTextNodeRenderer.mm */,
+				4532BE711D8E6F7000223B62 /* VZFTextNodeBackingView.h */,
+				4532BE721D8E6F7000223B62 /* VZFTextNodeBackingView.mm */,
+				4532BE741D8E70C100223B62 /* VZFTextNodeBackingLayer.h */,
+				4532BE751D8E70C100223B62 /* VZFTextNodeBackingLayer.mm */,
+				45BAA12C1D928CC2008B69A1 /* VZFTextNodeTailTruncator.h */,
+				45BAA12D1D928CC2008B69A1 /* VZFTextNodeTailTruncator.mm */,
+				45BAA12F1D928CCF008B69A1 /* VZFTextNodeTextKitContext.h */,
+				45BAA1301D928CCF008B69A1 /* VZFTextNodeTextKitContext.mm */,
+			);
+			path = render;
+			sourceTree = "<group>";
+		};
 		452C98A81D1A3FCC005C38F7 /* flux */ = {
 			isa = PBXGroup;
 			children = (
@@ -496,6 +561,8 @@
 				457399681D253D52001B804A /* FBContentNodeStore.mm */,
 				4587709B1D34E6280008A6A2 /* FBSampleStore.h */,
 				4587709C1D34E6280008A6A2 /* FBSampleStore.mm */,
+				45102FED1D58A7280093CDBD /* FBTextListItem.h */,
+				45102FEE1D58A7280093CDBD /* FBTextListItem.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -533,6 +600,8 @@
 				456BDF7F1CEB0215008A5348 /* FBScrollChildNode.mm */,
 				458770981D34E35C0008A6A2 /* FBSampleNode.h */,
 				458770991D34E35C0008A6A2 /* FBSampleNode.mm */,
+				45102EE61D58827D0093CDBD /* FBSearchListNode.h */,
+				45102EE71D58827D0093CDBD /* FBSearchListNode.mm */,
 			);
 			path = nodes;
 			sourceTree = "<group>";
@@ -546,6 +615,8 @@
 				45A7D6D81CB4DB7900B072D5 /* FBViewController.mm */,
 				454477831CC50CF8000B54E7 /* FBTableViewController.h */,
 				454477841CC50CF8000B54E7 /* FBTableViewController.mm */,
+				452B54C91D839F8000C20EDB /* FBTextListViewController.h */,
+				452B54CA1D839F8000C20EDB /* FBTextListViewController.mm */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -601,6 +672,7 @@
 		45C987491C2D0F2800D17A1D /* VZFlexLayout */ = {
 			isa = PBXGroup;
 			children = (
+				45102EE21D587D400093CDBD /* render */,
 				452C98A81D1A3FCC005C38F7 /* flux */,
 				454098721CD5D20900D99B7F /* tableview */,
 				45B15A8E1CBFA25800F408DA /* MemoryProfiler */,
@@ -790,17 +862,21 @@
 				4539ABD01CD1B1E40011E91C /* FBTextNode.mm in Sources */,
 				454098751CD5D20900D99B7F /* VZFNodeListItemRecycler.mm in Sources */,
 				45A7D6AE1CB4D99300B072D5 /* VZFViewReusePool.mm in Sources */,
+				45102EE81D58827D0093CDBD /* FBSearchListNode.mm in Sources */,
+				452B54CB1D839F8000C20EDB /* FBTextListViewController.mm in Sources */,
 				4578E0E41C736D1200E52B79 /* VZFStackNode.mm in Sources */,
 				4578E0CC1C72F1CC00E52B79 /* VZFNodeSpecs.mm in Sources */,
 				457399851D262F5D001B804A /* VZFluxAction.mm in Sources */,
 				4565BF921CE1FFCA0010FA5F /* FBHostCellItem.mm in Sources */,
 				45E593371CDF5F880044987C /* FBScrollNode.mm in Sources */,
 				45C9874F1C2D0F2800D17A1D /* AppDelegate.mm in Sources */,
+				45BAA12E1D928CC2008B69A1 /* VZFTextNodeTailTruncator.mm in Sources */,
 				B1CB0BBA1C83E23900A9CAE7 /* VZFLineNode.mm in Sources */,
 				457399871D262F5D001B804A /* VZFluxDispatcher.mm in Sources */,
 				45F0C71B1CE8A1B9004DF6DF /* VZFPagingNode.mm in Sources */,
 				4578E0ED1C74A68300E52B79 /* VZFTextNodeSpecs.mm in Sources */,
 				45A7D6F31CB4DB7900B072D5 /* FBStarNode.mm in Sources */,
+				45102FEF1D58A7280093CDBD /* FBTextListItem.m in Sources */,
 				B1CB0BC11C840B2700A9CAE7 /* VZFActionWrapper.mm in Sources */,
 				45A7D6EB1CB4DB7900B072D5 /* FBHeaderNode.mm in Sources */,
 				4578E0CA1C72F1CC00E52B79 /* VZFNodeLayout.mm in Sources */,
@@ -811,15 +887,19 @@
 				4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */,
 				45A7D6E61CB4DB7900B072D5 /* FBImageDownloader.mm in Sources */,
 				45F0C7201CE8A1D0004DF6DF /* VZFScrollView.mm in Sources */,
+				4532BE731D8E6F7000223B62 /* VZFTextNodeBackingView.mm in Sources */,
 				45CA3AAD1C81891600DA04C1 /* VZFNetworkImageView.mm in Sources */,
 				4597A3701CFEA48C00888B5F /* VZFStackNodeSpecs.mm in Sources */,
+				45B6312D1D901CD000154B90 /* VZFAsyncDrawingTransactionGroup.mm in Sources */,
 				45B15A941CBFA25800F408DA /* RetainCycleLoggerPlugin.m in Sources */,
 				4578E0D21C72F1CC00E52B79 /* FlexLayout.c in Sources */,
 				45A7D6FA1CB4DB7900B072D5 /* FBO2OStarView.m in Sources */,
 				4573998D1D262F5D001B804A /* VZFluxStore.mm in Sources */,
+				45BAA1311D928CCF008B69A1 /* VZFTextNodeTextKitContext.mm in Sources */,
 				4578E0CE1C72F1CC00E52B79 /* VZFNodeViewClass.mm in Sources */,
 				45102EE11D5879690093CDBD /* VZFLineView.m in Sources */,
 				45A7D6A31CB4D98300B072D5 /* VZFNodeLayoutManager.mm in Sources */,
+				4532BE761D8E70C100223B62 /* VZFTextNodeBackingLayer.mm in Sources */,
 				45A7D6EE1CB4DB7900B072D5 /* FBIconNode.mm in Sources */,
 				4578E0C51C72F1CC00E52B79 /* VZFlexNode.mm in Sources */,
 				457399861D262F5D001B804A /* VZFluxAppDispatcher.mm in Sources */,
@@ -834,7 +914,10 @@
 				4578E0D81C73054000E52B79 /* VZFButtonNode.mm in Sources */,
 				45A7D6F41CB4DB7900B072D5 /* FBViewController.mm in Sources */,
 				45B15A931CBFA25800F408DA /* CacheCleanerPlugin.m in Sources */,
+				45B630CF1D90099100154B90 /* VZFAsyncDrawingTransactionContainer.m in Sources */,
 				4578E0EA1C747A7800E52B79 /* VZFCompositeNode.mm in Sources */,
+				45E6C7CD1D8E26D80001BBFF /* VZFTextNodeRenderer.mm in Sources */,
+				45102EE51D587D540093CDBD /* VZFAsyncLayer.mm in Sources */,
 				45B15A8A1CBE5BEB00F408DA /* FBClickToExpendNode.mm in Sources */,
 				45A7D6EA1CB4DB7900B072D5 /* FBGridImageNode.mm in Sources */,
 				4578E0C91C72F1CC00E52B79 /* VZFNodeHostingView.mm in Sources */,
@@ -842,6 +925,7 @@
 				457D91C41CDB15D000013377 /* VZFScrollNode.mm in Sources */,
 				4597A36F1CFEA48C00888B5F /* VZFlexNode+VZFNode.mm in Sources */,
 				4578E0D01C72F1CC00E52B79 /* VZFSizeRange.mm in Sources */,
+				45B630C71D8FD19000154B90 /* VZFAsyncDrawingTransaction.mm in Sources */,
 				45A7D6E81CB4DB7900B072D5 /* FBClickNode.mm in Sources */,
 				456BDF801CEB0215008A5348 /* FBScrollChildNode.mm in Sources */,
 				45FB68401D2E22500097038E /* VZFIndicatorNodeSpecs.mm in Sources */,

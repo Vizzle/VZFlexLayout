@@ -17,17 +17,18 @@
 
 + (instancetype)newWithProps:(id)props Store:(id)store Context:(id)context{
 
-    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
-        .direction = VZFlexVertical
-    } NodeSpecs:{
-        .padding = 10
-    } Children:{
-    
-        {[FBHeaderNode  newWithProps:props Store:store Context:context]},
-        {[FBContentNode newWithProps:props Store:store Context:context]},
-    }];
-    
-    return [super newWithNode:stackNode];
+//    VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
+//        .direction = VZFlexVertical
+//    } NodeSpecs:{
+//        .padding = 10
+//    } Children:{
+//    
+//        {[FBHeaderNode  newWithProps:props Store:store Context:context]},
+//        {[FBContentNode newWithProps:props Store:store Context:context]},
+//    }];
+
+    FBContentNode* contentNode = [FBContentNode newWithProps:props Store:store Context:context];
+    return [super newWithNode:contentNode];
 }
 
 

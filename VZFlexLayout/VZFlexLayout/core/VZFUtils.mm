@@ -22,6 +22,15 @@ namespace VZ{
             snprintf(buf, sizeof(buf), "%p", ptr);
             return buf;
         }
+        CGFloat screenScale(){
+            
+            static CGFloat _scale = 1;
+            static dispatch_once_t onceToken = 0;
+            dispatch_once(&onceToken, ^{
+                _scale = [UIScreen mainScreen].scale;
+            });
+            return _scale;
+        }
     }
 
     

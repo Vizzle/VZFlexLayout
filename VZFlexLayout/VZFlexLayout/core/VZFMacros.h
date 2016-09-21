@@ -32,4 +32,10 @@ return nil; \
 #define VZFAssertFalse(condition) VZFAssert(!(condition), nil, nil)
 #define VZFCAssertFalse(condition) VZFCAssert(!(condition), nil, nil)
 
+#define VZFAssertMainThread() VZFAssert([NSThread isMainThread],nil,@"This method must be called on main thread!")
+#define VZFCAssertMainThread() VZFCAssert([NSThread isMainThread],nil,@"This method must be called on main thread!")
+
+#define VZFAssertNotMainThread()  VZFAssert(![NSThread isMainThread],nil,@"This method must be called off main thread!")
+#define VZFCAssertNotMainThread()  VZFCAssert(![NSThread isMainThread],nil,@"This method must be called off main thread!")
+
 #define _invariant(condition,description,...) NSAssert(condition, description, ##__VA_ARGS__)
