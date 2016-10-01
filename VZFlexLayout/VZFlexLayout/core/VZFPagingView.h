@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNodeBackingViewInterface.h"
+#import "VZFCollectionView.h"
 
 @protocol VZFActionWrapper;
 
 @interface VZFPagingView : UIView<VZFNodeBackingViewInterface>
 
-@property (nonatomic, strong, readonly) UICollectionView *collectionView;
+@property (nonatomic, strong, readonly) VZFCollectionView *collectionView;
 @property (nonatomic, strong, readonly) UIPageControl *pageControl;
 @property (nonatomic) BOOL pageControlEnabled;
 @property (nonatomic) BOOL scroll;
@@ -28,4 +29,6 @@
 - (void)setChildrenViews:(NSArray *)childrenViews;
 - (void)resetTimer;
 
+- (void)scrollToPreviousItem;
+- (void)scrollToNextItem;
 @end

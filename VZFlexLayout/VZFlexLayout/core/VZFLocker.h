@@ -70,7 +70,7 @@ namespace VZ {
         }
         
         pthread_mutex_t *mutex () { return &_m; }
-    
+        
         
     protected:
         explicit Mutex(bool recursive){
@@ -84,7 +84,7 @@ namespace VZ {
                 VZ_THREAD_ASSERT_ON_ERROR(pthread_mutexattr_settype (&attr, PTHREAD_MUTEX_RECURSIVE));
                 VZ_THREAD_ASSERT_ON_ERROR(pthread_mutex_init (&_m, &attr));
                 VZ_THREAD_ASSERT_ON_ERROR(pthread_mutexattr_destroy (&attr));
-            
+                
             }
         }
         
@@ -98,10 +98,10 @@ namespace VZ {
     struct RecursiveMutex:Mutex{
         
         RecursiveMutex():Mutex(true){};
-    
+        
     };
     typedef Locker<RecursiveMutex> RecursiveMutexLocker;
-
+    
     struct StaticMutex{
         
         pthread_mutex_t _m;
@@ -123,7 +123,7 @@ namespace VZ {
     typedef Locker<StaticMutex>StaticMutexLocker;
     
     struct SpinLock{
-    
+        
         SpinLock(){
             _l = OS_SPINLOCK_INIT;
         }
@@ -134,7 +134,7 @@ namespace VZ {
         void unlock(){
             OSSpinLockUnlock(&_l);
         }
-   
+        
         SpinLock &operator = (bool value){
             _l = value ? ~0:0;
             return *this;
@@ -142,8 +142,8 @@ namespace VZ {
         SpinLock(const SpinLock&) = delete;
         SpinLock &operator=(const SpinLock&) = delete;
         
-        private:
-            OSSpinLock _l;
+    private:
+        OSSpinLock _l;
     };
     typedef Locker<SpinLock> SpinLocker;
 }

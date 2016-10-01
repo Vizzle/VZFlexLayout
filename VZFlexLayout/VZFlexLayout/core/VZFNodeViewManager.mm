@@ -10,17 +10,24 @@
 #import "VZFNode.h"
 #import <objc/runtime.h>
 #import "VZFViewReusePoolManager.h"
-
+#import "VZFWeakObjectWrapper.h"
 
 @implementation UIView(VZFNode)
 
 static const void* g_nodeId = &g_nodeId;
 - (void)setNode:(VZFNode *)node{
-    objc_setAssociatedObject(self, g_nodeId, node, OBJC_ASSOCIATION_ASSIGN);
+    VZFWeakObjectWrapper *wrapper = [[VZFWeakObjectWrapper alloc] init];
+    wrapper.object = node;
+    objc_setAssociatedObject(self, g_nodeId, wrapper, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (VZFNode* )node{
-    return objc_getAssociatedObject(self, g_nodeId);
+    VZFWeakObjectWrapper *wrapper = objc_getAssociatedObject(self, g_nodeId);
+    if ([wrapper isKindOfClass:[VZFWeakObjectWrapper class]]
+        && [wrapper.object isKindOfClass:[VZFNode class]]) {
+        return wrapper.object;
+    }
+    return nil;
 }
 
 @end

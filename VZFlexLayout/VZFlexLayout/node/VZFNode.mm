@@ -76,6 +76,8 @@ using namespace VZ::UIKit;
 
 - (void)dealloc{
     
+//    VZF_LOG_DEALLOC();
+    
     _flexNode.fNode = nil;
     _mountedInfo.reset();
     _mountedInfo = nullptr;
@@ -151,17 +153,11 @@ using namespace VZ::UIKit;
     }
 }
 
-- (id)nextResponder {
-    return ([self superNode]?:nil)?:[self rootView];
-}
-
-- (id)targetForAction:(SEL)action withSender:(id)sender{
-    return [self respondsToSelector:action] ? self : [[self nextResponder] targetForAction:action withSender:sender];
-}
-
-
 -(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
-{    
+{
+    
+    //VZF_LOG_THREAD(@"mount");
+    
     if (_mountedInfo == nullptr) {
         _mountedInfo.reset( new VZFNodeMountedInfo() );
     }
@@ -223,7 +219,7 @@ using namespace VZ::UIKit;
 
 -(void)unmount{
     
-
+    //VZF_LOG_THREAD(@"unmount");
     
     if (_mountedInfo != nullptr)
     {
@@ -245,6 +241,7 @@ using namespace VZ::UIKit;
     if (view) {
         
         [self willReleaseBackingView];
+        
         view.node = nil;
         _mountedInfo -> mountedView = nil;
 
@@ -256,7 +253,9 @@ using namespace VZ::UIKit;
 #pragma mark - life cycle
 
 -(void)willMount{
-//    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    VZFAssertMainThread();
+    
     switch (_state) {
         case VZFNodeStateUnmounted:
         {
@@ -278,12 +277,15 @@ using namespace VZ::UIKit;
 }
 
 - (void)willRemount{
-//    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    VZFAssertMainThread();
 
 }
 
 -(void)didMount{
-//    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    VZFAssertMainThread();
+    
     switch (_state) {
         case VZFNodeStateMounting:
         {
@@ -304,11 +306,13 @@ using namespace VZ::UIKit;
 }
 
 - (void)didRemount{
-//    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    VZFAssertMainThread();
 }
 
 - (void)willUnmount{
-//    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    VZFAssertMainThread();
     
     switch (_state) {
         case VZFNodeStateMounted:
@@ -327,7 +331,9 @@ using namespace VZ::UIKit;
 }
 
 - (void)didUnmount{
-//    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    VZFAssertMainThread();
+    
     switch (_state) {
         case VZFNodeStateUnmounting:
             _state = VZFNodeStateUnmounted;
@@ -341,16 +347,24 @@ using namespace VZ::UIKit;
 }
 
 - (void)willReleaseBackingView{
-//    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    VZFAssertMainThread();
+    
 }
 
 - (void)didAquireBackingView{
-//    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+    VZFAssertMainThread();
+    
 }
 
 
-
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - NSCopying
+- (id)copyWithZone:(NSZone *)zone{
+    //node is immutable object
+    return self;
+}
 
 
 @end

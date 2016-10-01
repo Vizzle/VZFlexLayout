@@ -48,7 +48,7 @@
         .title = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         ._font = [UIFont systemFontOfSize:14.0f],
-        .action = @selector(onExpendClicked:),
+//        .action = @selector(onExpendClicked:),
     }NodeSpecs:{
         .alignSelf = VZFlexStart,
         .marginTop = 5

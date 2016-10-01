@@ -14,16 +14,6 @@
 
 namespace VZ {
     
-    template<>
-    struct MultiMapKey<UIControlEvents> {
-        static UIControlEvents defaultKey;
-    };
-    
-    template<UIControlEvents EventType>
-    MultiMap<UIControlEvents, ActionWrapper>::value_type VZFAction(const ActionWrapper& action) {
-        return { EventType, action };
-    }
-    
     namespace  DefaultButtonAttributesValue{
         extern CGSize enlargeSize;
     };
@@ -41,20 +31,7 @@ namespace VZ {
         Value<CGSize, DefaultButtonAttributesValue::enlargeSize> enlargeSize;
         mutable UIFont *_font;
         
-        /*
-            .action = @selector(xx),
-            .action = ^(id sender){},
-            .action = VZFAction<UIControlEventTouchUpInside>(@selector(xx)),
-            .action = {
-                VZFAction<UIControlEventTouchUpInside>(@selector(xx)),
-                VZFAction<UIControlEventTouchUpOutside>(^(id sender){}),
-            },
-            .action = {
-                { UIControlEventTouchUpInside, @selector(xx) },
-                { UIControlEventTouchUpOutside, ^(id sender){} },
-            }
-         */
-        MultiMap<UIControlEvents, ActionWrapper> action;
+        VZFBlockAction* action;
         // the image property was not supported, use an image node nested in a button node instead.
         
         UIFont *getFont() const {

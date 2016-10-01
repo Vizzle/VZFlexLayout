@@ -7,6 +7,7 @@
 //
 
 #pragma once
+#import <pthread/pthread.h>
 
 #ifndef VZ_NOT_DESIGNATED_INITIALIZER
 #define VZ_NOT_DESIGNATED_INITIALIZER() \
@@ -15,6 +16,11 @@ NSAssert2(NO, @"%@ is not the designated initializer for instances of %@.", NSSt
 return nil; \
 } while (0)
 #endif 
+
+//force category methods to be compiled. By inserting an empty bogus class
+#define VZF_FORCE_CATEGORY_COMPILE(name) @interface VZF_FORCE_CATEGORY_COMPILE##name : NSObject @end \
+@implementation VZF_FORCE_CATEGORY_COMPILE##name @end
+
 
 #define VZFAssert(condition, description, ...) NSAssert(condition, description, ##__VA_ARGS__)
 #define VZFCAssert(condition, description, ...) NSCAssert(condition, description, ##__VA_ARGS__)
@@ -32,10 +38,39 @@ return nil; \
 #define VZFAssertFalse(condition) VZFAssert(!(condition), nil, nil)
 #define VZFCAssertFalse(condition) VZFCAssert(!(condition), nil, nil)
 
+
 #define VZFAssertMainThread() VZFAssert([NSThread isMainThread],nil,@"This method must be called on main thread!")
 #define VZFCAssertMainThread() VZFCAssert([NSThread isMainThread],nil,@"This method must be called on main thread!")
 
 #define VZFAssertNotMainThread()  VZFAssert(![NSThread isMainThread],nil,@"This method must be called off main thread!")
 #define VZFCAssertNotMainThread()  VZFCAssert(![NSThread isMainThread],nil,@"This method must be called off main thread!")
 
+#define VZF_MainCall(block) \
+do{\
+if (![NSThread isMainThread]) { \
+    dispatch_async(dispatch_get_main_queue(), block);\
+}else{\
+    if(block){block();}\
+}\
+}while(0)
+
+
+#define VZF_NAMED_DISPATCH_BLOCK(_name,_block)\
+^{\
+    NSThread* currentThread = [NSThread currentThread]; \
+    NSString* oldName = currentThread.name;\
+    currentThread.name = _name; \
+    if (_block) {\
+        _block();\
+    }\
+    currentThread.name = oldName;\
+}
+
+#define VZF_LOG_DEALLOC() NSLog(@"[%@]-->dealloc(%p) on Thread#<%d,%d>",self.class,self, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
+#define VZFC_LOG_DEALLOC(arg) NSLog(@"[%@]-->dealloc on #<%d,%d>",arg, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
+
+#define VZF_LOG_THREAD(arg) NSLog(@"[%@]-->%@(%p) on Thread#<%d,%d>",self.class, arg,self, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
+#define VZFC_LOG_THREAD(arg1,arg2) NSLog(@"[%@]-->%@ on #<%d,%d>",arg1, arg2, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
+
+//for flux use
 #define _invariant(condition,description,...) NSAssert(condition, description, ##__VA_ARGS__)

@@ -43,24 +43,6 @@ namespace VZ {
  *  @return layout
  */
 - (NodeLayout)nodeDidLayout NS_REQUIRES_SUPER;
-/**
- *  nextResponder of Node
- *
- *  1, Node's controller
- *  2, Node's parent node
- *  3, Hosting view if this node is the root node
- *
- */
-- (id)nextResponder;
-/**
- *  response响应事件的方法
- *
- *  @param action 事件名
- *  @param sender sender
- *
- *  @return object
- */
-- (id)targetForAction:(SEL)action withSender:(id)sender;
 
 
 @end

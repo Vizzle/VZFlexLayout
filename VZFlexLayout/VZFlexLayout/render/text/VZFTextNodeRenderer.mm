@@ -16,8 +16,8 @@
 
 static NSCharacterSet *vz_defaultAvoidTruncationCharacterSet()
 {
-    static NSCharacterSet *truncationCharacterSet;
-    static dispatch_once_t onceToken;
+    static NSCharacterSet *truncationCharacterSet = nil;
+    static dispatch_once_t onceToken = 0;
     dispatch_once(&onceToken, ^{
         NSMutableCharacterSet *mutableCharacterSet = [[NSMutableCharacterSet alloc] init];
         [mutableCharacterSet formUnionWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -27,6 +27,17 @@ static NSCharacterSet *vz_defaultAvoidTruncationCharacterSet()
     return truncationCharacterSet;
 }
 
+
+static inline NSAttributedString* vz_defaultTruncationString(){
+
+    static NSAttributedString* string = nil;
+    static dispatch_once_t onceToken = 0;
+    dispatch_once(&onceToken, ^{
+        string = [[NSAttributedString alloc]initWithString:@"..."];
+    });
+    return string;
+    
+}
 
 static inline NSLineBreakMode vz_reduceLineBreakMode(NSLineBreakMode br){
 
@@ -104,8 +115,7 @@ static inline BOOL vz_nsstringContainsEmojiCharacter(NSString* textString){
                                                              constrainedSize:size];
         
         _textTailTruncator = [[VZFTextNodeTailTruncator alloc]initWithContext:_textKitContext
-                                                  truncationAttributedString:specs.truncationAttributedString
-                                                      avoidTailTruncationSet:vz_defaultAvoidTruncationCharacterSet()
+                                                  truncationAttributedString:[vz_defaultTruncationString() copy]                                                     avoidTailTruncationSet:vz_defaultAvoidTruncationCharacterSet()
                                                              constrainedSize:size];
         
         [self _calculateSize];

@@ -32,76 +32,65 @@
     
     //moxin.xt: wired crash at this line :
     //libobjc.A.dylib 0x0000000182d8c0b0 objc_retain + 16
-    self.block(sender.node);
+    if (self.block) {
+        self.block(sender);
+    }
 }
 
 - (void)invoke:(UIControl *)sender withCustomParam:(id)param{
     
-    self.block(param);
+    if (self.block) {
+        self.block(param);
+    }
 }
 
 - (void)invoke:(UIGestureRecognizer *)sender {
-    self.block(sender.view.node);
+    
+    if (self.block) {
+        self.block(sender.view);
+    }
 }
 
 @end
 
 
-@implementation VZFSelectorWrapper
-{
-    SEL _selector;
-}
+@implementation VZFBlockAction
 
-- (instancetype)initWithSelector:(SEL)selector {
-    if (self = [super init]) {
-        _selector = selector;
+- (instancetype)initWithControlEvents:(UIControlEvents)controlEvents block:(UIControlActionBlock)block {
+    if (self = [super initWithBlock:block]) {
+        _controlEvents = controlEvents;
     }
     return self;
 }
 
-- (void)invoke:(UIControl *)sender event:(UIEvent *)event {
-    VZFNode *node = sender.node;
-    id responder = [node targetForAction:_selector withSender:sender];
-    NSAssert(responder, @"could not found responder for action '%@'", NSStringFromSelector(_selector));
-    
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [responder performSelector:_selector withObject:node withObject:event];
-#pragma clang diagnostic pop
++ (instancetype)actionWithControlEvents:(UIControlEvents)controlEvents block:(UIControlActionBlock)block {
+    return [[self alloc] initWithControlEvents:controlEvents block:block];
 }
 
-- (void)invoke:(UIGestureRecognizer *)sender {
-    VZFNode *node = sender.view.node;
-    id responder = [node targetForAction:_selector withSender:sender];
-    NSAssert(responder, @"could not found responder for action '%@'", NSStringFromSelector(_selector));
-    
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [responder performSelector:_selector withObject:node];
-#pragma clang diagnostic pop
++ (instancetype)action:(UIControlActionBlock)block {
+    return [self actionWithControlEvents:UIControlEventTouchUpInside block:block];
 }
 
-
-- (void)invoke:(UIControl *)sender withCustomParam:(id)param{
-    
-    VZFNode *node = sender.node;
-    id responder = [node targetForAction:_selector withSender:sender];
-    NSAssert(responder, @"could not found responder for action '%@'", NSStringFromSelector(_selector));
-    
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    [responder performSelector:_selector withObject:param];
-#pragma clang diagnostic pop
-}
 @end
 
 
-id<VZFActionWrapper> vz_actionWrapper(VZ::ActionWrapper action) {
-    if (action.block) {
-        return [[VZFBlockWrapper alloc] initWithBlock:action.block];
+@implementation VZFBlockGesture
+
+- (instancetype)initWithClass:(Class)gestureClass block:(UIControlActionBlock)block {
+    NSAssert([gestureClass isSubclassOfClass:[UIGestureRecognizer class]], @"");
+    if (self = [super initWithBlock:block]) {
+        _gestureClass = gestureClass;
     }
-    else if (action.selector) {
-        return [[VZFSelectorWrapper alloc] initWithSelector:action.selector];
-    }
-    return nil;
+    return self;
 }
+
++ (instancetype)gestureWithClass:(Class)gestureClass block:(UIControlActionBlock)block {
+    return [[self alloc] initWithClass:gestureClass block:block];
+}
+
++ (instancetype)tapGesture:(UIControlActionBlock)block {
+    return [self gestureWithClass:[UITapGestureRecognizer class] block:block];
+}
+
+@end
+

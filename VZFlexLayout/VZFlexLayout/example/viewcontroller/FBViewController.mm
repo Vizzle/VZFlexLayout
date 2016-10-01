@@ -68,40 +68,6 @@
     
     _list = [NSMutableArray new];
     
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        NSLog(@"begin....");
-        
-        for(int i=0; i<100; i++){
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-               
-                VZFTextNode* textNode = [VZFTextNode newWithTextAttributes:{
-                    .text = @"asdfasfdsf",
-                    .color = [UIColor blackColor],
-                    .fontSize = 14.0f,
-                    .fontName = @"Helvetica Neue"
-                } NodeSpecs:{
-                    
-                }];
-                
-                OSSpinLockLock(&_lock);
-                [_list addObject:textNode];
-                OSSpinLockUnlock(&_lock);
-            });
-            
-    
-        }
-        NSLog(@"end...");
-        
-        
-        
-        
-    });
-    
-  
-
 }
 
 - (void)reloadData

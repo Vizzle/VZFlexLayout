@@ -138,17 +138,17 @@ namespace VZ {
             return obj1 == obj2 ? YES : [obj1 isEqual:obj2];
         }
         
-        inline NSUInteger ScopeHashValue(Class clz, id identifier){
-            
-            NSUInteger clzHash = [clz hash];
-            NSUInteger idHash = [identifier hash];
-            return clzHash + idHash;
-            
-        }
-        inline NSString* ScopeHashKey(Class clz, id identifier){
-            
-            return [NSString stringWithFormat:@"%@^%@",NSStringFromClass(clz),identifier?:@"(undefined)"];
-        }
+//        inline NSUInteger ScopeHashValue(Class clz, id identifier){
+//            
+//            NSUInteger clzHash = [clz hash];
+//            NSUInteger idHash = [identifier hash];
+//            return clzHash + idHash;
+//            
+//        }
+//        inline NSString* ScopeHashKey(Class clz, id identifier){
+//            
+//            return [NSString stringWithFormat:@"%@^%@",NSStringFromClass(clz),identifier?:@"(undefined)"];
+//        }
     }
     
     namespace UIKit{
@@ -196,12 +196,24 @@ namespace VZ {
     
     namespace Helper{
     
+        //返回指针地址
         std::string stringFromPointer(const void* ptr);
+        
+        //返回屏幕scale
         CGFloat screenScale();
         
     }
     
+    namespace LifeCycle{
+    
+        //在主线程执行释放
+        void performDeallocOnMainThread(void(^block)());
+        
+        //在一个串行异步队列中执行释放
+        void performDeallocOnBackgroundThread(void(^block)());
+    }
  
+    
     class ViewClass;
     namespace Mounting {
     

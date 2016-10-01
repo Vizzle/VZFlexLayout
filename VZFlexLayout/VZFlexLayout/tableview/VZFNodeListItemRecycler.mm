@@ -17,16 +17,11 @@
 #import "VZFMacros.h"
 #import "VZFluxStore.h"
 #import "VZFNodeInternal.h"
-
-@interface VZFWeakObjectWrapper : NSObject
-@property(nonatomic,weak) id object;
-@end
-
-@implementation VZFWeakObjectWrapper
-@end
+#import "VZFWeakObjectWrapper.h"
 
 
 const void* g_recycleId = &g_recycleId;
+const void* g_useVZAsyncDisplay = &g_useVZAsyncDisplay;
 @implementation UIView(ListRecycleController)
 
 - (void)setVz_recycler:(VZFNodeListItemRecycler *)vz_recycler{
@@ -42,6 +37,13 @@ const void* g_recycleId = &g_recycleId;
     return wrapper.object;
 }
 
+-(NSObject *)useVZAsyncDisplayFlag{
+    return objc_getAssociatedObject(self, g_useVZAsyncDisplay);
+}
+- (void)setUseVZAsyncDisplayFlag:(NSObject *)flag{
+    objc_setAssociatedObject(self, &g_useVZAsyncDisplay, flag, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 @end
 
 
@@ -53,6 +55,7 @@ struct VZItemRecyclerState{
     NodeLayout layout;
 };
 @interface VZFNodeListItemRecycler()
+
 
 @end
 
@@ -88,25 +91,31 @@ struct VZItemRecyclerState{
 
 }
 
+
+//moxin.xt@2016/09/26
+//这里会有在异步线程释放的情况,析构顺序：
+//node.unmount -> _state = nil -> node = nil;
 - (void)dealloc{
 
-    [self reset];
+    VZF_LOG_DEALLOC();
     
+    if (_mountedNodes) {
+     
+        __block NSSet* copiedNodes = _mountedNodes;
+        VZF_MainCall(^{
+            
+            for(VZFNode* node in copiedNodes){
+                VZ::Mounting::reset(node.mountedView);
+                [node unmount];
+            }
+        });
+        _mountedNodes = nil;
+    }
+
     if (_mountedView) {
         _mountedView.vz_recycler = nil;
     }
-}
 
-- (void)reset{
-
-    if (_mountedNodes) {
-        
-        for(VZFNode* node in _mountedNodes){
-            VZ::Mounting::reset(node.mountedView);
-        }
-        
-        [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
-    }
 }
 
 - (void)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context{
@@ -114,12 +123,15 @@ struct VZItemRecyclerState{
     VZFNode* node = [_nodeProvider nodeForItem:item Store:_store Context:context];
     if (node) {
         const VZ::NodeLayout layout = [node computeLayoutThatFits:constrainedSize];
+        
+        //alloc stack object, will cause the old state object dealloc
         _state = {
             .props = item,
             .layout = layout,
             .constrainedSize = constrainedSize,
             .context = context
         };
+            
     }
 }
 
@@ -128,9 +140,6 @@ struct VZItemRecyclerState{
     [self calculate:_state.props
     constrainedSize:_state.constrainedSize
             context:_state.context];
-    
-    //mount layout
-    //[self _mount];
 }
 
 - (void)attachToView:(UIView *)view {
@@ -143,57 +152,35 @@ struct VZItemRecyclerState{
 }
 
 - (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay {
-
-    if(view.vz_recycler != self){
     
+    VZFAssertMainThread();
+    if(view.vz_recycler != self){
+        
         [self detachFromView];
         [view.vz_recycler detachFromView];
         _mountedView = view;
         view.vz_recycler = self;
         
-//        NSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
+        //        NSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
     }
     
-    [self _mount];
- 
+    _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil) copy];
+    //不使用异步渲染////////
 }
--(void)cleanVZFNodeView:(UIView *)v{
-    NSArray *subView = [v.subviews copy];
-    for (UIView *v in subView) {
-        NSString *className = [NSString stringWithUTF8String:class_getName([v class])];
-        if (![@"_VZAView" isEqualToString:className]){
-            [v removeFromSuperview];
-        }
-    }
-}
+
 
 - (void)detachFromView{
     
-    if (_mountedView) {
-        
-//        NSLog(@"[%@]--->detach:<%ld,%p>",self.class, self.indexPath.row, _mountedView);
+    VZFAssertMainThread();
     
-        [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
+    if (_mountedView) {
+    
+        unmountNodes(_mountedNodes);
         _mountedNodes = nil;
         _mountedView.vz_recycler = nil;
         _mountedView = nil;
     }
 }
-
-- (BOOL)isAttachedToView{
-    return (_mountedView != nil);
-}
-
-
-
-- (void)_mount{
-    _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_state.layout
-                                                              InContainer:_mountedView
-                                                        WithPreviousNodes:_mountedNodes
-                                                             AndSuperNode:nil];
-    
-}
-
 
 
 @end

@@ -41,7 +41,7 @@ namespace VZ {
         UIColor* pageControlColor;
         UIColor* pageControlSelectedColor;
         
-        ActionWrapper switched;
+        VZFBlockAction* switched;
         
         const PagingNodeSpecs copy() const{
             return {direction, scrollEnabled,paging,autoScroll,infiniteLoop,pageControl,pageControlMarginLeft,pageControlMarginRight,pageControlMarginTop,pageControlMarginBottom,pageControlScale,pageControlColor,pageControlSelectedColor };

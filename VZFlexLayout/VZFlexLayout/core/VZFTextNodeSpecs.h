@@ -12,10 +12,16 @@
 
 typedef NS_ENUM(NSUInteger, VZFFontStyle) {
     VZFFontStyleNormal,
-    VZFFontStyleBold,
+    VZFFontStyleUltraLight,
     VZFFontStyleThin,
+    VZFFontStyleLight,
+    VZFFontStyleMedium,
+    VZFFontStyleBold,
+    VZFFontStyleHeavy,
+    VZFFontStyleBlack,
+    
     VZFFontStyleItalic,
-    VZFFontStyleBoldItalic,
+    VZFFontStyleBoldItalic
 };
 
 namespace VZ {
@@ -36,14 +42,12 @@ namespace VZ {
         VZFFontStyle fontStyle;
         NSTextAlignment alignment;
         NSAttributedString *attributedString;
-        NSAttributedString *truncationAttributedString;
         Value<NSLineBreakMode, DefaultFlexAttributesValue::lineBreakMode> lineBreakMode;
         Value<unsigned int, DefaultFlexAttributesValue::lines> lines;
         float kern;
         float lineSpacing;
-//        NSLayoutManager *(*layoutManagerFactory)(void);
+//           NSAttributedString *truncationAttributedString;
         
-    
         mutable UIFont *_font;
         
         TextNodeSpecs copy() const
@@ -56,12 +60,12 @@ namespace VZ {
                 fontStyle,
                 alignment,
                 [attributedString copy],
-                [truncationAttributedString copy],
                 lineBreakMode,
                 lines,
                 kern,
                 lineSpacing,
-                _font    // _font
+                _font,    // _font
+//                                [truncationAttributedString copy],
             };
         };
         
@@ -78,8 +82,8 @@ namespace VZ {
             && lines == other.lines
             && kern == other.kern
             && lineSpacing == other.lineSpacing
-            && Hash::_ObjectsEqual(attributedString, other.attributedString)
-            && Hash::_ObjectsEqual(truncationAttributedString, other.truncationAttributedString);
+            && Hash::_ObjectsEqual(attributedString, other.attributedString);
+//            && Hash::_ObjectsEqual(truncationAttributedString, other.truncationAttributedString);
         }
         
         size_t hash() const;
@@ -94,10 +98,12 @@ namespace VZ {
         NSDictionary* getAttributes() const {
             NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
             style.alignment = alignment;
-            style.lineSpacing = lineSpacing;
-            
+            if (lines == 1) style.lineBreakMode = lineBreakMode;
+            if (lineSpacing != 0) {
+                style.lineSpacing = lineSpacing;
+            }
             NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-            dict[NSParagraphStyleAttributeName] = [style copy];
+            dict[NSParagraphStyleAttributeName] = style;
             dict[NSForegroundColorAttributeName] = color;
             if (kern != 0) {
                 dict[NSKernAttributeName] = @(kern);
@@ -122,7 +128,6 @@ namespace VZ {
                         NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
                         style.alignment = alignment;
                         if (lines == 1) style.lineBreakMode = lineBreakMode;
-                        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
                         dict[NSParagraphStyleAttributeName] = style;
                     }
                     if (dict.count) {

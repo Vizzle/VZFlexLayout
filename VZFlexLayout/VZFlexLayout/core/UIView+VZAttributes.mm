@@ -15,7 +15,6 @@
 #import "VZFButtonNodeSpecs.h"
 #import "VZFTextNode.h"
 #import "VZFTextNodeSpecs.h"
-#import "VZFTextNodeBackingView.h"
 #import "VZFImageNode.h"
 #import "VZFImageNodeSpecs.h"
 #import "VZFIndicatorNode.h"
@@ -45,7 +44,7 @@
     
     [self _applyAttributes:node.specs];
     
-    [self _applyGestures:node.specs.gesture];
+    [self _applyGestures:node.specs];
     
     if ([node isKindOfClass:[VZFImageNode class]])
     {
@@ -147,9 +146,17 @@
     self.clipsToBounds          = vs.clip;
     self.hidden                 = vs.hidden;
     
+    if (vs.isAccessibilityElement != VZF_BOOL_UNDEFINED) {
+        self.isAccessibilityElement = vs.isAccessibilityElement;
+        if (vs.accessibilityLabel) {
+            self.accessibilityLabel     = vs.accessibilityLabel;
+        }
+    }
+    
+    
     int userInteractionEnabled = vs.userInteractionEnabled;
-    if (userInteractionEnabled != INT_MIN) {
-        self.userInteractionEnabled = YES;
+    if (userInteractionEnabled != VZF_BOOL_UNDEFINED) {
+        self.userInteractionEnabled = userInteractionEnabled;
     }
     
     [self _applyBorder:vs];
@@ -219,9 +226,11 @@
 }
 
 
-- (void)_applyGestures:(MultiMap<Class, ActionWrapper>)gestures{
+- (void)_applyGestures:(const NodeSpecs&)vs{
     
-    if (!gestures.empty()) {
+    VZFBlockGesture *gesture = vs.gesture;
+    
+    if (gesture && vs.userInteractionEnabled == INT_MIN) {
         self.userInteractionEnabled = YES;
     }
     
@@ -235,18 +244,13 @@
     
     NSMutableArray *gestureArray = [NSMutableArray array];
     objc_setAssociatedObject(self, _id, gestureArray, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    for (auto iter=gestures.begin(); iter!=gestures.end(); iter=gestures.equal_range(iter->first).second){
-        auto key = iter->first;
-        UIGestureRecognizer *gestureRecognizer = [[key alloc] initWithTarget:nil action:nil];
-        auto range = gestures.equal_range(key);
-        for (auto it=range.first; it!=range.second; it++){
-            id<VZFActionWrapper> wrapper = vz_actionWrapper(it->second);
-            [gestureArray addObject:wrapper];
-            [gestureRecognizer addTarget:wrapper action:@selector(invoke:)];
-        }
+    if (gesture) {
+        UIGestureRecognizer *gestureRecognizer = [[gesture.gestureClass alloc] initWithTarget:nil action:nil];
+        [gestureArray addObject:gesture];
+        [gestureRecognizer addTarget:gesture action:@selector(invoke:)];
         
         // 使 stack 在轻按的时候有点击效果
-        if (key == [UITapGestureRecognizer class] && [self isKindOfClass:[VZFStackView class]]) {
+        if (gesture.gestureClass == [UITapGestureRecognizer class] && [self isKindOfClass:[VZFStackView class]]) {
             gestureRecognizer.cancelsTouchesInView = NO;
         }
         
@@ -304,37 +308,32 @@
         actionArray = [NSMutableArray array];
         objc_setAssociatedObject(btn, _id, actionArray, OBJC_ASSOCIATION_RETAIN);
     }
-    for (auto action : buttonNodeSpecs.action) {
-        id<VZFActionWrapper> wrapper = vz_actionWrapper(action.second);
-        [actionArray addObject:wrapper];
-        [btn addTarget:wrapper action:@selector(invoke:event:) forControlEvents:action.first];
+    VZFBlockAction *action = buttonNodeSpecs.action;
+    if (action) {
+        [actionArray addObject:action];
+        [btn addTarget:buttonNodeSpecs.action action:@selector(invoke:event:) forControlEvents:action.controlEvents];
     }
 }
 
 - (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs{
     
-    VZFTextNodeBackingView* textView = self;
-//    textView.textl
+    UILabel* label = (UILabel* )self;
+    label.font = nil;
+    label.textColor = nil;
+    if (textNodeSpecs.attributedString) {
+        label.attributedText = textNodeSpecs.attributedString;
+    }
+    else {
+        label.attributedText = textNodeSpecs.getAttributedString();
+    }
+    label.lineBreakMode = textNodeSpecs.lineBreakMode;
+    label.numberOfLines = textNodeSpecs.lines;
     
-//    UILabel* label = (UILabel* )self;
-//    if (textNodeSpecs.attributedString) {
-//        label.attributedText = textNodeSpecs.attributedString;
-//    }
-//    else {
-//        if (textNodeSpecs.kern != 0 && textNodeSpecs.text.length > 0) {
-//            NSDictionary *dict = @{NSKernAttributeName:@(textNodeSpecs.kern),
-//                                   NSLigatureAttributeName:@0};
-//            label.attributedText = [[NSAttributedString alloc] initWithString:textNodeSpecs.text attributes:dict];
-//        }
-//        else {
-//            label.text = textNodeSpecs.text;
-//        }
-//        label.font = textNodeSpecs.getFont();
-//        label.textColor = textNodeSpecs.color;
-//    }
-//    label.textAlignment = textNodeSpecs.alignment;
-//    label.lineBreakMode = textNodeSpecs.lineBreakMode;
-//    label.numberOfLines = textNodeSpecs.lines;
+    // 有时 UILabel 尺寸为 0 时，仍会绘制出一部分文字，这里做个处理。由于 hidden 属性被用于复用，所以这里把文本置空
+    if (self.bounds.size.width <= 0 || self.bounds.size.height <= 0) {
+        label.text = nil;
+        label.attributedText = nil;
+    }
 }
 
 - (void)_applyImageAttributes:(const ImageNodeSpecs& )imageSpec{
@@ -343,16 +342,14 @@
     networkImageView.image = imageSpec.image;
     networkImageView.contentMode = imageSpec.contentMode;
     
-    if (imageSpec.imageUrl.length > 0) {
-        //just call protocol
-        [networkImageView vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl]
-                                        size:self.bounds.size
-                            placeholderImage:imageSpec.image
-                                  errorImage:imageSpec.errorImage
-                                     context:imageSpec.context
-                             completionBlock:vz_actionWrapper(imageSpec.completion)];   
-    }
-    
+    // 这里不做判空，可能会在方法内做清理操作，避免复用可能会导致的图片错乱
+    //just call protocol
+    [networkImageView vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl]
+                                    size:self.bounds.size
+                        placeholderImage:imageSpec.image
+                              errorImage:imageSpec.errorImage
+                                 context:imageSpec.context
+                         completionBlock:imageSpec.completion];
 }
 
 - (void)_applyIndicatorAttributes:(const IndicatorNodeSpecs& )indicatorSpecs{
@@ -415,12 +412,14 @@
     
     NSMutableArray *subviews = [NSMutableArray array];
     for (const auto& layout : pagingNode.childrenLayout) {
-        UIView* view = [[VZFNodeLayoutManager sharedInstance] viewForRootNode:layout ConstrainedSize:self.frame.size];
+    
+        UIView* view = viewForRootNode(layout, self.frame.size);
+        
         [subviews addObject:view];
     }
     [pagingView setChildrenViews:subviews];
     
-    pagingView.switched = vz_actionWrapper(pagingSpecs.switched);
+    pagingView.switched = pagingSpecs.switched;
     
     [pagingView setNeedsLayout];
     

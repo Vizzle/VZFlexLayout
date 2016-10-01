@@ -50,14 +50,14 @@
     NSString* shortText = @"asdfafasdfafd";
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            for(int i=0; i<50; i++){
+            for(int i=0; i<1; i++){
                 
                 NSString* content = longtext;
                 
                 if (i==0) {
                     content = shortText;
                 }
-                FBHostItem* item = [FBHostItem newWithJSON:@{@"content":content}];
+                FBHostItem* item = [FBHostItem newWithJSON:@{@"nick":@"koubei"}];
                 FBHostCellItem* fbItem = [FBHostCellItem new];
                 fbItem.indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                 

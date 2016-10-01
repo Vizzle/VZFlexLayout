@@ -38,7 +38,7 @@
             .cornerRadius = 2.0f,
             .borderWidth = 0.5f,
             .borderColor = [UIColor grayColor],
-            .gesture = @selector(imageDidTap),
+//            .gesture = @selector(imageDidTap),
             .width = 76,
             .height = 76
         

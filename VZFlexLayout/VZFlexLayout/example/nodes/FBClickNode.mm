@@ -21,7 +21,7 @@
 
     VZFButtonNode* btnNode=[VZFButtonNode newWithButtonAttributes:{
         .image = img,
-        .action = action
+//        .action = action
     }NodeSpecs:{
 
             .width = 20,

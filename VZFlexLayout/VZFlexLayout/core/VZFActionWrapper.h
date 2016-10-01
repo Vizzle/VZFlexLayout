@@ -12,45 +12,6 @@
 
 typedef void(^UIControlActionBlock)(id sender);
 
-namespace VZ {
-    /**
-     *  构造ActionWrapper
-     *
-     *  ActionWrapper action = @selector(sel);
-     *  ActionWrapper action = ^(id sender){};
-     */
-    struct ActionWrapper {
-        UIControlActionBlock block;
-        SEL selector;
-        ActionWrapper() : block(nil), selector(nil) {}
-        ActionWrapper(UIControlActionBlock block) : block([block copy]) {}
-        ActionWrapper(SEL selector) : selector(selector) {}
-        
-        bool operator==(const ActionWrapper& other) const {
-            return block == other.block && selector == other.selector;
-        }
-    };
-    
-    template<typename KeyType>
-    struct MultiMapKey {
-        static KeyType defaultKey;
-    };
-    
-    template<typename KeyType, typename ValueType>
-    struct MultiMap : std::unordered_multimap<KeyType, ValueType> {
-        using SuperType = std::unordered_multimap<KeyType, ValueType>;
-        
-        MultiMap() : SuperType() {}
-        template<typename T>
-        MultiMap(T value) : SuperType({{MultiMapKey<KeyType>::defaultKey, value}}) {
-            static_assert(std::is_convertible<T, ValueType>::value, "there is no suitable constructor");
-        }
-        MultiMap(typename SuperType::value_type pair) : SuperType({pair}) {}
-        MultiMap(std::initializer_list<typename SuperType::value_type> list) : SuperType(list) {}
-    };
-
-}
-
 
 @protocol VZFActionWrapper <NSObject>
 
@@ -72,10 +33,26 @@ namespace VZ {
 @end
 
 
-@interface VZFSelectorWrapper : NSObject <VZFActionWrapper>
+@interface VZFBlockAction : VZFBlockWrapper
 
-- (instancetype)initWithSelector:(SEL)selector;
+@property (nonatomic) UIControlEvents controlEvents;
+
+- (instancetype)initWithControlEvents:(UIControlEvents)controlEvents block:(UIControlActionBlock)block;
+
++ (instancetype)action:(UIControlActionBlock)block;
++ (instancetype)actionWithControlEvents:(UIControlEvents)controlEvents block:(UIControlActionBlock)block;
 
 @end
 
-id<VZFActionWrapper> vz_actionWrapper(VZ::ActionWrapper action);
+
+@interface VZFBlockGesture : VZFBlockWrapper
+
+@property (nonatomic, strong) Class gestureClass;
+
+- (instancetype)initWithClass:(Class)gestureClass block:(UIControlActionBlock)block;
+
++ (instancetype)tapGesture:(UIControlActionBlock)block;
++ (instancetype)gestureWithClass:(Class)gestureClass block:(UIControlActionBlock)block;
+
+@end
+

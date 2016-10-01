@@ -18,10 +18,10 @@ namespace VZ {
         NSString* imageUrl;
         UIImage* errorImage;
         UIViewContentMode contentMode;
-        ActionWrapper completion;
-        id context; 
-
         
+        VZFBlockAction* completion;
+        id context;
+
         const ImageNodeSpecs copy() const{
             return {[image copy], [imageUrl copy], [errorImage copy],contentMode, completion, context};
         }

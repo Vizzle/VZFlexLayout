@@ -20,6 +20,8 @@
 #import "VZFLength.h"
 
 
+#define VZF_BOOL_UNDEFINED INT_MIN
+
 
 /**
  *  
@@ -73,25 +75,15 @@ namespace VZ {
         extern bool fixed;
         extern bool wrap;
         extern VZFlexLayoutAlignment alignSelf;
+        
+        extern int isAccessibilityElement;
 
     };
-    
-    
-    template<>
-    struct MultiMapKey<Class> {
-        static Class defaultKey;
-    };
-    
-    template<typename GestureType>
-    MultiMap<Class, ActionWrapper>::value_type VZFGesture(const ActionWrapper& action) {
-        static_assert(std::is_convertible<GestureType, UIGestureRecognizer>::value_type, "is not gesture recognizer class");
-        return { [GestureType class], action };
-    }
     
 
     struct NodeSpecs{
         
-        //name
+        //Id
         std::string identifier;
         
         //view attributes
@@ -142,22 +134,11 @@ namespace VZ {
         Value<bool, DefaultAttributesValue::fixed> fixed;
         Value<bool, DefaultAttributesValue::wrap> wrap;
         
-        /*
-            gestures
-         
-            .gesture = @selector(xx),
-            .gesture = ^(id sender){},
-            .gesture = VZFGesture<UITapGestureRecognizer>(@selector(xx)),
-            .gesture = {
-                VZFGesture<UITapGestureRecognizer>(@selector(xx)),
-                VZFGesture<UITapGestureRecognizer>(^(id sender){}),
-            },
-            .gesture = {
-                { UITapGestureRecognizer, @selector(xx) },
-                { UITapGestureRecognizer, ^(id sender){} },
-            }
-         */
-        MultiMap<Class, ActionWrapper> gesture;
+        //blind supporting
+        Value<int, DefaultAttributesValue::userInteractionEnabled> isAccessibilityElement;
+        NSString* accessibilityLabel;
+        
+        VZFBlockGesture *gesture;
     };
 
 }

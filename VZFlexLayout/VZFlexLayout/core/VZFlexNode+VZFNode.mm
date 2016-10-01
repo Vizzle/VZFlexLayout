@@ -7,7 +7,12 @@
 //
 
 #import "VZFlexNode+VZFNode.h"
+#import "VZFMacros.h"
 #import <objc/runtime.h>
+
+
+//force the category methods to be compiled
+VZF_FORCE_CATEGORY_COMPILE(VZFlexNode_VZFNode)
 
 const void* g_flexNode = &g_flexNode;
 @implementation VZFlexNode (VZFNode)

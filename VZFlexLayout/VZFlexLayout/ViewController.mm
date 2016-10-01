@@ -27,8 +27,8 @@
 
 - (void)go:(id)sender
 {
-  //  FBTableViewController* v = [FBTableViewController new];
-    FBTextListViewController* v = [FBTextListViewController new];
+    FBTableViewController* v = [FBTableViewController new];
+   // FBTextListViewController* v = [FBTextListViewController new];
     [self.navigationController pushViewController:v animated:YES];
 }
 

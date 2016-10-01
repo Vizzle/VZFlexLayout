@@ -10,9 +10,8 @@
 #import <vector>
 #import <string>
 #import "FlexLayout.h"
+#import "VZFMacros.h"
 #import "VZFNode.h"
-
-#define FLEX_PIXEL_ASSERT(value) NSCAssert(fabs(value * [UIScreen mainScreen].scale - round(value * [UIScreen mainScreen].scale)) < 1e-3, @"value %@ not snap to pixel", @(value))
 
 namespace VZ {
     
@@ -31,21 +30,20 @@ namespace VZ {
         NodeLayout(VZFNode* _node,CGSize _sz, CGPoint _pt, UIEdgeInsets _margin,std::vector<NodeLayout> _childs)
             :node(_node),size(_sz),origin(_pt),margin(_margin),children(new std::vector<NodeLayout>(std::move(_childs)))
         {
-            //像素对齐
-            FLEX_PIXEL_ASSERT(_pt.x);
-            FLEX_PIXEL_ASSERT(_pt.y);
-            FLEX_PIXEL_ASSERT(_sz.width);
-            FLEX_PIXEL_ASSERT(_sz.height);
-            
             origin = _pt;
             size = _sz;
         }
         ~NodeLayout(){
+            
+            //Layout可能在非主线程析构
+//            VZFC_LOG_DEALLOC(@"VZFNodeLayout");
+            
             node = nil;
             children.reset();
             children = nullptr;
         }
         
+        //print layout recursively
         const std::string description() const{
             
             auto print = [this]() -> std::string{

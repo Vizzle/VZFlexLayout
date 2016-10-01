@@ -56,6 +56,9 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     NSArray<UIView *> *_childViews;
     NSTimer *_timer;
     
+    BOOL _isActive;     // 应用是否在前台
+    BOOL _isVisible;    // 是否可见
+    
     BOOL _autoScrollAnimated;
     
     CGFloat _lastContentOffset;
@@ -64,6 +67,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        _isActive = YES;
         _lastContentOffset = FLT_MIN;
         _scroll = YES;
         _loopScroll = NO;
@@ -74,7 +78,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
         _flowLayout.minimumInteritemSpacing = 0;
         _flowLayout.minimumLineSpacing = 0;
         _flowLayout.itemSize = frame.size;
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_flowLayout];
+        _collectionView = [[VZFCollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_flowLayout];
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         _collectionView.scrollsToTop = NO;
@@ -88,8 +92,8 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
         self.backgroundColor = [UIColor clearColor];
         [self addSubview:_collectionView];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopTimer) name:UIApplicationDidEnterBackgroundNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resetTimer) name:UIApplicationDidBecomeActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willResignActive) name:UIApplicationWillResignActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     }
     return self;
 }
@@ -101,6 +105,21 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     // 避免一个 crash，详见 http://stackoverflow.com/a/26104397
     self.collectionView.delegate = nil;
     self.collectionView.dataSource = nil;
+}
+
+- (void)willResignActive {
+    _isActive = NO;
+    [self resetTimer];
+}
+
+- (void)didBecomeActive {
+    _isActive = YES;
+    [self resetTimer];
+}
+
+- (void)willMoveToWindow:(UIWindow *)newWindow {
+    _isVisible = !!newWindow;
+    [self resetTimer];
 }
 
 - (void)setFrame:(CGRect)frame
@@ -131,6 +150,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     }
     if (pageControlEnabled && !_pageControl) {
         _pageControl = [[UIPageControl alloc] init];
+        _pageControl.isAccessibilityElement = NO;
         [self addSubview:_pageControl];
     }
 }
@@ -182,7 +202,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 - (void)resetTimer
 {
     [self stopTimer];
-    if ([self autoScrollEnabled]) {
+    if (_isActive && _isVisible && [self autoScrollEnabled]) {
         VZFPagingTimerWrapper *wrapper = [[VZFPagingTimerWrapper alloc] initWithTarget:self selector:@selector(scrollToNextItem)];
         _timer = [NSTimer timerWithTimeInterval:MAX(1, _autoScroll) target:wrapper selector:@selector(timerDidFire:) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
@@ -212,6 +232,21 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     return _loopScroll && _childViews.count > 1;
 }
 
+- (void)scrollToPreviousItem
+{
+    if (_collectionView.isTracking || _collectionView.isDragging || _collectionView.isDecelerating) {
+        return;
+    }
+    
+    NSInteger preIndex = (_currentPage <= 0 ? _currentPage - 1 + _pageControl.numberOfPages : _currentPage - 1);
+    
+    if( preIndex == _childViews.count) {
+        preIndex = 0;
+    }
+    
+    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:preIndex inSection:0] atScrollPosition:self.vertical ? UICollectionViewScrollPositionTop : UICollectionViewScrollPositionLeft animated:_autoScrollAnimated];
+}
+
 - (void)scrollToNextItem
 {
     if (_collectionView.isTracking || _collectionView.isDragging || _collectionView.isDecelerating) {
@@ -232,6 +267,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 {
     
     if (![self autoScrollEnabled] && _currentPage != currentPage) {
+        _currentPage = currentPage;
         [self.switched invoke:self withCustomParam:self];
     }
     
@@ -255,14 +291,21 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     return index;
 }
 
+- (void)updateCurrentPage:(UIScrollView *)scrollView {
+    BOOL isVertical = _flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical;
+    CGFloat pageLength = isVertical ? scrollView.frame.size.height : scrollView.frame.size.width;
+    NSInteger index = round((float)_lastContentOffset / pageLength);
+    self.currentPage = [self indexForCellIndex:index];
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+    [self updateCurrentPage:scrollView];
     [self resetTimer];
 }
 
-//
-// reference: https://github.com/RungeZhai/SeamlessCyclicScrollView
-//
+//reference: https://github.com/RungeZhai/SeamlessCyclicScrollView
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     BOOL isVertical = _flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical;
@@ -300,10 +343,10 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     } else {
         _lastContentOffset = *currectOffset;
     }
-    
-    NSInteger index = round((float)_lastContentOffset / pageLength);
-    self.currentPage = [self indexForCellIndex:index];
-    
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self updateCurrentPage:scrollView];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

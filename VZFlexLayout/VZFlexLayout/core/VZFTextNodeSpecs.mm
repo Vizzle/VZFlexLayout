@@ -88,16 +88,16 @@ namespace VZ {
             std::hash<CGFloat>()(fontSize),
             std::hash<NSInteger>()(alignment),
             [attributedString hash],
-            [truncationAttributedString hash],
+//            [truncationAttributedString hash],
             std::hash<NSInteger>()(lineBreakMode),
             std::hash<NSInteger>()(lines),
             std::hash<CGFloat>()(kern),
-            std::hash<CGFloat>()(lineSpacing)
+            std::hash<CGFloat>()(lineSpacing),
 //            std::hash<CGFloat>()(shadowOffset.width),
 //            std::hash<CGFloat>()(shadowOffset.height),
 //            [shadowColor hash],
 //            std::hash<CGFloat>()(shadowOpacity),
-//            std::hash<CGFloat>()(shadowRadius),
+//            std::hash<CGFloat>()(shadowRadius)
         };
         return VZ::Hash::IntegerArrayHash(subhashes, sizeof(subhashes) / sizeof(subhashes[0]));
     }

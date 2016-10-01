@@ -62,7 +62,7 @@ using namespace VZ;
     NSLog(@"[%@]-->dealloc",self.class);
     
     //主线程释放.
-    [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
+    VZ::unmountNodes(_mountedNodes);
 }
 
 
@@ -90,7 +90,8 @@ using namespace VZ;
         for(VZFNode* node in _mountedNodes){
             VZ::Mounting::reset(node.mountedView);
         }
-        [[VZFNodeLayoutManager sharedInstance] unmountNodes:_mountedNodes];
+        VZ::unmountNodes(_mountedNodes);
+        
     }
 }
 
@@ -118,11 +119,14 @@ using namespace VZ;
 //    [self reset];
     
     //2, create node
-    VZFNode* node = [_nodeProvider nodeForItem:_model Store:_store Context:_context];
+    VZFNode *node = [self nodeFromTemplate]; //for O2OMistView
+    if (!node) {
+        node = [_nodeProvider nodeForItem:_model Store:_store Context:_context];
+    }
     
     if (node) {
                 
-        CGSize sz = VZ::containerSize(_rangeType, self.bounds.size);
+        CGSize sz = containerSize(_rangeType, self.bounds.size);
         
         
         //3, calculate layout
@@ -130,10 +134,7 @@ using namespace VZ;
         
         
         //4, mount
-        _mountedNodes = [[VZFNodeLayoutManager sharedInstance] layoutRootNode:_mountedLayout
-                                                                  InContainer:self
-                                                            WithPreviousNodes:_mountedNodes
-                                                                 AndSuperNode:nil];
+        _mountedNodes = layoutRootNodeInContainer(_mountedLayout, self, _mountedNodes, nil);
         
         if (self.shouldResize) {
             self.frame = {self.frame.origin, [self newSize]};
@@ -181,6 +182,10 @@ using namespace VZ;
 - (id)targetForAction:(SEL)action withSender:(id)sender
 {
     return [self respondsToSelector:action] ? self : [[self nextResponder] targetForAction:action withSender:sender];
+}
+
+- (VZFNode *)nodeFromTemplate {
+    return nil;
 }
 
 @end

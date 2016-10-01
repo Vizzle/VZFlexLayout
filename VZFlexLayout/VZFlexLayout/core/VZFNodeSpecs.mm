@@ -13,12 +13,10 @@
 
 namespace VZ {
     
-    Class MultiMapKey<Class>::defaultKey = [UITapGestureRecognizer class];
-    
     namespace DefaultAttributesValue{
         UIColor* backgroundColor = [UIColor clearColor];
         UIColor* highlightBackgroundColor = nil;
-        int userInteractionEnabled = INT_MIN;
+        int userInteractionEnabled = VZF_BOOL_UNDEFINED;
         CGFloat cornerRadiusUndefined = VZ::FlexValue::Undefined;
         
         FlexLength width = FlexLengthAuto;
@@ -43,6 +41,7 @@ namespace VZ {
         bool fixed = 0;
         bool wrap = 0;
         VZFlexLayoutAlignment alignSelf = VZFlexInherit;
+        int isAccessibilityElement = VZF_BOOL_UNDEFINED;
     }
     
 }

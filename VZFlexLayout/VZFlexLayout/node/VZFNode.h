@@ -15,7 +15,7 @@ namespace VZ {
 }
 
 using namespace VZ;
-@interface VZFNode : NSObject
+@interface VZFNode : NSObject<NSCopying>
 
 /**
  *  Create a Node

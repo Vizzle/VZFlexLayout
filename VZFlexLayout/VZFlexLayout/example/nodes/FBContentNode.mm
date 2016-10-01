@@ -37,11 +37,11 @@
         
         .text       = item.content,
         .fontSize   = 14.0f,
-//        .fontName   = @"Helvetica Neue",
-//        .lines      = [state[@"expend"] boolValue] ? 0UL : 4UL,
+        .alignment  = NSTextAlignmentCenter,
+        .fontName   = @"Helvetica Neue",
+        .lines      = [state[@"expend"] boolValue] ? 0UL : 4UL,
         .color      = [UIColor blackColor],
-        .lines      = 0,
-        .lineSpacing = 10
+        .lineSpacing = 4
         
     }NodeSpecs:{} ];
     
@@ -50,16 +50,16 @@
         .title      = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         .fontSize   = 14.0f,
-        .action     = ^(id sender){
-            
-            FluxAction::send({
-                .source = ActionType::view_state,
-                .actionType = EXPEND_CLICKED_STATE,
-                .payload = @{@"index":index?:[NSNull null]},
-                .dispatcher = store.dispatcher
-                
-            });
-        }
+//        .action     = ^(id sender){
+//            
+//            FluxAction::send({
+//                .source = ActionType::view_state,
+//                .actionType = EXPEND_CLICKED_STATE,
+//                .payload = @{@"index":index?:[NSNull null]},
+//                .dispatcher = store.dispatcher
+//                
+//            });
+//        }
     }NodeSpecs:{
     
         .alignSelf = VZFlexStart,

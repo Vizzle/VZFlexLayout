@@ -10,8 +10,6 @@
 
 namespace VZ {
     
-    UIControlEvents MultiMapKey<UIControlEvents>::defaultKey = UIControlEventTouchUpInside;
-    
     namespace DefaultButtonAttributesValue{
         CGSize enlargeSize = CGSizeZero;
     }
