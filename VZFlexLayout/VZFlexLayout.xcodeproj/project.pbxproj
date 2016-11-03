@@ -94,6 +94,7 @@
 		45C9875A1C2D0F2800D17A1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */; };
 		45CA3AAD1C81891600DA04C1 /* VZFNetworkImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AAC1C81891600DA04C1 /* VZFNetworkImageView.mm */; };
 		45CA3AB21C81A4EC00DA04C1 /* VZFUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45CA3AB01C81A4EC00DA04C1 /* VZFUtils.mm */; };
+		45D770CD1DCB39A500220A27 /* FBCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45D770CC1DCB39A500220A27 /* FBCollectionViewController.mm */; };
 		45E593371CDF5F880044987C /* FBScrollNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45E593361CDF5F880044987C /* FBScrollNode.mm */; };
 		45F0C71B1CE8A1B9004DF6DF /* VZFPagingNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F0C71A1CE8A1B9004DF6DF /* VZFPagingNode.mm */; };
 		45F0C7201CE8A1D0004DF6DF /* VZFScrollView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45F0C71D1CE8A1D0004DF6DF /* VZFScrollView.mm */; };
@@ -289,6 +290,8 @@
 		45CA3AAC1C81891600DA04C1 /* VZFNetworkImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNetworkImageView.mm; sourceTree = "<group>"; };
 		45CA3AB01C81A4EC00DA04C1 /* VZFUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFUtils.mm; sourceTree = "<group>"; };
 		45CA3AB11C81A4EC00DA04C1 /* VZFUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFUtils.h; sourceTree = "<group>"; };
+		45D770CB1DCB39A500220A27 /* FBCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBCollectionViewController.h; sourceTree = "<group>"; };
+		45D770CC1DCB39A500220A27 /* FBCollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBCollectionViewController.mm; sourceTree = "<group>"; };
 		45E593351CDF5F880044987C /* FBScrollNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBScrollNode.h; sourceTree = "<group>"; };
 		45E593361CDF5F880044987C /* FBScrollNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBScrollNode.mm; sourceTree = "<group>"; };
 		45F0C7191CE8A1B9004DF6DF /* VZFPagingNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFPagingNode.h; sourceTree = "<group>"; };
@@ -609,6 +612,8 @@
 				454477841CC50CF8000B54E7 /* FBTableViewController.mm */,
 				452B54C91D839F8000C20EDB /* FBTextListViewController.h */,
 				452B54CA1D839F8000C20EDB /* FBTextListViewController.mm */,
+				45D770CB1DCB39A500220A27 /* FBCollectionViewController.h */,
+				45D770CC1DCB39A500220A27 /* FBCollectionViewController.mm */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -956,6 +961,7 @@
 				45FB68401D2E22500097038E /* VZFIndicatorNodeSpecs.mm in Sources */,
 				45A7D6E91CB4DB7900B072D5 /* FBContentNode.mm in Sources */,
 				45A7D6E71CB4DB7900B072D5 /* FBActionNodes.mm in Sources */,
+				45D770CD1DCB39A500220A27 /* FBCollectionViewController.mm in Sources */,
 				45CA3AB21C81A4EC00DA04C1 /* VZFUtils.mm in Sources */,
 				45C9874C1C2D0F2800D17A1D /* main.m in Sources */,
 				45FB68411D2E22500097038E /* VZFIndicatorView.m in Sources */,

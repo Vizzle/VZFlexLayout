@@ -111,6 +111,7 @@ using namespace VZ;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self _updateSynchronously];
         });
+        return ;
     }
     
     _isUpdating = true;
@@ -144,7 +145,7 @@ using namespace VZ;
         }        
     }
 
-       _isUpdating = false;
+    _isUpdating = false;
 
 }
 
