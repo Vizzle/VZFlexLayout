@@ -140,17 +140,28 @@
         CTLineRef line = CTTypesetterCreateLine(typesetter, CFRangeMake(start, count));
         
         if (needsToTruncate) {
+            // 省略号使用行末的字符的属性，当省略号在头部或中间时，得到的效果不一定正确
+            CFIndex truncationTokenAttributesIndex = start + CTTypesetterSuggestClusterBreak(typesetter, start, self.maxWidth) - 1;
+            NSDictionary *truncationTokenAttributes = [self.text attributesAtIndex:truncationTokenAttributesIndex effectiveRange:nil];
+            NSAttributedString *tokenString = [[NSAttributedString alloc] initWithString:@"…" attributes:truncationTokenAttributes];
+            CTLineRef truncationLine = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)tokenString);
+            
             CTLineTruncationType type = _truncatingMode == VZFTextTruncatingHead ? kCTLineTruncationStart :
-                                        _truncatingMode == VZFTextTruncatingMiddle ? kCTLineTruncationMiddle : kCTLineTruncationEnd;
-            CTLineRef oldLine = line;
-            line = CTLineCreateTruncatedLine(line, self.maxWidth, type, [self truncationToken]);
-            CFRelease(oldLine);
+            _truncatingMode == VZFTextTruncatingMiddle ? kCTLineTruncationMiddle : kCTLineTruncationEnd;
+            CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.maxWidth, type, truncationLine);
+            if (truncatedLine) {
+                CFRelease(line);
+                line = truncatedLine;
+            }
+            CFRelease(truncationLine);
         }
         
         if (needsToJustify) {
-            CTLineRef oldLine = line;
-            line = CTLineCreateJustifiedLine(line, 1, self.maxWidth);
-            CFRelease(oldLine);
+            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1, self.maxWidth);
+            if (justifiedLine) {
+                CFRelease(line);
+                line = justifiedLine;
+            }
         }
         
         VZFTextLine *textLine = [VZFTextLine new];
@@ -185,17 +196,6 @@
     _textSize = CGSizeMake(VZF_CEIL_PIXEL(width), VZF_CEIL_PIXEL(height));
     _calculated = YES;
     CFRelease(typesetter);
-}
-
-- (CTLineRef)truncationToken {
-    static id _truncationToken;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSAttributedString *tokenString = [[NSAttributedString alloc] initWithString:@"…"];
-        CTLineRef line = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)tokenString);
-        _truncationToken = (__bridge_transfer id)line;
-    });
-    return (__bridge CTLineRef)_truncationToken;
 }
 
 - (CGFloat)offsetYWithBounds:(CGRect)bounds {
