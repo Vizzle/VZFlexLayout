@@ -36,7 +36,7 @@ using namespace VZ;
                              NodeSpecs:(const NodeSpecs& )specs
                               Children:(const std::vector<VZFStackChildNode> &)children{
 
-    VZFStackNode* stacknode =  [super newWithView:[VZFStackView class] NodeSpecs:specs];
+    VZFStackNode* stacknode =  [super newWithView:{} NodeSpecs:specs];
     if (stacknode)
     {
         stacknode -> _stackSpecs    = stackSpecs;
@@ -56,6 +56,7 @@ using namespace VZ;
 }
 
 - (VZ::NodeLayout)nodeDidLayout {
+    
     VZ::NodeLayout layout = [super nodeDidLayout];
     for (const auto &child : _children) {
         layout.children->push_back([child.node nodeDidLayout]);
@@ -68,7 +69,6 @@ using namespace VZ;
     
     //只计算一次
     [self.flexNode layout:constrainedSize];
-    
     return [self nodeDidLayout];
 }
 

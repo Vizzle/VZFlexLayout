@@ -125,7 +125,8 @@ using namespace VZ::UIKit;
 - (NSString *)description {
     
     NSString* className = NSStringFromClass([self class]);
-    return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
+    return [NSString stringWithFormat:@"%@",className];
+//    return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
 }
 
 - (VZFNode* )superNode{

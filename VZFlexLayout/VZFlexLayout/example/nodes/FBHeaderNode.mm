@@ -15,6 +15,7 @@
 #import "FBIconNode.h"
 #import "VZFNodeViewClass.h"
 #import "VZFNodeSpecs.h"
+#import "VZFTextNode.h"
 
 @implementation FBHeaderNode
 
@@ -27,14 +28,32 @@
         {[FBIconNode newWithURL:item.headIconURL]},//头像
         {[VZFStackNode newWithStackAttributes:{
             .direction = VZFlexVertical,
-            .justifyContent = VZFlexSpaceBetween
+            .justifyContent = VZFlexSpaceBetween,
+//            .spacing = 5
         } NodeSpecs:{
-                .marginLeft = 10,
-                .flexGrow = 1,
-
+            .marginLeft = 10,
+            .flexGrow = 1,
         } Children:{
-            {[FBNameNode newWithName:item.nick createTime:item.time]},//姓名+时间
-            {[FBStarNode newWithScore:[item.score floatValue]]}, //星星
+            {
+                .node = [VZFTextNode newWithTextAttributes:{
+                    .text = item.nick,
+                    .color = [UIColor blackColor],
+                    .fontSize = 14.0f,
+                    .alignment = NSTextAlignmentLeft
+                } NodeSpecs:{}]
+            },
+            {
+                [VZFTextNode newWithTextAttributes:{
+                    
+                    .text = item.time,
+                    .color = [UIColor lightGrayColor],
+                    .fontSize = 12.0f,
+                    .alignment = NSTextAlignmentLeft
+                    
+                }NodeSpecs:{}]
+            }
+//            {[FBNameNode newWithName:item.nick createTime:item.time]},//姓名+时间
+//            {[FBStarNode newWithScore:[item.score floatValue]]}, //星星
         }]}
     }]];
     

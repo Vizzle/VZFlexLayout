@@ -43,7 +43,8 @@ namespace VZ {
         
         //2.1, 创建rootContext
         MountContext rootContext = MountContext::RootContext(container);
-        rootContext.position = layout.origin;
+//        rootContext.position = layout.origin;
+//        rootContext.rootLayoutInsect = layout.margin;
         
         //2.2, 创建一个stack用来递归
         std::stack<MountItem> stack = {};
@@ -102,7 +103,8 @@ namespace VZ {
                         
                         stack.push(
                                    {*reverseItor,
-                                       mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size),
+                                      // mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size),
+                                       mountResult.childContext.rootOffset((*reverseItor).origin, item.layout.size, (*reverseItor).size),
                                        item.layout.node,
                                        NO});
                     }
@@ -119,6 +121,10 @@ namespace VZ {
             [nodesToUnmount minusSet:mountedNodes];
             unmountNodes(nodesToUnmount);
         }
+        
+        
+        //4, remove掉stacknode
+        
         
         return  mountedNodes;
     }

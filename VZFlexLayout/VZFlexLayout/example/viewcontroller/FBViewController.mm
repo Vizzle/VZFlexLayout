@@ -11,6 +11,7 @@
 #import "FBSampleNode.h"
 #import "FBSampleStore.h"
 #import "FBHostItem.h"
+#import "FBHeaderNode.h"
 #import "VZFlux.h"
 #import "VZFTextNode.h"
 #import <libkern/OSAtomic.h>
@@ -41,8 +42,9 @@
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reloadData)];
+    self.view.backgroundColor = [UIColor yellowColor];
     
-    NSString* path1 = [[NSBundle mainBundle] pathForResource:@"scroll" ofType:@"json"];
+    NSString* path1 = [[NSBundle mainBundle] pathForResource:@"result" ofType:@"json"];
     NSData* data1 = [NSData dataWithContentsOfFile:path1];
     NSDictionary* json1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONWritingPrettyPrinted error:nil];
     FBHostItem* item1 = [FBHostItem newWithJSON:json1];
@@ -62,40 +64,17 @@
         
     }];
     [self.view addSubview:_hostingView];
-    
-    
-    _lock = OS_SPINLOCK_INIT;
-    
-    _list = [NSMutableArray new];
+
     
 }
 
-- (void)reloadData
-{
-    NSString* path1 = [[NSBundle mainBundle] pathForResource:@"scroll" ofType:@"json"];
-    NSData* data1 = [NSData dataWithContentsOfFile:path1];
-    NSDictionary* json1 = [NSJSONSerialization JSONObjectWithData:data1 options:NSJSONWritingPrettyPrinted error:nil];
-    FBHostItem* item1 = [FBHostItem newWithJSON:json1];
-    [_hostingView reset];
-    [_hostingView update:item1 context:nil];
-}
-//
-//- (void)reloadData{
-//
-//    NSString* path2 = [[NSBundle mainBundle] pathForResource:@"result2" ofType:@"json"];
-//    NSData* data2 = [NSData dataWithContentsOfFile:path2];
-//    NSDictionary* json2 = [NSJSONSerialization JSONObjectWithData:data2 options:NSJSONWritingPrettyPrinted error:nil];
-//    FBHostItem* item2 = [FBHostItem newWithJSON:json2];
-//    [self.bottomView update:item2 context:nil];
-//
-//}
 
 + (VZFNode<VZFNodeRequiredMethods>* )nodeForItem:(id)item Store:(id)store Context:(id)context{
     
     if (!item) {
         return nil;
     }
-    return [FBSampleNode newWithProps:item Store:store Context:context];
+    return [FBHeaderNode newWithProps:item Store:store Context:context];
 }
 
 
@@ -104,7 +83,5 @@
     NSLog(@"%s",__PRETTY_FUNCTION__);
 
 }
-
-
 
 @end

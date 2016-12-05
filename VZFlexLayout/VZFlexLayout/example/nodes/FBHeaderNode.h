@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "VZFCompositeNode.h"
+#import "VZFNodeRequiredMethods.h"
 
 @class FBHostItem;
-@interface FBHeaderNode : VZFCompositeNode
+@interface FBHeaderNode : VZFCompositeNode<VZFNodeRequiredMethods>
 
 + (instancetype)newWithProps:(id)props Store:(id)store Context:(id)context;
 

@@ -27,23 +27,17 @@
             .color = [UIColor blackColor],
             .fontSize = 14.0f,
             .alignment = NSTextAlignmentLeft
-        } NodeSpecs:{
-//            .width = 50,
-//            .backgroundColor = [UIColor grayColor]
-        }]},
-//        {
-//            [VZFTextNode newWithTextAttributes:{
-//                
-//                .text = time,
-//                .color = [UIColor lightGrayColor],
-//                .fontSize = 12.0f,
-//                .alignment = NSTextAlignmentLeft
-//                
-//            }NodeSpecs:{
-//                .backgroundColor = [UIColor clearColor]
-//            } ]
-//
-//        }
+        } NodeSpecs:{}]},
+        {
+            [VZFTextNode newWithTextAttributes:{
+                
+                .text = time,
+                .color = [UIColor lightGrayColor],
+                .fontSize = 12.0f,
+                .alignment = NSTextAlignmentLeft
+                
+            }NodeSpecs:{} ]
+        }
     
     }];
     

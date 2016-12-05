@@ -15,6 +15,7 @@
 #import "VZFTextNodeSpecs.h"
 
 
+
 @implementation VZFTextNode
 @synthesize textSpecs = _textSpecs;
 
