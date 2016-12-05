@@ -57,14 +57,14 @@
 }
 
 - (void)setMaxNumberOfLines:(NSUInteger)maxNumberOfLines {
-    if (_maxNumberOfLines == maxNumberOfLines) {
+    if (_maxNumberOfLines != maxNumberOfLines) {
         _calculated = NO;
     }
     _maxNumberOfLines = maxNumberOfLines;
 }
 
 - (void)setMaxWidth:(CGFloat)maxWidth {
-    if (_maxWidth == maxWidth) {
+    if (_maxWidth != maxWidth) {
         _calculated = NO;
     }
     _maxWidth = maxWidth;

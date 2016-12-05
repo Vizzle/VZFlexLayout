@@ -58,6 +58,7 @@
                 renderer.lineBreakMode = VZFTextLineBreakByWord;
                 break;
         }
+        renderer.alignment = textSpecs.alignment;
         renderer.maxNumberOfLines = textSpecs.lines;
         
         textNode -> _renderer = renderer;
