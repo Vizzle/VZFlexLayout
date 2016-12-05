@@ -1,31 +1,45 @@
 //
-//  VZFTextNodeRender.h
-//  VZFlexLayout
+//  VZFTextRenderer.h
+//  TextKitTest
 //
-//  Created by moxin on 16/9/18.
-//  Copyright © 2016年 Vizlab. All rights reserved.
+//  Created by Sleen on 2016/12/1.
+//  Copyright © 2016年 Sleen. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "VZFTextNodeSpecs.h"
+#import <UIKit/UIKit.h>
 
-using namespace VZ;
+typedef enum : NSUInteger {
+    VZFTextLineBreakByWord,
+    VZFTextLineBreakByChar,
+} VZFTextLineBreakMode;
+
+typedef enum : NSUInteger {
+    VZFTextTruncatingTail,
+    VZFTextTruncatingMiddle,
+    VZFTextTruncatingHead,
+    VZFTextTruncatingClip,
+    VZFTextTruncatingNone,
+} VZFTextTruncationMode;
+
+typedef enum : NSUInteger {
+    VZFTextVerticalAlignmentCenter,
+    VZFTextVerticalAlignmentTop,
+    VZFTextVerticalAlignmentBottom,
+} VZFTextVerticalAlignment;
+
 @interface VZFTextNodeRenderer : NSObject
 
-@property(nonatomic,assign,readonly) TextNodeSpecs specs;
-
-/**
- 根据TextKit的描述创建Render
-
- @param specs Text属性描述
- @param size  文本layout大小
-
- */
-- (instancetype)initWithTextKitSpecs:(const TextNodeSpecs& )specs constraintSize:(CGSize)size;
+@property (nonatomic, strong) NSAttributedString *text;
+@property (nonatomic, assign) VZFTextLineBreakMode lineBreakMode;
+@property (nonatomic, assign) VZFTextTruncationMode truncatingMode;
+@property (nonatomic, assign) VZFTextVerticalAlignment verticalAlignment;
+@property (nonatomic, assign) NSTextAlignment alignment;
+@property (nonatomic, assign) NSUInteger maxNumberOfLines;
+@property (nonatomic, assign) CGFloat maxWidth;
 
 - (CGSize)textSize;
-
+- (CGFloat)firstBaselineInBounds:(CGRect)bounds;
+- (CGFloat)lastBaselineInBounds:(CGRect)bounds;
 - (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds;
 
 @end
-

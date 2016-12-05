@@ -15,6 +15,8 @@
 #import "VZFButtonNodeSpecs.h"
 #import "VZFTextNode.h"
 #import "VZFTextNodeSpecs.h"
+#import "VZFTextNodeBackingView.h"
+#import "VZFTextNodeRenderer.h"
 #import "VZFImageNode.h"
 #import "VZFImageNodeSpecs.h"
 #import "VZFIndicatorNode.h"
@@ -316,24 +318,30 @@
 }
 
 - (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs{
+    VZFTextNodeBackingView *label = (VZFTextNodeBackingView *)self;
+    VZFTextNode* textNode = (VZFTextNode* )self.node;
+    label.textRenderer = textNode.renderer;
+    label.textRenderer.maxWidth = self.bounds.size.width;
     
-    UILabel* label = (UILabel* )self;
-    label.font = nil;
-    label.textColor = nil;
-    if (textNodeSpecs.attributedString) {
-        label.attributedText = textNodeSpecs.attributedString;
-    }
-    else {
-        label.attributedText = textNodeSpecs.getAttributedString();
-    }
-    label.lineBreakMode = textNodeSpecs.lineBreakMode;
-    label.numberOfLines = textNodeSpecs.lines;
-    
-    // 有时 UILabel 尺寸为 0 时，仍会绘制出一部分文字，这里做个处理。由于 hidden 属性被用于复用，所以这里把文本置空
-    if (self.bounds.size.width <= 0 || self.bounds.size.height <= 0) {
-        label.text = nil;
-        label.attributedText = nil;
-    }
+//    UILabel* label = (UILabel* )self;
+//    label.font = nil;
+//    label.textColor = nil;
+//    if (textNodeSpecs.attributedString) {
+//        label.attributedText = textNodeSpecs.attributedString;
+//    }
+//    else {
+//        label.attributedText = textNodeSpecs.getAttributedString();
+//    }
+//    label.lineBreakMode = textNodeSpecs.lineBreakMode;
+//    label.numberOfLines = textNodeSpecs.lines;
+//    label.adjustsFontSizeToFitWidth = textNodeSpecs.adjustsFontSize;
+//    label.minimumScaleFactor = textNodeSpecs.miniScaleFactor;
+//    
+//    // 有时 UILabel 尺寸为 0 时，仍会绘制出一部分文字，这里做个处理。由于 hidden 属性被用于复用，所以这里把文本置空
+//    if (self.bounds.size.width <= 0 || self.bounds.size.height <= 0) {
+//        label.text = nil;
+//        label.attributedText = nil;
+//    }
 }
 
 - (void)_applyImageAttributes:(const ImageNodeSpecs& )imageSpec{

@@ -14,9 +14,12 @@ namespace VZ {
 }
 using namespace VZ;
 
+@class VZFTextNodeRenderer;
+
 @interface VZFTextNode : VZFNode
 
 @property(nonatomic,assign,readonly) TextNodeSpecs textSpecs;
+@property(nonatomic,assign,readonly) VZFTextNodeRenderer *renderer;
 + (instancetype)newWithTextAttributes:(const TextNodeSpecs&) textSpecs NodeSpecs:(const NodeSpecs&) specs;
 
 @end

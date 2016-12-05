@@ -9,6 +9,7 @@
 #import "VZFTextNodeBackingLayer.h"
 #import "VZFTextNodeRenderer.h"
 #import "VZFMacros.h"
+#import "VZFUtils.h"
 
 
 @implementation VZFTextNodeBackingLayer
@@ -49,20 +50,20 @@
     
     VZFAssertMainThread();
     
-    if (!renderer) {
-        return ;
-    }
-    
-    if (_renderer != renderer) {
-        if (renderer.specs == _renderer.specs) {
-            
-            _renderer = renderer;
-            return;
-        }
-        else{
-            self.contents = nil;
-        }
-    }
+//    if (!renderer) {
+//        return ;
+//    }
+//    
+//    if (_renderer != renderer) {
+//        if (renderer.specs == _renderer.specs) {
+//            
+//            _renderer = renderer;
+//            return;
+//        }
+//        else{
+//            self.contents = nil;
+//        }
+//    }
     _renderer = renderer;
     [self setNeedsAsyncDisplay];
 
