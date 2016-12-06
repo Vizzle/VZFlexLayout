@@ -18,7 +18,9 @@
 @interface VZFTextLine : NSObject
 
 @property (nonatomic, strong) id line;
-@property (nonatomic, assign) CGRect bounds;
+@property (nonatomic, assign) CGFloat width;
+@property (nonatomic, assign) CGFloat height;
+@property (nonatomic, assign) CGFloat offsetY;
 @property (nonatomic, assign) CGFloat top;
 
 @end
@@ -31,6 +33,7 @@
     BOOL _calculated;
     CGSize _textSize;
     NSArray<VZFTextLine *> *_lines;
+    NSAttributedString *_unfixedText;
 }
 
 - (void)setLineBreakMode:(VZFTextLineBreakMode)lineBreakMode {
@@ -71,6 +74,7 @@
 }
 
 - (void)setText:(NSAttributedString *)text {
+    _unfixedText = text;
     // https://openradar.appspot.com/28522327
     // https://github.com/ibireme/YYText/issues/548#issuecomment-260231194
     BOOL isIOS10OrGreater = [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){.majorVersion = 10}];
@@ -147,7 +151,7 @@
             CTLineRef truncationLine = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)tokenString);
             
             CTLineTruncationType type = _truncatingMode == VZFTextTruncatingHead ? kCTLineTruncationStart :
-            _truncatingMode == VZFTextTruncatingMiddle ? kCTLineTruncationMiddle : kCTLineTruncationEnd;
+                                        _truncatingMode == VZFTextTruncatingMiddle ? kCTLineTruncationMiddle : kCTLineTruncationEnd;
             CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.maxWidth, type, truncationLine);
             if (truncatedLine) {
                 CFRelease(line);
@@ -167,8 +171,20 @@
         VZFTextLine *textLine = [VZFTextLine new];
         textLine.line = (__bridge_transfer id)line;
         
+        __block CGFloat maxLineHeight = 0;
+        CFRange range = CTLineGetStringRange(line);
+        [_unfixedText enumerateAttributesInRange:NSMakeRange(range.location, range.length) options:0 usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
+            UIFont *font = attrs[NSFontAttributeName] ?: [UIFont systemFontOfSize:[UIFont systemFontSize]];
+            CGFloat lineHeight = font.lineHeight;
+            if (lineHeight > maxLineHeight) {
+                maxLineHeight = lineHeight;
+            }
+        }];
+        
         CGRect lineBounds = CTLineGetBoundsWithOptions(line, 0);
-        textLine.bounds = lineBounds;
+        textLine.width = lineBounds.size.width;
+        textLine.height = maxLineHeight;
+        textLine.offsetY = lineBounds.origin.y - (maxLineHeight - lineBounds.size.height) / 2;
         CGFloat lineSpacing = 0;
         NSParagraphStyle *style = (__bridge NSParagraphStyle *)CFAttributedStringGetAttribute(attrString, start, kCTParagraphStyleAttributeName, NULL);
         if (style) {
@@ -179,7 +195,7 @@
             height += lineSpacing / 2;
         }
         textLine.top = height;
-        height += lineBounds.size.height;
+        height += maxLineHeight;
         if (!isLastLine) {
             height += lineSpacing / 2;
         }
@@ -248,7 +264,6 @@
         VZFTextLine *textLine = _lines[i];
         
         CTLineRef line = (__bridge CTLineRef)textLine.line;
-        CGRect lineBounds = textLine.bounds;
         CGFloat offsetX;
         switch (_alignment) {
             default:
@@ -256,16 +271,16 @@
                 offsetX = bounds.origin.x;
                 break;
             case NSTextAlignmentCenter:
-                offsetX = bounds.origin.x + (bounds.size.width - lineBounds.size.width) / 2;
+                offsetX = bounds.origin.x + (bounds.size.width - textLine.width) / 2;
                 break;
             case NSTextAlignmentRight:
-                offsetX = bounds.origin.x + (bounds.size.width - lineBounds.size.width);
+                offsetX = bounds.origin.x + (bounds.size.width - textLine.width);
                 break;
         }
-        CGFloat x = offsetX + lineBounds.origin.x;
-        CGFloat y = bounds.size.height - (offsetY + textLine.top + lineBounds.size.height);
-        CGContextSetTextPosition(context, VZF_ROUND_PIXEL(x), VZF_ROUND_PIXEL(y - lineBounds.origin.y));
-//        CGContextStrokeRect(context, CGRectMake(x, y, lineBounds.size.width, lineBounds.size.height));
+        CGFloat x = offsetX;
+        CGFloat y = bounds.size.height - (offsetY + textLine.top + textLine.height);
+        CGContextSetTextPosition(context, VZF_ROUND_PIXEL(x), VZF_ROUND_PIXEL(y - textLine.offsetY));
+//        CGContextStrokeRect(context, CGRectMake(x, y, textLine.width, textLine.height));
         CTLineDraw(line, context);
     }
 }
