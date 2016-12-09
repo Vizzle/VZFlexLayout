@@ -289,7 +289,7 @@
             CTRunRef run = CFArrayGetValueAtIndex(runs, i);
             NSDictionary *attributes = (__bridge NSDictionary *)CTRunGetAttributes(run);
             if ([attributes[NSStrikethroughStyleAttributeName] intValue] != 0) {
-                UIColor *strikeColor = attributes[NSStrikethroughColorAttributeName] ?: attributes[NSStrikethroughColorAttributeName];
+                UIColor *strikeColor = attributes[NSStrikethroughColorAttributeName] ?: attributes[NSForegroundColorAttributeName];
                 CGPoint point = *CTRunGetPositionsPtr(run);
                 CGFloat width = CTRunGetTypographicBounds(run, CFRangeMake(0, 0), NULL, NULL, NULL);
                 CGContextSetStrokeColorWithColor(context, strikeColor.CGColor);
