@@ -282,6 +282,27 @@
         CGContextSetTextPosition(context, VZF_ROUND_PIXEL(x), VZF_ROUND_PIXEL(y - textLine.offsetY));
 //        CGContextStrokeRect(context, CGRectMake(x, y, textLine.width, textLine.height));
         CTLineDraw(line, context);
+        
+        // draws strike through, currently only supports solid single line style.
+        CFArrayRef runs = CTLineGetGlyphRuns(line);
+        for (CFIndex i=0, count=CFArrayGetCount(runs);i<count;i++) {
+            CTRunRef run = CFArrayGetValueAtIndex(runs, i);
+            NSDictionary *attributes = (__bridge NSDictionary *)CTRunGetAttributes(run);
+            if ([attributes[NSStrikethroughStyleAttributeName] intValue] != 0) {
+                UIColor *strikeColor = attributes[NSStrikethroughColorAttributeName] ?: attributes[NSStrikethroughColorAttributeName];
+                CGPoint point = *CTRunGetPositionsPtr(run);
+                CGFloat width = CTRunGetTypographicBounds(run, CFRangeMake(0, 0), NULL, NULL, NULL);
+                CGContextSetStrokeColorWithColor(context, strikeColor.CGColor);
+                UIFont *font = attributes[NSFontAttributeName] ?: [UIFont systemFontOfSize:[UIFont systemFontSize]];
+                CGFloat strikeThickness = CTFontGetUnderlineThickness((CTFontRef)font);
+                CGFloat strikeX = x + point.x;
+                CGFloat strikeY = y + point.y - textLine.offsetY + font.xHeight / 2;
+                CGContextSetLineWidth(context, strikeThickness);
+                CGContextMoveToPoint(context, strikeX, strikeY);
+                CGContextAddLineToPoint(context, strikeX + width, strikeY);
+                CGContextStrokePath(context);
+            }
+        }
     }
 }
 
