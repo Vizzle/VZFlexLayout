@@ -29,6 +29,7 @@
         // Set some sensible defaults for a text view
         self.contentScaleFactor = VZ::Helper::screenScale();
         self.backgroundColor = [UIColor whiteColor];
+        self.isAccessibilityElement = YES;
     }
     return self;
 }
@@ -64,5 +65,9 @@
     }
 }
 
+
+- (NSString *)accessibilityLabel {
+    return self.textRenderer.text.string;
+}
 
 @end

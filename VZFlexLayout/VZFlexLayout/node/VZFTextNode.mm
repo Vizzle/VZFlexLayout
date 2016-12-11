@@ -17,7 +17,6 @@
 #import "VZFTextNodeBackingView.h"
 
 
-
 @implementation VZFTextNode
 @synthesize textSpecs = _textSpecs;
 
@@ -59,6 +58,7 @@
                 renderer.lineBreakMode = VZFTextLineBreakByWord;
                 break;
         }
+        renderer.alignment = textSpecs.alignment;
         renderer.maxNumberOfLines = textSpecs.lines;
         
         textNode -> _renderer = renderer;
@@ -71,8 +71,13 @@
             if (!strongNode) {
                 return CGSizeZero;
             }
+
+
+            // 使用引用，这样 getFont() 缓存才有效果
+            VZ::TextNodeSpecs& textSpecs = strongNode->_textSpecs;
             
-            renderer.maxWidth = constrainedSize.width;
+            // 当文字宽度超过 constrainedSize.width 时，会打省略号，此时 measure 的结果宽度可能会略小于 constrainedSize.width。这样可能会导致跟在它右边的文本有一个很小的宽度，而显示出小半个文字。为了处理这个问题，这里给 constrainedSize.width 变宽一点（这里是大约一个字的大小），再用 measure 结果跟 constrainedSize.width 取最小值。
+            renderer.maxWidth = textSpecs.lines == 1 ? constrainedSize.width + textSpecs.getFont().pointSize : constrainedSize.width;
             CGSize size = [renderer textSize];
             size.width = MIN(size.width, constrainedSize.width);
             return size;
