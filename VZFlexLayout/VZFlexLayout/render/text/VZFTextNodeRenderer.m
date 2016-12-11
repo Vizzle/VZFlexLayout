@@ -22,6 +22,7 @@
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, assign) CGFloat offsetY;
 @property (nonatomic, assign) CGFloat top;
+@property (nonatomic, assign) CGFloat ascent;
 
 @end
 @implementation VZFTextLine
@@ -77,7 +78,7 @@
     _unfixedText = text;
     // https://openradar.appspot.com/28522327
     // https://github.com/ibireme/YYText/issues/548#issuecomment-260231194
-    BOOL isIOS10OrGreater = [[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){.majorVersion = 10}];
+    BOOL isIOS10OrGreater = [[UIDevice currentDevice].systemVersion floatValue] >= 10;
     if (isIOS10OrGreater) {
         NSMutableAttributedString *mutText = text.mutableCopy;
         [mutText fixAttributesInRange:NSMakeRange(0, mutText.length)];
@@ -101,6 +102,18 @@
     return _textSize;
 }
 
+CGFloat vz_getAscentCallback(void *context) {
+    return ((__bridge UIImage *)context).size.height;
+}
+
+CGFloat vz_getDescentCallback(void *context) {
+    return 0;
+}
+
+CGFloat vz_getWidthCallback(void *context) {
+    return ((__bridge UIImage *)context).size.width;
+}
+
 - (void)_calculate {
     if (_calculated) {
         return;
@@ -112,7 +125,24 @@
         return;
     }
     
-    CFAttributedStringRef attrString = (__bridge CFAttributedStringRef)self.text;
+    NSMutableAttributedString *mutableText = self.text.mutableCopy;
+    CFMutableAttributedStringRef attrString = (__bridge CFMutableAttributedStringRef)mutableText;
+    
+    [self.text enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, self.text.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
+        NSTextAttachment *attachment = value;
+        if (!attachment.image) return;
+        
+        CTRunDelegateCallbacks callbacks;
+        callbacks.version = kCTRunDelegateVersion1;
+        callbacks.getAscent = vz_getAscentCallback;
+        callbacks.getDescent = vz_getDescentCallback;
+        callbacks.getWidth = vz_getWidthCallback;
+        callbacks.dealloc = NULL;
+        CTRunDelegateRef delegate = CTRunDelegateCreate(&callbacks, (__bridge void *)(attachment.image));
+        CFAttributedStringSetAttribute(attrString, CFRangeMake(range.location, range.length), kCTRunDelegateAttributeName, delegate);
+        CFRelease(delegate);
+    }];
+    
     CTTypesetterRef typesetter = CTTypesetterCreateWithAttributedString(attrString);
     
     CFIndex start = 0;
@@ -171,20 +201,45 @@
         VZFTextLine *textLine = [VZFTextLine new];
         textLine.line = (__bridge_transfer id)line;
         
-        __block CGFloat maxLineHeight = 0;
+        __block CGFloat maxAscent = 0;
+        __block CGFloat maxDescent = 0;
         CFRange range = CTLineGetStringRange(line);
         [_unfixedText enumerateAttributesInRange:NSMakeRange(range.location, range.length) options:0 usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
+            NSTextAttachment *attachment = attrs[NSAttachmentAttributeName];
+            if (attachment.image) {
+                CGFloat ascent = attachment.image.size.height;
+                if (ascent > maxAscent) {
+                    maxAscent = ascent;
+                }
+                return;
+            }
+            
             UIFont *font = attrs[NSFontAttributeName] ?: [UIFont systemFontOfSize:[UIFont systemFontSize]];
-            CGFloat lineHeight = font.lineHeight;
-            if (lineHeight > maxLineHeight) {
-                maxLineHeight = lineHeight;
+            CGFloat ascent = font.ascender;
+            CGFloat descent = -font.descender;
+            if (ascent > maxAscent) {
+                maxAscent = ascent;
+            }
+            if (descent > maxDescent) {
+                maxDescent = descent;
             }
         }];
         
-        CGRect lineBounds = CTLineGetBoundsWithOptions(line, 0);
-        textLine.width = lineBounds.size.width;
-        textLine.height = maxLineHeight;
-        textLine.offsetY = lineBounds.origin.y - (maxLineHeight - lineBounds.size.height) / 2;
+        CGFloat ascent, descent, leading;
+        CGFloat lineWidth = CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+        CGFloat usedLineHeight = maxAscent + maxDescent;
+        // 第一种方式得到的行高，在纯英文的时候，小了许多
+        // 第二种方式得到的行高，不包含 CTRunDelegate（图片） 的高度
+        // CGFloat realLineHeight = ascent + descent + leading;
+        // CGFloat realLineHeight = CTLineGetBoundsWithOptions(line, 0).size.height;
+        CGFloat realLineHeight = MAX(ascent + descent + leading, CTLineGetBoundsWithOptions(line, 0).size.height);
+        CGFloat drawingOffset = (usedLineHeight - realLineHeight) / 2;
+        
+        textLine.ascent = realLineHeight - descent - leading + drawingOffset;
+        textLine.width = lineWidth;
+        textLine.height = usedLineHeight;
+        textLine.offsetY = -(descent + leading) - drawingOffset;
+        
         CGFloat lineSpacing = 0;
         NSParagraphStyle *style = (__bridge NSParagraphStyle *)CFAttributedStringGetAttribute(attrString, start, kCTParagraphStyleAttributeName, NULL);
         if (style) {
@@ -195,13 +250,13 @@
             height += lineSpacing / 2;
         }
         textLine.top = height;
-        height += maxLineHeight;
+        height += usedLineHeight;
         if (!isLastLine) {
             height += lineSpacing / 2;
         }
         
-        if (width < lineBounds.size.width) {
-            width = lineBounds.size.width;
+        if (width < lineWidth) {
+            width = lineWidth;
         }
         
         [lines addObject:textLine];
@@ -234,9 +289,7 @@
     [self _calculate];
     
     VZFTextLine *textLine = [_lines objectAtIndex:index];
-    CGFloat ascent;
-    CTLineGetTypographicBounds((__bridge CTLineRef)textLine.line, &ascent, NULL, NULL);
-    return ascent + textLine.top + [self offsetYWithBounds:bounds];
+    return textLine.ascent + textLine.top + [self offsetYWithBounds:bounds];
 }
 
 - (CGFloat)firstBaselineInBounds:(CGRect)bounds {
@@ -283,14 +336,28 @@
 //        CGContextStrokeRect(context, CGRectMake(x, y, textLine.width, textLine.height));
         CTLineDraw(line, context);
         
+//        CGFloat baseline = bounds.size.height - [self baselineOfLineAtIndex:i inBounds:bounds];
+//        CGContextMoveToPoint(context, x, baseline);
+//        CGContextAddLineToPoint(context, x + textLine.width, baseline);
+//        CGContextStrokePath(context);
+        
         // draws strike through, currently only supports solid single line style.
         CFArrayRef runs = CTLineGetGlyphRuns(line);
         for (CFIndex i=0, count=CFArrayGetCount(runs);i<count;i++) {
             CTRunRef run = CFArrayGetValueAtIndex(runs, i);
             NSDictionary *attributes = (__bridge NSDictionary *)CTRunGetAttributes(run);
+            
+            CGPoint point = *CTRunGetPositionsPtr(run);
+//            CGFloat width = CTRunGetTypographicBounds(run, CFRangeMake(0, 0), NULL, NULL, NULL);
+//            CGContextStrokeRect(context, CGRectMake(x+point.x, y+point.y, width, textLine.height));
+            
+            UIImage *image = ((NSTextAttachment *)attributes[NSAttachmentAttributeName]).image;
+            if (image) {
+                CGContextDrawImage(context, CGRectMake(x + point.x, y + point.y - textLine.offsetY, image.size.width, image.size.height), image.CGImage);
+            }
+            
             if ([attributes[NSStrikethroughStyleAttributeName] intValue] != 0) {
                 UIColor *strikeColor = attributes[NSStrikethroughColorAttributeName] ?: attributes[NSForegroundColorAttributeName];
-                CGPoint point = *CTRunGetPositionsPtr(run);
                 CGFloat width = CTRunGetTypographicBounds(run, CFRangeMake(0, 0), NULL, NULL, NULL);
                 CGContextSetStrokeColorWithColor(context, strikeColor.CGColor);
                 UIFont *font = attributes[NSFontAttributeName] ?: [UIFont systemFontOfSize:[UIFont systemFontSize]];
