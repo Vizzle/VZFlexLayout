@@ -36,7 +36,7 @@ using namespace VZ;
                              NodeSpecs:(const NodeSpecs& )specs
                               Children:(const std::vector<VZFStackChildNode> &)children{
 
-    VZFStackNode* stacknode =  [super newWithView:{} NodeSpecs:specs];
+    VZFStackNode* stacknode =  [super newWithView:[VZFStackView class] NodeSpecs:specs];
     if (stacknode)
     {
         stacknode -> _stackSpecs    = stackSpecs;

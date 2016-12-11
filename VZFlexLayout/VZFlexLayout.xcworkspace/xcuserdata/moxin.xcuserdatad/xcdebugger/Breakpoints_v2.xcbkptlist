@@ -147,45 +147,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/core/VZFNodeLayoutManager.mm"
-            timestampString = "500219022.314862"
+            filePath = "VZFlexLayout/Example/viewcontroller/FBHostCellItem.mm"
+            timestampString = "502883125.265843"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet&lt;VZFNode* &gt;* previousNodes, VZFNode* superNode)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/core/VZFNodeLayoutManager.mm"
-            timestampString = "500219117.292175"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet&lt;VZFNode* &gt;* previousNodes, VZFNode* superNode)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/node/VZFNode.mm"
-            timestampString = "500368098.341889"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "-mountInContext:Size:ParentNode:"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "+nodeForItem:Store:Context:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

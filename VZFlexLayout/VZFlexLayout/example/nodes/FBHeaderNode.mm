@@ -34,25 +34,25 @@
             .marginLeft = 10,
             .flexGrow = 1,
         } Children:{
-            {
-                .node = [VZFTextNode newWithTextAttributes:{
-                    .text = item.nick,
-                    .color = [UIColor blackColor],
-                    .fontSize = 14.0f,
-                    .alignment = NSTextAlignmentLeft
-                } NodeSpecs:{}]
-            },
-            {
-                [VZFTextNode newWithTextAttributes:{
-                    
-                    .text = item.time,
-                    .color = [UIColor lightGrayColor],
-                    .fontSize = 12.0f,
-                    .alignment = NSTextAlignmentLeft
-                    
-                }NodeSpecs:{}]
-            }
-//            {[FBNameNode newWithName:item.nick createTime:item.time]},//姓名+时间
+//            {
+//                .node = [VZFTextNode newWithTextAttributes:{
+//                    .text = item.nick,
+//                    .color = [UIColor blackColor],
+//                    .fontSize = 14.0f,
+//                    .alignment = NSTextAlignmentLeft
+//                } NodeSpecs:{}]
+//            },
+//            {
+//                [VZFTextNode newWithTextAttributes:{
+//                    
+//                    .text = item.time,
+//                    .color = [UIColor lightGrayColor],
+//                    .fontSize = 12.0f,
+//                    .alignment = NSTextAlignmentLeft
+//                    
+//                }NodeSpecs:{}]
+//            }
+            {[FBNameNode newWithName:item.nick createTime:item.time]},//姓名+时间
 //            {[FBStarNode newWithScore:[item.score floatValue]]}, //星星
         }]}
     }]];

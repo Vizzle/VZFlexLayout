@@ -142,13 +142,6 @@
     return cell;
 }
 
-- (void)itemState:(id)scopeId ChangedAtIndex:(NSIndexPath* )indexPath SizeChanged:(BOOL)b{
-    
-    if (b) {
-        [self.tableView reloadData];
-    }
-
-}
 
 - (void)reloadData{
 
