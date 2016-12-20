@@ -91,11 +91,12 @@
 - (void)drawInContext:(CGContextRef)ctx{
 
     // When we're drawing synchronously we need to manually fill the bg color because superlayer doesn't.
-    if (self.opaque && self.backgroundColor != NULL) {
-        CGRect boundsRect = CGContextGetClipBoundingBox(ctx);
-        CGContextSetFillColorWithColor(ctx, self.backgroundColor);
-        CGContextFillRect(ctx, boundsRect);
-    }
+    //在iOS10 UILabel上会显示黑色 所以用super的方法画
+//    if (self.opaque && self.backgroundColor != NULL) {
+//        CGRect boundsRect = CGContextGetClipBoundingBox(ctx);
+//        CGContextSetFillColorWithColor(ctx, self.backgroundColor);
+//        CGContextFillRect(ctx, boundsRect);
+//    }
     [super drawInContext:ctx];
 }
 

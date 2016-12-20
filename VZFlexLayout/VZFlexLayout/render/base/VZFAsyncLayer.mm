@@ -148,7 +148,8 @@
 
 //同步绘制
 - (void)drawInContext:(CGContextRef)ctx{
-   
+    [super drawInContext:ctx];
+    
     VZFAssertMainThread();
     [self  drawInContext:ctx parameters:[self drawParameters]];
 
