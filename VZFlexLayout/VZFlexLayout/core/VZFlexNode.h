@@ -24,9 +24,11 @@ typedef NS_OPTIONS(NSUInteger, VZFlexNodeDescriptionOption) {
 
 @property (nonatomic,assign,readonly) CGRect resultFrame;
 @property (nonatomic,assign,readonly) UIEdgeInsets resultMargin;
+@property (nonatomic,assign,readonly) UIEdgeInsets resultPadding;
 @property (nonatomic,strong,readonly) NSArray* childNodes;
 
-@property (nonatomic,copy) CGSize (^measure)(CGSize constraintedSize);
+@property (nonatomic,copy) CGSize (^measure)(CGSize constrainedSize);
+@property (nonatomic,copy) CGFloat (^baseline)(CGSize constrainedSize);
 @property (nonatomic,strong)NSString* name;
 @property (nonatomic,assign) FlexDirection direction;
 @property (nonatomic,assign) FlexAlign alignItems;

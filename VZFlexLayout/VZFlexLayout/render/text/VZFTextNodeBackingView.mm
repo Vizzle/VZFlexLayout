@@ -43,6 +43,14 @@
     return [self textLayer].renderer;
 }
 
+- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets {
+    [self textLayer].edgeInsets = edgeInsets;
+}
+
+- (UIEdgeInsets)edgeInsets {
+    return [self textLayer].edgeInsets;
+}
+
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
     if (![self.backgroundColor isEqual:backgroundColor]) {

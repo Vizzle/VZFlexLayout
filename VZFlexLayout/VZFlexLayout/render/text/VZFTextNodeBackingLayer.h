@@ -8,9 +8,12 @@
 
 #import "VZFAsyncLayer.h"
 
+#import <UIKit/UIKit.h>
+
 @class VZFTextNodeRenderer;
 @interface VZFTextNodeBackingLayer : VZFAsyncLayer
 
 @property(nonatomic,strong)VZFTextNodeRenderer* renderer;
+@property(nonatomic,assign) UIEdgeInsets edgeInsets;
 
 @end

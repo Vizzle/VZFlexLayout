@@ -30,36 +30,21 @@
     
     if (textNode) {
         textNode -> _textSpecs = textSpecs.copy();
-        __block VZFTextNodeRenderer *renderer = [VZFTextNodeRenderer new];
-        if (textSpecs.attributedString) {
-            renderer.text = textSpecs.attributedString;
-        }
-        else {
+        VZFTextNodeRenderer *renderer = [VZFTextNodeRenderer new];
+//        if (textSpecs.attributedString) {
+//            renderer.text = textSpecs.attributedString;
+//        }
+//        else {
             renderer.text = textSpecs.getAttributedString();
-        }
-        
-        switch (textSpecs.lineBreakMode) {
-            case NSLineBreakByTruncatingHead:
-                renderer.truncatingMode = VZFTextTruncatingHead;
-                break;
-            case NSLineBreakByTruncatingMiddle:
-                renderer.truncatingMode = VZFTextTruncatingMiddle;
-                break;
-            case NSLineBreakByTruncatingTail:
-                renderer.truncatingMode = VZFTextTruncatingTail;
-                break;
-            case NSLineBreakByClipping:
-                renderer.truncatingMode = VZFTextTruncatingClip;
-                break;
-            case NSLineBreakByCharWrapping:
-                renderer.lineBreakMode = VZFTextLineBreakByChar;
-                break;
-            case NSLineBreakByWordWrapping:
-                renderer.lineBreakMode = VZFTextLineBreakByWord;
-                break;
-        }
+//        }
         renderer.alignment = textSpecs.alignment;
+        renderer.verticalAlignment = textSpecs.verticalAlignment;
+        renderer.lineBreakMode = textSpecs.lineBreakMode;
+        renderer.truncatingMode = textSpecs.truncationMode;
         renderer.maxNumberOfLines = textSpecs.lines;
+        renderer.adjustsFontSizeToFitWidth = textSpecs.adjustsFontSize;
+        renderer.minimumScaleFactor = textSpecs.miniScaleFactor;
+        renderer.baselineAdjustment = textSpecs.baselineAdjustment;
         
         textNode -> _renderer = renderer;
         
@@ -71,8 +56,7 @@
             if (!strongNode) {
                 return CGSizeZero;
             }
-
-
+            
             // 使用引用，这样 getFont() 缓存才有效果
             VZ::TextNodeSpecs& textSpecs = strongNode->_textSpecs;
             
@@ -81,6 +65,10 @@
             CGSize size = [renderer textSize];
             size.width = MIN(size.width, constrainedSize.width);
             return size;
+        };
+        
+        textNode.flexNode.baseline = ^(CGSize constrainedSize) {
+            return constrainedSize.height - [renderer firstBaselineInBounds:CGRectMake(0, 0, constrainedSize.width, constrainedSize.height)];
         };
     }
     return textNode;

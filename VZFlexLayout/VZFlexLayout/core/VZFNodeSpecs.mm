@@ -40,6 +40,8 @@ namespace VZ {
         FlexLength flexBasis = FlexLengthUndefined;
         bool fixed = 0;
         bool wrap = 0;
+        float alpha = 1;
+        
         VZFlexLayoutAlignment alignSelf = VZFlexInherit;
         int isAccessibilityElement = VZF_BOOL_UNDEFINED;
     }

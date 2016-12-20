@@ -14,5 +14,6 @@
 @interface VZFTextNodeBackingView : UIView<VZFNodeBackingViewInterface>
 
 @property(nonatomic,strong) VZFTextNodeRenderer* textRenderer;
+@property(nonatomic,assign) UIEdgeInsets edgeInsets;
 
 @end

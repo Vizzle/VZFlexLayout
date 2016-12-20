@@ -108,7 +108,7 @@
 		45FB68401D2E22500097038E /* VZFIndicatorNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45FB683D1D2E22500097038E /* VZFIndicatorNodeSpecs.mm */; };
 		45FB68411D2E22500097038E /* VZFIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FB683F1D2E22500097038E /* VZFIndicatorView.m */; };
 		74D57AEAF919AB89D9844A8E /* libPods-VZFlexLayout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9866E37FDE793C917B86E54 /* libPods-VZFlexLayout.a */; };
-		B1C32A461DF53CE800CF30A0 /* VZFTextNodeRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = B1C32A451DF53CE800CF30A0 /* VZFTextNodeRenderer.m */; };
+		B12993991E08FB97001FE75D /* VZFTextNodeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = B12993981E08FB97001FE75D /* VZFTextNodeRenderer.mm */; };
 		B1CB0BBA1C83E23900A9CAE7 /* VZFLineNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0BB91C83E23900A9CAE7 /* VZFLineNode.mm */; };
 		B1CB0BC11C840B2700A9CAE7 /* VZFActionWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1CB0BC01C840B2700A9CAE7 /* VZFActionWrapper.mm */; };
 /* End PBXBuildFile section */
@@ -319,7 +319,7 @@
 		45FB683F1D2E22500097038E /* VZFIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFIndicatorView.m; sourceTree = "<group>"; };
 		74855FEA5EBE78D66E20B2AC /* Pods-VZFlexLayout.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout/Pods-VZFlexLayout.debug.xcconfig"; sourceTree = "<group>"; };
 		A9866E37FDE793C917B86E54 /* libPods-VZFlexLayout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VZFlexLayout.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1C32A451DF53CE800CF30A0 /* VZFTextNodeRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFTextNodeRenderer.m; sourceTree = "<group>"; };
+		B12993981E08FB97001FE75D /* VZFTextNodeRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextNodeRenderer.mm; sourceTree = "<group>"; };
 		B1CB0BB81C83E23900A9CAE7 /* VZFLineNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLineNode.h; sourceTree = "<group>"; };
 		B1CB0BB91C83E23900A9CAE7 /* VZFLineNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLineNode.mm; sourceTree = "<group>"; };
 		B1CB0BBF1C840B2700A9CAE7 /* VZFActionWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFActionWrapper.h; sourceTree = "<group>"; };
@@ -708,7 +708,7 @@
 			isa = PBXGroup;
 			children = (
 				45F163EB1D950E310049E825 /* VZFTextNodeRenderer.h */,
-				B1C32A451DF53CE800CF30A0 /* VZFTextNodeRenderer.m */,
+				B12993981E08FB97001FE75D /* VZFTextNodeRenderer.mm */,
 				45F163E71D950E310049E825 /* VZFTextNodeBackingLayer.h */,
 				45F163E81D950E310049E825 /* VZFTextNodeBackingLayer.mm */,
 				45F163E91D950E310049E825 /* VZFTextNodeBackingView.h */,
@@ -874,7 +874,6 @@
 				45102EDB1D58790E0093CDBD /* VZFPagingView.mm in Sources */,
 				45B15A871CBE0F8E00F408DA /* VZFLength.mm in Sources */,
 				4578E0FE1C7734E300E52B79 /* (null) in Sources */,
-				B1C32A461DF53CE800CF30A0 /* VZFTextNodeRenderer.m in Sources */,
 				454098701CD5D1D700D99B7F /* UIView+VZAttributes.mm in Sources */,
 				4539ABD01CD1B1E40011E91C /* FBTextNode.mm in Sources */,
 				454098751CD5D20900D99B7F /* VZFNodeListItemRecycler.mm in Sources */,
@@ -939,6 +938,7 @@
 				454477851CC50CF8000B54E7 /* FBTableViewController.mm in Sources */,
 				457D91C41CDB15D000013377 /* VZFScrollNode.mm in Sources */,
 				4597A36F1CFEA48C00888B5F /* VZFlexNode+VZFNode.mm in Sources */,
+				B12993991E08FB97001FE75D /* VZFTextNodeRenderer.mm in Sources */,
 				4578E0D01C72F1CC00E52B79 /* VZFSizeRange.mm in Sources */,
 				45A7D6E81CB4DB7900B072D5 /* FBClickNode.mm in Sources */,
 				456BDF801CEB0215008A5348 /* FBScrollChildNode.mm in Sources */,

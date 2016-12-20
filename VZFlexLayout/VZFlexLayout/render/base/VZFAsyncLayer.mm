@@ -66,11 +66,15 @@
     _needsAsyncDisplayOnly = NO;
 }
 
+-(BOOL)asyncDisplay{
+    return NO;
+}
+
 - (void)display{
 
     VZFAssertMainThread();
     
-    BOOL renderSynchronously = YES;
+    BOOL renderSynchronously = ![self asyncDisplay];
     CALayer* parentTransactionContainer = nil;
     
     if (!_needsAsyncDisplayOnly) {

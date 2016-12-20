@@ -34,7 +34,8 @@ typedef enum {
     FlexCenter,
     FlexEnd,
     FlexSpaceBetween,
-    FlexSpaceAround
+    FlexSpaceAround,
+    FlexBaseline,
 } FlexAlign;
 
 typedef struct {
@@ -119,20 +120,22 @@ typedef struct FlexNode {
     float flexBaseSize;
     float resolvedMargin[4];
     float resolvedPadding[4];
+    float ascender;
     
     // cache measure results
     void* measuredSizeCache;
     
     void* context;
     size_t childrenCount;
-    FlexSize (*measure)(void* context, FlexSize constraintedSize);
+    FlexSize (*measure)(void* context, FlexSize constrainedSize);
+    float (*baseline)(void* context, FlexSize constrainedSize);
     struct FlexNode* (*childAt)(void* context, size_t index);
 } FlexNode;
 
 FlexNode* newFlexNode();
 void initFlexNode(FlexNode* node);
 void freeFlexNode(FlexNode* node);
-void layoutFlexNode(FlexNode* node, float constraintedWidth, float constraintedHeight, float scale);
+void layoutFlexNode(FlexNode* node, float constrainedWidth, float constrainedHeight, float scale);
 
 #ifdef __cplusplus
 }
