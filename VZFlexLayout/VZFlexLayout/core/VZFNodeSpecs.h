@@ -75,6 +75,7 @@ namespace VZ {
         extern bool fixed;
         extern bool wrap;
         extern VZFlexLayoutAlignment alignSelf;
+        extern float alpha;
         
         extern int isAccessibilityElement;
 
@@ -87,9 +88,10 @@ namespace VZ {
         std::string identifier;
         
         //view attributes
-        BOOL hidden;
+//        BOOL hidden;
         NSInteger tag;
         BOOL clip;
+        Value<float, DefaultAttributesValue::alpha> alpha;
         Value<int, DefaultAttributesValue::userInteractionEnabled> userInteractionEnabled;
         Value<UIColor*, DefaultAttributesValue::backgroundColor>backgroundColor;
         Value<UIColor*, DefaultAttributesValue::highlightBackgroundColor>highlightBackgroundColor; //only implemented in stacknode

@@ -23,6 +23,7 @@
 @property (nonatomic, assign) CGFloat offsetY;
 @property (nonatomic, assign) CGFloat top;
 @property (nonatomic, assign) CGFloat ascent;
+@property (nonatomic, assign) CGFloat scale;
 
 @end
 @implementation VZFTextLine
@@ -65,6 +66,27 @@
         _calculated = NO;
     }
     _maxNumberOfLines = maxNumberOfLines;
+}
+
+- (void)setAdjustsFontSizeToFitWidth:(BOOL)adjustsFontSizeToFitWidth {
+    if (_adjustsFontSizeToFitWidth != adjustsFontSizeToFitWidth) {
+        _calculated = NO;
+    }
+    _adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth;
+}
+
+- (void)setMinimumScaleFactor:(CGFloat)minimumScaleFactor {
+    if (_minimumScaleFactor != minimumScaleFactor) {
+        _calculated = NO;
+    }
+    _minimumScaleFactor = minimumScaleFactor;
+}
+
+- (void)setBaselineAdjustment:(UIBaselineAdjustment)baselineAdjustment {
+    if (_baselineAdjustment != baselineAdjustment) {
+        _calculated = NO;
+    }
+    _baselineAdjustment = baselineAdjustment;
 }
 
 - (void)setMaxWidth:(CGFloat)maxWidth {
@@ -114,6 +136,25 @@ CGFloat vz_getWidthCallback(void *context) {
     return ((__bridge UIImage *)context).size.width;
 }
 
+- (CTLineRef)truncateLine:(CTLineRef)line text:(NSAttributedString *)text typesetter:(CTTypesetterRef)typesetter start:(CFIndex)start {
+    // 省略号使用行末的字符的属性，当省略号在头部或中间时，得到的效果不一定正确
+    
+    CFIndex truncationTokenAttributesIndex = start + CTTypesetterSuggestClusterBreak(typesetter, start, self.maxWidth) - 1;
+    NSDictionary *truncationTokenAttributes = [text attributesAtIndex:truncationTokenAttributesIndex effectiveRange:nil];
+    NSAttributedString *tokenString = [[NSAttributedString alloc] initWithString:@"…" attributes:truncationTokenAttributes];
+    CTLineRef truncationLine = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)tokenString);
+    
+    CTLineTruncationType type = _truncatingMode == VZFTextTruncatingHead ? kCTLineTruncationStart :
+    _truncatingMode == VZFTextTruncatingMiddle ? kCTLineTruncationMiddle : kCTLineTruncationEnd;
+    CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.maxWidth, type, truncationLine);
+    if (truncatedLine) {
+        CFRelease(line);
+        line = truncatedLine;
+    }
+    CFRelease(truncationLine);
+    return line;
+}
+
 - (void)_calculate {
     if (_calculated) {
         return;
@@ -124,6 +165,12 @@ CGFloat vz_getWidthCallback(void *context) {
         _textSize = CGSizeZero;
         return;
     }
+    
+    BOOL adjustsFontSizeToFitWidth = _adjustsFontSizeToFitWidth && _maxNumberOfLines == 1 && _minimumScaleFactor < 1;
+    
+//    CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
+//    [self.text boundingRectWithSize:CGSizeMake(_maxWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+//    CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
     
     NSMutableAttributedString *mutableText = self.text.mutableCopy;
     CFMutableAttributedStringRef attrString = (__bridge CFMutableAttributedStringRef)mutableText;
@@ -154,7 +201,7 @@ CGFloat vz_getWidthCallback(void *context) {
     NSMutableArray *lines = [NSMutableArray array];
     while (start < textLength && maxRemainLines-- > 0) {
         CFIndex count;
-        if (maxRemainLines == 0 && _truncatingMode != VZFTextTruncatingNone) {
+        if (maxRemainLines == 0 && (_truncatingMode != VZFTextTruncatingNone || adjustsFontSizeToFitWidth)) {
             count = 0;
         }
         else {
@@ -168,26 +215,13 @@ CGFloat vz_getWidthCallback(void *context) {
         
         BOOL isFirstLine = start == 0;
         BOOL isLastLine = maxRemainLines == 0 || start + count >= textLength;
-        BOOL needsToTruncate = _truncatingMode != VZFTextTruncatingClip && maxRemainLines == 0 && start + count < textLength;
+        BOOL needsToTruncate = _truncatingMode != VZFTextTruncatingClip && maxRemainLines == 0 && start + count < textLength && !adjustsFontSizeToFitWidth;
         BOOL needsToJustify = _alignment == NSTextAlignmentJustified && start + count < textLength;
         
         CTLineRef line = CTTypesetterCreateLine(typesetter, CFRangeMake(start, count));
         
         if (needsToTruncate) {
-            // 省略号使用行末的字符的属性，当省略号在头部或中间时，得到的效果不一定正确
-            CFIndex truncationTokenAttributesIndex = start + CTTypesetterSuggestClusterBreak(typesetter, start, self.maxWidth) - 1;
-            NSDictionary *truncationTokenAttributes = [self.text attributesAtIndex:truncationTokenAttributesIndex effectiveRange:nil];
-            NSAttributedString *tokenString = [[NSAttributedString alloc] initWithString:@"…" attributes:truncationTokenAttributes];
-            CTLineRef truncationLine = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)tokenString);
-            
-            CTLineTruncationType type = _truncatingMode == VZFTextTruncatingHead ? kCTLineTruncationStart :
-                                        _truncatingMode == VZFTextTruncatingMiddle ? kCTLineTruncationMiddle : kCTLineTruncationEnd;
-            CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.maxWidth, type, truncationLine);
-            if (truncatedLine) {
-                CFRelease(line);
-                line = truncatedLine;
-            }
-            CFRelease(truncationLine);
+            line = [self truncateLine:line text:self.text typesetter:typesetter start:start];
         }
         
         if (needsToJustify) {
@@ -199,7 +233,6 @@ CGFloat vz_getWidthCallback(void *context) {
         }
         
         VZFTextLine *textLine = [VZFTextLine new];
-        textLine.line = (__bridge_transfer id)line;
         
         __block CGFloat maxAscent = 0;
         __block CGFloat maxDescent = 0;
@@ -227,6 +260,7 @@ CGFloat vz_getWidthCallback(void *context) {
         
         CGFloat ascent, descent, leading;
         CGFloat lineWidth = CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+        
         CGFloat usedLineHeight = maxAscent + maxDescent;
         // 第一种方式得到的行高，在纯英文的时候，小了许多
         // 第二种方式得到的行高，不包含 CTRunDelegate（图片） 的高度
@@ -236,9 +270,44 @@ CGFloat vz_getWidthCallback(void *context) {
         CGFloat drawingOffset = (usedLineHeight - realLineHeight) / 2;
         
         textLine.ascent = realLineHeight - descent - leading + drawingOffset;
-        textLine.width = lineWidth;
         textLine.height = usedLineHeight;
         textLine.offsetY = -(descent + leading) - drawingOffset;
+        
+        if (adjustsFontSizeToFitWidth && lineWidth > _maxWidth) {
+            CGFloat scale = _maxWidth / lineWidth;
+            if (scale >= _minimumScaleFactor) {
+                textLine.scale = scale;
+            }
+            else {
+                NSMutableAttributedString *adjustedText = [mutableText attributedSubstringFromRange:NSMakeRange(range.location, range.length)].mutableCopy;
+                [mutableText enumerateAttributesInRange:NSMakeRange(range.location, range.length) options:0 usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
+                    UIFont *font = attrs[NSFontAttributeName] ?: [UIFont systemFontOfSize:[UIFont systemFontSize]];
+                    font = [font fontWithSize:font.pointSize * self.minimumScaleFactor];
+                    [adjustedText addAttribute:NSFontAttributeName value:font range:NSMakeRange(range.location - start, range.length)];
+                }];
+                CTTypesetterRef typesetter = CTTypesetterCreateWithAttributedString((__bridge CFAttributedStringRef)adjustedText);
+                CFRelease(line);
+                line = CTTypesetterCreateLine(typesetter, CFRangeMake(0, range.length));
+                line = [self truncateLine:line text:adjustedText typesetter:typesetter start:start];
+                CFRelease(typesetter);
+                CGFloat newAscent, newDescent, newLeading;
+                lineWidth = CTLineGetTypographicBounds(line, &newAscent, &newDescent, &newLeading);
+                CGFloat newRealLineHeight = MAX(newAscent + newDescent + newLeading, CTLineGetBoundsWithOptions(line, 0).size.height);
+                switch (_baselineAdjustment) {
+                    case UIBaselineAdjustmentNone:
+                        textLine.offsetY -= ascent - newAscent;
+                        break;
+                    default:
+                    case UIBaselineAdjustmentAlignBaselines:
+                        break;
+                    case UIBaselineAdjustmentAlignCenters:
+                        textLine.offsetY -= ascent - newAscent - (realLineHeight - newRealLineHeight) / 2;
+                        break;
+                }
+            }
+        }
+        textLine.line = (__bridge_transfer id)line;
+        textLine.width = lineWidth;
         
         CGFloat lineSpacing = 0;
         NSParagraphStyle *style = (__bridge NSParagraphStyle *)CFAttributedStringGetAttribute(attrString, start, kCTParagraphStyleAttributeName, NULL);
@@ -264,9 +333,13 @@ CGFloat vz_getWidthCallback(void *context) {
     }
     _lines = lines;
     
+    width = MIN(width, _maxWidth);
     _textSize = CGSizeMake(VZF_CEIL_PIXEL(width), VZF_CEIL_PIXEL(height));
     _calculated = YES;
     CFRelease(typesetter);
+    
+//    CFAbsoluteTime t3 = CFAbsoluteTimeGetCurrent();
+//    NSLog(@"%.3f/%.3f ms", (t2 - t1) * 1000, (t3 - t2) * 1000);
 }
 
 - (CGFloat)offsetYWithBounds:(CGRect)bounds {
@@ -307,6 +380,8 @@ CGFloat vz_getWidthCallback(void *context) {
     
     [self _calculate];
     
+    CGContextSetTextMatrix(context, CGAffineTransformIdentity);
+    
     CGContextTranslateCTM(context, 0, bounds.size.height);
     CGContextScaleCTM(context, 1.0, -1.0);
     
@@ -315,6 +390,7 @@ CGFloat vz_getWidthCallback(void *context) {
     NSUInteger linesCount = _lines.count;
     for (int i=0;i<linesCount;i++) {
         VZFTextLine *textLine = _lines[i];
+        CGFloat scale = textLine.scale ?: 1;
         
         CTLineRef line = (__bridge CTLineRef)textLine.line;
         CGFloat offsetX;
@@ -324,27 +400,42 @@ CGFloat vz_getWidthCallback(void *context) {
                 offsetX = bounds.origin.x;
                 break;
             case NSTextAlignmentCenter:
-                offsetX = bounds.origin.x + (bounds.size.width - textLine.width) / 2;
+                offsetX = bounds.origin.x + (bounds.size.width - textLine.width * scale) / 2;
                 break;
             case NSTextAlignmentRight:
-                offsetX = bounds.origin.x + (bounds.size.width - textLine.width);
+                offsetX = bounds.origin.x + (bounds.size.width - textLine.width * scale);
                 break;
         }
         CGFloat x = offsetX;
         CGFloat y = bounds.size.height - (offsetY + textLine.top + textLine.height);
+        if (textLine.scale) {
+            CGFloat scaleCenterY = y;
+            switch (_baselineAdjustment) {
+                case UIBaselineAdjustmentNone:
+                    scaleCenterY += textLine.height;
+                    break;
+                default:
+                case UIBaselineAdjustmentAlignBaselines:
+                    scaleCenterY -= textLine.offsetY;
+                    break;
+                case UIBaselineAdjustmentAlignCenters:
+                    scaleCenterY += textLine.height / 2;
+                    break;
+            }
+            
+            CGContextSaveGState(context);
+            CGContextTranslateCTM(context, x, scaleCenterY);
+            CGContextScaleCTM(context, textLine.scale, textLine.scale);
+            CGContextTranslateCTM(context, -x, -scaleCenterY);
+        }
         CGContextSetTextPosition(context, VZF_ROUND_PIXEL(x), VZF_ROUND_PIXEL(y - textLine.offsetY));
 //        CGContextStrokeRect(context, CGRectMake(x, y, textLine.width, textLine.height));
         CTLineDraw(line, context);
         
-//        CGFloat baseline = bounds.size.height - [self baselineOfLineAtIndex:i inBounds:bounds];
-//        CGContextMoveToPoint(context, x, baseline);
-//        CGContextAddLineToPoint(context, x + textLine.width, baseline);
-//        CGContextStrokePath(context);
-        
         // draws strike through, currently only supports solid single line style.
         CFArrayRef runs = CTLineGetGlyphRuns(line);
         for (CFIndex i=0, count=CFArrayGetCount(runs);i<count;i++) {
-            CTRunRef run = CFArrayGetValueAtIndex(runs, i);
+            CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runs, i);
             NSDictionary *attributes = (__bridge NSDictionary *)CTRunGetAttributes(run);
             
             CGPoint point = *CTRunGetPositionsPtr(run);
@@ -363,13 +454,22 @@ CGFloat vz_getWidthCallback(void *context) {
                 UIFont *font = attributes[NSFontAttributeName] ?: [UIFont systemFontOfSize:[UIFont systemFontSize]];
                 CGFloat strikeThickness = CTFontGetUnderlineThickness((CTFontRef)font);
                 CGFloat strikeX = x + point.x;
-                CGFloat strikeY = y + point.y - textLine.offsetY + font.xHeight / 2;
+                CGFloat strikeY = y + point.y - textLine.offsetY + font.xHeight / 2; // TODO: snap to pixels
                 CGContextSetLineWidth(context, strikeThickness);
                 CGContextMoveToPoint(context, strikeX, strikeY);
-                CGContextAddLineToPoint(context, strikeX + width, strikeY);
+                CGContextAddLineToPoint(context, MIN(strikeX + width, bounds.origin.x + bounds.size.width / scale), strikeY);
                 CGContextStrokePath(context);
             }
         }
+        
+        if (textLine.scale) {
+            CGContextRestoreGState(context);
+        }
+        
+//        CGFloat baseline = bounds.size.height - [self baselineOfLineAtIndex:i inBounds:bounds];
+//        CGContextMoveToPoint(context, x, baseline);
+//        CGContextAddLineToPoint(context, x + textLine.width, baseline);
+//        CGContextStrokePath(context);
     }
 }
 

@@ -7,25 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum : NSUInteger {
-    VZFTextLineBreakByWord,
-    VZFTextLineBreakByChar,
-} VZFTextLineBreakMode;
-
-typedef enum : NSUInteger {
-    VZFTextTruncatingTail,
-    VZFTextTruncatingMiddle,
-    VZFTextTruncatingHead,
-    VZFTextTruncatingClip,
-    VZFTextTruncatingNone,
-} VZFTextTruncationMode;
-
-typedef enum : NSUInteger {
-    VZFTextVerticalAlignmentCenter,
-    VZFTextVerticalAlignmentTop,
-    VZFTextVerticalAlignmentBottom,
-} VZFTextVerticalAlignment;
+#import "VZFTextNodeSpecs.h"
 
 @interface VZFTextNodeRenderer : NSObject
 
@@ -36,6 +18,9 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) NSTextAlignment alignment;
 @property (nonatomic, assign) NSUInteger maxNumberOfLines;
 @property (nonatomic, assign) CGFloat maxWidth;
+@property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
+@property (nonatomic, assign) CGFloat minimumScaleFactor;
+@property (nonatomic, assign) UIBaselineAdjustment baselineAdjustment;
 
 - (CGSize)textSize;
 - (CGFloat)firstBaselineInBounds:(CGRect)bounds;

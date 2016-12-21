@@ -24,13 +24,31 @@ typedef NS_ENUM(NSUInteger, VZFFontStyle) {
     VZFFontStyleBoldItalic
 };
 
+typedef NS_ENUM(NSUInteger, VZFTextLineBreakMode) {
+    VZFTextLineBreakByWord,
+    VZFTextLineBreakByChar,
+};
+
+typedef NS_ENUM(NSUInteger, VZFTextTruncationMode) {
+    VZFTextTruncatingTail,
+    VZFTextTruncatingMiddle,
+    VZFTextTruncatingHead,
+    VZFTextTruncatingClip,
+    VZFTextTruncatingNone,
+};
+
+typedef NS_ENUM(NSUInteger, VZFTextVerticalAlignment) {
+    VZFTextVerticalAlignmentCenter,
+    VZFTextVerticalAlignmentTop,
+    VZFTextVerticalAlignmentBottom,
+};
+
 namespace VZ {
     
     UIFont *createFont(NSString *fontName, CGFloat fontSize, VZFFontStyle fontStyle);
 
     namespace DefaultFlexAttributesValue{
         extern unsigned int lines;
-        extern NSLineBreakMode lineBreakMode;
     }
     
     struct TextNodeSpecs{
@@ -38,11 +56,16 @@ namespace VZ {
         NSString *text;
         UIColor *color;
         float fontSize;
+        float miniScaleFactor;
+        BOOL adjustsFontSize;
+        UIBaselineAdjustment baselineAdjustment;
         NSString *fontName;
         VZFFontStyle fontStyle;
         NSTextAlignment alignment;
+        VZFTextVerticalAlignment verticalAlignment;
+        VZFTextLineBreakMode lineBreakMode;
+        VZFTextTruncationMode truncationMode;
         NSAttributedString *attributedString;
-        Value<NSLineBreakMode, DefaultFlexAttributesValue::lineBreakMode> lineBreakMode;
         Value<unsigned int, DefaultFlexAttributesValue::lines> lines;
         float kern;
         float lineSpacing;
@@ -56,11 +79,16 @@ namespace VZ {
                 [text copy],
                 color,
                 fontSize,
+                miniScaleFactor,
+                adjustsFontSize,
+                baselineAdjustment,
                 [fontName copy],
                 fontStyle,
                 alignment,
-                [attributedString copy],
+                verticalAlignment,
                 lineBreakMode,
+                truncationMode,
+                [attributedString copy],
                 lines,
                 kern,
                 lineSpacing,
@@ -97,8 +125,6 @@ namespace VZ {
         
         NSDictionary* getAttributes() const {
             NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-            style.alignment = alignment;
-            if (lines == 1) style.lineBreakMode = lineBreakMode;
             if (lineSpacing != 0) {
                 style.lineSpacing = lineSpacing;
             }
@@ -126,8 +152,7 @@ namespace VZ {
                     }
                     if (![attrs objectForKey:NSParagraphStyleAttributeName]) {
                         NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-                        style.alignment = alignment;
-                        if (lines == 1) style.lineBreakMode = lineBreakMode;
+                        style.lineSpacing = lineSpacing;
                         dict[NSParagraphStyleAttributeName] = style;
                     }
                     if (dict.count) {

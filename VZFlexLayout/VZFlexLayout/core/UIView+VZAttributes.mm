@@ -146,15 +146,15 @@
     self.tag                    = vs.tag;
     self.backgroundColor        = vs.backgroundColor;
     self.clipsToBounds          = vs.clip;
-    self.hidden                 = vs.hidden;
+    self.alpha                  = vs.alpha;
     
     if (vs.isAccessibilityElement != VZF_BOOL_UNDEFINED) {
         self.isAccessibilityElement = vs.isAccessibilityElement;
-        if (vs.accessibilityLabel) {
-            self.accessibilityLabel     = vs.accessibilityLabel;
-        }
     }
     
+    if (vs.accessibilityLabel) {
+        self.accessibilityLabel     = vs.accessibilityLabel;
+    }
     
     int userInteractionEnabled = vs.userInteractionEnabled;
     if (userInteractionEnabled != VZF_BOOL_UNDEFINED) {
@@ -320,8 +320,9 @@
 - (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs{
     VZFTextNodeBackingView *label = (VZFTextNodeBackingView *)self;
     VZFTextNode* textNode = (VZFTextNode* )self.node;
+    label.edgeInsets = textNode.flexNode.resultPadding;
     label.textRenderer = textNode.renderer;
-    label.textRenderer.maxWidth = self.bounds.size.width;
+    label.textRenderer.maxWidth = self.bounds.size.width - label.edgeInsets.left - label.edgeInsets.right;
     
 //    UILabel* label = (UILabel* )self;
 //    label.font = nil;
@@ -349,6 +350,11 @@
     UIImageView<VZFNetworkImageDownloadProtocol>* networkImageView = (UIImageView<VZFNetworkImageDownloadProtocol>* )self;
     networkImageView.image = imageSpec.image;
     networkImageView.contentMode = imageSpec.contentMode;
+    
+    //gif重复次数，context里拿到设置给imageView
+    NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{};
+    int animateCount = [ctx[@"animate-count"] intValue]?:0;
+    networkImageView.animationRepeatCount = animateCount;
     
     // 这里不做判空，可能会在方法内做清理操作，避免复用可能会导致的图片错乱
     //just call protocol
@@ -418,14 +424,20 @@
         pageControl.numberOfPages = pagingNode.children.size();
     }
     
-    NSMutableArray *subviews = [NSMutableArray array];
-    for (const auto& layout : pagingNode.childrenLayout) {
-    
-        UIView* view = viewForRootNode(layout, self.frame.size);
-        
-        [subviews addObject:view];
+    if (pagingNode.viewsCache) {
+        [pagingView setChildrenViews:pagingNode.viewsCache];
     }
-    [pagingView setChildrenViews:subviews];
+    else {
+        NSMutableArray *subviews = [NSMutableArray array];
+        for (const auto& layout : pagingNode.childrenLayout) {
+            
+            UIView* view = viewForRootNode(layout, self.frame.size);
+            
+            [subviews addObject:view];
+        }
+        [pagingView setChildrenViews:subviews];
+        pagingNode.viewsCache = subviews;
+    }
     
     pagingView.switched = pagingSpecs.switched;
     

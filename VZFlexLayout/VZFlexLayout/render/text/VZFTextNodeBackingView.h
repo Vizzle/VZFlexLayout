@@ -11,8 +11,9 @@
 #import "VZFTextNodeBackingLayer.h"
 
 @class VZFTextNodeRenderer;
-@interface VZFTextNodeBackingView : UIView<VZFNodeBackingViewInterface>
+@interface VZFTextNodeBackingView : UILabel<VZFNodeBackingViewInterface>
 
 @property(nonatomic,strong) VZFTextNodeRenderer* textRenderer;
+@property(nonatomic,assign) UIEdgeInsets edgeInsets;
 
 @end

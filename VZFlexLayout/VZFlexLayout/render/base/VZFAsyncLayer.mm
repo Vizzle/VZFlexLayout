@@ -66,11 +66,15 @@
     _needsAsyncDisplayOnly = NO;
 }
 
+-(BOOL)asyncDisplay{
+    return NO;
+}
+
 - (void)display{
 
     VZFAssertMainThread();
     
-    BOOL renderSynchronously = YES;
+    BOOL renderSynchronously = ![self asyncDisplay];
     CALayer* parentTransactionContainer = nil;
     
     if (!_needsAsyncDisplayOnly) {
@@ -144,7 +148,8 @@
 
 //同步绘制
 - (void)drawInContext:(CGContextRef)ctx{
-   
+    [super drawInContext:ctx];
+    
     VZFAssertMainThread();
     [self  drawInContext:ctx parameters:[self drawParameters]];
 

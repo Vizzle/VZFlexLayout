@@ -13,7 +13,6 @@ namespace VZ {
     
     namespace DefaultFlexAttributesValue{
         unsigned int lines = 1;
-        NSLineBreakMode lineBreakMode = NSLineBreakByTruncatingTail;
     }
     
     UIFont *createFont(NSString *fontName, CGFloat fontSize, VZFFontStyle fontStyle) {
@@ -21,23 +20,54 @@ namespace VZ {
         UIFont *font = nil;
         // 加快字体创建
         if (fontName.length == 0 && fontStyle != VZFFontStyleBoldItalic) {
-            switch (fontStyle) {
-                case VZFFontStyleBold:
-                    font = [UIFont boldSystemFontOfSize:fontSize];
-                    break;
-                case VZFFontStyleItalic:
-                    font = [UIFont italicSystemFontOfSize:fontSize];
-                    break;
-                case VZFFontStyleThin:
-                    // iOS8+才能支持细体
-                    if ([UIFont respondsToSelector:@selector(systemFontOfSize:weight:)]) {
-                        font = [UIFont systemFontOfSize:fontSize weight:UIFontWeightThin];
-                    } else {
-                        font = [UIFont systemFontOfSize:fontSize];
+            if (fontStyle == VZFFontStyleItalic) {
+                font = [UIFont italicSystemFontOfSize:fontSize];
+            } else if (fontStyle == VZFFontStyleBold) {
+                font = [UIFont boldSystemFontOfSize:fontSize];
+            } else if (fontStyle == VZFFontStyleNormal) {
+                font = [UIFont systemFontOfSize:fontSize];
+            } else {
+                if ([UIFont respondsToSelector:@selector(systemFontOfSize:weight:)]) {
+                    CGFloat weight;
+                    switch (fontStyle) {
+                        case VZFFontStyleUltraLight:
+                            weight = UIFontWeightUltraLight;
+                            break;
+                        case VZFFontStyleThin:
+                            weight = UIFontWeightThin;
+                            break;
+                        case VZFFontStyleLight:
+                            weight = UIFontWeightLight;
+                            break;
+                        case VZFFontStyleMedium:
+                            weight = UIFontWeightMedium;
+                            break;
+                        case VZFFontStyleHeavy:
+                            weight = UIFontWeightHeavy;
+                            break;
+                        case VZFFontStyleBlack:
+                            weight = UIFontWeightBlack;
+                            break;
+                        default:
+                            weight = UIFontWeightRegular;
+                            break;
                     }
-                    break;
-                default:
-                    font = [UIFont systemFontOfSize:fontSize];
+                    font = [UIFont systemFontOfSize:fontSize weight:weight];
+                } else {
+                    switch (fontStyle) {
+                        case VZFFontStyleMedium:
+                        case VZFFontStyleHeavy:
+                        case VZFFontStyleBlack:
+                            font = [UIFont boldSystemFontOfSize:fontSize];
+                            break;
+                        case VZFFontStyleUltraLight:
+                        case VZFFontStyleThin:
+                        case VZFFontStyleLight:
+                        default:
+                            font = [UIFont systemFontOfSize:fontSize];
+                            break;
+                    }
+                }
             }
         }
         else if (fontStyle == VZFFontStyleNormal) {
@@ -48,9 +78,14 @@ namespace VZ {
             UIFontDescriptorSymbolicTraits traits = UIFontDescriptorSymbolicTraits();
             switch (fontStyle) {
                 case VZFFontStyleNormal:
+                case VZFFontStyleUltraLight:
                 case VZFFontStyleThin:
+                case VZFFontStyleLight:
                     break;
+                case VZFFontStyleMedium:
                 case VZFFontStyleBold:
+                case VZFFontStyleHeavy:
+                case VZFFontStyleBlack:
                     traits |= UIFontDescriptorTraitBold;
                     break;
                 case VZFFontStyleItalic:
@@ -91,13 +126,8 @@ namespace VZ {
 //            [truncationAttributedString hash],
             std::hash<NSInteger>()(lineBreakMode),
             std::hash<NSInteger>()(lines),
-            std::hash<CGFloat>()(kern),
-            std::hash<CGFloat>()(lineSpacing),
-//            std::hash<CGFloat>()(shadowOffset.width),
-//            std::hash<CGFloat>()(shadowOffset.height),
-//            [shadowColor hash],
-//            std::hash<CGFloat>()(shadowOpacity),
-//            std::hash<CGFloat>()(shadowRadius)
+            std::hash<float>()(kern),
+            std::hash<float>()(lineSpacing),
         };
         return VZ::Hash::IntegerArrayHash(subhashes, sizeof(subhashes) / sizeof(subhashes[0]));
     }

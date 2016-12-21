@@ -95,6 +95,8 @@ NSString *vz_alignToNSString(FlexAlign align) {
             return @"space-between";
         case FlexSpaceAround:
             return @"space-around";
+        case FlexBaseline:
+            return @"baseline";
     }
 }
 
@@ -120,13 +122,18 @@ VZFlexNode *vz_defaultVZFlexNode() {
 
 @implementation VZFlexNode
 
-FlexSize flexNodeMeasure(void* context, FlexSize constraintedSize) {
+FlexSize flexNodeMeasure(void* context, FlexSize constrainedSize) {
     VZFlexNode* node = (__bridge VZFlexNode*)context;
-    CGSize size = node.measure ? node.measure(CGSizeMake(constraintedSize.size[FLEX_WIDTH], constraintedSize.size[FLEX_HEIGHT])) : CGSizeZero;
+    CGSize size = node.measure ? node.measure(CGSizeMake(constrainedSize.size[FLEX_WIDTH], constrainedSize.size[FLEX_HEIGHT])) : CGSizeZero;
     FlexSize ret;
     ret.size[FLEX_WIDTH] = size.width;
     ret.size[FLEX_HEIGHT] = size.height;
     return ret;
+}
+
+float flexNodeBaseline(void* context, FlexSize constrainedSize) {
+    VZFlexNode* node = (__bridge VZFlexNode*)context;
+    return node.baseline ? node.baseline(CGSizeMake(constrainedSize.size[FLEX_WIDTH], constrainedSize.size[FLEX_HEIGHT])) : 0;
 }
 
 FlexNode* flexNodeChildAt(void* context, size_t index) {
@@ -371,6 +378,15 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     return self.paddingTop;
 }
 
+- (void)setMeasure:(CGSize (^)(CGSize))measure {
+    _measure = measure;
+    _flex_node->measure = measure ? flexNodeMeasure : NULL;
+}
+
+- (void)setBaseline:(CGFloat (^)(CGSize))baseline {
+    _baseline = baseline;
+    _flex_node->baseline = baseline ? flexNodeBaseline : NULL;
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -388,7 +404,6 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
             
             initFlexNode(_flex_node);
             _flex_node->context = (__bridge void* )self;
-            _flex_node->measure = flexNodeMeasure;
             _flex_node->childAt = flexNodeChildAt;
             _childNodes = [NSMutableArray new];
             
@@ -429,6 +444,18 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
         .left   = _flex_node -> result.margin[FLEX_LEFT],
         .right  = _flex_node -> result.margin[FLEX_RIGHT]
 
+    };
+}
+
+- (UIEdgeInsets)resultPadding{
+    
+    return (UIEdgeInsets){
+        
+        .top    = _flex_node -> resolvedPadding[FLEX_TOP],
+        .bottom = _flex_node -> resolvedPadding[FLEX_BOTTOM],
+        .left   = _flex_node -> resolvedPadding[FLEX_LEFT],
+        .right  = _flex_node -> resolvedPadding[FLEX_RIGHT]
+        
     };
 }
 

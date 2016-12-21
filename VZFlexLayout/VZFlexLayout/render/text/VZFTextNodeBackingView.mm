@@ -29,7 +29,6 @@
         // Set some sensible defaults for a text view
         self.contentScaleFactor = VZ::Helper::screenScale();
         self.backgroundColor = [UIColor whiteColor];
-        self.isAccessibilityElement = YES;
     }
     return self;
 }
@@ -41,6 +40,14 @@
 
 - (VZFTextNodeRenderer* )textRenderer{
     return [self textLayer].renderer;
+}
+
+- (void)setEdgeInsets:(UIEdgeInsets)edgeInsets {
+    [self textLayer].edgeInsets = edgeInsets;
+}
+
+- (UIEdgeInsets)edgeInsets {
+    return [self textLayer].edgeInsets;
 }
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor
@@ -65,9 +72,12 @@
     }
 }
 
-
-- (NSString *)accessibilityLabel {
+// 用于 Accessibility
+- (NSString *)text {
     return self.textRenderer.text.string;
 }
 
+-(void)drawTextInRect:(CGRect)rect{
+    
+}
 @end
