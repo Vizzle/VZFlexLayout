@@ -165,16 +165,6 @@ using namespace VZ::UIKit;
     
     _mountedInfo -> parentNode =  parentNode;
     
-    // 某些node不需要被渲染，此时它的 children node 的origin应该是相对于最近的一个被渲染node view的origin
-    if (![self shouldRender]) {
-        _mountedInfo -> mountedView = nil;
-        _mountedInfo -> mountedContext = {context.viewManager.managedView,{context.position,size}};
-        
-        MountContext childContext = context;
-        
-        return {.hasChildren = YES, .childContext = childContext};
-    }
-    
     //获取一个reuse view
     UIView* view = [context.viewManager viewForNode:self];
     
@@ -220,9 +210,8 @@ using namespace VZ::UIKit;
         _mountedInfo -> mountedView = nil;
         _mountedInfo -> mountedContext = {context.viewManager.managedView,{context.position,size}};
         
-        MountContext childContext = context;
+        return {.hasChildren = YES, .childContext = context};
         
-        return {.hasChildren = YES, .isComposited = YES, .childContext = childContext};
     }
     
 
@@ -370,9 +359,6 @@ using namespace VZ::UIKit;
     
 }
 
-- (BOOL)shouldRender {
-    return YES;
-}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - NSCopying

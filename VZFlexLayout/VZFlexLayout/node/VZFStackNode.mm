@@ -72,8 +72,4 @@ using namespace VZ;
     return [self nodeDidLayout];
 }
 
-- (BOOL)shouldRender {
-    return NO;
-}
-
 @end

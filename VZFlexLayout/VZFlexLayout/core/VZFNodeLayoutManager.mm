@@ -101,15 +101,10 @@ namespace VZ {
                     
                     for(auto reverseItor = item.layout.children->rbegin(); reverseItor != item.layout.children->rend(); reverseItor ++){
                         
-                        // 重新计算 origin，加上 parent node 返回的一个相对上一个有效的 node view 的origin
-                        // composited node的 sub node 直接用其 parent node 的 origin
-                        CGPoint origin = {mountResult.childContext.position.x + (mountResult.isComposited ? 0 : (*reverseItor).origin.x),
-                            mountResult.childContext.position.y + (mountResult.isComposited ? 0 : (*reverseItor).origin.y)};
-                        
-                        MountContext childContext = mountResult.childContext.parentOffset(origin, item.layout.size);
                         stack.push(
                                    {*reverseItor,
-                                       childContext,
+                                       mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size),
+                                      // mountResult.childContext.rootOffset((*reverseItor).origin, item.layout.size, (*reverseItor).size),
                                        item.layout.node,
                                        NO});
                     }
