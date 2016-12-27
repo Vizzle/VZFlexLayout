@@ -16,6 +16,7 @@
 #import "VZFNodeViewClass.h"
 #import "VZFNodeSpecs.h"
 #import "VZFTextNode.h"
+#import "VZFTextNodeSpecs.h"
 
 @implementation FBHeaderNode
 
@@ -53,7 +54,19 @@
 //                }NodeSpecs:{}]
 //            }
             {[FBNameNode newWithName:item.nick createTime:item.time]},//姓名+时间
-//            {[FBStarNode newWithScore:[item.score floatValue]]}, //星星
+//            {
+//                [VZFTextNode newWithTextAttributes:{
+//                    .text = item.content,
+//                    .color = [UIColor redColor],
+//                    .fontSize = 12.0f,
+//                    .alignment = NSTextAlignmentLeft,
+//                    .lines = 0
+//                } NodeSpecs:{
+//                    .marginTop = 10
+//                }]
+//            }
+            {[FBStarNode newWithScore:[item.score floatValue]]}, //星星
+
         }]}
     }]];
     

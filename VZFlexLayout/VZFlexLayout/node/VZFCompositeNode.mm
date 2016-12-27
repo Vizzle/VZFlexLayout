@@ -44,15 +44,18 @@ using namespace VZ;
  */
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz{
 
-    NodeLayout compositeLayout = [_node computeLayoutThatFits:sz];
+    NodeLayout internalNodeLayout = [_node computeLayoutThatFits:sz];
+    internalNodeLayout.origin = CGPointZero;
     VZ::NodeLayout layout = [super nodeDidLayout];
-    layout.children->push_back(compositeLayout);
+    layout.children->push_back(internalNodeLayout);
     return layout;
 }
 
 - (VZ::NodeLayout)nodeDidLayout {
     VZ::NodeLayout layout = [super nodeDidLayout];
-    layout.children->push_back([self.node nodeDidLayout]);
+    NodeLayout internalNodeLayout = [self.node nodeDidLayout];
+    internalNodeLayout.origin = CGPointZero;
+    layout.children->push_back(internalNodeLayout);
     
     return layout;
 }

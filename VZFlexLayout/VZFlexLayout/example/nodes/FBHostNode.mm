@@ -24,7 +24,7 @@
     } Children:{
     
         {[FBHeaderNode  newWithProps:props Store:store Context:context]},
-       // {[FBContentNode newWithProps:props Store:store Context:context]},
+        {[FBContentNode newWithProps:props Store:store Context:context]},
     }];
 
 //    FBContentNode* contentNode = [FBContentNode newWithProps:props Store:store Context:context];

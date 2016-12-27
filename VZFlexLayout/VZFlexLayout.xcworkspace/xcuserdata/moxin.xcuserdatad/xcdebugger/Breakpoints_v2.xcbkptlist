@@ -80,22 +80,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/Example/viewcontroller/FBHostCellItem.mm"
-            timestampString = "496062802.034208"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "+nodeForItem:Store:Context:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -147,13 +131,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VZFlexLayout/Example/viewcontroller/FBHostCellItem.mm"
-            timestampString = "502883125.265843"
+            filePath = "VZFlexLayout/core/VZFNodeLayoutManager.mm"
+            timestampString = "504509415.222312"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "+nodeForItem:Store:Context:"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet&lt;VZFNode* &gt;* previousNodes, VZFNode* superNode)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VZFlexLayout/core/VZFNodeLayoutManager.mm"
+            timestampString = "504511792.675852"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet&lt;VZFNode* &gt;* previousNodes, VZFNode* superNode)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VZFlexLayout/node/VZFNode.mm"
+            timestampString = "504511920.41828"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "-mountInContext:Size:ParentNode:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -22,7 +22,7 @@ namespace VZ
             //类方法
             static MountContext RootContext(UIView* v){
         
-                return MountContext([[VZFNodeViewManager alloc]initWithView:v],{0,0},{});
+                return MountContext([[VZFNodeViewManager alloc]initWithView:v],{0,0});
                 
             };
             
@@ -39,22 +39,22 @@ namespace VZ
             /**
              *  相对根节点的位置
              */
-            MountContext rootOffset(const CGPoint p, const CGSize parentSize, const CGSize childSize) const{
+            MountContext rootOffset(const CGPoint p, const CGSize parentSize) const{
                 
-                const UIEdgeInsets rootLayout = transformToRootLayout(rootLayoutInsect,p,parentSize,childSize);
-                return MountContext(viewManager,position + p, rootLayout);
+                //const UIEdgeInsets rootLayout = transformToRootLayout(rootLayoutInsect,p,parentSize,childSize);
+                return MountContext(viewManager,position + p);
             };
             /**
              *  相对父节点的位置
              */
             MountContext parentOffset(const CGPoint p, const CGSize parentSize) const{
             
-                return MountContext(viewManager,p,{});
+                return MountContext(viewManager,p);
             }
             
             MountContext childContextForSubview(UIView *subview) const {
               
-                return MountContext([[ VZFNodeViewManager alloc ] initWithView:subview] , {0,0}, rootLayoutInsect);
+                return MountContext([[ VZFNodeViewManager alloc ] initWithView:subview] , {0,0});
             };
             
             
@@ -62,8 +62,8 @@ namespace VZ
             
         private:
             
-            MountContext(VZFNodeViewManager* m, const CGPoint p, const UIEdgeInsets l)
-            : viewManager(m), position(p), rootLayoutInsect(l) {}
+            MountContext(VZFNodeViewManager* m, const CGPoint p)
+            : viewManager(m), position(p){}
             
             /**
              *  将自己的坐标transform为root node的坐标

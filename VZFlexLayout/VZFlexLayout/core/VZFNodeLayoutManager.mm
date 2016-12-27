@@ -35,15 +35,13 @@ namespace VZ {
         };
         
         
-        //1, 绑定root hosting view
-        //    layout.node.rootNodeView = container;
-        
         //保存mount出来的nodes
         NSMutableSet* mountedNodes = [NSMutableSet set];
         
         //2.1, 创建rootContext
         MountContext rootContext = MountContext::RootContext(container);
-        rootContext.position = layout.origin;
+        NSLog(@"Root Layout.Position:%@",NSStringFromCGPoint(layout.origin));
+//        rootContext.position = layout.origin;
 //        rootContext.rootLayoutInsect = layout.margin;
         
         //2.2, 创建一个stack用来递归
@@ -82,6 +80,7 @@ namespace VZ {
                 
                 //加载node，创建backing view
                 //这个方法必须在主线程调用
+                NSLog(@"Context.Position:%@",NSStringFromCGPoint(item.context.position));
                 MountResult mountResult = [item.layout.node mountInContext:item.context
                                                                       Size:item.layout.size
                                                                 ParentNode:item.superNode];
@@ -101,12 +100,12 @@ namespace VZ {
                     
                     for(auto reverseItor = item.layout.children->rbegin(); reverseItor != item.layout.children->rend(); reverseItor ++){
                         
-                        stack.push(
-                                   {*reverseItor,
-                                       mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size),
-                                      // mountResult.childContext.rootOffset((*reverseItor).origin, item.layout.size, (*reverseItor).size),
+                        stack.push({
+                                       *reverseItor,
+                                       mountResult.childContext.rootOffset((*reverseItor).origin, item.layout.size),
                                        item.layout.node,
-                                       NO});
+                                       NO
+                                    });
                     }
                 }
                 
