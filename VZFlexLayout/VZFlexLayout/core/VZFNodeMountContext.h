@@ -93,6 +93,7 @@ namespace VZ
         struct MountResult{
             
             BOOL hasChildren;
+            BOOL isComposited;
             VZ::UIKit::MountContext childContext;
             
         };

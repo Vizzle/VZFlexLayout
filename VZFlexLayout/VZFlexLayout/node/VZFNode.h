@@ -18,13 +18,22 @@ using namespace VZ;
 @interface VZFNode : NSObject<NSCopying>
 
 /**
- *  Create a Node
- *
- *  @param viewClass backing view
- *  @param specs     specification of the node
- * 
+ Create a Node
+
+ @param viewClass backing view
+ @param specs specification of the node
+ @return A new node
  */
 +(instancetype)newWithView:(const ViewClass &)viewClass
                  NodeSpecs:(const NodeSpecs& )specs;
+
+
+/**
+ Node should be rendered.
+ Subclass override to determine whether should be rendered. Default to YES.
+
+ @return YES/NO
+ */
+- (BOOL)shouldRender;
 
 @end
