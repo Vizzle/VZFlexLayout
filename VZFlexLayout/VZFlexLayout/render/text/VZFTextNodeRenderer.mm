@@ -160,7 +160,7 @@ CGFloat vz_getWidthCallback(void *context) {
         return;
     }
     
-    if (self.text.length == 0) {
+    if (self.text.length == 0 || self.maxWidth <= 0) {
         _calculated = YES;
         _textSize = CGSizeZero;
         return;
@@ -355,11 +355,11 @@ CGFloat vz_getWidthCallback(void *context) {
 }
 
 - (CGFloat)baselineOfLineAtIndex:(NSUInteger)index inBounds:(CGRect)bounds {
+    [self _calculate];
+    
     if (index >= _lines.count) {
         return bounds.size.height;
     }
-    
-    [self _calculate];
     
     VZFTextLine *textLine = [_lines objectAtIndex:index];
     return textLine.ascent + textLine.top + [self offsetYWithBounds:bounds];
@@ -438,7 +438,8 @@ CGFloat vz_getWidthCallback(void *context) {
             CTRunRef run = (CTRunRef)CFArrayGetValueAtIndex(runs, i);
             NSDictionary *attributes = (__bridge NSDictionary *)CTRunGetAttributes(run);
             
-            CGPoint point = *CTRunGetPositionsPtr(run);
+            CGPoint point;
+            CTRunGetPositions(run, CFRangeMake(0, 1), &point);
 //            CGFloat width = CTRunGetTypographicBounds(run, CFRangeMake(0, 0), NULL, NULL, NULL);
 //            CGContextStrokeRect(context, CGRectMake(x+point.x, y+point.y, width, textLine.height));
             
