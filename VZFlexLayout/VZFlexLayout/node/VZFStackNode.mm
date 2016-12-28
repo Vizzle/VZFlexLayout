@@ -36,8 +36,8 @@ using namespace VZ;
                              NodeSpecs:(const NodeSpecs& )specs
                               Children:(const std::vector<VZFStackChildNode> &)children{
 
-    //gesture,background-color,border-color,border-width,clip,
-    VZFStackNode* stacknode =  [super newWithView:{} NodeSpecs:specs];
+    
+    VZFStackNode* stacknode =  [super newWithView:[self shouldFlattenStackView:specs] ? ViewClass() : [UIView class] NodeSpecs:specs];
     if (stacknode)
     {
         stacknode -> _stackSpecs    = stackSpecs;
@@ -54,6 +54,24 @@ using namespace VZ;
     
     return stacknode;
 
+}
+
+
+//gesture,background-color,border-color,border-width,clip,
++ (BOOL)shouldFlattenStackView:(const NodeSpecs&)specs{
+
+    if(specs.gesture ||
+       specs.borderColor ||
+       specs.borderWidth != 0 ||
+       specs.cornerRadius != 0 ||
+       specs.clip == true ||
+       ![specs.backgroundColor isEqual: [UIColor clearColor]]){
+    
+        return NO;
+    }
+    else{
+        return YES;
+    }
 }
 
 - (VZ::NodeLayout)nodeDidLayout {
