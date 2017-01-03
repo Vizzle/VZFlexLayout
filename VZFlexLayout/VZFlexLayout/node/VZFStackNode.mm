@@ -61,12 +61,17 @@ using namespace VZ;
 + (BOOL)shouldFlattenStackView:(const NodeSpecs&)specs{
 
     if(specs.gesture ||
-       specs.borderColor ||
-       specs.borderWidth != 0 ||
-       specs.cornerRadius != 0 ||
-       specs.clip == true ||
-       ![specs.backgroundColor isEqual: [UIColor clearColor]]){
-    
+       specs.highlightBackgroundColor ||
+       specs.borderWidth > 0 ||
+       specs.clip ||
+       specs.alpha < 1 ||
+       specs.tag > 0 ||
+       specs.applicator ||
+       specs.unapplicator ||
+       (specs.isAccessibilityElement != VZF_BOOL_UNDEFINED && specs.isAccessibilityElement) ||
+       specs.accessibilityLabel ||
+       (specs.backgroundColor && ![specs.backgroundColor isEqual: [UIColor clearColor]])){
+        
         return NO;
     }
     else{
