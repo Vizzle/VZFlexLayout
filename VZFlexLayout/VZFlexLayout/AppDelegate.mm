@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
+#import "PortalViewController.h"
 #import <VZInspector/VZInspector.h>
 #import <FBAllocationTracker/FBAllocationTrackerManager.h>
 #import <FBMemoryProfiler/FBMemoryProfiler.h>
@@ -28,7 +28,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    _window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[ViewController new]];
+    _window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[PortalViewController new]];
     
     
 //    [[FBAllocationTrackerManager sharedManager] startTrackingAllocations];
