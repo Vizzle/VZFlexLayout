@@ -8,6 +8,12 @@
 
 #import "VZFTextField.h"
 
+@interface VZFTextField ()
+
+@property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
+
+@end
+
 @implementation VZFTextField
 
 - (void)dealloc {
@@ -41,11 +47,19 @@
     BOOL result = [super resignFirstResponder];
     if (result) {
         [self.eventHandler onEvent:VZFTextFieldEventTypeBlur sender:self];
+        [self.window removeGestureRecognizer:self.tapGesture];
     }
     return result;
 }
 
-#pragma mark - Event
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    if (!newSuperview) {
+        [self.window removeGestureRecognizer:self.tapGesture];
+    }
+    [super willMoveToSuperview:newSuperview];
+}
+
+#pragma mark - Events
 
 - (void)textFieldDidChange {
     [self.eventHandler onEvent:VZFTextFieldEventTypeChange sender:self];
@@ -53,6 +67,7 @@
 
 - (void)textFieldBeginEditing {
     [self.eventHandler onEvent:VZFTextFieldEventTypeFocus sender:self];
+    [self.window addGestureRecognizer:self.tapGesture];
 }
 
 - (void)textFieldEndEditing {
@@ -61,6 +76,19 @@
 
 - (void)textFieldSubmitEditing {
     [self.eventHandler onEvent:VZFTextFieldEventTypeSubmit sender:self];
+}
+
+#pragma mark - Gesture
+
+- (UITapGestureRecognizer *)tapGesture {
+    if (!_tapGesture) {
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped:)];
+    }
+    return _tapGesture;
+}
+
+- (void)backgroundTapped:(UITapGestureRecognizer *)tap {
+    [self resignFirstResponder];
 }
 
 @end

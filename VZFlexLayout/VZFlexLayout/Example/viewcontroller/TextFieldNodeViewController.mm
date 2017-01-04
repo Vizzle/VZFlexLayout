@@ -31,6 +31,7 @@
             [VZFTextFieldNode newWithTextFieldAttributes:{
                 .text = props,
                 .placeholder = @"Input a keyword",
+                .font = [UIFont systemFontOfSize:14.0f],
                 .color = [UIColor colorWithWhite:51.0/255.0 alpha:1.0],
                 .eventHandler = [[VZFTextFieldEventHandler alloc] initWithHandler:^(UITextField * _Nonnull textField, VZFTextFieldEventType type) {
                     NSLog(@"=== Receive event: [%ld], text: [%@]", (long)type, textField.text);
@@ -72,7 +73,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"VZFTextNode";
+    self.title = @"VZFTextFieldNode";
     
     self.searchView = [[VZFNodeHostingView alloc] initWithNodeProvider:[self class] RangeType:VZFlexibleSizeNone];
     self.searchView.frame = CGRectMake(0, 64, self.view.frame.size.width, 40);
