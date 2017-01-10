@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "ViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface FBTableViewController : ViewController
+@interface FBTableViewController : UIViewController
 
 @end

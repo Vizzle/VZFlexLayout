@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E22658E1E1B7F2200CA71D7 /* VZFTextFieldEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E22658D1E1B7F2200CA71D7 /* VZFTextFieldEventHandler.m */; };
+		1E2265A21E1CCD7B00CA71D7 /* TextFieldNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E2265A11E1CCD7B00CA71D7 /* TextFieldNodeViewController.mm */; };
+		1E30ADAE1E14E7AC0015D5A8 /* VZFTextFieldNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E30ADAD1E14E7AC0015D5A8 /* VZFTextFieldNode.mm */; };
+		1E30ADB31E14E8A30015D5A8 /* VZFTextFieldNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E30ADB21E14E8A30015D5A8 /* VZFTextFieldNodeSpecs.mm */; };
+		1E30ADB61E14F7340015D5A8 /* VZFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E30ADB51E14F7340015D5A8 /* VZFTextField.m */; };
 		45102EDB1D58790E0093CDBD /* VZFPagingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45102EDA1D58790E0093CDBD /* VZFPagingView.mm */; };
 		45102EE01D5879690093CDBD /* VZFLineNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45102EDD1D5879690093CDBD /* VZFLineNodeSpecs.mm */; };
 		45102EE11D5879690093CDBD /* VZFLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45102EDF1D5879690093CDBD /* VZFLineView.m */; };
@@ -84,7 +89,7 @@
 		45A7D7021CB4E47A00B072D5 /* scroll.json in Resources */ = {isa = PBXBuildFile; fileRef = 45A7D7001CB4E47A00B072D5 /* scroll.json */; };
 		45B15A871CBE0F8E00F408DA /* VZFLength.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A861CBE0F8E00F408DA /* VZFLength.mm */; };
 		45B15A8A1CBE5BEB00F408DA /* FBClickToExpendNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A891CBE5BEB00F408DA /* FBClickToExpendNode.mm */; };
-		45B15A8D1CBE7EF900F408DA /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A8C1CBE7EF900F408DA /* ViewController.mm */; };
+		45B15A8D1CBE7EF900F408DA /* PortalViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A8C1CBE7EF900F408DA /* PortalViewController.mm */; };
 		45B15A931CBFA25800F408DA /* CacheCleanerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A901CBFA25800F408DA /* CacheCleanerPlugin.m */; };
 		45B15A941CBFA25800F408DA /* RetainCycleLoggerPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B15A921CBFA25800F408DA /* RetainCycleLoggerPlugin.m */; };
 		45C9874C1C2D0F2800D17A1D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9874B1C2D0F2800D17A1D /* main.m */; };
@@ -114,6 +119,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E22658C1E1B7F2200CA71D7 /* VZFTextFieldEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextFieldEventHandler.h; sourceTree = "<group>"; };
+		1E22658D1E1B7F2200CA71D7 /* VZFTextFieldEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFTextFieldEventHandler.m; sourceTree = "<group>"; };
+		1E2265A01E1CCD7B00CA71D7 /* TextFieldNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldNodeViewController.h; sourceTree = "<group>"; };
+		1E2265A11E1CCD7B00CA71D7 /* TextFieldNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextFieldNodeViewController.mm; sourceTree = "<group>"; };
+		1E30ADAC1E14E7AC0015D5A8 /* VZFTextFieldNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextFieldNode.h; sourceTree = "<group>"; };
+		1E30ADAD1E14E7AC0015D5A8 /* VZFTextFieldNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextFieldNode.mm; sourceTree = "<group>"; };
+		1E30ADB11E14E8A30015D5A8 /* VZFTextFieldNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextFieldNodeSpecs.h; sourceTree = "<group>"; };
+		1E30ADB21E14E8A30015D5A8 /* VZFTextFieldNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextFieldNodeSpecs.mm; sourceTree = "<group>"; };
+		1E30ADB41E14F7340015D5A8 /* VZFTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextField.h; sourceTree = "<group>"; };
+		1E30ADB51E14F7340015D5A8 /* VZFTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFTextField.m; sourceTree = "<group>"; };
 		45102EDA1D58790E0093CDBD /* VZFPagingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFPagingView.mm; sourceTree = "<group>"; };
 		45102EDC1D5879690093CDBD /* VZFLineNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLineNodeSpecs.h; sourceTree = "<group>"; };
 		45102EDD1D5879690093CDBD /* VZFLineNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLineNodeSpecs.mm; sourceTree = "<group>"; };
@@ -268,8 +283,8 @@
 		45B15A861CBE0F8E00F408DA /* VZFLength.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLength.mm; sourceTree = "<group>"; };
 		45B15A881CBE5BEB00F408DA /* FBClickToExpendNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBClickToExpendNode.h; sourceTree = "<group>"; };
 		45B15A891CBE5BEB00F408DA /* FBClickToExpendNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBClickToExpendNode.mm; sourceTree = "<group>"; };
-		45B15A8B1CBE7EF900F408DA /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		45B15A8C1CBE7EF900F408DA /* ViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		45B15A8B1CBE7EF900F408DA /* PortalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PortalViewController.h; sourceTree = "<group>"; };
+		45B15A8C1CBE7EF900F408DA /* PortalViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PortalViewController.mm; sourceTree = "<group>"; };
 		45B15A8F1CBFA25800F408DA /* CacheCleanerPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheCleanerPlugin.h; sourceTree = "<group>"; };
 		45B15A901CBFA25800F408DA /* CacheCleanerPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheCleanerPlugin.m; sourceTree = "<group>"; };
 		45B15A911CBFA25800F408DA /* RetainCycleLoggerPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetainCycleLoggerPlugin.h; sourceTree = "<group>"; };
@@ -479,6 +494,12 @@
 				457D91C61CDB175900013377 /* VZFScrollNodeSpecs.h */,
 				457D91C71CDB175900013377 /* VZFScrollNodeSpecs.mm */,
 				4566A7271CF8340F008C6FFD /* VZFStateUpdateMode.h */,
+				1E30ADB11E14E8A30015D5A8 /* VZFTextFieldNodeSpecs.h */,
+				1E30ADB21E14E8A30015D5A8 /* VZFTextFieldNodeSpecs.mm */,
+				1E30ADB41E14F7340015D5A8 /* VZFTextField.h */,
+				1E30ADB51E14F7340015D5A8 /* VZFTextField.m */,
+				1E22658C1E1B7F2200CA71D7 /* VZFTextFieldEventHandler.h */,
+				1E22658D1E1B7F2200CA71D7 /* VZFTextFieldEventHandler.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -517,6 +538,8 @@
 				B1CB0BB91C83E23900A9CAE7 /* VZFLineNode.mm */,
 				457D91C21CDB15D000013377 /* VZFScrollNode.h */,
 				457D91C31CDB15D000013377 /* VZFScrollNode.mm */,
+				1E30ADAC1E14E7AC0015D5A8 /* VZFTextFieldNode.h */,
+				1E30ADAD1E14E7AC0015D5A8 /* VZFTextFieldNode.mm */,
 			);
 			path = node;
 			sourceTree = "<group>";
@@ -603,6 +626,8 @@
 				454477841CC50CF8000B54E7 /* FBTableViewController.mm */,
 				452B54C91D839F8000C20EDB /* FBTextListViewController.h */,
 				452B54CA1D839F8000C20EDB /* FBTextListViewController.mm */,
+				1E2265A01E1CCD7B00CA71D7 /* TextFieldNodeViewController.h */,
+				1E2265A11E1CCD7B00CA71D7 /* TextFieldNodeViewController.mm */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -668,8 +693,8 @@
 				4578E0C21C72F1CC00E52B79 /* node */,
 				45C9874D1C2D0F2800D17A1D /* AppDelegate.h */,
 				45C9874E1C2D0F2800D17A1D /* AppDelegate.mm */,
-				45B15A8B1CBE7EF900F408DA /* ViewController.h */,
-				45B15A8C1CBE7EF900F408DA /* ViewController.mm */,
+				45B15A8B1CBE7EF900F408DA /* PortalViewController.h */,
+				45B15A8C1CBE7EF900F408DA /* PortalViewController.mm */,
 				45C987531C2D0F2800D17A1D /* Main.storyboard */,
 				45C987561C2D0F2800D17A1D /* Assets.xcassets */,
 				45C987581C2D0F2800D17A1D /* LaunchScreen.storyboard */,
@@ -868,9 +893,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E22658E1E1B7F2200CA71D7 /* VZFTextFieldEventHandler.m in Sources */,
 				4597A3711CFEA48C00888B5F /* VZFStackView.mm in Sources */,
 				45F0C7261CE8A206004DF6DF /* VZFPagingNodeSpecs.mm in Sources */,
-				45B15A8D1CBE7EF900F408DA /* ViewController.mm in Sources */,
+				45B15A8D1CBE7EF900F408DA /* PortalViewController.mm in Sources */,
 				45102EDB1D58790E0093CDBD /* VZFPagingView.mm in Sources */,
 				45B15A871CBE0F8E00F408DA /* VZFLength.mm in Sources */,
 				4578E0FE1C7734E300E52B79 /* (null) in Sources */,
@@ -904,6 +930,7 @@
 				45A7D6F21CB4DB7900B072D5 /* FBNameNode.mm in Sources */,
 				4578E0E31C736D1200E52B79 /* VZFNode.mm in Sources */,
 				45A7D6E61CB4DB7900B072D5 /* FBImageDownloader.mm in Sources */,
+				1E30ADB61E14F7340015D5A8 /* VZFTextField.m in Sources */,
 				45F0C7201CE8A1D0004DF6DF /* VZFScrollView.mm in Sources */,
 				45CA3AAD1C81891600DA04C1 /* VZFNetworkImageView.mm in Sources */,
 				4597A3701CFEA48C00888B5F /* VZFStackNodeSpecs.mm in Sources */,
@@ -930,6 +957,7 @@
 				4578E0D51C73052F00E52B79 /* VZFImageNode.mm in Sources */,
 				4578E0D81C73054000E52B79 /* VZFButtonNode.mm in Sources */,
 				45A7D6F41CB4DB7900B072D5 /* FBViewController.mm in Sources */,
+				1E2265A21E1CCD7B00CA71D7 /* TextFieldNodeViewController.mm in Sources */,
 				45B15A931CBFA25800F408DA /* CacheCleanerPlugin.m in Sources */,
 				4578E0EA1C747A7800E52B79 /* VZFCompositeNode.mm in Sources */,
 				45B15A8A1CBE5BEB00F408DA /* FBClickToExpendNode.mm in Sources */,
@@ -954,7 +982,9 @@
 				45FB683A1D2BF8FD0097038E /* VZFIndicatorNode.mm in Sources */,
 				4587709D1D34E6280008A6A2 /* FBSampleStore.mm in Sources */,
 				4578E0CF1C72F1CC00E52B79 /* VZFNodeViewManager.mm in Sources */,
+				1E30ADAE1E14E7AC0015D5A8 /* VZFTextFieldNode.mm in Sources */,
 				45A7D6AC1CB4D99300B072D5 /* VZFValue.mm in Sources */,
+				1E30ADB31E14E8A30015D5A8 /* VZFTextFieldNodeSpecs.mm in Sources */,
 				45F163F51D950E310049E825 /* VZFAsyncDrawingTransactionGroup.mm in Sources */,
 				458546481D9FC06200582374 /* VZFWeakObjectWrapper.m in Sources */,
 			);

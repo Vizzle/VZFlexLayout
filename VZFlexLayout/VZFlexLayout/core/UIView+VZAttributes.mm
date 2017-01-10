@@ -36,6 +36,9 @@
 #import "VZFStackNode.h"
 #import "VZFStackNodeSpecs.h"
 #import "VZFStackView.h"
+#import "VZFTextFieldNodeSpecs.h"
+#import "VZFTextFieldNode.h"
+#import "VZFTextField.h"
 #import <objc/runtime.h>
 
 @implementation UIView (VZAttributes)
@@ -75,6 +78,10 @@
     else if ([node isKindOfClass:[VZFLineNode class]])
     {
         [self _applyLineAttributes:((VZFLineNode* )node).lineSpecs];
+    }
+    else if ([node isKindOfClass:[VZFTextFieldNode class]])
+    {
+        [self _applyTextFieldAttributes:((VZFTextFieldNode *)node).textFieldSpecs];
     }
 }
 
@@ -443,6 +450,17 @@
     
     [pagingView setNeedsLayout];
     
+}
+
+- (void)_applyTextFieldAttributes:(const TextFieldNodeSpecs&)textFieldSpecs {
+    VZFTextField *textField = (VZFTextField *)self;
+    textField.text = textFieldSpecs.text;
+    textField.font = textFieldSpecs.font;
+    textField.textColor = textFieldSpecs.color;
+    textField.placeholder = textFieldSpecs.placeholder;
+    textField.eventHandler = textFieldSpecs.eventHandler;
+    
+    textField.contentInset = self.node.flexNode.resultPadding;
 }
 
 @end
