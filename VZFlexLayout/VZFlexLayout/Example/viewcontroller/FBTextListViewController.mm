@@ -42,6 +42,8 @@
     
 }
 
+
+
 - (void)loadData{
     
 
@@ -61,7 +63,8 @@
                 FBHostCellItem* fbItem = [FBHostCellItem new];
                 fbItem.indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                 
-                [fbItem updateModel:item constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::Auto)];
+                [fbItem updateModel:item constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::Auto())];
+//                [fbItem updateModel:item constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, Flex)];
                 
                 [_items addObject:fbItem];
                 
@@ -84,7 +87,7 @@
 //            item.indexPath = [NSIndexPath indexPathForRow:i inSection:0];
 //            [self.contentStore addNewState];
 //            item.store = self.contentStore;
-//            [item updateModel:model constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::Auto)];
+//            [item updateModel:model constrainedSize:CGSizeMake([UIScreen mainScreen].bounds.size.width, VZ::FlexValue::)];
 //            [_items addObject:item];
 //        }
 //        dispatch_async(dispatch_get_main_queue(), ^{

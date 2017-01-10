@@ -51,8 +51,7 @@ typedef NS_ENUM(int, VZFlexLayoutAlignment){
     
 };
 
-extern float FlexUndefined;
-extern float FlexAuto;
+
 
 namespace VZ{
     
@@ -130,9 +129,10 @@ namespace VZ{
     
 
     namespace FlexValue{
+        // see http://stackoverflow.com/questions/3826268/static-initialization-order-issue-in-c
+        float Undefined();
+        float Auto();
         
-        const float Undefined = FlexUndefined;
-        const float Auto = FlexAuto;
     }
 }
 

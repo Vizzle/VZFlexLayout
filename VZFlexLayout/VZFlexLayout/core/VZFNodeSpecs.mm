@@ -17,7 +17,7 @@ namespace VZ {
         UIColor* backgroundColor = [UIColor clearColor];
         UIColor* highlightBackgroundColor = nil;
         int userInteractionEnabled = VZF_BOOL_UNDEFINED;
-        CGFloat cornerRadiusUndefined = VZ::FlexValue::Undefined;
+        CGFloat cornerRadiusUndefined = VZ::FlexValue::Undefined();
         
         FlexLength width = FlexLengthAuto;
         FlexLength height = FlexLengthAuto;

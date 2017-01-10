@@ -11,6 +11,6 @@
 namespace VZ {
     
     namespace DefaultButtonAttributesValue{
-        CGSize enlargeSize = CGSizeZero;
+        CGSize enlargeSize = CGSizeMake(0, 0);
     }
 }

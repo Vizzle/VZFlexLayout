@@ -140,7 +140,8 @@ namespace VZ {
         Value<int, DefaultAttributesValue::userInteractionEnabled> isAccessibilityElement;
         NSString* accessibilityLabel;
         
-        VZFBlockGesture *gesture;
+        //gesture
+        __strong VZFBlockGesture *gesture;
     };
 
 }

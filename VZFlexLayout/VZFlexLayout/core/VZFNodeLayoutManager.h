@@ -30,7 +30,7 @@ namespace VZ {
      *  从根节点layout一颗树，并返回RootNode的container view
      *
      *  @param layout 根节点layout的描述
-     *  @param sz     constraind size -> @example: CGSize{VZ::FlexValue::Auto, VZ::FlexValue::Auto}
+     *  @param sz     constraind size -> @example: CGSize{VZ::FlexValue::Auto(), VZ::FlexValue::Auto()}
      *
      *  @return container view
      */

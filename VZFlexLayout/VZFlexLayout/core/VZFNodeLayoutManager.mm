@@ -40,8 +40,7 @@ namespace VZ {
         
         //2.1, 创建rootContext
         MountContext rootContext = MountContext::RootContext(container);
-        NSLog(@"Root Layout.Position:%@",NSStringFromCGPoint(layout.origin));
-//        rootContext.position = layout.origin;
+        rootContext.position = layout.origin;
 //        rootContext.rootLayoutInsect = layout.margin;
         
         //2.2, 创建一个stack用来递归
@@ -80,7 +79,6 @@ namespace VZ {
                 
                 //加载node，创建backing view
                 //这个方法必须在主线程调用
-                NSLog(@"Context.Position:%@",NSStringFromCGPoint(item.context.position));
                 MountResult mountResult = [item.layout.node mountInContext:item.context
                                                                       Size:item.layout.size
                                                                 ParentNode:item.superNode];
