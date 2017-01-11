@@ -458,6 +458,7 @@
     textField.font = textFieldSpecs.font;
     textField.textColor = textFieldSpecs.color;
     textField.placeholder = textFieldSpecs.placeholder;
+    textField.clearButtonMode = textFieldSpecs.clearButtonMode;
     textField.eventHandler = textFieldSpecs.eventHandler;
     
     textField.contentInset = self.node.flexNode.resultPadding;
