@@ -17,6 +17,7 @@ namespace VZ {
         UIFont *font;
         NSTextAlignment alignment;
         NSString *placeholder;
+        UITextFieldViewMode clearButtonMode;
         VZFTextFieldEventHandler *eventHandler;
         
         TextFieldNodeSpecs copy() const {
@@ -26,6 +27,7 @@ namespace VZ {
                 font,
                 alignment,
                 [placeholder copy],
+                clearButtonMode,
                 eventHandler
             };
         }
