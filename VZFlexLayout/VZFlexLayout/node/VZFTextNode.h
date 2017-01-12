@@ -7,13 +7,10 @@
 //
 
 #import "VZFNode.h"
+#import "VZFNodeSpecs.h"
+#import "VZFTextNodeSpecs.h"
 
-namespace VZ {
-    class NodeSpecs;
-    class TextNodeSpecs;
-}
 using namespace VZ;
-
 @class VZFTextNodeRenderer;
 
 @interface VZFTextNode : VZFNode

@@ -50,16 +50,17 @@
         .title      = [state[@"expend"] boolValue] ? @"收起":@"展开",
         .titleColor = [UIColor redColor],
         .fontSize   = 14.0f,
-//        .action     = ^(id sender){
-//            
-//            FluxAction::send({
-//                .source = ActionType::view_state,
-//                .actionType = EXPEND_CLICKED_STATE,
-//                .payload = @{@"index":index?:[NSNull null]},
-//                .dispatcher = store.dispatcher
-//                
-//            });
-//        }
+        .action     = [VZFBlockAction action:^(id sender) {
+            
+            FluxAction::send({
+                .source = ActionType::view_state,
+                .actionType = EXPEND_CLICKED_STATE,
+                .payload = @{@"index":index?:[NSNull null]},
+                .dispatcher = store.dispatcher
+            });
+            
+        }]
+        
     }NodeSpecs:{
     
         .alignSelf = VZFlexStart,
@@ -67,8 +68,6 @@
     
     } ];
     
-    FBGridImageNode* imageNode = [FBGridImageNode newWithImageURLs:item.images];
-
     VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
         .direction = VZFlexVertical,
     } NodeSpecs:{
@@ -77,7 +76,7 @@
         
         {item.content?textNode:nil},
         {item.content?buttonNode:nil},
-        {item.images.count?imageNode:nil},
+        {item.images.count?[FBGridImageNode newWithImageURLs:item.images]:nil},
         {item.location?[FBLocationNode newWithLocation:item.location]:nil},
         {[FBActionNodes newWithProps:item Store:store Context:index]}
     }];

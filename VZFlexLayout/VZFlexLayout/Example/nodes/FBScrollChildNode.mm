@@ -31,18 +31,16 @@
         .fontSize = 13,
         .titleColor = [UIColor whiteColor],
         .title = item.name,
-//        .action = ^(id sender){
-//            
-//            FluxAction::send({
-//                
-//                .source = ActionType::view_action,
-//                .actionType = BUTTON_CLICKED,
-//                .payload = @{@"data":item, @"index":ctx},
-//                .dispatcher = store.dispatcher
-//                
-//            });
-//        }
-
+        .action = [VZFBlockAction action:^(id sender) {
+            FluxAction::send({
+                
+                .source = ActionType::view_action,
+                .actionType = BUTTON_CLICKED,
+                .payload = @{@"data":item, @"index":ctx},
+                .dispatcher = store.dispatcher
+                
+            });
+        }]
     }NodeSpecs:{
 
             .clip = YES,
@@ -103,18 +101,16 @@
                                            
                                            .width  =150,
                                            .height = 150,
-//                                           .gesture = ^(id sender){
-//                                               
-//                                               FluxAction::send({
-//                                                   
-//                                                   .source = ActionType::view_action,
-//                                                   .actionType = IMG_CLICKED,
-//                                                   .payload = @{@"data":item, @"index":ctx},
-//                                                   .dispatcher = store.dispatcher
-//                                                   
-//                                               });
-//                                           }
-                                       
+                                           .gesture = [VZFBlockGesture tapGesture:^(id sender) {
+                                               FluxAction::send({
+                                                   
+                                                   .source = ActionType::view_action,
+                                                   .actionType = IMG_CLICKED,
+                                                   .payload = @{@"data":item, @"index":ctx},
+                                                   .dispatcher = store.dispatcher
+                                                   
+                                               });
+                                           }]
                                        }
                             BackingImageViewClass:[FBNetworkImageView class]]},
         { node }

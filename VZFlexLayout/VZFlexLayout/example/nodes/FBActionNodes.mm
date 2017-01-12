@@ -18,8 +18,6 @@
 
 @implementation FBActionNodes
 {
-    NSIndexPath* _indexPath;
-    __weak FBContentNodeStore* _store;
 }
 
 
@@ -28,56 +26,32 @@
     NSDictionary* state = [store initialStateAtIndex:indexpath.row];
     BOOL isLike = [state[@"like"] boolValue];
     BOOL isRewarded = [state[@"reward"] boolValue];
+    NSDictionary* likeProps = isLike?@{@"image":[UIImage imageNamed:@"comment_liked"],@"text":item.likeCount,@"type":@"like"}:@{@"image":[UIImage imageNamed:@"comment_like"],@"text":item.likeCount,@"type":@"like"};
+    NSDictionary* rewardProps = isRewarded?@{@"image":[UIImage imageNamed:@"comment_rewarded"],@"text":item.rewardCount,@"type":@"reward"}:@{@"image":[UIImage imageNamed:@"comment_reward"],@"text":item.rewardCount,@"type":@"reward"};
     
     VZFStackNode* actions = [VZFStackNode newWithStackAttributes:{
         .spacing = 5
     } NodeSpecs:{
-
-            .alignSelf = VZFlexEnd,
-            .marginTop = 10,
+        .alignSelf = VZFlexEnd,
+        .marginTop = 10,
 
     } Children:{
-        { [FBClickNode newWithImage:isLike?[UIImage imageNamed:@"comment_liked"]:[UIImage imageNamed:@"comment_like"]
-                               Text:item.likeCount
-                             Action:@selector(onLikeClicked:)]
+        
+        {
+            [FBClickNode newWithProps:likeProps
+                                Store:store
+                              Context:indexpath]
         },
-        
-        
-        { [FBClickNode newWithImage:isRewarded?[UIImage imageNamed:@"comment_rewarded"]:[UIImage imageNamed:@"comment_reward"]
-                               Text:item.rewardCount
-                             Action:@selector(onRewardClicked:)]
+        {
+            [FBClickNode newWithProps:rewardProps
+                                Store:store
+                              Context:indexpath]
         }
     }];
-    FBActionNodes* actionNode =  [super newWithNode:actions];
-    actionNode -> _indexPath = indexpath;
-    actionNode -> _store = store;
-    return  actionNode;
+    return  [super newWithNode:actions];
     
 }
 
 
-- (void)onLikeClicked:(id)sender{
-    
-    FluxAction::send({
-       
-        .source = view_state,
-        .actionType = LIKE_CLICKED_STATE,
-        .payload = @{@"index":self->_indexPath?:[NSNull null]},
-        .dispatcher = self ->_store.dispatcher,
-    });
-    
-}
-
-- (void)onRewardClicked:(id)sender{
-    
-    FluxAction::send ({
-        
-        .source = view_state,
-        .actionType = REWARD_CLICKED_STATE,
-        .payload = @{@"index":self->_indexPath?:[NSNull null]},
-        .dispatcher = self->_store.dispatcher
-        
-    });
-}
 
 @end

@@ -42,7 +42,7 @@
 
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(reloadData)];
-    self.view.backgroundColor = [UIColor yellowColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     NSString* path1 = [[NSBundle mainBundle] pathForResource:@"result" ofType:@"json"];
     NSData* data1 = [NSData dataWithContentsOfFile:path1];
@@ -74,7 +74,8 @@
     if (!item) {
         return nil;
     }
-    return [FBHeaderNode newWithProps:item Store:store Context:context];
+    //return [FBHeaderNode newWithProps:item Store:store Context:context];
+    return [FBSampleNode newWithProps:item Store:store Context:context];
 }
 
 

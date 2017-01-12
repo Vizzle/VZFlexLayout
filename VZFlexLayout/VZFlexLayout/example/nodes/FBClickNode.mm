@@ -13,24 +13,36 @@
 #import "VZFNodeSpecs.h"
 #import "VZFTextNodeSpecs.h"
 #import "VZFButtonNodeSpecs.h"
+#import "VZFluxAction.h"
+#import "FBActionType.h"
+#import "VZFluxStore.h"
 
 @implementation FBClickNode
 
-+ (instancetype)newWithImage:(UIImage* )img Text:(NSString* )text Action:(SEL)action{
-
-
++ (instancetype)newWithProps:(id)props Store:(VZFluxStore *)store Context:(id)ctx{
+    
+    NSDictionary* data = (NSDictionary* )props;
+    
     VZFButtonNode* btnNode=[VZFButtonNode newWithButtonAttributes:{
-        .image = img,
-//        .action = action
+        .image = data[@"image"],
+        .action = [VZFBlockAction action:^(id sender) {
+            FluxAction::send ({
+                
+                .source = view_state,
+                .actionType = [data[@"type"] isEqualToString:@"like"] ? LIKE_CLICKED_STATE:REWARD_CLICKED_STATE,
+                .payload = @{@"index":ctx?:[NSNull null]},
+                .dispatcher = store.dispatcher
+                
+            });
+        }]
+        
     }NodeSpecs:{
-
-            .width = 20,
-            .height = 20,
-
+        .width = 20,
+        .height = 20,
         
     } ];
     VZFTextNode* textNode = [VZFTextNode newWithTextAttributes:{
-        .text = text,
+        .text = data[@"text"],
         .fontSize = 12.0f,
         .color = [UIColor lightGrayColor]
         
@@ -42,11 +54,11 @@
         {btnNode},
         {textNode}
     }];
-        
+    
     return [super newWithNode:stackNode];
+    
+
 }
-
-
 
 
 @end

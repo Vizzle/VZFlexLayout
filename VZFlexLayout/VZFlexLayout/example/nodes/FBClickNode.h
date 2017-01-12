@@ -7,9 +7,12 @@
 //
 
 #import "VZFCompositeNode.h"
+#import "VZFNodeRequiredMethods.h"
 
-@interface FBClickNode : VZFCompositeNode
+@interface FBClickNode : VZFCompositeNode<VZFNodeRequiredMethods>
 
-+ (instancetype)newWithImage:(UIImage* )img Text:(NSString* )text Action:(SEL)action;
++ (instancetype)newWithProps:(id)props Store:(VZFluxStore *)store Context:(id)ctx;
+
+
 
 @end
