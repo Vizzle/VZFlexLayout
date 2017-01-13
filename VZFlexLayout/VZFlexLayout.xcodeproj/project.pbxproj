@@ -232,6 +232,7 @@
 		4597A36E1CFEA48C00888B5F /* VZFStackView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFStackView.mm; sourceTree = "<group>"; };
 		4597A3721CFEAC0A00888B5F /* VZFButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFButtonView.h; sourceTree = "<group>"; };
 		4597A3731CFEAC0A00888B5F /* VZFButtonView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFButtonView.mm; sourceTree = "<group>"; };
+		459FD86D1E28AD4300C3548C /* FBSampleActionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBSampleActionType.h; sourceTree = "<group>"; };
 		45A7D69B1CB4D97900B072D5 /* VZFlexNode+VZFNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VZFlexNode+VZFNode.h"; sourceTree = "<group>"; };
 		45A7D6A11CB4D98300B072D5 /* VZFNodeLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeLayoutManager.h; sourceTree = "<group>"; };
 		45A7D6A21CB4D98300B072D5 /* VZFNodeLayoutManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeLayoutManager.mm; sourceTree = "<group>"; };
@@ -607,6 +608,7 @@
 				45E593361CDF5F880044987C /* FBScrollNode.mm */,
 				456BDF7E1CEB0215008A5348 /* FBScrollChildNode.h */,
 				456BDF7F1CEB0215008A5348 /* FBScrollChildNode.mm */,
+				459FD86D1E28AD4300C3548C /* FBSampleActionType.h */,
 				458770981D34E35C0008A6A2 /* FBSampleNode.h */,
 				458770991D34E35C0008A6A2 /* FBSampleNode.mm */,
 				45102EE61D58827D0093CDBD /* FBSearchListNode.h */,

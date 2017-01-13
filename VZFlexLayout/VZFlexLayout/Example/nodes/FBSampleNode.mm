@@ -11,6 +11,7 @@
 #import "FBScrollNode.h"
 #import "VZFlux.h"
 #import "VZFTextNode.h"
+#import "FBSampleActionType.h"
 
 @implementation FBSampleNode
 
@@ -45,11 +46,12 @@
                 .gesture = [VZFBlockGesture tapGesture:^(id sender) {
                     FluxAction::send({
                         .source = view_action,
+                        .actionType = left,
                         .dispatcher = store.dispatcher,
                     });
                 }],
                 .isAccessibilityElement = YES,
-                .accessibilityLabel = @"abc"
+                .accessibilityLabel = @"LEFT BUTTON"
                 
             } Children:{
                 
@@ -80,12 +82,12 @@
                 .gesture = [VZFBlockGesture tapGesture:^(id sender) {
                     FluxAction::send({
                         .source = view_action,
-                        //                        .actionType = [shareState isEqualToString:O2OPassCanShare] ? O2O_SHARE_BUTTON_CLICKED : O2O_CNACEL_SHARE_BUTTON_CLICKED,
+                        .actionType = right,
                         .dispatcher = store.dispatcher,
                     });
                 }],
                 .isAccessibilityElement = YES,
-                .accessibilityLabel = @"abc"
+                .accessibilityLabel = @"RIGHT BUTTON"
                 
             } Children:{
                 

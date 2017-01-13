@@ -58,10 +58,13 @@
     _hostingView.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), 0);
     [_hostingView update:item1 context:nil];
 
+    __weak typeof(self)  weakSelf = self;;
     [_hostingView.store addListener:^(NSString *eventType, id data) {
-       
-        NSLog(@"eventType:%@",eventType);
         
+        __strong FBViewController* strongSelf = weakSelf;
+        if (strongSelf) {
+            [strongSelf -> _hostingView updateState];
+        }
     }];
     [self.view addSubview:_hostingView];
 
