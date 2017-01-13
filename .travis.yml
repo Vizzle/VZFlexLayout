@@ -3,4 +3,4 @@ xcode_project: VZFlexLayout.xcodeproj
 xcode_scheme: VZFlexLayout
 osx_image: xcode7.3
 
-script: xcodebuild -project VZFlexLayout.xcodeproj -sdk iphonesimulator test
+# script: xcodebuild -project VZFlexLayout.xcodeproj -sdk iphonesimulator test

@@ -2,6 +2,8 @@
 
 A modern layout engine inspired by [React](https://github.com/facebook/react)
 
+[![Build Status](https://travis-ci.org/Vizzle/VZFlexLayout.svg?branch=master)](https://travis-ci.org/Vizzle/VZFlexLayout)
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
