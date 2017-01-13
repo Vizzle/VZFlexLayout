@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		004D9C889E448C13D437106B /* libPods-VZFlexLayout-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1412192AC8BB66F7E1D295D /* libPods-VZFlexLayout-Example.a */; };
 		1EEC1AE11E2871BA00EBF0CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE01E2871BA00EBF0CC /* main.m */; };
 		1EEC1AE41E2871BA00EBF0CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE31E2871BA00EBF0CC /* AppDelegate.m */; };
 		1EEC1AEA1E2871BA00EBF0CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE81E2871BA00EBF0CC /* Main.storyboard */; };
@@ -52,11 +53,9 @@
 		1EEC1B651E28780200EBF0CC /* heartstone.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B3E1E28780200EBF0CC /* heartstone.jpg */; };
 		1EEC1B661E28780200EBF0CC /* o2o_gray_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B3F1E28780200EBF0CC /* o2o_gray_star@2x.png */; };
 		1EEC1B671E28780200EBF0CC /* o2o_yellow_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B401E28780200EBF0CC /* o2o_yellow_star@2x.png */; };
-		D8E51DE6DCC88046D2C23710 /* Pods_VZFlexLayout_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13B04D920561DFE989728651 /* Pods_VZFlexLayout_Example.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13B04D920561DFE989728651 /* Pods_VZFlexLayout_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VZFlexLayout_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EEC1ADC1E2871BA00EBF0CC /* VZFlexLayout-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VZFlexLayout-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EEC1AE01E2871BA00EBF0CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1EEC1AE21E2871BA00EBF0CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -137,6 +136,7 @@
 		1EEC1B401E28780200EBF0CC /* o2o_yellow_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "o2o_yellow_star@2x.png"; sourceTree = "<group>"; };
 		4348D8D379CA33AED1914703 /* Pods-VZFlexLayout-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout-Example/Pods-VZFlexLayout-Example.release.xcconfig"; sourceTree = "<group>"; };
 		75188F74D9B95F760FF26482 /* Pods-VZFlexLayout-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout-Example/Pods-VZFlexLayout-Example.debug.xcconfig"; sourceTree = "<group>"; };
+		C1412192AC8BB66F7E1D295D /* libPods-VZFlexLayout-Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VZFlexLayout-Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,7 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8E51DE6DCC88046D2C23710 /* Pods_VZFlexLayout_Example.framework in Frameworks */,
+				004D9C889E448C13D437106B /* libPods-VZFlexLayout-Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,7 +305,7 @@
 		69DD1D3CA81BA31D91ACFCA4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				13B04D920561DFE989728651 /* Pods_VZFlexLayout_Example.framework */,
+				C1412192AC8BB66F7E1D295D /* libPods-VZFlexLayout-Example.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
