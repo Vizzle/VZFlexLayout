@@ -1,0 +1,21 @@
+PODS:
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+  - VZFlexLayout (0.1.0)
+
+DEPENDENCIES:
+  - SDWebImage
+  - VZFlexLayout (from `../`)
+
+EXTERNAL SOURCES:
+  VZFlexLayout:
+    :path: ../
+
+SPEC CHECKSUMS:
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  VZFlexLayout: 101d937d58c3412703eb8e56e8818468895eb5a7
+
+PODFILE CHECKSUM: 7d663126756df5a962fa5241253bc2ec8f1cb4a9
+
+COCOAPODS: 1.1.1

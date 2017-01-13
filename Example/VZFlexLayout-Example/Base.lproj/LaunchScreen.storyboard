@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BPF-2X-Ack">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="Qgt-ih-AES">
+            <objects>
+                <viewController id="BPF-2X-Ack" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="dKM-g1-SVW"/>
+                        <viewControllerLayoutGuide type="bottom" id="gjV-ux-EYn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="c3T-ZT-lHb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright (c) 2015-2017 Vizzle. All rights reserved" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEM-dg-saz">
+                                <rect key="frame" x="15" y="629" width="345" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{ Flex }" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzh-ee-VZ3">
+                                <rect key="frame" x="78" y="180" width="220" height="108"/>
+                                <fontDescription key="fontDescription" name="AvenirNextCondensed-Heavy" family="Avenir Next Condensed" pointSize="79"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98431372549999996" green="0.3803921569" blue="0.39607843139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="gjV-ux-EYn" firstAttribute="top" secondItem="YEM-dg-saz" secondAttribute="bottom" constant="20" id="03k-Oa-qi7"/>
+                            <constraint firstItem="tzh-ee-VZ3" firstAttribute="centerX" secondItem="c3T-ZT-lHb" secondAttribute="centerX" id="Lfa-H4-6TB"/>
+                            <constraint firstAttribute="trailing" secondItem="YEM-dg-saz" secondAttribute="trailing" constant="15" id="QRf-9u-SLt"/>
+                            <constraint firstItem="YEM-dg-saz" firstAttribute="leading" secondItem="c3T-ZT-lHb" secondAttribute="leading" constant="15" id="Qhx-sn-Iiz"/>
+                            <constraint firstItem="tzh-ee-VZ3" firstAttribute="centerY" secondItem="c3T-ZT-lHb" secondAttribute="centerY" constant="-100" id="Vah-ub-7Uu"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ivb-ak-8jw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+</document>

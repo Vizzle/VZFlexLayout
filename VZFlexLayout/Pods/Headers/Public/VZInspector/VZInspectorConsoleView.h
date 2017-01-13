@@ -1,1 +1,0 @@
-../../../VZInspector/VZInspector/console/VZInspectorConsoleView.h

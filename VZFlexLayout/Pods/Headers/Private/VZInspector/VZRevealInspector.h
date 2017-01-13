@@ -1,1 +1,0 @@
-../../../VZInspector/VZInspector/reveal/VZRevealInspector.h

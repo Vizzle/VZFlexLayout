@@ -1,1 +1,0 @@
-../../../VZInspector/VZInspector/crash/VZCrashInspector.h
