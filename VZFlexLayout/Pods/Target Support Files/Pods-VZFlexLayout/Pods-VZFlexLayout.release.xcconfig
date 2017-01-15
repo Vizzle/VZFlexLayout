@@ -1,6 +1,0 @@
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Reveal-iOS-SDK/Reveal-Framework-iOS-1.6.2"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/FBAllocationTracker" "${PODS_ROOT}/Headers/Public/FBMemoryProfiler" "${PODS_ROOT}/Headers/Public/FBRetainCycleDetector" "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/VZInspector"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/FBAllocationTracker" -isystem "${PODS_ROOT}/Headers/Public/FBMemoryProfiler" -isystem "${PODS_ROOT}/Headers/Public/FBRetainCycleDetector" -isystem "${PODS_ROOT}/Headers/Public/Reveal-iOS-SDK" -isystem "${PODS_ROOT}/Headers/Public/SDWebImage" -isystem "${PODS_ROOT}/Headers/Public/VZInspector"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"FBAllocationTracker" -l"FBMemoryProfiler" -l"FBRetainCycleDetector" -l"SDWebImage" -l"VZInspector" -l"c++" -l"z" -framework "CFNetwork" -framework "CoreGraphics" -framework "Foundation" -framework "ImageIO" -framework "QuartzCore" -framework "Reveal" -framework "UIKit"
-PODS_ROOT = ${SRCROOT}/Pods

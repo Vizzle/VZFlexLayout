@@ -1,1 +1,0 @@
-../../../VZInspector/VZInspector/heap/VZInspectorHeapObjectView.h

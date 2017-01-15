@@ -1,1 +1,0 @@
-../../../VZInspector/VZInspector/log/VZLogInspector.h

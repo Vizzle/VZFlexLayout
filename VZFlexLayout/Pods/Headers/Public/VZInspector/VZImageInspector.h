@@ -1,1 +1,0 @@
-../../../VZInspector/VZInspector/image/VZImageInspector.h

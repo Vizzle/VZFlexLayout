@@ -1,1 +1,0 @@
-../../../VZInspector/VZInspector/core/VZInspectorPlotView.h

@@ -1,1 +1,0 @@
-../../../VZInspector/VZInspector/toolbox/VZInspectorToolboxView.h

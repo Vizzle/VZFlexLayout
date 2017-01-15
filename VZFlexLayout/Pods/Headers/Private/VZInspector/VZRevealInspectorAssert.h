@@ -1,1 +1,0 @@
-../../../VZInspector/VZInspector/reveal/VZRevealInspectorAssert.h
