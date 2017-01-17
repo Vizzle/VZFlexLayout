@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VZFNodeBackingViewInterface.h"
 
 typedef NS_ENUM(NSUInteger, FBO2OStarViewType) {
     FBO2OStarViewTypeForDisplay,  //只用来展示，不能点击打分或滑动打分
@@ -36,7 +37,7 @@ typedef NS_ENUM(NSUInteger, FBO2OStarViewRound) {
 - (void)tapGestureEnded:(FBO2OStarView *)starView;
 @end
 
-@interface FBO2OStarView : UIView
+@interface FBO2OStarView : UIView<VZFNodeBackingViewInterface>
 
 /**
  *  Designated initializer
