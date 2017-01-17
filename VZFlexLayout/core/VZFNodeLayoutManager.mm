@@ -14,6 +14,7 @@
 #import "VZFNodeMountContext.h"
 #import "VZFMacros.h"
 #import <stack>
+#import "VZFAsyncDrawingTransactionContainer.h"
 
 
 using namespace VZ::UIKit;
@@ -26,6 +27,9 @@ namespace VZ {
 
         VZFC_LOG_THREAD(@"LayoutManager",@"LayoutRootNode");
         
+        //设置根节点layer 作为异步渲染的管理节点
+        container.layer.isAsyncTransactionContainer = YES;
+        
         //0, 计算出Root Node的layout
         struct MountItem{
             const NodeLayout& layout;
@@ -33,7 +37,6 @@ namespace VZ {
             VZFNode* superNode;
             BOOL isVisited;
         };
-        
         
         //保存mount出来的nodes
         NSMutableSet* mountedNodes = [NSMutableSet set];

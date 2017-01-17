@@ -15,31 +15,48 @@
 
 @implementation FBNameNode
 
-+ (instancetype)newWithName:(NSString* )name createTime:(NSString* )time{
++ (instancetype)newWithName:(NSString* )name createTime:(NSString* )time content:(NSString *)content{
 
     VZFStackNode* stackNode = [VZFStackNode newWithStackAttributes:{
-        .justifyContent = VZFlexSpaceBetween
+        .direction = VZFlexVertical
     } NodeSpecs:{
         
     } Children:{
+        {[VZFStackNode newWithStackAttributes:{
+            .justifyContent = VZFlexSpaceBetween
+        } NodeSpecs:{
+            
+        } Children:{
+            {[VZFTextNode newWithTextAttributes:{
+                .text = name,
+                .color = [UIColor blackColor],
+                .fontSize = 14.0f,
+                .alignment = NSTextAlignmentLeft
+            } NodeSpecs:{}]},
+            {
+                [VZFTextNode newWithTextAttributes:{
+                    
+                    .text = time,
+                    .color = [UIColor lightGrayColor],
+                    .fontSize = 12.0f,
+                    .alignment = NSTextAlignmentLeft
+                    
+                }NodeSpecs:{} ]
+            }
+            
+        }]},
         {[VZFTextNode newWithTextAttributes:{
-            .text = name,
+            .text = content,
             .color = [UIColor blackColor],
             .fontSize = 14.0f,
-            .alignment = NSTextAlignmentLeft
-        } NodeSpecs:{}]},
-        {
-            [VZFTextNode newWithTextAttributes:{
-                
-                .text = time,
-                .color = [UIColor lightGrayColor],
-                .fontSize = 12.0f,
-                .alignment = NSTextAlignmentLeft
-                
-            }NodeSpecs:{} ]
-        }
-    
+            .alignment = NSTextAlignmentLeft,
+            .lines = 0
+        } NodeSpecs:{}]}
+        
     }];
+    
+    
+    ;
     
     return [super newWithNode:stackNode];
 
