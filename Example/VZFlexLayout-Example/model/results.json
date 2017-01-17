@@ -6,7 +6,7 @@
                "nick":"Kevin",
                "time":"2016-03-01",
                "score":"3.7",
-               "content":"多年前，惨绝人寰的连环灭门谋杀案震惊了整个小镇，当时唯一的生还者至今仍下落不明。多年后，单亲妈妈考特尼（莎妮·索萨蒙 Shannyn Sossamon 饰），带着双胞胎儿子迪伦（罗伯特·丹尼尔·斯隆 Robert Daniel Sloan 饰）与扎克（达塔尼安·斯隆 Dartanian Sloan 饰）搬入这栋看似宁静的凶宅，却意外的引来了骇人的“好兄弟”，“好兄弟”除了想当这对双胞胎的玩伴，更想要他们的命",
+               "content":"1.多年前，惨绝人寰的连环灭门谋杀案震惊了整个小镇，当时唯一的生还者至今仍下落不明。多年后，单亲妈妈考特尼（莎妮·索萨蒙 Shannyn Sossamon 饰），带着双胞胎儿子迪伦（罗伯特·丹尼尔·斯隆 Robert Daniel Sloan 饰）与扎克（达塔尼安·斯隆 Dartanian Sloan 饰）搬入这栋看似宁静的凶宅，却意外的引来了骇人的“好兄弟”，“好兄弟”除了想当这对双胞胎的玩伴，更想要他们的命",
                "images":["http://www.collegedj.net/wp-content/uploads/2015/02/k-michelle--150x150.jpg",
                          "http://www.collegedj.net/wp-content/uploads/2015/02/k-michelle-stay-with-me-150x150.jpg",
                          "http://www.collegedj.net/wp-content/uploads/2015/02/mike-zombie-philly-event-voltage-lounge-150x150.jpg",
@@ -29,7 +29,7 @@
                "nick":"Cathy",
                "time":"2016-03-02",
                "score":"3.7",
-               "content":"One of the aspects of building an application is deciding how data will flow through it. Many iOS developers use dictionaries for this purpose, or use handwritten, simple objects instead. We've seen these patterns in our use of Objective-C at Facebook, and we've found some drawbacks in these approaches. Passing dictionaries of data around proved dangerous because dictionary fields are not type-safe. We also found that maintaining custom model objects was time-consuming, tedious, and error-prone.",
+               "content":"2.One of the aspects of building an application is deciding how data will flow through it. Many iOS developers use dictionaries for this purpose, or use handwritten, simple objects instead. We've seen these patterns in our use of Objective-C at Facebook, and we've found some drawbacks in these approaches. Passing dictionaries of data around proved dangerous because dictionary fields are not type-safe. We also found that maintaining custom model objects was time-consuming, tedious, and error-prone.",
                
                "images":["http://www.collegedj.net/wp-content/uploads/2016/03/CcuzEnlWwAAvx3g-150x150.jpg",
                          "http://www.collegedj.net/wp-content/uploads/2016/03/CdhHsxsUEAAwzFW-150x150.jpg"],
@@ -51,7 +51,7 @@
                "nick":"Bruce.A",
                "time":"2016-03-11",
                "score":"4.5",
-               "content":"To solve these problems, we built Remodel, an Objective-C code generation tool specialized for quickly creating and editing model objects.",
+               "content":"3.To solve these problems, we built Remodel, an Objective-C code generation tool specialized for quickly creating and editing model objects.",
                
                "likeCount":"123",
                "rewardedCount":"567",
@@ -67,7 +67,7 @@
                "nick":"Andrew Guno",
                "time":"2016-04-01",
                "score":"2.2",
-               "content":"As our codebase scaled, we found that giving these objects certain properties enforced good patterns (such as the separation of data and behavior), enabled a simpler programming model, allowed us to explore lock-free multi-threading strategies, and simplified unit test writing.",
+               "content":"4.As our codebase scaled, we found that giving these objects certain properties enforced good patterns (such as the separation of data and behavior), enabled a simpler programming model, allowed us to explore lock-free multi-threading strategies, and simplified unit test writing.",
                "images":["http://www.collegedj.net/wp-content/uploads/2016/03/img_0801-1-1-150x150.jpg"],
                
                "location":"支付宝大楼B座",
@@ -99,7 +99,7 @@
                "nick":"Christopher",
                "time":"2016-04-30",
                "score":"0.0",
-               "content":"The runtime has a lot of tools that allow us to introspect objects and learn a lot about them.",
+               "content":"5.The runtime has a lot of tools that allow us to introspect objects and learn a lot about them.",
                "images":["http://www.collegedj.net/wp-content/uploads/2016/04/Two-Flights-Canis-Major-IshDARR-150x150.jpg"],
                
                "likeCount":"3",
@@ -122,7 +122,7 @@
                },
                {
                "icon":"http://www.collegedj.net/wp-content/uploads/2016/04/Ce02meYUYAAvDeC-50x50.jpg",
-               "nick":"Ruby",
+               "nick":"Ruby1",
                "time":"2016-05-01",
                "score":"1.0",
                "content":"For a given object, an ivar layout describes where we should look for other objects that it references. It will provide us with an “index,” which represents an offset we have to add to the object address in order to get the address of an object it references. What runtime also lets us do is grab a “weak ivar layout,” which is a layout of all weak instance variables of that object. We can assume that the difference between these two layouts will be a strong layout.",
@@ -157,10 +157,10 @@
                },
                {
                "icon":"http://www.collegedj.net/wp-content/uploads/2016/04/Ce02meYUYAAvDeC-50x50.jpg",
-               "nick":"Ruby",
-               "time":"2016-05-03",
-               "score":"5.0",
-               "content":"323.",
+               "nick":"Ruby3",
+               "time":"2016-05-01",
+               "score":"3.0",
+               "content":"8.The last parameter is set to NO when the SDWebImageProgressiveDownload option is used and the image is downloading. This block is thus called repeatedly with a partial image. When image is fully downloaded, the block is called a last time with the full image and the last parameter set to YES.",
                "images":["http://www.collegedj.net/wp-content/uploads/2016/04/angelicavilasorryremix-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/collegedj-sound-check-mixtape-volume-13-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/unnamed-150x150.jpg"],
                
                "location":"支付宝大楼A座",
@@ -178,7 +178,24 @@
                "nick":"Ruby",
                "time":"2016-05-04",
                "score":"4.0",
-               "content":"123",
+               "content":"9.A block called when operation has been completed. This block has no return value and takes the requested UIImage as first parameter. In case of error the image parameter is nil and the second parameter may contain an NSError. The third parameter is a Boolean indicating if the image was retrieved from the local cache or from the network. The fourth parameter is the original image url.",
+               "images":["http://www.collegedj.net/wp-content/uploads/2016/04/angelicavilasorryremix-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/collegedj-sound-check-mixtape-volume-13-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/unnamed-150x150.jpg"],
+               
+               "likeCount":"10",
+               "rewardedCount":"14",
+               "commentCount":"5",
+               
+               "islike":"1",
+               "isComment":"1",
+               "isReward":"0",
+               
+               }  ,
+               {
+               "icon":"http://www.collegedj.net/wp-content/uploads/2016/04/Ce02meYUYAAvDeC-50x50.jpg",
+               "nick":"Ruby5",
+               "time":"2016-05-01",
+               "score":"5.0",
+               "content":"10.The image to be set initially, until the image request finishes.",
                "images":["http://www.collegedj.net/wp-content/uploads/2016/04/angelicavilasorryremix-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/collegedj-sound-check-mixtape-volume-13-150x150.jpg","http://www.collegedj.net/wp-content/uploads/2016/04/unnamed-150x150.jpg"],
                
                "likeCount":"10",

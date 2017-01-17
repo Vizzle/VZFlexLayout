@@ -10,6 +10,6 @@
 
 @interface FBNameNode : VZFCompositeNode
 
-+ (instancetype)newWithName:(NSString* )name createTime:(NSString* )time;
++ (instancetype)newWithName:(NSString* )name createTime:(NSString* )time  content:(NSString *)content;
 
 @end
