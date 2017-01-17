@@ -72,11 +72,11 @@
 		1EEC1A871E27BFAD00EBF0CC /* VZFStackView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19F51E27BFAD00EBF0CC /* VZFStackView.h */; };
 		1EEC1A881E27BFAD00EBF0CC /* VZFStackView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19F61E27BFAD00EBF0CC /* VZFStackView.mm */; };
 		1EEC1A891E27BFAD00EBF0CC /* VZFStateUpdateMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19F71E27BFAD00EBF0CC /* VZFStateUpdateMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EEC1A8A1E27BFAD00EBF0CC /* VZFTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19F81E27BFAD00EBF0CC /* VZFTextField.h */; };
+		1EEC1A8A1E27BFAD00EBF0CC /* VZFTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19F81E27BFAD00EBF0CC /* VZFTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A8B1E27BFAD00EBF0CC /* VZFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19F91E27BFAD00EBF0CC /* VZFTextField.m */; };
-		1EEC1A8C1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19FA1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h */; };
+		1EEC1A8C1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19FA1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A8D1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19FB1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m */; };
-		1EEC1A8E1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19FC1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h */; };
+		1EEC1A8E1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19FC1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A8F1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19FD1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.mm */; };
 		1EEC1A901E27BFAD00EBF0CC /* VZFTextNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19FE1E27BFAD00EBF0CC /* VZFTextNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A911E27BFAD00EBF0CC /* VZFTextNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19FF1E27BFAD00EBF0CC /* VZFTextNodeSpecs.mm */; };
