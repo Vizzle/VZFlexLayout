@@ -53,7 +53,7 @@
 //                    
 //                }NodeSpecs:{}]
 //            }
-            {[FBNameNode newWithName:item.nick createTime:item.time]},//姓名+时间
+            {[FBNameNode newWithName:item.nick createTime:item.time content:item.content]},//姓名+时间+内容
 //            {
 //                [VZFTextNode newWithTextAttributes:{
 //                    .text = item.content,

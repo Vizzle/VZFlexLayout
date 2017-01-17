@@ -1,10 +1,12 @@
 PODS:
+  - Reveal-iOS-SDK (1.6.2)
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - VZFlexLayout (0.1.0)
 
 DEPENDENCIES:
+  - Reveal-iOS-SDK
   - SDWebImage
   - VZFlexLayout (from `../`)
 
@@ -13,9 +15,10 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
+  Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  VZFlexLayout: 101d937d58c3412703eb8e56e8818468895eb5a7
+  VZFlexLayout: 92d2664186e5d159c309d28261a7b2dab1149270
 
-PODFILE CHECKSUM: 20755fc49f45efbc60f545b9ba7353a0d0d5ecc0
+PODFILE CHECKSUM: 0ef167e55620710ac62da6ba72448cc02f6953f6
 
 COCOAPODS: 1.1.1

@@ -6,4 +6,6 @@ target 'VZFlexLayout-Example' do
   # use_frameworks!
   pod 'VZFlexLayout', :path => '../'
   pod 'SDWebImage'
+  
+  pod 'Reveal-iOS-SDK', :configurations => ['Debug']
 end
