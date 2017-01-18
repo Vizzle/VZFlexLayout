@@ -14,11 +14,22 @@
     if (self.image == nil) {
         return;
     }
-    
-    CGRect rect = [[self class] getDrawRect:bounds imageSize:self.image.size contentMode:self.contentMode scale:self.scale <= 0 ? 1 : self.scale];
-    
-    CGContextDrawImage(context, rect, self.image.CGImage);
 
+    CGFloat scale = self.scale <= 0 ? 1 : self.scale;
+
+    
+    CGRect rect = [[self class] getDrawRect:bounds imageSize:self.image.size contentMode:self.contentMode scale:scale];
+
+    
+    CGContextSaveGState(context);
+    
+    CGContextTranslateCTM(context, 0, bounds.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+
+    CGContextDrawImage(context, rect, self.image.CGImage);
+    
+
+    CGContextRestoreGState(context);
 }
 
 
