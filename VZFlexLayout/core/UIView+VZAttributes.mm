@@ -40,6 +40,8 @@
 #import "VZFTextFieldNode.h"
 #import "VZFTextField.h"
 #import <objc/runtime.h>
+#import "VZFImageNodeBackingView.h"
+#import "VZFImageNodeRenderer.h"
 
 @implementation UIView (VZAttributes)
 
@@ -354,14 +356,35 @@
 
 - (void)_applyImageAttributes:(const ImageNodeSpecs& )imageSpec{
     
-    UIImageView<VZFNetworkImageDownloadProtocol>* networkImageView = (UIImageView<VZFNetworkImageDownloadProtocol>* )self;
-    networkImageView.image = imageSpec.image;
-    networkImageView.contentMode = imageSpec.contentMode;
+    id<VZFNetworkImageDownloadProtocol> networkImageView = nil;
     
     //gif重复次数，context里拿到设置给imageView
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{};
     int animateCount = [ctx[@"animate-count"] intValue]?:0;
-    networkImageView.animationRepeatCount = animateCount;
+    
+    if ([self isKindOfClass:[VZFImageNodeBackingView class]]) {
+        VZFImageNodeBackingView *view = (VZFImageNodeBackingView *)self;
+        VZFImageNode* imageNode = (VZFImageNode* )self.node;
+        imageNode.renderer.animateCount = animateCount;
+        imageNode.renderer.scale = self.contentScaleFactor;
+        view.imageRenderer = imageNode.renderer;
+        view.contentMode = imageSpec.contentMode;
+        
+        networkImageView = view;
+        
+        if (imageSpec.imageUrl.length <= 0) {
+            view.image = imageSpec.image;
+        } else {
+            view.image = nil;
+        }
+    } else {
+        UIImageView<VZFNetworkImageDownloadProtocol>* view = (UIImageView<VZFNetworkImageDownloadProtocol>* )self;
+        view.image = imageSpec.image;
+        view.contentMode = imageSpec.contentMode;
+        view.animationRepeatCount = animateCount;
+
+        networkImageView = view;
+    }
     
     // 这里不做判空，可能会在方法内做清理操作，避免复用可能会导致的图片错乱
     //just call protocol

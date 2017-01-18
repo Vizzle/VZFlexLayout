@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNetworkImageDownloadProtocol.h"
+#import "VZFImageNodeBackingView.h"
 
-@interface FBNetworkImageView : UIImageView <VZFNetworkImageDownloadProtocol>
+@interface FBNetworkImageView : VZFImageNodeBackingView <VZFNetworkImageDownloadProtocol>
 
 @end
