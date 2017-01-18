@@ -31,7 +31,10 @@
 }
 
 - (void)setImageRenderer:(VZFImageNodeRenderer *)imageRenderer{
-    
+    //顺序不能调整
+    if (imageRenderer) {
+        [self setImage:nil];
+    }
     [self imageLayer].renderer  = imageRenderer;
 }
 
@@ -40,15 +43,23 @@
 }
 
 - (void)setImage:(UIImage *)image {
-    if (image == self.imageRenderer.image) {
-        return;
+    if (!self.imageRenderer) {
+        [super setImage:image];
+    } else {
+        if (image == self.imageRenderer.image) {
+            return;
+        }
+        self.imageRenderer.image = image;
+        [self.layer setNeedsDisplay];
     }
-    self.imageRenderer.image = image;
-    [self.layer setNeedsDisplay];
 }
 
 - (UIImage *)image {
-    return self.imageRenderer.image;
+    if (!self.imageRenderer) {
+        return [super image];
+    } else {
+        return self.imageRenderer.image;
+    }
 }
 
 @end
