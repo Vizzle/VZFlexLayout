@@ -15,7 +15,10 @@
         return;
     }
     
-    [self.image drawInRect:[[self class] getDrawRect:bounds imageSize:self.image.size contentMode:self.contentMode scale:self.scale <= 0 ? 1 : self.scale]];
+    CGRect rect = [[self class] getDrawRect:bounds imageSize:self.image.size contentMode:self.contentMode scale:self.scale <= 0 ? 1 : self.scale];
+    
+    CGContextDrawImage(context, rect, self.image.CGImage);
+
 }
 
 
