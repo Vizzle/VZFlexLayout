@@ -23,9 +23,8 @@
     
     CGContextSaveGState(context);
     
-    CGContextTranslateCTM(context, 0, bounds.origin.y + bounds.size.height);
+    CGContextTranslateCTM(context, 0, bounds.size.height);
     CGContextScaleCTM(context, 1.0, -1.0);
-    CGContextTranslateCTM(context, 0, -bounds.origin.y);
 
     CGContextDrawImage(context, rect, self.image.CGImage);
     
