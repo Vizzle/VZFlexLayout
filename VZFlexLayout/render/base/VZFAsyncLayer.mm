@@ -23,6 +23,7 @@
 {
     int32_t _displaySentinel;
     BOOL _needsAsyncDisplayOnly;
+    CGFloat _realBorderWidth;
 }
 
 
@@ -70,6 +71,25 @@
     return NO;
 }
 
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    _realBorderWidth = borderWidth;
+    [super setBorderWidth:borderWidth];
+}
+
+- (void)handleBorder:(BOOL)isAsync {
+    /*
+     *异步的时候通过CoreGraphics画
+     *同步的时候通过layer的属性来画
+     */
+    if (isAsync) {
+        CGFloat realBorderWidth = _realBorderWidth;
+        self.borderWidth = 0;
+        _realBorderWidth = realBorderWidth;
+    } else {
+        self.borderWidth = _realBorderWidth;
+    }
+}
+
 - (void)display{
 
     VZFAssertMainThread();
@@ -93,6 +113,8 @@
     }
     
 
+    [self handleBorder:!renderSynchronously];
+    
     if (renderSynchronously) {
         [super display];
         return;
@@ -194,9 +216,8 @@
 #pragma mark - protocol methods
 
 - (void)drawAsyncLayerInContext:(CGContextRef)context parameters:(NSObject *)parameters{
-    
     [self drawInContext:context parameters:parameters];
-
+    [self drawBorderAsync:context];
 }
 
 
@@ -264,6 +285,32 @@
     } copy];
 
     
+
+}
+
+- (void)drawBorderAsync:(CGContextRef)context {
+    if (_realBorderWidth <= 0 || !self.borderColor) {
+        return;
+    }
+    
+//    CGContextSaveGState(context);
+//    CGContextSetShouldAntialias(context, YES);
+    
+    UIBezierPath *path = nil;
+    CGRect rect = CGRectMake(_realBorderWidth * 0.5, _realBorderWidth * 0.5, self.bounds.size.width - _realBorderWidth, self.bounds.size.height - _realBorderWidth);
+    if (self.cornerRadius > 0) {
+        path = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:self.cornerRadius];
+
+    } else {
+        path = [UIBezierPath bezierPathWithRect:rect];
+
+    };
+    
+    [[UIColor colorWithCGColor:self.borderColor] setStroke];
+    [path setLineWidth:_realBorderWidth];
+    [path stroke];
+    
+//    CGContextRestoreGState(context);
 
 }
 

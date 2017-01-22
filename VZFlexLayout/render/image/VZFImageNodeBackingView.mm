@@ -50,16 +50,10 @@
             return;
         }
         self.imageRenderer.image = image;
+        self.layer.contentsScale = [UIScreen mainScreen].scale;
         [self.layer setNeedsDisplay];
     }
 }
 
-- (UIImage *)image {
-    if (!self.imageRenderer) {
-        return [super image];
-    } else {
-        return self.imageRenderer.image;
-    }
-}
 
 @end
