@@ -13,7 +13,7 @@
 @implementation VZFImageNodeBackingLayer
 
 -(BOOL)asyncDisplay{
-    return NO;
+    return YES;
 //    return _renderer.animateCount <= 0;
 }
 //

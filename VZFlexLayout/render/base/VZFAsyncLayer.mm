@@ -68,7 +68,7 @@
 }
 
 -(BOOL)asyncDisplay{
-    return NO;
+    return YES;
 }
 
 - (void)setBorderWidth:(CGFloat)borderWidth {
@@ -157,6 +157,7 @@
         VZFAssertMainThread();
         if (!cancelled && (_displaySentinel == displaySentinelValue)) {
             [self didDisplayAsynchronously:value withDrawParameters:drawParameters];
+            UIImage *im = [UIImage imageWithCGImage:(CGImageRef)value];
             self.contents = value;
         }
     

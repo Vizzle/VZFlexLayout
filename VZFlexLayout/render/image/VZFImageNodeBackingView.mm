@@ -9,6 +9,7 @@
 #import "VZFImageNodeBackingView.h"
 #import "VZFImageNodeRenderer.h"
 #import "VZFImageNodeBackingLayer.h"
+#import "VZFUtils.h"
 
 @implementation VZFImageNodeBackingView
 
@@ -25,7 +26,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        // Set some sensible defaults for a text view
+        self.contentScaleFactor = VZ::Helper::screenScale();
     }
     return self;
 }

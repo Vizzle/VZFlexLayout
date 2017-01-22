@@ -229,13 +229,16 @@
         }
     }
     else {
-        self.layer.cornerRadius     = cornerRadiusTopLeft;
-        self.layer.borderColor      = vs.borderColor.CGColor;
-        self.layer.borderWidth      = vs.borderWidth;
-        self.layer.mask = nil;
+        [self setLayerBorder:vs.borderColor.CGColor borderWidth:vs.borderWidth cornerRadius:cornerRadiusTopLeft];
     }
 }
 
+-(void)setLayerBorder:(CGColorRef)color borderWidth:(CGFloat)borderWidth cornerRadius:(CGFloat)cornerRadius{
+    self.layer.cornerRadius     = cornerRadius;
+    self.layer.borderColor      = color;
+    self.layer.borderWidth      = borderWidth;
+    self.layer.mask = nil;
+}
 
 - (void)_applyGestures:(const NodeSpecs&)vs{
     
