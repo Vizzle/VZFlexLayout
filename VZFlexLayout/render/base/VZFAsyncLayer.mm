@@ -278,69 +278,54 @@
     }
     
     CGContextSaveGState(context);
-    CGContextBeginPath(context);
 
-    UIBezierPath *path = nil;
-    CGRect rect = CGRectMake(_realBorderWidth * 0.5, _realBorderWidth * 0.5, self.bounds.size.width - _realBorderWidth, self.bounds.size.height - _realBorderWidth);
     if (self.cornerRadius > 0) {
-        CGFloat offset = _realBorderWidth * 0.5;
-        CGFloat cornerRadius = self.cornerRadius - offset;
+        CGFloat cornerRadius = self.cornerRadius;
         CGFloat halfHeight = self.bounds.size.height * 0.5;
         CGFloat halfWidth = self.bounds.size.width * 0.5;
         
         CGFloat xAngle = 0;
-        if (cornerRadius + offset > halfWidth) {
-            xAngle = asin((cornerRadius + offset - halfWidth) / cornerRadius);
+        if (cornerRadius > halfWidth) {
+            xAngle = asin((cornerRadius - halfWidth) / cornerRadius);
         }
         
         CGFloat yAngle = 0;
-        if (cornerRadius + offset > halfHeight) {
-            yAngle = asin((cornerRadius  + offset  - halfHeight) / cornerRadius);
+        if (cornerRadius > halfHeight) {
+            yAngle = asin((cornerRadius  - halfHeight) / cornerRadius);
         }
         
         
-        //左上角
-        CGContextAddArc(context, cornerRadius + offset, cornerRadius + offset, cornerRadius, M_PI + yAngle, M_PI_2 * 3 - xAngle, NO);
+        CGContextBeginPath(context); //begin an empty path
+
+        /*
+         If the current path already contains a subpath, this method adds a line connecting the current point to the starting point of the arc. If the current path is empty, his method creates a new subpath whose starting point is the starting point of the arc. The ending point of the arc becomes the new current point of the path.
+         */
+        //left top corner
+        CGContextAddArc(context, cornerRadius, cornerRadius, cornerRadius, M_PI + yAngle, M_PI_2 * 3 - xAngle, NO);
         
-        //右上角
-        CGContextAddArc(context, self.bounds.size.width - cornerRadius - offset, cornerRadius + offset, cornerRadius, - M_PI_2 + xAngle, - yAngle, NO);
+        //left right corner
+        CGContextAddArc(context, self.bounds.size.width - cornerRadius, cornerRadius, cornerRadius, - M_PI_2 + xAngle, - yAngle, NO);
         
-        //右下角
-        CGContextAddArc(context, self.bounds.size.width - cornerRadius - offset, self.bounds.size.height - cornerRadius - offset, cornerRadius, 0 + yAngle, M_PI_2 - xAngle, NO);
+        //right bottom corner
+        CGContextAddArc(context, self.bounds.size.width - cornerRadius, self.bounds.size.height - cornerRadius, cornerRadius, 0 + yAngle, M_PI_2 - xAngle, NO);
         
-        //左下角
-        CGContextAddArc(context, cornerRadius + offset, self.bounds.size.height - cornerRadius - offset, cornerRadius, M_PI_2 + xAngle, M_PI - yAngle, NO);
+        //left bottom corner
+        CGContextAddArc(context, cornerRadius, self.bounds.size.height - cornerRadius, cornerRadius, M_PI_2 + xAngle, M_PI - yAngle, NO);
         CGContextClosePath(context);
         
-        
-        
-        
-//        CGContextMoveToPoint(context, offset, halfHeight);
-//        //先画左上角
-//        CGContextAddArc(context, cornerRadius + offset, cornerRadius + offset, cornerRadius, M_PI, M_PI_2 * 3, NO);
-//        
-//        CGContextAddLineToPoint(context, self.bounds.size.width - cornerRadius, offset);
-//        CGContextAddArc(context, self.bounds.size.width - cornerRadius - offset, cornerRadius + offset, cornerRadius, - M_PI_2, 0, NO);
-//        
-//        CGContextAddLineToPoint(context, self.bounds.size.width - offset, self.bounds.size.height - cornerRadius);
-//
-//        CGContextAddArc(context, self.bounds.size.width - cornerRadius - offset, self.bounds.size.height - cornerRadius - offset, cornerRadius, 0, M_PI_2, NO);
-//        
-//        CGContextAddLineToPoint(context, cornerRadius, self.bounds.size.height - offset);
-//
-//        CGContextAddArc(context, cornerRadius + offset, self.bounds.size.height - cornerRadius - offset, cornerRadius, M_PI_2, M_PI, NO);
-//        
-//        CGContextClosePath(context);
-        
-
+        CGPathRef path = CGContextCopyPath(context);//store path
+        CGContextClip(context);//clip and clear path
+        CGContextAddPath(context, path);//recover path
 
     } else {
-        path = [UIBezierPath bezierPathWithRect:rect];
+        UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.bounds];
+        [path addClip];
         CGContextAddPath(context, path.CGPath);
     };
     
     CGContextSetStrokeColorWithColor(context, self.borderColor);
-    CGContextSetLineWidth(context, _realBorderWidth);
+    //we have set self.bounds as the clip path.So we set 2 times line width, and clip 1 time width lefting 1 time width;
+    CGContextSetLineWidth(context, _realBorderWidth * 2);
     CGContextDrawPath(context, kCGPathFillStroke);
     
     CGContextRestoreGState(context);
