@@ -73,21 +73,7 @@
 
 - (void)setBorderWidth:(CGFloat)borderWidth {
     _realBorderWidth = borderWidth;
-    [super setBorderWidth:borderWidth];
-}
-
-- (void)handleBorder:(BOOL)isAsync {
-    /*
-     *异步的时候通过CoreGraphics画
-     *同步的时候通过layer的属性来画
-     */
-    if (isAsync) {
-        CGFloat realBorderWidth = _realBorderWidth;
-        self.borderWidth = 0;
-        _realBorderWidth = realBorderWidth;
-    } else {
-        self.borderWidth = _realBorderWidth;
-    }
+    [super setBorderWidth:0];
 }
 
 - (void)display{
@@ -111,9 +97,6 @@
                 break;
         }
     }
-    
-
-    [self handleBorder:!renderSynchronously];
     
     if (renderSynchronously) {
         [super display];
@@ -174,8 +157,8 @@
     [super drawInContext:ctx];
     
     VZFAssertMainThread();
-    [self  drawInContext:ctx parameters:[self drawParameters]];
-
+    [self drawInContext:ctx parameters:[self drawParameters]];
+    [self drawBorder:ctx];
 
 }
 
@@ -218,7 +201,7 @@
 
 - (void)drawAsyncLayerInContext:(CGContextRef)context parameters:(NSObject *)parameters{
     [self drawInContext:context parameters:parameters];
-    [self drawBorderAsync:context];
+    [self drawBorder:context];
 }
 
 
@@ -289,30 +272,78 @@
 
 }
 
-- (void)drawBorderAsync:(CGContextRef)context {
+- (void)drawBorder:(CGContextRef)context {
     if (_realBorderWidth <= 0 || !self.borderColor) {
         return;
     }
     
-//    CGContextSaveGState(context);
-//    CGContextSetShouldAntialias(context, YES);
-    
+    CGContextSaveGState(context);
+    CGContextBeginPath(context);
+
     UIBezierPath *path = nil;
     CGRect rect = CGRectMake(_realBorderWidth * 0.5, _realBorderWidth * 0.5, self.bounds.size.width - _realBorderWidth, self.bounds.size.height - _realBorderWidth);
     if (self.cornerRadius > 0) {
-        path = [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:self.cornerRadius];
+        CGFloat offset = _realBorderWidth * 0.5;
+        CGFloat cornerRadius = self.cornerRadius - offset;
+        CGFloat halfHeight = self.bounds.size.height * 0.5;
+        CGFloat halfWidth = self.bounds.size.width * 0.5;
+        
+        CGFloat xAngle = 0;
+        if (cornerRadius + offset > halfWidth) {
+            xAngle = asin((cornerRadius + offset - halfWidth) / cornerRadius);
+        }
+        
+        CGFloat yAngle = 0;
+        if (cornerRadius + offset > halfHeight) {
+            yAngle = asin((cornerRadius  + offset  - halfHeight) / cornerRadius);
+        }
+        
+        
+        //左上角
+        CGContextAddArc(context, cornerRadius + offset, cornerRadius + offset, cornerRadius, M_PI + yAngle, M_PI_2 * 3 - xAngle, NO);
+        
+        //右上角
+        CGContextAddArc(context, self.bounds.size.width - cornerRadius - offset, cornerRadius + offset, cornerRadius, - M_PI_2 + xAngle, - yAngle, NO);
+        
+        //右下角
+        CGContextAddArc(context, self.bounds.size.width - cornerRadius - offset, self.bounds.size.height - cornerRadius - offset, cornerRadius, 0 + yAngle, M_PI_2 - xAngle, NO);
+        
+        //左下角
+        CGContextAddArc(context, cornerRadius + offset, self.bounds.size.height - cornerRadius - offset, cornerRadius, M_PI_2 + xAngle, M_PI - yAngle, NO);
+        CGContextClosePath(context);
+        
+        
+        
+        
+//        CGContextMoveToPoint(context, offset, halfHeight);
+//        //先画左上角
+//        CGContextAddArc(context, cornerRadius + offset, cornerRadius + offset, cornerRadius, M_PI, M_PI_2 * 3, NO);
+//        
+//        CGContextAddLineToPoint(context, self.bounds.size.width - cornerRadius, offset);
+//        CGContextAddArc(context, self.bounds.size.width - cornerRadius - offset, cornerRadius + offset, cornerRadius, - M_PI_2, 0, NO);
+//        
+//        CGContextAddLineToPoint(context, self.bounds.size.width - offset, self.bounds.size.height - cornerRadius);
+//
+//        CGContextAddArc(context, self.bounds.size.width - cornerRadius - offset, self.bounds.size.height - cornerRadius - offset, cornerRadius, 0, M_PI_2, NO);
+//        
+//        CGContextAddLineToPoint(context, cornerRadius, self.bounds.size.height - offset);
+//
+//        CGContextAddArc(context, cornerRadius + offset, self.bounds.size.height - cornerRadius - offset, cornerRadius, M_PI_2, M_PI, NO);
+//        
+//        CGContextClosePath(context);
+        
+
 
     } else {
         path = [UIBezierPath bezierPathWithRect:rect];
-
+        CGContextAddPath(context, path.CGPath);
     };
     
-    [[UIColor colorWithCGColor:self.borderColor] setStroke];
-    [path setLineWidth:_realBorderWidth];
-    [path stroke];
+    CGContextSetStrokeColorWithColor(context, self.borderColor);
+    CGContextSetLineWidth(context, _realBorderWidth);
+    CGContextDrawPath(context, kCGPathFillStroke);
     
-//    CGContextRestoreGState(context);
-
+    CGContextRestoreGState(context);
 }
 
 
