@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "VZFNodeBackingViewInterface.h"
 #import "VZFNetworkImageDownloadProtocol.h"
+#import "VZFBackingViewProtocol.h"
 
 @class VZFImageNodeRenderer;
 
-@interface VZFImageNodeBackingView : UIImageView<VZFNodeBackingViewInterface, VZFNetworkImageDownloadProtocol>
+@interface VZFImageNodeBackingView : UIImageView<VZFNodeBackingViewInterface, VZFNetworkImageDownloadProtocol,VZFBackingViewProtocol>
 
 @property(nonatomic,strong) VZFImageNodeRenderer* imageRenderer;
 

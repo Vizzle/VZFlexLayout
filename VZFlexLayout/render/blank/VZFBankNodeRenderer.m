@@ -34,7 +34,7 @@
     //边框
     if (self.borderWidth > 0) {
         CGContextAddPath(context, path.CGPath);
-        CGContextSetStrokeColorWithColor(context, self.borderColor);
+        CGContextSetStrokeColorWithColor(context, self.borderColor.CGColor);
         CGContextSetLineWidth(context, self.borderWidth);
         CGContextDrawPath(context, kCGPathFillStroke);
     }

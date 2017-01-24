@@ -23,7 +23,6 @@
 {
     int32_t _displaySentinel;
     BOOL _needsAsyncDisplayOnly;
-    CGFloat _realBorderWidth;
 }
 
 
@@ -72,7 +71,6 @@
 }
 
 - (void)setBorderWidth:(CGFloat)borderWidth {
-    _realBorderWidth = borderWidth;
     [super setBorderWidth:0];
 }
 
@@ -158,7 +156,7 @@
     
     VZFAssertMainThread();
     [self drawInContext:ctx parameters:[self drawParameters]];
-    [self drawBorder:ctx];
+//    [self drawBorder:ctx];
 
 }
 
@@ -201,7 +199,7 @@
 
 - (void)drawAsyncLayerInContext:(CGContextRef)context parameters:(NSObject *)parameters{
     [self drawInContext:context parameters:parameters];
-    [self drawBorder:context];
+//    [self drawBorder:context];
 }
 
 
@@ -270,65 +268,6 @@
 
     
 
-}
-
-- (void)drawBorder:(CGContextRef)context {
-    if (_realBorderWidth <= 0 || !self.borderColor) {
-        return;
-    }
-    
-    CGContextSaveGState(context);
-
-    if (self.cornerRadius > 0) {
-        CGFloat cornerRadius = self.cornerRadius;
-        CGFloat halfHeight = self.bounds.size.height * 0.5;
-        CGFloat halfWidth = self.bounds.size.width * 0.5;
-        
-        CGFloat xAngle = 0;
-        if (cornerRadius > halfWidth) {
-            xAngle = asin((cornerRadius - halfWidth) / cornerRadius);
-        }
-        
-        CGFloat yAngle = 0;
-        if (cornerRadius > halfHeight) {
-            yAngle = asin((cornerRadius  - halfHeight) / cornerRadius);
-        }
-        
-        
-        CGContextBeginPath(context); //begin an empty path
-
-        /*
-         If the current path already contains a subpath, this method adds a line connecting the current point to the starting point of the arc. If the current path is empty, his method creates a new subpath whose starting point is the starting point of the arc. The ending point of the arc becomes the new current point of the path.
-         */
-        //left top corner
-        CGContextAddArc(context, cornerRadius, cornerRadius, cornerRadius, M_PI + yAngle, M_PI_2 * 3 - xAngle, NO);
-        
-        //left right corner
-        CGContextAddArc(context, self.bounds.size.width - cornerRadius, cornerRadius, cornerRadius, - M_PI_2 + xAngle, - yAngle, NO);
-        
-        //right bottom corner
-        CGContextAddArc(context, self.bounds.size.width - cornerRadius, self.bounds.size.height - cornerRadius, cornerRadius, 0 + yAngle, M_PI_2 - xAngle, NO);
-        
-        //left bottom corner
-        CGContextAddArc(context, cornerRadius, self.bounds.size.height - cornerRadius, cornerRadius, M_PI_2 + xAngle, M_PI - yAngle, NO);
-        CGContextClosePath(context);
-        
-        CGPathRef path = CGContextCopyPath(context);//store path
-        CGContextClip(context);//clip and clear path
-        CGContextAddPath(context, path);//recover path
-
-    } else {
-        UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.bounds];
-        [path addClip];
-        CGContextAddPath(context, path.CGPath);
-    };
-    
-    CGContextSetStrokeColorWithColor(context, self.borderColor);
-    //we have set self.bounds as the clip path.So we set 2 times line width, and clip 1 time width lefting 1 time width;
-    CGContextSetLineWidth(context, _realBorderWidth * 2);
-    CGContextDrawPath(context, kCGPathFillStroke);
-    
-    CGContextRestoreGState(context);
 }
 
 

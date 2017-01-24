@@ -43,6 +43,10 @@
     return [self imageLayer].renderer;
 }
 
+- (VZFBaseRenderer *)renderer {
+    return self.imageRenderer;
+}
+
 - (void)setImage:(UIImage *)image {
     if (!self.imageRenderer) {
         [super setImage:image];

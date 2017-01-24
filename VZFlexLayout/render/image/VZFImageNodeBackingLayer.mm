@@ -12,62 +12,14 @@
 
 @implementation VZFImageNodeBackingLayer
 
--(BOOL)asyncDisplay{
-    return YES;
-//    return _renderer.animateCount <= 0;
+-(VZFAsyncLayerDisplayMode)displayMode{
+    if (_renderer.animateCount > 0) {
+        return kDisplayModeSync;
+    }
+    
+    return [super displayMode];
 }
-//
-//- (void)display {
-//    VZFAssertMainThread();
-//    
-//    if (![self asyncDisplay]) {
-//        self.contents = _renderer.image;
-//        switch (_renderer.contentMode) {
-//            case UIViewContentModeRedraw:
-//            case UIViewContentModeScaleToFill:
-//                self.contentsGravity = kCAGravityResize;
-//                break;
-//            case UIViewContentModeScaleAspectFill:
-//                self.contentsGravity = kCAGravityResizeAspectFill;
-//                break;
-//            case UIViewContentModeScaleAspectFit:
-//                self.contentsGravity = kCAGravityResizeAspect;
-//                break;
-//            case UIViewContentModeCenter:
-//                self.contentsGravity = kCAGravityCenter;
-//                break;
-//            case UIViewContentModeLeft:
-//                self.contentsGravity = kCAGravityLeft;
-//                break;
-//            case UIViewContentModeRight:
-//                self.contentsGravity = kCAGravityRight;
-//                break;
-//            case UIViewContentModeTop:
-//                self.contentsGravity = kCAGravityTop;
-//                break;
-//            case UIViewContentModeBottom:
-//                self.contentsGravity = kCAGravityBottom;
-//                break;
-//            case UIViewContentModeTopLeft:
-//                self.contentsGravity = kCAGravityTopLeft;
-//                break;
-//            case UIViewContentModeTopRight:
-//                self.contentsGravity = kCAGravityTopRight;
-//                break;
-//            case UIViewContentModeBottomLeft:
-//                self.contentsGravity = kCAGravityBottomLeft;
-//                break;
-//            case UIViewContentModeBottomRight:
-//                self.contentsGravity = kCAGravityBottomRight;
-//                break;
-//            default:
-//                break;
-//        }
-//    } else {
-//        [super display];
-//    }
-//
-//}
+
 
 #pragma mark - setter methods
 

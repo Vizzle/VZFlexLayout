@@ -48,7 +48,7 @@
     if (cornerRadius>0) {
         [self blankLayer].opaque = NO;
     }
-    self.blankRenderer.borderColor = color;
+    self.blankRenderer.borderColor = [UIColor colorWithCGColor:color];
     self.blankRenderer.borderWidth = borderWidth;
     self.blankRenderer.cornerRadius = cornerRadius;
     [[self blankLayer] setNeedsDisplay];

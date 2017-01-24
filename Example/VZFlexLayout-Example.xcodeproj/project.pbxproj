@@ -373,6 +373,7 @@
 		73CD82B71E360410000C81AF /* VZFButtonNodeRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFButtonNodeRenderer.mm; sourceTree = "<group>"; };
 		8E5005A69355CC7E5A0677A0 /* Pods-VZFlexLayout-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout-Example/Pods-VZFlexLayout-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B2D5C5D59412DA61279F6AEC /* Pods-VZFlexLayout-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout-Example/Pods-VZFlexLayout-Example.release.xcconfig"; sourceTree = "<group>"; };
+		B38F0CB41E37447600FBB37A /* VZFBackingViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBackingViewProtocol.h; sourceTree = "<group>"; };
 		B3B0F00C1E2CC44D000686EA /* VZFImageNodeBackingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeBackingLayer.h; sourceTree = "<group>"; };
 		B3B0F00D1E2CC44D000686EA /* VZFImageNodeBackingLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFImageNodeBackingLayer.mm; sourceTree = "<group>"; };
 		B3B0F00F1E2CC798000686EA /* VZFImageNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeRenderer.h; sourceTree = "<group>"; };
@@ -769,6 +770,7 @@
 				459FD8FB1E2907FF00C3548C /* VZFAsyncLayer.mm */,
 				73AE384B1E3490170024A7DE /* VZFBaseRenderer.h */,
 				73AE384C1E3490170024A7DE /* VZFBaseRenderer.m */,
+				B38F0CB41E37447600FBB37A /* VZFBackingViewProtocol.h */,
 			);
 			path = base;
 			sourceTree = "<group>";

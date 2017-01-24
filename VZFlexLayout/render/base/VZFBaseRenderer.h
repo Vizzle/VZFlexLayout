@@ -15,7 +15,18 @@
 @property(nonatomic,assign) CGFloat cornerRadius;
 
 @property(nonatomic,assign) CGFloat borderWidth;
-@property(nonatomic) CGColorRef borderColor;
+@property(nonatomic,strong) UIColor *borderColor;
 
+//can not override by sub class
+- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds;
+
+
+@end
+
+
+//for sub class to override
+@interface VZFBaseRenderer(foroverride)
+
+- (void)drawContentInContext:(CGContextRef)context bounds:(CGRect)bounds;
 
 @end

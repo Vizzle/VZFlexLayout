@@ -10,7 +10,7 @@
 
 @implementation VZFImageNodeRenderer
 
-- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {
+- (void)drawContentInContext:(CGContextRef)context bounds:(CGRect)bounds {
     if (self.image == nil) {
         return;
     }

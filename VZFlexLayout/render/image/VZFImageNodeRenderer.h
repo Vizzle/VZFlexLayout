@@ -8,14 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "VZFBaseRenderer.h"
 
-@interface VZFImageNodeRenderer : NSObject
+@interface VZFImageNodeRenderer : VZFBaseRenderer
 
 @property (nonatomic, strong) UIImage* image;
 @property (nonatomic, assign) UIViewContentMode contentMode;
 @property (nonatomic, assign) CGFloat scale;
 @property (nonatomic, assign) NSInteger animateCount;
-
-- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds;
 
 @end

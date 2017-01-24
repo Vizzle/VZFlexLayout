@@ -43,6 +43,7 @@
 #import "VZFImageNodeBackingView.h"
 #import "VZFImageNodeRenderer.h"
 #import "VZFButtonNodeBackingView.h"
+#import "VZFBackingViewProtocol.h"
 
 @implementation UIView (VZAttributes)
 
@@ -86,6 +87,9 @@
     {
         [self _applyTextFieldAttributes:((VZFTextFieldNode *)node).textFieldSpecs];
     }
+    
+    [self _applyRendererAttributes:node.specs];
+
 }
 
 - (UIBezierPath *)_roundRectPathWithWidth:(CGFloat)width
@@ -151,8 +155,19 @@
     return path;
 }
 
+- (void)_applyRendererAttributes:(const NodeSpecs&)vs {
+    if ([self conformsToProtocol:@protocol(VZFBackingViewProtocol)]) {
+        VZFBaseRenderer *renderer = [(id<VZFBackingViewProtocol>)self renderer];
+        if (renderer) {
+            renderer.backgroundColor = vs.backgroundColor;
+            renderer.borderWidth = vs.borderWidth;
+            renderer.borderColor = vs.borderColor;
+            renderer.cornerRadius = vs.cornerRadius;
+        }
+    }
+}
+
 - (void)_applyAttributes:(const NodeSpecs&)vs {
-    
     self.tag                    = vs.tag;
     self.backgroundColor        = vs.backgroundColor;
     self.clipsToBounds          = vs.clip;
@@ -379,6 +394,7 @@
         VZFImageNode* imageNode = (VZFImageNode* )self.node;
         imageNode.renderer.animateCount = animateCount;
         imageNode.renderer.scale = self.contentScaleFactor;
+        
         view.imageRenderer = imageNode.renderer;
         view.contentMode = imageSpec.contentMode;
         
