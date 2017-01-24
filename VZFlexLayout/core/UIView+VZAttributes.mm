@@ -42,6 +42,7 @@
 #import <objc/runtime.h>
 #import "VZFImageNodeBackingView.h"
 #import "VZFImageNodeRenderer.h"
+#import "VZFButtonNodeBackingView.h"
 
 @implementation UIView (VZAttributes)
 
@@ -279,7 +280,7 @@
     
     VZFButtonView* btn = (VZFButtonView* )self;
     
-    btn.titleLabel.font = buttonNodeSpecs.getFont();
+    
     
     // reset
     for (int state=UIControlStateNormal;state<=UIControlStateFocused;state++) {
@@ -327,6 +328,14 @@
         [actionArray addObject:action];
         [btn addTarget:buttonNodeSpecs.action action:@selector(invoke:event:) forControlEvents:action.controlEvents];
     }
+    
+    if([btn isKindOfClass:[VZFButtonNodeBackingView class]]){
+        [(VZFButtonNodeBackingView *)btn setTitleFont:buttonNodeSpecs.getFont()];
+        [(VZFButtonNodeBackingView *)btn setButtonStatus:UIControlStateNormal];
+    }else{
+        btn.titleLabel.font = buttonNodeSpecs.getFont();
+    }
+
 }
 
 - (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs{

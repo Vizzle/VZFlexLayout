@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "VZFNetworkImageDownloadProtocol.h"
 #import "VZFNodeBackingViewInterface.h"
+#import "VZFImageNodeBackingView.h"
 
 /**
  *  ImageNode默认的backing view
  */
-@interface VZFNetworkImageView : UIImageView<VZFNetworkImageDownloadProtocol,
+@interface VZFNetworkImageView : VZFImageNodeBackingView<VZFNetworkImageDownloadProtocol,
 VZFNodeBackingViewInterface>
 
 

@@ -119,6 +119,9 @@
 		73AE38501E3490AE0024A7DE /* VZFBankNodeRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AE384F1E3490AE0024A7DE /* VZFBankNodeRenderer.m */; };
 		73AE38531E3490E30024A7DE /* VZFBlankNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73AE38521E3490E30024A7DE /* VZFBlankNodeBackingView.mm */; };
 		73AE38561E3499120024A7DE /* VZFBlankNodeBackingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AE38551E3499120024A7DE /* VZFBlankNodeBackingLayer.m */; };
+		73CD82B21E35FF4F000C81AF /* VZFButtonNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73CD82B11E35FF4F000C81AF /* VZFButtonNodeBackingView.mm */; };
+		73CD82B51E360071000C81AF /* VZFButtonNodeBackingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 73CD82B41E360071000C81AF /* VZFButtonNodeBackingLayer.m */; };
+		73CD82B81E360410000C81AF /* VZFButtonNodeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73CD82B71E360410000C81AF /* VZFButtonNodeRenderer.mm */; };
 		B3B0F00E1E2CC44D000686EA /* VZFImageNodeBackingLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3B0F00D1E2CC44D000686EA /* VZFImageNodeBackingLayer.mm */; };
 		B3B0F0111E2CC798000686EA /* VZFImageNodeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3B0F0101E2CC798000686EA /* VZFImageNodeRenderer.mm */; };
 		B3B0F0141E2CCDD0000686EA /* VZFImageNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3B0F0131E2CCDD0000686EA /* VZFImageNodeBackingView.mm */; };
@@ -362,6 +365,12 @@
 		73AE38521E3490E30024A7DE /* VZFBlankNodeBackingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFBlankNodeBackingView.mm; sourceTree = "<group>"; };
 		73AE38541E3499120024A7DE /* VZFBlankNodeBackingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBlankNodeBackingLayer.h; sourceTree = "<group>"; };
 		73AE38551E3499120024A7DE /* VZFBlankNodeBackingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFBlankNodeBackingLayer.m; sourceTree = "<group>"; };
+		73CD82B01E35FF4F000C81AF /* VZFButtonNodeBackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFButtonNodeBackingView.h; sourceTree = "<group>"; };
+		73CD82B11E35FF4F000C81AF /* VZFButtonNodeBackingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFButtonNodeBackingView.mm; sourceTree = "<group>"; };
+		73CD82B31E360071000C81AF /* VZFButtonNodeBackingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFButtonNodeBackingLayer.h; sourceTree = "<group>"; };
+		73CD82B41E360071000C81AF /* VZFButtonNodeBackingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFButtonNodeBackingLayer.m; sourceTree = "<group>"; };
+		73CD82B61E360410000C81AF /* VZFButtonNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFButtonNodeRenderer.h; sourceTree = "<group>"; };
+		73CD82B71E360410000C81AF /* VZFButtonNodeRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFButtonNodeRenderer.mm; sourceTree = "<group>"; };
 		8E5005A69355CC7E5A0677A0 /* Pods-VZFlexLayout-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout-Example/Pods-VZFlexLayout-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B2D5C5D59412DA61279F6AEC /* Pods-VZFlexLayout-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout-Example/Pods-VZFlexLayout-Example.release.xcconfig"; sourceTree = "<group>"; };
 		B3B0F00C1E2CC44D000686EA /* VZFImageNodeBackingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeBackingLayer.h; sourceTree = "<group>"; };
@@ -736,6 +745,7 @@
 		459FD8F01E2907FF00C3548C /* render */ = {
 			isa = PBXGroup;
 			children = (
+				73CD82AE1E35F875000C81AF /* button */,
 				73AE38491E348F970024A7DE /* blank */,
 				459FD8F11E2907FF00C3548C /* base */,
 				459FD8FC1E2907FF00C3548C /* text */,
@@ -821,6 +831,19 @@
 				73AE38551E3499120024A7DE /* VZFBlankNodeBackingLayer.m */,
 			);
 			path = blank;
+			sourceTree = "<group>";
+		};
+		73CD82AE1E35F875000C81AF /* button */ = {
+			isa = PBXGroup;
+			children = (
+				73CD82B01E35FF4F000C81AF /* VZFButtonNodeBackingView.h */,
+				73CD82B11E35FF4F000C81AF /* VZFButtonNodeBackingView.mm */,
+				73CD82B31E360071000C81AF /* VZFButtonNodeBackingLayer.h */,
+				73CD82B41E360071000C81AF /* VZFButtonNodeBackingLayer.m */,
+				73CD82B61E360410000C81AF /* VZFButtonNodeRenderer.h */,
+				73CD82B71E360410000C81AF /* VZFButtonNodeRenderer.mm */,
+			);
+			path = button;
 			sourceTree = "<group>";
 		};
 		B3B0F00A1E2CC429000686EA /* image */ = {
@@ -1013,6 +1036,7 @@
 				1EEC1B521E28780200EBF0CC /* FBNameNode.mm in Sources */,
 				459FD9471E2907FF00C3548C /* VZFScrollNode.mm in Sources */,
 				459FD9251E2907FF00C3548C /* VZFNodeLayout.mm in Sources */,
+				73CD82B51E360071000C81AF /* VZFButtonNodeBackingLayer.m in Sources */,
 				459FD94F1E2907FF00C3548C /* VZFTextNodeBackingLayer.mm in Sources */,
 				1EEC1B441E28780200EBF0CC /* FBSampleStore.mm in Sources */,
 				459FD93C1E2907FF00C3548C /* VZFluxDispatcher.mm in Sources */,
@@ -1022,6 +1046,7 @@
 				459FD9331E2907FF00C3548C /* VZFTextFieldNodeSpecs.mm in Sources */,
 				459FD9301E2907FF00C3548C /* VZFStackView.mm in Sources */,
 				459FD9481E2907FF00C3548C /* VZFStackNode.mm in Sources */,
+				73CD82B81E360410000C81AF /* VZFButtonNodeRenderer.mm in Sources */,
 				459FD9441E2907FF00C3548C /* VZFLineNode.mm in Sources */,
 				459FD9501E2907FF00C3548C /* VZFTextNodeBackingView.mm in Sources */,
 				459FD94B1E2907FF00C3548C /* VZFAsyncDrawingTransaction.mm in Sources */,
@@ -1083,6 +1108,7 @@
 				459FD9341E2907FF00C3548C /* VZFTextNodeSpecs.mm in Sources */,
 				459FD9351E2907FF00C3548C /* VZFUtils.mm in Sources */,
 				459FD9521E2907FF00C3548C /* VZFNodeListItemRecycler.mm in Sources */,
+				73CD82B21E35FF4F000C81AF /* VZFButtonNodeBackingView.mm in Sources */,
 				73AE384D1E3490170024A7DE /* VZFBaseRenderer.m in Sources */,
 				1EEC1B421E28780200EBF0CC /* FBHostItem.m in Sources */,
 			);

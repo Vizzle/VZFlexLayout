@@ -127,6 +127,7 @@
         drawRect4Point.size = imageSize;
     }
     
+    drawRect4Point.origin = CGPointMake(drawRect4Point.origin.x + bound.origin.x, drawRect4Point.origin.y +bound.origin.y );
     return drawRect4Point;
 }
 
