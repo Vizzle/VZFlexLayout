@@ -103,7 +103,7 @@
                                            .borderWidth = 1,
                                            .borderColor = [UIColor redColor],
                                            .cornerRadius = 10,
-//                                           .clip = YES,
+                                           .clip = YES,
                                            .width  =100,
                                            .height = 150,
 //                                           .gesture = ^(id sender){
