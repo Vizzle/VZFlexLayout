@@ -24,7 +24,7 @@
     int32_t _displaySentinel;
     BOOL _needsAsyncDisplayOnly;
 
-    BOOL _nextAsyncDisplay;
+    BOOL _nextSyncDisplay;
 }
 
 
@@ -69,14 +69,14 @@
 }
 
 -(void)resetNextSyncDisplay{
-    _nextAsyncDisplay = NO;
+    _nextSyncDisplay = YES;
 }
 
 -(BOOL)asyncDisplay{
     BOOL defaultValue = YES;
-    if (defaultValue!=_nextAsyncDisplay) {
-        _nextAsyncDisplay = defaultValue;
-        return !_nextAsyncDisplay;
+    if (defaultValue==_nextSyncDisplay) {
+        _nextSyncDisplay = !defaultValue;
+        return _nextSyncDisplay;
     }
     return defaultValue;
 }
@@ -153,6 +153,7 @@
         VZFAssertMainThread();
         if (!cancelled && (_displaySentinel == displaySentinelValue)) {
             [self didDisplayAsynchronously:value withDrawParameters:drawParameters];
+//            UIImage *image = [UIImage imageWithCGImage:(CGImageRef)value];
             self.contents = value;
         }
     
