@@ -17,6 +17,8 @@
 @property(nonatomic,assign) CGFloat borderWidth;
 @property(nonatomic,strong) UIColor *borderColor;
 
+@property(nonatomic,assign) BOOL clip;
+
 //can not override by sub class
 - (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds;
 

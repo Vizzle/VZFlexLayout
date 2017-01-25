@@ -13,9 +13,21 @@
 
 //can not override by sub class
 - (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {
+    CGContextSaveGState(context);
+        
+    UIBezierPath *borderPath = [self borderPathForBounds:bounds cornerRadius:self.cornerRadius];
+    
+    if (self.clip) {
+        [borderPath addClip];
+    }
+
     [self drawBackgroundColor:context bounds:bounds];
     [self drawContentInContext:context bounds:bounds];
-    [self drawBorder:context bounds:bounds];
+    
+    [self drawBorder:context path:borderPath];
+    
+    CGContextRestoreGState(context);
+
 }
 
 - (void)drawBackgroundColor:(CGContextRef)context bounds:(CGRect)bounds {
@@ -30,6 +42,30 @@
     
     CGContextRestoreGState(context);
 }
+
+- (void)drawBorder:(CGContextRef)context path:(UIBezierPath *)borderPath {
+    if (self.borderWidth <= 0
+        || !self.borderColor
+        || !borderPath) {
+        return;
+    }
+    
+    CGContextSaveGState(context);
+    
+    CGContextBeginPath(context);
+    CGContextAddPath(context, borderPath.CGPath);
+    CGContextClip(context);//clip and cealr current path
+    CGContextAddPath(context, borderPath.CGPath);
+
+    CGContextSetStrokeColorWithColor(context, self.borderColor.CGColor);
+    //we have set bounds as the clip path.So we set 2 times line width, and clip 1 time width lefting 1 time width;
+    CGContextSetLineWidth(context, self.borderWidth * 2);
+    CGContextDrawPath(context, kCGPathStroke);
+    
+    CGContextRestoreGState(context);
+
+}
+
 
 - (void)drawBorder:(CGContextRef)context bounds:(CGRect)bounds {
     if (self.borderWidth <= 0 || !self.borderColor) {
@@ -88,6 +124,14 @@
     CGContextDrawPath(context, kCGPathStroke);
     
     CGContextRestoreGState(context);
+}
+
+- (UIBezierPath *)borderPathForBounds:(CGRect)bounds cornerRadius:(CGFloat)cornerRadius {
+    if (cornerRadius > 0) {
+        return [UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:cornerRadius];
+    } else {
+        return [UIBezierPath bezierPathWithRect:bounds];
+    }
 }
 
 

@@ -163,6 +163,7 @@
             renderer.borderWidth = vs.borderWidth;
             renderer.borderColor = vs.borderColor;
             renderer.cornerRadius = vs.cornerRadius;
+            renderer.clip = vs.clip;
         }
     }
 }

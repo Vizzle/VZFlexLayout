@@ -89,6 +89,10 @@
     [super setBackgroundColor:nil];
 }
 
+- (void)setMasksToBounds:(BOOL)masksToBounds {
+    [super setMasksToBounds:NO];
+}
+
 - (void)display{
 
     VZFAssertMainThread();
