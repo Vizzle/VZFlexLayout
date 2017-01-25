@@ -85,7 +85,7 @@
     CGContextSetStrokeColorWithColor(context, self.borderColor.CGColor);
     //we have set bounds as the clip path.So we set 2 times line width, and clip 1 time width lefting 1 time width;
     CGContextSetLineWidth(context, self.borderWidth * 2);
-    CGContextDrawPath(context, kCGPathFillStroke);
+    CGContextDrawPath(context, kCGPathStroke);
     
     CGContextRestoreGState(context);
 }
