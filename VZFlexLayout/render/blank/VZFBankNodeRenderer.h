@@ -10,6 +10,4 @@
 
 @interface VZFBankNodeRenderer : VZFBaseRenderer
 
-- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds;
-
 @end

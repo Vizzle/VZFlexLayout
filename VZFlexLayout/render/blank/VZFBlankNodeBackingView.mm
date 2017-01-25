@@ -35,6 +35,10 @@
     return [self blankLayer].renderer;
 }
 
+- (__kindof VZFBaseRenderer *)renderer {
+    return [self blankRenderer];
+}
+
 -(UIColor *)backgroundColor{
     return self.blankRenderer.backgroundColor;
 }

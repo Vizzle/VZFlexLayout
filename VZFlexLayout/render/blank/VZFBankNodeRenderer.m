@@ -11,7 +11,7 @@
 @implementation VZFBankNodeRenderer
 
 
-- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {
+- (void)drawContentInContext:(CGContextRef)context bounds:(CGRect)bounds {
     
     CGContextSaveGState(context);
     
