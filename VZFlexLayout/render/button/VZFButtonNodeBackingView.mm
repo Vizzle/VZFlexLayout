@@ -57,4 +57,34 @@
     return [self buttonNodeBackingLayer].renderer;
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
+    [[self buttonNodeBackingLayer] resetNextSyncDisplay];
+    [self setButtonStatus:UIControlStateNormal];
+    [super touchesEnded:touches withEvent:event];
+}
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [[self buttonNodeBackingLayer] resetNextSyncDisplay];
+    [self setButtonStatus:UIControlStateNormal];
+    [super touchesCancelled:touches withEvent:event];
+}
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
+    // If we get more than one touch down on us, cancel.
+    // Additionally, if we're already tracking a touch, a second touch beginning is cause for cancellation.
+    if ([touches count] > 1 || self.tracking)
+    {
+    }
+    else
+    {
+        [[self buttonNodeBackingLayer] resetNextSyncDisplay];
+        [self setButtonStatus:UIControlStateHighlighted];
+    }
+    
+    [super touchesBegan:touches withEvent:event];
+
+}
 @end

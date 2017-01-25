@@ -23,6 +23,8 @@
 {
     int32_t _displaySentinel;
     BOOL _needsAsyncDisplayOnly;
+
+    BOOL _nextAsyncDisplay;
 }
 
 
@@ -66,8 +68,17 @@
     _needsAsyncDisplayOnly = NO;
 }
 
+-(void)resetNextSyncDisplay{
+    _nextAsyncDisplay = NO;
+}
+
 -(BOOL)asyncDisplay{
-    return YES;
+    BOOL defaultValue = YES;
+    if (defaultValue!=_nextAsyncDisplay) {
+        _nextAsyncDisplay = defaultValue;
+        return !_nextAsyncDisplay;
+    }
+    return defaultValue;
 }
 
 - (void)setBorderWidth:(CGFloat)borderWidth {
@@ -142,7 +153,6 @@
         VZFAssertMainThread();
         if (!cancelled && (_displaySentinel == displaySentinelValue)) {
             [self didDisplayAsynchronously:value withDrawParameters:drawParameters];
-            UIImage *im = [UIImage imageWithCGImage:(CGImageRef)value];
             self.contents = value;
         }
     
