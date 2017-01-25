@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VZFBackingViewProtocol.h"
 
-@interface VZFButtonNodeBackingView : UIButton
+@interface VZFButtonNodeBackingView : UIButton<VZFBackingViewProtocol>
 
 -(void)setTitleFont:(UIFont *)font;
 

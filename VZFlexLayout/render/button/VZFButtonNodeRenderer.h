@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "VZFBaseRenderer.h"
 
-@interface VZFButtonNodeRenderer : NSObject
+@interface VZFButtonNodeRenderer : VZFBaseRenderer
 
 @property(nonatomic,strong) UIFont *titleFont;
 
@@ -24,5 +25,4 @@
 -(void)updateRenderer:(UIControlState)state maxSize:(CGSize)size scale:(CGFloat)sacle;
 
 
-- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds;
 @end

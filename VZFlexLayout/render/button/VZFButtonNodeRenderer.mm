@@ -101,7 +101,7 @@
 }
 
 
-- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {
+- (void)drawContentInContext:(CGContextRef)context bounds:(CGRect)bounds {
     if (_backgroundImageRenderer) {
         [_backgroundImageRenderer drawInContext:context bounds:bounds];
     }

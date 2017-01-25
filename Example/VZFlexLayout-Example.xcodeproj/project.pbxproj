@@ -115,7 +115,7 @@
 		459FD9511E2907FF00C3548C /* VZFTextNodeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 459FD9021E2907FF00C3548C /* VZFTextNodeRenderer.mm */; };
 		459FD9521E2907FF00C3548C /* VZFNodeListItemRecycler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 459FD9051E2907FF00C3548C /* VZFNodeListItemRecycler.mm */; };
 		459FD9541E2907FF00C3548C /* VZFlexLayout.xcworkspace in Resources */ = {isa = PBXBuildFile; fileRef = 459FD9151E2907FF00C3548C /* VZFlexLayout.xcworkspace */; };
-		73AE384D1E3490170024A7DE /* VZFBaseRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AE384C1E3490170024A7DE /* VZFBaseRenderer.m */; };
+		73AE384D1E3490170024A7DE /* VZFBaseRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73AE384C1E3490170024A7DE /* VZFBaseRenderer.mm */; };
 		73AE38501E3490AE0024A7DE /* VZFBankNodeRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AE384F1E3490AE0024A7DE /* VZFBankNodeRenderer.m */; };
 		73AE38531E3490E30024A7DE /* VZFBlankNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73AE38521E3490E30024A7DE /* VZFBlankNodeBackingView.mm */; };
 		73AE38561E3499120024A7DE /* VZFBlankNodeBackingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 73AE38551E3499120024A7DE /* VZFBlankNodeBackingLayer.m */; };
@@ -358,7 +358,7 @@
 		459FD9121E2907FF00C3548C /* VZFlexLayout.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = VZFlexLayout.xcodeproj; sourceTree = "<group>"; };
 		459FD9151E2907FF00C3548C /* VZFlexLayout.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = VZFlexLayout.xcworkspace; sourceTree = "<group>"; };
 		73AE384B1E3490170024A7DE /* VZFBaseRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBaseRenderer.h; sourceTree = "<group>"; };
-		73AE384C1E3490170024A7DE /* VZFBaseRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFBaseRenderer.m; sourceTree = "<group>"; };
+		73AE384C1E3490170024A7DE /* VZFBaseRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFBaseRenderer.mm; sourceTree = "<group>"; };
 		73AE384E1E3490AE0024A7DE /* VZFBankNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBankNodeRenderer.h; sourceTree = "<group>"; };
 		73AE384F1E3490AE0024A7DE /* VZFBankNodeRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFBankNodeRenderer.m; sourceTree = "<group>"; };
 		73AE38511E3490E30024A7DE /* VZFBlankNodeBackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBlankNodeBackingView.h; sourceTree = "<group>"; };
@@ -769,7 +769,7 @@
 				459FD8FA1E2907FF00C3548C /* VZFAsyncLayer.h */,
 				459FD8FB1E2907FF00C3548C /* VZFAsyncLayer.mm */,
 				73AE384B1E3490170024A7DE /* VZFBaseRenderer.h */,
-				73AE384C1E3490170024A7DE /* VZFBaseRenderer.m */,
+				73AE384C1E3490170024A7DE /* VZFBaseRenderer.mm */,
 				B38F0CB41E37447600FBB37A /* VZFBackingViewProtocol.h */,
 			);
 			path = base;
@@ -1111,7 +1111,7 @@
 				459FD9351E2907FF00C3548C /* VZFUtils.mm in Sources */,
 				459FD9521E2907FF00C3548C /* VZFNodeListItemRecycler.mm in Sources */,
 				73CD82B21E35FF4F000C81AF /* VZFButtonNodeBackingView.mm in Sources */,
-				73AE384D1E3490170024A7DE /* VZFBaseRenderer.m in Sources */,
+				73AE384D1E3490170024A7DE /* VZFBaseRenderer.mm in Sources */,
 				1EEC1B421E28780200EBF0CC /* FBHostItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

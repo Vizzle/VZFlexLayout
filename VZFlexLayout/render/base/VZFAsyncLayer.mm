@@ -74,6 +74,10 @@
     [super setBorderWidth:0];
 }
 
+- (void)setBackgroundColor:(CGColorRef)backgroundColor {
+    [super setBackgroundColor:nil];
+}
+
 - (void)display{
 
     VZFAssertMainThread();
