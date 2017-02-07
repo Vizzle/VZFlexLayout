@@ -9,14 +9,11 @@
 #import "FBHeaderNode.h"
 #import "FBNameNode.h"
 #import "FBStarNode.h"
-#import "VZFStackNode.h"
 #import "FBHostItem.h"
 #import "FBImageDownloader.h"
 #import "FBIconNode.h"
-#import "VZFNodeViewClass.h"
-#import "VZFNodeSpecs.h"
-#import "VZFTextNode.h"
-#import "VZFTextNodeSpecs.h"
+#import <VZFlexLayout/VZFlexLayout.h>
+
 
 @implementation FBHeaderNode
 

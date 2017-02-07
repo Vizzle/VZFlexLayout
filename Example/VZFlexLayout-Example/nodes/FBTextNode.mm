@@ -7,12 +7,10 @@
 //
 
 #import "FBTextNode.h"
-#import "VZFTextNode.h"
-#import "VZFNodeSpecs.h"
-#import "VZFTextNodeSpecs.h"
-#import "FBHostItem.h"
-#import "VZFStackNode.h"
+#import <VZFlexLayout/VZFlexLayout.h>
 #import "FBLocationNode.h"
+#import "FBHostItem.h"
+
 
 @implementation FBTextNode
 

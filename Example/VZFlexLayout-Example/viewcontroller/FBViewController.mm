@@ -7,13 +7,11 @@
 //
 
 #import "FBViewController.h"
-#import "VZFNodeHostingView.h"
 #import "FBSampleNode.h"
 #import "FBSampleStore.h"
 #import "FBHostItem.h"
 #import "FBHeaderNode.h"
-#import "VZFlux.h"
-#import "VZFTextNode.h"
+#import <VZFlexLayout/VZFlexLayout.h>
 #import <libkern/OSAtomic.h>
 
 

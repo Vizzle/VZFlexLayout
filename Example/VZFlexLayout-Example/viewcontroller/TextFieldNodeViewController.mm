@@ -7,12 +7,7 @@
 //
 
 #import "TextFieldNodeViewController.h"
-#import "VZFNodeHostingView.h"
-#import "VZFStackNode.h"
-#import "VZFValue.h"
-#import "VZFCompositeNode.h"
-#import "VZFTextFieldNode.h"
-#import "VZFButtonNode.h"
+#import <VZFlexLayout/VZFlexLayout.h>
 
 @interface SearchNode : VZFCompositeNode <VZFNodeRequiredMethods>
 

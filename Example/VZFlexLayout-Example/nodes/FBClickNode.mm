@@ -7,12 +7,7 @@
 //
 
 #import "FBClickNode.h"
-#import "VZFButtonNode.h"
-#import "VZFTextNode.h"
-#import "VZFStackNode.h"
-#import "VZFNodeSpecs.h"
-#import "VZFTextNodeSpecs.h"
-#import "VZFButtonNodeSpecs.h"
+#import <VZFlexLayout/VZFlexLayout.h>
 
 @implementation FBClickNode
 

@@ -9,9 +9,10 @@
 #import "FBHostNode.h"
 #import "FBHeaderNode.h"
 #import "FBContentNode.h"
-#import "VZFStackNode.h"
 #import "FBHostItem.h"
-#import "VZFNodeSpecs.h"
+#import <VZFlexLayout/VZFStackNode.h>
+#import <VZFlexLayout/VZFNodeSpecs.h>
+
 
 @implementation FBHostNode
 

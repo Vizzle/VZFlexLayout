@@ -7,13 +7,9 @@
 //
 
 #import "FBIconNode.h"
-#import "VZFImageNode.h"
-#import "VZFImageNodeSpecs.h"
-#import "VZFNodeSpecs.h"
 #import "FBNetworkImageView.h"
-#import "VZFStackNode.h"
+#import <VZFlexLayout/VZFlexLayout.h>
 
-#import "VZFTextNode.h"
 
 @implementation FBIconNode
 

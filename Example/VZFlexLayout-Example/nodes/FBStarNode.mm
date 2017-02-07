@@ -7,8 +7,8 @@
 //
 
 #import "FBStarNode.h"
-#import "VZFNodeViewClass.h"
-#import "VZFNodeSpecs.h"
+#import <VZFlexLayout/VZFNodeViewClass.h>
+#import <VZFlexLayout/VZFNodeSpecs.h>
 #import "FBO2OStarView.h"
 
 

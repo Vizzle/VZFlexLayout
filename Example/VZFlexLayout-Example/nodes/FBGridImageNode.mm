@@ -7,12 +7,9 @@
 //
 
 #import "FBGridImageNode.h"
-#import "VZFStackNode.h"
 #import "FBNetworkImageView.h"
-#import "VZFNodeSpecs.h"
-#import "VZFImageNode.h"
-#import "VZFImageNodeSpecs.h"
 #import <vector>
+#import <VZFlexLayout/VZFlexLayout.h>
 
 @implementation FBGridImageNode
 

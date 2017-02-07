@@ -9,7 +9,7 @@
 #import "FBTextListViewController.h"
 #import "FBHostItem.h"
 #import "FBHostCellItem.h"
-#import "VZFTextNode.h"
+#import <VZFlexLayout/VZFTextNode.h>
 
 
 @interface FBTextListViewController()<UITableViewDataSource,UITableViewDelegate>

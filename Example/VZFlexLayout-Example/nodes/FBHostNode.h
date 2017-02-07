@@ -6,8 +6,8 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "VZFCompositeNode.h"
-#import "VZFNodeRequiredMethods.h"
+#import <VZFlexLayout/VZFCompositeNode.h>
+#import <VZFlexLayout/VZFNodeRequiredMethods.h>
 
 @class FBHostItem;
 @interface FBHostNode : VZFCompositeNode<VZFNodeRequiredMethods>
