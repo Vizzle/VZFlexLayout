@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "VZFNodeBackingViewInterface.h"
 #import "VZFTextNodeBackingLayer.h"
+#import "VZFBackingViewProtocol.h"
 
 @class VZFTextNodeRenderer;
-@interface VZFTextNodeBackingView : UILabel<VZFNodeBackingViewInterface>
+@interface VZFTextNodeBackingView : UILabel<VZFNodeBackingViewInterface, VZFBackingViewProtocol>
 
 @property(nonatomic,strong) VZFTextNodeRenderer* textRenderer;
 @property(nonatomic,assign) UIEdgeInsets edgeInsets;

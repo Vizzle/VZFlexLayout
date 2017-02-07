@@ -30,6 +30,7 @@
             .clip = YES,
             .backgroundColor = [UIColor grayColor],
             .cornerRadius = 20.0f,
+            .flexShrink = 0,
             .width = 40,
             .height = 40
         

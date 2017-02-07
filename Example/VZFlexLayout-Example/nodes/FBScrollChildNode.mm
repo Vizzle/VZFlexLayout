@@ -100,8 +100,11 @@
                                                           Children:{
         {[VZFImageNode newWithImageAttributes:{.imageUrl = item.imagePath}
                                        NodeSpecs:{
-                                           
-                                           .width  =150,
+                                           .borderWidth = 1,
+                                           .borderColor = [UIColor redColor],
+                                           .cornerRadius = 10,
+                                           .clip = YES,
+                                           .width  =100,
                                            .height = 150,
 //                                           .gesture = ^(id sender){
 //                                               

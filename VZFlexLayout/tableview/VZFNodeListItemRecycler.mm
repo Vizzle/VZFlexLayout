@@ -165,7 +165,7 @@ struct VZItemRecyclerState{
     }
     
     _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil) copy];
-    //不使用异步渲染////////
+
 }
 
 

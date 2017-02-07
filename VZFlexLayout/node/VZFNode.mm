@@ -220,7 +220,7 @@ using namespace VZ::UIKit;
 
 -(void)unmount{
     
-    //VZF_LOG_THREAD(@"unmount");
+    VZF_LOG_THREAD(@"unmount");
     
     if (_mountedInfo != nullptr)
     {
@@ -255,6 +255,7 @@ using namespace VZ::UIKit;
 
 -(void)willMount{
 
+    VZF_LOG_THREAD(@"willMount");
     VZFAssertMainThread();
     
     switch (_state) {
@@ -280,12 +281,14 @@ using namespace VZ::UIKit;
 - (void)willRemount{
 
     VZFAssertMainThread();
+    VZF_LOG_THREAD(@"willRemount");
 
 }
 
 -(void)didMount{
 
     VZFAssertMainThread();
+    VZF_LOG_THREAD(@"didMount");
     
     switch (_state) {
         case VZFNodeStateMounting:
@@ -309,11 +312,15 @@ using namespace VZ::UIKit;
 - (void)didRemount{
 
     VZFAssertMainThread();
+    
+    VZF_LOG_THREAD(@"didRemount");
 }
 
 - (void)willUnmount{
 
     VZFAssertMainThread();
+    
+    VZF_LOG_THREAD(@"willUnmount");
     
     switch (_state) {
         case VZFNodeStateMounted:
@@ -334,6 +341,8 @@ using namespace VZ::UIKit;
 - (void)didUnmount{
 
     VZFAssertMainThread();
+    
+    VZF_LOG_THREAD(@"didUnmount");
     
     switch (_state) {
         case VZFNodeStateUnmounting:

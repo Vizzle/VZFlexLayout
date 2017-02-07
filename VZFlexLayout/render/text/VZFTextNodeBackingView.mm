@@ -42,6 +42,10 @@
     return [self textLayer].renderer;
 }
 
+- (__kindof VZFBaseRenderer *)renderer {
+    return [self textRenderer];
+}
+
 - (void)setEdgeInsets:(UIEdgeInsets)edgeInsets {
     [self textLayer].edgeInsets = edgeInsets;
 }

@@ -16,6 +16,7 @@
 #import "VZFNodeLayout.h"
 #import "VZFNodeViewClass.h"
 #import "VZFStackView.h"
+#import "VZFBlankNodeBackingView.h"
 
 using namespace VZ;
 @implementation VZFStackNode
@@ -37,7 +38,7 @@ using namespace VZ;
                               Children:(const std::vector<VZFStackChildNode> &)children{
 
     
-    VZFStackNode* stacknode =  [super newWithView:[self shouldFlattenStackView:specs] ? ViewClass() : [UIView class] NodeSpecs:specs];
+    VZFStackNode* stacknode =  [super newWithView:[self shouldFlattenStackView:specs] ? ViewClass() : [VZFBlankNodeBackingView class] NodeSpecs:specs];
     if (stacknode)
     {
         stacknode -> _stackSpecs    = stackSpecs;

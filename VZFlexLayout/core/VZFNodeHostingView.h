@@ -40,8 +40,6 @@
 - (void)updateState;
 - (void)reset;
 
-//return in O2OMistView
-- (VZFNode *)nodeFromTemplate;
 
 - (instancetype)init __attribute__((unavailable("Not the designated initializer")));
 - (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("Not the designated initializer")));

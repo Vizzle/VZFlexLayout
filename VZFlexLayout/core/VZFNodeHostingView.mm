@@ -120,10 +120,7 @@ using namespace VZ;
 //    [self reset];
     
     //2, create node
-    VZFNode *node = [self nodeFromTemplate]; //for O2OMistView
-    if (!node) {
-        node = [_nodeProvider nodeForItem:_model Store:_store Context:_context];
-    }
+    VZFNode *node = [_nodeProvider nodeForItem:_model Store:_store Context:_context];
     
     if (node) {
                 

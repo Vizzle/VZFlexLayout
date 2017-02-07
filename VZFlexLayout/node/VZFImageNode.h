@@ -14,11 +14,15 @@ namespace VZ {
     class ImageNodeSpecs;
 }
 using namespace VZ;
+
+@class VZFImageNodeRenderer;
+
 @interface VZFImageNode : VZFNode
 
 @property(nonatomic,assign,readonly) ImageNodeSpecs imageSpecs;
 @property(nonatomic,strong,readonly) id<VZFNetworkImageDownloadProtocol> imageDownloader;
 @property(nonatomic, copy, readonly) UIImage*(^imageProcessingBlock)(UIImage* );
+@property(nonatomic,strong,readonly) VZFImageNodeRenderer *renderer;
 
 
 + (instancetype)newWithImageAttributes:(const ImageNodeSpecs& )imageSpecs

@@ -14,6 +14,8 @@
 #import "VZFNodeViewClass.h"
 #import "VZFNodeLayout.h"
 #import "VZFImageNodeSpecs.h"
+#import "VZFImageNodeRenderer.h"
+#import "VZFImageNodeBackingView.h"
 
 @implementation VZFImageNode
 {
@@ -29,7 +31,7 @@
                              NodeSpecs:(const NodeSpecs& )nodeSpecs{
 
     
-    return [VZFImageNode newWithImageAttributes:imageSpecs NodeSpecs:nodeSpecs BackingImageViewClass:[VZFNetworkImageView class]];
+    return [VZFImageNode newWithImageAttributes:imageSpecs NodeSpecs:nodeSpecs BackingImageViewClass:[VZFImageNodeBackingView class]];
 
 }
 
@@ -43,6 +45,12 @@
     
     if (imageNode) {
         imageNode -> _imageSpecs = imageSpecs.copy();
+        
+        VZFImageNodeRenderer *renderer = [[VZFImageNodeRenderer alloc] init];
+        renderer.contentMode = imageSpecs.contentMode;
+
+        imageNode -> _renderer = renderer;
+        
         
         __weak typeof(imageNode) weakNode = imageNode;
         imageNode.flexNode.measure = ^(CGSize constraintedSize) {

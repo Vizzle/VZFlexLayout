@@ -8,6 +8,7 @@
 
 #import "FBSampleStore.h"
 #import "FBActionType.h"
+#import "FBSampleActionType.h"
 
 @implementation FBSampleStore
 
@@ -15,14 +16,14 @@
     
     if (action.source == view_action) {
         switch (action.actionType) {
-            case IMG_CLICKED:{
+            case LEFT_BTN_CLICKED:{
                 
-                [self emitChange:IMG_EVENT];
+                [self emitChange:BTN_CLICK_EVENT];
                 break;
             }
-            case BUTTON_CLICKED:{
+            case RIGHT_BTN_CLICKED:{
                 
-                [self emitChange:BTN_EVENT];
+                [self emitChange:BTN_CLICK_EVENT];
                 break;
             }
             default:
