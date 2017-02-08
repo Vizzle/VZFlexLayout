@@ -14,7 +14,12 @@ VZFlexLayout is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "VZFlexLayout"
+source 'https://github.com/Vizzle/Specs.git'
+
+target YourAwesomeTarget do
+  use_frameworks!
+  pod 'VZFlexLayout'
+end
 ```
 
 ## License
