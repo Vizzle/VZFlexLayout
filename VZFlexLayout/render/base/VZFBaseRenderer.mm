@@ -23,7 +23,8 @@
         CGContextClip(context);
     }
 
-    [self drawBackgroundColor:context bounds:bounds];
+    //background should be clipped no matter if clip is YES or NO, so use border path to fill
+    [self drawBackgroundColor:context path:borderPath];
     [self drawContentInContext:context bounds:bounds];
     [self drawBorder:context path:borderPath];
     
@@ -31,15 +32,18 @@
 
 }
 
-- (void)drawBackgroundColor:(CGContextRef)context bounds:(CGRect)bounds {
+- (void)drawBackgroundColor:(CGContextRef)context path:(UIBezierPath *)path {
     if (!self.backgroundColor) {
         return;
     }
     
+    
     CGContextSaveGState(context);
     
     CGContextSetFillColorWithColor(context, self.backgroundColor.CGColor);
-    CGContextFillRect(context, bounds);
+    CGContextBeginPath(context);
+    CGContextAddPath(context, path.CGPath);
+    CGContextFillPath(context);
     
     CGContextRestoreGState(context);
 }
