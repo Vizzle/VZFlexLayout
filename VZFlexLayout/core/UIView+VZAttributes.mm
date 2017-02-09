@@ -165,6 +165,7 @@
             renderer.cornerRadius = vs.cornerRadius;
             renderer.clip = vs.clip;
         }
+        [(id<VZFBackingViewProtocol>)self setLayerNeedsAsyncDisplay];
     }
 }
 

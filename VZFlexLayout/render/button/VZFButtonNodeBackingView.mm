@@ -25,18 +25,20 @@
     return self;
 }
 
+-(VZFButtonNodeBackingLayer *)buttonNodeBackingLayer{
+    return (VZFButtonNodeBackingLayer *)self.layer;
+}
+-(void)setLayerNeedsAsyncDisplay{
+    [self.buttonNodeBackingLayer setNeedsAsyncDisplay];
+}
+
 
 -(void)setButtonStatus:(UIControlState)state{
     [[self buttonNodeBackingLayer].renderer updateRenderer:state maxSize:self.frame.size scale:self.layer.contentsScale];
-    [[self buttonNodeBackingLayer] setNeedsAsyncDisplay];
 }
 -(void)setTitleFont:(UIFont *)font{
     [self buttonNodeBackingLayer].renderer.titleFont = font;
 }
--(VZFButtonNodeBackingLayer *)buttonNodeBackingLayer{
-    return (VZFButtonNodeBackingLayer *)self.layer;
-}
-
 -(void)setTitleColor:(UIColor *)color forState:(UIControlState)state{
     [[self buttonNodeBackingLayer].renderer setTitleColor:color forState:state];
 }
@@ -64,12 +66,14 @@
     [self setButtonStatus:UIControlStateNormal];
     [super touchesEnded:touches withEvent:event];
 }
+
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [[self buttonNodeBackingLayer] resetNextSyncDisplay];
     [self setButtonStatus:UIControlStateNormal];
     [super touchesCancelled:touches withEvent:event];
 }
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     

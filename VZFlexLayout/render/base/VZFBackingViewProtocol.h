@@ -13,5 +13,6 @@
 
 @required
 - (__kindof VZFBaseRenderer *)renderer;
+- (void)setLayerNeedsAsyncDisplay;
 
 @end

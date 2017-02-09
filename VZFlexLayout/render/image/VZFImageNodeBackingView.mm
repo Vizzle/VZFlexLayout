@@ -46,6 +46,9 @@
 - (VZFBaseRenderer *)renderer {
     return self.imageRenderer;
 }
+-(void)setLayerNeedsAsyncDisplay{
+    [self.imageLayer setNeedsAsyncDisplay];
+}
 
 - (void)setImage:(UIImage *)image {
     if (!self.imageRenderer) {
