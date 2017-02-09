@@ -18,12 +18,13 @@
     UIBezierPath *borderPath = [self borderPathForBounds:bounds cornerRadius:self.cornerRadius];
     
     if (self.clip) {
-        [borderPath addClip];
+        CGContextBeginPath(context);
+        CGContextAddPath(context, borderPath.CGPath);
+        CGContextClip(context);
     }
 
     [self drawBackgroundColor:context bounds:bounds];
     [self drawContentInContext:context bounds:bounds];
-    
     [self drawBorder:context path:borderPath];
     
     CGContextRestoreGState(context);
