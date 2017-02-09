@@ -38,6 +38,10 @@
 - (__kindof VZFBaseRenderer *)renderer {
     return [self blankRenderer];
 }
+-(void)setLayerNeedsAsyncDisplay{
+    [self.blankLayer setNeedsAsyncDisplay];
+}
+
 
 -(UIColor *)backgroundColor{
     return self.blankRenderer.backgroundColor;

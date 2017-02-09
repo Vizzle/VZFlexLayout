@@ -45,6 +45,10 @@
 - (__kindof VZFBaseRenderer *)renderer {
     return [self textRenderer];
 }
+-(void)setLayerNeedsAsyncDisplay{
+    [self.textLayer setNeedsAsyncDisplay];
+}
+
 
 - (void)setEdgeInsets:(UIEdgeInsets)edgeInsets {
     [self textLayer].edgeInsets = edgeInsets;
