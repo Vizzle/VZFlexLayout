@@ -24,7 +24,7 @@
     int32_t _displaySentinel;
     BOOL _needsAsyncDisplayOnly;
 
-    BOOL _nextSyncDisplay;
+    NSNumber *_nextSyncDisplay;
 }
 
 
@@ -67,16 +67,17 @@
     
     _needsAsyncDisplayOnly = NO;
 }
-
+//设置下次绘制使用同步机制
 -(void)resetNextSyncDisplay{
-    _nextSyncDisplay = YES;
+    _nextSyncDisplay = @(YES);
 }
 
 -(BOOL)asyncDisplay{
-    BOOL defaultValue = YES;
-    if (defaultValue==_nextSyncDisplay) {
-        _nextSyncDisplay = !defaultValue;
-        return _nextSyncDisplay;
+    BOOL defaultValue = NO;
+    if (_nextSyncDisplay) {
+        BOOL r = ![_nextSyncDisplay boolValue];
+        _nextSyncDisplay = nil;
+        return r;
     }
     return defaultValue;
 }
@@ -114,11 +115,11 @@
                 break;
         }
     }
-    
-    if (renderSynchronously) {
-        [super display];
-        return;
-    }
+//    
+//    if (renderSynchronously) {
+//        [super display];
+//        return;
+//    }
     
     if (!_needsAsyncDisplayOnly) {
         
@@ -132,16 +133,16 @@
     }
     
     NSObject* drawParameters = [self drawParameters];
-    id preloadContent = [self willDisplayAsynchronouslyWithDrawParameters:drawParameters];
-    if (preloadContent) {
-        self.contents = preloadContent;
-        return ;
+    if (!renderSynchronously) {
+        id preloadContent = [self willDisplayAsynchronouslyWithDrawParameters:drawParameters];
+        if (preloadContent) {
+            self.contents = preloadContent;
+            return ;
+        }
     }
     
     int32_t  displaySentinelValue = OSAtomicIncrement32(&_displaySentinel);
     CALayer* containerLayer = parentTransactionContainer?:self;
-    VZFAsyncDrawingTransaction* transaction = containerLayer.asyncTransaction;
-    VZFAssertNotNil(transaction, @"Transaction Cannot be nil!");
     vz_async_display_block_t displayBlock = [[self class] asyncDisplayBlockWithBounds:bounds
                                                                         contentsScale:self.contentsScale
                                                                                opaque:self.opaque
@@ -163,9 +164,15 @@
     
     };
     
-    [transaction addSyncDrawingOperation:displayBlock
-                                   queue:[[self class]displayQueue]
-                              completion:completionBlock];
+    if (renderSynchronously) {
+        completionBlock(displayBlock(),NO);
+    }else{
+        VZFAsyncDrawingTransaction* transaction = containerLayer.asyncTransaction;
+        VZFAssertNotNil(transaction, @"Transaction Cannot be nil!");
+        [transaction addSyncDrawingOperation:displayBlock
+                                       queue:[[self class]displayQueue]
+                                  completion:completionBlock];
+    }
     
 }
 
