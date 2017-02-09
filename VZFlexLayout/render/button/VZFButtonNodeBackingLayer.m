@@ -17,9 +17,12 @@
     return  _renderer;
 }
 
+- (NSObject* )drawParameters{
+    return _renderer;
+}
 
 - (void)drawInContext:(CGContextRef)context parameters:(VZFButtonNodeRenderer *)renderer{
     CGRect boundsRect = CGContextGetClipBoundingBox(context);
-    [_renderer drawInContext:context bounds:boundsRect];
+    [renderer drawInContext:context bounds:boundsRect];
 }
 @end

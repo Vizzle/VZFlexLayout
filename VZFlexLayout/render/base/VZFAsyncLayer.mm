@@ -279,11 +279,6 @@
         UIGraphicsBeginImageContextWithOptions(bounds.size, opaque, contentsScale);
         CGContextRef bitmapContext = UIGraphicsGetCurrentContext();
         
-        if (backgroundColorObject != NULL) {
-            CGContextSetFillColorWithColor(bitmapContext, (CGColorRef)backgroundColorObject);
-            CGContextFillRect(bitmapContext, bounds);
-        }
-        
         [drawingDelegate drawAsyncLayerInContext:bitmapContext parameters:drawParameters];
         
         CGImageRef image = CGBitmapContextCreateImage(bitmapContext);
