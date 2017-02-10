@@ -73,7 +73,7 @@
 }
 
 -(BOOL)asyncDisplay{
-    BOOL defaultValue = NO;
+    BOOL defaultValue = YES;
     if (_nextSyncDisplay) {
         BOOL r = ![_nextSyncDisplay boolValue];
         _nextSyncDisplay = nil;
@@ -132,7 +132,7 @@
         return ;
     }
     
-    NSObject* drawParameters = [self drawParameters];
+    VZFRenderer* drawParameters = [self drawParameters];
     if (!renderSynchronously) {
         id preloadContent = [self willDisplayAsynchronouslyWithDrawParameters:drawParameters];
         if (preloadContent) {
@@ -145,7 +145,7 @@
     CALayer* containerLayer = parentTransactionContainer?:self;
     vz_async_display_block_t displayBlock = [[self class] asyncDisplayBlockWithBounds:bounds
                                                                         contentsScale:self.contentsScale
-                                                                               opaque:self.opaque
+                                                                               opaque:drawParameters.opaque
                                                                       backgroundColor:self.backgroundColor
                                                                       displaySentinel:&_displaySentinel
                                                          expectedDisplaySentinelValue:displaySentinelValue
@@ -158,7 +158,7 @@
         VZFAssertMainThread();
         if (!cancelled && (_displaySentinel == displaySentinelValue)) {
             [self didDisplayAsynchronously:value withDrawParameters:drawParameters];
-//            UIImage *image = [UIImage imageWithCGImage:(CGImageRef)value];
+            UIImage *image = [UIImage imageWithCGImage:(CGImageRef)value];
             self.contents = value;
         }
     
@@ -189,7 +189,7 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - public methods
 
-- (NSObject *)drawParameters{
+- (VZFRenderer *)drawParameters{
     return nil;
 }
 

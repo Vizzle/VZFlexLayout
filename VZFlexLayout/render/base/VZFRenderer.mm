@@ -18,6 +18,29 @@
 
 @implementation VZFRenderer
 
+-(void)setBackgroundColor:(UIColor *)backgroundColor{
+    _backgroundColor = backgroundColor;
+    [self updateOpaque];
+}
+
+-(void)setCornerRadius:(CGFloat)cornerRadius{
+    _cornerRadius = cornerRadius;
+    [self updateOpaque];
+}
+-(void)updateOpaque{
+    CGFloat alpha = 0.0;
+    if (_backgroundColor && ([_backgroundColor getRed:NULL green:NULL blue:NULL alpha:&alpha] ||
+        [_backgroundColor getWhite:NULL alpha:&alpha] ||
+        [_backgroundColor getHue:NULL saturation:NULL brightness:NULL alpha:&alpha])) {
+        if (alpha == 1.0 && _cornerRadius==0) {
+            //不透明 && 没有圆角才可以设置为不透明
+            _opaque = YES;
+            return;
+        }
+    }
+
+    _opaque = NO;
+}
 //can not override by sub class
 - (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {
     CGContextSaveGState(context);

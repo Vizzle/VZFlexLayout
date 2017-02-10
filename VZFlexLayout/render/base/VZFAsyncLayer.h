@@ -8,6 +8,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "VZFAsyncDrawingTransactionInterface.h"
+#import "VZFRenderer.h"
 
 typedef NS_ENUM(NSUInteger, VZFAsyncLayerDisplayMode) {
 
@@ -35,7 +36,7 @@ typedef NS_ENUM(NSUInteger, VZFAsyncLayerDisplayMode) {
  
  @returns The parameters.
  */
-- (NSObject *)drawParameters;
+- (VZFRenderer *)drawParameters;
 
 /**
  @summary Cancels any pending async display.

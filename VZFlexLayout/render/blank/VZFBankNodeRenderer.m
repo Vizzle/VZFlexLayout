@@ -29,6 +29,9 @@
     if (self.backgroundColor) {
         CGContextSetFillColorWithColor(context, self.backgroundColor.CGColor);
         CGContextFillRect(context, bounds);
+    }else{
+        CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+        CGContextFillRect(context, bounds);
     }
     
     //边框
