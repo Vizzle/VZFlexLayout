@@ -157,7 +157,7 @@
 
 - (void)_applyRendererAttributes:(const NodeSpecs&)vs {
     if ([self conformsToProtocol:@protocol(VZFBackingViewProtocol)]) {
-        VZFBaseRenderer *renderer = [(id<VZFBackingViewProtocol>)self renderer];
+        VZFRenderer *renderer = [(id<VZFBackingViewProtocol>)self renderer];
         if (renderer) {
             renderer.backgroundColor = vs.backgroundColor;
             renderer.borderWidth = vs.borderWidth;

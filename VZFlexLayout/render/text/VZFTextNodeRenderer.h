@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFTextNodeSpecs.h"
-#import "VZFBaseRenderer.h"
+#import "VZFRenderer.h"
 
-@interface VZFTextNodeRenderer : VZFBaseRenderer
+@interface VZFTextNodeRenderer : VZFRenderer
 
 @property (nonatomic, strong) NSAttributedString *text;
 @property (nonatomic, assign) VZFTextLineBreakMode lineBreakMode;

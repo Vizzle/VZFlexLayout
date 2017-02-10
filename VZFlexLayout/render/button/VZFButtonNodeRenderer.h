@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "VZFBaseRenderer.h"
+#import "VZFRenderer.h"
 
-@interface VZFButtonNodeRenderer : VZFBaseRenderer
+@interface VZFButtonNodeRenderer : VZFRenderer
 
 @property(nonatomic,strong) UIFont *titleFont;
 

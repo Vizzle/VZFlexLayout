@@ -43,7 +43,7 @@
     return [self imageLayer].renderer;
 }
 
-- (VZFBaseRenderer *)renderer {
+- (VZFRenderer *)renderer {
     return self.imageRenderer;
 }
 -(void)setLayerNeedsAsyncDisplay{

@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1E715EC21E49C81100D76806 /* VZFBackingViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715EBF1E49C81100D76806 /* VZFBackingViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E715EC31E49C81100D76806 /* VZFBaseRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715EC01E49C81100D76806 /* VZFBaseRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E715EC41E49C81100D76806 /* VZFBaseRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715EC11E49C81100D76806 /* VZFBaseRenderer.mm */; };
+		1E715EC31E49C81100D76806 /* VZFRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715EC01E49C81100D76806 /* VZFRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E715EC41E49C81100D76806 /* VZFRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715EC11E49C81100D76806 /* VZFRenderer.mm */; };
 		1E715EDA1E49C83600D76806 /* VZFBankNodeRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715EC61E49C83600D76806 /* VZFBankNodeRenderer.h */; };
 		1E715EDB1E49C83600D76806 /* VZFBankNodeRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E715EC71E49C83600D76806 /* VZFBankNodeRenderer.m */; };
 		1E715EDC1E49C83600D76806 /* VZFBlankNodeBackingLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715EC81E49C83600D76806 /* VZFBlankNodeBackingLayer.h */; };
@@ -169,8 +169,8 @@
 
 /* Begin PBXFileReference section */
 		1E715EBF1E49C81100D76806 /* VZFBackingViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBackingViewProtocol.h; sourceTree = "<group>"; };
-		1E715EC01E49C81100D76806 /* VZFBaseRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBaseRenderer.h; sourceTree = "<group>"; };
-		1E715EC11E49C81100D76806 /* VZFBaseRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFBaseRenderer.mm; sourceTree = "<group>"; };
+		1E715EC01E49C81100D76806 /* VZFRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFRenderer.h; sourceTree = "<group>"; };
+		1E715EC11E49C81100D76806 /* VZFRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFRenderer.mm; sourceTree = "<group>"; };
 		1E715EC61E49C83600D76806 /* VZFBankNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBankNodeRenderer.h; sourceTree = "<group>"; };
 		1E715EC71E49C83600D76806 /* VZFBankNodeRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFBankNodeRenderer.m; sourceTree = "<group>"; };
 		1E715EC81E49C83600D76806 /* VZFBlankNodeBackingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBlankNodeBackingLayer.h; sourceTree = "<group>"; };
@@ -597,8 +597,8 @@
 			isa = PBXGroup;
 			children = (
 				1E715EBF1E49C81100D76806 /* VZFBackingViewProtocol.h */,
-				1E715EC01E49C81100D76806 /* VZFBaseRenderer.h */,
-				1E715EC11E49C81100D76806 /* VZFBaseRenderer.mm */,
+				1E715EC01E49C81100D76806 /* VZFRenderer.h */,
+				1E715EC11E49C81100D76806 /* VZFRenderer.mm */,
 				1EEC1A361E27BFAD00EBF0CC /* VZFAsyncDrawingTransaction.h */,
 				1EEC1A371E27BFAD00EBF0CC /* VZFAsyncDrawingTransaction.mm */,
 				1EEC1A381E27BFAD00EBF0CC /* VZFAsyncDrawingTransactionContainer+Private.h */,
@@ -718,7 +718,7 @@
 				1EEC1A811E27BFAD00EBF0CC /* VZFScrollView.h in Headers */,
 				1EEC1A9B1E27BFAD00EBF0CC /* VZFWeakObjectWrapper.h in Headers */,
 				1EEC1AC81E27BFAD00EBF0CC /* VZFAsyncLayer.h in Headers */,
-				1E715EC31E49C81100D76806 /* VZFBaseRenderer.h in Headers */,
+				1E715EC31E49C81100D76806 /* VZFRenderer.h in Headers */,
 				1EEC1A5C1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.h in Headers */,
 				1EEC1A501E27BFAD00EBF0CC /* VZFButtonView.h in Headers */,
 				1EEC1A8C1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h in Headers */,
@@ -844,7 +844,7 @@
 				1EEC1AA01E27BFAD00EBF0CC /* VZFluxAppDispatcher.mm in Sources */,
 				1EEC1A6B1E27BFAD00EBF0CC /* VZFNodeHostingView.mm in Sources */,
 				1EEC1A7A1E27BFAD00EBF0CC /* VZFNodeViewManager.mm in Sources */,
-				1E715EC41E49C81100D76806 /* VZFBaseRenderer.mm in Sources */,
+				1E715EC41E49C81100D76806 /* VZFRenderer.mm in Sources */,
 				1EEC1A841E27BFAD00EBF0CC /* VZFSizeRange.mm in Sources */,
 				1EEC1A551E27BFAD00EBF0CC /* VZFImageNodeSpecs.mm in Sources */,
 				1EEC1A781E27BFAD00EBF0CC /* VZFNodeViewClass.mm in Sources */,

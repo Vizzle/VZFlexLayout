@@ -6,8 +6,8 @@
 //  Copyright © 2017年 Vizlab. All rights reserved.
 //
 
-#import "VZFBaseRenderer.h"
+#import "VZFRenderer.h"
 
-@interface VZFBankNodeRenderer : VZFBaseRenderer
+@interface VZFBankNodeRenderer : VZFRenderer
 
 @end

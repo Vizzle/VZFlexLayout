@@ -1,5 +1,5 @@
 //
-//  VZFBaseRenderer.h
+//  VZFRenderer.h
 //  VZFlexLayout-Example
 //
 //  Created by heling on 2017/1/22.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VZFBaseRenderer : NSObject
+@interface VZFRenderer : NSObject
 
 @property(nonatomic,strong) UIColor *backgroundColor;
 
@@ -27,7 +27,7 @@
 
 
 //for sub class to override
-@interface VZFBaseRenderer(foroverride)
+@interface VZFRenderer(foroverride)
 
 - (void)drawContentInContext:(CGContextRef)context bounds:(CGRect)bounds;
 

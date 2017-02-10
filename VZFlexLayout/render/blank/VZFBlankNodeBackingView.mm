@@ -35,7 +35,7 @@
     return [self blankLayer].renderer;
 }
 
-- (__kindof VZFBaseRenderer *)renderer {
+- (__kindof VZFRenderer *)renderer {
     return [self blankRenderer];
 }
 -(void)setLayerNeedsAsyncDisplay{

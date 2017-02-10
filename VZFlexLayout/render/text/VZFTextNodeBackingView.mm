@@ -42,7 +42,7 @@
     return [self textLayer].renderer;
 }
 
-- (__kindof VZFBaseRenderer *)renderer {
+- (__kindof VZFRenderer *)renderer {
     return [self textRenderer];
 }
 -(void)setLayerNeedsAsyncDisplay{

@@ -55,7 +55,7 @@
     [[self buttonNodeBackingLayer].renderer setBackgroundImage:image forState:state];
 }
 
-- (__kindof VZFBaseRenderer *)renderer {
+- (__kindof VZFRenderer *)renderer {
     return [self buttonNodeBackingLayer].renderer;
 }
 

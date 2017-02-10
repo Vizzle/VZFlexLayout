@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VZFBaseRenderer.h"
+#import "VZFRenderer.h"
 
 @protocol VZFBackingViewProtocol <NSObject>
 
 @required
-- (__kindof VZFBaseRenderer *)renderer;
+- (__kindof VZFRenderer *)renderer;
 - (void)setLayerNeedsAsyncDisplay;
 
 @end
