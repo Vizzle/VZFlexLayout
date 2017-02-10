@@ -133,6 +133,9 @@
 
 - (UIBezierPath *)borderPathForBounds:(CGRect)bounds cornerRadius:(CGFloat)cornerRadius {
     if (cornerRadius > 0) {
+        //about corner
+        //http://stackoverflow.com/questions/22453095/why-does-applying-a-bezierpathwithroundedrect-mask-yield-a-different-result-from
+        //http://www.mani.de/backstage/?p=483
         return [UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:cornerRadius];
     } else {
         return [UIBezierPath bezierPathWithRect:bounds];
