@@ -8,8 +8,15 @@
 
 #import "VZFRenderer.h"
 
-@implementation VZFRenderer
+@interface VZFRenderer()
+{
+    __weak VZFRenderer *_superRenderer;
+    NSMutableArray<__kindof VZFRenderer *> *_subRenderers;
+}
 
+@end
+
+@implementation VZFRenderer
 
 //can not override by sub class
 - (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {
@@ -146,5 +153,158 @@
 - (void)drawContentInContext:(CGContextRef)context bounds:(CGRect)bounds {
     //overrided by sub class
 }
+
+
+
+#pragma mark - VZFRendererHierarchy
+
+- (nullable VZFRenderer *)superRenderer {
+    return _superRenderer;
+}
+
+- (nullable NSArray<__kindof VZFRenderer *> *)subRenderers {
+    return [_subRenderers copy];
+}
+
+- (void)removeFromSuperRenderer {
+    [_superRenderer removeSubRenderer:self];
+}
+
+//private
+- (void)removeSubRenderer:(VZFRenderer *)subRenderer {
+    if (![subRenderer isKindOfClass:[VZFRenderer class]]) {
+        return;
+    }
+    [_subRenderers removeObject:subRenderer];
+}
+
+- (void)insertSubRenderer:(VZFRenderer *)renderer atIndex:(NSInteger)index {
+    if (![renderer isKindOfClass:[VZFRenderer class]]) {
+        return;
+    }
+    
+    if (index < 0 || index > _subRenderers.count){
+        return;
+    }
+    
+    if (!_subRenderers) {
+        _subRenderers = [NSMutableArray array];
+    }
+    
+    if (renderer->_superRenderer && renderer->_superRenderer != self) {
+        [renderer removeFromSuperRenderer];
+    }
+    
+    [_subRenderers insertObject:renderer atIndex:index];
+    renderer->_superRenderer = self;
+
+}
+
+- (void)exchangeSubRendererAtIndex:(NSInteger)index1 withSubRendererAtIndex:(NSInteger)index2 {
+    if (index1 < 0 || index1 > _subRenderers.count
+        || index2 < 0 || index2 > _subRenderers.count){
+        return;
+    }
+    
+    if (!_subRenderers) {
+        _subRenderers = [NSMutableArray array];
+    }
+    
+    [_subRenderers exchangeObjectAtIndex:index1 withObjectAtIndex:index2];
+}
+
+- (void)addSubRenderer:(VZFRenderer *)renderer {
+    if (![renderer isKindOfClass:[VZFRenderer class]]
+        || [_subRenderers containsObject:renderer]) {
+        return;
+    }
+    
+    if (!_subRenderers) {
+        _subRenderers = [NSMutableArray array];
+    }
+    
+    if (renderer->_superRenderer && renderer->_superRenderer != self) {
+        [renderer removeFromSuperRenderer];
+    }
+    
+    [_subRenderers addObject:renderer];
+    renderer->_superRenderer = self;
+}
+
+- (void)insertSubRenderer:(VZFRenderer *)renderer belowSubRenderer:(VZFRenderer *)siblingSubRenderer {
+    [self insertSubRenderer:renderer nearSubRenderer:siblingSubRenderer isAbove:NO];
+}
+
+- (void)insertSubRenderer:(VZFRenderer *)renderer aboveSubRenderer:(VZFRenderer *)siblingSubRenderer {
+    [self insertSubRenderer:renderer nearSubRenderer:siblingSubRenderer isAbove:YES];
+}
+
+
+- (void)insertSubRenderer:(VZFRenderer *)renderer nearSubRenderer:(VZFRenderer *)siblingSubRenderer isAbove:(BOOL)isAbove {
+    if (![renderer isKindOfClass:[VZFRenderer class]]
+        || ![siblingSubRenderer isKindOfClass:[VZFRenderer class]]
+        || [_subRenderers containsObject:renderer]) {
+        return;
+    }
+    
+    NSUInteger idx = [_subRenderers indexOfObject:siblingSubRenderer];
+    
+    if (idx == NSNotFound || idx >= [_subRenderers count]) {
+        return;
+    }
+    
+    if (renderer->_superRenderer && renderer->_superRenderer != self) {
+        [renderer removeFromSuperRenderer];
+    }
+    
+    [_subRenderers insertObject:renderer atIndex:idx + (isAbove ? 1 : 0)];
+    renderer->_superRenderer = self;
+}
+
+
+- (void)bringSubRendererToFront:(VZFRenderer *)renderer {
+    if (![renderer isKindOfClass:[VZFRenderer class]]
+        || ![_subRenderers containsObject:renderer]) {
+        return;
+    }
+    
+    [_subRenderers removeObject:renderer];
+    [_subRenderers addObject:renderer];
+    renderer->_superRenderer = self;
+}
+
+- (void)sendSubRendererToBack:(VZFRenderer *)renderer {
+    if (![renderer isKindOfClass:[VZFRenderer class]]
+        || ![_subRenderers containsObject:renderer]) {
+        return;
+    }
+    
+    [_subRenderers removeObject:renderer];
+    [_subRenderers insertObject:renderer atIndex:0];
+    renderer->_superRenderer = self;
+}
+
+- (BOOL)isDescendantOfRenderer:(VZFRenderer *)renderer {
+    if (![renderer isKindOfClass:[VZFRenderer class]]) {
+        return NO;
+    }
+    
+    if (renderer == self) {
+        return YES;
+    }
+    
+    for (VZFRenderer *subRender in _subRenderers) {
+        if ([renderer isDescendantOfRenderer:subRender]) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+- (void)removeAllSubRenderers {
+    [_subRenderers removeAllObjects];
+}
+
 
 @end
