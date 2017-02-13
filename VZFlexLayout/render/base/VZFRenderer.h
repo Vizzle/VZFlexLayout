@@ -10,17 +10,17 @@
 
 @interface VZFRenderer : NSObject
 
-@property(nonatomic,strong) UIColor *backgroundColor;
+@property(nonatomic,strong, nullable) UIColor *backgroundColor;
 
 @property(nonatomic,assign) CGFloat cornerRadius;
 
 @property(nonatomic,assign) CGFloat borderWidth;
-@property(nonatomic,strong) UIColor *borderColor;
+@property(nonatomic,strong, nullable) UIColor *borderColor;
 
 @property(nonatomic,assign) BOOL clip;
 
 //can not override by sub class
-- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds;
+- (void)drawInContext:(nonnull CGContextRef)context bounds:(CGRect)bounds;
 
 
 @end
@@ -29,7 +29,7 @@
 //for sub class to override
 @interface VZFRenderer(VZFRendererSubclassing)
 
-- (void)drawContentInContext:(CGContextRef)context bounds:(CGRect)bounds;
+- (void)drawContentInContext:(nonnull CGContextRef)context bounds:(CGRect)bounds;
 
 @end
 
@@ -48,7 +48,7 @@
  @param renderer target renderer
  @param index specified index
  */
-- (void)insertSubRenderer:(VZFRenderer *)renderer atIndex:(NSInteger)index;
+- (void)insertSubRenderer:(nullable VZFRenderer *)renderer atIndex:(NSInteger)index;
 
 
 /**
@@ -66,7 +66,7 @@
 
  @param renderer the renderer to be added
  */
-- (void)addSubRenderer:(VZFRenderer *)renderer;
+- (void)addSubRenderer:(nullable VZFRenderer *)renderer;
 
 
 /**
@@ -75,7 +75,7 @@
  @param renderer the renderer to be inserted
  @param siblingSubRenderer the renderer
  */
-- (void)insertSubRenderer:(VZFRenderer *)renderer belowSubRenderer:(VZFRenderer *)siblingSubRenderer;
+- (void)insertSubRenderer:(nullable VZFRenderer *)renderer belowSubRenderer:(nullable VZFRenderer *)siblingSubRenderer;
 
 /**
  Insert specified renderer above the sibling sub renderer.If renderer is already one of the receiver's sub renderers or the siblingSubRenderer is not one of the receiver's sub renderers, it will have no effect
@@ -83,7 +83,7 @@
  @param renderer the renderer to be inserted
  @param siblingSubRenderer the renderer
  */
-- (void)insertSubRenderer:(VZFRenderer *)renderer aboveSubRenderer:(VZFRenderer *)siblingSubRenderer;
+- (void)insertSubRenderer:(nullable VZFRenderer *)renderer aboveSubRenderer:(nullable VZFRenderer *)siblingSubRenderer;
 
 
 /**
@@ -91,14 +91,14 @@
 
  @param renderer the renderer to be operated
  */
-- (void)bringSubRendererToFront:(VZFRenderer *)renderer;
+- (void)bringSubRendererToFront:(nullable VZFRenderer *)renderer;
 
 /**
  Send the specified renderer to the back. If the specified renderer is not one the sub renderers, it will have no effect.
  
  @param renderer the renderer to be operated
  */
-- (void)sendSubRendererToBack:(VZFRenderer *)renderer;
+- (void)sendSubRendererToBack:(nullable VZFRenderer *)renderer;
 
 
 /**
@@ -108,7 +108,7 @@
  
  @return YES if the receiver is an immediate or distant subRenderer of renderer or if renderer is the receiver itself; otherwise NO.
  */
-- (BOOL)isDescendantOfRenderer:(VZFRenderer *)renderer;  // returns YES for self.
+- (BOOL)isDescendantOfRenderer:(nullable VZFRenderer *)renderer;  // returns YES for self.
 
 /**
  Remove all the sub renderers
