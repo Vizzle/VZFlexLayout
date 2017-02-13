@@ -12,7 +12,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   VZFlexLayout:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
