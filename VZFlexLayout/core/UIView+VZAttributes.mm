@@ -44,6 +44,7 @@
 #import "VZFImageNodeRenderer.h"
 #import "VZFButtonNodeBackingView.h"
 #import "VZFBackingViewProtocol.h"
+#import "VZFSwitchNode.h"
 
 @implementation UIView (VZAttributes)
 
@@ -86,6 +87,10 @@
     else if ([node isKindOfClass:[VZFTextFieldNode class]])
     {
         [self _applyTextFieldAttributes:((VZFTextFieldNode *)node).textFieldSpecs];
+    }
+    else if ([node isKindOfClass:[VZFSwitchNode class]])
+    {
+        [self _applySwitchAttributes:((VZFSwitchNode *)node).switchSpecs];
     }
     
     [self _applyRendererAttributes:node.specs];
@@ -520,6 +525,22 @@
     textField.eventHandler = textFieldSpecs.eventHandler;
     
     textField.contentInset = self.node.flexNode.resultPadding;
+}
+
+- (void)_applySwitchAttributes:(const SwitchNodeSpecs&)switchSpecs {
+    UISwitch *switcher = (UISwitch *)self;
+    switcher.on = switchSpecs.on;
+    [switcher removeTarget:nil action:nil forControlEvents:UIControlEventAllEvents];
+    NSMutableArray * actionArray = objc_getAssociatedObject(switcher, "actions");
+    if (actionArray == nil) {
+        actionArray = [NSMutableArray array];
+        objc_setAssociatedObject(switcher, "actions", actionArray, OBJC_ASSOCIATION_RETAIN);
+    }
+    VZFBlockAction *action = switchSpecs.action;
+    if (action) {
+        [actionArray addObject:action];
+        [switcher addTarget:switchSpecs.action action:@selector(invoke:event:) forControlEvents:action.controlEvents];
+    }
 }
 
 @end

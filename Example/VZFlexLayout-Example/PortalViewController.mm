@@ -50,6 +50,7 @@ static NSString *const kItemTargetClassKey = @"targetClass";
 - (void)loadTableData {
     self.items = @[
                    @{kItemTitleKey: @"Text Field", kItemSubtitleKey: @"VZFTextFieldNode", kItemTargetClassKey: @"TextFieldNodeViewController"},
+                   @{kItemTitleKey: @"Switch", kItemSubtitleKey: @"VZFSwitchNode", kItemTargetClassKey: @"SwitchNodeViewController"},
                    @{kItemTitleKey: @"Application", kItemSubtitleKey: @"A comprehensive demo", kItemTargetClassKey: @"FBTableViewController"}
                    ];
 }

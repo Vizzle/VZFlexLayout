@@ -52,6 +52,7 @@
 		1EEC1B651E28780200EBF0CC /* heartstone.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B3E1E28780200EBF0CC /* heartstone.jpg */; };
 		1EEC1B661E28780200EBF0CC /* o2o_gray_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B3F1E28780200EBF0CC /* o2o_gray_star@2x.png */; };
 		1EEC1B671E28780200EBF0CC /* o2o_yellow_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B401E28780200EBF0CC /* o2o_yellow_star@2x.png */; };
+		1EEE54E81E51B74100585DF8 /* SwitchNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEE54E71E51B74100585DF8 /* SwitchNodeViewController.mm */; };
 		5BB77A5D90077B6E2102C1B9 /* libPods-VZFlexLayout-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1412192AC8BB66F7E1D295D /* libPods-VZFlexLayout-Example.a */; };
 /* End PBXBuildFile section */
 
@@ -134,6 +135,8 @@
 		1EEC1B3E1E28780200EBF0CC /* heartstone.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = heartstone.jpg; sourceTree = "<group>"; };
 		1EEC1B3F1E28780200EBF0CC /* o2o_gray_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "o2o_gray_star@2x.png"; sourceTree = "<group>"; };
 		1EEC1B401E28780200EBF0CC /* o2o_yellow_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "o2o_yellow_star@2x.png"; sourceTree = "<group>"; };
+		1EEE54E61E51B74100585DF8 /* SwitchNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchNodeViewController.h; sourceTree = "<group>"; };
+		1EEE54E71E51B74100585DF8 /* SwitchNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SwitchNodeViewController.mm; sourceTree = "<group>"; };
 		4582292E1E2B738C002F41FD /* FBSampleActionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBSampleActionType.h; sourceTree = "<group>"; };
 		8E5005A69355CC7E5A0677A0 /* Pods-VZFlexLayout-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout-Example/Pods-VZFlexLayout-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B2D5C5D59412DA61279F6AEC /* Pods-VZFlexLayout-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout-Example/Pods-VZFlexLayout-Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -272,6 +275,8 @@
 				1EEC1B311E28780200EBF0CC /* FBViewController.mm */,
 				1EEC1B321E28780200EBF0CC /* TextFieldNodeViewController.h */,
 				1EEC1B331E28780200EBF0CC /* TextFieldNodeViewController.mm */,
+				1EEE54E61E51B74100585DF8 /* SwitchNodeViewController.h */,
+				1EEE54E71E51B74100585DF8 /* SwitchNodeViewController.mm */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -457,6 +462,7 @@
 				1EEC1B4A1E28780200EBF0CC /* FBClickNode.mm in Sources */,
 				1EEC1B521E28780200EBF0CC /* FBNameNode.mm in Sources */,
 				1EEC1B441E28780200EBF0CC /* FBSampleStore.mm in Sources */,
+				1EEE54E81E51B74100585DF8 /* SwitchNodeViewController.mm in Sources */,
 				1EEC1B491E28780200EBF0CC /* FBActionNodes.mm in Sources */,
 				1EEC1B551E28780200EBF0CC /* FBScrollNode.mm in Sources */,
 				1EEC1B561E28780200EBF0CC /* FBSearchListNode.mm in Sources */,
