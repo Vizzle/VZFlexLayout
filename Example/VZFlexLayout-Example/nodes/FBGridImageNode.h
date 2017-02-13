@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "VZFCompositeNode.h"
+#import <VZFlexLayout/VZFCompositeNode.h>
 
 @interface FBGridImageNode : VZFCompositeNode
 

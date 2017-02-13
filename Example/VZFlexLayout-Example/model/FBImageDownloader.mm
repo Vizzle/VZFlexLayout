@@ -23,9 +23,8 @@
 }
 
 - (id)downloadImageWithURL:(NSURL *)URL callbackQueue:(dispatch_queue_t)callbackQueue downloadProgressBlock:(void (^)(CGFloat))downloadProgressBlock imageProcessBlock:(UIImage *(^)(UIImage *))imageProcessBlock completion:(void (^)(UIImage* , NSError *))completion{
-
-    id<SDWebImageOperation> op = [[SDWebImageManager sharedManager] downloadImageWithURL:URL options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-        
+    
+    id<SDWebImageOperation> op = [[SDWebImageManager sharedManager] downloadImageWithURL:URL options:0 progress:NULL completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
         if (finished) {
             
             if (callbackQueue) {

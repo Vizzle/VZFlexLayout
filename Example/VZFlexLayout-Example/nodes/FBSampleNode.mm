@@ -7,7 +7,7 @@
 //
 
 #import "FBSampleNode.h"
-#import "VZFStackNode.h"
+#import <VZFlexLayout/VZFStackNode.h>
 #import "FBScrollNode.h"
 
 @implementation FBSampleNode

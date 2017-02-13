@@ -7,13 +7,9 @@
 //
 
 #import "FBIconNode.h"
-#import "VZFImageNode.h"
-#import "VZFImageNodeSpecs.h"
-#import "VZFNodeSpecs.h"
 #import "FBNetworkImageView.h"
-#import "VZFStackNode.h"
+#import <VZFlexLayout/VZFlexLayout.h>
 
-#import "VZFTextNode.h"
 
 @implementation FBIconNode
 
@@ -30,6 +26,7 @@
             .clip = YES,
             .backgroundColor = [UIColor grayColor],
             .cornerRadius = 20.0f,
+            .flexShrink = 0,
             .width = 40,
             .height = 40
         

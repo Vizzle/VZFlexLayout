@@ -40,6 +40,10 @@
 #import "VZFTextFieldNode.h"
 #import "VZFTextField.h"
 #import <objc/runtime.h>
+#import "VZFImageNodeBackingView.h"
+#import "VZFImageNodeRenderer.h"
+#import "VZFButtonNodeBackingView.h"
+#import "VZFBackingViewProtocol.h"
 
 @implementation UIView (VZAttributes)
 
@@ -83,6 +87,9 @@
     {
         [self _applyTextFieldAttributes:((VZFTextFieldNode *)node).textFieldSpecs];
     }
+    
+    [self _applyRendererAttributes:node.specs];
+
 }
 
 - (UIBezierPath *)_roundRectPathWithWidth:(CGFloat)width
@@ -148,8 +155,21 @@
     return path;
 }
 
+- (void)_applyRendererAttributes:(const NodeSpecs&)vs {
+    if ([self conformsToProtocol:@protocol(VZFBackingViewProtocol)]) {
+        VZFBaseRenderer *renderer = [(id<VZFBackingViewProtocol>)self renderer];
+        if (renderer) {
+            renderer.backgroundColor = vs.backgroundColor;
+            renderer.borderWidth = vs.borderWidth;
+            renderer.borderColor = vs.borderColor;
+            renderer.cornerRadius = vs.cornerRadius;
+            renderer.clip = vs.clip;
+        }
+        [(id<VZFBackingViewProtocol>)self setLayerNeedsAsyncDisplay];
+    }
+}
+
 - (void)_applyAttributes:(const NodeSpecs&)vs {
-    
     self.tag                    = vs.tag;
     self.backgroundColor        = vs.backgroundColor;
     self.clipsToBounds          = vs.clip;
@@ -227,13 +247,16 @@
         }
     }
     else {
-        self.layer.cornerRadius     = cornerRadiusTopLeft;
-        self.layer.borderColor      = vs.borderColor.CGColor;
-        self.layer.borderWidth      = vs.borderWidth;
-        self.layer.mask = nil;
+        [self setLayerBorder:vs.borderColor.CGColor borderWidth:vs.borderWidth cornerRadius:cornerRadiusTopLeft];
     }
 }
 
+-(void)setLayerBorder:(CGColorRef)color borderWidth:(CGFloat)borderWidth cornerRadius:(CGFloat)cornerRadius{
+    self.layer.cornerRadius     = cornerRadius;
+    self.layer.borderColor      = color;
+    self.layer.borderWidth      = borderWidth;
+    self.layer.mask = nil;
+}
 
 - (void)_applyGestures:(const NodeSpecs&)vs{
     
@@ -274,7 +297,7 @@
     
     VZFButtonView* btn = (VZFButtonView* )self;
     
-    btn.titleLabel.font = buttonNodeSpecs.getFont();
+    
     
     // reset
     for (int state=UIControlStateNormal;state<=UIControlStateFocused;state++) {
@@ -322,6 +345,14 @@
         [actionArray addObject:action];
         [btn addTarget:buttonNodeSpecs.action action:@selector(invoke:event:) forControlEvents:action.controlEvents];
     }
+    
+    if([btn isKindOfClass:[VZFButtonNodeBackingView class]]){
+        [(VZFButtonNodeBackingView *)btn setTitleFont:buttonNodeSpecs.getFont()];
+        [(VZFButtonNodeBackingView *)btn setButtonStatus:UIControlStateNormal];
+    }else{
+        btn.titleLabel.font = buttonNodeSpecs.getFont();
+    }
+
 }
 
 - (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs{
@@ -354,14 +385,36 @@
 
 - (void)_applyImageAttributes:(const ImageNodeSpecs& )imageSpec{
     
-    UIImageView<VZFNetworkImageDownloadProtocol>* networkImageView = (UIImageView<VZFNetworkImageDownloadProtocol>* )self;
-    networkImageView.image = imageSpec.image;
-    networkImageView.contentMode = imageSpec.contentMode;
+    id<VZFNetworkImageDownloadProtocol> networkImageView = nil;
     
     //gif重复次数，context里拿到设置给imageView
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{};
     int animateCount = [ctx[@"animate-count"] intValue]?:0;
-    networkImageView.animationRepeatCount = animateCount;
+    
+    if ([self isKindOfClass:[VZFImageNodeBackingView class]]) {
+        VZFImageNodeBackingView *view = (VZFImageNodeBackingView *)self;
+        VZFImageNode* imageNode = (VZFImageNode* )self.node;
+        imageNode.renderer.animateCount = animateCount;
+        imageNode.renderer.scale = self.contentScaleFactor;
+        
+        view.imageRenderer = imageNode.renderer;
+        view.contentMode = imageSpec.contentMode;
+        
+        networkImageView = view;
+        
+        if (imageSpec.imageUrl.length <= 0) {
+            view.image = imageSpec.image;
+        } else {
+            view.image = nil;
+        }
+    } else {
+        UIImageView<VZFNetworkImageDownloadProtocol>* view = (UIImageView<VZFNetworkImageDownloadProtocol>* )self;
+        view.image = imageSpec.image;
+        view.contentMode = imageSpec.contentMode;
+        view.animationRepeatCount = animateCount;
+
+        networkImageView = view;
+    }
     
     // 这里不做判空，可能会在方法内做清理操作，避免复用可能会导致的图片错乱
     //just call protocol

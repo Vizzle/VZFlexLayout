@@ -7,15 +7,8 @@
 //
 
 #import "FBScrollChildNode.h"
-#import "VZFStackNode.h"
-#import "VZFNodeSpecs.h"
-#import "VZFTextNode.h"
-#import "VZFTextNodeSpecs.h"
-#import "VZFImageNode.h"
-#import "VZFImageNodeSpecs.h"
+#import <VZFlexLayout/VZFlexLayout.h>
 #import "FBNetworkImageView.h"
-#import "VZFButtonNode.h"
-#import "VZFlux.h"
 #import "FBActionType.h"
 
 
@@ -100,7 +93,10 @@
                                                           Children:{
         {[VZFImageNode newWithImageAttributes:{.imageUrl = item.imagePath}
                                        NodeSpecs:{
-                                           
+                                           .borderWidth = 1,
+                                           .borderColor = [UIColor redColor],
+                                           .cornerRadius = 10,
+                                           .clip = YES,
                                            .width  =150,
                                            .height = 150,
 //                                           .gesture = ^(id sender){

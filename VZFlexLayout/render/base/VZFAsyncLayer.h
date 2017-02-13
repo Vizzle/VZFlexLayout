@@ -61,6 +61,7 @@ typedef NS_ENUM(NSUInteger, VZFAsyncLayerDisplayMode) {
 
 - (void)drawInContext:(CGContextRef)context parameters:(NSObject *)parameters;
 
+- (void)resetNextSyncDisplay;
 @end
 
 @interface VZFAsyncLayer(Subclass)

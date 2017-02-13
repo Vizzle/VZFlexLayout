@@ -9,12 +9,9 @@
 #import "FBTableViewController.h"
 #import "FBHostItem.h"
 #import "FBHostNode.h"
-#import "VZFNodeLayout.h"
-#import "VZFNodeInternal.h"
-#import "VZFNodeSpecs.h"
+#import <VZFlexLayout/VZFlexLayout.h>
 #import "FBTextNode.h"
 #import "FBHostCellItem.h"
-#import "VZFlux.h"
 #import "FBActionType.h"
 #import "FBContentNodeStore.h"
 

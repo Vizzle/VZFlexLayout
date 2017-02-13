@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VZFCompositeNode.h"
-#import "VZFNodeRequiredMethods.h"
+#import <VZFlexLayout/VZFCompositeNode.h>
+#import <VZFlexLayout/VZFNodeRequiredMethods.h>
 
 @class FBHostItem;
 @interface FBHeaderNode : VZFCompositeNode<VZFNodeRequiredMethods>

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VZFNetworkImageDownloadProtocol.h"
+#import <VZFlexLayout/VZFNetworkImageDownloadProtocol.h>
 
 @interface FBImageDownloader : NSObject<VZFNetworkImageDownloadProtocol>
 

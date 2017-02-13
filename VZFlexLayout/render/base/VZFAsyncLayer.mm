@@ -23,6 +23,8 @@
 {
     int32_t _displaySentinel;
     BOOL _needsAsyncDisplayOnly;
+
+    BOOL _nextSyncDisplay;
 }
 
 
@@ -66,8 +68,29 @@
     _needsAsyncDisplayOnly = NO;
 }
 
+-(void)resetNextSyncDisplay{
+    _nextSyncDisplay = YES;
+}
+
 -(BOOL)asyncDisplay{
-    return NO;
+    BOOL defaultValue = YES;
+    if (defaultValue==_nextSyncDisplay) {
+        _nextSyncDisplay = !defaultValue;
+        return _nextSyncDisplay;
+    }
+    return defaultValue;
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    [super setBorderWidth:0];
+}
+
+- (void)setBackgroundColor:(CGColorRef)backgroundColor {
+    [super setBackgroundColor:nil];
+}
+
+- (void)setMasksToBounds:(BOOL)masksToBounds {
+    [super setMasksToBounds:NO];
 }
 
 - (void)display{
@@ -92,7 +115,6 @@
         }
     }
     
-
     if (renderSynchronously) {
         [super display];
         return;
@@ -135,6 +157,7 @@
         VZFAssertMainThread();
         if (!cancelled && (_displaySentinel == displaySentinelValue)) {
             [self didDisplayAsynchronously:value withDrawParameters:drawParameters];
+//            UIImage *image = [UIImage imageWithCGImage:(CGImageRef)value];
             self.contents = value;
         }
     
@@ -151,8 +174,8 @@
     [super drawInContext:ctx];
     
     VZFAssertMainThread();
-    [self  drawInContext:ctx parameters:[self drawParameters]];
-
+    [self drawInContext:ctx parameters:[self drawParameters]];
+//    [self drawBorder:ctx];
 
 }
 
@@ -194,9 +217,8 @@
 #pragma mark - protocol methods
 
 - (void)drawAsyncLayerInContext:(CGContextRef)context parameters:(NSObject *)parameters{
-    
     [self drawInContext:context parameters:parameters];
-
+//    [self drawBorder:context];
 }
 
 

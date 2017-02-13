@@ -7,7 +7,6 @@
 //
 
 #import "FBHostItem.h"
-#import "VZFNodeListItemRecycler.h"
 #import "FBContentNode.h"
 #import "FBHostNode.h"
 #import "FBTextNode.h"
@@ -15,6 +14,8 @@
 #import "FBHeaderNode.h"
 #import "FBHostItem.h"
 #import "FBHostCellItem.h"
+#import <VZFlexLayout/VZFNodeListItemRecycler.h>
+
 
 @interface FBHostCellItem () <VZFNodeProvider>
 

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFTextNodeSpecs.h"
+#import "VZFBaseRenderer.h"
 
-@interface VZFTextNodeRenderer : NSObject
+@interface VZFTextNodeRenderer : VZFBaseRenderer
 
 @property (nonatomic, strong) NSAttributedString *text;
 @property (nonatomic, assign) VZFTextLineBreakMode lineBreakMode;
@@ -25,6 +26,6 @@
 - (CGSize)textSize;
 - (CGFloat)firstBaselineInBounds:(CGRect)bounds;
 - (CGFloat)lastBaselineInBounds:(CGRect)bounds;
-- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds;
+
 
 @end

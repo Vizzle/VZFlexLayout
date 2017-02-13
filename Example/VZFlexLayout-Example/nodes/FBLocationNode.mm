@@ -7,13 +7,7 @@
 //
 
 #import "FBLocationNode.h"
-#import "VZFStackNode.h"
-#import "VZFImageNode.h"
-#import "VZFTextNode.h"
-#import "VZFNodeViewClass.h"
-#import "VZFNodeSpecs.h"
-#import "VZFImageNodeSpecs.h"
-#import "VZFTextNodeSpecs.h"
+#import <VZFlexLayout/VZFlexLayout.h>
 
 @implementation FBLocationNode
 

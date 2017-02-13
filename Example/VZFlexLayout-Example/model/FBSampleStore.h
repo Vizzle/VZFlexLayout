@@ -6,7 +6,7 @@
 //  Copyright © 2016年 Vizlab. All rights reserved.
 //
 
-#import "VZFluxStore.h"
+#import <VZFlexLayout/VZFluxStore.h>
 
 @interface FBSampleStore : VZFluxStore
 

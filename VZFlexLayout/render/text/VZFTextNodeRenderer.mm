@@ -373,7 +373,7 @@ CGFloat vz_getWidthCallback(void *context) {
     return [self baselineOfLineAtIndex:_lines.count - 1 inBounds:bounds];
 }
 
-- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {
+- (void)drawContentInContext:(CGContextRef)context bounds:(CGRect)bounds {
     if (self.text.length == 0) {
         return;
     }

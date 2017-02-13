@@ -7,12 +7,12 @@
 //
 
 #import "FBNetworkImageView.h"
-#import "VZFActionWrapper.h"
+#import <VZFlexLayout/VZFActionWrapper.h>
 #import <SDWebImage/UIImageView+WebCache.h>
-#import "VZFImageNode.h"
-#import "VZFImageNodeSpecs.h"
-#import "VZFNodeViewManager.h"
-#import "VZFNodeSubClass.h"
+#import <VZFlexLayout/VZFImageNode.h>
+#import <VZFlexLayout/VZFImageNodeSpecs.h>
+#import <VZFlexLayout/VZFNodeViewManager.h>
+#import <VZFlexLayout/VZFNodeSubClass.h>
 
 @implementation FBNetworkImageView
 {
