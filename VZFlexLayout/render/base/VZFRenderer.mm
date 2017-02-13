@@ -21,7 +21,7 @@
 //can not override by sub class
 - (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {
     CGContextSaveGState(context);
-        
+    
     UIBezierPath *borderPath = [self borderPathForBounds:bounds cornerRadius:self.cornerRadius];
     
     if (self.clip) {
@@ -33,6 +33,16 @@
     //background should be clipped no matter if clip is YES or NO, so use border path to fill
     [self drawBackgroundColor:context path:borderPath];
     [self drawContentInContext:context bounds:bounds];
+    
+    for (VZFRenderer *renderer in _subRenderers) {
+        CGRect frame = renderer.frame;
+        CGContextTranslateCTM(context, frame.origin.x, frame.origin.y);
+        
+        [renderer drawInContext:context bounds:{{0, 0}, frame.size}];
+        
+        CGContextTranslateCTM(context, -frame.origin.x, -frame.origin.y);//restore
+    }
+
     [self drawBorder:context path:borderPath];
     
     CGContextRestoreGState(context);

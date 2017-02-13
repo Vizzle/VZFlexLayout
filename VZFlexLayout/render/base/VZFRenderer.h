@@ -10,14 +10,16 @@
 
 @interface VZFRenderer : NSObject
 
-@property(nonatomic,strong, nullable) UIColor *backgroundColor;
+@property(nonatomic, assign) CGRect frame;
 
-@property(nonatomic,assign) CGFloat cornerRadius;
+@property(nonatomic, strong, nullable) UIColor *backgroundColor;
 
-@property(nonatomic,assign) CGFloat borderWidth;
-@property(nonatomic,strong, nullable) UIColor *borderColor;
+@property(nonatomic, assign) CGFloat cornerRadius;
 
-@property(nonatomic,assign) BOOL clip;
+@property(nonatomic, assign) CGFloat borderWidth;
+@property(nonatomic, strong, nullable) UIColor *borderColor;
+
+@property(nonatomic, assign) BOOL clip;
 
 //can not override by sub class
 - (void)drawInContext:(nonnull CGContextRef)context bounds:(CGRect)bounds;
