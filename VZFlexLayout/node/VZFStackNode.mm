@@ -17,6 +17,7 @@
 #import "VZFNodeViewClass.h"
 #import "VZFStackView.h"
 #import "VZFBlankNodeBackingView.h"
+#import "VZFAsyncConfig.h"
 
 using namespace VZ;
 @implementation VZFStackNode
@@ -38,7 +39,7 @@ using namespace VZ;
                               Children:(const std::vector<VZFStackChildNode> &)children{
 
     
-    VZFStackNode* stacknode =  [super newWithView:[self shouldFlattenStackView:specs] ? ViewClass() : [VZFBlankNodeBackingView class] NodeSpecs:specs];
+    VZFStackNode* stacknode =  [super newWithView:(!VZFUseRasterize && [self shouldFlattenStackView:specs]) ? ViewClass() : [VZFBlankNodeBackingView class] NodeSpecs:specs];
     if (stacknode)
     {
         stacknode -> _stackSpecs    = stackSpecs;
@@ -60,7 +61,6 @@ using namespace VZ;
 
 //gesture,background-color,border-color,border-width,clip,
 + (BOOL)shouldFlattenStackView:(const NodeSpecs&)specs{
-
     if(specs.gesture ||
        specs.highlightBackgroundColor ||
        specs.borderWidth > 0 ||

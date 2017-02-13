@@ -31,7 +31,7 @@
 }
 
 
--(VZFBankNodeRenderer *)blankRenderer{
+-(VZFBlankNodeRenderer *)blankRenderer{
     return [self blankLayer].renderer;
 }
 

@@ -10,9 +10,9 @@
 
 @implementation VZFBlankNodeBackingLayer
 
--(VZFBankNodeRenderer *)renderer{
+-(VZFBlankNodeRenderer *)renderer{
     if (!_renderer) {
-        _renderer = [VZFBankNodeRenderer new];
+        _renderer = [VZFBlankNodeRenderer new];
     }
     return _renderer;
 }
@@ -23,7 +23,7 @@
     return _renderer;
 }
 
-- (void)drawInContext:(CGContextRef)context parameters:(VZFBankNodeRenderer *)renderer{
+- (void)drawInContext:(CGContextRef)context parameters:(VZFBlankNodeRenderer *)renderer{
     
     CGRect boundsRect = CGContextGetClipBoundingBox(context);
     [_renderer drawInContext:context bounds:boundsRect];

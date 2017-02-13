@@ -1,5 +1,5 @@
 //
-//  VZFBankNodeRenderer.h
+//  VZFBlankNodeRenderer.h
 //  VZFlexLayout-Example
 //
 //  Created by heling on 2017/1/22.
@@ -8,6 +8,6 @@
 
 #import "VZFRenderer.h"
 
-@interface VZFBankNodeRenderer : VZFRenderer
+@interface VZFBlankNodeRenderer : VZFBaseRenderer
 
 @end
