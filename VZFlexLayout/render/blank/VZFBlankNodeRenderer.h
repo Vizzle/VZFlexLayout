@@ -8,6 +8,6 @@
 
 #import "VZFRenderer.h"
 
-@interface VZFBlankNodeRenderer : VZFBaseRenderer
+@interface VZFBlankNodeRenderer : VZFRenderer
 
 @end

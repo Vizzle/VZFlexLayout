@@ -22,7 +22,7 @@
 
 @implementation VZFRasterizeNodeTool
 
-+(VZFBaseRenderer *)getRenderer4RasterizedNode:(VZFNode *)node{
++(VZFRenderer *)getRenderer4RasterizedNode:(VZFNode *)node{
     //判断光栅化开关
     if (!VZFUseRasterize) {
         return nil;
@@ -76,7 +76,7 @@
 
 
 
-+(void)setRender:(VZFBaseRenderer *)renderer specs:(const NodeSpecs&)vs{
++(void)setRender:(VZFRenderer *)renderer specs:(const NodeSpecs&)vs{
     renderer.backgroundColor = vs.backgroundColor;
     renderer.borderWidth = vs.borderWidth;
     renderer.borderColor = vs.borderColor;

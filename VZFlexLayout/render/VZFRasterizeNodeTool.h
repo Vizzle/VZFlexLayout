@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VZFBaseRenderer.h"
+#import "VZFRenderer.h"
 #import "VZFNode.h"
 
 @interface VZFRasterizeNodeTool : NSObject
 
-+(VZFBaseRenderer *)getRenderer4RasterizedNode:(VZFNode *)node;
++(VZFRenderer *)getRenderer4RasterizedNode:(VZFNode *)node;
 
 @end
