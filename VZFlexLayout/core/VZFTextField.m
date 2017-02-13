@@ -8,7 +8,7 @@
 
 #import "VZFTextField.h"
 
-@interface VZFTextField ()
+@interface VZFTextField () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 
@@ -23,6 +23,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        self.delegate = self;
         [self addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
         [self addTarget:self action:@selector(textFieldBeginEditing) forControlEvents:UIControlEventEditingDidBegin];
         [self addTarget:self action:@selector(textFieldEndEditing) forControlEvents:UIControlEventEditingDidEnd];
@@ -78,6 +79,18 @@
     [self.eventHandler onEvent:VZFTextFieldEventTypeSubmit sender:self];
 }
 
+#pragma mark - KVO
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(VZFTextField *)textField
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if ([keyPath isEqualToString:@"selectedTextRange"]) {
+        // For now, do nothing ...
+    }
+}
+
 #pragma mark - Gesture
 
 - (UITapGestureRecognizer *)tapGesture {
@@ -89,6 +102,28 @@
 
 - (void)backgroundTapped:(UITapGestureRecognizer *)tap {
     [self resignFirstResponder];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textField:(VZFTextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (!self.maxLength
+        || [string isEqualToString:@"\n"]) {
+        return YES;
+    }
+    NSUInteger allowedLength = textField.maxLength.integerValue - MIN(textField.maxLength.integerValue, textField.text.length) + range.length;
+    if (string.length > allowedLength) {
+        if (string.length > 1) {
+            NSString *limitedString = [string substringToIndex:allowedLength];
+            NSMutableString *newString = textField.text.mutableCopy;
+            [newString replaceCharactersInRange:range withString:limitedString];
+            textField.text = newString;
+            [self textFieldDidChange];
+        }
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 @end

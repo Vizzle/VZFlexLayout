@@ -11,6 +11,7 @@
 
 @interface VZFTextField : UITextField
 
+@property (nonatomic, assign) NSNumber *maxLength;
 @property (nonatomic, assign) UIEdgeInsets contentInset;
 @property (nonatomic, strong) VZFTextFieldEventHandler *eventHandler;
 

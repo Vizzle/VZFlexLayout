@@ -511,7 +511,12 @@
     textField.font = textFieldSpecs.font;
     textField.textColor = textFieldSpecs.color;
     textField.placeholder = textFieldSpecs.placeholder;
+    textField.secureTextEntry = textFieldSpecs.secureTextEntry;
+    textField.keyboardType = textFieldSpecs.keyboardType;
+    textField.keyboardAppearance = textFieldSpecs.keyboardAppearance;
+    textField.returnKeyType = textFieldSpecs.returnKeyType;
     textField.clearButtonMode = textFieldSpecs.clearButtonMode;
+    textField.maxLength = textFieldSpecs.maxLength;
     textField.eventHandler = textFieldSpecs.eventHandler;
     
     textField.contentInset = self.node.flexNode.resultPadding;

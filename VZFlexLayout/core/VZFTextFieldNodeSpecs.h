@@ -17,7 +17,12 @@ namespace VZ {
         UIFont *font;
         NSTextAlignment alignment;
         NSString *placeholder;
+        BOOL secureTextEntry;
+        UIKeyboardType keyboardType;
+        UIKeyboardAppearance keyboardAppearance;
+        UIReturnKeyType returnKeyType;
         UITextFieldViewMode clearButtonMode;
+        NSNumber *maxLength;
         VZFTextFieldEventHandler *eventHandler;
         
         TextFieldNodeSpecs copy() const {
@@ -27,7 +32,12 @@ namespace VZ {
                 font,
                 alignment,
                 [placeholder copy],
+                secureTextEntry,
+                keyboardType,
+                keyboardAppearance,
+                returnKeyType,
                 clearButtonMode,
+                [maxLength copy],
                 eventHandler
             };
         }
