@@ -168,6 +168,8 @@
 		7395AD341E4D8F8F00BDA55F /* VZFAsyncConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 7395AD321E4D8F8F00BDA55F /* VZFAsyncConfig.h */; };
 		7395AD381E4D972D00BDA55F /* VZFRasterizeNodeTool.h in Headers */ = {isa = PBXBuildFile; fileRef = 7395AD361E4D972D00BDA55F /* VZFRasterizeNodeTool.h */; };
 		7395AD391E4D972D00BDA55F /* VZFRasterizeNodeTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7395AD371E4D972D00BDA55F /* VZFRasterizeNodeTool.mm */; };
+		B375C85A1E52B14D00C39AF4 /* UIBezierPath+extension.h in Headers */ = {isa = PBXBuildFile; fileRef = B375C8581E52B14D00C39AF4 /* UIBezierPath+extension.h */; };
+		B375C85B1E52B14D00C39AF4 /* UIBezierPath+extension.mm in Sources */ = {isa = PBXBuildFile; fileRef = B375C8591E52B14D00C39AF4 /* UIBezierPath+extension.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -334,6 +336,8 @@
 		7395AD321E4D8F8F00BDA55F /* VZFAsyncConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFAsyncConfig.h; sourceTree = "<group>"; };
 		7395AD361E4D972D00BDA55F /* VZFRasterizeNodeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFRasterizeNodeTool.h; sourceTree = "<group>"; };
 		7395AD371E4D972D00BDA55F /* VZFRasterizeNodeTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFRasterizeNodeTool.mm; sourceTree = "<group>"; };
+		B375C8581E52B14D00C39AF4 /* UIBezierPath+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+extension.h"; sourceTree = "<group>"; };
+		B375C8591E52B14D00C39AF4 /* UIBezierPath+extension.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIBezierPath+extension.mm"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -422,6 +426,8 @@
 			children = (
 				1EEC19B81E27BFAD00EBF0CC /* UIView+VZAttributes.h */,
 				1EEC19B91E27BFAD00EBF0CC /* UIView+VZAttributes.mm */,
+				B375C8581E52B14D00C39AF4 /* UIBezierPath+extension.h */,
+				B375C8591E52B14D00C39AF4 /* UIBezierPath+extension.mm */,
 				1EEC19BA1E27BFAD00EBF0CC /* VZFActionWrapper.h */,
 				1EEC19BB1E27BFAD00EBF0CC /* VZFActionWrapper.mm */,
 				1EEC19BC1E27BFAD00EBF0CC /* VZFButtonNodeSpecs.h */,
@@ -740,6 +746,7 @@
 				1EEC1A8A1E27BFAD00EBF0CC /* VZFTextField.h in Headers */,
 				1EEC19B11E27BF9600EBF0CC /* VZFlexLayout.h in Headers */,
 				1E715EC21E49C81100D76806 /* VZFBackingViewProtocol.h in Headers */,
+				B375C85A1E52B14D00C39AF4 /* UIBezierPath+extension.h in Headers */,
 				1EEC1AC21E27BFAD00EBF0CC /* VZFAsyncDrawingTransactionContainer+Private.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -851,6 +858,7 @@
 				1EEC1ACB1E27BFAD00EBF0CC /* VZFTextNodeBackingLayer.mm in Sources */,
 				1EEC1A9A1E27BFAD00EBF0CC /* VZFViewReusePoolManager.mm in Sources */,
 				1EEC1A611E27BFAD00EBF0CC /* VZFLineNodeSpecs.mm in Sources */,
+				B375C85B1E52B14D00C39AF4 /* UIBezierPath+extension.mm in Sources */,
 				1EEC1A591E27BFAD00EBF0CC /* VZFIndicatorView.m in Sources */,
 				1EEC1A7C1E27BFAD00EBF0CC /* VZFPagingNodeSpecs.mm in Sources */,
 				1EEC1AA01E27BFAD00EBF0CC /* VZFluxAppDispatcher.mm in Sources */,

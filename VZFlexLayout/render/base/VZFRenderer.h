@@ -8,14 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+typedef struct{
+    CGFloat topLeft;
+    CGFloat topRight;
+    CGFloat bottomLeft;
+    CGFloat bottomRight;
+} VZFRendererCustomCorner;
+
+VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis);
+
 @interface VZFRenderer : NSObject
 
 @property(nonatomic, assign) CGRect frame;
 
 @property(nonatomic, strong, nullable) UIColor *backgroundColor;
 
-@property(nonatomic, assign) CGFloat cornerRadius;
-
+@property(nonatomic, assign) VZFRendererCustomCorner customCorner;
 @property(nonatomic, assign) CGFloat borderWidth;
 @property(nonatomic, strong, nullable) UIColor *borderColor;
 

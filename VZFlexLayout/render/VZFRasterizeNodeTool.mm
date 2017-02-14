@@ -80,7 +80,7 @@
     renderer.backgroundColor = vs.backgroundColor;
     renderer.borderWidth = vs.borderWidth;
     renderer.borderColor = vs.borderColor;
-    renderer.cornerRadius = vs.cornerRadius;
+    renderer.customCorner = vzfRoundedCorner(vs.cornerRadius);
     renderer.clip = vs.clip;
 }
 

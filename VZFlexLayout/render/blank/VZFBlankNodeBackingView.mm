@@ -58,7 +58,7 @@
     }
     self.blankRenderer.borderColor = [UIColor colorWithCGColor:color];
     self.blankRenderer.borderWidth = borderWidth;
-    self.blankRenderer.cornerRadius = cornerRadius;
+    self.blankRenderer.customCorner = vzfRoundedCorner(cornerRadius);
     [[self blankLayer] setNeedsDisplay];
 }
 @end

@@ -7,6 +7,12 @@
 //
 
 #import "VZFRenderer.h"
+#import "UIBezierPath+extension.h"
+
+VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
+    return (VZFRendererCustomCorner){cornerRadis, cornerRadis, cornerRadis, cornerRadis};
+};
+
 
 @interface VZFRenderer()
 {
@@ -23,16 +29,25 @@
     [self updateOpaque];
 }
 
--(void)setCornerRadius:(CGFloat)cornerRadius{
-    _cornerRadius = cornerRadius;
+- (void)setCustomCorner:(VZFRendererCustomCorner)customCorner {
+    _customCorner = customCorner;
     [self updateOpaque];
 }
+
+- (BOOL)hasCorner {
+    return _customCorner.topLeft > 0
+    || _customCorner.topRight > 0
+    || _customCorner.bottomLeft > 0
+    || _customCorner.bottomRight > 0;
+    
+}
+
 -(void)updateOpaque{
     CGFloat alpha = 0.0;
     if (_backgroundColor && ([_backgroundColor getRed:NULL green:NULL blue:NULL alpha:&alpha] ||
         [_backgroundColor getWhite:NULL alpha:&alpha] ||
         [_backgroundColor getHue:NULL saturation:NULL brightness:NULL alpha:&alpha])) {
-        if (alpha == 1.0 && _cornerRadius==0) {
+        if (alpha == 1.0 && ![self hasCorner]) {
             //不透明 && 没有圆角才可以设置为不透明
             _opaque = YES;
             return;
@@ -45,7 +60,7 @@
 - (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {
     CGContextSaveGState(context);
     
-    UIBezierPath *borderPath = [self borderPathForBounds:bounds cornerRadius:self.cornerRadius];
+    UIBezierPath *borderPath = [self borderPathForBounds:bounds corner:self.customCorner];
     
     if (self.clip) {
         CGContextBeginPath(context);
@@ -112,71 +127,21 @@
 }
 
 
-- (void)drawBorder:(CGContextRef)context bounds:(CGRect)bounds {
-    if (self.borderWidth <= 0 || !self.borderColor) {
-        return;
-    }
-    
-    CGContextSaveGState(context);
-    
-    if (self.cornerRadius > 0) {
-        CGFloat cornerRadius = self.cornerRadius;
-        CGFloat halfHeight = bounds.size.height * 0.5;
-        CGFloat halfWidth = bounds.size.width * 0.5;
-        
-        CGFloat xAngle = 0;
-        if (cornerRadius > halfWidth) {
-            xAngle = asin((cornerRadius - halfWidth) / cornerRadius);
+- (UIBezierPath *)borderPathForBounds:(CGRect)bounds corner:(VZFRendererCustomCorner)corner {
+    if (corner.topLeft > 0
+        || corner.topRight > 0
+        || corner.bottomLeft > 0
+        || corner.bottomRight > 0) {
+        if (corner.topLeft != corner.topRight
+            || corner.topRight != corner.bottomLeft
+            || corner.bottomLeft != corner.bottomRight) {
+            return [UIBezierPath roundRectPathWithWidth:bounds.size.width height:bounds.size.height topLeftRadius:corner.topLeft topRightRadius:corner.topRight bottomLeftRadius:corner.bottomLeft bottomRightRadius:corner.bottomRight];
+        } else {
+            //about corner
+            //http://stackoverflow.com/questions/22453095/why-does-applying-a-bezierpathwithroundedrect-mask-yield-a-different-result-from
+            //http://www.mani.de/backstage/?p=483
+            return [UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:corner.topLeft];
         }
-        
-        CGFloat yAngle = 0;
-        if (cornerRadius > halfHeight) {
-            yAngle = asin((cornerRadius  - halfHeight) / cornerRadius);
-        }
-        
-        
-        CGContextBeginPath(context); //begin an empty path
-        
-        /*
-         If the current path already contains a subpath, this method adds a line connecting the current point to the starting point of the arc. If the current path is empty, his method creates a new subpath whose starting point is the starting point of the arc. The ending point of the arc becomes the new current point of the path.
-         */
-        //left top corner
-        CGContextAddArc(context, cornerRadius, cornerRadius, cornerRadius, M_PI + yAngle, M_PI_2 * 3 - xAngle, NO);
-        
-        //left right corner
-        CGContextAddArc(context, bounds.size.width - cornerRadius, cornerRadius, cornerRadius, - M_PI_2 + xAngle, - yAngle, NO);
-        
-        //right bottom corner
-        CGContextAddArc(context, bounds.size.width - cornerRadius, bounds.size.height - cornerRadius, cornerRadius, 0 + yAngle, M_PI_2 - xAngle, NO);
-        
-        //left bottom corner
-        CGContextAddArc(context, cornerRadius, bounds.size.height - cornerRadius, cornerRadius, M_PI_2 + xAngle, M_PI - yAngle, NO);
-        CGContextClosePath(context);
-        
-        CGPathRef path = CGContextCopyPath(context);//store path
-        CGContextClip(context);//clip and clear path
-        CGContextAddPath(context, path);//recover path
-        
-    } else {
-        UIBezierPath *path = [UIBezierPath bezierPathWithRect:bounds];
-        [path addClip];
-        CGContextAddPath(context, path.CGPath);
-    };
-    
-    CGContextSetStrokeColorWithColor(context, self.borderColor.CGColor);
-    //we have set bounds as the clip path.So we set 2 times line width, and clip 1 time width lefting 1 time width;
-    CGContextSetLineWidth(context, self.borderWidth * 2);
-    CGContextDrawPath(context, kCGPathStroke);
-    
-    CGContextRestoreGState(context);
-}
-
-- (UIBezierPath *)borderPathForBounds:(CGRect)bounds cornerRadius:(CGFloat)cornerRadius {
-    if (cornerRadius > 0) {
-        //about corner
-        //http://stackoverflow.com/questions/22453095/why-does-applying-a-bezierpathwithroundedrect-mask-yield-a-different-result-from
-        //http://www.mani.de/backstage/?p=483
-        return [UIBezierPath bezierPathWithRoundedRect:bounds cornerRadius:cornerRadius];
     } else {
         return [UIBezierPath bezierPathWithRect:bounds];
     }
