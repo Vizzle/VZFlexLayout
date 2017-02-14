@@ -13,11 +13,17 @@
 namespace VZ {
     struct SwitchNodeSpecs {
         BOOL on;
+        BOOL disabled;
+        UIColor *onTintColor;
+        UIColor *thumbTintColor;
         VZFBlockAction *action;
 
         SwitchNodeSpecs copy() const {
             return {
                 on,
+                disabled,
+                onTintColor,
+                thumbTintColor,
                 action
             };
         }

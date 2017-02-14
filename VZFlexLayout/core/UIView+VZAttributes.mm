@@ -530,6 +530,13 @@
 - (void)_applySwitchAttributes:(const SwitchNodeSpecs&)switchSpecs {
     UISwitch *switcher = (UISwitch *)self;
     switcher.on = switchSpecs.on;
+    switcher.enabled = !switchSpecs.disabled;
+    if (switchSpecs.onTintColor) {
+        switcher.onTintColor = switchSpecs.onTintColor;
+    }
+    if (switchSpecs.thumbTintColor) {
+        switcher.thumbTintColor = switchSpecs.thumbTintColor;
+    }
     [switcher removeTarget:nil action:nil forControlEvents:UIControlEventAllEvents];
     NSMutableArray * actionArray = objc_getAssociatedObject(switcher, "actions");
     if (actionArray == nil) {

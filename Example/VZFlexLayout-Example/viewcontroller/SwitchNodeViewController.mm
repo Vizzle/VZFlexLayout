@@ -36,6 +36,8 @@
         {
             [VZFSwitchNode newWithSwitchAttributes:{
                 .on = on,
+                .onTintColor = [UIColor redColor],
+                .thumbTintColor = [UIColor greenColor],
                 .action = [VZFBlockAction actionWithControlEvents:UIControlEventValueChanged block:^(id sender) {
                     NSLog(@"Switcher value changed: {%ld}", (long)((UISwitch *)sender).on);
                     __weak SwitchNodeViewController *controller = ctx;
