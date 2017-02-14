@@ -51,6 +51,7 @@ static NSString *const kItemTargetClassKey = @"targetClass";
     self.items = @[
                    @{kItemTitleKey: @"Text Field", kItemSubtitleKey: @"VZFTextFieldNode", kItemTargetClassKey: @"TextFieldNodeViewController"},
                    @{kItemTitleKey: @"Switch", kItemSubtitleKey: @"VZFSwitchNode", kItemTargetClassKey: @"SwitchNodeViewController"},
+                   @{kItemTitleKey: @"Picker", kItemSubtitleKey: @"VZFPickerNode", kItemTargetClassKey: @"PickerNodeViewController"},
                    @{kItemTitleKey: @"Application", kItemSubtitleKey: @"A comprehensive demo", kItemTargetClassKey: @"FBTableViewController"}
                    ];
 }

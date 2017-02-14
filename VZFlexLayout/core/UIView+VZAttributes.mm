@@ -45,6 +45,8 @@
 #import "VZFButtonNodeBackingView.h"
 #import "VZFBackingViewProtocol.h"
 #import "VZFSwitchNode.h"
+#import "VZFPickerNode.h"
+#import "VZFPickerView.h"
 
 @implementation UIView (VZAttributes)
 
@@ -92,7 +94,10 @@
     {
         [self _applySwitchAttributes:((VZFSwitchNode *)node).switchSpecs];
     }
-    
+    else if ([node isKindOfClass:[VZFPickerNode class]])
+    {
+        [self _applyPickerAttributes:((VZFPickerNode *)node).pickerSpecs];
+    }
     [self _applyRendererAttributes:node.specs];
 
 }
@@ -548,6 +553,13 @@
         [actionArray addObject:action];
         [switcher addTarget:switchSpecs.action action:@selector(invoke:event:) forControlEvents:action.controlEvents];
     }
+}
+
+- (void)_applyPickerAttributes:(const PickerNodeSpecs&)pickerSpecs {
+    VZFPickerView *pickerView = (VZFPickerView *)self;
+    pickerView.items = pickerSpecs.items;
+    pickerView.selectedIndex = pickerSpecs.selectedIndex.value;
+    pickerView.onChange = pickerSpecs.onChange;
 }
 
 @end
