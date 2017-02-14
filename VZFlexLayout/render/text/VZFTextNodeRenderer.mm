@@ -378,6 +378,8 @@ CGFloat vz_getWidthCallback(void *context) {
         return;
     }
     
+    CGContextSaveGState(context);
+    
     [self _calculate];
     
     CGContextSetTextMatrix(context, CGAffineTransformIdentity);
@@ -472,6 +474,9 @@ CGFloat vz_getWidthCallback(void *context) {
 //        CGContextAddLineToPoint(context, x + textLine.width, baseline);
 //        CGContextStrokePath(context);
     }
+    
+    CGContextRestoreGState(context);
+
 }
 
 @end

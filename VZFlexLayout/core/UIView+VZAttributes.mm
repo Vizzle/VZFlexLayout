@@ -166,6 +166,10 @@
 }
 
 - (void)_applyBorder:(const NodeSpecs&)vs {
+    if ([self isKindOfClass:[VZFTextNodeBackingView class]]) {
+        return;
+    }
+    
     static const void* _id = &_id;
     // 移除重用的 layer
     [self.layer.sublayers.copy enumerateObjectsUsingBlock:^(__kindof CALayer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
