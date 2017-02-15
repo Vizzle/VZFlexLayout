@@ -17,7 +17,7 @@ namespace VZ {
     struct PickerNodeSpecs {
         NSArray<NSString *> *items;
         Value<NSInteger, DefaultAttributesValue::selectedIndex> selectedIndex;
-        /// body: {"selectedIndex": x}
+        /// Selected index changed event. Event body: {"selectedIndex": index}
         VZFEventBlock onChange;
         
         PickerNodeSpecs copy() const {
