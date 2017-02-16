@@ -174,7 +174,6 @@ using namespace VZ::UIKit;
     //@discussion reuse?
     VZFRenderer *renderer = [VZFRasterizeNodeTool getRenderer4RasterizedNode:self size:size];
     
-    
     if (renderer && context.viewManager.managedRenderer) {
         //当自己能被光栅化，且父节点也被光栅化的，renderer添加到父节点上
         
@@ -304,6 +303,14 @@ using namespace VZ::UIKit;
         view.node = nil;
         _mountedInfo -> mountedView = nil;
 
+    }
+    
+    VZFRenderer* renderer = _mountedInfo -> mountedRenderer;
+    
+    if (renderer) {
+        renderer.node = nil;
+        _mountedInfo -> mountedRenderer = nil;
+        
     }
 
 }
