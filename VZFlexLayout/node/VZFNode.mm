@@ -268,7 +268,7 @@ using namespace VZ::UIKit;
             //update mountedInfo
             _mountedInfo -> mountedContext = {view,renderer,{context.position,size}};
             
-            return {.hasChildren = YES, .childContext = context.childContextForSubview(view), .hasView = YES};
+            return {.hasChildren = YES, .childContext = context.childContextForSubRenderer(view, renderer), .hasView = YES};
             
             
         }
