@@ -47,6 +47,8 @@
 #import "VZFSwitchNode.h"
 #import "VZFPickerNode.h"
 #import "VZFPickerView.h"
+#import "VZFSegmentedControlNode.h"
+#import "VZFSegmentedControl.h"
 
 @implementation UIView (VZAttributes)
 
@@ -97,6 +99,10 @@
     else if ([node isKindOfClass:[VZFPickerNode class]])
     {
         [self _applyPickerAttributes:((VZFPickerNode *)node).pickerSpecs];
+    }
+    else if ([node isKindOfClass:[VZFSegmentedControlNode class]])
+    {
+        [self _applySegmentedControlAttributes:((VZFSegmentedControlNode *)node).segmentedControlSpecs];
     }
     [self _applyRendererAttributes:node.specs];
 
@@ -515,32 +521,32 @@
     
 }
 
-- (void)_applyTextFieldAttributes:(const TextFieldNodeSpecs&)textFieldSpecs {
+- (void)_applyTextFieldAttributes:(const TextFieldNodeSpecs&)specs {
     VZFTextField *textField = (VZFTextField *)self;
-    textField.text = textFieldSpecs.text;
-    textField.font = textFieldSpecs.font;
-    textField.textColor = textFieldSpecs.color;
-    textField.placeholder = textFieldSpecs.placeholder;
-    textField.secureTextEntry = textFieldSpecs.secureTextEntry;
-    textField.keyboardType = textFieldSpecs.keyboardType;
-    textField.keyboardAppearance = textFieldSpecs.keyboardAppearance;
-    textField.returnKeyType = textFieldSpecs.returnKeyType;
-    textField.clearButtonMode = textFieldSpecs.clearButtonMode;
-    textField.maxLength = textFieldSpecs.maxLength;
-    textField.eventHandler = textFieldSpecs.eventHandler;
+    textField.text = specs.text;
+    textField.font = specs.font;
+    textField.textColor = specs.color;
+    textField.placeholder = specs.placeholder;
+    textField.secureTextEntry = specs.secureTextEntry;
+    textField.keyboardType = specs.keyboardType;
+    textField.keyboardAppearance = specs.keyboardAppearance;
+    textField.returnKeyType = specs.returnKeyType;
+    textField.clearButtonMode = specs.clearButtonMode;
+    textField.maxLength = specs.maxLength;
+    textField.eventHandler = specs.eventHandler;
     
     textField.contentInset = self.node.flexNode.resultPadding;
 }
 
-- (void)_applySwitchAttributes:(const SwitchNodeSpecs&)switchSpecs {
+- (void)_applySwitchAttributes:(const SwitchNodeSpecs&)specs {
     UISwitch *switcher = (UISwitch *)self;
-    switcher.on = switchSpecs.on;
-    switcher.enabled = !switchSpecs.disabled;
-    if (switchSpecs.onTintColor) {
-        switcher.onTintColor = switchSpecs.onTintColor;
+    switcher.on = specs.on;
+    switcher.enabled = !specs.disabled;
+    if (specs.onTintColor) {
+        switcher.onTintColor = specs.onTintColor;
     }
-    if (switchSpecs.thumbTintColor) {
-        switcher.thumbTintColor = switchSpecs.thumbTintColor;
+    if (specs.thumbTintColor) {
+        switcher.thumbTintColor = specs.thumbTintColor;
     }
     [switcher removeTarget:nil action:nil forControlEvents:UIControlEventAllEvents];
     NSMutableArray * actionArray = objc_getAssociatedObject(switcher, "actions");
@@ -548,18 +554,26 @@
         actionArray = [NSMutableArray array];
         objc_setAssociatedObject(switcher, "actions", actionArray, OBJC_ASSOCIATION_RETAIN);
     }
-    VZFBlockAction *action = switchSpecs.action;
+    VZFBlockAction *action = specs.action;
     if (action) {
         [actionArray addObject:action];
-        [switcher addTarget:switchSpecs.action action:@selector(invoke:event:) forControlEvents:action.controlEvents];
+        [switcher addTarget:specs.action action:@selector(invoke:event:) forControlEvents:action.controlEvents];
     }
 }
 
-- (void)_applyPickerAttributes:(const PickerNodeSpecs&)pickerSpecs {
+- (void)_applyPickerAttributes:(const PickerNodeSpecs&)specs {
     VZFPickerView *pickerView = (VZFPickerView *)self;
-    pickerView.items = pickerSpecs.items;
-    pickerView.selectedIndex = pickerSpecs.selectedIndex.value;
-    pickerView.onChange = pickerSpecs.onChange;
+    pickerView.items = specs.items;
+    pickerView.selectedIndex = specs.selectedIndex.value;
+    pickerView.onChange = specs.onChange;
+}
+
+- (void)_applySegmentedControlAttributes:(const SegmentedControlNodeSpecs&)specs {
+    VZFSegmentedControl *segmentedControl = (VZFSegmentedControl *)self;
+    segmentedControl.items = specs.items;
+    segmentedControl.onChange = specs.onChange;
+    segmentedControl.selectedSegmentIndex = specs.selectedSegmentedIndex;
+    segmentedControl.enabled = specs.enabled.value;
 }
 
 @end

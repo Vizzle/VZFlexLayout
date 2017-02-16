@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E414B511E52E52200F84302 /* PickerNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B501E52E52200F84302 /* PickerNodeViewController.mm */; };
+		1E414B7F1E55482F00F84302 /* SegmentedControlNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B7E1E55482F00F84302 /* SegmentedControlNodeViewController.mm */; };
 		1EEC1AE11E2871BA00EBF0CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE01E2871BA00EBF0CC /* main.m */; };
 		1EEC1AE41E2871BA00EBF0CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE31E2871BA00EBF0CC /* AppDelegate.m */; };
 		1EEC1AEA1E2871BA00EBF0CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE81E2871BA00EBF0CC /* Main.storyboard */; };
@@ -60,6 +61,8 @@
 /* Begin PBXFileReference section */
 		1E414B4F1E52E52200F84302 /* PickerNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerNodeViewController.h; sourceTree = "<group>"; };
 		1E414B501E52E52200F84302 /* PickerNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PickerNodeViewController.mm; sourceTree = "<group>"; };
+		1E414B7D1E55482F00F84302 /* SegmentedControlNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedControlNodeViewController.h; sourceTree = "<group>"; };
+		1E414B7E1E55482F00F84302 /* SegmentedControlNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SegmentedControlNodeViewController.mm; sourceTree = "<group>"; };
 		1EEC1ADC1E2871BA00EBF0CC /* VZFlexLayout-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VZFlexLayout-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EEC1AE01E2871BA00EBF0CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1EEC1AE21E2871BA00EBF0CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 				1EEE54E71E51B74100585DF8 /* SwitchNodeViewController.mm */,
 				1E414B4F1E52E52200F84302 /* PickerNodeViewController.h */,
 				1E414B501E52E52200F84302 /* PickerNodeViewController.mm */,
+				1E414B7D1E55482F00F84302 /* SegmentedControlNodeViewController.h */,
+				1E414B7E1E55482F00F84302 /* SegmentedControlNodeViewController.mm */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -478,6 +483,7 @@
 				1EEC1AE11E2871BA00EBF0CC /* main.m in Sources */,
 				1EEC1B4B1E28780200EBF0CC /* FBClickToExpendNode.mm in Sources */,
 				1EEC1B4F1E28780200EBF0CC /* FBHostNode.mm in Sources */,
+				1E414B7F1E55482F00F84302 /* SegmentedControlNodeViewController.mm in Sources */,
 				1EEC1B4C1E28780200EBF0CC /* FBContentNode.mm in Sources */,
 				1EEC1B411E28780200EBF0CC /* FBContentNodeStore.mm in Sources */,
 				1EEC1B501E28780200EBF0CC /* FBIconNode.mm in Sources */,

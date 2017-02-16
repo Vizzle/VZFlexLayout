@@ -48,12 +48,19 @@ static NSString *const kItemTargetClassKey = @"targetClass";
 }
 
 - (void)loadTableData {
-    self.items = @[
-                   @{kItemTitleKey: @"Text Field", kItemSubtitleKey: @"VZFTextFieldNode", kItemTargetClassKey: @"TextFieldNodeViewController"},
+    NSArray *data = @[
+                   @{kItemTitleKey: @"TextField", kItemSubtitleKey: @"VZFTextFieldNode", kItemTargetClassKey: @"TextFieldNodeViewController"},
                    @{kItemTitleKey: @"Switch", kItemSubtitleKey: @"VZFSwitchNode", kItemTargetClassKey: @"SwitchNodeViewController"},
                    @{kItemTitleKey: @"Picker", kItemSubtitleKey: @"VZFPickerNode", kItemTargetClassKey: @"PickerNodeViewController"},
-                   @{kItemTitleKey: @"Application", kItemSubtitleKey: @"A comprehensive demo", kItemTargetClassKey: @"FBTableViewController"}
+                   @{kItemTitleKey: @"Application", kItemSubtitleKey: @"A comprehensive demo", kItemTargetClassKey: @"FBTableViewController"},
+                   @{kItemTitleKey: @"SegmentedControl", kItemSubtitleKey: @"VZFSegmentedControlNode", kItemTargetClassKey: @"SegmentedControlNodeViewController"}
                    ];
+    
+    self.items = [data sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSString *title1 = obj1[kItemTitleKey];
+        NSString *title2 = obj2[kItemTitleKey];
+        return [title1 compare:title2];
+    }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -71,6 +78,7 @@ static NSString *const kItemTargetClassKey = @"targetClass";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell.detailTextLabel.textColor = [UIColor colorWithWhite:102.0/255.0 alpha:1];
     }
     NSDictionary<NSString *, NSString *> *item = self.items[indexPath.row];
     cell.textLabel.text = item[kItemTitleKey];

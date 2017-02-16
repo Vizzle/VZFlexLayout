@@ -41,7 +41,7 @@
 
 #pragma mark - UIPickerViewDataSource
 
-- (NSInteger)numberOfComponents {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 

@@ -85,7 +85,7 @@
 }
 
 - (NSDictionary *)initialState {
-    return @{@"selectedIndex":@(NSNotFound), @"items": @[@"Mist", @"React", @"O2O"]};
+    return @{@"selectedIndex":@(1), @"items": @[@"Mist", @"React", @"O2O"]};
 }
 
 - (void)update {
