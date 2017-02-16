@@ -21,6 +21,7 @@
 #import "VZFNodeViewClass.h"
 #import "UIView+VZAttributes.h"
 #import "VZFNodeBackingViewInterface.h"
+#import "VZFRasterizeNodeTool.h"
 
 struct VZFNodeMountedInfo{
   
@@ -164,6 +165,12 @@ using namespace VZ::UIKit;
     }
     
     _mountedInfo -> parentNode =  parentNode;
+    
+    //判断当前阶段是否变成被光栅化的子节点
+    VZFRenderer *renderer =  [VZFRasterizeNodeTool getRenderer4RasterizedNode:self];
+    if (renderer) {
+        //TODO 添加到父renderer上
+    }
     
     //获取一个reuse view
     UIView* view = [context.viewManager viewForNode:self];

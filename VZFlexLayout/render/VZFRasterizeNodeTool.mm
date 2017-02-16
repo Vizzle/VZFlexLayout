@@ -19,6 +19,8 @@
 #import "VZFlexNode.h"
 #import "VZFStackNode.h"
 #import "VZFBlankNodeRenderer.h"
+#import "VZFButtonNodeRenderer.h"
+#import "VZFButtonNodeSpecs.h"
 
 @implementation VZFRasterizeNodeTool
 
@@ -27,37 +29,52 @@
     if (!VZFUseRasterize) {
         return nil;
     }
-        
+    
+    NodeSpecs specs = node.specs;
+    if (specs.gesture ||
+        specs.highlightBackgroundColor ||
+        specs.borderWidth > 0 ||
+        specs.clip ||
+        specs.alpha < 1 ||
+        specs.tag > 0 ||
+        specs.applicator ||
+        specs.unapplicator ||
+        (specs.isAccessibilityElement != VZF_BOOL_UNDEFINED && specs.isAccessibilityElement) ||
+        specs.accessibilityLabel) {
+        return nil;
+    }
+    
     if ([node isKindOfClass:[VZFImageNode class]])
     {
-        return [self getImageRender:((VZFImageNode* )node).imageSpecs node:node];
+        return [self getImageRenderer:((VZFImageNode* )node).imageSpecs node:node];
     }
     else if ([node isKindOfClass:[VZFTextNode class]])
     {
-        return [self getTextRender:((VZFTextNode* )node).textSpecs node:node];
+        return [self getTextRenderer:((VZFTextNode* )node).textSpecs node:node];
     }
     else if([node  isKindOfClass:[VZFStackNode class]]){
-        return [self getBlankRender:node];
+        return [self getBlankRenderer:node];
     }
+    //button需要独立处理事件 需要view不做光栅化处理
     
     return nil;
 }
 
-+(VZFTextNodeRenderer *)getTextRender:(const TextNodeSpecs& )textNodeSpecs node:(VZFTextNode* )node{
++(VZFTextNodeRenderer *)getTextRenderer:(const TextNodeSpecs& )textNodeSpecs node:(VZFTextNode* )node{
     VZFTextNodeRenderer *renderer = node.renderer;
     UIEdgeInsets edgeInsets = node.flexNode.resultPadding;
-//    textRenderer.maxWidth = self.bounds.size.width - label.edgeInsets.left - label.edgeInsets.right;
-    [self setRender:renderer specs:node.specs];
+    renderer.maxWidth = renderer.frame.size.width - edgeInsets.left - edgeInsets.right;
+    [self setRenderer:renderer specs:node.specs];
     return renderer;
 }
 
-+(VZFBlankNodeRenderer *)getBlankRender:(VZFStackNode *)node{
++(VZFBlankNodeRenderer *)getBlankRenderer:(VZFStackNode *)node{
     VZFBlankNodeRenderer *renderer = [VZFBlankNodeRenderer new];
-    [self setRender:renderer specs:node.specs];
+    [self setRenderer:renderer specs:node.specs];
     return renderer;
 }
 
-+(VZFImageNodeRenderer *)getImageRender:(const ImageNodeSpecs& )imageSpec node:(VZFImageNode* )node{
++(VZFImageNodeRenderer *)getImageRenderer:(const ImageNodeSpecs& )imageSpec node:(VZFImageNode* )node{
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{} ;
     int animateCount = [ctx[@"animate-count"] intValue]?:0;
     
@@ -70,13 +87,13 @@
     renderer.scale = VZ::Helper::screenScale();
     renderer.contentMode = imageSpec.contentMode;
     renderer.image = imageSpec.image;
-    [self setRender:renderer specs:node.specs];
+    [self setRenderer:renderer specs:node.specs];
     return renderer;
 }
 
 
 
-+(void)setRender:(VZFRenderer *)renderer specs:(const NodeSpecs&)vs{
++(void)setRenderer:(VZFRenderer *)renderer specs:(const NodeSpecs&)vs{
     renderer.backgroundColor = vs.backgroundColor;
     renderer.borderWidth = vs.borderWidth;
     renderer.borderColor = vs.borderColor;
