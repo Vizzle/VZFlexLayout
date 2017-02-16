@@ -64,12 +64,6 @@
     return nil;
 }
 
-+(VZFRenderer *)getNormalRender:(VZFNode *)node{
-    VZFRenderer *renderer = [VZFBlankNodeRenderer new];
-    [self setRenderer:renderer specs:node.specs];
-    return renderer;
-}
-
 +(VZFTextNodeRenderer *)getTextRenderer:(const TextNodeSpecs& )textNodeSpecs node:(VZFTextNode* )node size:(CGSize)size{
     VZFTextNodeRenderer *renderer = node.renderer;
     UIEdgeInsets edgeInsets = node.flexNode.resultPadding;
@@ -92,7 +86,10 @@
         return nil;
     }
     
-    VZFImageNodeRenderer *renderer = [VZFImageNodeRenderer new];
+    VZFImageNodeRenderer *renderer = node.renderer;
+    if (!renderer) {
+        renderer = [VZFImageNodeRenderer new];
+    }
     renderer.animateCount = animateCount;
     renderer.scale = VZ::Helper::screenScale();
     renderer.contentMode = imageSpec.contentMode;

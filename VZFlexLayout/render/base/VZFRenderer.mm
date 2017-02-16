@@ -58,9 +58,6 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
     _opaque = NO;
 }
 
-- (void)applyAttributes:(VZFNode *)node {
-    
-}
 
 //can not override by sub class
 - (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {

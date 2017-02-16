@@ -28,13 +28,10 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis);
 @property(nonatomic, strong, nullable) UIColor *borderColor;
 @property(nonatomic, assign) BOOL opaque;
 @property(nonatomic, assign) BOOL clip;
-@property(nonatomic, weak) VZFNode *node;
+@property(nonatomic, weak, nullable) VZFNode *node;
 
 //can not override by sub class
 - (void)drawInContext:(nonnull CGContextRef)context bounds:(CGRect)bounds;
-
-
-- (void)applyAttributes:(VZFNode *)node;
 
 @end
 

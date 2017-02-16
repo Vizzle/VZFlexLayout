@@ -201,10 +201,6 @@ using namespace VZ::UIKit;
         //apply frame
         renderer.frame  = {context.position, size};
         
-        //apply attributes
-        //@discussion 与上边的getRenderer4RasterizedNode重复了
-        [renderer applyAttributes:self];
-        
         [context.viewManager.managedRenderer addSubRenderer:renderer];
         
         //update mountedInfo
@@ -269,8 +265,6 @@ using namespace VZ::UIKit;
             _mountedInfo -> mountedContext = {view,renderer,{context.position,size}};
             
             return {.hasChildren = YES, .childContext = context.childContextForSubRenderer(view, renderer), .hasView = YES};
-            
-            
         }
         else{
             //这种情况对应于没有viewclass的node，例如compositeNode，他没有backingview，mount过程中使用的是view的是上一个view
@@ -278,13 +272,8 @@ using namespace VZ::UIKit;
             _mountedInfo -> mountedContext = {context.viewManager.managedView,nil,{context.position,size}};
             
             return {.hasChildren = YES, .childContext = context, .hasView = NO};
-            
         }
-
     }
-    
-    
-
 }
 
 -(void)unmount{
