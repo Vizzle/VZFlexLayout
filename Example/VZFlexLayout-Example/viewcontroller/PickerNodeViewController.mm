@@ -9,12 +9,14 @@
 #import "PickerNodeViewController.h"
 #import <VZFlexLayout/VZFlexLayout.h>
 
-@interface PickerNodeViewController ()
+@interface PickerNodeViewController () <VZFNodeProvider>
 
 @property (nonatomic, strong) VZFNodeHostingView *pickerView;
 @property (nonatomic, copy) NSMutableDictionary *state;
+@property (nonatomic, strong) UILabel *label;
 
-- (void)update;
+
+- (void)pickerDidChange;
 
 @end
 
@@ -39,21 +41,10 @@
                 .onChange = ^(NSDictionary *body) {
                     __weak PickerNodeViewController *controller = ctx;
                     controller.state[@"selectedIndex"] = body[@"selectedIndex"];
-                    [controller update];
+                    [controller pickerDidChange];
                 }
             } NodeSpecs:{
-                .width = 200,
-                .height = 100,
-            }]
-        },
-        {
-            [VZFTextNode newWithTextAttributes:{
-                .fontSize = 20,
-                .color = [UIColor whiteColor],
-                .alignment = NSTextAlignmentCenter,
-                .text = (selectedIndex >= 0 && selectedIndex < items.count) ? items[selectedIndex] : @"NULL"
-            } NodeSpecs:{
-                .backgroundColor = [UIColor redColor],
+                .flexGrow = 1,
             }]
         }
     }];
@@ -78,18 +69,31 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"VZPickerNode";
     
-    self.pickerView = [[VZFNodeHostingView alloc] initWithNodeProvider:[self class] RangeType:VZFlexibleSizeWidthAndHeight];
-    self.pickerView.frame = CGRectMake(0, 64, 0, 0);
+    self.pickerView = [[VZFNodeHostingView alloc] initWithNodeProvider:[self class] RangeType:VZFlexibleSizeNone];
+    self.pickerView.frame = CGRectMake(0, 64, self.view.frame.size.width, 120);
     [self.pickerView update:self.state context:self];
     [self.view addSubview:self.pickerView];
+    
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 184, self.view.frame.size.width, 25)];
+    self.label.textColor = [UIColor redColor];
+    self.label.font = [UIFont systemFontOfSize:22.0f];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.label];
+    [self updateHint];
 }
 
 - (NSDictionary *)initialState {
     return @{@"selectedIndex":@(1), @"items": @[@"Mist", @"React", @"O2O"]};
 }
 
-- (void)update {
-    [self.pickerView update:self.state context:self];
+- (void)pickerDidChange {
+    [self updateHint];
+}
+
+- (void)updateHint {
+    NSArray *items = self.state[@"items"];
+    NSInteger selectedIndex = [self.state[@"selectedIndex"] integerValue];
+    self.label.text = selectedIndex < items.count ? items[selectedIndex] : @"UNDEFINED";
 }
 
 #pragma mark - VZFNodeProvider

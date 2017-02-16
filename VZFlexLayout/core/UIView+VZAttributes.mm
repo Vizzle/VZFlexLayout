@@ -45,6 +45,7 @@
 #import "VZFButtonNodeBackingView.h"
 #import "VZFBackingViewProtocol.h"
 #import "VZFSwitchNode.h"
+#import "VZFSwitch.h"
 #import "VZFPickerNode.h"
 #import "VZFPickerView.h"
 #import "VZFSegmentedControlNode.h"
@@ -539,26 +540,16 @@
 }
 
 - (void)_applySwitchAttributes:(const SwitchNodeSpecs&)specs {
-    UISwitch *switcher = (UISwitch *)self;
+    VZFSwitch *switcher = (VZFSwitch *)self;
     switcher.on = specs.on;
-    switcher.enabled = !specs.disabled;
+    switcher.enabled = specs.enabled.value;
     if (specs.onTintColor) {
         switcher.onTintColor = specs.onTintColor;
     }
     if (specs.thumbTintColor) {
         switcher.thumbTintColor = specs.thumbTintColor;
     }
-    [switcher removeTarget:nil action:nil forControlEvents:UIControlEventAllEvents];
-    NSMutableArray * actionArray = objc_getAssociatedObject(switcher, "actions");
-    if (actionArray == nil) {
-        actionArray = [NSMutableArray array];
-        objc_setAssociatedObject(switcher, "actions", actionArray, OBJC_ASSOCIATION_RETAIN);
-    }
-    VZFBlockAction *action = specs.action;
-    if (action) {
-        [actionArray addObject:action];
-        [switcher addTarget:specs.action action:@selector(invoke:event:) forControlEvents:action.controlEvents];
-    }
+    switcher.onChange = specs.onChange;
 }
 
 - (void)_applyPickerAttributes:(const PickerNodeSpecs&)specs {

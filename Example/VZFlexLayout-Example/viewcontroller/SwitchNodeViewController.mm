@@ -9,12 +9,13 @@
 #import "SwitchNodeViewController.h"
 #import <VZFlexLayout/VZFlexLayout.h>
 
-@interface SwitchNodeViewController ()
+@interface SwitchNodeViewController () <VZFNodeProvider, VZFNodeHostingView>
 
 @property (nonatomic, strong) VZFNodeHostingView *switcher;
 @property (nonatomic, copy) NSMutableDictionary *state;
+@property (nonatomic, strong) UILabel *label;
 
-- (void)update;
+- (void)switchDidChange;
 
 @end
 
@@ -29,32 +30,21 @@
     
     VZFStackNode *node = [VZFStackNode newWithStackAttributes:{
         .direction = VZFlexHorizontal,
-        .alignItems = VZFlexStretch,
+        .alignItems = VZFlexCenter,
+        .justifyContent = VZFlexCenter,
     } NodeSpecs:{
-        .padding = 5,
     } Children:{
         {
             [VZFSwitchNode newWithSwitchAttributes:{
                 .on = on,
                 .onTintColor = [UIColor redColor],
                 .thumbTintColor = [UIColor greenColor],
-                .action = [VZFBlockAction actionWithControlEvents:UIControlEventValueChanged block:^(id sender) {
-                    NSLog(@"Switcher value changed: {%ld}", (long)((UISwitch *)sender).on);
+                .onChange = ^(NSDictionary *body) {
                     __weak SwitchNodeViewController *controller = ctx;
-                    controller.state[@"switchOn"] = @(((UISwitch *)sender).on);
-                    [controller update];
-                }]
+                    controller.state[@"switchOn"] = body[@"on"];
+                    [controller switchDidChange];
+                }
             } NodeSpecs:{
-                .width = 60,
-                .height = 26,
-            }]
-        },
-        {
-            [VZFTextNode newWithTextAttributes:{
-                .text = on ? @"ON" : @"OFF",
-                .fontSize = 20,
-            } NodeSpecs:{
-                
             }]
         }
     }];
@@ -84,14 +74,30 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"VZSwitchNode";
     
-    self.switcher = [[VZFNodeHostingView alloc] initWithNodeProvider:[self class] RangeType:VZFlexibleSizeWidthAndHeight];
-    self.switcher.frame = CGRectMake(0, 64, 0, 0);
+    self.switcher = [[VZFNodeHostingView alloc] initWithNodeProvider:[self class] RangeType:VZFlexibleSizeNone];
+    self.switcher.frame = CGRectMake(0, 64, self.view.frame.size.width, 60);
+    self.switcher.delegate = self;
     [self.switcher update:self.state context:self];
     [self.view addSubview:self.switcher];
+    
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                           self.switcher.frame.origin.y + self.switcher.frame.size.height,
+                                                           self.view.frame.size.width,
+                                                           25)];
+    self.label.textColor = [UIColor redColor];
+    self.label.font = [UIFont systemFontOfSize:22.0f];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.label];
+    [self updateHint];
 }
 
-- (void)update {
-    [self.switcher update:self.state context:self];
+- (void)switchDidChange {
+    [self updateHint];
+}
+
+- (void)updateHint {
+    BOOL on = [self.state[@"switchOn"] boolValue];
+    self.label.text = on ? @"ON" : @"OFF";
 }
 
 #pragma mark - VZFNodeProvider

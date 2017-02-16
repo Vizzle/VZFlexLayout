@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) VZFNodeHostingView *segmentedControl;
 @property (nonatomic, strong) NSMutableDictionary *state;
-@property (nonatomic, strong) UILabel *hintLabel;
+@property (nonatomic, strong) UILabel *label;
 
 - (void)segmentedDidChanged;
 
@@ -77,11 +77,11 @@
     [self.segmentedControl update:self.state context:self];
     [self.view addSubview:self.segmentedControl];
     
-    self.hintLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 114, self.view.frame.size.width, 25)];
-    self.hintLabel.textColor = [UIColor redColor];
-    self.hintLabel.font = [UIFont systemFontOfSize:22.0f];
-    self.hintLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:self.hintLabel];
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 114, self.view.frame.size.width, 25)];
+    self.label.textColor = [UIColor redColor];
+    self.label.font = [UIFont systemFontOfSize:22.0f];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.label];
     [self updateHint];
 }
 
@@ -92,7 +92,7 @@
 - (void)updateHint {
     NSInteger selectedSegmentedIndex = [self.state[@"selectedSegmentedIndex"] integerValue];
     NSArray *items = self.state[@"items"];
-    self.hintLabel.text = selectedSegmentedIndex < items.count ? items[selectedSegmentedIndex] : @"UNDEFINED";
+    self.label.text = selectedSegmentedIndex < items.count ? items[selectedSegmentedIndex] : @"UNDEFINED";
 }
 
 #pragma mark - VZFNodeProvider

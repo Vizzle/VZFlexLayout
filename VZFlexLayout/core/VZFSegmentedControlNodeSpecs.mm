@@ -10,6 +10,6 @@
 
 namespace VZ {
     namespace DefaultAttributesValue {
-        BOOL enabled = YES;
+        BOOL enable = YES;
     }
 }

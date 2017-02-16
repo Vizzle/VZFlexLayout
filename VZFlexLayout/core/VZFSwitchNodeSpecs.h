@@ -11,20 +11,24 @@
 #import "VZFActionWrapper.h"
 
 namespace VZ {
+    namespace DefaultAttributesValue {
+        extern BOOL enable;
+    };
     struct SwitchNodeSpecs {
         BOOL on;
-        BOOL disabled;
+        Value<BOOL, DefaultAttributesValue::enable> enabled;
         UIColor *onTintColor;
         UIColor *thumbTintColor;
-        VZFBlockAction *action;
+        /// Switch value changed event. Event body: {"on": YES/NO}
+        VZFEventBlock onChange;
 
         SwitchNodeSpecs copy() const {
             return {
                 on,
-                disabled,
+                enabled,
                 onTintColor,
                 thumbTintColor,
-                action
+                [onChange copy]
             };
         }
     };

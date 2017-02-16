@@ -11,7 +11,7 @@
 
 namespace VZ {
     namespace DefaultAttributesValue {
-        extern BOOL enabled;
+        extern BOOL enable;
     };
     
     struct SegmentedControlNodeSpecs {
@@ -19,7 +19,7 @@ namespace VZ {
         /// Selected segmented index changed event. Event body: {"selectedSegmentedIndex": index}
         VZFEventBlock onChange;
         NSInteger selectedSegmentedIndex;
-        Value<BOOL, DefaultAttributesValue::enabled> enabled;
+        Value<BOOL, DefaultAttributesValue::enable> enabled;
         
         SegmentedControlNodeSpecs copy() const {
             return {
