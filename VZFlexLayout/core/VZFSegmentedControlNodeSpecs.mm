@@ -7,9 +7,3 @@
 //
 
 #import "VZFSegmentedControlNodeSpecs.h"
-
-namespace VZ {
-    namespace DefaultAttributesValue {
-        BOOL enable = YES;
-    }
-}

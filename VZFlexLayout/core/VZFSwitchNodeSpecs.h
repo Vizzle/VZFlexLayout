@@ -9,14 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "VZFValue.h"
 #import "VZFActionWrapper.h"
+#import "VZFNodeSpecs.h"
 
 namespace VZ {
-    namespace DefaultAttributesValue {
-        extern BOOL enable;
-    };
     struct SwitchNodeSpecs {
         BOOL on;
-        Value<BOOL, DefaultAttributesValue::enable> enabled;
+        Value<BOOL, DefaultControlAttrValue::enable> enabled;
         UIColor *onTintColor;
         UIColor *thumbTintColor;
         /// Switch value changed event. Event body: {"on": YES/NO}

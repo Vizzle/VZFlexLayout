@@ -7,9 +7,3 @@
 //
 
 #import "VZFSwitchNodeSpecs.h"
-
-namespace VZ {
-    namespace DefaultAttributesValue {
-        BOOL enable = YES;
-    }
-}

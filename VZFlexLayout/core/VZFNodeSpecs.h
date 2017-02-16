@@ -41,6 +41,10 @@
 using namespace VZ;
 namespace VZ {
     
+    namespace DefaultControlAttrValue {
+        extern BOOL enable;
+    }
+    
     namespace DefaultAttributesValue{
         extern int userInteractionEnabled;
         extern UIColor* backgroundColor;

@@ -13,6 +13,10 @@
 
 namespace VZ {
     
+    namespace DefaultControlAttrValue {
+        BOOL enable = YES;
+    }
+    
     namespace DefaultAttributesValue{
         UIColor* backgroundColor = [UIColor clearColor];
         UIColor* highlightBackgroundColor = nil;

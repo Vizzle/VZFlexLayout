@@ -8,18 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import "VZFValue.h"
+#import "VZFNodeSpecs.h"
 
 namespace VZ {
-    namespace DefaultAttributesValue {
-        extern BOOL enable;
-    };
     
     struct SegmentedControlNodeSpecs {
         NSArray<NSString *> *items;
         /// Selected segmented index changed event. Event body: {"selectedSegmentedIndex": index}
         VZFEventBlock onChange;
         NSInteger selectedSegmentedIndex;
-        Value<BOOL, DefaultAttributesValue::enable> enabled;
+        Value<BOOL, DefaultControlAttrValue::enable> enabled;
         
         SegmentedControlNodeSpecs copy() const {
             return {
