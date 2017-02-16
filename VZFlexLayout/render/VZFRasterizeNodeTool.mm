@@ -24,7 +24,7 @@
 
 @implementation VZFRasterizeNodeTool
 
-+(VZFRenderer *)getRenderer4RasterizedNode:(VZFNode *)node{
++(VZFRenderer *)getRenderer4RasterizedNode:(VZFNode *)node size:(CGSize)size {
     //判断光栅化开关
     if (!VZFUseRasterize) {
         return nil;
@@ -44,13 +44,17 @@
         return nil;
     }
     
+    if (!node.viewClass.hasView()) {
+        return nil;
+    }
+        
     if ([node isKindOfClass:[VZFImageNode class]])
     {
         return [self getImageRenderer:((VZFImageNode* )node).imageSpecs node:node];
     }
     else if ([node isKindOfClass:[VZFTextNode class]])
     {
-        return [self getTextRenderer:((VZFTextNode* )node).textSpecs node:node];
+        return [self getTextRenderer:((VZFTextNode* )node).textSpecs node:node size:size];
     }
     else if([node  isKindOfClass:[VZFStackNode class]]){
         return [self getBlankRenderer:node];
@@ -60,10 +64,16 @@
     return nil;
 }
 
-+(VZFTextNodeRenderer *)getTextRenderer:(const TextNodeSpecs& )textNodeSpecs node:(VZFTextNode* )node{
++(VZFRenderer *)getNormalRender:(VZFNode *)node{
+    VZFRenderer *renderer = [VZFBlankNodeRenderer new];
+    [self setRenderer:renderer specs:node.specs];
+    return renderer;
+}
+
++(VZFTextNodeRenderer *)getTextRenderer:(const TextNodeSpecs& )textNodeSpecs node:(VZFTextNode* )node size:(CGSize)size{
     VZFTextNodeRenderer *renderer = node.renderer;
     UIEdgeInsets edgeInsets = node.flexNode.resultPadding;
-    renderer.maxWidth = renderer.frame.size.width - edgeInsets.left - edgeInsets.right;
+    renderer.maxWidth = size.width - edgeInsets.left - edgeInsets.right;
     [self setRenderer:renderer specs:node.specs];
     return renderer;
 }

@@ -17,23 +17,24 @@ typedef struct{
 
 VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis);
 
+@class VZFNode;
+
 @interface VZFRenderer : NSObject
 
 @property(nonatomic, assign) CGRect frame;
-
 @property(nonatomic, strong, nullable) UIColor *backgroundColor;
-
 @property(nonatomic, assign) VZFRendererCustomCorner customCorner;
 @property(nonatomic, assign) CGFloat borderWidth;
 @property(nonatomic, strong, nullable) UIColor *borderColor;
-
-@property(nonatomic,assign) BOOL opaque;
-
-@property(nonatomic,assign) BOOL clip;
+@property(nonatomic, assign) BOOL opaque;
+@property(nonatomic, assign) BOOL clip;
+@property(nonatomic, weak) VZFNode *node;
 
 //can not override by sub class
 - (void)drawInContext:(nonnull CGContextRef)context bounds:(CGRect)bounds;
 
+
+- (void)applyAttributes:(VZFNode *)node;
 
 @end
 

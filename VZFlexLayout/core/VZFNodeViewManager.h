@@ -13,6 +13,7 @@ namespace VZ {
 }
 using namespace VZ;
 @class VZFNode;
+@class VZFRenderer;
 
 /**
  *  管理node的backingview的subview的创建和复用
@@ -21,9 +22,15 @@ using namespace VZ;
 
 @property(nonatomic,weak,readonly)UIView* managedView;
 
-- (instancetype)initWithView:(UIView* )view;
+@property(nonatomic,weak,readonly) VZFRenderer* managedRenderer;
+
+- (instancetype)initWithView:(UIView* )view renderer:(VZFRenderer*)renderer;
 
 - (UIView* )viewForNode:(VZFNode* )node;
+
+- (VZFRenderer* )rendererForNode:(VZFNode* )node;
+
+- (void)resetReusePool;
 
 @end
 

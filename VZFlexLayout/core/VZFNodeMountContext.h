@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "VZFUtils.h"
 #import "VZFNodeViewManager.h"
+#import "VZFRenderer.h"
 
 namespace VZ
 {
@@ -22,7 +23,13 @@ namespace VZ
             //类方法
             static MountContext RootContext(UIView* v){
         
-                return MountContext([[VZFNodeViewManager alloc]initWithView:v],{0,0});
+                return MountContext([[VZFNodeViewManager alloc]initWithView:v renderer:nil],{0,0});
+                
+            };
+            
+            static MountContext RootContext(VZFRenderer* r){
+                
+                return MountContext([[VZFNodeViewManager alloc]initWithView:nil renderer:r],{0,0});
                 
             };
             
@@ -54,7 +61,16 @@ namespace VZ
             
             MountContext childContextForSubview(UIView *subview) const {
               
-                return MountContext([[ VZFNodeViewManager alloc ] initWithView:subview] , {0,0});
+                return MountContext([[ VZFNodeViewManager alloc ] initWithView:subview renderer:nil] , {0,0});
+            };
+            
+            /*
+             *@containerView 光栅化的根节点view
+             *@subRenderer 
+             */
+            MountContext childContextForSubRenderer(UIView *containerView, VZFRenderer *subRenderer) const {
+                
+                return MountContext([[ VZFNodeViewManager alloc ] initWithView:containerView renderer:subRenderer] , {0,0});
             };
             
             
@@ -94,7 +110,7 @@ namespace VZ
             
             BOOL hasChildren;
             VZ::UIKit::MountContext childContext;
-            
+            BOOL hasView; //用于区分改node是否生成一个一个对应的view，如果只生成了renderer或者没有view，则为NO
         };
     }
 }

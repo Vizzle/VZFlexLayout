@@ -12,6 +12,6 @@
 
 @interface VZFRasterizeNodeTool : NSObject
 
-+(VZFRenderer *)getRenderer4RasterizedNode:(VZFNode *)node;
++(VZFRenderer *)getRenderer4RasterizedNode:(VZFNode *)node size:(CGSize)size;
 
 @end

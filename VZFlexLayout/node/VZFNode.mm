@@ -21,15 +21,19 @@
 #import "VZFNodeViewClass.h"
 #import "UIView+VZAttributes.h"
 #import "VZFNodeBackingViewInterface.h"
+#import "VZFRenderer.h"
 #import "VZFRasterizeNodeTool.h"
+#import "VZFRasterizeView.h"
 
 struct VZFNodeMountedInfo{
   
     __weak VZFNode* parentNode;
     __weak UIView* mountedView;
+    __weak VZFRenderer* mountedRenderer;
     
     struct {
         __weak UIView* v;
+        __weak VZFRenderer* r;
         CGRect frame;
     } mountedContext;
 };
@@ -166,64 +170,136 @@ using namespace VZ::UIKit;
     
     _mountedInfo -> parentNode =  parentNode;
     
-    //判断当前阶段是否变成被光栅化的子节点
-    VZFRenderer *renderer =  [VZFRasterizeNodeTool getRenderer4RasterizedNode:self];
+
+    
+    //If renderer is nil, it means the node can't be rasterized
+    //@discussion reuse?
+    VZFRenderer *renderer = [VZFRasterizeNodeTool getRenderer4RasterizedNode:self size:size];
+    
     if (renderer) {
-        //TODO 添加到父renderer上
-    }
-    
-    //获取一个reuse view
-    UIView* view = [context.viewManager viewForNode:self];
-    
-    //说明reusepool中有view
-    if (view) {
+        //to rasterize
+        
         //不是当前的backingview
-        if (view != _mountedInfo -> mountedView) {
-            
+        if (renderer != _mountedInfo -> mountedRenderer) {
+            /* TODO
             //释放当前mountedView绑定的node
-            [view.node unmount];
-            view.node = self;
-            _mountedInfo -> mountedView = view;
-            [self didAquireBackingView];
+            [renderer.node unmount];
+            renderer.node = self;
+            _mountedInfo -> mountedRenderer = renderer;
+            //[self didAquireBackingView];//TODO
+             */
         }
         else{
-            VZFAssert(view.node == self, @"");
+            VZFAssert(renderer.node == self, @"");
         }
         
-
-
         //计算公式:
         //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
         //position.y = frame.origin.y + anchorPoint.y * bounds.size.height；
- /*       const CGPoint anchorPoint = view.layer.anchorPoint;
-        view.center = context.position + CGPoint({anchorPoint.x * size.width, anchorPoint.y * size.height});
-        view.bounds = {view.bounds.origin,size};
-  */
+        /*       const CGPoint anchorPoint = view.layer.anchorPoint;
+         view.center = context.position + CGPoint({anchorPoint.x * size.width, anchorPoint.y * size.height});
+         view.bounds = {view.bounds.origin,size};
+         */
         //apply frame
-        view.frame  = {context.position, size};
+        renderer.frame  = {context.position, size};
         
         //apply attributes
-        [view applyAttributes];
+        //@discussion 与上边的getRenderer4RasterizedNode重复了
+        [renderer applyAttributes:self];
+        
+        
+        if (context.viewManager.managedRenderer) {
+            //父节点可以被光栅化
+            [context.viewManager.managedRenderer addSubRenderer:renderer];
+            
+            //update mountedInfo
+            _mountedInfo -> mountedContext = {nil,renderer,{context.position,size}};
+            
+            return {.hasChildren = YES, .childContext = context.childContextForSubRenderer(context.viewManager.managedView, renderer), .hasView = NO};
 
-        //update mountedInfo
-        _mountedInfo -> mountedContext = {view,{context.position,size}};
+        } else {
+            //父节点不能光栅化，但是self节点可以，那么self会作为根节点
+            VZFRasterizeView *rasterizeView = [[VZFRasterizeView alloc] init];
+            
+            [context.viewManager.managedView addSubview:rasterizeView];
+            
+            rasterizeView.rootRenderer = renderer;
+            
+            rasterizeView.frame = renderer.frame;
+            renderer.frame.origin = CGPointZero;
+            
+            //update mountedInfo
+            _mountedInfo -> mountedContext = {rasterizeView,renderer,{context.position,size}};
+            
+            return {.hasChildren = YES, .childContext = context.childContextForSubRenderer(rasterizeView, renderer),.hasView = YES};
+        }
+    } else {
         
-        return {.hasChildren = YES, .childContext = context.childContextForSubview(view)};
+        CGPoint origin = context.position;
+
+        VZFRenderer *superRenderer = context.viewManager.managedRenderer;
+        if (superRenderer) {
+            while (superRenderer) {
+                origin = {origin.x + superRenderer.frame.origin.x, origin.y + superRenderer.frame.origin.y};
+                superRenderer = superRenderer.superRenderer;
+            }
+        }
         
+        
+        //获取一个reuse view
+        UIView* view = [context.viewManager viewForNode:self];
+        
+        //说明reusepool中有view
+        if (view) {
+            //不是当前的backingview
+            if (view != _mountedInfo -> mountedView) {
+                
+                //释放当前mountedView绑定的node
+                [view.node unmount];
+                view.node = self;
+                _mountedInfo -> mountedView = view;
+                [self didAquireBackingView];
+            }
+            else{
+                VZFAssert(view.node == self, @"");
+            }
+            
+            
+            
+            //计算公式:
+            //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
+            //position.y = frame.origin.y + anchorPoint.y * bounds.size.height；
+            /*       const CGPoint anchorPoint = view.layer.anchorPoint;
+             view.center = context.position + CGPoint({anchorPoint.x * size.width, anchorPoint.y * size.height});
+             view.bounds = {view.bounds.origin,size};
+             */
+            //apply frame
+            view.frame  = {origin, size};
+            
+            //apply attributes
+            [view applyAttributes];
+            
+            //update mountedInfo
+            _mountedInfo -> mountedContext = {view,nil,{context.position,size}};
+            
+            return {.hasChildren = YES, .childContext = context.childContextForSubview(view), .hasView = YES};
+            
+            
+        }
+        else{
+            //这种情况对应于没有viewclass的node，例如compositeNode，他没有backingview，mount过程中使用的是view的是上一个view
+            _mountedInfo -> mountedView = nil;
+            _mountedInfo -> mountedContext = {context.viewManager.managedView,nil,{context.position,size}};
+            
+            return {.hasChildren = YES, .childContext = context, .hasView = NO};
+            
+        }
 
     }
-    else{
-        //这种情况对应于没有viewclass的node，例如compositeNode，他没有backingview，mount过程中使用的是view的是上一个view
-        _mountedInfo -> mountedView = nil;
-        _mountedInfo -> mountedContext = {context.viewManager.managedView,{context.position,size}};
-        
-        return {.hasChildren = YES, .childContext = context};
-        
-    }
+    
     
 
 }
-
 
 -(void)unmount{
     

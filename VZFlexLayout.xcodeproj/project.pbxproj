@@ -170,6 +170,10 @@
 		7395AD391E4D972D00BDA55F /* VZFRasterizeNodeTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7395AD371E4D972D00BDA55F /* VZFRasterizeNodeTool.mm */; };
 		B375C85A1E52B14D00C39AF4 /* UIBezierPath+extension.h in Headers */ = {isa = PBXBuildFile; fileRef = B375C8581E52B14D00C39AF4 /* UIBezierPath+extension.h */; };
 		B375C85B1E52B14D00C39AF4 /* UIBezierPath+extension.mm in Sources */ = {isa = PBXBuildFile; fileRef = B375C8591E52B14D00C39AF4 /* UIBezierPath+extension.mm */; };
+		B3FA2C191E51AA4E006F6115 /* VZFRasterizeView.h in Headers */ = {isa = PBXBuildFile; fileRef = B3FA2C171E51AA4E006F6115 /* VZFRasterizeView.h */; };
+		B3FA2C1A1E51AA4E006F6115 /* VZFRasterizeView.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3FA2C181E51AA4E006F6115 /* VZFRasterizeView.mm */; };
+		B3FA2C1D1E51AA6E006F6115 /* VZFRasterizeLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = B3FA2C1B1E51AA6E006F6115 /* VZFRasterizeLayer.h */; };
+		B3FA2C1E1E51AA6E006F6115 /* VZFRasterizeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FA2C1C1E51AA6E006F6115 /* VZFRasterizeLayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -338,6 +342,10 @@
 		7395AD371E4D972D00BDA55F /* VZFRasterizeNodeTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFRasterizeNodeTool.mm; sourceTree = "<group>"; };
 		B375C8581E52B14D00C39AF4 /* UIBezierPath+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+extension.h"; sourceTree = "<group>"; };
 		B375C8591E52B14D00C39AF4 /* UIBezierPath+extension.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIBezierPath+extension.mm"; sourceTree = "<group>"; };
+		B3FA2C171E51AA4E006F6115 /* VZFRasterizeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFRasterizeView.h; sourceTree = "<group>"; };
+		B3FA2C181E51AA4E006F6115 /* VZFRasterizeView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFRasterizeView.mm; sourceTree = "<group>"; };
+		B3FA2C1B1E51AA6E006F6115 /* VZFRasterizeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFRasterizeLayer.h; sourceTree = "<group>"; };
+		B3FA2C1C1E51AA6E006F6115 /* VZFRasterizeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFRasterizeLayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -596,6 +604,7 @@
 		1EEC1A341E27BFAD00EBF0CC /* render */ = {
 			isa = PBXGroup;
 			children = (
+				B3FA2C161E51AA10006F6115 /* rasterize */,
 				1E715EC51E49C83600D76806 /* blank */,
 				1E715ECC1E49C83600D76806 /* button */,
 				1E715ED31E49C83600D76806 /* image */,
@@ -650,6 +659,17 @@
 			path = tableview;
 			sourceTree = "<group>";
 		};
+		B3FA2C161E51AA10006F6115 /* rasterize */ = {
+			isa = PBXGroup;
+			children = (
+				B3FA2C171E51AA4E006F6115 /* VZFRasterizeView.h */,
+				B3FA2C181E51AA4E006F6115 /* VZFRasterizeView.mm */,
+				B3FA2C1B1E51AA6E006F6115 /* VZFRasterizeLayer.h */,
+				B3FA2C1C1E51AA6E006F6115 /* VZFRasterizeLayer.m */,
+			);
+			path = rasterize;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -671,6 +691,7 @@
 				1EEC1AA71E27BFAD00EBF0CC /* FlexLayout.h in Headers */,
 				1EEC1A5A1E27BFAD00EBF0CC /* VZFLength.h in Headers */,
 				1E715EE81E49C83600D76806 /* VZFImageNodeBackingView.h in Headers */,
+				B3FA2C191E51AA4E006F6115 /* VZFRasterizeView.h in Headers */,
 				1EEC1A951E27BFAD00EBF0CC /* VZFValue.h in Headers */,
 				1E715EDA1E49C83600D76806 /* VZFBlankNodeRenderer.h in Headers */,
 				1EEC1A831E27BFAD00EBF0CC /* VZFSizeRange.h in Headers */,
@@ -721,6 +742,7 @@
 				1EEC1A921E27BFAD00EBF0CC /* VZFunctor.h in Headers */,
 				1EEC1A971E27BFAD00EBF0CC /* VZFViewReusePool.h in Headers */,
 				1EEC1AC71E27BFAD00EBF0CC /* VZFAsyncDrawingTransactionInterface.h in Headers */,
+				B3FA2C1D1E51AA6E006F6115 /* VZFRasterizeLayer.h in Headers */,
 				1EEC1A7D1E27BFAD00EBF0CC /* VZFPagingView.h in Headers */,
 				1EEC1ACA1E27BFAD00EBF0CC /* VZFTextNodeBackingLayer.h in Headers */,
 				1EEC1A691E27BFAD00EBF0CC /* VZFNodeBackingViewInterface.h in Headers */,
@@ -844,6 +866,7 @@
 				1EEC1AC91E27BFAD00EBF0CC /* VZFAsyncLayer.mm in Sources */,
 				1EEC1AB01E27BFAD00EBF0CC /* VZFIndicatorNode.mm in Sources */,
 				1EEC1A8D1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m in Sources */,
+				B3FA2C1A1E51AA4E006F6115 /* VZFRasterizeView.mm in Sources */,
 				1EEC1AA21E27BFAD00EBF0CC /* VZFluxDispatcher.mm in Sources */,
 				1EEC1ABD1E27BFAD00EBF0CC /* VZFTextFieldNode.mm in Sources */,
 				1EEC1A5D1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.mm in Sources */,
@@ -862,6 +885,7 @@
 				1EEC1A591E27BFAD00EBF0CC /* VZFIndicatorView.m in Sources */,
 				1EEC1A7C1E27BFAD00EBF0CC /* VZFPagingNodeSpecs.mm in Sources */,
 				1EEC1AA01E27BFAD00EBF0CC /* VZFluxAppDispatcher.mm in Sources */,
+				B3FA2C1E1E51AA6E006F6115 /* VZFRasterizeLayer.m in Sources */,
 				1EEC1A6B1E27BFAD00EBF0CC /* VZFNodeHostingView.mm in Sources */,
 				1EEC1A7A1E27BFAD00EBF0CC /* VZFNodeViewManager.mm in Sources */,
 				1E715EC41E49C81100D76806 /* VZFRenderer.mm in Sources */,

@@ -8,6 +8,7 @@
 
 #import "VZFRenderer.h"
 #import "UIBezierPath+extension.h"
+#import "VZFNode.h"
 
 VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
     return (VZFRendererCustomCorner){cornerRadis, cornerRadis, cornerRadis, cornerRadis};
@@ -56,6 +57,11 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 
     _opaque = NO;
 }
+
+- (void)applyAttributes:(VZFNode *)node {
+    
+}
+
 //can not override by sub class
 - (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {
     CGContextSaveGState(context);

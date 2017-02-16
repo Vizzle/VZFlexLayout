@@ -17,6 +17,9 @@
 #import "VZFAsyncDrawingTransactionContainer.h"
 
 
+//to delete
+#import "VZFRasterizeView.h"
+
 using namespace VZ::UIKit;
 
 namespace VZ {
@@ -30,10 +33,19 @@ namespace VZ {
         //设置根节点layer 作为异步渲染的管理节点
         container.layer.isAsyncTransactionContainer = YES;
         
+        //TODO 确认重用的问题
+        NSArray *subviews = container.subviews;
+        for (UIView *subview in subviews) {
+            //if ([subview isKindOfClass:[VZFRasterizeView class]]) {
+                [subview removeFromSuperview];
+            //}
+        }
+        
         //0, 计算出Root Node的layout
         struct MountItem{
             const NodeLayout& layout;
             MountContext context;
+            VZFNodeViewManager *viewManager; //如果node mount后有对应的view，那么viewManager记录这个view，用于reset reusePool
             VZFNode* superNode;
             BOOL isVisited;
         };
@@ -48,7 +60,7 @@ namespace VZ {
         
         //2.2, 创建一个stack用来递归
         std::stack<MountItem> stack = {};
-        stack.push({layout,rootContext,superNode,NO});
+        stack.push({layout,rootContext,nil,superNode,NO});
         
         //2.3, 每个节点深度优先遍历
         /**
@@ -61,6 +73,8 @@ namespace VZ {
             //这里面取引用，因为要改变它的状态
             MountItem& item = stack.top();
             if(item.isVisited){
+                
+                [item.viewManager resetReusePool];
                 
                 //@discussion:所有child mount完再通知
                 [item.layout.node didMount];
@@ -87,6 +101,11 @@ namespace VZ {
                                                                 ParentNode:item.superNode];
                 [mountedNodes addObject:item.layout.node];
                 
+                if (mountResult.hasView) {
+                    //只有当node有对应的view时才会需要reset
+                    item.viewManager = mountResult.childContext.viewManager;
+                }
+                
                 //NSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
                 
                 if (mountResult.hasChildren) {
@@ -104,6 +123,7 @@ namespace VZ {
                         stack.push({
                                        *reverseItor,
                                        mountResult.childContext.rootOffset((*reverseItor).origin, item.layout.size),
+                                       nil,
                                        item.layout.node,
                                        NO
                                     });
