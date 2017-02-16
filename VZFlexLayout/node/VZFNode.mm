@@ -170,8 +170,6 @@ using namespace VZ::UIKit;
     
     _mountedInfo -> parentNode =  parentNode;
     
-
-    
     //If renderer is nil, it means the node can't be rasterized
     //@discussion reuse?
     VZFRenderer *renderer = [VZFRasterizeNodeTool getRenderer4RasterizedNode:self size:size];
@@ -183,13 +181,11 @@ using namespace VZ::UIKit;
         //to rasterize
         //不是当前的backingview
         if (renderer != _mountedInfo -> mountedRenderer) {
-            /* TODO
             //释放当前mountedView绑定的node
             [renderer.node unmount];
             renderer.node = self;
             _mountedInfo -> mountedRenderer = renderer;
-            //[self didAquireBackingView];//TODO
-             */
+            //[self didAquireBackingView];
         }
         else{
             VZFAssert(renderer.node == self, @"");
@@ -220,13 +216,17 @@ using namespace VZ::UIKit;
         
         CGPoint origin = context.position;
 
-        VZFRenderer *superRenderer = context.viewManager.managedRenderer;
-        if (superRenderer) {
-            while (superRenderer) {
-                origin = {origin.x + superRenderer.frame.origin.x, origin.y + superRenderer.frame.origin.y};
-                superRenderer = superRenderer.superRenderer;
+        if (!renderer) {
+            //如果当前node不能被光栅化，但是super node被光栅化了，那么当前node对应的view在添加到上级view的时候，origin需要进行转换
+            VZFRenderer *superRenderer = context.viewManager.managedRenderer;
+            if (superRenderer) {
+                while (superRenderer) {
+                    origin = {origin.x + superRenderer.frame.origin.x, origin.y + superRenderer.frame.origin.y};
+                    superRenderer = superRenderer.superRenderer;
+                }
             }
         }
+       
         
         //获取一个reuse view
         UIView* view = [context.viewManager viewForNode:self];
