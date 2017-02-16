@@ -12,7 +12,6 @@
 #include <vector>
 #import "VZFMacros.h"
 #import "VZFNodeBackingViewInterface.h"
-#import "VZFRasterizeView.h"
 
 @implementation VZFViewReusePool
 {
@@ -49,14 +48,6 @@
     else{
         //return an existing one
          v = *_nextUsableViewPos;
-        
-        //VZFRasterizeView 不要被复用
-        NSArray *subviews = v.subviews;
-        for (UIView *view in v.subviews) {
-            if ([view isKindOfClass:[VZFRasterizeView class]]) {
-                [view removeFromSuperview];
-            }
-        }
         
          VZ::Mounting::prepareForReuse(v);
 //         NSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);

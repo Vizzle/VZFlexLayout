@@ -59,6 +59,14 @@
     return [self buttonNodeBackingLayer].renderer;
 }
 
+- (void)setRenderer:(__kindof VZFRenderer *)renderer {
+    if ([renderer isKindOfClass:[VZFButtonNodeRenderer class]]) {
+        [self buttonNodeBackingLayer].renderer = renderer;
+    } else {
+        [self buttonNodeBackingLayer].renderer = nil;
+    }
+}
+
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     

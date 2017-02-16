@@ -17,9 +17,6 @@
 #import "VZFAsyncDrawingTransactionContainer.h"
 
 
-//to delete
-#import "VZFRasterizeView.h"
-
 using namespace VZ::UIKit;
 
 namespace VZ {

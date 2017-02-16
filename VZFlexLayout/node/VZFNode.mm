@@ -23,7 +23,7 @@
 #import "VZFNodeBackingViewInterface.h"
 #import "VZFRenderer.h"
 #import "VZFRasterizeNodeTool.h"
-#import "VZFRasterizeView.h"
+#import "VZFBackingViewProtocol.h"
 
 struct VZFNodeMountedInfo{
   
@@ -176,9 +176,11 @@ using namespace VZ::UIKit;
     //@discussion reuse?
     VZFRenderer *renderer = [VZFRasterizeNodeTool getRenderer4RasterizedNode:self size:size];
     
-    if (renderer) {
-        //to rasterize
+    
+    if (renderer && context.viewManager.managedRenderer) {
+        //当自己能被光栅化，且父节点也被光栅化的，renderer添加到父节点上
         
+        //to rasterize
         //不是当前的backingview
         if (renderer != _mountedInfo -> mountedRenderer) {
             /* TODO
@@ -207,32 +209,13 @@ using namespace VZ::UIKit;
         //@discussion 与上边的getRenderer4RasterizedNode重复了
         [renderer applyAttributes:self];
         
+        [context.viewManager.managedRenderer addSubRenderer:renderer];
         
-        if (context.viewManager.managedRenderer) {
-            //父节点可以被光栅化
-            [context.viewManager.managedRenderer addSubRenderer:renderer];
-            
-            //update mountedInfo
-            _mountedInfo -> mountedContext = {nil,renderer,{context.position,size}};
-            
-            return {.hasChildren = YES, .childContext = context.childContextForSubRenderer(context.viewManager.managedView, renderer), .hasView = NO};
+        //update mountedInfo
+        _mountedInfo -> mountedContext = {nil,renderer,{context.position,size}};
+        
+        return {.hasChildren = YES, .childContext = context.childContextForSubRenderer(context.viewManager.managedView, renderer), .hasView = NO};
 
-        } else {
-            //父节点不能光栅化，但是self节点可以，那么self会作为根节点
-            VZFRasterizeView *rasterizeView = [[VZFRasterizeView alloc] init];
-            
-            [context.viewManager.managedView addSubview:rasterizeView];
-            
-            rasterizeView.rootRenderer = renderer;
-            
-            rasterizeView.frame = renderer.frame;
-            renderer.frame.origin = CGPointZero;
-            
-            //update mountedInfo
-            _mountedInfo -> mountedContext = {rasterizeView,renderer,{context.position,size}};
-            
-            return {.hasChildren = YES, .childContext = context.childContextForSubRenderer(rasterizeView, renderer),.hasView = YES};
-        }
     } else {
         
         CGPoint origin = context.position;
@@ -244,7 +227,6 @@ using namespace VZ::UIKit;
                 superRenderer = superRenderer.superRenderer;
             }
         }
-        
         
         //获取一个reuse view
         UIView* view = [context.viewManager viewForNode:self];
@@ -264,7 +246,11 @@ using namespace VZ::UIKit;
                 VZFAssert(view.node == self, @"");
             }
             
-            
+            if ([view conformsToProtocol:@protocol(VZFBackingViewProtocol)]) {
+                id<VZFBackingViewProtocol> backingView = (id<VZFBackingViewProtocol>)view;
+                [backingView setRenderer:renderer];
+                renderer = [backingView renderer];
+            }
             
             //计算公式:
             //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
@@ -280,7 +266,7 @@ using namespace VZ::UIKit;
             [view applyAttributes];
             
             //update mountedInfo
-            _mountedInfo -> mountedContext = {view,nil,{context.position,size}};
+            _mountedInfo -> mountedContext = {view,renderer,{context.position,size}};
             
             return {.hasChildren = YES, .childContext = context.childContextForSubview(view), .hasView = YES};
             

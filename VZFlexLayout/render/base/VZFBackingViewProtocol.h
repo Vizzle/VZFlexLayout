@@ -13,6 +13,7 @@
 
 @required
 - (__kindof VZFRenderer *)renderer;
+- (void)setRenderer:(__kindof VZFRenderer *)renderer;
 - (void)setLayerNeedsAsyncDisplay;
 
 @end

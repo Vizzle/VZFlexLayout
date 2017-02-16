@@ -38,6 +38,15 @@
 - (__kindof VZFRenderer *)renderer {
     return [self blankRenderer];
 }
+
+- (void)setRenderer:(__kindof VZFRenderer *)renderer {
+    if ([renderer isKindOfClass:[VZFBlankNodeRenderer class]]) {
+        [self blankLayer].renderer = renderer;
+    } else {
+        [self blankLayer].renderer = nil;
+    }
+}
+
 -(void)setLayerNeedsAsyncDisplay{
     [self.blankLayer setNeedsAsyncDisplay];
 }

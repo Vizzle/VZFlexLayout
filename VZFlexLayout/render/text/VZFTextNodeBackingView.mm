@@ -45,6 +45,16 @@
 - (__kindof VZFRenderer *)renderer {
     return [self textRenderer];
 }
+
+- (void)setRenderer:(__kindof VZFRenderer *)renderer {
+    if ([renderer isKindOfClass:[VZFTextNodeRenderer class]]) {
+        [self textLayer].renderer = (VZFTextNodeRenderer *)renderer;
+    } else {
+        [self textLayer].renderer = nil;
+    }
+}
+
+
 -(void)setLayerNeedsAsyncDisplay{
     [self.textLayer setNeedsAsyncDisplay];
 }
