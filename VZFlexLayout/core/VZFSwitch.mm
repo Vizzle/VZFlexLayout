@@ -7,6 +7,8 @@
 //
 
 #import "VZFSwitch.h"
+#import "UIView+VZAttributes.h"
+#import "VZFSwitchNode.h"
 
 @implementation VZFSwitch
 
@@ -21,6 +23,19 @@
     if (self.onChange) {
         self.onChange(@{@"on": @(self.on)});
     }
+}
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    SwitchNodeSpecs specs = ((VZFSwitchNode *)node).switchSpecs;
+    self.on = specs.on;
+    self.enabled = specs.enabled.value;
+    if (specs.onTintColor) {
+        self.onTintColor = specs.onTintColor;
+    }
+    if (specs.thumbTintColor) {
+        self.thumbTintColor = specs.thumbTintColor;
+    }
+    self.onChange = specs.onChange;
 }
 
 @end

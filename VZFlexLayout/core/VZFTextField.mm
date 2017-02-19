@@ -7,6 +7,8 @@
 //
 
 #import "VZFTextField.h"
+#import "UIView+VZAttributes.h"
+#import "VZFTextFieldNode.h"
 
 @interface VZFTextField () <UITextFieldDelegate>
 
@@ -124,6 +126,21 @@
     } else {
         return YES;
     }
+}
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    TextFieldNodeSpecs specs = ((VZFTextFieldNode *)node).textFieldSpecs;
+    self.text = specs.text;
+    self.font = specs.font;
+    self.textColor = specs.color;
+    self.placeholder = specs.placeholder;
+    self.secureTextEntry = specs.secureTextEntry;
+    self.keyboardType = specs.keyboardType;
+    self.keyboardAppearance = specs.keyboardAppearance;
+    self.returnKeyType = specs.returnKeyType;
+    self.clearButtonMode = specs.clearButtonMode;
+    self.maxLength = specs.maxLength;
+    self.eventHandler = specs.eventHandler;
 }
 
 @end

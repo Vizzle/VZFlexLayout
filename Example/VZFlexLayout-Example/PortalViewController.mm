@@ -11,6 +11,10 @@
 #import "FBTableViewController.h"
 #import "FBTextListViewController.h"
 
+#define RCT_EXPORT_VIEW_PROPERTY(name, type) \
++ (NSArray<NSString *> *)propConfig_##name { return @[@#type]; }
+
+
 static NSString *const kItemTitleKey = @"title";
 static NSString *const kItemSubtitleKey = @"subtitle";
 static NSString *const kItemTargetClassKey = @"targetClass";
@@ -23,6 +27,8 @@ static NSString *const kItemTargetClassKey = @"targetClass";
 @end
 
 @implementation PortalViewController
+
+RCT_EXPORT_VIEW_PROPERTY(view, UIView)
 
 - (void)viewDidLoad {
     [super viewDidLoad];

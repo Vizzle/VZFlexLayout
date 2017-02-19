@@ -7,6 +7,8 @@
 //
 
 #import "VZFPickerView.h"
+#import "UIView+VZAttributes.h"
+#import "VZFPickerNode.h"
 
 @interface VZFPickerView () <UIPickerViewDataSource, UIPickerViewDelegate>
 
@@ -60,6 +62,13 @@
     if (self.onChange) {
         self.onChange(@{@"selectedIndex": @(row)});
     }
+}
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    PickerNodeSpecs specs = ((VZFPickerNode *)node).pickerSpecs;
+    self.items = specs.items;
+    self.selectedIndex = specs.selectedIndex.value;
+    self.onChange = specs.onChange;
 }
 
 @end

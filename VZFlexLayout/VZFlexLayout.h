@@ -47,6 +47,8 @@ FOUNDATION_EXPORT const unsigned char VZFlexLayoutVersionString[];
 #import <VZFlexlayout/VZFPickerNodeSpecs.h>
 #import <VZFlexlayout/VZFSegmentedControlNode.h>
 #import <VZFlexlayout/VZFSegmentedControlNodeSpecs.h>
+#import <VZFlexlayout/VZFWebViewNode.h>
+#import <VZFlexlayout/VZFWebViewNodeSpecs.h>
 #import <VZFlexlayout/VZFNodeProvider.h>
 #import <VZFlexlayout/VZFMacros.h>
 #import <VZFlexlayout/VZFNodeViewManager.h>

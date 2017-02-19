@@ -91,22 +91,15 @@
     }
     else if ([node isKindOfClass:[VZFTextFieldNode class]])
     {
-        [self _applyTextFieldAttributes:((VZFTextFieldNode *)node).textFieldSpecs];
+        ((VZFTextField *)self).contentInset = self.node.flexNode.resultPadding;
     }
-    else if ([node isKindOfClass:[VZFSwitchNode class]])
-    {
-        [self _applySwitchAttributes:((VZFSwitchNode *)node).switchSpecs];
-    }
-    else if ([node isKindOfClass:[VZFPickerNode class]])
-    {
-        [self _applyPickerAttributes:((VZFPickerNode *)node).pickerSpecs];
-    }
-    else if ([node isKindOfClass:[VZFSegmentedControlNode class]])
-    {
-        [self _applySegmentedControlAttributes:((VZFSegmentedControlNode *)node).segmentedControlSpecs];
-    }
+    [self vz_applyNodeAttributes:self.node];
     [self _applyRendererAttributes:node.specs];
 
+}
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    // Backing view implement ...
 }
 
 - (UIBezierPath *)_roundRectPathWithWidth:(CGFloat)width
@@ -520,51 +513,6 @@
     
     [pagingView setNeedsLayout];
     
-}
-
-- (void)_applyTextFieldAttributes:(const TextFieldNodeSpecs&)specs {
-    VZFTextField *textField = (VZFTextField *)self;
-    textField.text = specs.text;
-    textField.font = specs.font;
-    textField.textColor = specs.color;
-    textField.placeholder = specs.placeholder;
-    textField.secureTextEntry = specs.secureTextEntry;
-    textField.keyboardType = specs.keyboardType;
-    textField.keyboardAppearance = specs.keyboardAppearance;
-    textField.returnKeyType = specs.returnKeyType;
-    textField.clearButtonMode = specs.clearButtonMode;
-    textField.maxLength = specs.maxLength;
-    textField.eventHandler = specs.eventHandler;
-    
-    textField.contentInset = self.node.flexNode.resultPadding;
-}
-
-- (void)_applySwitchAttributes:(const SwitchNodeSpecs&)specs {
-    VZFSwitch *switcher = (VZFSwitch *)self;
-    switcher.on = specs.on;
-    switcher.enabled = specs.enabled.value;
-    if (specs.onTintColor) {
-        switcher.onTintColor = specs.onTintColor;
-    }
-    if (specs.thumbTintColor) {
-        switcher.thumbTintColor = specs.thumbTintColor;
-    }
-    switcher.onChange = specs.onChange;
-}
-
-- (void)_applyPickerAttributes:(const PickerNodeSpecs&)specs {
-    VZFPickerView *pickerView = (VZFPickerView *)self;
-    pickerView.items = specs.items;
-    pickerView.selectedIndex = specs.selectedIndex.value;
-    pickerView.onChange = specs.onChange;
-}
-
-- (void)_applySegmentedControlAttributes:(const SegmentedControlNodeSpecs&)specs {
-    VZFSegmentedControl *segmentedControl = (VZFSegmentedControl *)self;
-    segmentedControl.items = specs.items;
-    segmentedControl.onChange = specs.onChange;
-    segmentedControl.selectedSegmentIndex = specs.selectedSegmentedIndex;
-    segmentedControl.enabled = specs.enabled.value;
 }
 
 @end

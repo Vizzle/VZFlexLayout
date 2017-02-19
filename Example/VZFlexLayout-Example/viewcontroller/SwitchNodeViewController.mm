@@ -11,10 +11,6 @@
 
 @interface SwitchNodeViewController () <VZFNodeProvider, VZFNodeHostingView>
 
-@property (nonatomic, strong) VZFNodeHostingView *switcher;
-@property (nonatomic, copy) NSMutableDictionary *state;
-@property (nonatomic, strong) UILabel *label;
-
 - (void)switchDidChange;
 
 @end
@@ -55,49 +51,31 @@
 
 @implementation SwitchNodeViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        _state = [[self initialState] mutableCopy];
-    }
-    return self;
-}
-
 - (NSDictionary *)initialState {
     return @{@"switchOn": @YES};
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"VZSwitchNode";
     
-    self.switcher = [[VZFNodeHostingView alloc] initWithNodeProvider:[self class] RangeType:VZFlexibleSizeNone];
-    self.switcher.frame = CGRectMake(0, 64, self.view.frame.size.width, 60);
-    self.switcher.delegate = self;
-    [self.switcher update:self.state context:self];
-    [self.view addSubview:self.switcher];
+    self.hostingView = [[VZFNodeHostingView alloc] initWithNodeProvider:[self class] RangeType:VZFlexibleSizeNone];
+    self.hostingView.frame = CGRectMake(0, 64, self.view.frame.size.width, 60);
+    self.hostingView.delegate = self;
+    [self.hostingView update:self.state context:self];
+    [self.view addSubview:self.hostingView];
     
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                           self.switcher.frame.origin.y + self.switcher.frame.size.height,
-                                                           self.view.frame.size.width,
-                                                           25)];
-    self.label.textColor = [UIColor redColor];
-    self.label.font = [UIFont systemFontOfSize:22.0f];
-    self.label.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:self.label];
-    [self updateHint];
+    [self update];
 }
 
 - (void)switchDidChange {
-    [self updateHint];
+    [self update];
 }
 
-- (void)updateHint {
+- (void)update {
     BOOL on = [self.state[@"switchOn"] boolValue];
-    self.label.text = on ? @"ON" : @"OFF";
+    self.infoLabel.text = on ? @"ON" : @"OFF";
 }
 
 #pragma mark - VZFNodeProvider

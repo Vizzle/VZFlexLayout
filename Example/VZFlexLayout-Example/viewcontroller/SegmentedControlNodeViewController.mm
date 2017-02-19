@@ -11,10 +11,6 @@
 
 @interface SegmentedControlNodeViewController () <VZFNodeProvider>
 
-@property (nonatomic, strong) VZFNodeHostingView *segmentedControl;
-@property (nonatomic, strong) NSMutableDictionary *state;
-@property (nonatomic, strong) UILabel *label;
-
 - (void)segmentedDidChanged;
 
 @end
@@ -39,7 +35,7 @@
                 .onChange = ^(NSDictionary *body) {
                     __weak SegmentedControlNodeViewController *controller = ctx;
                     controller.state[@"selectedSegmentedIndex"] = body[@"selectedSegmentedIndex"];
-                    [controller segmentedDidChanged];
+                    [controller update];
                 }
             } NodeSpecs:{
                 .flexGrow = 1,
@@ -54,14 +50,6 @@
 
 @implementation SegmentedControlNodeViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        _state = [[self initialState] mutableCopy];
-    }
-    return self;
-}
-
 - (NSDictionary *)initialState {
     return @{@"selectedSegmentedIndex":@(1), @"items": @[@"ALL", @"NEW ARRIVAL", @"ON SALE"]};
 }
@@ -69,30 +57,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"VZSegmentedControlNode";
 
-    self.segmentedControl = [[VZFNodeHostingView alloc] initWithNodeProvider:[self class] RangeType:VZFlexibleSizeNone];
-    self.segmentedControl.frame = CGRectMake(0, 64, self.view.frame.size.width, 50);
-    [self.segmentedControl update:self.state context:self];
-    [self.view addSubview:self.segmentedControl];
+    self.hostingView = [[VZFNodeHostingView alloc] initWithNodeProvider:[self class] RangeType:VZFlexibleSizeNone];
+    self.hostingView.frame = CGRectMake(0, 64, self.view.frame.size.width, 50);
+    [self.hostingView update:self.state context:self];
+    [self.view addSubview:self.hostingView];
     
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 114, self.view.frame.size.width, 25)];
-    self.label.textColor = [UIColor redColor];
-    self.label.font = [UIFont systemFontOfSize:22.0f];
-    self.label.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:self.label];
-    [self updateHint];
+    [self update];
 }
 
 - (void)segmentedDidChanged {
-    [self updateHint];
+    [self update];
 }
 
-- (void)updateHint {
+- (void)update {
     NSInteger selectedSegmentedIndex = [self.state[@"selectedSegmentedIndex"] integerValue];
     NSArray *items = self.state[@"items"];
-    self.label.text = selectedSegmentedIndex < items.count ? items[selectedSegmentedIndex] : @"UNDEFINED";
+    self.infoLabel.text = selectedSegmentedIndex < items.count ? items[selectedSegmentedIndex] : @"UNDEFINED";
 }
 
 #pragma mark - VZFNodeProvider

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1E414B511E52E52200F84302 /* PickerNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B501E52E52200F84302 /* PickerNodeViewController.mm */; };
 		1E414B7F1E55482F00F84302 /* SegmentedControlNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B7E1E55482F00F84302 /* SegmentedControlNodeViewController.mm */; };
+		1E414B8E1E559F1F00F84302 /* BaseNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B8D1E559F1F00F84302 /* BaseNodeViewController.mm */; };
 		1EEC1AE11E2871BA00EBF0CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE01E2871BA00EBF0CC /* main.m */; };
 		1EEC1AE41E2871BA00EBF0CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE31E2871BA00EBF0CC /* AppDelegate.m */; };
 		1EEC1AEA1E2871BA00EBF0CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE81E2871BA00EBF0CC /* Main.storyboard */; };
@@ -63,6 +64,8 @@
 		1E414B501E52E52200F84302 /* PickerNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PickerNodeViewController.mm; sourceTree = "<group>"; };
 		1E414B7D1E55482F00F84302 /* SegmentedControlNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedControlNodeViewController.h; sourceTree = "<group>"; };
 		1E414B7E1E55482F00F84302 /* SegmentedControlNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SegmentedControlNodeViewController.mm; sourceTree = "<group>"; };
+		1E414B8C1E559F1F00F84302 /* BaseNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNodeViewController.h; sourceTree = "<group>"; };
+		1E414B8D1E559F1F00F84302 /* BaseNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseNodeViewController.mm; sourceTree = "<group>"; };
 		1EEC1ADC1E2871BA00EBF0CC /* VZFlexLayout-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VZFlexLayout-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EEC1AE01E2871BA00EBF0CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1EEC1AE21E2871BA00EBF0CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -195,6 +198,8 @@
 				1EEC1AED1E2871BA00EBF0CC /* LaunchScreen.storyboard */,
 				1EEC1AF01E2871BA00EBF0CC /* Info.plist */,
 				1EEC1ADF1E2871BA00EBF0CC /* Supporting Files */,
+				1E414B8C1E559F1F00F84302 /* BaseNodeViewController.h */,
+				1E414B8D1E559F1F00F84302 /* BaseNodeViewController.mm */,
 			);
 			path = "VZFlexLayout-Example";
 			sourceTree = "<group>";
@@ -469,6 +474,7 @@
 				1EEC1B631E28780200EBF0CC /* FBNetworkImageView.mm in Sources */,
 				1EEC1B5A1E28780200EBF0CC /* FBTableViewController.mm in Sources */,
 				1EEC1B511E28780200EBF0CC /* FBLocationNode.mm in Sources */,
+				1E414B8E1E559F1F00F84302 /* BaseNodeViewController.mm in Sources */,
 				1EEC1B4A1E28780200EBF0CC /* FBClickNode.mm in Sources */,
 				1EEC1B521E28780200EBF0CC /* FBNameNode.mm in Sources */,
 				1EEC1B441E28780200EBF0CC /* FBSampleStore.mm in Sources */,

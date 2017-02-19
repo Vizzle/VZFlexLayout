@@ -7,6 +7,8 @@
 //
 
 #import "VZFSegmentedControl.h"
+#import "UIView+VZAttributes.h"
+#import "VZFSegmentedControlNode.h"
 
 @implementation VZFSegmentedControl
 
@@ -30,6 +32,14 @@
         NSDictionary *dict = @{@"selectedSegmentedIndex": @(self.selectedSegmentIndex)};
         self.onChange(dict);
     }
+}
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    SegmentedControlNodeSpecs specs = ((VZFSegmentedControlNode *)node).segmentedControlSpecs;
+    self.items = specs.items;
+    self.onChange = specs.onChange;
+    self.selectedSegmentIndex = specs.selectedSegmentedIndex;
+    self.enabled = specs.enabled.value;
 }
 
 @end

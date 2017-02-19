@@ -11,10 +11,6 @@
 
 @interface PickerNodeViewController () <VZFNodeProvider>
 
-@property (nonatomic, strong) VZFNodeHostingView *pickerView;
-@property (nonatomic, copy) NSMutableDictionary *state;
-@property (nonatomic, strong) UILabel *label;
-
 
 - (void)pickerDidChange;
 
@@ -56,30 +52,16 @@
 
 @implementation PickerNodeViewController
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        _state = [[self initialState] mutableCopy];
-    }
-    return self;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"VZPickerNode";
     
-    self.pickerView = [[VZFNodeHostingView alloc] initWithNodeProvider:[self class] RangeType:VZFlexibleSizeNone];
-    self.pickerView.frame = CGRectMake(0, 64, self.view.frame.size.width, 120);
-    [self.pickerView update:self.state context:self];
-    [self.view addSubview:self.pickerView];
+    self.hostingView = [[VZFNodeHostingView alloc] initWithNodeProvider:[self class] RangeType:VZFlexibleSizeNone];
+    self.hostingView.frame = CGRectMake(0, 64, self.view.frame.size.width, 120);
+    [self.hostingView update:self.state context:self];
+    [self.view addSubview:self.hostingView];
     
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 184, self.view.frame.size.width, 25)];
-    self.label.textColor = [UIColor redColor];
-    self.label.font = [UIFont systemFontOfSize:22.0f];
-    self.label.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:self.label];
-    [self updateHint];
+    [self update];
 }
 
 - (NSDictionary *)initialState {
@@ -87,13 +69,13 @@
 }
 
 - (void)pickerDidChange {
-    [self updateHint];
+    [self update];
 }
 
-- (void)updateHint {
+- (void)update {
     NSArray *items = self.state[@"items"];
     NSInteger selectedIndex = [self.state[@"selectedIndex"] integerValue];
-    self.label.text = selectedIndex < items.count ? items[selectedIndex] : @"UNDEFINED";
+    self.infoLabel.text = selectedIndex < items.count ? items[selectedIndex] : @"UNDEFINED";
 }
 
 #pragma mark - VZFNodeProvider
