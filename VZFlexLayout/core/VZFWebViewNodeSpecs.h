@@ -16,6 +16,7 @@ namespace VZ {
          
          {
             "html": loading html content,
+         
             "baseUrl": base url of html content
          }
          
@@ -32,9 +33,13 @@ namespace VZ {
          
          {
             @"url": web view loading url,
+         
             @"loading" : web view is loading,
+         
             @"canGoBack": web view canGoBack,
+         
             @"canGoForward" : web view canGoForward,
+         
             @"navigationType" : web view navigation type
          }
          
@@ -45,8 +50,11 @@ namespace VZ {
          
          {
             @"url": web view loading url,
+         
             @"loading" : web view is loading,
+         
             @"canGoBack": web view canGoBack,
+         
             @"canGoForward" : web view canGoForward
          }
          */
@@ -56,11 +64,17 @@ namespace VZ {
          
          {
             @"url": web view loading url,
+         
             @"loading" : web view is loading,
+         
             @"canGoBack": web view canGoBack,
+         
             @"canGoForward" : web view canGoForward,
+         
             @"domain": error domin,
+         
             @"code": error code,
+         
             @"description": error description
          }
          */
