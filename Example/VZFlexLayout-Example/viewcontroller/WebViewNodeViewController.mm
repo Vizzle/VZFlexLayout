@@ -17,12 +17,55 @@
 
 + (instancetype)newWithProps:(id)props Store:(VZFluxStore *)store Context:(id)ctx {
     VZFStackNode *node = [VZFStackNode newWithStackAttributes:{
+        .direction = VZFlexVertical,
     } NodeSpecs:{
         .padding = 10,
     } Children:{
         {
+            [VZFTextNode newWithTextAttributes:{
+                .text = @"Load URL",
+                .fontStyle = VZFFontStyleBold,
+            } NodeSpecs:{
+                .alignSelf = VZFlexStretch,
+                .padding = 5,
+                .backgroundColor = [UIColor lightGrayColor],
+            }]
+        },
+        {
             [VZFWebViewNode newWithWebViewAttributes:{
-                .source = [props copy],
+                .source = [props[@"remote"] copy],
+                .onLoadingStart = ^(NSDictionary *body) {
+                    NSLog(@"LOADING STARTED:\n%@", body);
+                },
+                .onLoadingError = ^(NSDictionary *body) {
+                    NSLog(@"LOADING FAILED:\n%@", body);
+                },
+                .onLoadingFinish = ^(NSDictionary *body) {
+                    NSLog(@"LOADING FINISHED:\n%@", body);
+                },
+                .onShouldStartLoadWithRequest = ^(NSDictionary *body) {
+                    NSLog(@"SHOULD LOAD REQUEST:\n%@", body);
+                    return YES;
+                }
+            }NodeSpecs:{
+                .flexGrow = 1,
+            }]
+        },
+        {
+            [VZFTextNode newWithTextAttributes:{
+                .text = @"Load HTML",
+                .fontStyle = VZFFontStyleBold,
+            } NodeSpecs:{
+                .alignSelf = VZFlexStretch,
+                .marginTop = 10,
+                .padding = 5,
+                .backgroundColor = [UIColor lightGrayColor],
+            }]
+        },
+        {
+            
+            [VZFWebViewNode newWithWebViewAttributes:{
+                .source = [props[@"local"] copy],
             }NodeSpecs:{
                 .flexGrow = 1,
             }]
@@ -41,7 +84,22 @@
 @implementation WebViewNodeViewController
 
 - (NSDictionary *)initialState {
-    return @{@"url": @"https://www.taobao.com"};
+    NSString *html = @"<!DOCTYPE html>"
+    "<html>"
+    "<head>"
+    "<title></title>"
+    "</head>"
+    "<body>"
+    "<h1>Hello React</h1>"
+    "</body>"
+    "</html>";
+    
+    return @{
+             @"remote": @{@"url": @"https://www.taobao.com"},
+             @"local": @{
+                     @"html": html
+                     }
+             };
 }
 
 - (void)viewDidLoad {

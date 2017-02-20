@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VZFValue.h"
 
 namespace VZ {
     struct WebViewNodeSpecs {
@@ -14,21 +15,67 @@ namespace VZ {
          HTML content:
          
          {
-            "html": html,
-            "baseUrl": baseUrl
+            "html": loading html content,
+            "baseUrl": base url of html content
          }
          
          URL:
          
          {
-            @"url": url,
+            @"url": loading url,
          }
          */
         NSDictionary *source;
+        BOOL scalesPageToFit;
+        /**
+         Event body:
+         
+         {
+            @"url": web view loading url,
+            @"loading" : web view is loading,
+            @"canGoBack": web view canGoBack,
+            @"canGoForward" : web view canGoForward,
+            @"navigationType" : web view navigation type
+         }
+         
+         */
+        VZFEventBlock onLoadingStart;
+        /**
+         Event body:
+         
+         {
+            @"url": web view loading url,
+            @"loading" : web view is loading,
+            @"canGoBack": web view canGoBack,
+            @"canGoForward" : web view canGoForward
+         }
+         */
+        VZFEventBlock onLoadingFinish;
+        /**
+         Event body:
+         
+         {
+            @"url": web view loading url,
+            @"loading" : web view is loading,
+            @"canGoBack": web view canGoBack,
+            @"canGoForward" : web view canGoForward,
+            @"domain": error domin,
+            @"code": error code,
+            @"description": error description
+         }
+         */
+        VZFEventBlock onLoadingError;
+        
+        BOOL (^onShouldStartLoadWithRequest)(NSDictionary *body);
         
         WebViewNodeSpecs copy() const {
             return {
-                [source copy]
+                [source copy],
+                scalesPageToFit,
+                [onLoadingStart copy],
+                [onLoadingFinish copy],
+                [onLoadingError copy],
+                [onShouldStartLoadWithRequest copy]
             };
         }
     };

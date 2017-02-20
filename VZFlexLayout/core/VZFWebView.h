@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VZFValue.h"
 
 @interface VZFWebView : UIView
 
 @property (nonatomic, strong, readonly) UIWebView *webView;
 @property (nonatomic, copy) NSDictionary *source;
+@property (nonatomic, copy) VZFEventBlock onLoadingStart;
+@property (nonatomic, copy) VZFEventBlock onLoadingFinish;
+@property (nonatomic, copy) VZFEventBlock onLoadingError;
+@property (nonatomic, copy) BOOL (^onShouldStartLoadWithRequest)(NSDictionary *body);
 
 @end
