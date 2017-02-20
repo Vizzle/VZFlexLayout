@@ -82,6 +82,9 @@
     {
         [self _applyLineAttributes:((VZFLineNode* )node).lineSpecs];
     }
+    
+    [self _applyRendererAttributes:node.specs];
+
 }
 
 - (UIBezierPath *)_roundRectPathWithWidth:(CGFloat)width
