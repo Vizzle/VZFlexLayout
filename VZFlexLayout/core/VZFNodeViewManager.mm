@@ -11,7 +11,6 @@
 #import <objc/runtime.h>
 #import "VZFViewReusePoolManager.h"
 #import "VZFWeakObjectWrapper.h"
-#import "VZFRenderer.h"
 
 @implementation UIView(VZFNode)
 
@@ -40,15 +39,12 @@ using namespace VZ;
     VZFViewReusePoolManager* _managerReusePoolManager;
 }
 
-- (instancetype)initWithView:(UIView* )view renderer:(VZFRenderer*)renderer {
+- (instancetype)initWithView:(UIView *)view{
 
     self = [super init];
     if (self) {
         _managedView = view;
-        _managedRenderer = renderer;
-        if (view) {
-            _managerReusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view];
-        }
+        _managerReusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view];
     }
     return self;
 }
@@ -60,20 +56,10 @@ using namespace VZ;
     
 }
 
-- (VZFRenderer* )rendererForNode:(VZFNode* )node{
-    return nil;
-//    UIView* v = [_managerReusePoolManager viewForNode:node ParentView:_managedView];
-//    return v;
-    
-}
-
-- (void)resetReusePool {
-    [_managerReusePoolManager reset:_managedView];
-}
-
 - (void)dealloc{
     
     NSLog(@"[%@]-->dealloc",self.class);
+    [_managerReusePoolManager reset:_managedView];
 }
 
 

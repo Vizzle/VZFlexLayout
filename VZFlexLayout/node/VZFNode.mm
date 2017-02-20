@@ -169,11 +169,17 @@ using namespace VZ::UIKit;
     
     _mountedInfo -> parentNode =  parentNode;
     
+    
     //If renderer is nil, it means the node can't be rasterized
     //@discussion reuse?
     VZFRenderer *renderer = [VZFRasterizeNodeTool getRenderer4RasterizedNode:self size:size];
+    VZFRenderer *parentRenderer = nil;
     
-    if (renderer && context.viewManager.managedRenderer) {
+    if (parentNode != nil && parentNode -> _mountedInfo != nullptr) {
+        parentRenderer = parentNode -> _mountedInfo -> mountedRenderer;
+    }
+
+    if (renderer && parentRenderer) {
         //当自己能被光栅化，且父节点也被光栅化的，renderer添加到父节点上
         
         //to rasterize
@@ -199,20 +205,19 @@ using namespace VZ::UIKit;
         //apply frame
         renderer.frame  = {context.position, size};
         
-        [context.viewManager.managedRenderer addSubRenderer:renderer];
+        [parentRenderer addSubRenderer:renderer];
         
         //update mountedInfo
         _mountedInfo -> mountedContext = {nil,renderer,{context.position,size}};
         
-        return {.hasChildren = YES, .childContext = context.childContextForSubRenderer(context.viewManager.managedView, renderer), .hasView = NO};
-        
+        return {.hasChildren = YES, .childContext = context};
     } else {
         
         CGPoint origin = context.position;
         
         if (!renderer) {
             //如果当前node不能被光栅化，但是super node被光栅化了，那么当前node对应的view在添加到上级view的时候，origin需要进行转换
-            VZFRenderer *superRenderer = context.viewManager.managedRenderer;
+            VZFRenderer *superRenderer = parentRenderer;
             if (superRenderer) {
                 while (superRenderer) {
                     origin = {origin.x + superRenderer.frame.origin.x, origin.y + superRenderer.frame.origin.y};
@@ -234,12 +239,13 @@ using namespace VZ::UIKit;
                 [view.node unmount];
                 view.node = self;
                 _mountedInfo -> mountedView = view;
+                _mountedInfo -> mountedRenderer = renderer;
                 [self didAquireBackingView:view];
             }
             else{
                 VZFAssert(view.node == self, @"");
             }
-            
+                        
             if ([view conformsToProtocol:@protocol(VZFBackingViewProtocol)]) {
                 id<VZFBackingViewProtocol> backingView = (id<VZFBackingViewProtocol>)view;
                 [backingView setRenderer:renderer];
@@ -262,14 +268,15 @@ using namespace VZ::UIKit;
             //update mountedInfo
             _mountedInfo -> mountedContext = {view,renderer,{context.position,size}};
             
-            return {.hasChildren = YES, .childContext = context.childContextForSubRenderer(view, renderer), .hasView = YES};
+            return {.hasChildren = YES, .childContext = context.childContextForSubview(view)};
         }
         else{
             //这种情况对应于没有viewclass的node，例如compositeNode，他没有backingview，mount过程中使用的是view的是上一个view
             _mountedInfo -> mountedView = nil;
-            _mountedInfo -> mountedContext = {context.viewManager.managedView,nil,{context.position,size}};
+            _mountedInfo -> mountedRenderer = nil;
+            _mountedInfo -> mountedContext = {context.viewManager.managedView, parentRenderer, {context.position,size}};
             
-            return {.hasChildren = YES, .childContext = context, .hasView = NO};
+            return {.hasChildren = YES, .childContext = context};
         }
     }
 }

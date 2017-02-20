@@ -35,7 +35,6 @@ namespace VZ {
         struct MountItem{
             const NodeLayout& layout;
             MountContext context;
-            VZFNodeViewManager *viewManager; //如果node mount后有对应的view，那么viewManager记录这个view，用于reset reusePool
             VZFNode* superNode;
             BOOL isVisited;
         };
@@ -53,7 +52,7 @@ namespace VZ {
         
         //2.2, 创建一个stack用来递归
         std::stack<MountItem> stack = {};
-        stack.push({layout,rootContext,nil,superNode,NO});
+        stack.push({layout,rootContext,superNode,NO});
         
         //2.3, 每个节点深度优先遍历
         /**
@@ -66,9 +65,6 @@ namespace VZ {
             //这里面取引用，因为要改变它的状态
             MountItem& item = stack.top();
             if(item.isVisited){
-                
-                [item.viewManager resetReusePool];
-                
                 //@discussion:所有child mount完再通知
                 [item.layout.node didMount];
                 stack.pop();
@@ -93,12 +89,7 @@ namespace VZ {
                                                                 ParentNode:item.superNode];
                 [mountedNodes addObject:item.layout.node];
                 
-                if (mountResult.hasView) {
-                    //只有当node有对应的view时才会需要reset
-                    item.viewManager = mountResult.childContext.viewManager;
-                }
-                
-                //VZFNSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
+                //NSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
                 
                 if (mountResult.hasChildren) {
                     
@@ -116,7 +107,6 @@ namespace VZ {
                                    {*reverseItor,
 //                                       mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size),
                                        mountResult.childContext.rootOffset((*reverseItor).origin, item.layout.size),
-                                       nil,
                                        item.layout.node,
                                        NO});
                     }
