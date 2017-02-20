@@ -89,12 +89,14 @@
     _baselineAdjustment = baselineAdjustment;
 }
 
-- (void)setMaxWidth:(CGFloat)maxWidth {
-    if (_maxWidth != maxWidth) {
+- (void)setMaxSize:(CGSize)maxSize {
+    if (_calculated && !(maxSize.width >= _textSize.width && maxSize.width <= _maxSize.width &&
+                         maxSize.height >= _textSize.height && maxSize.height <= _maxSize.height)) {
         _calculated = NO;
     }
-    _maxWidth = maxWidth;
+    _maxSize = maxSize;
 }
+
 
 - (void)setText:(NSAttributedString *)text {
     _unfixedText = text;
@@ -139,14 +141,14 @@ CGFloat vz_getWidthCallback(void *context) {
 - (CTLineRef)truncateLine:(CTLineRef)line text:(NSAttributedString *)text typesetter:(CTTypesetterRef)typesetter start:(CFIndex)start {
     // 省略号使用行末的字符的属性，当省略号在头部或中间时，得到的效果不一定正确
     
-    CFIndex truncationTokenAttributesIndex = start + CTTypesetterSuggestClusterBreak(typesetter, start, self.maxWidth) - 1;
+    CFIndex truncationTokenAttributesIndex = start + CTTypesetterSuggestClusterBreak(typesetter, start, self.maxSize.width) - 1;
     NSDictionary *truncationTokenAttributes = [text attributesAtIndex:truncationTokenAttributesIndex effectiveRange:nil];
     NSAttributedString *tokenString = [[NSAttributedString alloc] initWithString:@"…" attributes:truncationTokenAttributes];
     CTLineRef truncationLine = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)tokenString);
     
     CTLineTruncationType type = _truncatingMode == VZFTextTruncatingHead ? kCTLineTruncationStart :
     _truncatingMode == VZFTextTruncatingMiddle ? kCTLineTruncationMiddle : kCTLineTruncationEnd;
-    CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.maxWidth, type, truncationLine);
+    CTLineRef truncatedLine = CTLineCreateTruncatedLine(line, self.maxSize.width, type, truncationLine);
     if (truncatedLine) {
         CFRelease(line);
         line = truncatedLine;
@@ -155,12 +157,57 @@ CGFloat vz_getWidthCallback(void *context) {
     return line;
 }
 
+- (BOOL)isEmoji:(NSString*)textString {
+    if (textString.length < 2) {
+        return NO;
+    }
+    
+    static NSCharacterSet* VariationSelectors;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        VariationSelectors = [NSCharacterSet characterSetWithRange:NSMakeRange(0xFE00, 16)];
+    });
+    
+    if ([textString rangeOfCharacterFromSet: VariationSelectors].location != NSNotFound) {
+        return YES;
+    }
+    
+    const unichar high = [textString characterAtIndex: 0];
+    
+    // Surrogate pair (U+1D000-1F9FF)
+    if (0xD800 <= high && high <= 0xDBFF) {
+        const unichar low = [textString characterAtIndex: 1];
+        const int codepoint = ((high - 0xD800) * 0x400) + (low - 0xDC00) + 0x10000;
+        
+        return (0x1D000 <= codepoint && codepoint <= 0x1F9FF);
+        
+        // Not surrogate pair (U+2100-27BF)
+    } else {
+        return (0x2100 <= high && high <= 0x27BF);
+    }
+}
+
+- (BOOL)isIncludingEmoji:(NSString*)textString inRange:(NSRange)range {
+    BOOL __block result = NO;
+    
+    [textString enumerateSubstringsInRange:range
+                                   options:NSStringEnumerationByComposedCharacterSequences
+                                usingBlock: ^(NSString* substring, NSRange substringRange, NSRange enclosingRange, BOOL* stop) {
+                                    if ([self isEmoji:substring]) {
+                                        *stop = YES;
+                                        result = YES;
+                                    }
+                                }];
+    
+    return result;
+}
+
 - (void)_calculate {
     if (_calculated) {
         return;
     }
     
-    if (self.text.length == 0 || self.maxWidth <= 0) {
+    if (self.text.length == 0 || self.maxSize.width <= 0) {
         _calculated = YES;
         _textSize = CGSizeZero;
         return;
@@ -168,12 +215,13 @@ CGFloat vz_getWidthCallback(void *context) {
     
     BOOL adjustsFontSizeToFitWidth = _adjustsFontSizeToFitWidth && _maxNumberOfLines == 1 && _minimumScaleFactor < 1;
     
-//    CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
-//    [self.text boundingRectWithSize:CGSizeMake(_maxWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-//    CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
+    //    CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
+    //    [self.text boundingRectWithSize:CGSizeMake(_maxWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    //    CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
     
     NSMutableAttributedString *mutableText = self.text.mutableCopy;
     CFMutableAttributedStringRef attrString = (__bridge CFMutableAttributedStringRef)mutableText;
+    NSString *plainString = self.text.string;
     
     [self.text enumerateAttribute:NSAttachmentAttributeName inRange:NSMakeRange(0, self.text.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
         NSTextAttachment *attachment = value;
@@ -200,20 +248,31 @@ CGFloat vz_getWidthCallback(void *context) {
     
     NSMutableArray *lines = [NSMutableArray array];
     while (start < textLength && maxRemainLines-- > 0) {
+        BOOL isFirstLine = start == 0;
+        
+        CGFloat lineSpacing = 0;
+        NSParagraphStyle *style = (__bridge NSParagraphStyle *)CFAttributedStringGetAttribute(attrString, start, kCTParagraphStyleAttributeName, NULL);
+        if (style) {
+            lineSpacing = style.lineSpacing;
+        }
+        
+        if (!isFirstLine) {
+            height += lineSpacing / 2;
+        }
+        
         CFIndex count;
         if (maxRemainLines == 0 && (_truncatingMode != VZFTextTruncatingNone || adjustsFontSizeToFitWidth)) {
             count = 0;
         }
         else {
             if (_lineBreakMode == VZFTextLineBreakByChar) {
-                count = CTTypesetterSuggestClusterBreak(typesetter, start, self.maxWidth);
+                count = CTTypesetterSuggestClusterBreak(typesetter, start, self.maxSize.width);
             }
             else {
-                count = CTTypesetterSuggestLineBreak(typesetter, start, self.maxWidth);
+                count = CTTypesetterSuggestLineBreak(typesetter, start, self.maxSize.width);
             }
         }
         
-        BOOL isFirstLine = start == 0;
         BOOL isLastLine = maxRemainLines == 0 || start + count >= textLength;
         BOOL needsToTruncate = _truncatingMode != VZFTextTruncatingClip && maxRemainLines == 0 && start + count < textLength && !adjustsFontSizeToFitWidth;
         BOOL needsToJustify = _alignment == NSTextAlignmentJustified && start + count < textLength;
@@ -225,7 +284,7 @@ CGFloat vz_getWidthCallback(void *context) {
         }
         
         if (needsToJustify) {
-            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1, self.maxWidth);
+            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1, self.maxSize.width);
             if (justifiedLine) {
                 CFRelease(line);
                 line = justifiedLine;
@@ -233,6 +292,7 @@ CGFloat vz_getWidthCallback(void *context) {
         }
         
         VZFTextLine *textLine = [VZFTextLine new];
+        textLine.top = height;
         
         __block CGFloat maxAscent = 0;
         __block CGFloat maxDescent = 0;
@@ -261,7 +321,29 @@ CGFloat vz_getWidthCallback(void *context) {
         CGFloat ascent, descent, leading;
         CGFloat lineWidth = CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
         
-        CGFloat usedLineHeight = maxAscent + maxDescent;
+        CGFloat usedLineHeight = VZF_CEIL_PIXEL(maxAscent + maxDescent);
+        
+        height += usedLineHeight;
+        if (lines.count > 0 && height > self.maxSize.height) {
+            // 如果高度超出最大高度，则重置相关属性，然后重新计算最后一行
+            VZFTextLine *lineBeforelastLine = lines.count - 2 < lines.count ? [lines objectAtIndex:lines.count - 2] : nil;
+            if (lineBeforelastLine) {
+                CFRange range = CTLineGetStringRange((__bridge CTLineRef)lineBeforelastLine.line);
+                start = range.location + range.length;
+                height = lineBeforelastLine.top + lineBeforelastLine.height;
+            }
+            else {
+                start = 0;
+                height = 0;
+            }
+            [lines removeLastObject];
+            maxRemainLines = 1;
+            continue;
+        }
+        if (!isLastLine) {
+            height += lineSpacing / 2;
+        }
+        
         // 第一种方式得到的行高，在纯英文的时候，小了许多
         // 第二种方式得到的行高，不包含 CTRunDelegate（图片） 的高度
         // CGFloat realLineHeight = ascent + descent + leading;
@@ -273,8 +355,13 @@ CGFloat vz_getWidthCallback(void *context) {
         textLine.height = usedLineHeight;
         textLine.offsetY = -(descent + leading) - drawingOffset;
         
-        if (adjustsFontSizeToFitWidth && lineWidth > _maxWidth) {
-            CGFloat scale = _maxWidth / lineWidth;
+        // 修复有 emoji 时文本偏下的问题
+        if (ascent < 23 && [self isIncludingEmoji:plainString inRange:NSMakeRange(range.location, range.length)]) {
+            textLine.offsetY -= ascent * 0.045; // 试出来的 magic number 😉
+        }
+        
+        if (adjustsFontSizeToFitWidth && lineWidth > self.maxSize.width) {
+            CGFloat scale = self.maxSize.width / lineWidth;
             if (scale >= _minimumScaleFactor) {
                 textLine.scale = scale;
             }
@@ -309,37 +396,23 @@ CGFloat vz_getWidthCallback(void *context) {
         textLine.line = (__bridge_transfer id)line;
         textLine.width = lineWidth;
         
-        CGFloat lineSpacing = 0;
-        NSParagraphStyle *style = (__bridge NSParagraphStyle *)CFAttributedStringGetAttribute(attrString, start, kCTParagraphStyleAttributeName, NULL);
-        if (style) {
-            lineSpacing = style.lineSpacing;
-        }
-        
-        if (!isFirstLine) {
-            height += lineSpacing / 2;
-        }
-        textLine.top = height;
-        height += usedLineHeight;
-        if (!isLastLine) {
-            height += lineSpacing / 2;
-        }
-        
-        if (width < lineWidth) {
-            width = lineWidth;
-        }
-        
         [lines addObject:textLine];
         start += count;
     }
     _lines = lines;
     
-    width = MIN(width, _maxWidth);
+    for (VZFTextLine *line in lines) {
+        if (width < line.width) {
+            width = line.width;
+        }
+    }
+    width = MIN(width, self.maxSize.width);
     _textSize = CGSizeMake(VZF_CEIL_PIXEL(width), VZF_CEIL_PIXEL(height));
     _calculated = YES;
     CFRelease(typesetter);
     
-//    CFAbsoluteTime t3 = CFAbsoluteTimeGetCurrent();
-//    NSLog(@"%.3f/%.3f ms", (t2 - t1) * 1000, (t3 - t2) * 1000);
+    //    CFAbsoluteTime t3 = CFAbsoluteTimeGetCurrent();
+    //    NSLog(@"%.3f/%.3f ms", (t2 - t1) * 1000, (t3 - t2) * 1000);
 }
 
 - (CGFloat)offsetYWithBounds:(CGRect)bounds {

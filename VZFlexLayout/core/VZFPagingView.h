@@ -8,15 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNodeBackingViewInterface.h"
-#import "VZFCollectionView.h"
 
 @protocol VZFActionWrapper;
 
 @interface VZFPagingView : UIView<VZFNodeBackingViewInterface>
 
-@property (nonatomic, strong, readonly) VZFCollectionView *collectionView;
+@property (nonatomic, strong, readonly) UIScrollView *scrollView;
 @property (nonatomic, strong, readonly) UIPageControl *pageControl;
 @property (nonatomic) BOOL pageControlEnabled;
+@property (nonatomic) BOOL pagingEnabled;
 @property (nonatomic) BOOL scroll;
 @property (nonatomic) NSTimeInterval autoScroll;
 @property (nonatomic) BOOL loopScroll;
@@ -31,4 +31,6 @@
 
 - (void)scrollToPreviousItem;
 - (void)scrollToNextItem;
+
+- (void)scrollToPage:(NSInteger)pageIndex;
 @end

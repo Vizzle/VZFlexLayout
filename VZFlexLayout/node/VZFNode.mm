@@ -122,7 +122,7 @@ using namespace VZ::UIKit;
         {}
     };
     
-//    NSLog(@"[%@]-->nodeDidLayout:%@",self.class, NSStringFromCGSize(layout.size));
+//    VZFNSLog(@"[%@]-->nodeDidLayout:%@",self.class, NSStringFromCGSize(layout.size));
     return layout;
 }
 
@@ -130,8 +130,7 @@ using namespace VZ::UIKit;
 - (NSString *)description {
     
     NSString* className = NSStringFromClass([self class]);
-    return [NSString stringWithFormat:@"%@",className];
-//    return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
+    return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
 }
 
 - (VZFNode* )superNode{
@@ -159,7 +158,7 @@ using namespace VZ::UIKit;
     }
 }
 
--(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
+-(VZ::UIKit::MountResult)renderInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
 {
     
     //VZF_LOG_THREAD(@"mount");
@@ -206,11 +205,11 @@ using namespace VZ::UIKit;
         _mountedInfo -> mountedContext = {nil,renderer,{context.position,size}};
         
         return {.hasChildren = YES, .childContext = context.childContextForSubRenderer(context.viewManager.managedView, renderer), .hasView = NO};
-
+        
     } else {
         
         CGPoint origin = context.position;
-
+        
         if (!renderer) {
             //如果当前node不能被光栅化，但是super node被光栅化了，那么当前node对应的view在添加到上级view的时候，origin需要进行转换
             VZFRenderer *superRenderer = context.viewManager.managedRenderer;
@@ -221,7 +220,7 @@ using namespace VZ::UIKit;
                 }
             }
         }
-       
+        
         
         //获取一个reuse view
         UIView* view = [context.viewManager viewForNode:self];
@@ -235,7 +234,7 @@ using namespace VZ::UIKit;
                 [view.node unmount];
                 view.node = self;
                 _mountedInfo -> mountedView = view;
-                [self didAquireBackingView];
+                [self didAquireBackingView:view];
             }
             else{
                 VZFAssert(view.node == self, @"");
@@ -275,9 +274,11 @@ using namespace VZ::UIKit;
     }
 }
 
+
+
 -(void)unmount{
     
-    VZF_LOG_THREAD(@"unmount");
+    //VZF_LOG_THREAD(@"unmount");
     
     if (_mountedInfo != nullptr)
     {
@@ -298,7 +299,7 @@ using namespace VZ::UIKit;
     
     if (view) {
         
-        [self willReleaseBackingView];
+        [self willReleaseBackingView:view];
         
         view.node = nil;
         _mountedInfo -> mountedView = nil;
@@ -320,7 +321,6 @@ using namespace VZ::UIKit;
 
 -(void)willMount{
 
-    VZF_LOG_THREAD(@"willMount");
     VZFAssertMainThread();
     
     switch (_state) {
@@ -346,14 +346,12 @@ using namespace VZ::UIKit;
 - (void)willRemount{
 
     VZFAssertMainThread();
-    VZF_LOG_THREAD(@"willRemount");
 
 }
 
 -(void)didMount{
 
     VZFAssertMainThread();
-    VZF_LOG_THREAD(@"didMount");
     
     switch (_state) {
         case VZFNodeStateMounting:
@@ -372,20 +370,20 @@ using namespace VZ::UIKit;
             break;
         }
     }
+    
+    if (_specs.display) {
+        [_specs.display invoke:self withCustomParam:_mountedInfo->mountedView];
+    }
 }
 
 - (void)didRemount{
 
     VZFAssertMainThread();
-    
-    VZF_LOG_THREAD(@"didRemount");
 }
 
 - (void)willUnmount{
 
     VZFAssertMainThread();
-    
-    VZF_LOG_THREAD(@"willUnmount");
     
     switch (_state) {
         case VZFNodeStateMounted:
@@ -407,8 +405,6 @@ using namespace VZ::UIKit;
 
     VZFAssertMainThread();
     
-    VZF_LOG_THREAD(@"didUnmount");
-    
     switch (_state) {
         case VZFNodeStateUnmounting:
             _state = VZFNodeStateUnmounted;
@@ -421,13 +417,14 @@ using namespace VZ::UIKit;
     }
 }
 
-- (void)willReleaseBackingView{
+- (void)willReleaseBackingView:(UIView *)view {
 
     VZFAssertMainThread();
     
+    [view.layer removeAllAnimations];
 }
 
-- (void)didAquireBackingView{
+- (void)didAquireBackingView:(UIView *)view {
 
     VZFAssertMainThread();
     

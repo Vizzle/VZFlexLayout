@@ -89,9 +89,9 @@ inline FlexLength flexLength(float value, FlexLengthType type) {
     r.type = type;
     return r;
 }
-    
-extern const float FlexUndefined;
+
 extern const float FlexAuto;
+extern const float FlexUndefined;
 
 #define FlexLengthZero      flexLength(0, FlexLengthTypeDefault)
 #define FlexLengthAuto      flexLength(FlexAuto, FlexLengthTypeDefault)

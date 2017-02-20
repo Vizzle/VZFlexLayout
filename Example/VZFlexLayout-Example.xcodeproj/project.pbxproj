@@ -43,7 +43,6 @@
 		1EEC1B5A1E28780200EBF0CC /* FBTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1B2D1E28780200EBF0CC /* FBTableViewController.mm */; };
 		1EEC1B5B1E28780200EBF0CC /* FBTextListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1B2F1E28780200EBF0CC /* FBTextListViewController.mm */; };
 		1EEC1B5C1E28780200EBF0CC /* FBViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1B311E28780200EBF0CC /* FBViewController.mm */; };
-		1EEC1B5D1E28780200EBF0CC /* TextFieldNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1B331E28780200EBF0CC /* TextFieldNodeViewController.mm */; };
 		1EEC1B5E1E28780200EBF0CC /* comment_like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B351E28780200EBF0CC /* comment_like@2x.png */; };
 		1EEC1B5F1E28780200EBF0CC /* comment_liked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B361E28780200EBF0CC /* comment_liked@2x.png */; };
 		1EEC1B601E28780200EBF0CC /* comment_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B371E28780200EBF0CC /* comment_location@2x.png */; };
@@ -122,8 +121,6 @@
 		1EEC1B2F1E28780200EBF0CC /* FBTextListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBTextListViewController.mm; sourceTree = "<group>"; };
 		1EEC1B301E28780200EBF0CC /* FBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBViewController.h; sourceTree = "<group>"; };
 		1EEC1B311E28780200EBF0CC /* FBViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBViewController.mm; sourceTree = "<group>"; };
-		1EEC1B321E28780200EBF0CC /* TextFieldNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldNodeViewController.h; sourceTree = "<group>"; };
-		1EEC1B331E28780200EBF0CC /* TextFieldNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextFieldNodeViewController.mm; sourceTree = "<group>"; };
 		1EEC1B351E28780200EBF0CC /* comment_like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_like@2x.png"; sourceTree = "<group>"; };
 		1EEC1B361E28780200EBF0CC /* comment_liked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_liked@2x.png"; sourceTree = "<group>"; };
 		1EEC1B371E28780200EBF0CC /* comment_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_location@2x.png"; sourceTree = "<group>"; };
@@ -273,8 +270,6 @@
 				1EEC1B2F1E28780200EBF0CC /* FBTextListViewController.mm */,
 				1EEC1B301E28780200EBF0CC /* FBViewController.h */,
 				1EEC1B311E28780200EBF0CC /* FBViewController.mm */,
-				1EEC1B321E28780200EBF0CC /* TextFieldNodeViewController.h */,
-				1EEC1B331E28780200EBF0CC /* TextFieldNodeViewController.mm */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -476,7 +471,6 @@
 				1EEC1B501E28780200EBF0CC /* FBIconNode.mm in Sources */,
 				1EEC1B5B1E28780200EBF0CC /* FBTextListViewController.mm in Sources */,
 				1EEC1B4D1E28780200EBF0CC /* FBGridImageNode.mm in Sources */,
-				1EEC1B5D1E28780200EBF0CC /* TextFieldNodeViewController.mm in Sources */,
 				1EEC1B591E28780200EBF0CC /* FBHostCellItem.mm in Sources */,
 				1EEC1B4E1E28780200EBF0CC /* FBHeaderNode.mm in Sources */,
 				1EEC1B421E28780200EBF0CC /* FBHostItem.m in Sources */,

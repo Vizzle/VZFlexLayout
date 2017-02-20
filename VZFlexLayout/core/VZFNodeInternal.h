@@ -11,7 +11,6 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNode.h"
-#import "VZFNodeMountContext.h"
 #import "VZFNodeLifeCycle.h"
 
 
@@ -101,7 +100,7 @@ using namespace VZ;
  *
  *  @return 加载结果
  */
-- (VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context
+- (VZ::UIKit::MountResult)renderInContext:(const VZ::UIKit::MountContext &)context
                                    Size:(CGSize) size
                              ParentNode:(VZFNode* )parentNode;
 - (void)unmount;

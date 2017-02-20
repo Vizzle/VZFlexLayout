@@ -43,10 +43,6 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     return self;
 }
 
-- (void)dealloc{
-    NSLog(@"[%@]-->dealloc",self.class);
-}
-
 - (void)reset:(UIView *)containerView{
 
     for(VZFViewReusePool* reusePool in [_reusePoolMap allValues]){

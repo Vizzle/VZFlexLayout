@@ -43,7 +43,7 @@ using namespace VZ;
  * @discussion: Composite Node同样参与Node🌲的构建
  */
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz{
-
+    
     NodeLayout internalNodeLayout = [_node computeLayoutThatFits:sz];
     internalNodeLayout.origin = CGPointZero;
     VZ::NodeLayout layout = [super nodeDidLayout];

@@ -15,10 +15,12 @@
 #include <objc/runtime.h>
 #import "VZFUtils.h"
 #import "VZFMacros.h"
+#import "VZFLocker.h"
 #import "VZFluxStore.h"
+//#import "VZFAsync4ReactBridge.h"
 #import "VZFNodeInternal.h"
 #import "VZFWeakObjectWrapper.h"
-
+#import "ExternalSupport.h"
 
 const void* g_recycleId = &g_recycleId;
 const void* g_useVZAsyncDisplay = &g_useVZAsyncDisplay;
@@ -56,6 +58,7 @@ struct VZItemRecyclerState{
 };
 @interface VZFNodeListItemRecycler()
 
+//@property (nonatomic, strong) VZFAsync4ReactBridge *asyncBridge;
 
 @end
 
@@ -66,8 +69,18 @@ struct VZItemRecyclerState{
     
     __weak Class<VZFNodeProvider> _nodeProvider;
     VZItemRecyclerState _state;
+    
+    //protect calculate method
+    SpinLock _lock;
 
 }
+//异步渲染逻辑处理对象
+//-(VZFAsync4ReactBridge *)asyncBridge{
+//    if (!_asyncBridge) {
+//        _asyncBridge = [[VZFAsync4ReactBridge alloc] init];
+//    }
+//    return _asyncBridge;
+//}
 
 
 - (CGSize)layoutSize{
@@ -120,6 +133,9 @@ struct VZItemRecyclerState{
 
 - (void)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context{
     
+    //这里会有非主线程调用的情况
+    SpinLocker locker(_lock);
+    
     VZFNode* node = [_nodeProvider nodeForItem:item Store:_store Context:context];
     if (node) {
         const VZ::NodeLayout layout = [node computeLayoutThatFits:constrainedSize];
@@ -161,13 +177,24 @@ struct VZItemRecyclerState{
         _mountedView = view;
         view.vz_recycler = self;
         
-        //        NSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
+        //        VZFNSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
     }
     
     _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil) copy];
 
 }
 
+
+
+-(void)hideVZFNodeView:(UIView *)v hidden:(BOOL)hidden{
+    NSArray *subView = [v.subviews copy];
+    for (UIView *v in subView) {
+        NSString *className = [NSString stringWithUTF8String:class_getName([v class])];
+        if (![@"_VZAView" isEqualToString:className]){
+            v.hidden = hidden;
+        }
+    }
+}
 
 - (void)detachFromView{
     

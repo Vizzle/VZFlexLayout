@@ -50,14 +50,14 @@
         
     if ([node isKindOfClass:[VZFImageNode class]])
     {
-        return [self getImageRenderer:((VZFImageNode* )node).imageSpecs node:node];
+        return [self getImageRenderer:((VZFImageNode* )node).imageSpecs node:(VZFImageNode *)node];
     }
     else if ([node isKindOfClass:[VZFTextNode class]])
     {
-        return [self getTextRenderer:((VZFTextNode* )node).textSpecs node:node size:size];
+        return [self getTextRenderer:((VZFTextNode* )node).textSpecs node:(VZFTextNode *)node size:size];
     }
     else if([node  isKindOfClass:[VZFStackNode class]]){
-        return [self getBlankRenderer:node];
+        return [self getBlankRenderer:(VZFStackNode *)node];
     }
     //button需要独立处理事件 需要view不做光栅化处理
     
@@ -67,7 +67,7 @@
 +(VZFTextNodeRenderer *)getTextRenderer:(const TextNodeSpecs& )textNodeSpecs node:(VZFTextNode* )node size:(CGSize)size{
     VZFTextNodeRenderer *renderer = node.renderer;
     UIEdgeInsets edgeInsets = node.flexNode.resultPadding;
-    renderer.maxWidth = size.width - edgeInsets.left - edgeInsets.right;
+    renderer.maxSize = CGSizeMake(size.width - edgeInsets.left - edgeInsets.right,size.height - edgeInsets.top - edgeInsets.bottom);
     [self setRenderer:renderer specs:node.specs];
     return renderer;
 }

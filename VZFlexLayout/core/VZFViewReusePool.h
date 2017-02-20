@@ -10,6 +10,14 @@
 #import <UIKit/UIKit.h>
 
 
+@interface UIView (Unapply)
+
+@property (nonatomic, copy) void(^unapplicator)(UIView* view);
+
+- (void)unapply;
+
+@end
+
 
 namespace VZ {
     class ViewClass;

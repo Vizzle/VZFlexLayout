@@ -12,6 +12,7 @@
 @class VZFNode;
 
 //使用C API减少 Runtime Overhead
+//所有方法MainThread - Only
 namespace VZ {
     
     /**
@@ -21,7 +22,7 @@ namespace VZ {
      *  @param container     根节点所在的容器
      *  @param previousNodes 之前保存下来的，layout完的node，传进来是用来比较
      *  @param superNode     根节点的父节点，通常为nil
-     *
+     *  @discussion          MainThread - Only
      *  @return layout的结果
      */
     NSSet<VZFNode*>* layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet<VZFNode* >* previousNodes, VZFNode* superNode);
@@ -31,7 +32,7 @@ namespace VZ {
      *
      *  @param layout 根节点layout的描述
      *  @param sz     constraind size -> @example: CGSize{VZ::FlexValue::Auto(), VZ::FlexValue::Auto()}
-     *
+     *  @discussion   MainThread - Only
      *  @return container view
      */
     UIView* viewForRootNode(NodeLayout layout, CGSize constrainedSize);

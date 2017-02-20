@@ -19,7 +19,7 @@ namespace VZ
          *  Node在mount过程中缓存的数据
          */
         struct MountContext{
-        
+            
             //类方法
             static MountContext RootContext(UIView* v){
         
@@ -66,7 +66,7 @@ namespace VZ
             
             /*
              *@containerView 光栅化的根节点view
-             *@subRenderer 
+             *@subRenderer
              */
             MountContext childContextForSubRenderer(UIView *containerView, VZFRenderer *subRenderer) const {
                 
@@ -102,10 +102,10 @@ namespace VZ
                     .bottom = parentLayoutInsect.bottom + (parentSize.height - childSize.height) - offset.y,
                 };
             };
-        
+            
         };
         
-
+        
         struct MountResult{
             
             BOOL hasChildren;

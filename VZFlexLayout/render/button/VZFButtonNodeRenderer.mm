@@ -50,7 +50,7 @@
         _textRenderer.verticalAlignment = VZFTextVerticalAlignmentCenter;
         _textRenderer.alignment = NSTextAlignmentCenter;
         _textRenderer.maxNumberOfLines = 1;
-        _textRenderer.maxWidth = MAX(size.width -image.size.width ,0);
+        _textRenderer.maxSize = CGSizeMake(MAX(size.width -image.size.width ,0),size.height);
     }
 
 }

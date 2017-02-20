@@ -31,7 +31,7 @@
                              NodeSpecs:(const NodeSpecs& )nodeSpecs{
 
     
-    return [VZFImageNode newWithImageAttributes:imageSpecs NodeSpecs:nodeSpecs BackingImageViewClass:[VZFImageNodeBackingView class]];
+    return [VZFImageNode newWithImageAttributes:imageSpecs NodeSpecs:nodeSpecs BackingImageViewClass:[VZFNetworkImageView class]];
 
 }
 
@@ -53,7 +53,7 @@
         
         
         __weak typeof(imageNode) weakNode = imageNode;
-        imageNode.flexNode.measure = ^(CGSize constraintedSize) {
+        imageNode.flexNode.measure = ^(CGSize constrainedSize) {
             __strong typeof(weakNode) strongNode = weakNode;
             if (!strongNode) return CGSizeZero;
             
@@ -77,7 +77,7 @@
         
         
         __weak typeof(networkImageNode) weakNode = networkImageNode;
-        networkImageNode.flexNode.measure = ^(CGSize constraintedSize) {
+        networkImageNode.flexNode.measure = ^(CGSize constrainedSize) {
             __strong typeof(weakNode) strongNode = weakNode;
             if (!strongNode) return CGSizeZero;
             

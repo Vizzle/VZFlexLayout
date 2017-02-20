@@ -115,11 +115,11 @@
                 break;
         }
     }
-//    
-//    if (renderSynchronously) {
-//        [super display];
-//        return;
-//    }
+    //
+    //    if (renderSynchronously) {
+    //        [super display];
+    //        return;
+    //    }
     
     if (!_needsAsyncDisplayOnly) {
         
@@ -186,6 +186,7 @@
 
 }
 
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - public methods
 
@@ -224,8 +225,9 @@
 #pragma mark - protocol methods
 
 - (void)drawAsyncLayerInContext:(CGContextRef)context parameters:(NSObject *)parameters{
+    
     [self drawInContext:context parameters:parameters];
-//    [self drawBorder:context];
+
 }
 
 
@@ -278,6 +280,11 @@
         
         UIGraphicsBeginImageContextWithOptions(bounds.size, opaque, contentsScale);
         CGContextRef bitmapContext = UIGraphicsGetCurrentContext();
+        
+        if (backgroundColorObject != NULL) {
+            CGContextSetFillColorWithColor(bitmapContext, (CGColorRef)backgroundColorObject);
+            CGContextFillRect(bitmapContext, bounds);
+        }
         
         [drawingDelegate drawAsyncLayerInContext:bitmapContext parameters:drawParameters];
         
