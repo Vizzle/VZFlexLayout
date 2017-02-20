@@ -89,10 +89,6 @@
     {
         [self _applyLineAttributes:((VZFLineNode* )node).lineSpecs];
     }
-    else if ([node isKindOfClass:[VZFTextFieldNode class]])
-    {
-        ((VZFTextField *)self).contentInset = self.node.flexNode.resultPadding;
-    }
     [self vz_applyNodeAttributes:self.node];
     [self _applyRendererAttributes:node.specs];
 

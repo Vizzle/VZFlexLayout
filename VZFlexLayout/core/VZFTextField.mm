@@ -9,6 +9,8 @@
 #import "VZFTextField.h"
 #import "UIView+VZAttributes.h"
 #import "VZFTextFieldNode.h"
+#import "VZFNodeInternal.h"
+#import "VZFlexNode.h"
 
 @interface VZFTextField () <UITextFieldDelegate>
 
@@ -128,6 +130,8 @@
     }
 }
 
+#pragma mark - Node spec attributes
+
 - (void)vz_applyNodeAttributes:(VZFNode *)node {
     TextFieldNodeSpecs specs = ((VZFTextFieldNode *)node).textFieldSpecs;
     self.text = specs.text;
@@ -141,6 +145,7 @@
     self.clearButtonMode = specs.clearButtonMode;
     self.maxLength = specs.maxLength;
     self.eventHandler = specs.eventHandler;
+    self.contentInset = node.flexNode.resultPadding;
 }
 
 @end

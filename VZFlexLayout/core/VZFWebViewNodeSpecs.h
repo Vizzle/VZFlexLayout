@@ -10,6 +10,26 @@
 
 namespace VZ {
     struct WebViewNodeSpecs {
+        /**
+         HTML content:
+         
+         {
+            "html": html,
+            "baseUrl": baseUrl
+         }
+         
+         URL:
+         
+         {
+            @"url": url,
+         }
+         */
+        NSDictionary *source;
         
+        WebViewNodeSpecs copy() const {
+            return {
+                [source copy]
+            };
+        }
     };
 }

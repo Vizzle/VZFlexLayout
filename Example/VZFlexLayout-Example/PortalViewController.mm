@@ -11,10 +11,6 @@
 #import "FBTableViewController.h"
 #import "FBTextListViewController.h"
 
-#define RCT_EXPORT_VIEW_PROPERTY(name, type) \
-+ (NSArray<NSString *> *)propConfig_##name { return @[@#type]; }
-
-
 static NSString *const kItemTitleKey = @"title";
 static NSString *const kItemSubtitleKey = @"subtitle";
 static NSString *const kItemTargetClassKey = @"targetClass";
@@ -27,8 +23,6 @@ static NSString *const kItemTargetClassKey = @"targetClass";
 @end
 
 @implementation PortalViewController
-
-RCT_EXPORT_VIEW_PROPERTY(view, UIView)
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -59,7 +53,8 @@ RCT_EXPORT_VIEW_PROPERTY(view, UIView)
                    @{kItemTitleKey: @"Switch", kItemSubtitleKey: @"VZFSwitchNode", kItemTargetClassKey: @"SwitchNodeViewController"},
                    @{kItemTitleKey: @"Picker", kItemSubtitleKey: @"VZFPickerNode", kItemTargetClassKey: @"PickerNodeViewController"},
                    @{kItemTitleKey: @"Application", kItemSubtitleKey: @"A comprehensive demo", kItemTargetClassKey: @"FBTableViewController"},
-                   @{kItemTitleKey: @"SegmentedControl", kItemSubtitleKey: @"VZFSegmentedControlNode", kItemTargetClassKey: @"SegmentedControlNodeViewController"}
+                   @{kItemTitleKey: @"SegmentedControl", kItemSubtitleKey: @"VZFSegmentedControlNode", kItemTargetClassKey: @"SegmentedControlNodeViewController"},
+                   @{kItemTitleKey: @"WebView", kItemSubtitleKey: @"VZFWebViewNode", kItemTargetClassKey: @"WebViewNodeViewController"}
                    ];
     
     self.items = [data sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {

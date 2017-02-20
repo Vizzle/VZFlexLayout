@@ -64,6 +64,8 @@
     }
 }
 
+#pragma mark - Node spec attributes
+
 - (void)vz_applyNodeAttributes:(VZFNode *)node {
     PickerNodeSpecs specs = ((VZFPickerNode *)node).pickerSpecs;
     self.items = specs.items;

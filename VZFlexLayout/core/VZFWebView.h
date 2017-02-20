@@ -10,4 +10,7 @@
 
 @interface VZFWebView : UIView
 
+@property (nonatomic, strong, readonly) UIWebView *webView;
+@property (nonatomic, copy) NSDictionary *source;
+
 @end

@@ -21,7 +21,7 @@
 		1E414B8A1E559A1000F84302 /* VZFWebViewNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E414B881E559A1000F84302 /* VZFWebViewNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E414B8B1E559A1000F84302 /* VZFWebViewNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B891E559A1000F84302 /* VZFWebViewNode.mm */; };
 		1E414B911E55AADB00F84302 /* VZFWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E414B8F1E55AADB00F84302 /* VZFWebView.h */; };
-		1E414B921E55AADB00F84302 /* VZFWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B901E55AADB00F84302 /* VZFWebView.m */; };
+		1E414B921E55AADB00F84302 /* VZFWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B901E55AADB00F84302 /* VZFWebView.mm */; };
 		1E715EC21E49C81100D76806 /* VZFBackingViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715EBF1E49C81100D76806 /* VZFBackingViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E715EC31E49C81100D76806 /* VZFBaseRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715EC01E49C81100D76806 /* VZFBaseRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E715EC41E49C81100D76806 /* VZFBaseRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715EC11E49C81100D76806 /* VZFBaseRenderer.mm */; };
@@ -206,7 +206,7 @@
 		1E414B881E559A1000F84302 /* VZFWebViewNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFWebViewNode.h; sourceTree = "<group>"; };
 		1E414B891E559A1000F84302 /* VZFWebViewNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFWebViewNode.mm; sourceTree = "<group>"; };
 		1E414B8F1E55AADB00F84302 /* VZFWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFWebView.h; sourceTree = "<group>"; };
-		1E414B901E55AADB00F84302 /* VZFWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFWebView.m; sourceTree = "<group>"; };
+		1E414B901E55AADB00F84302 /* VZFWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFWebView.mm; sourceTree = "<group>"; };
 		1E715EBF1E49C81100D76806 /* VZFBackingViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBackingViewProtocol.h; sourceTree = "<group>"; };
 		1E715EC01E49C81100D76806 /* VZFBaseRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBaseRenderer.h; sourceTree = "<group>"; };
 		1E715EC11E49C81100D76806 /* VZFBaseRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFBaseRenderer.mm; sourceTree = "<group>"; };
@@ -560,7 +560,7 @@
 				1E414B841E55999900F84302 /* VZFWebViewNodeSpecs.h */,
 				1E414B851E55999900F84302 /* VZFWebViewNodeSpecs.mm */,
 				1E414B8F1E55AADB00F84302 /* VZFWebView.h */,
-				1E414B901E55AADB00F84302 /* VZFWebView.m */,
+				1E414B901E55AADB00F84302 /* VZFWebView.mm */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -959,7 +959,7 @@
 				1E715EDD1E49C83600D76806 /* VZFBlankNodeBackingLayer.m in Sources */,
 				1EEC1A571E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.mm in Sources */,
 				1EEC1AC41E27BFAD00EBF0CC /* VZFAsyncDrawingTransactionContainer.m in Sources */,
-				1E414B921E55AADB00F84302 /* VZFWebView.m in Sources */,
+				1E414B921E55AADB00F84302 /* VZFWebView.mm in Sources */,
 				1EEC1AB71E27BFAD00EBF0CC /* VZFPagingNode.mm in Sources */,
 				1EEC1A801E27BFAD00EBF0CC /* VZFScrollNodeSpecs.mm in Sources */,
 				1E715EEB1E49C83600D76806 /* VZFImageNodeRenderer.mm in Sources */,

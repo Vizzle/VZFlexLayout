@@ -25,6 +25,8 @@
     }
 }
 
+#pragma mark - Node spec attributes
+
 - (void)vz_applyNodeAttributes:(VZFNode *)node {
     SwitchNodeSpecs specs = ((VZFSwitchNode *)node).switchSpecs;
     self.on = specs.on;

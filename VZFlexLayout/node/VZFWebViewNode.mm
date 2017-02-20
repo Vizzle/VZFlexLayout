@@ -12,7 +12,7 @@
 @implementation VZFWebViewNode
 
 + (instancetype)newWithWebViewAttributes:(const VZ::WebViewNodeSpecs &)webViewNodeSpecs NodeSpecs:(const VZ::NodeSpecs &)nodeSpecs {
-    VZFWebViewNode *node = [VZFWebViewNode newWithView:[UIWebView class] NodeSpecs:nodeSpecs];
+    VZFWebViewNode *node = [VZFWebViewNode newWithView:[VZFWebView class] NodeSpecs:nodeSpecs];
     if (node) {
         node -> _webViewNodeSpecs = webViewNodeSpecs;
     }

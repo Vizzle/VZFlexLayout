@@ -34,6 +34,8 @@
     }
 }
 
+#pragma mark - Node spec attributes
+
 - (void)vz_applyNodeAttributes:(VZFNode *)node {
     SegmentedControlNodeSpecs specs = ((VZFSegmentedControlNode *)node).segmentedControlSpecs;
     self.items = specs.items;
