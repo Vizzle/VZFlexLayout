@@ -17,6 +17,17 @@ namespace VZ {
         extern MKCoordinateRegion undefinedRegion;
     }
     
+    struct MapAnnotationSpecs {
+        NSString *identifier;
+        CLLocationDegrees latitude;
+        CLLocationDegrees longitude;
+        NSString *title;
+        NSString *subTitle;
+        UIImage *image;
+        BOOL animateDrop;
+        BOOL draggable;
+    };
+    
     struct MapViewNodeSpecs {
         MKMapType mapType;
         BOOL showsUserLocation;
@@ -27,6 +38,10 @@ namespace VZ {
         Value<BOOL, DefaultControlAttrValue::able> rotateEnabled;
         Value<BOOL, DefaultControlAttrValue::able> pitchEnabled;
         Value<MKCoordinateRegion, DefaultAttributesValue::undefinedRegion> region;
+        std::vector<MapAnnotationSpecs> annotations;
+        VZFEventBlock onAnnotationPress;
+        VZFEventBlock onAnnotationFocus;
+        VZFEventBlock onAnnotationBlur;
         
         MapViewNodeSpecs copy() const {
             return {
@@ -39,6 +54,10 @@ namespace VZ {
                 rotateEnabled,
                 pitchEnabled,
                 region,
+                annotations,
+                [onAnnotationPress copy],
+                [onAnnotationFocus copy],
+                [onAnnotationBlur copy]
             };
         }
     };

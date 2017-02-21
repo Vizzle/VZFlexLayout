@@ -17,21 +17,8 @@
 @implementation MapNode
 
 + (instancetype)newWithProps:(id)props Store:(VZFluxStore *)store Context:(id)ctx {
-//    VZFStackNode *node = [VZFStackNode newWithStackAttributes:{
-//        .direction = VZFlexVertical,
-//        .alignItems = VZFlexStretch,
-//    } NodeSpecs:{
-//        .padding = 10,
-//    } Children:{
-//        {
-//            [VZFMapViewNode newWithMapViewAttributes:{
-//                .showsUserLocation = YES,
-//                .followUserLocation = YES,
-//            }NodeSpecs:{
-//                .height = 150,
-//            }]
-//        }
-//    }];
+    
+    CGFloat mapHeight = 200;
     
     VZFScrollNode *node = [VZFScrollNode newWithScrollAttributes:{
         .scrollDirection = VZ::ScrollDirection::ScrollVertical
@@ -40,13 +27,13 @@
         .alignItems = VZFlexStretch,
         .spacing = 10,
     } NodeSpecs:{
-        .padding = 10,
+        .padding = 20,
     } Children:{
         [VZFMapViewNode newWithMapViewAttributes:{
             .showsUserLocation = YES,
             .followUserLocation = YES,
         }NodeSpecs:{
-            .height = 150,
+            .height = mapHeight,
         }],
         [VZFMapViewNode newWithMapViewAttributes:{
             .region = (MKCoordinateRegion){
@@ -59,8 +46,50 @@
                     .longitudeDelta = 0.005,
                 }
             },
+            .annotations = {
+                {
+                    .latitude = 30.2795924,
+                    .longitude = 120.0228532,
+                    .title = @"Alibaba",
+                    .subTitle = @"Xixi Park"
+                }
+            },
+            .onAnnotationPress = ^(NSDictionary *body) {
+                NSLog(@"Annotation pressed: %@", body);
+            },
+            .onAnnotationFocus = ^(NSDictionary *body) {
+                NSLog(@"Annotation foucused: %@", body);
+            },
+            .onAnnotationBlur = ^(NSDictionary *body) {
+                NSLog(@"Annotation blured: %@", body);
+            }
         }NodeSpecs:{
-            .height = 150,
+            .height = mapHeight,
+        }],
+        [VZFMapViewNode newWithMapViewAttributes:{
+            .region = (MKCoordinateRegion){
+                .center = {
+                    .latitude = 30.2726853,
+                    .longitude = 120.124668
+                },
+                .span = {
+                    .latitudeDelta = 0.005,
+                    .longitudeDelta = 0.005,
+                }
+            },
+            .annotations = {
+                {
+                    .latitude = 30.2726853,
+                    .longitude = 120.124668,
+                    .title = @"Zhifubao",
+                    .subTitle = @"Wantang Road",
+                    .image = [UIImage imageNamed:@"icon_annotation"],
+                    .animateDrop = YES,
+                    .draggable = YES,
+                }
+            }
+        }NodeSpecs:{
+            .height = mapHeight,
         }]
     }];
     

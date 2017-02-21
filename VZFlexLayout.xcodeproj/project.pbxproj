@@ -52,6 +52,8 @@
 		1EAC532E1E5B1A51009C4C57 /* VZFMapViewNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC532C1E5B1A51009C4C57 /* VZFMapViewNode.mm */; };
 		1EAC53331E5BE900009C4C57 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EAC53321E5BE900009C4C57 /* CoreLocation.framework */; };
 		1EAC53351E5BE907009C4C57 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EAC53341E5BE907009C4C57 /* UIKit.framework */; };
+		1EAC53391E5C1A68009C4C57 /* VZFMapAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC53371E5C1A68009C4C57 /* VZFMapAnnotation.h */; };
+		1EAC533A1E5C1A68009C4C57 /* VZFMapAnnotation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53381E5C1A68009C4C57 /* VZFMapAnnotation.mm */; };
 		1EEC19B11E27BF9600EBF0CC /* VZFlexLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19AF1E27BF9600EBF0CC /* VZFlexLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A4A1E27BFAD00EBF0CC /* UIView+VZAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19B81E27BFAD00EBF0CC /* UIView+VZAttributes.h */; };
 		1EEC1A4B1E27BFAD00EBF0CC /* UIView+VZAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19B91E27BFAD00EBF0CC /* UIView+VZAttributes.mm */; };
@@ -246,6 +248,8 @@
 		1EAC532C1E5B1A51009C4C57 /* VZFMapViewNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapViewNode.mm; sourceTree = "<group>"; };
 		1EAC53321E5BE900009C4C57 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		1EAC53341E5BE907009C4C57 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1EAC53371E5C1A68009C4C57 /* VZFMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapAnnotation.h; sourceTree = "<group>"; };
+		1EAC53381E5C1A68009C4C57 /* VZFMapAnnotation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapAnnotation.mm; sourceTree = "<group>"; };
 		1EEC19AC1E27BF9600EBF0CC /* VZFlexLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VZFlexLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EEC19AF1E27BF9600EBF0CC /* VZFlexLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFlexLayout.h; sourceTree = "<group>"; };
 		1EEC19B01E27BF9600EBF0CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -597,6 +601,8 @@
 				1EAC53011E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm */,
 				1EAC53271E5B1A1E009C4C57 /* VZFMapView.h */,
 				1EAC53281E5B1A1E009C4C57 /* VZFMapView.mm */,
+				1EAC53371E5C1A68009C4C57 /* VZFMapAnnotation.h */,
+				1EAC53381E5C1A68009C4C57 /* VZFMapAnnotation.mm */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -759,6 +765,7 @@
 				1E715EE41E49C83600D76806 /* VZFButtonNodeRenderer.h in Headers */,
 				1EEC1A9F1E27BFAD00EBF0CC /* VZFluxAppDispatcher.h in Headers */,
 				1EEC1A9D1E27BFAD00EBF0CC /* VZFluxAction.h in Headers */,
+				1EAC53391E5C1A68009C4C57 /* VZFMapAnnotation.h in Headers */,
 				1EEC1A891E27BFAD00EBF0CC /* VZFStateUpdateMode.h in Headers */,
 				1EEE54F31E52D87100585DF8 /* VZFPickerView.h in Headers */,
 				1EEC1AA51E27BFAD00EBF0CC /* VZFlux.h in Headers */,
@@ -996,6 +1003,7 @@
 				1EEC1A7E1E27BFAD00EBF0CC /* VZFPagingView.mm in Sources */,
 				1E715EDB1E49C83600D76806 /* VZFBankNodeRenderer.m in Sources */,
 				1EEC1A631E27BFAD00EBF0CC /* VZFLineView.m in Sources */,
+				1EAC533A1E5C1A68009C4C57 /* VZFMapAnnotation.mm in Sources */,
 				1EEC1A4B1E27BFAD00EBF0CC /* UIView+VZAttributes.mm in Sources */,
 				1EEC1A701E27BFAD00EBF0CC /* VZFNodeLayoutManager.mm in Sources */,
 				1E715EE31E49C83600D76806 /* VZFButtonNodeBackingView.mm in Sources */,

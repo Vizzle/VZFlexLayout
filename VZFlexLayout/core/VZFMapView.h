@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "VZFValue.h"
 
 @interface VZFMapView : MKMapView
 
 @property (nonatomic, assign) BOOL followUserLocation;
 @property (nonatomic, assign) BOOL showsAnnotationCallouts;
+@property (nonatomic, copy) VZFEventBlock onAnnotationPress;
+@property (nonatomic, copy) VZFEventBlock onAnnotationFocus;
+@property (nonatomic, copy) VZFEventBlock onAnnotationBlur;
 
 @end
