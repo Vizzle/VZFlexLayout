@@ -20,11 +20,15 @@
     self = [super initWithFrame:frame];
     if (self) {
         _webView = [[UIWebView alloc] initWithFrame:self.bounds];
-        _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _webView.delegate = self;
         [self addSubview:_webView];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.webView.frame = self.bounds;
 }
 
 - (void)setSource:(NSDictionary *)source {

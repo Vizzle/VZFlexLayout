@@ -17,7 +17,7 @@ namespace VZ {
         /// Selected segmented index changed event. Event body: {"selectedSegmentedIndex": index}
         VZFEventBlock onChange;
         NSInteger selectedSegmentedIndex;
-        Value<BOOL, DefaultControlAttrValue::enable> enabled;
+        Value<BOOL, DefaultControlAttrValue::able> enabled;
         
         SegmentedControlNodeSpecs copy() const {
             return {

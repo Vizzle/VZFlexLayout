@@ -14,7 +14,7 @@
 namespace VZ {
     struct SwitchNodeSpecs {
         BOOL on;
-        Value<BOOL, DefaultControlAttrValue::enable> enabled;
+        Value<BOOL, DefaultControlAttrValue::able> enabled;
         UIColor *onTintColor;
         UIColor *thumbTintColor;
         /// Switch value changed event. Event body: {"on": YES/NO}

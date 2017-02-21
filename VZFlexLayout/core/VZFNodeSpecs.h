@@ -42,7 +42,8 @@ using namespace VZ;
 namespace VZ {
     
     namespace DefaultControlAttrValue {
-        extern BOOL enable;
+        extern BOOL able;
+        extern BOOL disable;
     }
     
     namespace DefaultAttributesValue{

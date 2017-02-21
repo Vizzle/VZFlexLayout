@@ -14,7 +14,8 @@
 namespace VZ {
     
     namespace DefaultControlAttrValue {
-        BOOL enable = YES;
+        BOOL able = YES;
+        BOOL disable = NO;
     }
     
     namespace DefaultAttributesValue{

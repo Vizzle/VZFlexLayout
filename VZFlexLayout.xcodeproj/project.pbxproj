@@ -43,6 +43,15 @@
 		1E715EE91E49C83600D76806 /* VZFImageNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ED71E49C83600D76806 /* VZFImageNodeBackingView.mm */; };
 		1E715EEA1E49C83600D76806 /* VZFImageNodeRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ED81E49C83600D76806 /* VZFImageNodeRenderer.h */; };
 		1E715EEB1E49C83600D76806 /* VZFImageNodeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ED91E49C83600D76806 /* VZFImageNodeRenderer.mm */; };
+		1EAC53021E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC53001E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EAC53031E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53011E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm */; };
+		1EAC53261E5B1A02009C4C57 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EAC53251E5B1A02009C4C57 /* MapKit.framework */; };
+		1EAC53291E5B1A1E009C4C57 /* VZFMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC53271E5B1A1E009C4C57 /* VZFMapView.h */; };
+		1EAC532A1E5B1A1E009C4C57 /* VZFMapView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53281E5B1A1E009C4C57 /* VZFMapView.mm */; };
+		1EAC532D1E5B1A51009C4C57 /* VZFMapViewNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC532B1E5B1A51009C4C57 /* VZFMapViewNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EAC532E1E5B1A51009C4C57 /* VZFMapViewNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC532C1E5B1A51009C4C57 /* VZFMapViewNode.mm */; };
+		1EAC53331E5BE900009C4C57 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EAC53321E5BE900009C4C57 /* CoreLocation.framework */; };
+		1EAC53351E5BE907009C4C57 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EAC53341E5BE907009C4C57 /* UIKit.framework */; };
 		1EEC19B11E27BF9600EBF0CC /* VZFlexLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19AF1E27BF9600EBF0CC /* VZFlexLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A4A1E27BFAD00EBF0CC /* UIView+VZAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19B81E27BFAD00EBF0CC /* UIView+VZAttributes.h */; };
 		1EEC1A4B1E27BFAD00EBF0CC /* UIView+VZAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19B91E27BFAD00EBF0CC /* UIView+VZAttributes.mm */; };
@@ -228,6 +237,15 @@
 		1E715ED71E49C83600D76806 /* VZFImageNodeBackingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFImageNodeBackingView.mm; sourceTree = "<group>"; };
 		1E715ED81E49C83600D76806 /* VZFImageNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeRenderer.h; sourceTree = "<group>"; };
 		1E715ED91E49C83600D76806 /* VZFImageNodeRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFImageNodeRenderer.mm; sourceTree = "<group>"; };
+		1EAC53001E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapViewNodeSpecs.h; sourceTree = "<group>"; };
+		1EAC53011E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapViewNodeSpecs.mm; sourceTree = "<group>"; };
+		1EAC53251E5B1A02009C4C57 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1EAC53271E5B1A1E009C4C57 /* VZFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapView.h; sourceTree = "<group>"; };
+		1EAC53281E5B1A1E009C4C57 /* VZFMapView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapView.mm; sourceTree = "<group>"; };
+		1EAC532B1E5B1A51009C4C57 /* VZFMapViewNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapViewNode.h; sourceTree = "<group>"; };
+		1EAC532C1E5B1A51009C4C57 /* VZFMapViewNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapViewNode.mm; sourceTree = "<group>"; };
+		1EAC53321E5BE900009C4C57 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1EAC53341E5BE907009C4C57 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1EEC19AC1E27BF9600EBF0CC /* VZFlexLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VZFlexLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EEC19AF1E27BF9600EBF0CC /* VZFlexLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFlexLayout.h; sourceTree = "<group>"; };
 		1EEC19B01E27BF9600EBF0CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -383,6 +401,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EAC53351E5BE907009C4C57 /* UIKit.framework in Frameworks */,
+				1EAC53331E5BE900009C4C57 /* CoreLocation.framework in Frameworks */,
+				1EAC53261E5B1A02009C4C57 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,11 +449,22 @@
 			path = image;
 			sourceTree = "<group>";
 		};
+		1EAC53241E5B1A02009C4C57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1EAC53341E5BE907009C4C57 /* UIKit.framework */,
+				1EAC53321E5BE900009C4C57 /* CoreLocation.framework */,
+				1EAC53251E5B1A02009C4C57 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1EEC19A21E27BF9600EBF0CC = {
 			isa = PBXGroup;
 			children = (
 				1EEC19AE1E27BF9600EBF0CC /* VZFlexLayout */,
 				1EEC19AD1E27BF9600EBF0CC /* Products */,
+				1EAC53241E5B1A02009C4C57 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -561,6 +593,10 @@
 				1E414B851E55999900F84302 /* VZFWebViewNodeSpecs.mm */,
 				1E414B8F1E55AADB00F84302 /* VZFWebView.h */,
 				1E414B901E55AADB00F84302 /* VZFWebView.mm */,
+				1EAC53001E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h */,
+				1EAC53011E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm */,
+				1EAC53271E5B1A1E009C4C57 /* VZFMapView.h */,
+				1EAC53281E5B1A1E009C4C57 /* VZFMapView.mm */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -649,6 +685,8 @@
 				1E414B761E547CBC00F84302 /* VZFSegmentedControlNode.mm */,
 				1E414B881E559A1000F84302 /* VZFWebViewNode.h */,
 				1E414B891E559A1000F84302 /* VZFWebViewNode.mm */,
+				1EAC532B1E5B1A51009C4C57 /* VZFMapViewNode.h */,
+				1EAC532C1E5B1A51009C4C57 /* VZFMapViewNode.mm */,
 			);
 			path = node;
 			sourceTree = "<group>";
@@ -734,6 +772,7 @@
 				1EEC1A831E27BFAD00EBF0CC /* VZFSizeRange.h in Headers */,
 				1E715EDE1E49C83600D76806 /* VZFBlankNodeBackingView.h in Headers */,
 				1EEC1A721E27BFAD00EBF0CC /* VZFNodeMountContext.h in Headers */,
+				1EAC532D1E5B1A51009C4C57 /* VZFMapViewNode.h in Headers */,
 				1E715EEA1E49C83600D76806 /* VZFImageNodeRenderer.h in Headers */,
 				1EEE54F71E52D89300585DF8 /* VZFPickerNode.h in Headers */,
 				1EEC1A641E27BFAD00EBF0CC /* VZFLocker.h in Headers */,
@@ -771,6 +810,7 @@
 				1EEC1AB51E27BFAD00EBF0CC /* VZFNodeRequiredMethods.h in Headers */,
 				1EEC1A6A1E27BFAD00EBF0CC /* VZFNodeHostingView.h in Headers */,
 				1EEC1A731E27BFAD00EBF0CC /* VZFNodeProvider.h in Headers */,
+				1EAC53291E5B1A1E009C4C57 /* VZFMapView.h in Headers */,
 				1EEC1A711E27BFAD00EBF0CC /* VZFNodeLifeCycle.h in Headers */,
 				1EEC1A6F1E27BFAD00EBF0CC /* VZFNodeLayoutManager.h in Headers */,
 				1EEC1A771E27BFAD00EBF0CC /* VZFNodeViewClass.h in Headers */,
@@ -800,6 +840,7 @@
 				1EEC1AC81E27BFAD00EBF0CC /* VZFAsyncLayer.h in Headers */,
 				1E414B861E55999900F84302 /* VZFWebViewNodeSpecs.h in Headers */,
 				1E715EC31E49C81100D76806 /* VZFBaseRenderer.h in Headers */,
+				1EAC53021E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h in Headers */,
 				1EEC1A5C1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.h in Headers */,
 				1EEC1A501E27BFAD00EBF0CC /* VZFButtonView.h in Headers */,
 				1EEE54EF1E52D79700585DF8 /* VZFPickerNodeSpecs.h in Headers */,
@@ -886,6 +927,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EEC1A981E27BFAD00EBF0CC /* VZFViewReusePool.mm in Sources */,
+				1EAC532E1E5B1A51009C4C57 /* VZFMapViewNode.mm in Sources */,
 				1EEC1A861E27BFAD00EBF0CC /* VZFStackNodeSpecs.mm in Sources */,
 				1EEC1A961E27BFAD00EBF0CC /* VZFValue.mm in Sources */,
 				1EEC1A4D1E27BFAD00EBF0CC /* VZFActionWrapper.mm in Sources */,
@@ -895,6 +937,7 @@
 				1EEC1AB21E27BFAD00EBF0CC /* VZFLineNode.mm in Sources */,
 				1EEC1ACF1E27BFAD00EBF0CC /* VZFTextNodeRenderer.mm in Sources */,
 				1EEC1ABF1E27BFAD00EBF0CC /* VZFTextNode.mm in Sources */,
+				1EAC532A1E5B1A1E009C4C57 /* VZFMapView.mm in Sources */,
 				1EEC1A6E1E27BFAD00EBF0CC /* VZFNodeLayout.mm in Sources */,
 				1EEC1A751E27BFAD00EBF0CC /* VZFNodeSpecs.mm in Sources */,
 				1EEC1A5B1E27BFAD00EBF0CC /* VZFLength.mm in Sources */,
@@ -915,6 +958,7 @@
 				1EEC1ABD1E27BFAD00EBF0CC /* VZFTextFieldNode.mm in Sources */,
 				1EEC1A5D1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.mm in Sources */,
 				1EEC1A681E27BFAD00EBF0CC /* VZFNetworkImageView.mm in Sources */,
+				1EAC53031E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm in Sources */,
 				1EEC1A8B1E27BFAD00EBF0CC /* VZFTextField.mm in Sources */,
 				1E414B741E5479F100F84302 /* VZFSegmentedControlNodeSpecs.mm in Sources */,
 				1EEC1AD11E27BFAD00EBF0CC /* VZFNodeListItemRecycler.mm in Sources */,
