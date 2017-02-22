@@ -8,6 +8,11 @@
 
 #import "VZFPagingView.h"
 #import "VZFActionWrapper.h"
+#import "UIView+VZAttributes.h"
+#import "VZFPagingNode.h"
+#import "VZFNodeLayoutManager.h"
+#import "VZFNodeInternal.h"
+#import "VZFlexNode.h"
 
 static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 
@@ -375,6 +380,52 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 - (void)resetState{
     _lastContentOffset = FLT_MIN;
     self.currentPage = 0;
+}
+
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    VZFPagingNode *pagingNode = (VZFPagingNode* )node;
+    PagingNodeSpecs specs = pagingNode.pagingNodeSpecs;
+    self.scroll = specs.scrollEnabled;
+    self.autoScroll = specs.autoScroll;
+    self.loopScroll = specs.infiniteLoop;
+    self.vertical = specs.direction == PagingVertical;
+    UICollectionView* collectionView = self.collectionView;
+    collectionView.pagingEnabled = specs.paging;
+    collectionView.showsVerticalScrollIndicator = NO;
+    collectionView.showsHorizontalScrollIndicator = NO;
+    
+    self.pageControlEnabled = specs.paging && specs.pageControl;
+    if (specs.pageControl) {
+        UIPageControl *pageControl = self.pageControl;
+        pageControl.backgroundColor = [UIColor clearColor];
+        pageControl.userInteractionEnabled = NO;
+        pageControl.hidesForSinglePage = YES;
+        pageControl.frame = pagingNode.pageControlNode.flexNode.resultFrame;
+        pageControl.transform = CGAffineTransformMakeScale(specs.pageControlScale, specs.pageControlScale);
+        pageControl.pageIndicatorTintColor = specs.pageControlColor;
+        pageControl.currentPageIndicatorTintColor = specs.pageControlSelectedColor;
+        pageControl.numberOfPages = pagingNode.children.size();
+    }
+    
+    if (pagingNode.viewsCache) {
+        [self setChildrenViews:pagingNode.viewsCache];
+    }
+    else {
+        NSMutableArray *subviews = [NSMutableArray array];
+        for (const auto& layout : pagingNode.childrenLayout) {
+            
+            UIView* view = viewForRootNode(layout, self.frame.size);
+            
+            [subviews addObject:view];
+        }
+        [self setChildrenViews:subviews];
+        pagingNode.viewsCache = subviews;
+    }
+    
+    self.switched = specs.switched;
+    
+    [self setNeedsLayout];
 }
 
 @end

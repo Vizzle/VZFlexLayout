@@ -7,6 +7,8 @@
 //
 
 #import "VZFScrollView.h"
+#import "UIView+VZAttributes.h"
+#import "VZFScrollNode.h"
 
 @implementation VZFScrollView
 
@@ -42,6 +44,18 @@
 
 - (void)resetState{
     self.contentOffset = CGPointZero;
+}
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    VZFScrollNode *scrollNode = (VZFScrollNode *)node;
+    ScrollNodeSpecs specs = scrollNode.scrollNodeSpecs;
+    self.scrollEnabled = specs.scrollEnabled;
+    self.pagingEnabled = specs.paging;
+    self.showsVerticalScrollIndicator = NO;
+    self.showsHorizontalScrollIndicator = NO;
+    self.scrollsToTop = NO;
+    self.contentSize = scrollNode.contentSize;
+    [self setNeedsLayout];
 }
 
 @end

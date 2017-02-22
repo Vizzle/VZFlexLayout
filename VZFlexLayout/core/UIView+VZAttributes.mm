@@ -61,6 +61,7 @@
     
     [self _applyGestures:node.specs];
     
+    // TODO: 待 async display 的代码合入再做优化
     if ([node isKindOfClass:[VZFImageNode class]])
     {
         [self _applyImageAttributes:((VZFImageNode* )node).imageSpecs];
@@ -69,33 +70,13 @@
     {
         [self _applyButtonAttributes:((VZFButtonNode* )node).buttonSpecs];
     }
-    else if ([node isKindOfClass:[VZFTextNode class]])
-    {
-        [self _applyTextAttributes:((VZFTextNode* )node).textSpecs];
-    }
-    else if ([node isKindOfClass:[VZFScrollNode class]])
-    {
-        [self _applyScrollAttributes:((VZFScrollNode* )node).scrollNodeSpecs];
-    }
-    else if ([node isKindOfClass:[VZFPagingNode class]])
-    {
-        [self _applyPagingAttributes:((VZFPagingNode* )node).pagingNodeSpecs];
-    }
-    else if ([node isKindOfClass:[VZFIndicatorNode class]])
-    {
-        [self _applyIndicatorAttributes:((VZFIndicatorNode* )node).indicatorSpecs];
-    }
-    else if ([node isKindOfClass:[VZFLineNode class]])
-    {
-        [self _applyLineAttributes:((VZFLineNode* )node).lineSpecs];
-    }
     [self vz_applyNodeAttributes:self.node];
     [self _applyRendererAttributes:node.specs];
 
 }
 
 - (void)vz_applyNodeAttributes:(VZFNode *)node {
-    // Backing view implement ...
+    // Backing views implement ...
 }
 
 - (UIBezierPath *)_roundRectPathWithWidth:(CGFloat)width
@@ -361,34 +342,6 @@
 
 }
 
-- (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs{
-    VZFTextNodeBackingView *label = (VZFTextNodeBackingView *)self;
-    VZFTextNode* textNode = (VZFTextNode* )self.node;
-    label.edgeInsets = textNode.flexNode.resultPadding;
-    label.textRenderer = textNode.renderer;
-    label.textRenderer.maxWidth = self.bounds.size.width - label.edgeInsets.left - label.edgeInsets.right;
-    
-//    UILabel* label = (UILabel* )self;
-//    label.font = nil;
-//    label.textColor = nil;
-//    if (textNodeSpecs.attributedString) {
-//        label.attributedText = textNodeSpecs.attributedString;
-//    }
-//    else {
-//        label.attributedText = textNodeSpecs.getAttributedString();
-//    }
-//    label.lineBreakMode = textNodeSpecs.lineBreakMode;
-//    label.numberOfLines = textNodeSpecs.lines;
-//    label.adjustsFontSizeToFitWidth = textNodeSpecs.adjustsFontSize;
-//    label.minimumScaleFactor = textNodeSpecs.miniScaleFactor;
-//    
-//    // 有时 UILabel 尺寸为 0 时，仍会绘制出一部分文字，这里做个处理。由于 hidden 属性被用于复用，所以这里把文本置空
-//    if (self.bounds.size.width <= 0 || self.bounds.size.height <= 0) {
-//        label.text = nil;
-//        label.attributedText = nil;
-//    }
-}
-
 - (void)_applyImageAttributes:(const ImageNodeSpecs& )imageSpec{
     
     id<VZFNetworkImageDownloadProtocol> networkImageView = nil;
@@ -430,85 +383,6 @@
                               errorImage:imageSpec.errorImage
                                  context:imageSpec.context
                          completionBlock:imageSpec.completion];
-}
-
-- (void)_applyIndicatorAttributes:(const IndicatorNodeSpecs& )indicatorSpecs{
-    
-    UIActivityIndicatorView *indicatorView = (UIActivityIndicatorView *)self;
-    indicatorView.color = indicatorSpecs.color;
-    indicatorView.transform = CGAffineTransformMakeScale(indicatorView.frame.size.width / 20, indicatorView.frame.size.height / 20);
-    [indicatorView startAnimating];
-    
-}
-
-- (void)_applyLineAttributes:(const LineNodeSpecs& )lineSpecs{
-    
-    VZFLineView *lineView = (VZFLineView *)self;
-    lineView.color = lineSpecs.color;
-    lineView.dashLength = lineSpecs.dashLength;
-    lineView.spaceLength = lineSpecs.spaceLength;
-    
-}
-
-- (void)_applyScrollAttributes:(const VZ::ScrollNodeSpecs& )scrollSpecs{
-    
-    UIScrollView* scrollView = (UIScrollView* )self;
-    scrollView.scrollEnabled = scrollSpecs.scrollEnabled;
-    scrollView.pagingEnabled = scrollSpecs.paging;
-    scrollView.showsVerticalScrollIndicator = NO;
-    scrollView.showsHorizontalScrollIndicator = NO;
-    scrollView.scrollsToTop = NO;
-    VZFScrollNode* scrollNode = (VZFScrollNode* )scrollView.node;
-    scrollView.contentSize = scrollNode.contentSize;
-    [scrollView setNeedsLayout];
-    
-}
-
-- (void)_applyPagingAttributes:(const VZ::PagingNodeSpecs& )pagingSpecs{
-    
-    VZFPagingView* pagingView = (VZFPagingView* )self;
-    VZFPagingNode* pagingNode = (VZFPagingNode* )self.node;
-    pagingView.scroll = pagingSpecs.scrollEnabled;
-    pagingView.autoScroll = pagingSpecs.autoScroll;
-    pagingView.loopScroll = pagingSpecs.infiniteLoop;
-    pagingView.vertical = pagingSpecs.direction == PagingVertical;
-    UICollectionView* collectionView = pagingView.collectionView;
-    collectionView.pagingEnabled = pagingSpecs.paging;
-    collectionView.showsVerticalScrollIndicator = NO;
-    collectionView.showsHorizontalScrollIndicator = NO;
-    
-    pagingView.pageControlEnabled = pagingSpecs.paging && pagingSpecs.pageControl;
-    if (pagingSpecs.pageControl) {
-        UIPageControl *pageControl = pagingView.pageControl;
-        pageControl.backgroundColor = [UIColor clearColor];
-        pageControl.userInteractionEnabled = NO;
-        pageControl.hidesForSinglePage = YES;
-        pageControl.frame = pagingNode.pageControlNode.flexNode.resultFrame;
-        pageControl.transform = CGAffineTransformMakeScale(pagingSpecs.pageControlScale, pagingSpecs.pageControlScale);
-        pageControl.pageIndicatorTintColor = pagingSpecs.pageControlColor;
-        pageControl.currentPageIndicatorTintColor = pagingSpecs.pageControlSelectedColor;
-        pageControl.numberOfPages = pagingNode.children.size();
-    }
-    
-    if (pagingNode.viewsCache) {
-        [pagingView setChildrenViews:pagingNode.viewsCache];
-    }
-    else {
-        NSMutableArray *subviews = [NSMutableArray array];
-        for (const auto& layout : pagingNode.childrenLayout) {
-            
-            UIView* view = viewForRootNode(layout, self.frame.size);
-            
-            [subviews addObject:view];
-        }
-        [pagingView setChildrenViews:subviews];
-        pagingNode.viewsCache = subviews;
-    }
-    
-    pagingView.switched = pagingSpecs.switched;
-    
-    [pagingView setNeedsLayout];
-    
 }
 
 @end

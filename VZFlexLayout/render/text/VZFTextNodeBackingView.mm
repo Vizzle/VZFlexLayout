@@ -10,6 +10,10 @@
 #import "VZFTextNodeBackingLayer.h"
 #import "VZFTextNodeRenderer.h"
 #import "VZFUtils.h"
+#import "VZFTextNode.h"
+#import "UIView+VZAttributes.h"
+#import "VZFNodeInternal.h"
+#import "VZFlexNode.h"
 
 @implementation VZFTextNodeBackingView
 
@@ -88,4 +92,15 @@
 -(void)drawTextInRect:(CGRect)rect{
     
 }
+
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    VZFTextNode *textNode = (VZFTextNode* )self.node;
+    TextNodeSpecs specs = textNode.textSpecs;
+    self.edgeInsets = textNode.flexNode.resultPadding;
+    self.textRenderer = textNode.renderer;
+    self.textRenderer.maxWidth = self.bounds.size.width - self.edgeInsets.left - self.edgeInsets.right;
+
+}
+
 @end
