@@ -54,6 +54,8 @@
 		1EAC53351E5BE907009C4C57 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EAC53341E5BE907009C4C57 /* UIKit.framework */; };
 		1EAC53391E5C1A68009C4C57 /* VZFMapAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC53371E5C1A68009C4C57 /* VZFMapAnnotation.h */; };
 		1EAC533A1E5C1A68009C4C57 /* VZFMapAnnotation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53381E5C1A68009C4C57 /* VZFMapAnnotation.mm */; };
+		1EAC534D1E5D6CC5009C4C57 /* VZFMapOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC534B1E5D6CC5009C4C57 /* VZFMapOverlay.h */; };
+		1EAC534E1E5D6CC5009C4C57 /* VZFMapOverlay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC534C1E5D6CC5009C4C57 /* VZFMapOverlay.mm */; };
 		1EEC19B11E27BF9600EBF0CC /* VZFlexLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19AF1E27BF9600EBF0CC /* VZFlexLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A4A1E27BFAD00EBF0CC /* UIView+VZAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19B81E27BFAD00EBF0CC /* UIView+VZAttributes.h */; };
 		1EEC1A4B1E27BFAD00EBF0CC /* UIView+VZAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19B91E27BFAD00EBF0CC /* UIView+VZAttributes.mm */; };
@@ -250,6 +252,8 @@
 		1EAC53341E5BE907009C4C57 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1EAC53371E5C1A68009C4C57 /* VZFMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapAnnotation.h; sourceTree = "<group>"; };
 		1EAC53381E5C1A68009C4C57 /* VZFMapAnnotation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapAnnotation.mm; sourceTree = "<group>"; };
+		1EAC534B1E5D6CC5009C4C57 /* VZFMapOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapOverlay.h; sourceTree = "<group>"; };
+		1EAC534C1E5D6CC5009C4C57 /* VZFMapOverlay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapOverlay.mm; sourceTree = "<group>"; };
 		1EEC19AC1E27BF9600EBF0CC /* VZFlexLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VZFlexLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EEC19AF1E27BF9600EBF0CC /* VZFlexLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFlexLayout.h; sourceTree = "<group>"; };
 		1EEC19B01E27BF9600EBF0CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -603,6 +607,8 @@
 				1EAC53281E5B1A1E009C4C57 /* VZFMapView.mm */,
 				1EAC53371E5C1A68009C4C57 /* VZFMapAnnotation.h */,
 				1EAC53381E5C1A68009C4C57 /* VZFMapAnnotation.mm */,
+				1EAC534B1E5D6CC5009C4C57 /* VZFMapOverlay.h */,
+				1EAC534C1E5D6CC5009C4C57 /* VZFMapOverlay.mm */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -777,6 +783,7 @@
 				1EEC1A951E27BFAD00EBF0CC /* VZFValue.h in Headers */,
 				1E715EDA1E49C83600D76806 /* VZFBankNodeRenderer.h in Headers */,
 				1EEC1A831E27BFAD00EBF0CC /* VZFSizeRange.h in Headers */,
+				1EAC534D1E5D6CC5009C4C57 /* VZFMapOverlay.h in Headers */,
 				1E715EDE1E49C83600D76806 /* VZFBlankNodeBackingView.h in Headers */,
 				1EEC1A721E27BFAD00EBF0CC /* VZFNodeMountContext.h in Headers */,
 				1EAC532D1E5B1A51009C4C57 /* VZFMapViewNode.h in Headers */,
@@ -967,6 +974,7 @@
 				1EEC1A681E27BFAD00EBF0CC /* VZFNetworkImageView.mm in Sources */,
 				1EAC53031E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm in Sources */,
 				1EEC1A8B1E27BFAD00EBF0CC /* VZFTextField.mm in Sources */,
+				1EAC534E1E5D6CC5009C4C57 /* VZFMapOverlay.mm in Sources */,
 				1E414B741E5479F100F84302 /* VZFSegmentedControlNodeSpecs.mm in Sources */,
 				1EEC1AD11E27BFAD00EBF0CC /* VZFNodeListItemRecycler.mm in Sources */,
 				1EEE54EC1E52D74900585DF8 /* VZFSwitchNode.mm in Sources */,

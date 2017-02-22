@@ -28,6 +28,14 @@ namespace VZ {
         BOOL draggable;
     };
     
+    struct MapOverlaySpecs {
+        NSString *identifier;
+        std::vector<CLLocationCoordinate2D> coordinates;
+        UIColor *strokeColor;
+        UIColor *fillColor;
+        CGFloat lineWidth;
+    };
+    
     struct MapViewNodeSpecs {
         MKMapType mapType;
         BOOL showsUserLocation;
@@ -39,9 +47,11 @@ namespace VZ {
         Value<BOOL, DefaultControlAttrValue::able> pitchEnabled;
         Value<MKCoordinateRegion, DefaultAttributesValue::undefinedRegion> region;
         std::vector<MapAnnotationSpecs> annotations;
+        std::vector<MapOverlaySpecs> overlays;
         VZFEventBlock onAnnotationPress;
         VZFEventBlock onAnnotationFocus;
         VZFEventBlock onAnnotationBlur;
+        VZFEventBlock onAnnotationDragStateChange;
         
         MapViewNodeSpecs copy() const {
             return {
@@ -55,9 +65,11 @@ namespace VZ {
                 pitchEnabled,
                 region,
                 annotations,
+                overlays,
                 [onAnnotationPress copy],
                 [onAnnotationFocus copy],
-                [onAnnotationBlur copy]
+                [onAnnotationBlur copy],
+                [onAnnotationDragStateChange copy]
             };
         }
     };

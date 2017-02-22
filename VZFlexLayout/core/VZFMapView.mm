@@ -10,38 +10,40 @@
 #import "UIView+VZAttributes.h"
 #import "VZFMapViewNode.h"
 #import "VZFMapAnnotation.h"
+#import "VZFMapOverlay.h"
 
 const CLLocationDegrees VZFMapDefaultSpanDelta = 0.005;
 
-@interface VZFMapAnnotationView : MKAnnotationView
-
-@property (nonatomic, strong) UIView *contentView;
-
-@end
-
-@implementation VZFMapAnnotationView
-
-- (void)setContentView:(UIView *)contentView {
-    [_contentView removeFromSuperview];
-    _contentView = contentView;
-    [self addSubview:_contentView];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.bounds = (CGRect){
-        CGPointZero,
-        _contentView.frame.size,
-    };
-}
-
-@end
+//@interface VZFMapAnnotationView : MKAnnotationView
+//
+//@property (nonatomic, strong) UIView *contentView;
+//
+//@end
+//
+//@implementation VZFMapAnnotationView
+//
+//- (void)setContentView:(UIView *)contentView {
+//    [_contentView removeFromSuperview];
+//    _contentView = contentView;
+//    [self addSubview:_contentView];
+//}
+//
+//- (void)layoutSubviews {
+//    [super layoutSubviews];
+//    self.bounds = (CGRect){
+//        CGPointZero,
+//        _contentView.frame.size,
+//    };
+//}
+//
+//@end
 
 @interface VZFMapView () <MKMapViewDelegate>
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 - (void)setAnnotations:(NSArray<VZFMapAnnotation *> *)annotations;
+- (void)setOverlays:(NSArray<VZFMapOverlay *> *)overlays;
 
 @end
 
@@ -120,6 +122,37 @@ const CLLocationDegrees VZFMapDefaultSpanDelta = 0.005;
     }
 }
 
+- (void)setOverlays:(NSArray<VZFMapOverlay *> *)overlays {
+    NSMutableArray<VZFMapOverlay *> *overlayToDelete = [NSMutableArray array];
+    NSMutableArray<VZFMapOverlay *> *overlayToAdd = [NSMutableArray array];
+    
+    for (VZFMapOverlay *overlay in overlays) {
+        if (![overlay isKindOfClass:[VZFMapOverlay class]]) {
+            continue;
+        }
+        if (![self.overlays containsObject:overlay]) {
+            [overlayToAdd addObject:overlay];
+        }
+    }
+    
+    for (VZFMapOverlay *overlay in self.overlays) {
+        if (![overlay isKindOfClass:[VZFMapOverlay class]]) {
+            continue;
+        }
+        if (![overlays containsObject:overlay]) {
+            [overlayToDelete addObject:overlay];
+        }
+    }
+    
+    if (overlayToDelete.count > 0) {
+        [self removeOverlays:overlayToDelete];
+    }
+    
+    if (overlayToAdd.count > 0) {
+        [self addOverlays:overlayToAdd level:MKOverlayLevelAboveRoads];
+    }
+}
+
 #pragma mark - MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
@@ -186,6 +219,35 @@ const CLLocationDegrees VZFMapDefaultSpanDelta = 0.005;
     }
 }
 
+- (void)mapView:(VZFMapView *)mapView
+ annotationView:(MKAnnotationView *)view
+didChangeDragState:(MKAnnotationViewDragState)newState
+   fromOldState:(MKAnnotationViewDragState)oldState {
+    static NSArray *states;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        states = @[@"idle", @"starting", @"dragging", @"canceling", @"ending"];
+    });
+    
+    if ([view.annotation isKindOfClass:[VZFMapAnnotation class]]) {
+        VZFMapAnnotation *annotation = (VZFMapAnnotation *)view.annotation;
+        if (mapView.onAnnotationDragStateChange) {
+            mapView.onAnnotationDragStateChange(@{
+                                                  @"state": states[newState],
+                                                  @"oldState": states[oldState],
+                                                  @"annotation": [annotation copy],
+                                                  });
+        }
+    }
+}
+
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(VZFMapOverlay *)overlay {
+    MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
+    renderer.strokeColor = overlay.strokeColor;
+    renderer.lineWidth = overlay.lineWidth;
+    return renderer;
+}
+
 #pragma mark - Node spec attributes
 
 - (void)vz_applyNodeAttributes:(VZFNode *)node {
@@ -202,13 +264,19 @@ const CLLocationDegrees VZFMapDefaultSpanDelta = 0.005;
     self.onAnnotationPress = specs.onAnnotationPress;
     self.onAnnotationFocus = specs.onAnnotationFocus;
     self.onAnnotationBlur = specs.onAnnotationBlur;
-    
+    self.onAnnotationDragStateChange = specs.onAnnotationDragStateChange;
     NSMutableArray<VZFMapAnnotation *> *annotations = [NSMutableArray array];
-    for(auto item = specs.annotations.rbegin(); item != specs.annotations.rend(); item++){
+    for(auto item = specs.annotations.begin(); item != specs.annotations.end(); item++){
         VZFMapAnnotation *annotation = [VZFMapAnnotation newWithAnnotationSpecs:*item];
         [annotations addObject:annotation];
     }
     [self setAnnotations:annotations];
+    NSMutableArray<VZFMapOverlay *> *overlays = [NSMutableArray array];
+    for (auto item = specs.overlays.begin(); item != specs.overlays.end(); item++) {
+        VZFMapOverlay *overlay = [VZFMapOverlay newWithOverlaySpecs:*item];
+        [overlays addObject:overlay];
+    }
+    [self setOverlays:overlays];
 }
 
 @end

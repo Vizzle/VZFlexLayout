@@ -32,6 +32,7 @@
         [VZFMapViewNode newWithMapViewAttributes:{
             .showsUserLocation = YES,
             .followUserLocation = YES,
+            .mapType = MKMapTypeSatellite
         }NodeSpecs:{
             .height = mapHeight,
         }],
@@ -86,6 +87,36 @@
                     .image = [UIImage imageNamed:@"icon_annotation"],
                     .animateDrop = YES,
                     .draggable = YES,
+                }
+            },
+            .onAnnotationDragStateChange = ^(NSDictionary *body) {
+                NSLog(@"Annotation drag state changed: %@", body);
+            }
+        }NodeSpecs:{
+            .height = mapHeight,
+        }],
+        [VZFMapViewNode newWithMapViewAttributes:{
+            .region = (MKCoordinateRegion){
+                .center = {
+                    .latitude = 30.2795924,
+                    .longitude = 120.0228532
+                },
+                .span = {
+                    .latitudeDelta = 0.01,
+                    .longitudeDelta = 0.01,
+                }
+            },
+            .overlays = {
+                {
+                    .coordinates = {
+                        {30.279992, 120.020510},
+                        {30.282609, 120.030075},
+                        {30.277707, 120.031404},
+                        {30.276104, 120.021877},
+                        {30.279992, 120.020510}
+                    },
+                    .strokeColor = [UIColor redColor],
+                    .lineWidth = 6
                 }
             }
         }NodeSpecs:{

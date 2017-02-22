@@ -17,5 +17,6 @@
 @property (nonatomic, copy) VZFEventBlock onAnnotationPress;
 @property (nonatomic, copy) VZFEventBlock onAnnotationFocus;
 @property (nonatomic, copy) VZFEventBlock onAnnotationBlur;
+@property (nonatomic, copy) VZFEventBlock onAnnotationDragStateChange;
 
 @end
