@@ -12,6 +12,7 @@
 		1E414B8E1E559F1F00F84302 /* BaseNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B8D1E559F1F00F84302 /* BaseNodeViewController.mm */; };
 		1E5617651E5A97A200E47C2E /* WebViewNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E5617641E5A97A200E47C2E /* WebViewNodeViewController.mm */; };
 		1EAC53311E5BDBB7009C4C57 /* MapViewNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53301E5BDBB7009C4C57 /* MapViewNodeViewController.mm */; };
+		1EAC53711E5ECE85009C4C57 /* TextViewNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53701E5ECE85009C4C57 /* TextViewNodeViewController.mm */; };
 		1EEC1AE11E2871BA00EBF0CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE01E2871BA00EBF0CC /* main.m */; };
 		1EEC1AE41E2871BA00EBF0CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE31E2871BA00EBF0CC /* AppDelegate.m */; };
 		1EEC1AEA1E2871BA00EBF0CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE81E2871BA00EBF0CC /* Main.storyboard */; };
@@ -72,6 +73,8 @@
 		1E5617641E5A97A200E47C2E /* WebViewNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewNodeViewController.mm; sourceTree = "<group>"; };
 		1EAC532F1E5BDBB7009C4C57 /* MapViewNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewNodeViewController.h; sourceTree = "<group>"; };
 		1EAC53301E5BDBB7009C4C57 /* MapViewNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapViewNodeViewController.mm; sourceTree = "<group>"; };
+		1EAC536F1E5ECE85009C4C57 /* TextViewNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewNodeViewController.h; sourceTree = "<group>"; };
+		1EAC53701E5ECE85009C4C57 /* TextViewNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextViewNodeViewController.mm; sourceTree = "<group>"; };
 		1EEC1ADC1E2871BA00EBF0CC /* VZFlexLayout-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VZFlexLayout-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EEC1AE01E2871BA00EBF0CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1EEC1AE21E2871BA00EBF0CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -302,6 +305,8 @@
 				1E5617641E5A97A200E47C2E /* WebViewNodeViewController.mm */,
 				1EAC532F1E5BDBB7009C4C57 /* MapViewNodeViewController.h */,
 				1EAC53301E5BDBB7009C4C57 /* MapViewNodeViewController.mm */,
+				1EAC536F1E5ECE85009C4C57 /* TextViewNodeViewController.h */,
+				1EAC53701E5ECE85009C4C57 /* TextViewNodeViewController.mm */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -503,6 +508,7 @@
 				1EEC1B4F1E28780200EBF0CC /* FBHostNode.mm in Sources */,
 				1E414B7F1E55482F00F84302 /* SegmentedControlNodeViewController.mm in Sources */,
 				1EEC1B4C1E28780200EBF0CC /* FBContentNode.mm in Sources */,
+				1EAC53711E5ECE85009C4C57 /* TextViewNodeViewController.mm in Sources */,
 				1EEC1B411E28780200EBF0CC /* FBContentNodeStore.mm in Sources */,
 				1EEC1B501E28780200EBF0CC /* FBIconNode.mm in Sources */,
 				1EEC1B5B1E28780200EBF0CC /* FBTextListViewController.mm in Sources */,

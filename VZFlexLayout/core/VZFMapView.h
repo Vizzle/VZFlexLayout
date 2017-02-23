@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import "VZFValue.h"
+#import "VZFEvent.h"
 
 @interface VZFMapView : MKMapView
 

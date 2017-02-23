@@ -170,5 +170,3 @@ namespace VZ{
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;
 
 @end
-
-typedef void(^VZFEventBlock)(NSDictionary *body);

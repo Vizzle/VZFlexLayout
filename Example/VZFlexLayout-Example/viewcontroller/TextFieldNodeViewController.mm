@@ -29,7 +29,7 @@
                 .font = [UIFont systemFontOfSize:14.0f],
                 .color = [UIColor colorWithWhite:51.0/255.0 alpha:1.0],
                 .clearButtonMode = UITextFieldViewModeWhileEditing,
-                .maxLength = @15,
+                .maxLength = 15,
                 .keyboardType = UIKeyboardTypeAlphabet,
                 .keyboardAppearance = UIKeyboardAppearanceDark,
                 .returnKeyType = UIReturnKeyGo,

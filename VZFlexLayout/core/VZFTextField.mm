@@ -27,6 +27,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+        _maxLength = NSUIntegerMax;
         self.delegate = self;
         [self addTarget:self action:@selector(textFieldDidChange) forControlEvents:UIControlEventEditingChanged];
         [self addTarget:self action:@selector(textFieldBeginEditing) forControlEvents:UIControlEventEditingDidBegin];
@@ -125,11 +126,11 @@
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textField:(VZFTextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (!self.maxLength
+    if (self.maxLength == NSUIntegerMax
         || [string isEqualToString:@"\n"]) {
         return YES;
     }
-    NSUInteger allowedLength = textField.maxLength.integerValue - MIN(textField.maxLength.integerValue, textField.text.length) + range.length;
+    NSUInteger allowedLength = textField.maxLength - MIN(textField.maxLength, textField.text.length) + range.length;
     if (string.length > allowedLength) {
         if (string.length > 1) {
             NSString *limitedString = [string substringToIndex:allowedLength];
@@ -151,13 +152,15 @@
     self.text = specs.text;
     self.font = specs.font;
     self.textColor = specs.color;
+    self.textAlignment = specs.alignment;
     self.placeholder = specs.placeholder;
+    self.enabled = specs.editable.value;
     self.secureTextEntry = specs.secureTextEntry;
     self.keyboardType = specs.keyboardType;
     self.keyboardAppearance = specs.keyboardAppearance;
     self.returnKeyType = specs.returnKeyType;
     self.clearButtonMode = specs.clearButtonMode;
-    self.maxLength = specs.maxLength;
+    self.maxLength = specs.maxLength.value;
     self.contentInset = node.flexNode.resultPadding;
     self.onFocus = specs.onFocus;
     self.onBlur = specs.onBlur;
@@ -165,6 +168,7 @@
     self.onSubmit = specs.onSubmit;
     self.onKeyPress = specs.onKeyPress;
     self.onEnd = specs.onEnd;
+    [self setNeedsLayout];
 }
 
 @end

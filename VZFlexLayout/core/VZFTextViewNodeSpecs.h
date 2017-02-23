@@ -1,19 +1,17 @@
 //
-//  VZFTextFieldNodeSpecs.h
+//  VZFTextViewNodeSpecs.h
 //  VZFlexLayout
 //
-//  Created by wuwen on 2016/12/29.
-//  Copyright © 2016年 Vizlab. All rights reserved.
+//  Created by wuwen on 2017/2/23.
+//  Copyright © 2017年 Vizlab. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "VZFUtils.h"
 #import "VZFEvent.h"
 #import "VZFNodeSpecs.h"
 
 namespace VZ {
-    
-    struct TextFieldNodeSpecs {
+    struct TextViewNodeSpecs {
         NSString *text;
         UIColor *color;
         UIFont *font;
@@ -24,7 +22,6 @@ namespace VZ {
         UIKeyboardType keyboardType;
         UIKeyboardAppearance keyboardAppearance;
         UIReturnKeyType returnKeyType;
-        UITextFieldViewMode clearButtonMode;
         Value<NSUInteger, DefaultAttributesValue::uintMax> maxLength;
         VZFEventBlock onFocus;
         VZFEventBlock onBlur;
@@ -32,8 +29,9 @@ namespace VZ {
         VZFEventBlock onSubmit;
         VZFEventBlock onKeyPress;
         VZFEventBlock onEnd;
+        VZFEventBlock onScroll;
         
-        TextFieldNodeSpecs copy() const {
+        TextViewNodeSpecs copy() const {
             return {
                 [text copy],
                 color,
@@ -45,15 +43,16 @@ namespace VZ {
                 keyboardType,
                 keyboardAppearance,
                 returnKeyType,
-                clearButtonMode,
                 maxLength,
                 [onFocus copy],
                 [onBlur copy],
                 [onChange copy],
                 [onSubmit copy],
                 [onKeyPress copy],
-                [onEnd copy]
+                [onEnd copy],
+                [onScroll copy]
             };
         }
+
     };
 }

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VZFValue.h"
+#import "VZFEvent.h"
 
 @interface VZFSegmentedControl : UISegmentedControl
 

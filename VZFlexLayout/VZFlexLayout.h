@@ -31,6 +31,8 @@ FOUNDATION_EXPORT const unsigned char VZFlexLayoutVersionString[];
 #import <VZFlexlayout/VZFTextNodeSpecs.h>
 #import <VZFlexlayout/VZFTextFieldNode.h>
 #import <VZFlexlayout/VZFTextFieldNodeSpecs.h>
+#import <VZFlexlayout/VZFTextViewNode.h>
+#import <VZFlexlayout/VZFTextViewNodeSpecs.h>
 #import <VZFlexlayout/VZFButtonNode.h>
 #import <VZFlexlayout/VZFButtonNodeSpecs.h>
 #import <VZFlexlayout/VZFImageNode.h>

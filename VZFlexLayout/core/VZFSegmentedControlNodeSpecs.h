@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VZFValue.h"
+#import "VZFEvent.h"
 #import "VZFNodeSpecs.h"
 
 namespace VZ {

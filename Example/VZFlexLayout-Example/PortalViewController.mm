@@ -55,7 +55,8 @@ static NSString *const kItemTargetClassKey = @"targetClass";
                    @{kItemTitleKey: @"Application", kItemSubtitleKey: @"A comprehensive demo", kItemTargetClassKey: @"FBTableViewController"},
                    @{kItemTitleKey: @"SegmentedControl", kItemSubtitleKey: @"VZFSegmentedControlNode", kItemTargetClassKey: @"SegmentedControlNodeViewController"},
                    @{kItemTitleKey: @"WebView", kItemSubtitleKey: @"VZFWebViewNode", kItemTargetClassKey: @"WebViewNodeViewController"},
-                   @{kItemTitleKey: @"MapView", kItemSubtitleKey: @"VZFMapViewNode", kItemTargetClassKey: @"MapViewNodeViewController"}
+                   @{kItemTitleKey: @"MapView", kItemSubtitleKey: @"VZFMapViewNode", kItemTargetClassKey: @"MapViewNodeViewController"},
+                   @{kItemTitleKey: @"TextView", kItemSubtitleKey: @"VZFTextViewNode", kItemTargetClassKey: @"TextViewNodeViewController"}
                    ];
     
     self.items = [data sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
