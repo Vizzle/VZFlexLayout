@@ -45,14 +45,14 @@ return nil; \
 #define VZFAssertNotMainThread()  VZFAssert(![NSThread isMainThread],nil,@"This method must be called off main thread!")
 #define VZFCAssertNotMainThread()  VZFCAssert(![NSThread isMainThread],nil,@"This method must be called off main thread!")
 
-#define VZF_MainCall(block) \
-do{\
-if (![NSThread isMainThread]) { \
-    dispatch_async(dispatch_get_main_queue(), block);\
-}else{\
-    if(block){block();}\
-}\
-}while(0)
+//#define VZF_MainCall(block) \
+//do{\
+//if (![NSThread isMainThread]) { \
+//    dispatch_async(dispatch_get_main_queue(), block);\
+//}else{\
+//    if(block){block();}\
+//}\
+//}while(0)
 
 
 #define VZF_NAMED_DISPATCH_BLOCK(_name,_block)\
@@ -66,11 +66,13 @@ if (![NSThread isMainThread]) { \
     currentThread.name = oldName;\
 }
 
-#define VZF_LOG_DEALLOC() NSLog(@"[%@]-->dealloc(%p) on Thread#<%d,%d>",self.class,self, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
-#define VZFC_LOG_DEALLOC(arg) NSLog(@"[%@]-->dealloc on #<%d,%d>",arg, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
+#define VZFNSLog(fmt, ...) NSLog(@"$O2O$ " fmt,##__VA_ARGS__)
 
-#define VZF_LOG_THREAD(arg) NSLog(@"[%@]-->%@(%p) on Thread#<%d,%d>",self.class, arg,self, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
-#define VZFC_LOG_THREAD(arg1,arg2) NSLog(@"[%@]-->%@ on #<%d,%d>",arg1, arg2, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
+#define VZF_LOG_DEALLOC() VZFNSLog(@"[%@]-->dealloc(%p) on Thread#<%d,%d>",self.class,self, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
+#define VZFC_LOG_DEALLOC(arg) VZFNSLog(@"[%@]-->dealloc on Thread#<%d,%d>",arg, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
+
+#define VZF_LOG_THREAD(arg) VZFNSLog(@"[%@]-->%@(%p) on Thread#<%d,%d>",self.class, arg,self, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
+#define VZFC_LOG_THREAD(arg1,arg2) VZFNSLog(@"[%@]-->%@ on Thread#<%d,%d>",arg1, arg2, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
 
 //for flux use
 #define _invariant(condition,description,...) NSAssert(condition, description, ##__VA_ARGS__)

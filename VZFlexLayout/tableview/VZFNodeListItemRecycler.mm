@@ -15,10 +15,11 @@
 #include <objc/runtime.h>
 #import "VZFUtils.h"
 #import "VZFMacros.h"
+#import "VZFLocker.h"
 #import "VZFluxStore.h"
+//#import "VZFAsync4ReactBridge.h"
 #import "VZFNodeInternal.h"
 #import "VZFWeakObjectWrapper.h"
-
 
 const void* g_recycleId = &g_recycleId;
 const void* g_useVZAsyncDisplay = &g_useVZAsyncDisplay;
@@ -56,6 +57,7 @@ struct VZItemRecyclerState{
 };
 @interface VZFNodeListItemRecycler()
 
+//@property (nonatomic, strong) VZFAsync4ReactBridge *asyncBridge;
 
 @end
 
@@ -66,8 +68,18 @@ struct VZItemRecyclerState{
     
     __weak Class<VZFNodeProvider> _nodeProvider;
     VZItemRecyclerState _state;
+    
+    //protect calculate method
+    SpinLock _lock;
 
 }
+//异步渲染逻辑处理对象
+//-(VZFAsync4ReactBridge *)asyncBridge{
+//    if (!_asyncBridge) {
+//        _asyncBridge = [[VZFAsync4ReactBridge alloc] init];
+//    }
+//    return _asyncBridge;
+//}
 
 
 - (CGSize)layoutSize{
@@ -102,7 +114,8 @@ struct VZItemRecyclerState{
     if (_mountedNodes) {
      
         __block NSSet* copiedNodes = _mountedNodes;
-        VZF_MainCall(^{
+        VZFDispatchMain(0, ^{
+//        VZF_MainCall(^{
             
             for(VZFNode* node in copiedNodes){
                 VZ::Mounting::reset(node.mountedView);
@@ -119,6 +132,9 @@ struct VZItemRecyclerState{
 }
 
 - (void)calculate:(id)item constrainedSize:(CGSize)constrainedSize context:(id<NSObject>)context{
+    
+    //这里会有非主线程调用的情况
+    SpinLocker locker(_lock);
     
     VZFNode* node = [_nodeProvider nodeForItem:item Store:_store Context:context];
     if (node) {
@@ -154,6 +170,45 @@ struct VZItemRecyclerState{
 - (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay {
     
     VZFAssertMainThread();
+    
+    
+    //    Item        -----> Recycler -----> Bridge
+    //    ContentView -----> VZANode  -----> _view
+    
+    //    ContentView - - -> Bridge
+    //    Bridge      - - -> ContentView
+    //这个建议从模板中传过来
+    //
+    
+    //处理前先判断是否支持异步渲染
+//    BOOL useAsyncDisplay = [self asyncDisplayLogic:asyncDisplay] && [self.asyncBridge supportAsync:_state.layout];
+    
+    
+    //使用异步渲染/////////////////
+//    if (useAsyncDisplay) {
+//        //使用异步渲染
+//        if (!view.useVZAsyncDisplayFlag) {
+//            //隐藏vz_recycler里的view
+//            [self hideVZFNodeView:view hidden:YES];
+//            view.useVZAsyncDisplayFlag = [NSObject new];
+//        }
+//        
+//        [self.asyncBridge attachToView:view];
+//        return;
+//    }
+    //使用异步渲染////////////////
+    
+    
+    //不使用异步渲染////////
+//    if (view.useVZAsyncDisplayFlag) {
+//        //上一次使用的是异步渲染
+//        
+//        //不使用异步渲染  需要清除一些view和属性 在交叉复用的时候回用到
+//        [self hideVZFNodeView:view hidden:NO];
+//        [VZFAsync4ReactBridge cleanVZANodeView:view];
+//        view.useVZAsyncDisplayFlag = nil;
+//    }
+    
     if(view.vz_recycler != self){
         
         [self detachFromView];
@@ -161,13 +216,21 @@ struct VZItemRecyclerState{
         _mountedView = view;
         view.vz_recycler = self;
         
-        //        NSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
+        //        VZFNSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
     }
     
     _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil) copy];
 
 }
-
+-(void)hideVZFNodeView:(UIView *)v hidden:(BOOL)hidden{
+    NSArray *subView = [v.subviews copy];
+    for (UIView *v in subView) {
+        NSString *className = [NSString stringWithUTF8String:class_getName([v class])];
+        if (![@"_VZAView" isEqualToString:className]){
+            v.hidden = hidden;
+        }
+    }
+}
 
 - (void)detachFromView{
     

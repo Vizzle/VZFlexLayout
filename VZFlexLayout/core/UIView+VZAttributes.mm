@@ -39,6 +39,7 @@
 #import "VZFTextFieldNodeSpecs.h"
 #import "VZFTextFieldNode.h"
 #import "VZFTextField.h"
+#import "VZFViewReusePool.h"
 #import <objc/runtime.h>
 #import "VZFImageNodeBackingView.h"
 #import "VZFImageNodeRenderer.h"
@@ -187,10 +188,7 @@
         stackView.highlightColor = vs.highlightBackgroundColor;
     }
     
-    if (vs.unapplicator) {
-        vs.unapplicator(self);
-    }
-    
+    self.unapplicator = vs.unapplicator;
     if (vs.applicator) {
         vs.applicator(self);
     }
@@ -232,6 +230,8 @@
             objc_setAssociatedObject(strokeLayer, _id, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             [self.layer addSublayer:strokeLayer];
         }
+        // 这里由于有 clip，所以阴影显示有问题
+        self.layer.shadowPath = path.CGPath;
     }
     else {
         [self setLayerBorder:vs.borderColor.CGColor borderWidth:vs.borderWidth cornerRadius:cornerRadiusTopLeft];
@@ -339,7 +339,6 @@
     }else{
         btn.titleLabel.font = buttonNodeSpecs.getFont();
     }
-
 }
 
 - (void)_applyImageAttributes:(const ImageNodeSpecs& )imageSpec{
@@ -377,12 +376,19 @@
     
     // 这里不做判空，可能会在方法内做清理操作，避免复用可能会导致的图片错乱
     //just call protocol
-    [networkImageView vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl]
-                                    size:self.bounds.size
-                        placeholderImage:imageSpec.image
-                              errorImage:imageSpec.errorImage
-                                 context:imageSpec.context
-                         completionBlock:imageSpec.completion];
+    
+    //FIXED
+    NSAssert(!imageSpec.imageUrl ||[imageSpec.imageUrl isKindOfClass:[NSString class]], @"ImageNodeSpecs imageUrl should be a string");
+
+    if ([imageSpec.imageUrl isKindOfClass:[NSString class]]){
+        
+        [networkImageView vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl]
+                                        size:self.bounds.size
+                            placeholderImage:imageSpec.image
+                                  errorImage:imageSpec.errorImage
+                                     context:imageSpec.context
+                             completionBlock:imageSpec.completion];
+    }
 }
 
 @end

@@ -18,7 +18,7 @@ namespace VZ {
             return CGSizeMake(FlexValue::Auto(),FlexValue::Auto());
         }
         else if (type == VZFlexibleSizeHeight){
-            return CGSizeMake(givenSize.width,FlexValue::Auto());
+            return  CGSizeMake(givenSize.width,FlexValue::Auto());
         }
         else if (type == VZFlexibleSizeWidth){
             return CGSizeMake(FlexValue::Auto(),givenSize.height);

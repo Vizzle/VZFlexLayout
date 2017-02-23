@@ -37,7 +37,6 @@ using namespace VZ;
                              NodeSpecs:(const NodeSpecs& )specs
                               Children:(const std::vector<VZFStackChildNode> &)children{
 
-    
     VZFStackNode* stacknode =  [super newWithView:[self shouldFlattenStackView:specs] ? ViewClass() : [VZFBlankNodeBackingView class] NodeSpecs:specs];
     if (stacknode)
     {
@@ -57,10 +56,9 @@ using namespace VZ;
 
 }
 
-
 //gesture,background-color,border-color,border-width,clip,
 + (BOOL)shouldFlattenStackView:(const NodeSpecs&)specs{
-
+    
     if(specs.gesture ||
        specs.highlightBackgroundColor ||
        specs.borderWidth > 0 ||
@@ -80,8 +78,8 @@ using namespace VZ;
     }
 }
 
+
 - (VZ::NodeLayout)nodeDidLayout {
-    
     VZ::NodeLayout layout = [super nodeDidLayout];
     for (const auto &child : _children) {
         layout.children->push_back([child.node nodeDidLayout]);
@@ -94,6 +92,7 @@ using namespace VZ;
     
     //只计算一次
     [self.flexNode layout:constrainedSize];
+    
     return [self nodeDidLayout];
 }
 

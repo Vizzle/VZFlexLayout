@@ -16,7 +16,6 @@
 #import <stack>
 #import "VZFAsyncDrawingTransactionContainer.h"
 
-
 using namespace VZ::UIKit;
 
 namespace VZ {
@@ -38,13 +37,15 @@ namespace VZ {
             BOOL isVisited;
         };
         
+        //1, 绑定root hosting view
+        //    layout.node.rootNodeView = container;
+        
         //保存mount出来的nodes
         NSMutableSet* mountedNodes = [NSMutableSet set];
         
         //2.1, 创建rootContext
         MountContext rootContext = MountContext::RootContext(container);
         rootContext.position = layout.origin;
-//        rootContext.rootLayoutInsect = layout.margin;
         
         //2.2, 创建一个stack用来递归
         std::stack<MountItem> stack = {};
@@ -72,7 +73,6 @@ namespace VZ {
                 //创建一个mark
                 item.isVisited = YES;
                 
-                
                 if(item.layout.node == nil){
                     continue;
                 }
@@ -82,12 +82,12 @@ namespace VZ {
                 
                 //加载node，创建backing view
                 //这个方法必须在主线程调用
-                MountResult mountResult = [item.layout.node mountInContext:item.context
+                MountResult mountResult = [item.layout.node renderInContext:item.context
                                                                       Size:item.layout.size
                                                                 ParentNode:item.superNode];
                 [mountedNodes addObject:item.layout.node];
                 
-                //NSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
+                //VZFNSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
                 
                 if (mountResult.hasChildren) {
                     
@@ -101,12 +101,12 @@ namespace VZ {
                     
                     for(auto reverseItor = item.layout.children->rbegin(); reverseItor != item.layout.children->rend(); reverseItor ++){
                         
-                        stack.push({
-                                       *reverseItor,
+                        stack.push(
+                                   {*reverseItor,
+//                                       mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size),
                                        mountResult.childContext.rootOffset((*reverseItor).origin, item.layout.size),
                                        item.layout.node,
-                                       NO
-                                    });
+                                       NO});
                     }
                 }
                 
@@ -121,10 +121,6 @@ namespace VZ {
             [nodesToUnmount minusSet:mountedNodes];
             unmountNodes(nodesToUnmount);
         }
-        
-        
-        //4, remove掉stacknode
-        
         
         return  mountedNodes;
     }
@@ -145,13 +141,14 @@ namespace VZ {
     
         VZFC_LOG_THREAD(@"LayoutManager",@"unmountNodes");
         
-        //moxin@2016/09/26:会有在非主线程unmount的情况,暂时先放到主线程观察
-        //VZF_MainCall(^{
+        //会有在非主线程unmount的情况,bounce到Main Thread
+        VZFDispatchMain(0, ^{
+//        VZF_MainCall(^{
             
             for(VZFNode* node in nodes){
                 [node unmount];
             }
-      //  });
+        });
     }
     
 }

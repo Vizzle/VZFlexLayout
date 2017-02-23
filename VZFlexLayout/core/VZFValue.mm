@@ -9,11 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "VZFValue.h"
 
-extern const float FlexUndefined;
-extern const float FlexAuto;
+extern float FlexUndefined;
+extern float FlexAuto;
 
-
-namespace VZ{
+namespace VZ {
     namespace FlexValue{
         
         float Undefined() {
@@ -24,8 +23,8 @@ namespace VZ{
             return FlexAuto;
         }
     }
+    
 }
-
 
 @interface VZFTuple()
 

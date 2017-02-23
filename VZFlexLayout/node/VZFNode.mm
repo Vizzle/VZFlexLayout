@@ -117,7 +117,7 @@ using namespace VZ::UIKit;
         {}
     };
     
-//    NSLog(@"[%@]-->nodeDidLayout:%@",self.class, NSStringFromCGSize(layout.size));
+//    VZFNSLog(@"[%@]-->nodeDidLayout:%@",self.class, NSStringFromCGSize(layout.size));
     return layout;
 }
 
@@ -125,8 +125,7 @@ using namespace VZ::UIKit;
 - (NSString *)description {
     
     NSString* className = NSStringFromClass([self class]);
-    return [NSString stringWithFormat:@"%@",className];
-//    return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
+    return [[NSString alloc] initWithFormat:@"Class:{%@} \nLayout:{%@\n}",className,self.flexNode.description];
 }
 
 - (VZFNode* )superNode{
@@ -154,7 +153,7 @@ using namespace VZ::UIKit;
     }
 }
 
--(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
+-(VZ::UIKit::MountResult)renderInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
 {
     
     //VZF_LOG_THREAD(@"mount");
@@ -177,7 +176,7 @@ using namespace VZ::UIKit;
             [view.node unmount];
             view.node = self;
             _mountedInfo -> mountedView = view;
-            [self didAquireBackingView];
+            [self didAquireBackingView:view];
         }
         else{
             VZFAssert(view.node == self, @"");
@@ -241,7 +240,7 @@ using namespace VZ::UIKit;
     
     if (view) {
         
-        [self willReleaseBackingView];
+        [self willReleaseBackingView:view];
         
         view.node = nil;
         _mountedInfo -> mountedView = nil;
@@ -356,13 +355,14 @@ using namespace VZ::UIKit;
     }
 }
 
-- (void)willReleaseBackingView{
+- (void)willReleaseBackingView:(UIView *)view {
 
     VZFAssertMainThread();
     
+    [view.layer removeAllAnimations];
 }
 
-- (void)didAquireBackingView{
+- (void)didAquireBackingView:(UIView *)view {
 
     VZFAssertMainThread();
     
