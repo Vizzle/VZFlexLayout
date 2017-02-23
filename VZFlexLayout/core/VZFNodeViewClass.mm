@@ -12,9 +12,11 @@
 
 namespace VZ {
     
-    ViewClass::ViewClass():_factory(nil),_identifier(nil){}
-    ViewClass::ViewClass(Class clz):_factory([^(void ){return [[clz alloc] init];} copy]),_identifier(NSStringFromClass(clz).copy){}
-    ViewClass::ViewClass(UIView *(^factory)(void),NSString* identifier):_factory([factory copy]),_identifier(identifier.copy){}
+    ViewClass::ViewClass():_factory(nil),_identifier(nil),_isCustom(false){}
+    ViewClass::ViewClass(Class clz):_factory([^(void ){return [[clz alloc] init];} copy]),_identifier(NSStringFromClass(clz).copy){
+        _isCustom = clz == [UIView class];
+    }
+    ViewClass::ViewClass(UIView *(^factory)(void),NSString* identifier):_factory([factory copy]),_identifier(identifier.copy), _isCustom(YES){}
     
 //    ViewClass(Class clz):ViewClass((), NSStringFromClass(clz)){}
 //    ViewClass(UIView *(^factory)(void),NSString* identifier):_factory([factory copy]),_identifier([[identifier copy]UTF8String]){}
@@ -59,6 +61,11 @@ namespace VZ {
         return _factory;
     
     }
+    
+    bool ViewClass::isCustom() const {
+        return _isCustom;
+    }
+    
 //    VZFViewReuseBlock ViewClass::didEnterReusePool() const{
 //        return [_didEnterReusePool copy];
 //    }

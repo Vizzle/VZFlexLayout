@@ -60,6 +60,10 @@ using namespace VZ::UIKit;
     return [self newWithView:[UIView class] NodeSpecs:{}];
 }
 
+- (BOOL)hasCustomView {
+    return _viewClass.isCustom() == true;
+}
+
 - (instancetype)initWithView:(const ViewClass& )viewclass Specs:(const NodeSpecs& )specs{
     self = [super init];
     if (self) {
@@ -172,7 +176,8 @@ using namespace VZ::UIKit;
     VZFRenderer *parentRenderer = nil;
     
     if (parentNode != nil && parentNode -> _mountedInfo != nullptr) {
-        parentRenderer = parentNode -> _mountedInfo -> mountedRenderer;
+        parentRenderer = parentNode -> _mountedInfo -> mountedContext.r;
+    }
     }
     
     //If renderer is nil, it means the node can't be rasterized

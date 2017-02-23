@@ -56,7 +56,7 @@
     {
         return [self getTextRenderer:((VZFTextNode* )node).textSpecs node:(VZFTextNode *)node size:size];
     }
-    else if([node  isKindOfClass:[VZFStackNode class]] || [node  isMemberOfClass:[VZFNode class]]){
+    else if([node  isKindOfClass:[VZFStackNode class]] || ([node  isMemberOfClass:[VZFNode class]] && ![node hasCustomView])){
         return [self getBlankRenderer:(VZFStackNode *)node];
     }
     //button需要独立处理事件 需要view不做光栅化处理
