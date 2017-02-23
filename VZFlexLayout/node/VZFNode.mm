@@ -178,7 +178,6 @@ using namespace VZ::UIKit;
     if (parentNode != nil && parentNode -> _mountedInfo != nullptr) {
         parentRenderer = parentNode -> _mountedInfo -> mountedContext.r;
     }
-    }
     
     //If renderer is nil, it means the node can't be rasterized
     //@discussion reuse?
