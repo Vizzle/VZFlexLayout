@@ -169,17 +169,50 @@ using namespace VZ::UIKit;
     
     _mountedInfo -> parentNode =  parentNode;
     
-    
-    //If renderer is nil, it means the node can't be rasterized
-    //@discussion reuse?
-    VZFRenderer *renderer = [VZFRasterizeNodeTool getRenderer4RasterizedNode:self size:size];
     VZFRenderer *parentRenderer = nil;
     
     if (parentNode != nil && parentNode -> _mountedInfo != nullptr) {
         parentRenderer = parentNode -> _mountedInfo -> mountedRenderer;
     }
+    
+    //If renderer is nil, it means the node can't be rasterized
+    //@discussion reuse?
+    VZFRenderer *renderer = [VZFRasterizeNodeTool getRenderer4RasterizedNode:self size:size];
+    CGRect frame = {context.position, size}; //相对父结点的frame
 
+    
+    BOOL canAddToSuperRenderer = NO;
+
+    //当前结点能光栅化，并且parentRenderer存在是先决条件
     if (renderer && parentRenderer) {
+        /*
+         *判断当前的结点的有效显示区域是否超过了光栅化根结点的frame。如果超过了，并且根结点的clip为NO，那么这个结点不能被加入到这个光栅化树
+         *【分析】
+         *由于我们是层层构建renderer树，那么，既然当前结点的父node及其直系祖先结点已经被加入到光栅化树中，那么意味着
+         *1.这些祖先结点的有效的显示区域一定没有超过根节点的frame，
+         *2.祖先结点的clip可能为YES，也可能为NO，如果某一个祖先结点clip为YES，那么意味着他的所有子孙有效的显示区域一定不会超出根节点的范围
+         *【推演结论】
+         *所以，只有【所有祖先结点的clip为NO】，并且【当前结点超过了所有祖先结点的frame】时，当前结点的有效显示区域才会超出根节点范围
+         */
+        //如果当前renderer超过了跟renderer的范围，并且根renderer没有clip，这时候当前节点不能被光栅化
+        
+        VZFRenderer *pRenderer = parentRenderer; //遍历直系祖先结点，包括了根节点
+        CGRect curFrame = frame; //相对当前遍历祖先结点的frame
+        while (pRenderer) {
+            if (pRenderer.clip || CGRectContainsRect({{0,0},pRenderer.frame.size}, curFrame)) {
+                canAddToSuperRenderer = YES;
+                break;
+            }
+            
+            curFrame.origin.x += pRenderer.frame.origin.x;
+            curFrame.origin.y += pRenderer.frame.origin.y;
+            
+            pRenderer = pRenderer.superRenderer;
+        }
+    }
+   
+    
+    if (canAddToSuperRenderer) {
         //当自己能被光栅化，且父节点也被光栅化的，renderer添加到父节点上
         
         //to rasterize
@@ -195,6 +228,7 @@ using namespace VZ::UIKit;
             VZFAssert(renderer.node == self, @"");
         }
         
+        _mountedInfo -> mountedView = nil;
         //计算公式:
         //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
         //position.y = frame.origin.y + anchorPoint.y * bounds.size.height；
@@ -203,32 +237,30 @@ using namespace VZ::UIKit;
          view.bounds = {view.bounds.origin,size};
          */
         //apply frame
-        renderer.frame  = {context.position, size};
+        renderer.frame  = frame;
         
         [parentRenderer addSubRenderer:renderer];
         
         //update mountedInfo
-        _mountedInfo -> mountedContext = {nil,renderer,{context.position,size}};
+        _mountedInfo -> mountedContext = {nil,renderer,frame};
         
-        return {.hasChildren = YES, .childContext = context};
+        return {.hasChildren = YES, .childContext = context.childContextForSubview(context.viewManager.managedView, NO)};
     } else {
+        //走到这个分支，意味着，当前节点或者作为光栅化的根节点，或者是一个普通的view
         
         CGPoint origin = context.position;
         
-        if (!renderer) {
-            //如果当前node不能被光栅化，但是super node被光栅化了，那么当前node对应的view在添加到上级view的时候，origin需要进行转换
-            VZFRenderer *superRenderer = parentRenderer;
-            if (superRenderer) {
-                while (superRenderer) {
-                    origin = {origin.x + superRenderer.frame.origin.x, origin.y + superRenderer.frame.origin.y};
-                    superRenderer = superRenderer.superRenderer;
-                }
-            }
+        //如果super node被光栅化了，那么当前node对应的view在添加到上级view的时候，origin需要进行转换
+        VZFRenderer *superRenderer = parentRenderer;
+        while (superRenderer) {
+            origin.x += superRenderer.frame.origin.x;
+            origin.y += superRenderer.frame.origin.y;
+            superRenderer = superRenderer.superRenderer;
         }
-        
-        
+
         //获取一个reuse view
         UIView* view = [context.viewManager viewForNode:self];
+        
         
         //说明reusepool中有view
         if (view) {
@@ -236,10 +268,11 @@ using namespace VZ::UIKit;
             if (view != _mountedInfo -> mountedView) {
                 
                 //释放当前mountedView绑定的node
-                [view.node unmount];
-                view.node = self;
+                if (view.node!=self) {
+                    [view.node unmount];
+                    view.node = self;
+                }
                 _mountedInfo -> mountedView = view;
-                _mountedInfo -> mountedRenderer = renderer;
                 [self didAquireBackingView:view];
             }
             else{
@@ -251,6 +284,7 @@ using namespace VZ::UIKit;
                 [backingView setRenderer:renderer];
                 renderer = [backingView renderer];
             }
+            _mountedInfo -> mountedRenderer = renderer;
             
             //计算公式:
             //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
@@ -261,14 +295,14 @@ using namespace VZ::UIKit;
              */
             //apply frame
             view.frame  = {origin, size};
+            renderer.frame = {CGPointMake(0, 0), size};
             
             //apply attributes
             [view applyAttributes];
-            
             //update mountedInfo
             _mountedInfo -> mountedContext = {view,renderer,{context.position,size}};
             
-            return {.hasChildren = YES, .childContext = context.childContextForSubview(view)};
+            return {.hasChildren = YES, .childContext = context.childContextForSubview(view, YES)};
         }
         else{
             //这种情况对应于没有viewclass的node，例如compositeNode，他没有backingview，mount过程中使用的是view的是上一个view

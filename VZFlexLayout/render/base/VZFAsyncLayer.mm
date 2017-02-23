@@ -91,7 +91,7 @@
 }
 
 - (void)setMasksToBounds:(BOOL)masksToBounds {
-    [super setMasksToBounds:NO];
+    [super setMasksToBounds:masksToBounds];
 }
 
 - (void)display{

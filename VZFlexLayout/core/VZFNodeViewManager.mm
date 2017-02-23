@@ -37,14 +37,16 @@ using namespace VZ;
 @implementation VZFNodeViewManager
 {
     VZFViewReusePoolManager* _managerReusePoolManager;
+    BOOL _shouldAutoReset;
 }
 
-- (instancetype)initWithView:(UIView *)view{
+- (instancetype)initWithView:(UIView *)view shouldAutoReset:(BOOL)shouldAutoReset {
 
     self = [super init];
     if (self) {
         _managedView = view;
         _managerReusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view];
+        _shouldAutoReset = shouldAutoReset;
     }
     return self;
 }
@@ -59,7 +61,9 @@ using namespace VZ;
 - (void)dealloc{
     
     NSLog(@"[%@]-->dealloc",self.class);
-    [_managerReusePoolManager reset:_managedView];
+    if(_shouldAutoReset) {
+        [_managerReusePoolManager reset:_managedView];
+    }
 }
 
 

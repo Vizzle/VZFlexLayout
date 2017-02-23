@@ -134,7 +134,6 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
         }else{
             dispatch_queue_t queue = m==VZFStateUpdateModeAsynchronous?_serialDispatchQueue:dispatch_get_main_queue();
             dispatch_async(queue, block);
-            MAINA_CALL(__FUNCTION__, 0, NSOperationQueuePriorityNormal, block);
         }
         
 //        _invariant(!_isDispatching, @"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.");

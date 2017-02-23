@@ -57,8 +57,12 @@
 }
 
 -(void)setBackgroundColor:(UIColor *)backgroundColor{
-    self.blankRenderer.backgroundColor = backgroundColor;
-    [[self blankLayer] setNeedsDisplay];
+//    if (self.tag >=1000 && self.tag<=1003) {
+//        NSLog(@"%@",backgroundColor);
+//        NSLog(@"1");
+//    }
+//    self.blankRenderer.backgroundColor = backgroundColor;
+//    [[self blankLayer] setNeedsDisplay];
 }
 
 -(void)setLayerBorder:(CGColorRef)color borderWidth:(CGFloat)borderWidth cornerRadius:(CGFloat)cornerRadius{

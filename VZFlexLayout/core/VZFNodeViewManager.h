@@ -21,7 +21,11 @@ using namespace VZ;
 
 @property(nonatomic,weak,readonly)UIView* managedView;
 
-- (instancetype)initWithView:(UIView* )view;
+/**
+ *  @param view
+ *  @param shouldAutoReset 是否要自动对view进行reset
+ */
+- (instancetype)initWithView:(UIView* )view shouldAutoReset:(BOOL)shouldAutoReset;
 
 - (UIView* )viewForNode:(VZFNode* )node;
 

@@ -34,13 +34,13 @@
     if (specs.gesture ||
         specs.highlightBackgroundColor ||
         specs.borderWidth > 0 ||
-        specs.clip ||
+        //(specs.clip && ([node isKindOfClass:[VZFStackNode class]] || [node  isMemberOfClass:[VZFNode class]]) ) ||
         specs.alpha < 1 ||
         specs.tag > 0 ||
-        specs.applicator ||
-        specs.unapplicator ||
-        (specs.isAccessibilityElement != VZF_BOOL_UNDEFINED && specs.isAccessibilityElement) ||
-        specs.accessibilityLabel) {
+        specs.applicator
+//        ||(specs.isAccessibilityElement != VZF_BOOL_UNDEFINED && specs.isAccessibilityElement) ||
+//        specs.accessibilityLabel
+        ) {
         return nil;
     }
     
@@ -56,7 +56,7 @@
     {
         return [self getTextRenderer:((VZFTextNode* )node).textSpecs node:(VZFTextNode *)node size:size];
     }
-    else if([node  isKindOfClass:[VZFStackNode class]]){
+    else if([node  isKindOfClass:[VZFStackNode class]] || [node  isMemberOfClass:[VZFNode class]]){
         return [self getBlankRenderer:(VZFStackNode *)node];
     }
     //button需要独立处理事件 需要view不做光栅化处理
@@ -82,7 +82,7 @@
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{} ;
     int animateCount = [ctx[@"animate-count"] intValue]?:0;
     
-    if (animateCount > 1 || imageSpec.imageUrl.length > 0) {
+    if (animateCount > 1) {
         return nil;
     }
     
