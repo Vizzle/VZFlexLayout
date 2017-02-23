@@ -123,8 +123,6 @@
 		1EEC1A891E27BFAD00EBF0CC /* VZFStateUpdateMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19F71E27BFAD00EBF0CC /* VZFStateUpdateMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A8A1E27BFAD00EBF0CC /* VZFTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19F81E27BFAD00EBF0CC /* VZFTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A8B1E27BFAD00EBF0CC /* VZFTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19F91E27BFAD00EBF0CC /* VZFTextField.mm */; };
-		1EEC1A8C1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19FA1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EEC1A8D1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19FB1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m */; };
 		1EEC1A8E1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19FC1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A8F1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19FD1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.mm */; };
 		1EEC1A901E27BFAD00EBF0CC /* VZFTextNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19FE1E27BFAD00EBF0CC /* VZFTextNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -323,8 +321,6 @@
 		1EEC19F71E27BFAD00EBF0CC /* VZFStateUpdateMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFStateUpdateMode.h; sourceTree = "<group>"; };
 		1EEC19F81E27BFAD00EBF0CC /* VZFTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextField.h; sourceTree = "<group>"; };
 		1EEC19F91E27BFAD00EBF0CC /* VZFTextField.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextField.mm; sourceTree = "<group>"; };
-		1EEC19FA1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextFieldEventHandler.h; sourceTree = "<group>"; };
-		1EEC19FB1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFTextFieldEventHandler.m; sourceTree = "<group>"; };
 		1EEC19FC1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextFieldNodeSpecs.h; sourceTree = "<group>"; };
 		1EEC19FD1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextFieldNodeSpecs.mm; sourceTree = "<group>"; };
 		1EEC19FE1E27BFAD00EBF0CC /* VZFTextNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeSpecs.h; sourceTree = "<group>"; };
@@ -568,8 +564,6 @@
 				1EEC19F71E27BFAD00EBF0CC /* VZFStateUpdateMode.h */,
 				1EEC19F81E27BFAD00EBF0CC /* VZFTextField.h */,
 				1EEC19F91E27BFAD00EBF0CC /* VZFTextField.mm */,
-				1EEC19FA1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h */,
-				1EEC19FB1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m */,
 				1EEC19FC1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h */,
 				1EEC19FD1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.mm */,
 				1EEC19FE1E27BFAD00EBF0CC /* VZFTextNodeSpecs.h */,
@@ -858,7 +852,6 @@
 				1EEC1A5C1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.h in Headers */,
 				1EEC1A501E27BFAD00EBF0CC /* VZFButtonView.h in Headers */,
 				1EEE54EF1E52D79700585DF8 /* VZFPickerNodeSpecs.h in Headers */,
-				1EEC1A8C1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h in Headers */,
 				1EEC1AA81E27BFAD00EBF0CC /* khash.h in Headers */,
 				1E715EE61E49C83600D76806 /* VZFImageNodeBackingLayer.h in Headers */,
 				1EEE54EB1E52D74900585DF8 /* VZFSwitchNode.h in Headers */,
@@ -966,7 +959,6 @@
 				1EEC1AA61E27BFAD00EBF0CC /* FlexLayout.c in Sources */,
 				1EEC1AC91E27BFAD00EBF0CC /* VZFAsyncLayer.mm in Sources */,
 				1EEC1AB01E27BFAD00EBF0CC /* VZFIndicatorNode.mm in Sources */,
-				1EEC1A8D1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m in Sources */,
 				1EEC1AA21E27BFAD00EBF0CC /* VZFluxDispatcher.mm in Sources */,
 				1E414B701E54782C00F84302 /* VZFPickerView.mm in Sources */,
 				1EEC1ABD1E27BFAD00EBF0CC /* VZFTextFieldNode.mm in Sources */,

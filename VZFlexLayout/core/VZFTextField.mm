@@ -51,7 +51,9 @@
 - (BOOL)resignFirstResponder {
     BOOL result = [super resignFirstResponder];
     if (result) {
-        [self.eventHandler onEvent:VZFTextFieldEventTypeBlur sender:self];
+        if (self.onBlur) {
+            self.onBlur([self baseEvent]);
+        }
         [self.window removeGestureRecognizer:self.tapGesture];
     }
     return result;
@@ -66,21 +68,33 @@
 
 #pragma mark - Events
 
+- (NSMutableDictionary *)baseEvent {
+    return [@{@"sender": self} mutableCopy];
+}
+
 - (void)textFieldDidChange {
-    [self.eventHandler onEvent:VZFTextFieldEventTypeChange sender:self];
+    if (self.onChange) {
+        self.onChange([self baseEvent]);
+    }
 }
 
 - (void)textFieldBeginEditing {
-    [self.eventHandler onEvent:VZFTextFieldEventTypeFocus sender:self];
+    if (self.onFocus) {
+        self.onFocus([self baseEvent]);
+    }
     [self.window addGestureRecognizer:self.tapGesture];
 }
 
 - (void)textFieldEndEditing {
-    [self.eventHandler onEvent:VZFTextFieldEventTypeEnd sender:self];
+    if (self.onEnd) {
+        self.onEnd([self baseEvent]);
+    }
 }
 
 - (void)textFieldSubmitEditing {
-    [self.eventHandler onEvent:VZFTextFieldEventTypeSubmit sender:self];
+    if (self.onSubmit) {
+        self.onSubmit([self baseEvent]);
+    }
 }
 
 #pragma mark - KVO
@@ -144,8 +158,13 @@
     self.returnKeyType = specs.returnKeyType;
     self.clearButtonMode = specs.clearButtonMode;
     self.maxLength = specs.maxLength;
-    self.eventHandler = specs.eventHandler;
     self.contentInset = node.flexNode.resultPadding;
+    self.onFocus = specs.onFocus;
+    self.onBlur = specs.onBlur;
+    self.onChange = specs.onChange;
+    self.onSubmit = specs.onSubmit;
+    self.onKeyPress = specs.onKeyPress;
+    self.onEnd = specs.onEnd;
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFUtils.h"
-#import "VZFTextFieldEventHandler.h"
+#import "VZFValue.h"
 
 namespace VZ {
     struct TextFieldNodeSpecs {
@@ -23,7 +23,12 @@ namespace VZ {
         UIReturnKeyType returnKeyType;
         UITextFieldViewMode clearButtonMode;
         NSNumber *maxLength;
-        VZFTextFieldEventHandler *eventHandler;
+        VZFEventBlock onFocus;
+        VZFEventBlock onBlur;
+        VZFEventBlock onChange;
+        VZFEventBlock onSubmit;
+        VZFEventBlock onKeyPress;
+        VZFEventBlock onEnd;
         
         TextFieldNodeSpecs copy() const {
             return {
@@ -38,7 +43,12 @@ namespace VZ {
                 returnKeyType,
                 clearButtonMode,
                 [maxLength copy],
-                eventHandler
+                [onFocus copy],
+                [onBlur copy],
+                [onChange copy],
+                [onSubmit copy],
+                [onKeyPress copy],
+                [onEnd copy]
             };
         }
     };

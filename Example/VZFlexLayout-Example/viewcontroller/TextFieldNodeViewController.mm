@@ -33,9 +33,21 @@
                 .keyboardType = UIKeyboardTypeAlphabet,
                 .keyboardAppearance = UIKeyboardAppearanceDark,
                 .returnKeyType = UIReturnKeyGo,
-                .eventHandler = [[VZFTextFieldEventHandler alloc] initWithHandler:^(UITextField * _Nonnull textField, VZFTextFieldEventType type) {
-                    NSLog(@"=== Receive event: [%ld], text: [%@]", (long)type, textField.text);
-                }]
+                .onBlur = ^(NSDictionary *body) {
+                    NSLog(@"BlUR: %@", body);
+                },
+                .onFocus = ^(NSDictionary *body) {
+                    NSLog(@"FOCUS: %@", body);
+                },
+                .onChange = ^(NSDictionary *body) {
+                    NSLog(@"CHANGE: %@", body);
+                },
+                .onSubmit = ^(NSDictionary *body) {
+                    NSLog(@"SUBMIT: %@", body);
+                },
+                .onEnd = ^(NSDictionary *body) {
+                    NSLog(@"END: %@", body);
+                }
             } NodeSpecs:{
                 .flexGrow = 1,
                 .backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0],
