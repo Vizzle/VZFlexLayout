@@ -345,7 +345,7 @@
     
     id<VZFNetworkImageDownloadProtocol> networkImageView = nil;
     
-    //gif重复次数，context里拿到设置给imageView
+    //gif重复次数，context里拿到设置给imageView。setImage: 中会使用 animationRepeatCount，因此要先设置。
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{};
     int animateCount = [ctx[@"animate-count"] intValue]?:0;
     
@@ -367,9 +367,9 @@
         }
     } else {
         UIImageView<VZFNetworkImageDownloadProtocol>* view = (UIImageView<VZFNetworkImageDownloadProtocol>* )self;
+        view.animationRepeatCount = animateCount;
         view.image = imageSpec.image;
         view.contentMode = imageSpec.contentMode;
-        view.animationRepeatCount = animateCount;
 
         networkImageView = view;
     }
