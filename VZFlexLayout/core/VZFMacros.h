@@ -66,7 +66,7 @@ return nil; \
     currentThread.name = oldName;\
 }
 
-#define VZFNSLog(fmt, ...) NSLog(@"$O2O$ " fmt,##__VA_ARGS__)
+#define VZFNSLog(fmt, ...) NSLog(@"💬<Flex> " fmt,##__VA_ARGS__)
 
 #define VZF_LOG_DEALLOC() VZFNSLog(@"[%@]-->dealloc(%p) on Thread#<%d,%d>",self.class,self, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
 #define VZFC_LOG_DEALLOC(arg) VZFNSLog(@"[%@]-->dealloc on Thread#<%d,%d>",arg, pthread_mach_thread_np(pthread_self()),[NSThread isMainThread])
