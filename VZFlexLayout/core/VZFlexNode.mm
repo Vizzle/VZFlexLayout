@@ -31,10 +31,10 @@ NSString *vz_directionToNSString(FlexDirection value) {
 }
 
 NSString *vz_floatToNSString(CGFloat value) {
-    if (value == FlexAuto) {
+    if (value == VZ::FlexValue::Auto()) {
         return @"auto";
     }
-    else if (value == FlexUndefined) {
+    else if (value == VZ::FlexValue::Undefined()) {
         return @"undefined";
     }
     
@@ -50,10 +50,10 @@ NSString *vz_floatToNSString(CGFloat value) {
 }
 
 NSString *vz_FlexLengthToNSString(FlexLength length) {
-    if (length.value == FlexAuto) {
+    if (length.value == VZ::FlexValue::Auto()) {
         return @"auto";
     }
-    else if (length.value == FlexUndefined) {
+    else if (length.value == VZ::FlexValue::Undefined()) {
         return @"undefined";
     }
     else {

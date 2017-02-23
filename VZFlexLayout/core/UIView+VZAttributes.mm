@@ -39,6 +39,7 @@
 #import "VZFTextFieldNodeSpecs.h"
 #import "VZFTextFieldNode.h"
 #import "VZFTextField.h"
+#import "VZFViewReusePool.h"
 #import <objc/runtime.h>
 
 @implementation UIView (VZAttributes)
@@ -180,10 +181,7 @@
         stackView.highlightColor = vs.highlightBackgroundColor;
     }
     
-    if (vs.unapplicator) {
-        vs.unapplicator(self);
-    }
-    
+    self.unapplicator = vs.unapplicator;
     if (vs.applicator) {
         vs.applicator(self);
     }
@@ -225,12 +223,15 @@
             objc_setAssociatedObject(strokeLayer, _id, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             [self.layer addSublayer:strokeLayer];
         }
+        // 这里由于有 clip，所以阴影显示有问题
+        self.layer.shadowPath = path.CGPath;
     }
     else {
         self.layer.cornerRadius     = cornerRadiusTopLeft;
         self.layer.borderColor      = vs.borderColor.CGColor;
         self.layer.borderWidth      = vs.borderWidth;
         self.layer.mask = nil;
+        self.layer.shadowPath = [UIBezierPath bezierPathWithRoundedRect:self.layer.bounds cornerRadius:self.layer.cornerRadius].CGPath;
     }
 }
 
@@ -329,7 +330,7 @@
     VZFTextNode* textNode = (VZFTextNode* )self.node;
     label.edgeInsets = textNode.flexNode.resultPadding;
     label.textRenderer = textNode.renderer;
-    label.textRenderer.maxWidth = self.bounds.size.width - label.edgeInsets.left - label.edgeInsets.right;
+    label.textRenderer.maxSize = CGSizeMake(self.bounds.size.width - label.edgeInsets.left - label.edgeInsets.right, self.bounds.size.height - label.edgeInsets.top - label.edgeInsets.bottom);
     
 //    UILabel* label = (UILabel* )self;
 //    label.font = nil;
@@ -365,12 +366,19 @@
     
     // 这里不做判空，可能会在方法内做清理操作，避免复用可能会导致的图片错乱
     //just call protocol
-    [networkImageView vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl]
-                                    size:self.bounds.size
-                        placeholderImage:imageSpec.image
-                              errorImage:imageSpec.errorImage
-                                 context:imageSpec.context
-                         completionBlock:imageSpec.completion];
+    
+    //FIXED
+    NSAssert(!imageSpec.imageUrl ||[imageSpec.imageUrl isKindOfClass:[NSString class]], @"ImageNodeSpecs imageUrl should be a string");
+
+    if ([imageSpec.imageUrl isKindOfClass:[NSString class]]){
+        
+        [networkImageView vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl]
+                                        size:self.bounds.size
+                            placeholderImage:imageSpec.image
+                                  errorImage:imageSpec.errorImage
+                                     context:imageSpec.context
+                             completionBlock:imageSpec.completion];
+    }
 }
 
 - (void)_applyIndicatorAttributes:(const IndicatorNodeSpecs& )indicatorSpecs{
@@ -413,10 +421,7 @@
     pagingView.autoScroll = pagingSpecs.autoScroll;
     pagingView.loopScroll = pagingSpecs.infiniteLoop;
     pagingView.vertical = pagingSpecs.direction == PagingVertical;
-    UICollectionView* collectionView = pagingView.collectionView;
-    collectionView.pagingEnabled = pagingSpecs.paging;
-    collectionView.showsVerticalScrollIndicator = NO;
-    collectionView.showsHorizontalScrollIndicator = NO;
+    pagingView.pagingEnabled = pagingSpecs.paging;
     
     pagingView.pageControlEnabled = pagingSpecs.paging && pagingSpecs.pageControl;
     if (pagingSpecs.pageControl) {
@@ -432,6 +437,10 @@
     }
     
     if (pagingNode.viewsCache) {
+        // 这里是为了重新 apply attributes 避免 GIF 动画停止播放
+        for (int i=0;i<pagingNode.childrenLayout.size();i++) {
+            layoutRootNodeInContainer(pagingNode.childrenLayout[i], pagingNode.viewsCache[i], nil, nil);
+        }
         [pagingView setChildrenViews:pagingNode.viewsCache];
     }
     else {

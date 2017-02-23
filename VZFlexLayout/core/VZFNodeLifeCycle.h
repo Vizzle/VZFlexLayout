@@ -19,14 +19,22 @@ typedef NS_ENUM(NSUInteger, VZFNodeLifeCycleState) {
 
 @interface VZFNode()
 
+
+/**
+ Render之前调用
+ */
 - (void)willMount NS_REQUIRES_SUPER;
 - (void)willRemount NS_REQUIRES_SUPER;
+
+/**
+ Render之后调用
+ */
 - (void)didMount NS_REQUIRES_SUPER;
 - (void)didRemount NS_REQUIRES_SUPER;
 - (void)willUnmount NS_REQUIRES_SUPER;
 - (void)didUnmount NS_REQUIRES_SUPER;
-- (void)didAquireBackingView NS_REQUIRES_SUPER;
-- (void)willReleaseBackingView NS_REQUIRES_SUPER;
+- (void)didAquireBackingView:(UIView *)view NS_REQUIRES_SUPER;
+- (void)willReleaseBackingView:(UIView *)view NS_REQUIRES_SUPER;
 
 @end
 

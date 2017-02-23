@@ -36,7 +36,8 @@ typedef NS_ENUM(int, VZFlexLayoutDirection){
  FlexCenter,
  FlexEnd,
  FlexSpaceBetween,
- FlexSpaceAround
+ FlexSpaceAround,
+ FlexBaseline
  } FlexAlign;
  */
 typedef NS_ENUM(int, VZFlexLayoutAlignment){
@@ -47,11 +48,10 @@ typedef NS_ENUM(int, VZFlexLayoutAlignment){
     VZFlexCenter,
     VZFlexEnd,
     VZFlexSpaceBetween,
-    VZFlexSpaceAround
+    VZFlexSpaceAround,
+    VZFlexBaseline,
     
 };
-
-
 
 namespace VZ{
     
@@ -129,7 +129,8 @@ namespace VZ{
     
 
     namespace FlexValue{
-        // see http://stackoverflow.com/questions/3826268/static-initialization-order-issue-in-c
+        
+        // 确保被初始化了 http://stackoverflow.com/questions/3826268/static-initialization-order-issue-in-c
         float Undefined();
         float Auto();
         

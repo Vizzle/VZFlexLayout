@@ -26,7 +26,7 @@
         indicatorNode -> _indicatorSpecs = indicatorSpecs.copy();
         
         __weak typeof(indicatorNode) weakNode = indicatorNode;
-        indicatorNode.flexNode.measure = ^(CGSize constraintedSize) {
+        indicatorNode.flexNode.measure = ^(CGSize constrainedSize) {
             
             __strong typeof(weakNode) strongNode = weakNode;
             

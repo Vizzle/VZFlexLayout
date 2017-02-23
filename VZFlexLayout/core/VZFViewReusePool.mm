@@ -9,9 +9,36 @@
 #import "VZFViewReusePool.h"
 #import "VZFUtils.h"
 #import "VZFNodeViewClass.h"
-#include <vector>
+
 #import "VZFMacros.h"
 #import "VZFNodeBackingViewInterface.h"
+
+#import <objc/runtime.h>
+#include <vector>
+
+
+@implementation UIView (Unapply)
+
+static const void* g_unapplicatorId = &g_unapplicatorId;
+
+- (void (^)(UIView *))unapplicator {
+    return objc_getAssociatedObject(self, g_unapplicatorId);
+}
+
+- (void)setUnapplicator:(void (^)(UIView *))unapplicator {
+    objc_setAssociatedObject(self, g_unapplicatorId, unapplicator, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (void)unapply {
+    void(^unapplicator)(UIView* view) = self.unapplicator;
+    if (unapplicator) {
+        unapplicator(self);
+        self.unapplicator = nil;
+    }
+}
+
+@end
+
 
 @implementation VZFViewReusePool
 {
@@ -38,7 +65,7 @@
             
             if (container) {
                 [container addSubview:v];
-                //            NSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
+                //            VZFNSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
             }
             _reusePool.push_back(v);
             _nextUsableViewPos = _reusePool.end();
@@ -48,8 +75,12 @@
     else{
         //return an existing one
          v = *_nextUsableViewPos;
+        
+        // 重用前调用 unapplicator，避免残留脏数据
+        [v unapply];
+        
          VZ::Mounting::prepareForReuse(v);
-//         NSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
+//         VZFNSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
         _nextUsableViewPos ++;
     }
     return v;

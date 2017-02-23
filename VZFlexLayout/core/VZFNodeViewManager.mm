@@ -57,8 +57,6 @@ using namespace VZ;
 }
 
 - (void)dealloc{
-    
-    NSLog(@"[%@]-->dealloc",self.class);
     [_managerReusePoolManager reset:_managedView];
 }
 

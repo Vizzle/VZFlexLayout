@@ -8,6 +8,7 @@
 
 #import "VZFPagingView.h"
 #import "VZFActionWrapper.h"
+#import "VZFMacros.h"
 
 static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 
@@ -45,14 +46,69 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 @end
 
 
-@interface VZFPagingView () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface VZFPagingScrollView : UIScrollView
+@end
+@implementation VZFPagingScrollView
+
+- (BOOL)isAccessibilityElement{
+    return NO;
+}
+
+
+- (NSInteger)accessibilityElementCount{
+    return self.subviews.count;
+};
+
+//这两个方法是可以不复写的, 也能满足需求。实践并验证是以下两个方式有默认的内容
+- (nullable id)accessibilityElementAtIndex:(NSInteger)index{
+    return self.subviews[index];
+};
+
+- (NSInteger)indexOfAccessibilityElement:(id)element{
+    return [self.subviews indexOfObject:element];
+};
+
+
+- (BOOL)accessibilityScroll:(UIAccessibilityScrollDirection)direction{
+    
+    BOOL isSupportedScroll = false;
+    
+    if (![self.superview isKindOfClass:[VZFPagingView class]]
+        || ![self.superview respondsToSelector:@selector(scrollToPreviousItem)]
+        || ![self.superview respondsToSelector:@selector(scrollToNextItem)]) {
+        return false;
+    }
+    
+    VZFPagingView* superView = (VZFPagingView*)self.superview;
+    
+    switch (direction) {
+        case UIAccessibilityScrollDirectionRight:
+            [superView scrollToPreviousItem];
+            isSupportedScroll = true;
+            break;
+        case UIAccessibilityScrollDirectionLeft:
+            [superView  scrollToNextItem];
+            isSupportedScroll = true;
+            break;
+        default:
+            break;
+    }
+    
+    return isSupportedScroll;
+}
+
+@end
+
+
+@interface VZFPagingView () <UIScrollViewDelegate>
+
+@property (nonatomic, strong) NSSet *visibleIndexes;
 
 @end
 
 
 @implementation VZFPagingView
 {
-    UICollectionViewFlowLayout *_flowLayout;
     NSArray<UIView *> *_childViews;
     NSTimer *_timer;
     
@@ -70,27 +126,21 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
         _isActive = YES;
         _lastContentOffset = FLT_MIN;
         _scroll = YES;
+        _pagingEnabled = YES;
         _loopScroll = NO;
         _autoScroll = 0;
         _autoScrollAnimated = YES;
-        _flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _flowLayout.minimumInteritemSpacing = 0;
-        _flowLayout.minimumLineSpacing = 0;
-        _flowLayout.itemSize = frame.size;
-        _collectionView = [[VZFCollectionView alloc] initWithFrame:self.bounds collectionViewLayout:_flowLayout];
-        _collectionView.dataSource = self;
-        _collectionView.delegate = self;
-        _collectionView.scrollsToTop = NO;
-        _collectionView.pagingEnabled = YES;
-        _collectionView.bounces = YES;
-        _collectionView.scrollEnabled = YES;
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.backgroundColor = [UIColor clearColor];
-        [_collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kO2OPagingNodeReuseId];
+        _scrollView = [[VZFPagingScrollView alloc] initWithFrame:self.bounds];
+        _scrollView.delegate = self;
+        _scrollView.scrollsToTop = NO;
+        _scrollView.pagingEnabled = YES;
+        _scrollView.bounces = YES;
+        _scrollView.scrollEnabled = YES;
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.backgroundColor = [UIColor clearColor];
+        [self addSubview:_scrollView];
         self.backgroundColor = [UIColor clearColor];
-        [self addSubview:_collectionView];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willResignActive) name:UIApplicationWillResignActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -98,13 +148,16 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     return self;
 }
 
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self stopTimer];
     
     // 避免一个 crash，详见 http://stackoverflow.com/a/26104397
-    self.collectionView.delegate = nil;
-    self.collectionView.dataSource = nil;
+    self.scrollView.delegate = nil;
 }
 
 - (void)willResignActive {
@@ -124,18 +177,8 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 
 - (void)setFrame:(CGRect)frame
 {
-    // 如果 UICollectionView 的滚动方向上的尺寸不是整数，滚动时会出现空白的问题
-    if ((!_vertical && (int)frame.size.width != frame.size.width)
-        || (_vertical && (int)frame.size.height != frame.size.height)) {
-        NSLog(@"VZFPagingView 滚动方向的尺寸必须是整数，现在是 %@", NSStringFromCGSize(frame.size));
-        assert(false);  // 不知道为啥，用 NSAssert 的话，断下来的地方不对
-        frame.size.width = ceil(frame.size.width);
-        frame.size.height = ceil(frame.size.height);
-    }
-    
     [super setFrame:frame];
-    [_collectionView setFrame:self.bounds];
-    _flowLayout.itemSize = frame.size;
+    [_scrollView setFrame:self.bounds];
 }
 
 - (void)setPageControlEnabled:(BOOL)pageControlEnabled {
@@ -155,46 +198,75 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     }
 }
 
+- (void)setPagingEnabled:(BOOL)pagingEnabled {
+    _pagingEnabled = pagingEnabled;
+    _scrollView.pagingEnabled = pagingEnabled;
+}
+
 - (void)setAutoScroll:(NSTimeInterval)autoScroll {
     _autoScroll = autoScroll;
     [self resetTimer];
 }
 
+- (void)reloadViews {
+    [_scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    NSMutableSet *visibleIndexes = [NSMutableSet set];
+    for (int i=0;i<_childViews.count;i++) {
+        [visibleIndexes addObject:@([self virtualIndexForViewIndex:i])];
+        [_scrollView addSubview:_childViews[i]];
+    }
+    self.visibleIndexes = nil;
+    self.visibleIndexes = visibleIndexes;
+    CGSize size = self.bounds.size;
+    CGFloat virtualPageCount = [self loopScroll] ? _childViews.count + 2 : _childViews.count;
+    (_vertical ? size.height : size.width) *= virtualPageCount;
+    _scrollView.contentSize = size;
+}
+
 - (void)setLoopScroll:(BOOL)loopScroll {
     _loopScroll = loopScroll;
-    [_collectionView reloadData];
+    [self reloadViews];
 }
 
 - (void)setScroll:(BOOL)scroll {
     _scroll = scroll;
-    _collectionView.scrollEnabled = [self scrollEnabled];
+    _scrollView.scrollEnabled = [self scrollEnabled];
 }
 
 - (void)setVertical:(BOOL)vertical {
     _vertical = vertical;
     if (_vertical) {
-        _flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        _collectionView.alwaysBounceHorizontal = NO;
-        _collectionView.alwaysBounceVertical = YES;
+        _scrollView.alwaysBounceHorizontal = NO;
+        _scrollView.alwaysBounceVertical = YES;
     } else {
-        _flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        _collectionView.alwaysBounceHorizontal = YES;
-        _collectionView.alwaysBounceVertical = NO;
+        _scrollView.alwaysBounceHorizontal = YES;
+        _scrollView.alwaysBounceVertical = NO;
     }
+}
+
+- (CGRect)rectForIndex:(NSUInteger)index {
+    CGRect rect = self.bounds;
+    if (_vertical) {
+        rect.origin.y = index * rect.size.height;
+    }
+    else {
+        rect.origin.x = index * rect.size.width;
+    }
+    return rect;
 }
 
 - (void)setChildrenViews:(NSArray *)childrenViews {
     _childViews = childrenViews;
-    _collectionView.scrollEnabled = [self scrollEnabled];
-    [_collectionView reloadData];
+    _scrollView.scrollEnabled = [self scrollEnabled];
+    [self reloadViews];
     if (self.currentPage >= _childViews.count) {
         self.currentPage = 0;
     }
     if (_childViews.count > 0) {
-        [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:_currentPage + ([self loopScrollEnabled] ? 1 : 0) inSection:0] atScrollPosition:self.vertical ? UICollectionViewScrollPositionTop : UICollectionViewScrollPositionLeft animated:NO];
+        [_scrollView scrollRectToVisible:[self rectForIndex:_currentPage + ([self loopScrollEnabled] ? 1 : 0)] animated:NO];
     }
     else {
-        _collectionView.contentOffset = CGPointZero;
+        _scrollView.contentOffset = CGPointZero;
     }
     [self resetTimer];
 }
@@ -234,33 +306,50 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 
 - (void)scrollToPreviousItem
 {
-    if (_collectionView.isTracking || _collectionView.isDragging || _collectionView.isDecelerating) {
+    if (_scrollView.isTracking || _scrollView.isDragging || _scrollView.isDecelerating) {
         return;
     }
     
-    NSInteger preIndex = (_currentPage <= 0 ? _currentPage - 1 + _pageControl.numberOfPages : _currentPage - 1);
-    
-    if( preIndex == _childViews.count) {
-        preIndex = 0;
+    NSInteger preIndex = _currentPage - 1;
+    if ([self loopScrollEnabled]) {
+        preIndex += 1;
+    } else if (preIndex < 0) {
+        preIndex = _childViews.count - 1;
     }
     
-    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:preIndex inSection:0] atScrollPosition:self.vertical ? UICollectionViewScrollPositionTop : UICollectionViewScrollPositionLeft animated:_autoScrollAnimated];
+    [_scrollView scrollRectToVisible:[self rectForIndex:preIndex] animated:_autoScrollAnimated];
 }
 
 - (void)scrollToNextItem
 {
-    if (_collectionView.isTracking || _collectionView.isDragging || _collectionView.isDecelerating) {
+    if (_scrollView.isTracking || _scrollView.isDragging || _scrollView.isDecelerating) {
         return;
     }
     
     NSInteger nextIndex = _currentPage + 1;
     if ([self loopScrollEnabled]) {
         nextIndex += 1;
-    } else if (![self loopScrollEnabled] && nextIndex == _childViews.count) {
+    } else if (nextIndex == _childViews.count) {
         nextIndex = 0;
     }
     
-    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:nextIndex inSection:0] atScrollPosition:self.vertical ? UICollectionViewScrollPositionTop : UICollectionViewScrollPositionLeft animated:_autoScrollAnimated];
+    [_scrollView scrollRectToVisible:[self rectForIndex:nextIndex] animated:_autoScrollAnimated];
+}
+
+- (void)scrollToPage:(NSInteger)pageIndex {
+    if (_scrollView.isTracking || _scrollView.isDragging || _scrollView.isDecelerating) {
+        return;
+    }
+    if (pageIndex == self.currentPage) {
+        return;
+    }
+    NSInteger targetPageIndex = pageIndex;
+    if ([self loopScrollEnabled]) {
+        targetPageIndex += 1;
+    } else if (targetPageIndex == _childViews.count) {
+        targetPageIndex = 0;
+    }
+    [_scrollView scrollRectToVisible:[self rectForIndex:targetPageIndex] animated:_autoScrollAnimated];
 }
 
 - (void)setCurrentPage:(NSInteger)currentPage
@@ -277,7 +366,25 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     }
 }
 
-- (NSInteger)indexForCellIndex:(NSInteger)index
+/*
+
+                |<--------- contentSize.width --------->|
+
+                + - - - +-------+-------+-------+ - - - +
+                |       |       |       |       |       |
+                        |       |       |       |        
+                | Page3 | Page1 | Page2 | Page3 | Page1 |
+                        |       |       |       |        
+                |       |       |       |       |       |
+                + - - - +-------+-------+-------+ - - - +
+
+ View Index         2       0       1       2       0
+(Page Index)
+
+Virtual Index       0       1       2       3       4
+
+*/
+- (NSInteger)viewIndexForVirtualIndex:(NSInteger)index
 {
     if ([self loopScrollEnabled]) {
         if (index == 0) {
@@ -291,11 +398,28 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     return index;
 }
 
+- (NSInteger)virtualIndexForViewIndex:(NSInteger)index
+{
+    if ([self loopScrollEnabled]) {
+        return index + 1;
+    }
+    return index;
+}
+
+- (void)setVisibleIndexes:(NSSet *)visibleIndexes {
+    NSMutableSet *newIndexes = visibleIndexes.mutableCopy;
+    if (_visibleIndexes) [newIndexes minusSet:_visibleIndexes];
+    for (NSNumber *index in newIndexes) {
+        NSUInteger i = index.unsignedIntegerValue;
+        _childViews[[self viewIndexForVirtualIndex:i]].frame = [self rectForIndex:i];
+    }
+    _visibleIndexes = visibleIndexes;
+}
+
 - (void)updateCurrentPage:(UIScrollView *)scrollView {
-    BOOL isVertical = _flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical;
-    CGFloat pageLength = isVertical ? scrollView.frame.size.height : scrollView.frame.size.width;
+    CGFloat pageLength = _vertical ? scrollView.frame.size.height : scrollView.frame.size.width;
     NSInteger index = round((float)_lastContentOffset / pageLength);
-    self.currentPage = [self indexForCellIndex:index];
+    self.currentPage = [self viewIndexForVirtualIndex:index];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -304,69 +428,61 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     [self resetTimer];
 }
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!decelerate) {
+        [self scrollViewDidEndDecelerating:scrollView];
+    }
+}
+
 //reference: https://github.com/RungeZhai/SeamlessCyclicScrollView
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    BOOL isVertical = _flowLayout.scrollDirection == UICollectionViewScrollDirectionVertical;
-    
     CGFloat currentOffsetX = scrollView.contentOffset.x;
     CGFloat currentOffsetY = scrollView.contentOffset.y;
     
-    CGFloat *currectOffset = isVertical ? &currentOffsetY : &currentOffsetX;
+    CGFloat *currentOffset = _vertical ? &currentOffsetY : &currentOffsetX;
+    
+    if (_lastContentOffset == *currentOffset) {
+        return;
+    }
     
     // We can ignore the first time scroll,
     // because it is caused by the call scrollToItemAtIndexPath: in ViewWillAppear
     if (FLT_MIN == _lastContentOffset) {
-        _lastContentOffset = *currectOffset;
+        _lastContentOffset = *currentOffset;
         return;
     }
     
-    CGFloat pageLength = isVertical ? scrollView.frame.size.height : scrollView.frame.size.width;
+    CGFloat pageLength = _vertical ? scrollView.frame.size.height : scrollView.frame.size.width;
     CGFloat offset = pageLength * _childViews.count;
     
     if ([self loopScrollEnabled]) {
         // the first page(showing the last item) is visible and user's finger is still scrolling to the right
-        if (*currectOffset < pageLength / 2 && _lastContentOffset > *currectOffset) {
-            _lastContentOffset = *currectOffset + offset;
-            *currectOffset = _lastContentOffset;
+        if (*currentOffset < pageLength && _lastContentOffset > *currentOffset) {
+            _lastContentOffset = *currentOffset += offset;
             scrollView.contentOffset = (CGPoint){currentOffsetX, currentOffsetY};
         }
         // the last page (showing the first item) is visible and the user's finger is still scrolling to the left
-        else if (*currectOffset > offset + pageLength / 2 && _lastContentOffset < *currectOffset) {
-            _lastContentOffset = *currectOffset - offset;
-            *currectOffset = _lastContentOffset;
+        else if (*currentOffset > offset && _lastContentOffset < *currentOffset) {
+            _lastContentOffset = *currentOffset -= offset;
             scrollView.contentOffset = (CGPoint){currentOffsetX, currentOffsetY};
         } else {
-            _lastContentOffset = *currectOffset;
+            _lastContentOffset = *currentOffset;
         }
+        
+        CGFloat currentPage = *currentOffset / pageLength;
+        NSMutableSet *visibleIndexes = [NSMutableSet set];
+        [visibleIndexes addObject:@(floor(currentPage))];
+        [visibleIndexes addObject:@(ceil(currentPage))];
+        self.visibleIndexes = visibleIndexes;
     } else {
-        _lastContentOffset = *currectOffset;
+        _lastContentOffset = *currentOffset;
     }
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     [self updateCurrentPage:scrollView];
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSInteger index = [self indexForCellIndex:indexPath.item];
-    
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kO2OPagingNodeReuseId forIndexPath:indexPath];
-    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [cell.contentView addSubview:_childViews[index]];
-    cell.contentView.clipsToBounds = YES;
-    return cell;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    NSInteger number = _childViews.count;
-    if ([self loopScrollEnabled]) {
-        number += 2;
-    }
-    return number;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////

@@ -17,12 +17,13 @@
 @property (nonatomic, assign) VZFTextVerticalAlignment verticalAlignment;
 @property (nonatomic, assign) NSTextAlignment alignment;
 @property (nonatomic, assign) NSUInteger maxNumberOfLines;
-@property (nonatomic, assign) CGFloat maxWidth;
+@property (nonatomic, assign) CGSize maxSize;
 @property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic, assign) CGFloat minimumScaleFactor;
 @property (nonatomic, assign) UIBaselineAdjustment baselineAdjustment;
 
 - (CGSize)textSize;
+- (NSUInteger)linesCount;
 - (CGFloat)firstBaselineInBounds:(CGRect)bounds;
 - (CGFloat)lastBaselineInBounds:(CGRect)bounds;
 - (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds;

@@ -18,17 +18,17 @@ namespace VZ
          *  Node在mount过程中缓存的数据
          */
         struct MountContext{
-        
+            
             //类方法
             static MountContext RootContext(UIView* v){
-        
+                
                 return MountContext([[VZFNodeViewManager alloc]initWithView:v],{0,0});
                 
             };
             
             //每个context关联一个view manager
             __strong VZFNodeViewManager* viewManager;
-//            std::shared_ptr<VZFNodeViewManager> viewManager;
+            //            std::shared_ptr<VZFNodeViewManager> viewManager;
             
             //view manager关联view的原点，子view根据这个点计算位置
             CGPoint position;
@@ -48,12 +48,12 @@ namespace VZ
              *  相对父节点的位置
              */
             MountContext parentOffset(const CGPoint p, const CGSize parentSize) const{
-            
+                
                 return MountContext(viewManager,p);
             }
             
             MountContext childContextForSubview(UIView *subview) const {
-              
+                
                 return MountContext([[ VZFNodeViewManager alloc ] initWithView:subview] , {0,0});
             };
             
@@ -86,10 +86,10 @@ namespace VZ
                     .bottom = parentLayoutInsect.bottom + (parentSize.height - childSize.height) - offset.y,
                 };
             };
-        
+            
         };
         
-
+        
         struct MountResult{
             
             BOOL hasChildren;

@@ -26,6 +26,12 @@ KHASH_INIT(FlexSize, FlexSize, FlexSize, 1, kh_FlexSize_hash_func, kh_FlexSize_h
 #define FLEX_PIXEL_ROUND(value, scale) (roundf((value) * (scale)) / (scale))
 
 
+#if DEBUG
+#   define flex_assert(e) assert(e)
+#else
+#   define flex_assert(e) ((void)0)
+#endif
+
 
  const float FlexUndefined = 999999;
  const float FlexAuto = 999998;
@@ -48,7 +54,7 @@ bool flex_isAbsolute(FlexLength length) {
 }
 
 float flex_absoluteValue(FlexLength length, FlexLayoutContext *context) {
-    assert(flex_isAbsolute(length));    // absolute value is requested
+    flex_assert(flex_isAbsolute(length));    // absolute value is requested
     
     float value;
     switch (length.type) {
@@ -398,7 +404,7 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
         }
     }
     
-    assert(node->wrap || linesCount == 1);
+    flex_assert(node->wrap || linesCount == 1);
     
     float itemsMainSize = 0;
     for (i=0;i<linesCount;i++) {
@@ -772,7 +778,7 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
                 offsetStart += offsetStep / 2;
                 break;
             default:
-                assert(false);
+                flex_assert(false);
         }
         
         for (j=lineStart;j<lineEnd;j++) {
@@ -834,7 +840,7 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
                     }
                     break;
                 default:
-                    assert(false);
+                    flex_assert(false);
                     break;
             }
             item->result.position[flex_start[crossAxis]] = itemResultCrossPosition;
@@ -885,7 +891,7 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
             offsetStart += offsetStep / 2;
             break;
         default:
-            assert(false);
+            flex_assert(false);
     }
     float lineCrossPositionStart = offsetStart;
     for (i=0;i<linesCount;i++) {
@@ -933,7 +939,7 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
             if (item->resolvedMargin[flex_end[FLEX_WIDTH]] == FlexAuto) item->result.margin[flex_end[FLEX_WIDTH]] = 0;
         }
         
-        assert(item->result.margin[0] != FlexAuto);
+        flex_assert(item->result.margin[0] != FlexAuto);
         
         if (remindHeight > 0) {
             if (item->resolvedMargin[flex_start[FLEX_HEIGHT]] == FlexAuto && item->resolvedMargin[flex_end[FLEX_HEIGHT]] == FlexAuto) {
@@ -968,17 +974,17 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
 }
 
 void setupProperties(FlexNode* node) {
-//    assert(node->size[FLEX_WIDTH].value >= 0);
-//    assert(node->size[FLEX_HEIGHT].value >= 0);
-//    assert(node->minSize[FLEX_WIDTH].value >= 0);
-//    assert(node->minSize[FLEX_HEIGHT].value >= 0);
-//    assert(node->maxSize[FLEX_WIDTH].value >= 0);
-//    assert(node->maxSize[FLEX_HEIGHT].value >= 0);
-//    assert(node->flexBasis.value >= 0);
-    assert(node->alignSelf == FlexInherit || node->alignSelf == FlexStretch || node->alignSelf == FlexStart || node->alignSelf == FlexCenter || node->alignSelf == FlexEnd || node->alignSelf == FlexBaseline);
-    assert(node->alignItems == FlexStretch || node->alignItems == FlexStart || node->alignItems == FlexCenter || node->alignItems == FlexEnd || node->alignItems == FlexBaseline);
-    assert(node->justifyContent == FlexStart || node->justifyContent == FlexCenter || node->justifyContent == FlexEnd || node->justifyContent == FlexSpaceBetween || node->justifyContent == FlexSpaceAround);
-    assert(node->alignContent == FlexStretch || node->alignContent == FlexStart || node->alignContent == FlexCenter || node->alignContent == FlexEnd || node->alignContent == FlexSpaceBetween || node->alignContent == FlexSpaceAround);
+//    flex_assert(node->size[FLEX_WIDTH].value >= 0);
+//    flex_assert(node->size[FLEX_HEIGHT].value >= 0);
+//    flex_assert(node->minSize[FLEX_WIDTH].value >= 0);
+//    flex_assert(node->minSize[FLEX_HEIGHT].value >= 0);
+//    flex_assert(node->maxSize[FLEX_WIDTH].value >= 0);
+//    flex_assert(node->maxSize[FLEX_HEIGHT].value >= 0);
+//    flex_assert(node->flexBasis.value >= 0);
+    flex_assert(node->alignSelf == FlexInherit || node->alignSelf == FlexStretch || node->alignSelf == FlexStart || node->alignSelf == FlexCenter || node->alignSelf == FlexEnd || node->alignSelf == FlexBaseline);
+    flex_assert(node->alignItems == FlexStretch || node->alignItems == FlexStart || node->alignItems == FlexCenter || node->alignItems == FlexEnd || node->alignItems == FlexBaseline);
+    flex_assert(node->justifyContent == FlexStart || node->justifyContent == FlexCenter || node->justifyContent == FlexEnd || node->justifyContent == FlexSpaceBetween || node->justifyContent == FlexSpaceAround);
+    flex_assert(node->alignContent == FlexStretch || node->alignContent == FlexStart || node->alignContent == FlexCenter || node->alignContent == FlexEnd || node->alignContent == FlexSpaceBetween || node->alignContent == FlexSpaceAround);
     
 #if DEBUG
     node->result.position[FLEX_LEFT] = NAN;

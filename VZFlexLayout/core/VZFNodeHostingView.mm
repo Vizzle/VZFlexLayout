@@ -59,7 +59,7 @@ using namespace VZ;
 - (void)dealloc{
     
     
-    NSLog(@"[%@]-->dealloc",self.class);
+    VZFNSLog(@"[%@]-->dealloc",self.class);
     
     //主线程释放.
     VZ::unmountNodes(_mountedNodes);
@@ -108,10 +108,11 @@ using namespace VZ;
     }
 
     if (_isUpdating) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        VZFDispatchMain(0, ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
             [self _updateSynchronously];
         });
-        return ;
+        return;
     }
     
     _isUpdating = true;
@@ -120,10 +121,7 @@ using namespace VZ;
 //    [self reset];
     
     //2, create node
-    VZFNode *node = [self nodeFromTemplate]; //for O2OMistView
-    if (!node) {
-        node = [_nodeProvider nodeForItem:_model Store:_store Context:_context];
-    }
+    VZFNode *node = [_nodeProvider nodeForItem:_model Store:_store Context:_context];
     
     if (node) {
                 
@@ -145,7 +143,7 @@ using namespace VZ;
         }        
     }
 
-    _isUpdating = false;
+       _isUpdating = false;
 
 }
 
@@ -183,10 +181,6 @@ using namespace VZ;
 - (id)targetForAction:(SEL)action withSender:(id)sender
 {
     return [self respondsToSelector:action] ? self : [[self nextResponder] targetForAction:action withSender:sender];
-}
-
-- (VZFNode *)nodeFromTemplate {
-    return nil;
 }
 
 @end

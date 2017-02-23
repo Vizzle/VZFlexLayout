@@ -7,6 +7,7 @@
 //
 
 #import "VZFScrollView.h"
+#import "VZFMacros.h"
 
 @implementation VZFScrollView
 
@@ -15,27 +16,27 @@
 #pragma mark - backing view interface
 
 - (void)born{
-    NSLog(@"%s",__PRETTY_FUNCTION__);
+    VZFNSLog(@"%s",__PRETTY_FUNCTION__);
 
 }
 
 - (void)dead{
-    NSLog(@"%s",__PRETTY_FUNCTION__);
+    VZFNSLog(@"%s",__PRETTY_FUNCTION__);
 
 }
 
 - (void)prepareForReuse{
-    NSLog(@"%s",__PRETTY_FUNCTION__);
+    VZFNSLog(@"%s",__PRETTY_FUNCTION__);
 
 }
 
 - (void)willEnterReusePool{
-    NSLog(@"%s",__PRETTY_FUNCTION__);
+    VZFNSLog(@"%s",__PRETTY_FUNCTION__);
 
 }
 
 - (void)didLeaveReusePool{
-    NSLog(@"%s",__PRETTY_FUNCTION__);
+    VZFNSLog(@"%s",__PRETTY_FUNCTION__);
     
 }
 

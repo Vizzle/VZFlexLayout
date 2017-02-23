@@ -84,8 +84,10 @@
     boundsRect.origin.y += _edgeInsets.top;
     boundsRect.size.width -= _edgeInsets.left + _edgeInsets.right;
     boundsRect.size.height -= _edgeInsets.top + _edgeInsets.bottom;
+    
+    UIGraphicsPushContext(context);
     [renderer drawInContext:context bounds:boundsRect];
-
+    UIGraphicsPopContext();
 }
 
 - (void)drawInContext:(CGContextRef)ctx{
