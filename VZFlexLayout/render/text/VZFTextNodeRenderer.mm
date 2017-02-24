@@ -34,6 +34,7 @@
 {
     BOOL _calculated;
     CGSize _textSize;
+    CGSize _postLayoutSize;
     NSArray<VZFTextLine *> *_lines;
     NSAttributedString *_unfixedText;
 }
@@ -279,20 +280,11 @@ CGFloat vz_getWidthCallback(void *context) {
         
         BOOL isLastLine = maxRemainLines == 0 || start + count >= textLength;
         BOOL needsToTruncate = _truncatingMode != VZFTextTruncatingClip && maxRemainLines == 0 && start + count < textLength && !adjustsFontSizeToFitWidth;
-        BOOL needsToJustify = _alignment == NSTextAlignmentJustified && start + count < textLength;
         
         CTLineRef line = CTTypesetterCreateLine(typesetter, CFRangeMake(start, count));
         
         if (needsToTruncate) {
             line = [self truncateLine:line text:self.text typesetter:typesetter start:start];
-        }
-        
-        if (needsToJustify) {
-            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1, self.maxSize.width);
-            if (justifiedLine) {
-                CFRelease(line);
-                line = justifiedLine;
-            }
         }
         
         VZFTextLine *textLine = [VZFTextLine new];
@@ -301,6 +293,11 @@ CGFloat vz_getWidthCallback(void *context) {
         __block CGFloat maxAscent = 0;
         __block CGFloat maxDescent = 0;
         CFRange range = CTLineGetStringRange(line);
+        // CTLineGetStringRange 可能获取不到 range
+        if (range.length == 0) {
+            range.location = start;
+            range.length = count ?: self.text.string.length - start;
+        }
         [_unfixedText enumerateAttributesInRange:NSMakeRange(range.location, range.length) options:0 usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
             NSTextAttachment *attachment = attrs[NSAttachmentAttributeName];
             if (attachment.image) {
@@ -419,6 +416,31 @@ CGFloat vz_getWidthCallback(void *context) {
 //    NSLog(@"%.3f/%.3f ms", (t2 - t1) * 1000, (t3 - t2) * 1000);
 }
 
+- (void)postLayout:(CGSize)size {
+    if (CGSizeEqualToSize(size, _postLayoutSize)) {
+        return;
+    }
+    
+    [self _calculate];
+    
+    if (_alignment == NSTextAlignmentJustified && _lines.count > 1) {
+        for (int i=0;i<_lines.count-1;i++) {
+            if (fabs(_lines[i].width - size.width) < 1e-5) {
+                continue;
+            }
+            
+            CTLineRef line = (__bridge CTLineRef)_lines[i].line;
+            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1, size.width);
+            if (justifiedLine) {
+                _lines[i].line = (__bridge_transfer id)(justifiedLine);
+                _lines[i].width = size.width;
+            }
+        }
+    }
+    
+    _postLayoutSize = size;
+}
+
 - (CGFloat)offsetYWithBounds:(CGRect)bounds {
     switch (_verticalAlignment) {
         case VZFTextVerticalAlignmentTop:
@@ -455,7 +477,7 @@ CGFloat vz_getWidthCallback(void *context) {
         return;
     }
     
-    [self _calculate];
+    [self postLayout:bounds.size];
     
     CGContextSetTextMatrix(context, CGAffineTransformIdentity);
     

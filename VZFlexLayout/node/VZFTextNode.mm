@@ -78,7 +78,7 @@
     VZ::NodeLayout layout = [super nodeDidLayout];
     self.renderer.maxSize = CGSizeMake(layout.size.width - self.flexNode.resultPadding.left - self.flexNode.resultPadding.right, layout.size.height - self.flexNode.resultPadding.top - self.flexNode.resultPadding.bottom);
     // 主动触发文字计算尺寸
-    [self.renderer textSize];
+    [self.renderer postLayout:self.renderer.maxSize];
     return layout;
 }
 
