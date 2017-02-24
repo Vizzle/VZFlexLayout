@@ -76,7 +76,9 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
     [self drawBackgroundColor:context path:borderPath];
     [self drawContentInContext:context bounds:bounds];
     
-    for (VZFRenderer *renderer in _subRenderers) {
+    NSArray<__kindof VZFRenderer *> *subRenderers = [_subRenderers copy];
+    
+    for (VZFRenderer *renderer in subRenderers) {
         CGRect frame = renderer.frame;
         CGContextTranslateCTM(context, frame.origin.x, frame.origin.y);
         
