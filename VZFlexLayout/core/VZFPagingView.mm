@@ -506,10 +506,7 @@ Virtual Index       0       1       2       3       4
     self.autoScroll = specs.autoScroll;
     self.loopScroll = specs.infiniteLoop;
     self.vertical = specs.direction == PagingVertical;
-    UICollectionView* collectionView = self.collectionView;
-    collectionView.pagingEnabled = specs.paging;
-    collectionView.showsVerticalScrollIndicator = NO;
-    collectionView.showsHorizontalScrollIndicator = NO;
+    self.pagingEnabled = specs.paging;
     
     self.pageControlEnabled = specs.paging && specs.pageControl;
     if (specs.pageControl) {
@@ -525,6 +522,9 @@ Virtual Index       0       1       2       3       4
     }
     
     if (pagingNode.viewsCache) {
+        for (int i=0;i<pagingNode.childrenLayout.size();i++) {
+            layoutRootNodeInContainer(pagingNode.childrenLayout[i], pagingNode.viewsCache[i], nil, nil);
+        }
         [self setChildrenViews:pagingNode.viewsCache];
     }
     else {

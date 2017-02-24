@@ -95,11 +95,11 @@
 
 
 - (void)vz_applyNodeAttributes:(VZFNode *)node {
-    VZFTextNode *textNode = (VZFTextNode* )self.node;
+    VZFTextNode *textNode = (VZFTextNode* )node;
     TextNodeSpecs specs = textNode.textSpecs;
     self.edgeInsets = textNode.flexNode.resultPadding;
     self.textRenderer = textNode.renderer;
-    self.textRenderer.maxWidth = self.bounds.size.width - self.edgeInsets.left - self.edgeInsets.right;
+    self.textRenderer.maxSize = CGSizeMake(self.bounds.size.width - self.edgeInsets.left - self.edgeInsets.right, self.bounds.size.height - self.edgeInsets.top - self.edgeInsets.bottom);
 
 }
 
