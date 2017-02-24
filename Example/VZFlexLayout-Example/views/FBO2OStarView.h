@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VZFNodeBackingViewInterface.h"
+#import <VZFlexLayout/VZFNodeBackingViewInterface.h>
 
 typedef NS_ENUM(NSUInteger, FBO2OStarViewType) {
     FBO2OStarViewTypeForDisplay,  //只用来展示，不能点击打分或滑动打分

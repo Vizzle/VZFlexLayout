@@ -8,17 +8,32 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFUtils.h"
-#import "VZFTextFieldEventHandler.h"
+#import "VZFEvent.h"
+#import "VZFNodeSpecs.h"
 
 namespace VZ {
+    
     struct TextFieldNodeSpecs {
         NSString *text;
         UIColor *color;
         UIFont *font;
         NSTextAlignment alignment;
         NSString *placeholder;
+        UIColor *placeholderColor;
+        Value<BOOL, DefaultControlAttrValue::able> editable;
+        BOOL secureTextEntry;
+        UIKeyboardType keyboardType;
+        UIKeyboardAppearance keyboardAppearance;
+        UIReturnKeyType returnKeyType;
         UITextFieldViewMode clearButtonMode;
-        VZFTextFieldEventHandler *eventHandler;
+        Value<NSUInteger, DefaultAttributesValue::uintMax> maxLength;
+        Value<BOOL, DefaultControlAttrValue::able> blurOnSubmit;
+        Value<BOOL, DefaultControlAttrValue::able> enablesReturnKeyAutomatically;
+        VZFEventBlock onFocus;
+        VZFEventBlock onBlur;
+        VZFEventBlock onChange;
+        VZFEventBlock onSubmit;
+        VZFEventBlock onEnd;
         
         TextFieldNodeSpecs copy() const {
             return {
@@ -27,8 +42,21 @@ namespace VZ {
                 font,
                 alignment,
                 [placeholder copy],
+                placeholderColor,
+                editable,
+                secureTextEntry,
+                keyboardType,
+                keyboardAppearance,
+                returnKeyType,
                 clearButtonMode,
-                eventHandler
+                maxLength,
+                blurOnSubmit,
+                enablesReturnKeyAutomatically,
+                [onFocus copy],
+                [onBlur copy],
+                [onChange copy],
+                [onSubmit copy],
+                [onEnd copy]
             };
         }
     };

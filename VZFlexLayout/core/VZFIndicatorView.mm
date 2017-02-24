@@ -7,6 +7,8 @@
 //
 
 #import "VZFIndicatorView.h"
+#import "VZFIndicatorNode.h"
+#import "UIView+VZAttributes.h"
 
 @implementation VZFIndicatorView
 
@@ -16,6 +18,13 @@
 - (void)willEnterReusePool
 {
     [self stopAnimating];
+}
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    IndicatorNodeSpecs specs = ((VZFIndicatorNode *)node).indicatorSpecs;
+    self.color = specs.color;
+    self.transform = CGAffineTransformMakeScale(self.frame.size.width / 20, self.frame.size.height / 20);
+    [self startAnimating];
 }
 
 @end

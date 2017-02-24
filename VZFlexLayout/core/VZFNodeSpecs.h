@@ -41,6 +41,11 @@
 using namespace VZ;
 namespace VZ {
     
+    namespace DefaultControlAttrValue {
+        extern BOOL able;
+        extern BOOL disable;
+    }
+    
     namespace DefaultAttributesValue{
         extern int userInteractionEnabled;
         extern UIColor* backgroundColor;
@@ -78,6 +83,8 @@ namespace VZ {
         extern float alpha;
         
         extern int isAccessibilityElement;
+        
+        extern NSUInteger uintMax;
 
     };
     

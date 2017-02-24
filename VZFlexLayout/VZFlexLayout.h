@@ -31,6 +31,8 @@ FOUNDATION_EXPORT const unsigned char VZFlexLayoutVersionString[];
 #import <VZFlexlayout/VZFTextNodeSpecs.h>
 #import <VZFlexlayout/VZFTextFieldNode.h>
 #import <VZFlexlayout/VZFTextFieldNodeSpecs.h>
+#import <VZFlexlayout/VZFTextViewNode.h>
+#import <VZFlexlayout/VZFTextViewNodeSpecs.h>
 #import <VZFlexlayout/VZFButtonNode.h>
 #import <VZFlexlayout/VZFButtonNodeSpecs.h>
 #import <VZFlexlayout/VZFImageNode.h>
@@ -41,6 +43,16 @@ FOUNDATION_EXPORT const unsigned char VZFlexLayoutVersionString[];
 #import <VZFlexlayout/VZFScrollNodeSpecs.h>
 #import <VZFlexlayout/VZFPagingNode.h>
 #import <VZFlexlayout/VZFPagingNodeSpecs.h>
+#import <VZFlexlayout/VZFSwitchNode.h>
+#import <VZFlexlayout/VZFSwitchNodeSpecs.h>
+#import <VZFlexlayout/VZFPickerNode.h>
+#import <VZFlexlayout/VZFPickerNodeSpecs.h>
+#import <VZFlexlayout/VZFSegmentedControlNode.h>
+#import <VZFlexlayout/VZFSegmentedControlNodeSpecs.h>
+#import <VZFlexlayout/VZFWebViewNode.h>
+#import <VZFlexlayout/VZFWebViewNodeSpecs.h>
+#import <VZFlexlayout/VZFMapViewNode.h>
+#import <VZFlexlayout/VZFMapViewNodeSpecs.h>
 #import <VZFlexlayout/VZFNodeProvider.h>
 #import <VZFlexlayout/VZFMacros.h>
 #import <VZFlexlayout/VZFNodeViewManager.h>

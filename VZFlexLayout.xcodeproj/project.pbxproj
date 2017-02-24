@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E414B701E54782C00F84302 /* VZFPickerView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B6F1E54782C00F84302 /* VZFPickerView.mm */; };
+		1E414B731E5479F100F84302 /* VZFSegmentedControlNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E414B711E5479F100F84302 /* VZFSegmentedControlNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E414B741E5479F100F84302 /* VZFSegmentedControlNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B721E5479F100F84302 /* VZFSegmentedControlNodeSpecs.mm */; };
+		1E414B771E547CBC00F84302 /* VZFSegmentedControlNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E414B751E547CBC00F84302 /* VZFSegmentedControlNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E414B781E547CBC00F84302 /* VZFSegmentedControlNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B761E547CBC00F84302 /* VZFSegmentedControlNode.mm */; };
+		1E414B7B1E547DE500F84302 /* VZFSegmentedControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E414B791E547DE500F84302 /* VZFSegmentedControl.h */; };
+		1E414B7C1E547DE500F84302 /* VZFSegmentedControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B7A1E547DE500F84302 /* VZFSegmentedControl.mm */; };
+		1E414B821E5557E800F84302 /* VZFSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E414B801E5557E800F84302 /* VZFSwitch.h */; };
+		1E414B831E5557E800F84302 /* VZFSwitch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B811E5557E800F84302 /* VZFSwitch.mm */; };
+		1E414B861E55999900F84302 /* VZFWebViewNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E414B841E55999900F84302 /* VZFWebViewNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E414B871E55999900F84302 /* VZFWebViewNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B851E55999900F84302 /* VZFWebViewNodeSpecs.mm */; };
+		1E414B8A1E559A1000F84302 /* VZFWebViewNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E414B881E559A1000F84302 /* VZFWebViewNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E414B8B1E559A1000F84302 /* VZFWebViewNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B891E559A1000F84302 /* VZFWebViewNode.mm */; };
+		1E414B911E55AADB00F84302 /* VZFWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E414B8F1E55AADB00F84302 /* VZFWebView.h */; };
+		1E414B921E55AADB00F84302 /* VZFWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B901E55AADB00F84302 /* VZFWebView.mm */; };
 		1E715EC21E49C81100D76806 /* VZFBackingViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715EBF1E49C81100D76806 /* VZFBackingViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E715EC31E49C81100D76806 /* VZFBaseRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715EC01E49C81100D76806 /* VZFBaseRenderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E715EC41E49C81100D76806 /* VZFBaseRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715EC11E49C81100D76806 /* VZFBaseRenderer.mm */; };
@@ -28,6 +43,26 @@
 		1E715EE91E49C83600D76806 /* VZFImageNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ED71E49C83600D76806 /* VZFImageNodeBackingView.mm */; };
 		1E715EEA1E49C83600D76806 /* VZFImageNodeRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ED81E49C83600D76806 /* VZFImageNodeRenderer.h */; };
 		1E715EEB1E49C83600D76806 /* VZFImageNodeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ED91E49C83600D76806 /* VZFImageNodeRenderer.mm */; };
+		1EAC53021E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC53001E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EAC53031E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53011E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm */; };
+		1EAC53261E5B1A02009C4C57 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EAC53251E5B1A02009C4C57 /* MapKit.framework */; };
+		1EAC53291E5B1A1E009C4C57 /* VZFMapView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC53271E5B1A1E009C4C57 /* VZFMapView.h */; };
+		1EAC532A1E5B1A1E009C4C57 /* VZFMapView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53281E5B1A1E009C4C57 /* VZFMapView.mm */; };
+		1EAC532D1E5B1A51009C4C57 /* VZFMapViewNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC532B1E5B1A51009C4C57 /* VZFMapViewNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EAC532E1E5B1A51009C4C57 /* VZFMapViewNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC532C1E5B1A51009C4C57 /* VZFMapViewNode.mm */; };
+		1EAC53331E5BE900009C4C57 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EAC53321E5BE900009C4C57 /* CoreLocation.framework */; };
+		1EAC53351E5BE907009C4C57 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EAC53341E5BE907009C4C57 /* UIKit.framework */; };
+		1EAC53391E5C1A68009C4C57 /* VZFMapAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC53371E5C1A68009C4C57 /* VZFMapAnnotation.h */; };
+		1EAC533A1E5C1A68009C4C57 /* VZFMapAnnotation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53381E5C1A68009C4C57 /* VZFMapAnnotation.mm */; };
+		1EAC534D1E5D6CC5009C4C57 /* VZFMapOverlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC534B1E5D6CC5009C4C57 /* VZFMapOverlay.h */; };
+		1EAC534E1E5D6CC5009C4C57 /* VZFMapOverlay.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC534C1E5D6CC5009C4C57 /* VZFMapOverlay.mm */; };
+		1EAC535F1E5D8EBA009C4C57 /* VZFLineView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC535E1E5D8EBA009C4C57 /* VZFLineView.mm */; };
+		1EAC53641E5EBEA7009C4C57 /* VZFTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC53621E5EBEA7009C4C57 /* VZFTextView.h */; };
+		1EAC53651E5EBEA7009C4C57 /* VZFTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53631E5EBEA7009C4C57 /* VZFTextView.mm */; };
+		1EAC53681E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC53661E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.h */; };
+		1EAC53691E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53671E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.mm */; };
+		1EAC536C1E5EC043009C4C57 /* VZFTextViewNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC536A1E5EC043009C4C57 /* VZFTextViewNode.h */; };
+		1EAC536D1E5EC043009C4C57 /* VZFTextViewNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC536B1E5EC043009C4C57 /* VZFTextViewNode.mm */; };
 		1EEC19B11E27BF9600EBF0CC /* VZFlexLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19AF1E27BF9600EBF0CC /* VZFlexLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A4A1E27BFAD00EBF0CC /* UIView+VZAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19B81E27BFAD00EBF0CC /* UIView+VZAttributes.h */; };
 		1EEC1A4B1E27BFAD00EBF0CC /* UIView+VZAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19B91E27BFAD00EBF0CC /* UIView+VZAttributes.mm */; };
@@ -44,7 +79,7 @@
 		1EEC1A561E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19C41E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A571E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19C51E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.mm */; };
 		1EEC1A581E27BFAD00EBF0CC /* VZFIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19C61E27BFAD00EBF0CC /* VZFIndicatorView.h */; };
-		1EEC1A591E27BFAD00EBF0CC /* VZFIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19C71E27BFAD00EBF0CC /* VZFIndicatorView.m */; };
+		1EEC1A591E27BFAD00EBF0CC /* VZFIndicatorView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19C71E27BFAD00EBF0CC /* VZFIndicatorView.mm */; };
 		1EEC1A5A1E27BFAD00EBF0CC /* VZFLength.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19C81E27BFAD00EBF0CC /* VZFLength.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A5B1E27BFAD00EBF0CC /* VZFLength.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19C91E27BFAD00EBF0CC /* VZFLength.mm */; };
 		1EEC1A5C1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19CA1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.h */; };
@@ -54,7 +89,6 @@
 		1EEC1A601E27BFAD00EBF0CC /* VZFLineNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19CE1E27BFAD00EBF0CC /* VZFLineNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A611E27BFAD00EBF0CC /* VZFLineNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19CF1E27BFAD00EBF0CC /* VZFLineNodeSpecs.mm */; };
 		1EEC1A621E27BFAD00EBF0CC /* VZFLineView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19D01E27BFAD00EBF0CC /* VZFLineView.h */; };
-		1EEC1A631E27BFAD00EBF0CC /* VZFLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19D11E27BFAD00EBF0CC /* VZFLineView.m */; };
 		1EEC1A641E27BFAD00EBF0CC /* VZFLocker.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19D21E27BFAD00EBF0CC /* VZFLocker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A651E27BFAD00EBF0CC /* VZFMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19D31E27BFAD00EBF0CC /* VZFMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A661E27BFAD00EBF0CC /* VZFNetworkImageDownloadProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19D41E27BFAD00EBF0CC /* VZFNetworkImageDownloadProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -94,9 +128,7 @@
 		1EEC1A881E27BFAD00EBF0CC /* VZFStackView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19F61E27BFAD00EBF0CC /* VZFStackView.mm */; };
 		1EEC1A891E27BFAD00EBF0CC /* VZFStateUpdateMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19F71E27BFAD00EBF0CC /* VZFStateUpdateMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A8A1E27BFAD00EBF0CC /* VZFTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19F81E27BFAD00EBF0CC /* VZFTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EEC1A8B1E27BFAD00EBF0CC /* VZFTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19F91E27BFAD00EBF0CC /* VZFTextField.m */; };
-		1EEC1A8C1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19FA1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1EEC1A8D1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19FB1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m */; };
+		1EEC1A8B1E27BFAD00EBF0CC /* VZFTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19F91E27BFAD00EBF0CC /* VZFTextField.mm */; };
 		1EEC1A8E1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19FC1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1A8F1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC19FD1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.mm */; };
 		1EEC1A901E27BFAD00EBF0CC /* VZFTextNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC19FE1E27BFAD00EBF0CC /* VZFTextNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -165,9 +197,33 @@
 		1EEC1ACF1E27BFAD00EBF0CC /* VZFTextNodeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1A461E27BFAD00EBF0CC /* VZFTextNodeRenderer.mm */; };
 		1EEC1AD01E27BFAD00EBF0CC /* VZFNodeListItemRecycler.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEC1A481E27BFAD00EBF0CC /* VZFNodeListItemRecycler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEC1AD11E27BFAD00EBF0CC /* VZFNodeListItemRecycler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1A491E27BFAD00EBF0CC /* VZFNodeListItemRecycler.mm */; };
+		1EEE54E01E51AF8300585DF8 /* VZFSwitchNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEE54DE1E51AF8300585DF8 /* VZFSwitchNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EEE54E11E51AF8300585DF8 /* VZFSwitchNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEE54DF1E51AF8300585DF8 /* VZFSwitchNodeSpecs.mm */; };
+		1EEE54EB1E52D74900585DF8 /* VZFSwitchNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEE54E91E52D74900585DF8 /* VZFSwitchNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EEE54EC1E52D74900585DF8 /* VZFSwitchNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEE54EA1E52D74900585DF8 /* VZFSwitchNode.mm */; };
+		1EEE54EF1E52D79700585DF8 /* VZFPickerNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEE54ED1E52D79700585DF8 /* VZFPickerNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EEE54F01E52D79700585DF8 /* VZFPickerNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEE54EE1E52D79700585DF8 /* VZFPickerNodeSpecs.mm */; };
+		1EEE54F31E52D87100585DF8 /* VZFPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEE54F11E52D87100585DF8 /* VZFPickerView.h */; };
+		1EEE54F71E52D89300585DF8 /* VZFPickerNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEE54F51E52D89300585DF8 /* VZFPickerNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EEE54F81E52D89300585DF8 /* VZFPickerNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEE54F61E52D89300585DF8 /* VZFPickerNode.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E414B6F1E54782C00F84302 /* VZFPickerView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFPickerView.mm; sourceTree = "<group>"; };
+		1E414B711E5479F100F84302 /* VZFSegmentedControlNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFSegmentedControlNodeSpecs.h; sourceTree = "<group>"; };
+		1E414B721E5479F100F84302 /* VZFSegmentedControlNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFSegmentedControlNodeSpecs.mm; sourceTree = "<group>"; };
+		1E414B751E547CBC00F84302 /* VZFSegmentedControlNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFSegmentedControlNode.h; sourceTree = "<group>"; };
+		1E414B761E547CBC00F84302 /* VZFSegmentedControlNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFSegmentedControlNode.mm; sourceTree = "<group>"; };
+		1E414B791E547DE500F84302 /* VZFSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFSegmentedControl.h; sourceTree = "<group>"; };
+		1E414B7A1E547DE500F84302 /* VZFSegmentedControl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFSegmentedControl.mm; sourceTree = "<group>"; };
+		1E414B801E5557E800F84302 /* VZFSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFSwitch.h; sourceTree = "<group>"; };
+		1E414B811E5557E800F84302 /* VZFSwitch.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFSwitch.mm; sourceTree = "<group>"; };
+		1E414B841E55999900F84302 /* VZFWebViewNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFWebViewNodeSpecs.h; sourceTree = "<group>"; };
+		1E414B851E55999900F84302 /* VZFWebViewNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFWebViewNodeSpecs.mm; sourceTree = "<group>"; };
+		1E414B881E559A1000F84302 /* VZFWebViewNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFWebViewNode.h; sourceTree = "<group>"; };
+		1E414B891E559A1000F84302 /* VZFWebViewNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFWebViewNode.mm; sourceTree = "<group>"; };
+		1E414B8F1E55AADB00F84302 /* VZFWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFWebView.h; sourceTree = "<group>"; };
+		1E414B901E55AADB00F84302 /* VZFWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFWebView.mm; sourceTree = "<group>"; };
 		1E715EBF1E49C81100D76806 /* VZFBackingViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBackingViewProtocol.h; sourceTree = "<group>"; };
 		1E715EC01E49C81100D76806 /* VZFBaseRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBaseRenderer.h; sourceTree = "<group>"; };
 		1E715EC11E49C81100D76806 /* VZFBaseRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFBaseRenderer.mm; sourceTree = "<group>"; };
@@ -189,6 +245,27 @@
 		1E715ED71E49C83600D76806 /* VZFImageNodeBackingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFImageNodeBackingView.mm; sourceTree = "<group>"; };
 		1E715ED81E49C83600D76806 /* VZFImageNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeRenderer.h; sourceTree = "<group>"; };
 		1E715ED91E49C83600D76806 /* VZFImageNodeRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFImageNodeRenderer.mm; sourceTree = "<group>"; };
+		1EAC53001E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapViewNodeSpecs.h; sourceTree = "<group>"; };
+		1EAC53011E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapViewNodeSpecs.mm; sourceTree = "<group>"; };
+		1EAC53251E5B1A02009C4C57 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		1EAC53271E5B1A1E009C4C57 /* VZFMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapView.h; sourceTree = "<group>"; };
+		1EAC53281E5B1A1E009C4C57 /* VZFMapView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapView.mm; sourceTree = "<group>"; };
+		1EAC532B1E5B1A51009C4C57 /* VZFMapViewNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapViewNode.h; sourceTree = "<group>"; };
+		1EAC532C1E5B1A51009C4C57 /* VZFMapViewNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapViewNode.mm; sourceTree = "<group>"; };
+		1EAC53321E5BE900009C4C57 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1EAC53341E5BE907009C4C57 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1EAC53371E5C1A68009C4C57 /* VZFMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapAnnotation.h; sourceTree = "<group>"; };
+		1EAC53381E5C1A68009C4C57 /* VZFMapAnnotation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapAnnotation.mm; sourceTree = "<group>"; };
+		1EAC534B1E5D6CC5009C4C57 /* VZFMapOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapOverlay.h; sourceTree = "<group>"; };
+		1EAC534C1E5D6CC5009C4C57 /* VZFMapOverlay.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFMapOverlay.mm; sourceTree = "<group>"; };
+		1EAC535E1E5D8EBA009C4C57 /* VZFLineView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLineView.mm; sourceTree = "<group>"; };
+		1EAC53621E5EBEA7009C4C57 /* VZFTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextView.h; sourceTree = "<group>"; };
+		1EAC53631E5EBEA7009C4C57 /* VZFTextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextView.mm; sourceTree = "<group>"; };
+		1EAC53661E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextViewNodeSpecs.h; sourceTree = "<group>"; };
+		1EAC53671E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextViewNodeSpecs.mm; sourceTree = "<group>"; };
+		1EAC536A1E5EC043009C4C57 /* VZFTextViewNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextViewNode.h; sourceTree = "<group>"; };
+		1EAC536B1E5EC043009C4C57 /* VZFTextViewNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextViewNode.mm; sourceTree = "<group>"; };
+		1EAC536E1E5EC9C3009C4C57 /* VZFEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFEvent.h; sourceTree = "<group>"; };
 		1EEC19AC1E27BF9600EBF0CC /* VZFlexLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = VZFlexLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EEC19AF1E27BF9600EBF0CC /* VZFlexLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFlexLayout.h; sourceTree = "<group>"; };
 		1EEC19B01E27BF9600EBF0CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -207,7 +284,7 @@
 		1EEC19C41E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFIndicatorNodeSpecs.h; sourceTree = "<group>"; };
 		1EEC19C51E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFIndicatorNodeSpecs.mm; sourceTree = "<group>"; };
 		1EEC19C61E27BFAD00EBF0CC /* VZFIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFIndicatorView.h; sourceTree = "<group>"; };
-		1EEC19C71E27BFAD00EBF0CC /* VZFIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFIndicatorView.m; sourceTree = "<group>"; };
+		1EEC19C71E27BFAD00EBF0CC /* VZFIndicatorView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFIndicatorView.mm; sourceTree = "<group>"; };
 		1EEC19C81E27BFAD00EBF0CC /* VZFLength.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLength.h; sourceTree = "<group>"; };
 		1EEC19C91E27BFAD00EBF0CC /* VZFLength.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLength.mm; sourceTree = "<group>"; };
 		1EEC19CA1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VZFlexNode+VZFNode.h"; sourceTree = "<group>"; };
@@ -217,7 +294,6 @@
 		1EEC19CE1E27BFAD00EBF0CC /* VZFLineNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLineNodeSpecs.h; sourceTree = "<group>"; };
 		1EEC19CF1E27BFAD00EBF0CC /* VZFLineNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLineNodeSpecs.mm; sourceTree = "<group>"; };
 		1EEC19D01E27BFAD00EBF0CC /* VZFLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLineView.h; sourceTree = "<group>"; };
-		1EEC19D11E27BFAD00EBF0CC /* VZFLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFLineView.m; sourceTree = "<group>"; };
 		1EEC19D21E27BFAD00EBF0CC /* VZFLocker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLocker.h; sourceTree = "<group>"; };
 		1EEC19D31E27BFAD00EBF0CC /* VZFMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMacros.h; sourceTree = "<group>"; };
 		1EEC19D41E27BFAD00EBF0CC /* VZFNetworkImageDownloadProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNetworkImageDownloadProtocol.h; sourceTree = "<group>"; };
@@ -257,9 +333,7 @@
 		1EEC19F61E27BFAD00EBF0CC /* VZFStackView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFStackView.mm; sourceTree = "<group>"; };
 		1EEC19F71E27BFAD00EBF0CC /* VZFStateUpdateMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFStateUpdateMode.h; sourceTree = "<group>"; };
 		1EEC19F81E27BFAD00EBF0CC /* VZFTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextField.h; sourceTree = "<group>"; };
-		1EEC19F91E27BFAD00EBF0CC /* VZFTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFTextField.m; sourceTree = "<group>"; };
-		1EEC19FA1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextFieldEventHandler.h; sourceTree = "<group>"; };
-		1EEC19FB1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFTextFieldEventHandler.m; sourceTree = "<group>"; };
+		1EEC19F91E27BFAD00EBF0CC /* VZFTextField.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextField.mm; sourceTree = "<group>"; };
 		1EEC19FC1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextFieldNodeSpecs.h; sourceTree = "<group>"; };
 		1EEC19FD1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextFieldNodeSpecs.mm; sourceTree = "<group>"; };
 		1EEC19FE1E27BFAD00EBF0CC /* VZFTextNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeSpecs.h; sourceTree = "<group>"; };
@@ -328,6 +402,15 @@
 		1EEC1A461E27BFAD00EBF0CC /* VZFTextNodeRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextNodeRenderer.mm; sourceTree = "<group>"; };
 		1EEC1A481E27BFAD00EBF0CC /* VZFNodeListItemRecycler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFNodeListItemRecycler.h; sourceTree = "<group>"; };
 		1EEC1A491E27BFAD00EBF0CC /* VZFNodeListItemRecycler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeListItemRecycler.mm; sourceTree = "<group>"; };
+		1EEE54DE1E51AF8300585DF8 /* VZFSwitchNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFSwitchNodeSpecs.h; sourceTree = "<group>"; };
+		1EEE54DF1E51AF8300585DF8 /* VZFSwitchNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFSwitchNodeSpecs.mm; sourceTree = "<group>"; };
+		1EEE54E91E52D74900585DF8 /* VZFSwitchNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFSwitchNode.h; sourceTree = "<group>"; };
+		1EEE54EA1E52D74900585DF8 /* VZFSwitchNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFSwitchNode.mm; sourceTree = "<group>"; };
+		1EEE54ED1E52D79700585DF8 /* VZFPickerNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFPickerNodeSpecs.h; sourceTree = "<group>"; };
+		1EEE54EE1E52D79700585DF8 /* VZFPickerNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFPickerNodeSpecs.mm; sourceTree = "<group>"; };
+		1EEE54F11E52D87100585DF8 /* VZFPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFPickerView.h; sourceTree = "<group>"; };
+		1EEE54F51E52D89300585DF8 /* VZFPickerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFPickerNode.h; sourceTree = "<group>"; };
+		1EEE54F61E52D89300585DF8 /* VZFPickerNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFPickerNode.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,6 +418,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EAC53351E5BE907009C4C57 /* UIKit.framework in Frameworks */,
+				1EAC53331E5BE900009C4C57 /* CoreLocation.framework in Frameworks */,
+				1EAC53261E5B1A02009C4C57 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,11 +466,22 @@
 			path = image;
 			sourceTree = "<group>";
 		};
+		1EAC53241E5B1A02009C4C57 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1EAC53341E5BE907009C4C57 /* UIKit.framework */,
+				1EAC53321E5BE900009C4C57 /* CoreLocation.framework */,
+				1EAC53251E5B1A02009C4C57 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1EEC19A21E27BF9600EBF0CC = {
 			isa = PBXGroup;
 			children = (
 				1EEC19AE1E27BF9600EBF0CC /* VZFlexLayout */,
 				1EEC19AD1E27BF9600EBF0CC /* Products */,
+				1EAC53241E5B1A02009C4C57 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -429,7 +526,7 @@
 				1EEC19C41E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.h */,
 				1EEC19C51E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.mm */,
 				1EEC19C61E27BFAD00EBF0CC /* VZFIndicatorView.h */,
-				1EEC19C71E27BFAD00EBF0CC /* VZFIndicatorView.m */,
+				1EEC19C71E27BFAD00EBF0CC /* VZFIndicatorView.mm */,
 				1EEC19C81E27BFAD00EBF0CC /* VZFLength.h */,
 				1EEC19C91E27BFAD00EBF0CC /* VZFLength.mm */,
 				1EEC19CA1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.h */,
@@ -439,7 +536,7 @@
 				1EEC19CE1E27BFAD00EBF0CC /* VZFLineNodeSpecs.h */,
 				1EEC19CF1E27BFAD00EBF0CC /* VZFLineNodeSpecs.mm */,
 				1EEC19D01E27BFAD00EBF0CC /* VZFLineView.h */,
-				1EEC19D11E27BFAD00EBF0CC /* VZFLineView.m */,
+				1EAC535E1E5D8EBA009C4C57 /* VZFLineView.mm */,
 				1EEC19D21E27BFAD00EBF0CC /* VZFLocker.h */,
 				1EEC19D31E27BFAD00EBF0CC /* VZFMacros.h */,
 				1EEC19D41E27BFAD00EBF0CC /* VZFNetworkImageDownloadProtocol.h */,
@@ -479,9 +576,7 @@
 				1EEC19F61E27BFAD00EBF0CC /* VZFStackView.mm */,
 				1EEC19F71E27BFAD00EBF0CC /* VZFStateUpdateMode.h */,
 				1EEC19F81E27BFAD00EBF0CC /* VZFTextField.h */,
-				1EEC19F91E27BFAD00EBF0CC /* VZFTextField.m */,
-				1EEC19FA1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h */,
-				1EEC19FB1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m */,
+				1EEC19F91E27BFAD00EBF0CC /* VZFTextField.mm */,
 				1EEC19FC1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h */,
 				1EEC19FD1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.mm */,
 				1EEC19FE1E27BFAD00EBF0CC /* VZFTextNodeSpecs.h */,
@@ -497,6 +592,35 @@
 				1EEC1A081E27BFAD00EBF0CC /* VZFViewReusePoolManager.mm */,
 				1EEC1A091E27BFAD00EBF0CC /* VZFWeakObjectWrapper.h */,
 				1EEC1A0A1E27BFAD00EBF0CC /* VZFWeakObjectWrapper.m */,
+				1EEE54DE1E51AF8300585DF8 /* VZFSwitchNodeSpecs.h */,
+				1EEE54DF1E51AF8300585DF8 /* VZFSwitchNodeSpecs.mm */,
+				1EEE54ED1E52D79700585DF8 /* VZFPickerNodeSpecs.h */,
+				1EEE54EE1E52D79700585DF8 /* VZFPickerNodeSpecs.mm */,
+				1EEE54F11E52D87100585DF8 /* VZFPickerView.h */,
+				1E414B6F1E54782C00F84302 /* VZFPickerView.mm */,
+				1E414B711E5479F100F84302 /* VZFSegmentedControlNodeSpecs.h */,
+				1E414B721E5479F100F84302 /* VZFSegmentedControlNodeSpecs.mm */,
+				1E414B791E547DE500F84302 /* VZFSegmentedControl.h */,
+				1E414B7A1E547DE500F84302 /* VZFSegmentedControl.mm */,
+				1E414B801E5557E800F84302 /* VZFSwitch.h */,
+				1E414B811E5557E800F84302 /* VZFSwitch.mm */,
+				1E414B841E55999900F84302 /* VZFWebViewNodeSpecs.h */,
+				1E414B851E55999900F84302 /* VZFWebViewNodeSpecs.mm */,
+				1E414B8F1E55AADB00F84302 /* VZFWebView.h */,
+				1E414B901E55AADB00F84302 /* VZFWebView.mm */,
+				1EAC53001E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h */,
+				1EAC53011E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm */,
+				1EAC53271E5B1A1E009C4C57 /* VZFMapView.h */,
+				1EAC53281E5B1A1E009C4C57 /* VZFMapView.mm */,
+				1EAC53371E5C1A68009C4C57 /* VZFMapAnnotation.h */,
+				1EAC53381E5C1A68009C4C57 /* VZFMapAnnotation.mm */,
+				1EAC534B1E5D6CC5009C4C57 /* VZFMapOverlay.h */,
+				1EAC534C1E5D6CC5009C4C57 /* VZFMapOverlay.mm */,
+				1EAC53621E5EBEA7009C4C57 /* VZFTextView.h */,
+				1EAC53631E5EBEA7009C4C57 /* VZFTextView.mm */,
+				1EAC53661E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.h */,
+				1EAC53671E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.mm */,
+				1EAC536E1E5EC9C3009C4C57 /* VZFEvent.h */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -554,6 +678,8 @@
 		1EEC1A1C1E27BFAD00EBF0CC /* node */ = {
 			isa = PBXGroup;
 			children = (
+				1EEE54E91E52D74900585DF8 /* VZFSwitchNode.h */,
+				1EEE54EA1E52D74900585DF8 /* VZFSwitchNode.mm */,
 				1EEC1A1D1E27BFAD00EBF0CC /* VZFButtonNode.h */,
 				1EEC1A1E1E27BFAD00EBF0CC /* VZFButtonNode.mm */,
 				1EEC1A1F1E27BFAD00EBF0CC /* VZFCompositeNode.h */,
@@ -577,6 +703,16 @@
 				1EEC1A311E27BFAD00EBF0CC /* VZFTextFieldNode.mm */,
 				1EEC1A321E27BFAD00EBF0CC /* VZFTextNode.h */,
 				1EEC1A331E27BFAD00EBF0CC /* VZFTextNode.mm */,
+				1EEE54F51E52D89300585DF8 /* VZFPickerNode.h */,
+				1EEE54F61E52D89300585DF8 /* VZFPickerNode.mm */,
+				1E414B751E547CBC00F84302 /* VZFSegmentedControlNode.h */,
+				1E414B761E547CBC00F84302 /* VZFSegmentedControlNode.mm */,
+				1E414B881E559A1000F84302 /* VZFWebViewNode.h */,
+				1E414B891E559A1000F84302 /* VZFWebViewNode.mm */,
+				1EAC532B1E5B1A51009C4C57 /* VZFMapViewNode.h */,
+				1EAC532C1E5B1A51009C4C57 /* VZFMapViewNode.mm */,
+				1EAC536A1E5EC043009C4C57 /* VZFTextViewNode.h */,
+				1EAC536B1E5EC043009C4C57 /* VZFTextViewNode.mm */,
 			);
 			path = node;
 			sourceTree = "<group>";
@@ -649,29 +785,40 @@
 				1E715EE41E49C83600D76806 /* VZFButtonNodeRenderer.h in Headers */,
 				1EEC1A9F1E27BFAD00EBF0CC /* VZFluxAppDispatcher.h in Headers */,
 				1EEC1A9D1E27BFAD00EBF0CC /* VZFluxAction.h in Headers */,
+				1EAC53391E5C1A68009C4C57 /* VZFMapAnnotation.h in Headers */,
 				1EEC1A891E27BFAD00EBF0CC /* VZFStateUpdateMode.h in Headers */,
+				1EEE54F31E52D87100585DF8 /* VZFPickerView.h in Headers */,
 				1EEC1AA51E27BFAD00EBF0CC /* VZFlux.h in Headers */,
 				1EEC1A4C1E27BFAD00EBF0CC /* VZFActionWrapper.h in Headers */,
 				1EEC1AA71E27BFAD00EBF0CC /* FlexLayout.h in Headers */,
 				1EEC1A5A1E27BFAD00EBF0CC /* VZFLength.h in Headers */,
+				1E414B911E55AADB00F84302 /* VZFWebView.h in Headers */,
 				1E715EE81E49C83600D76806 /* VZFImageNodeBackingView.h in Headers */,
 				1EEC1A951E27BFAD00EBF0CC /* VZFValue.h in Headers */,
 				1E715EDA1E49C83600D76806 /* VZFBankNodeRenderer.h in Headers */,
+				1EAC53681E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.h in Headers */,
 				1EEC1A831E27BFAD00EBF0CC /* VZFSizeRange.h in Headers */,
+				1EAC534D1E5D6CC5009C4C57 /* VZFMapOverlay.h in Headers */,
 				1E715EDE1E49C83600D76806 /* VZFBlankNodeBackingView.h in Headers */,
 				1EEC1A721E27BFAD00EBF0CC /* VZFNodeMountContext.h in Headers */,
+				1EAC532D1E5B1A51009C4C57 /* VZFMapViewNode.h in Headers */,
 				1E715EEA1E49C83600D76806 /* VZFImageNodeRenderer.h in Headers */,
+				1EEE54F71E52D89300585DF8 /* VZFPickerNode.h in Headers */,
 				1EEC1A641E27BFAD00EBF0CC /* VZFLocker.h in Headers */,
 				1EEC1A661E27BFAD00EBF0CC /* VZFNetworkImageDownloadProtocol.h in Headers */,
+				1E414B771E547CBC00F84302 /* VZFSegmentedControlNode.h in Headers */,
 				1EEC1A931E27BFAD00EBF0CC /* VZFUtils.h in Headers */,
 				1EEC1A5E1E27BFAD00EBF0CC /* VZFlexNode.h in Headers */,
+				1E414B8A1E559A1000F84302 /* VZFWebViewNode.h in Headers */,
 				1EEC1A791E27BFAD00EBF0CC /* VZFNodeViewManager.h in Headers */,
 				1EEC1A651E27BFAD00EBF0CC /* VZFMacros.h in Headers */,
 				1EEC1AB61E27BFAD00EBF0CC /* VZFPagingNode.h in Headers */,
 				1EEC1A7B1E27BFAD00EBF0CC /* VZFPagingNodeSpecs.h in Headers */,
+				1E414B7B1E547DE500F84302 /* VZFSegmentedControl.h in Headers */,
 				1EEC1AB81E27BFAD00EBF0CC /* VZFScrollNode.h in Headers */,
 				1EEC1A7F1E27BFAD00EBF0CC /* VZFScrollNodeSpecs.h in Headers */,
 				1EEC1A561E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.h in Headers */,
+				1EEE54E01E51AF8300585DF8 /* VZFSwitchNodeSpecs.h in Headers */,
 				1EEC1AAF1E27BFAD00EBF0CC /* VZFIndicatorNode.h in Headers */,
 				1EEC1A541E27BFAD00EBF0CC /* VZFImageNodeSpecs.h in Headers */,
 				1EEC1AAD1E27BFAD00EBF0CC /* VZFImageNode.h in Headers */,
@@ -681,6 +828,7 @@
 				1E715EE01E49C83600D76806 /* VZFButtonNodeBackingLayer.h in Headers */,
 				1EEC1A901E27BFAD00EBF0CC /* VZFTextNodeSpecs.h in Headers */,
 				1EEC1AB11E27BFAD00EBF0CC /* VZFLineNode.h in Headers */,
+				1EAC536C1E5EC043009C4C57 /* VZFTextViewNode.h in Headers */,
 				1EEC1A601E27BFAD00EBF0CC /* VZFLineNodeSpecs.h in Headers */,
 				1EEC1A851E27BFAD00EBF0CC /* VZFStackNodeSpecs.h in Headers */,
 				1EEC1ABA1E27BFAD00EBF0CC /* VZFStackNode.h in Headers */,
@@ -692,6 +840,7 @@
 				1EEC1AB51E27BFAD00EBF0CC /* VZFNodeRequiredMethods.h in Headers */,
 				1EEC1A6A1E27BFAD00EBF0CC /* VZFNodeHostingView.h in Headers */,
 				1EEC1A731E27BFAD00EBF0CC /* VZFNodeProvider.h in Headers */,
+				1EAC53291E5B1A1E009C4C57 /* VZFMapView.h in Headers */,
 				1EEC1A711E27BFAD00EBF0CC /* VZFNodeLifeCycle.h in Headers */,
 				1EEC1A6F1E27BFAD00EBF0CC /* VZFNodeLayoutManager.h in Headers */,
 				1EEC1A771E27BFAD00EBF0CC /* VZFNodeViewClass.h in Headers */,
@@ -701,8 +850,10 @@
 				1EEC1A8E1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.h in Headers */,
 				1EEC1A521E27BFAD00EBF0CC /* VZFCollectionView.h in Headers */,
 				1EEC1AC51E27BFAD00EBF0CC /* VZFAsyncDrawingTransactionGroup.h in Headers */,
+				1EAC53641E5EBEA7009C4C57 /* VZFTextView.h in Headers */,
 				1EEC1A921E27BFAD00EBF0CC /* VZFunctor.h in Headers */,
 				1EEC1A971E27BFAD00EBF0CC /* VZFViewReusePool.h in Headers */,
+				1E414B731E5479F100F84302 /* VZFSegmentedControlNodeSpecs.h in Headers */,
 				1EEC1AC71E27BFAD00EBF0CC /* VZFAsyncDrawingTransactionInterface.h in Headers */,
 				1EEC1A7D1E27BFAD00EBF0CC /* VZFPagingView.h in Headers */,
 				1EEC1ACA1E27BFAD00EBF0CC /* VZFTextNodeBackingLayer.h in Headers */,
@@ -718,13 +869,17 @@
 				1EEC1A811E27BFAD00EBF0CC /* VZFScrollView.h in Headers */,
 				1EEC1A9B1E27BFAD00EBF0CC /* VZFWeakObjectWrapper.h in Headers */,
 				1EEC1AC81E27BFAD00EBF0CC /* VZFAsyncLayer.h in Headers */,
+				1E414B861E55999900F84302 /* VZFWebViewNodeSpecs.h in Headers */,
 				1E715EC31E49C81100D76806 /* VZFBaseRenderer.h in Headers */,
+				1EAC53021E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h in Headers */,
 				1EEC1A5C1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.h in Headers */,
 				1EEC1A501E27BFAD00EBF0CC /* VZFButtonView.h in Headers */,
-				1EEC1A8C1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.h in Headers */,
+				1EEE54EF1E52D79700585DF8 /* VZFPickerNodeSpecs.h in Headers */,
 				1EEC1AA81E27BFAD00EBF0CC /* khash.h in Headers */,
 				1E715EE61E49C83600D76806 /* VZFImageNodeBackingLayer.h in Headers */,
+				1EEE54EB1E52D74900585DF8 /* VZFSwitchNode.h in Headers */,
 				1EEC1A671E27BFAD00EBF0CC /* VZFNetworkImageView.h in Headers */,
+				1E414B821E5557E800F84302 /* VZFSwitch.h in Headers */,
 				1EEC1ACC1E27BFAD00EBF0CC /* VZFTextNodeBackingView.h in Headers */,
 				1EEC1A8A1E27BFAD00EBF0CC /* VZFTextField.h in Headers */,
 				1EEC19B11E27BF9600EBF0CC /* VZFlexLayout.h in Headers */,
@@ -802,14 +957,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EEC1A981E27BFAD00EBF0CC /* VZFViewReusePool.mm in Sources */,
+				1EAC532E1E5B1A51009C4C57 /* VZFMapViewNode.mm in Sources */,
 				1EEC1A861E27BFAD00EBF0CC /* VZFStackNodeSpecs.mm in Sources */,
+				1EAC53691E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.mm in Sources */,
 				1EEC1A961E27BFAD00EBF0CC /* VZFValue.mm in Sources */,
 				1EEC1A4D1E27BFAD00EBF0CC /* VZFActionWrapper.mm in Sources */,
 				1EEC1AAC1E27BFAD00EBF0CC /* VZFCompositeNode.mm in Sources */,
+				1EEE54F81E52D89300585DF8 /* VZFPickerNode.mm in Sources */,
 				1EEC1A531E27BFAD00EBF0CC /* VZFCollectionView.m in Sources */,
 				1EEC1AB21E27BFAD00EBF0CC /* VZFLineNode.mm in Sources */,
 				1EEC1ACF1E27BFAD00EBF0CC /* VZFTextNodeRenderer.mm in Sources */,
 				1EEC1ABF1E27BFAD00EBF0CC /* VZFTextNode.mm in Sources */,
+				1EAC532A1E5B1A1E009C4C57 /* VZFMapView.mm in Sources */,
 				1EEC1A6E1E27BFAD00EBF0CC /* VZFNodeLayout.mm in Sources */,
 				1EEC1A751E27BFAD00EBF0CC /* VZFNodeSpecs.mm in Sources */,
 				1EEC1A5B1E27BFAD00EBF0CC /* VZFLength.mm in Sources */,
@@ -817,46 +976,59 @@
 				1EEC1ABB1E27BFAD00EBF0CC /* VZFStackNode.mm in Sources */,
 				1E715EE51E49C83600D76806 /* VZFButtonNodeRenderer.mm in Sources */,
 				1E715EE91E49C83600D76806 /* VZFImageNodeBackingView.mm in Sources */,
+				1EAC53651E5EBEA7009C4C57 /* VZFTextView.mm in Sources */,
 				1EEC1AC11E27BFAD00EBF0CC /* VZFAsyncDrawingTransaction.mm in Sources */,
 				1EEC1AB91E27BFAD00EBF0CC /* VZFScrollNode.mm in Sources */,
 				1E715EDF1E49C83600D76806 /* VZFBlankNodeBackingView.mm in Sources */,
 				1EEC1AAE1E27BFAD00EBF0CC /* VZFImageNode.mm in Sources */,
+				1EAC536D1E5EC043009C4C57 /* VZFTextViewNode.mm in Sources */,
 				1EEC1AA61E27BFAD00EBF0CC /* FlexLayout.c in Sources */,
 				1EEC1AC91E27BFAD00EBF0CC /* VZFAsyncLayer.mm in Sources */,
 				1EEC1AB01E27BFAD00EBF0CC /* VZFIndicatorNode.mm in Sources */,
-				1EEC1A8D1E27BFAD00EBF0CC /* VZFTextFieldEventHandler.m in Sources */,
 				1EEC1AA21E27BFAD00EBF0CC /* VZFluxDispatcher.mm in Sources */,
+				1E414B701E54782C00F84302 /* VZFPickerView.mm in Sources */,
 				1EEC1ABD1E27BFAD00EBF0CC /* VZFTextFieldNode.mm in Sources */,
 				1EEC1A5D1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.mm in Sources */,
 				1EEC1A681E27BFAD00EBF0CC /* VZFNetworkImageView.mm in Sources */,
-				1EEC1A8B1E27BFAD00EBF0CC /* VZFTextField.m in Sources */,
+				1EAC53031E5AEE93009C4C57 /* VZFMapViewNodeSpecs.mm in Sources */,
+				1EEC1A8B1E27BFAD00EBF0CC /* VZFTextField.mm in Sources */,
+				1EAC534E1E5D6CC5009C4C57 /* VZFMapOverlay.mm in Sources */,
+				1E414B741E5479F100F84302 /* VZFSegmentedControlNodeSpecs.mm in Sources */,
 				1EEC1AD11E27BFAD00EBF0CC /* VZFNodeListItemRecycler.mm in Sources */,
+				1EEE54EC1E52D74900585DF8 /* VZFSwitchNode.mm in Sources */,
 				1EEC1A511E27BFAD00EBF0CC /* VZFButtonView.mm in Sources */,
 				1E715EE71E49C83600D76806 /* VZFImageNodeBackingLayer.mm in Sources */,
 				1EEC1A881E27BFAD00EBF0CC /* VZFStackView.mm in Sources */,
 				1EEC1A821E27BFAD00EBF0CC /* VZFScrollView.mm in Sources */,
 				1E715EE11E49C83600D76806 /* VZFButtonNodeBackingLayer.m in Sources */,
+				1E414B7C1E547DE500F84302 /* VZFSegmentedControl.mm in Sources */,
 				1EEC1ACB1E27BFAD00EBF0CC /* VZFTextNodeBackingLayer.mm in Sources */,
 				1EEC1A9A1E27BFAD00EBF0CC /* VZFViewReusePoolManager.mm in Sources */,
 				1EEC1A611E27BFAD00EBF0CC /* VZFLineNodeSpecs.mm in Sources */,
-				1EEC1A591E27BFAD00EBF0CC /* VZFIndicatorView.m in Sources */,
+				1EEC1A591E27BFAD00EBF0CC /* VZFIndicatorView.mm in Sources */,
 				1EEC1A7C1E27BFAD00EBF0CC /* VZFPagingNodeSpecs.mm in Sources */,
 				1EEC1AA01E27BFAD00EBF0CC /* VZFluxAppDispatcher.mm in Sources */,
 				1EEC1A6B1E27BFAD00EBF0CC /* VZFNodeHostingView.mm in Sources */,
+				1E414B831E5557E800F84302 /* VZFSwitch.mm in Sources */,
+				1E414B8B1E559A1000F84302 /* VZFWebViewNode.mm in Sources */,
 				1EEC1A7A1E27BFAD00EBF0CC /* VZFNodeViewManager.mm in Sources */,
 				1E715EC41E49C81100D76806 /* VZFBaseRenderer.mm in Sources */,
+				1EEE54F01E52D79700585DF8 /* VZFPickerNodeSpecs.mm in Sources */,
+				1E414B871E55999900F84302 /* VZFWebViewNodeSpecs.mm in Sources */,
 				1EEC1A841E27BFAD00EBF0CC /* VZFSizeRange.mm in Sources */,
 				1EEC1A551E27BFAD00EBF0CC /* VZFImageNodeSpecs.mm in Sources */,
 				1EEC1A781E27BFAD00EBF0CC /* VZFNodeViewClass.mm in Sources */,
 				1EEC1AA41E27BFAD00EBF0CC /* VZFluxStore.mm in Sources */,
+				1E414B781E547CBC00F84302 /* VZFSegmentedControlNode.mm in Sources */,
 				1EEC1A9E1E27BFAD00EBF0CC /* VZFluxAction.mm in Sources */,
 				1EEC1A8F1E27BFAD00EBF0CC /* VZFTextFieldNodeSpecs.mm in Sources */,
 				1EEC1AB41E27BFAD00EBF0CC /* VZFNode.mm in Sources */,
+				1EEE54E11E51AF8300585DF8 /* VZFSwitchNodeSpecs.mm in Sources */,
 				1EEC1AC61E27BFAD00EBF0CC /* VZFAsyncDrawingTransactionGroup.mm in Sources */,
 				1EEC1ACD1E27BFAD00EBF0CC /* VZFTextNodeBackingView.mm in Sources */,
 				1EEC1A7E1E27BFAD00EBF0CC /* VZFPagingView.mm in Sources */,
 				1E715EDB1E49C83600D76806 /* VZFBankNodeRenderer.m in Sources */,
-				1EEC1A631E27BFAD00EBF0CC /* VZFLineView.m in Sources */,
+				1EAC533A1E5C1A68009C4C57 /* VZFMapAnnotation.mm in Sources */,
 				1EEC1A4B1E27BFAD00EBF0CC /* UIView+VZAttributes.mm in Sources */,
 				1EEC1A701E27BFAD00EBF0CC /* VZFNodeLayoutManager.mm in Sources */,
 				1E715EE31E49C83600D76806 /* VZFButtonNodeBackingView.mm in Sources */,
@@ -864,12 +1036,14 @@
 				1E715EDD1E49C83600D76806 /* VZFBlankNodeBackingLayer.m in Sources */,
 				1EEC1A571E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.mm in Sources */,
 				1EEC1AC41E27BFAD00EBF0CC /* VZFAsyncDrawingTransactionContainer.m in Sources */,
+				1E414B921E55AADB00F84302 /* VZFWebView.mm in Sources */,
 				1EEC1AB71E27BFAD00EBF0CC /* VZFPagingNode.mm in Sources */,
 				1EEC1A801E27BFAD00EBF0CC /* VZFScrollNodeSpecs.mm in Sources */,
 				1E715EEB1E49C83600D76806 /* VZFImageNodeRenderer.mm in Sources */,
 				1EEC1A4F1E27BFAD00EBF0CC /* VZFButtonNodeSpecs.mm in Sources */,
 				1EEC1A911E27BFAD00EBF0CC /* VZFTextNodeSpecs.mm in Sources */,
 				1EEC1A5F1E27BFAD00EBF0CC /* VZFlexNode.mm in Sources */,
+				1EAC535F1E5D8EBA009C4C57 /* VZFLineView.mm in Sources */,
 				1EEC1A9C1E27BFAD00EBF0CC /* VZFWeakObjectWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
