@@ -250,8 +250,8 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
             FlexSize measuredSize;
             if (node->measure) {
                 FlexSize childConstrainedSize;
-                childConstrainedSize.size[FLEX_WIDTH] = resolvedWidth != FlexAuto ? resolvedWidth : (constrainedWidth != FlexAuto ? constrainedWidth - flex_inset(node->resolvedPadding, FLEX_WIDTH) : FLT_MAX);
-                childConstrainedSize.size[FLEX_HEIGHT] = resolvedHeight != FlexAuto ? resolvedHeight : (constrainedHeight != FlexAuto ? constrainedHeight - flex_inset(node->resolvedPadding, FLEX_HEIGHT) : FLT_MAX);
+                childConstrainedSize.size[FLEX_WIDTH] = resolvedWidth != FlexAuto ? resolvedWidth - flex_inset(node->resolvedPadding, FLEX_WIDTH) : (constrainedWidth != FlexAuto ? constrainedWidth - flex_inset(node->resolvedPadding, FLEX_WIDTH) : FLT_MAX);
+                childConstrainedSize.size[FLEX_HEIGHT] = resolvedHeight != FlexAuto ? resolvedHeight - flex_inset(node->resolvedPadding, FLEX_HEIGHT) : (constrainedHeight != FlexAuto ? constrainedHeight - flex_inset(node->resolvedPadding, FLEX_HEIGHT) : FLT_MAX);
                 
                 khiter_t itr = kh_get(FlexSize, node->measuredSizeCache, childConstrainedSize);
                 if (itr != kh_end((khash_t(FlexSize)*)node->measuredSizeCache) && kh_exist((khash_t(FlexSize)*)node->measuredSizeCache, itr)) {
