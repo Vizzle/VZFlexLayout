@@ -15,6 +15,7 @@
 @interface VZFTextField () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
+@property (nonatomic, assign) BOOL submitted;
 
 @end
 
@@ -67,6 +68,27 @@
     [super willMoveToSuperview:newSuperview];
 }
 
+- (void)setPlaceholder:(NSString *)placeholder {
+    super.placeholder = placeholder;
+    [self updatePlaceholder];
+}
+
+- (void)setPlaceholderColor:(UIColor *)placeholderColor {
+    _placeholderColor = placeholderColor;
+    [self updatePlaceholder];
+}
+
+- (void)updatePlaceholder {
+    if (self.placeholder.length > 0 && self.placeholderColor) {
+        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.placeholder
+                                                                     attributes:@{
+                                                                                  NSForegroundColorAttributeName : self.placeholderColor
+                                                                                  }];
+    } else if (self.placeholder.length) {
+        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:self.placeholder];
+    }
+}
+
 #pragma mark - Events
 
 - (NSMutableDictionary *)baseEvent {
@@ -93,6 +115,7 @@
 }
 
 - (void)textFieldSubmitEditing {
+    self.submitted = YES;
     if (self.onSubmit) {
         self.onSubmit([self baseEvent]);
     }
@@ -125,6 +148,14 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    if (self.submitted) {
+        self.submitted = NO;
+        return self.blurOnSubmit;
+    }
+    return YES;
+}
+
 - (BOOL)textField:(VZFTextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (self.maxLength == NSUIntegerMax
         || [string isEqualToString:@"\n"]) {
@@ -154,6 +185,7 @@
     self.textColor = specs.color;
     self.textAlignment = specs.alignment;
     self.placeholder = specs.placeholder;
+    self.placeholderColor = specs.placeholderColor ?: [UIColor colorWithWhite:0.7 alpha:1.0];
     self.enabled = specs.editable.value;
     self.secureTextEntry = specs.secureTextEntry;
     self.keyboardType = specs.keyboardType;
@@ -161,12 +193,13 @@
     self.returnKeyType = specs.returnKeyType;
     self.clearButtonMode = specs.clearButtonMode;
     self.maxLength = specs.maxLength.value;
+    self.blurOnSubmit = specs.blurOnSubmit;
+    self.enablesReturnKeyAutomatically = specs.enablesReturnKeyAutomatically.value;
     self.contentInset = node.flexNode.resultPadding;
     self.onFocus = specs.onFocus;
     self.onBlur = specs.onBlur;
     self.onChange = specs.onChange;
     self.onSubmit = specs.onSubmit;
-    self.onKeyPress = specs.onKeyPress;
     self.onEnd = specs.onEnd;
     [self setNeedsLayout];
 }

@@ -17,17 +17,18 @@ namespace VZ {
         UIFont *font;
         NSTextAlignment alignment;
         NSString *placeholder;
+        UIColor *placeholderColor;
         Value<BOOL, DefaultControlAttrValue::able> editable;
         BOOL secureTextEntry;
         UIKeyboardType keyboardType;
         UIKeyboardAppearance keyboardAppearance;
         UIReturnKeyType returnKeyType;
         Value<NSUInteger, DefaultAttributesValue::uintMax> maxLength;
+        Value<BOOL, DefaultControlAttrValue::disable> blurOnSubmit;
         VZFEventBlock onFocus;
         VZFEventBlock onBlur;
         VZFEventBlock onChange;
         VZFEventBlock onSubmit;
-        VZFEventBlock onKeyPress;
         VZFEventBlock onEnd;
         VZFEventBlock onScroll;
         
@@ -38,17 +39,18 @@ namespace VZ {
                 font,
                 alignment,
                 [placeholder copy],
+                placeholderColor,
                 editable,
                 secureTextEntry,
                 keyboardType,
                 keyboardAppearance,
                 returnKeyType,
                 maxLength,
+                blurOnSubmit,
                 [onFocus copy],
                 [onBlur copy],
                 [onChange copy],
                 [onSubmit copy],
-                [onKeyPress copy],
                 [onEnd copy],
                 [onScroll copy]
             };

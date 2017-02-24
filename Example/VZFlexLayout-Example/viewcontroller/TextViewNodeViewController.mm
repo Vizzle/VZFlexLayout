@@ -22,15 +22,18 @@
     } Children:{
         {
             [VZFTextViewNode newWithTextViewAttributes:{
-                .text = @"Hello React",
+                .text = @"",
                 .font = [UIFont systemFontOfSize:20.0f],
                 .color = [UIColor redColor],
+                .placeholder = @"Walalalalala ...",
+                .returnKeyType = UIReturnKeyDone
             } NodeSpecs:{
                 .backgroundColor = [UIColor colorWithWhite:0.9 alpha:1.0],
                 .cornerRadius = 4,
                 .clip = YES,
                 .flexGrow = 1,
-                .padding = 10,
+                .paddingTop = 5,
+                .paddingBottom = 5,
             }]
         }
     }];

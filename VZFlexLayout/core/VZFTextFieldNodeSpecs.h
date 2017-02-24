@@ -19,6 +19,7 @@ namespace VZ {
         UIFont *font;
         NSTextAlignment alignment;
         NSString *placeholder;
+        UIColor *placeholderColor;
         Value<BOOL, DefaultControlAttrValue::able> editable;
         BOOL secureTextEntry;
         UIKeyboardType keyboardType;
@@ -26,11 +27,12 @@ namespace VZ {
         UIReturnKeyType returnKeyType;
         UITextFieldViewMode clearButtonMode;
         Value<NSUInteger, DefaultAttributesValue::uintMax> maxLength;
+        Value<BOOL, DefaultControlAttrValue::able> blurOnSubmit;
+        Value<BOOL, DefaultControlAttrValue::able> enablesReturnKeyAutomatically;
         VZFEventBlock onFocus;
         VZFEventBlock onBlur;
         VZFEventBlock onChange;
         VZFEventBlock onSubmit;
-        VZFEventBlock onKeyPress;
         VZFEventBlock onEnd;
         
         TextFieldNodeSpecs copy() const {
@@ -40,6 +42,7 @@ namespace VZ {
                 font,
                 alignment,
                 [placeholder copy],
+                placeholderColor,
                 editable,
                 secureTextEntry,
                 keyboardType,
@@ -47,11 +50,12 @@ namespace VZ {
                 returnKeyType,
                 clearButtonMode,
                 maxLength,
+                blurOnSubmit,
+                enablesReturnKeyAutomatically,
                 [onFocus copy],
                 [onBlur copy],
                 [onChange copy],
                 [onSubmit copy],
-                [onKeyPress copy],
                 [onEnd copy]
             };
         }
