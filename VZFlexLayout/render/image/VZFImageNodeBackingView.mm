@@ -73,5 +73,18 @@
     }
 }
 
+- (BOOL)isAccessibilityElement {
+    if ([self renderer]) {
+        return [[self renderer] checkIsAccessibilityElement];
+    }
+    return [super isAccessibilityElement];
+}
+
+- (NSString *)accessibilityLabel {
+    if ([self renderer]) {
+        return [[self renderer] compositeAccessibilityLabel];
+    }
+    return [super accessibilityLabel];
+}
 
 @end

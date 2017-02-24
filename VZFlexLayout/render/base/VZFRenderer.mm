@@ -9,6 +9,7 @@
 #import "VZFRenderer.h"
 #import "UIBezierPath+extension.h"
 #import "VZFNode.h"
+#import <stack>
 
 VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
     return (VZFRendererCustomCorner){cornerRadis, cornerRadis, cornerRadis, cornerRadis};
@@ -167,6 +168,10 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
     return [_subRenderers copy];
 }
 
+- (BOOL)hasSubRenderers {
+    return [_subRenderers count] > 0;
+}
+
 - (void)removeFromSuperRenderer {
     [_superRenderer removeSubRenderer:self];
 }
@@ -307,5 +312,84 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
     [_subRenderers removeAllObjects];
 }
 
+#pragma mark - Accessibility
+
+
+- (BOOL)checkIsAccessibilityElement {
+    __block BOOL isAccessibilityElement = NO;
+    
+    [self dfsVisitSelfTree:^(VZFRenderer *renderer, BOOL *stop) {
+        if ([renderer isKindOfClass:[VZFRenderer class]]
+            && [renderer isAccessibilityElement]) {
+            isAccessibilityElement = YES;
+            if (stop) {
+                *stop = YES;
+            }
+        }
+    }];
+    
+    return isAccessibilityElement;
+}
+
+- (NSString *)compositeAccessibilityLabel {
+    NSMutableString *accessibilityLabel = [NSMutableString string];
+    
+    [self dfsVisitSelfTree:^(VZFRenderer *renderer, BOOL *stop) {
+        if ([renderer isKindOfClass:[VZFRenderer class]]
+            && [renderer isAccessibilityElement]
+            && renderer.accessibilityLabel.length > 0) {
+            if (accessibilityLabel.length > 0) {
+                [accessibilityLabel appendString:@" "];
+            }
+            [accessibilityLabel appendString:renderer.accessibilityLabel];
+        }
+    }];
+    
+    return accessibilityLabel.length > 0 ? [accessibilityLabel copy] : nil;
+}
+
+//深度优先遍历当前结点为根的树,包括自己
+- (void)dfsVisitSelfTree:(void (^)(VZFRenderer *renderer, BOOL *stop))action {
+    
+    if (action == NULL) {
+        return;
+    }
+    
+    struct VisitedItem{
+        VZFRenderer* renderer;
+    };
+    
+    std::stack<VisitedItem> stack = {};
+    stack.push({self});
+    
+    //深度优先遍历
+    while (!stack.empty()) {
+        
+        //这里面取引用，因为要改变它的状态
+        VisitedItem& item = stack.top();
+            
+        BOOL stop = NO;
+        
+        action(item.renderer, &stop);
+        
+        if (stop) {
+            break;
+        }
+        
+        //下面2个顺序不能变，否则会有问题,item.renderer会变nil
+        NSArray<__kindof VZFRenderer *> *subRenderers = [item.renderer subRenderers];
+        stack.pop();
+        
+        if ([subRenderers count] > 0) {
+            //倒序
+            for (NSInteger index = [subRenderers count] - 1; index >= 0; --index) {
+                VZFRenderer *subRenderer = [subRenderers objectAtIndex:index];
+                if ([subRenderer isKindOfClass:[VZFRenderer class]]) {
+                    stack.push({subRenderer});
+                }
+            }
+        }
+    }
+}
 
 @end

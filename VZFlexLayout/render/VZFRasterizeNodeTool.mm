@@ -106,6 +106,20 @@
     renderer.borderColor = vs.borderColor;
     renderer.customCorner = vzfRoundedCorner(vs.cornerRadius);
     renderer.clip = vs.clip;
+  
+    BOOL isTextRenderer = [renderer isKindOfClass:[VZFTextNodeRenderer class]];
+    if (vs.isAccessibilityElement != VZF_BOOL_UNDEFINED) {
+        renderer.isAccessibilityElement = vs.isAccessibilityElement;
+    } else {
+        //VZFTextNodeRenderer默认为YES
+        renderer.isAccessibilityElement = isTextRenderer;
+    }
+    
+    renderer.accessibilityLabel = vs.accessibilityLabel;
+    if (renderer.accessibilityLabel.length <= 0
+        && isTextRenderer) {
+        renderer.accessibilityLabel = [[(VZFTextNodeRenderer *)renderer text] string];
+    }
 }
 
 @end

@@ -49,6 +49,8 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis);
 - (nullable VZFRenderer *)superRenderer;
 - (nullable NSArray<__kindof VZFRenderer *> *)subRenderers;
 
+- (BOOL)hasSubRenderers;
+
 - (void)removeFromSuperRenderer;
 
 
@@ -125,5 +127,20 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis);
  */
 - (void)removeAllSubRenderers;
 
+
+@end
+
+
+
+@interface VZFRenderer(Accessibility)
+
+@property (assign, nonatomic) BOOL isAccessibilityElement;
+@property (nullable, nonatomic, copy) NSString *accessibilityLabel;
+
+//检测当前结点树（当前结点及其子孙）是否是AccessibilityElement，只要这些结点中有一个为YES就返回YES
+- (BOOL)checkIsAccessibilityElement;
+
+//检测当前结点树（当前结点及其子孙）中所有isAccessibilityElement为YES的节点，并按照frame拼接这些accessibilityLabel
+- (nullable NSString *)compositeAccessibilityLabel;
 
 @end
