@@ -13,7 +13,6 @@
 
 @property (nonatomic, copy) NSString *identifier;
 @property (nonatomic, strong) UIColor *strokeColor;
-@property (nonatomic, strong) UIColor *fillColor;
 @property (nonatomic, assign) CGFloat lineWidth;
 
 + (instancetype)newWithOverlaySpecs:(const MapOverlaySpecs &)specs;

@@ -32,7 +32,6 @@ namespace VZ {
         NSString *identifier;
         std::vector<CLLocationCoordinate2D> coordinates;
         UIColor *strokeColor;
-        UIColor *fillColor;
         CGFloat lineWidth;
     };
     

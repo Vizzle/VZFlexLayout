@@ -23,7 +23,6 @@
     VZFMapOverlay *overlay = [VZFMapOverlay polylineWithCoordinates:coordinates
                                                               count:index];
     overlay.strokeColor = specs.strokeColor ?: [UIColor blackColor];
-    overlay.fillColor = specs.fillColor ?: [UIColor clearColor];
     overlay.lineWidth = fabs(specs.lineWidth) < FLT_EPSILON ? 1 : specs.lineWidth;
     overlay.identifier = specs.identifier ?: identifier;
     return overlay;
