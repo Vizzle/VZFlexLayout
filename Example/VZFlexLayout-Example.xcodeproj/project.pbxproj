@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		004D9C889E448C13D437106B /* libPods-VZFlexLayout-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1412192AC8BB66F7E1D295D /* libPods-VZFlexLayout-Example.a */; };
-		1E715EFE1E49CAD200D76806 /* VZFlexLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E715EFD1E49CAD200D76806 /* VZFlexLayout.framework */; };
+		1E414B511E52E52200F84302 /* PickerNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B501E52E52200F84302 /* PickerNodeViewController.mm */; };
+		1E414B7F1E55482F00F84302 /* SegmentedControlNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B7E1E55482F00F84302 /* SegmentedControlNodeViewController.mm */; };
+		1E414B8E1E559F1F00F84302 /* BaseNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B8D1E559F1F00F84302 /* BaseNodeViewController.mm */; };
+		1E5617651E5A97A200E47C2E /* WebViewNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E5617641E5A97A200E47C2E /* WebViewNodeViewController.mm */; };
+		1EAC53311E5BDBB7009C4C57 /* MapViewNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53301E5BDBB7009C4C57 /* MapViewNodeViewController.mm */; };
+		1EAC53711E5ECE85009C4C57 /* TextViewNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC53701E5ECE85009C4C57 /* TextViewNodeViewController.mm */; };
 		1EEC1AE11E2871BA00EBF0CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE01E2871BA00EBF0CC /* main.m */; };
 		1EEC1AE41E2871BA00EBF0CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE31E2871BA00EBF0CC /* AppDelegate.m */; };
 		1EEC1AEA1E2871BA00EBF0CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1AE81E2871BA00EBF0CC /* Main.storyboard */; };
@@ -43,20 +47,34 @@
 		1EEC1B5A1E28780200EBF0CC /* FBTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1B2D1E28780200EBF0CC /* FBTableViewController.mm */; };
 		1EEC1B5B1E28780200EBF0CC /* FBTextListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1B2F1E28780200EBF0CC /* FBTextListViewController.mm */; };
 		1EEC1B5C1E28780200EBF0CC /* FBViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1B311E28780200EBF0CC /* FBViewController.mm */; };
+		1EEC1B5D1E28780200EBF0CC /* TextFieldNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1B331E28780200EBF0CC /* TextFieldNodeViewController.mm */; };
 		1EEC1B5E1E28780200EBF0CC /* comment_like@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B351E28780200EBF0CC /* comment_like@2x.png */; };
 		1EEC1B5F1E28780200EBF0CC /* comment_liked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B361E28780200EBF0CC /* comment_liked@2x.png */; };
 		1EEC1B601E28780200EBF0CC /* comment_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B371E28780200EBF0CC /* comment_location@2x.png */; };
 		1EEC1B611E28780200EBF0CC /* comment_reward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B381E28780200EBF0CC /* comment_reward@2x.png */; };
 		1EEC1B621E28780200EBF0CC /* comment_rewarded@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B391E28780200EBF0CC /* comment_rewarded@2x.png */; };
 		1EEC1B631E28780200EBF0CC /* FBNetworkImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1B3B1E28780200EBF0CC /* FBNetworkImageView.mm */; };
-		1EEC1B641E28780200EBF0CC /* FBO2OStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1B3D1E28780200EBF0CC /* FBO2OStarView.m */; };
+		1EEC1B641E28780200EBF0CC /* FBO2OStarView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEC1B3D1E28780200EBF0CC /* FBO2OStarView.mm */; };
 		1EEC1B651E28780200EBF0CC /* heartstone.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B3E1E28780200EBF0CC /* heartstone.jpg */; };
 		1EEC1B661E28780200EBF0CC /* o2o_gray_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B3F1E28780200EBF0CC /* o2o_gray_star@2x.png */; };
 		1EEC1B671E28780200EBF0CC /* o2o_yellow_star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EEC1B401E28780200EBF0CC /* o2o_yellow_star@2x.png */; };
+		1EEE54E81E51B74100585DF8 /* SwitchNodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEE54E71E51B74100585DF8 /* SwitchNodeViewController.mm */; };
+		5BB77A5D90077B6E2102C1B9 /* libPods-VZFlexLayout-Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C1412192AC8BB66F7E1D295D /* libPods-VZFlexLayout-Example.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1E715EFD1E49CAD200D76806 /* VZFlexLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VZFlexLayout.framework; path = "../../../../Library/Developer/Xcode/DerivedData/VZFlexLayout-Example-fcsuqgrbhgojsrclnodmyzvvippj/Build/Products/Debug-iphonesimulator/VZFlexLayout.framework"; sourceTree = "<group>"; };
+		1E414B4F1E52E52200F84302 /* PickerNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerNodeViewController.h; sourceTree = "<group>"; };
+		1E414B501E52E52200F84302 /* PickerNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PickerNodeViewController.mm; sourceTree = "<group>"; };
+		1E414B7D1E55482F00F84302 /* SegmentedControlNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentedControlNodeViewController.h; sourceTree = "<group>"; };
+		1E414B7E1E55482F00F84302 /* SegmentedControlNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SegmentedControlNodeViewController.mm; sourceTree = "<group>"; };
+		1E414B8C1E559F1F00F84302 /* BaseNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNodeViewController.h; sourceTree = "<group>"; };
+		1E414B8D1E559F1F00F84302 /* BaseNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BaseNodeViewController.mm; sourceTree = "<group>"; };
+		1E5617631E5A97A200E47C2E /* WebViewNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewNodeViewController.h; sourceTree = "<group>"; };
+		1E5617641E5A97A200E47C2E /* WebViewNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WebViewNodeViewController.mm; sourceTree = "<group>"; };
+		1EAC532F1E5BDBB7009C4C57 /* MapViewNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewNodeViewController.h; sourceTree = "<group>"; };
+		1EAC53301E5BDBB7009C4C57 /* MapViewNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MapViewNodeViewController.mm; sourceTree = "<group>"; };
+		1EAC536F1E5ECE85009C4C57 /* TextViewNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewNodeViewController.h; sourceTree = "<group>"; };
+		1EAC53701E5ECE85009C4C57 /* TextViewNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextViewNodeViewController.mm; sourceTree = "<group>"; };
 		1EEC1ADC1E2871BA00EBF0CC /* VZFlexLayout-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VZFlexLayout-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EEC1AE01E2871BA00EBF0CC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1EEC1AE21E2871BA00EBF0CC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -121,6 +139,8 @@
 		1EEC1B2F1E28780200EBF0CC /* FBTextListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBTextListViewController.mm; sourceTree = "<group>"; };
 		1EEC1B301E28780200EBF0CC /* FBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBViewController.h; sourceTree = "<group>"; };
 		1EEC1B311E28780200EBF0CC /* FBViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBViewController.mm; sourceTree = "<group>"; };
+		1EEC1B321E28780200EBF0CC /* TextFieldNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldNodeViewController.h; sourceTree = "<group>"; };
+		1EEC1B331E28780200EBF0CC /* TextFieldNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TextFieldNodeViewController.mm; sourceTree = "<group>"; };
 		1EEC1B351E28780200EBF0CC /* comment_like@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_like@2x.png"; sourceTree = "<group>"; };
 		1EEC1B361E28780200EBF0CC /* comment_liked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_liked@2x.png"; sourceTree = "<group>"; };
 		1EEC1B371E28780200EBF0CC /* comment_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "comment_location@2x.png"; sourceTree = "<group>"; };
@@ -129,10 +149,12 @@
 		1EEC1B3A1E28780200EBF0CC /* FBNetworkImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBNetworkImageView.h; sourceTree = "<group>"; };
 		1EEC1B3B1E28780200EBF0CC /* FBNetworkImageView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBNetworkImageView.mm; sourceTree = "<group>"; };
 		1EEC1B3C1E28780200EBF0CC /* FBO2OStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBO2OStarView.h; sourceTree = "<group>"; };
-		1EEC1B3D1E28780200EBF0CC /* FBO2OStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBO2OStarView.m; sourceTree = "<group>"; };
+		1EEC1B3D1E28780200EBF0CC /* FBO2OStarView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FBO2OStarView.mm; sourceTree = "<group>"; };
 		1EEC1B3E1E28780200EBF0CC /* heartstone.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = heartstone.jpg; sourceTree = "<group>"; };
 		1EEC1B3F1E28780200EBF0CC /* o2o_gray_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "o2o_gray_star@2x.png"; sourceTree = "<group>"; };
 		1EEC1B401E28780200EBF0CC /* o2o_yellow_star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "o2o_yellow_star@2x.png"; sourceTree = "<group>"; };
+		1EEE54E61E51B74100585DF8 /* SwitchNodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchNodeViewController.h; sourceTree = "<group>"; };
+		1EEE54E71E51B74100585DF8 /* SwitchNodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SwitchNodeViewController.mm; sourceTree = "<group>"; };
 		4582292E1E2B738C002F41FD /* FBSampleActionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBSampleActionType.h; sourceTree = "<group>"; };
 		8E5005A69355CC7E5A0677A0 /* Pods-VZFlexLayout-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout-Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout-Example/Pods-VZFlexLayout-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B2D5C5D59412DA61279F6AEC /* Pods-VZFlexLayout-Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexLayout-Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexLayout-Example/Pods-VZFlexLayout-Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,8 +166,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E715EFE1E49CAD200D76806 /* VZFlexLayout.framework in Frameworks */,
-				004D9C889E448C13D437106B /* libPods-VZFlexLayout-Example.a in Frameworks */,
+				5BB77A5D90077B6E2102C1B9 /* libPods-VZFlexLayout-Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +207,8 @@
 				1EEC1AED1E2871BA00EBF0CC /* LaunchScreen.storyboard */,
 				1EEC1AF01E2871BA00EBF0CC /* Info.plist */,
 				1EEC1ADF1E2871BA00EBF0CC /* Supporting Files */,
+				1E414B8C1E559F1F00F84302 /* BaseNodeViewController.h */,
+				1E414B8D1E559F1F00F84302 /* BaseNodeViewController.mm */,
 			);
 			path = "VZFlexLayout-Example";
 			sourceTree = "<group>";
@@ -270,6 +293,20 @@
 				1EEC1B2F1E28780200EBF0CC /* FBTextListViewController.mm */,
 				1EEC1B301E28780200EBF0CC /* FBViewController.h */,
 				1EEC1B311E28780200EBF0CC /* FBViewController.mm */,
+				1EEC1B321E28780200EBF0CC /* TextFieldNodeViewController.h */,
+				1EEC1B331E28780200EBF0CC /* TextFieldNodeViewController.mm */,
+				1EEE54E61E51B74100585DF8 /* SwitchNodeViewController.h */,
+				1EEE54E71E51B74100585DF8 /* SwitchNodeViewController.mm */,
+				1E414B4F1E52E52200F84302 /* PickerNodeViewController.h */,
+				1E414B501E52E52200F84302 /* PickerNodeViewController.mm */,
+				1E414B7D1E55482F00F84302 /* SegmentedControlNodeViewController.h */,
+				1E414B7E1E55482F00F84302 /* SegmentedControlNodeViewController.mm */,
+				1E5617631E5A97A200E47C2E /* WebViewNodeViewController.h */,
+				1E5617641E5A97A200E47C2E /* WebViewNodeViewController.mm */,
+				1EAC532F1E5BDBB7009C4C57 /* MapViewNodeViewController.h */,
+				1EAC53301E5BDBB7009C4C57 /* MapViewNodeViewController.mm */,
+				1EAC536F1E5ECE85009C4C57 /* TextViewNodeViewController.h */,
+				1EAC53701E5ECE85009C4C57 /* TextViewNodeViewController.mm */,
 			);
 			path = viewcontroller;
 			sourceTree = "<group>";
@@ -285,7 +322,7 @@
 				1EEC1B3A1E28780200EBF0CC /* FBNetworkImageView.h */,
 				1EEC1B3B1E28780200EBF0CC /* FBNetworkImageView.mm */,
 				1EEC1B3C1E28780200EBF0CC /* FBO2OStarView.h */,
-				1EEC1B3D1E28780200EBF0CC /* FBO2OStarView.m */,
+				1EEC1B3D1E28780200EBF0CC /* FBO2OStarView.mm */,
 				1EEC1B3E1E28780200EBF0CC /* heartstone.jpg */,
 				1EEC1B3F1E28780200EBF0CC /* o2o_gray_star@2x.png */,
 				1EEC1B401E28780200EBF0CC /* o2o_yellow_star@2x.png */,
@@ -305,7 +342,6 @@
 		69DD1D3CA81BA31D91ACFCA4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1E715EFD1E49CAD200D76806 /* VZFlexLayout.framework */,
 				C1412192AC8BB66F7E1D295D /* libPods-VZFlexLayout-Example.a */,
 			);
 			name = Frameworks;
@@ -444,18 +480,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EEC1B641E28780200EBF0CC /* FBO2OStarView.m in Sources */,
+				1EEC1B641E28780200EBF0CC /* FBO2OStarView.mm in Sources */,
 				1EEC1B581E28780200EBF0CC /* FBTextNode.mm in Sources */,
 				1EEC1AF81E2876F100EBF0CC /* PortalViewController.mm in Sources */,
 				1EEC1B531E28780200EBF0CC /* FBSampleNode.mm in Sources */,
 				1EEC1B571E28780200EBF0CC /* FBStarNode.mm in Sources */,
 				1EEC1AE41E2871BA00EBF0CC /* AppDelegate.m in Sources */,
 				1EEC1B631E28780200EBF0CC /* FBNetworkImageView.mm in Sources */,
+				1EAC53311E5BDBB7009C4C57 /* MapViewNodeViewController.mm in Sources */,
 				1EEC1B5A1E28780200EBF0CC /* FBTableViewController.mm in Sources */,
+				1E5617651E5A97A200E47C2E /* WebViewNodeViewController.mm in Sources */,
 				1EEC1B511E28780200EBF0CC /* FBLocationNode.mm in Sources */,
+				1E414B8E1E559F1F00F84302 /* BaseNodeViewController.mm in Sources */,
 				1EEC1B4A1E28780200EBF0CC /* FBClickNode.mm in Sources */,
 				1EEC1B521E28780200EBF0CC /* FBNameNode.mm in Sources */,
 				1EEC1B441E28780200EBF0CC /* FBSampleStore.mm in Sources */,
+				1EEE54E81E51B74100585DF8 /* SwitchNodeViewController.mm in Sources */,
 				1EEC1B491E28780200EBF0CC /* FBActionNodes.mm in Sources */,
 				1EEC1B551E28780200EBF0CC /* FBScrollNode.mm in Sources */,
 				1EEC1B561E28780200EBF0CC /* FBSearchListNode.mm in Sources */,
@@ -466,11 +506,15 @@
 				1EEC1AE11E2871BA00EBF0CC /* main.m in Sources */,
 				1EEC1B4B1E28780200EBF0CC /* FBClickToExpendNode.mm in Sources */,
 				1EEC1B4F1E28780200EBF0CC /* FBHostNode.mm in Sources */,
+				1E414B7F1E55482F00F84302 /* SegmentedControlNodeViewController.mm in Sources */,
 				1EEC1B4C1E28780200EBF0CC /* FBContentNode.mm in Sources */,
+				1EAC53711E5ECE85009C4C57 /* TextViewNodeViewController.mm in Sources */,
 				1EEC1B411E28780200EBF0CC /* FBContentNodeStore.mm in Sources */,
 				1EEC1B501E28780200EBF0CC /* FBIconNode.mm in Sources */,
 				1EEC1B5B1E28780200EBF0CC /* FBTextListViewController.mm in Sources */,
 				1EEC1B4D1E28780200EBF0CC /* FBGridImageNode.mm in Sources */,
+				1E414B511E52E52200F84302 /* PickerNodeViewController.mm in Sources */,
+				1EEC1B5D1E28780200EBF0CC /* TextFieldNodeViewController.mm in Sources */,
 				1EEC1B591E28780200EBF0CC /* FBHostCellItem.mm in Sources */,
 				1EEC1B4E1E28780200EBF0CC /* FBHeaderNode.mm in Sources */,
 				1EEC1B421E28780200EBF0CC /* FBHostItem.m in Sources */,

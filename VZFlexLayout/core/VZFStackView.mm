@@ -7,6 +7,7 @@
 //
 
 #import "VZFStackView.h"
+#import "VZFDispatch.h"
 
 @implementation VZFStackView
 
@@ -35,7 +36,8 @@
     }
     
     // 过一会儿再把背景颜色改回去，让用户能看到点击反馈
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    VZFDispatchMain(0, ^{
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.backgroundColor = self.defaultColor;
     });
     

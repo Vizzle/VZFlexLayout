@@ -27,7 +27,7 @@
         starView.score = score;
         return starView;
     
-    },@"O2OStarView"} NodeSpecs:{
+    },[NSString stringWithFormat:@"%.1f",score]} NodeSpecs:{
     
         .width = vzf_dim(100),
         .height = 20

@@ -415,10 +415,6 @@ using namespace VZ::UIKit;
             break;
         }
     }
-    
-    if (_specs.display) {
-        [_specs.display invoke:self withCustomParam:_mountedInfo->mountedView];
-    }
 }
 
 - (void)didRemount{

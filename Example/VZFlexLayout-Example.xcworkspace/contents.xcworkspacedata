@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../VZFlexLayout.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:VZFlexLayout-Example.xcodeproj">
    </FileRef>
    <FileRef

@@ -14,9 +14,7 @@
 #import "VZFNodeMountContext.h"
 #import "VZFMacros.h"
 #import <stack>
-#import "ExternalSupport.h"
 #import "VZFAsyncDrawingTransactionContainer.h"
-
 
 using namespace VZ::UIKit;
 
@@ -38,7 +36,6 @@ namespace VZ {
             VZFNode* superNode;
             BOOL isVisited;
         };
-        
         
         //1, 绑定root hosting view
         //    layout.node.rootNodeView = container;
@@ -65,6 +62,7 @@ namespace VZ {
             //这里面取引用，因为要改变它的状态
             MountItem& item = stack.top();
             if(item.isVisited){
+                
                 //@discussion:所有child mount完再通知
                 [item.layout.node didMount];
                 stack.pop();
@@ -89,7 +87,7 @@ namespace VZ {
                                                                 ParentNode:item.superNode];
                 [mountedNodes addObject:item.layout.node];
                 
-                //NSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
+                //VZFNSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
                 
                 if (mountResult.hasChildren) {
                     
@@ -144,7 +142,7 @@ namespace VZ {
         VZFC_LOG_THREAD(@"LayoutManager",@"unmountNodes");
         
         //会有在非主线程unmount的情况,bounce到Main Thread
-        MAIN_CALL(__FUNCTION__, 0, NSOperationQueuePriorityNormal, ^{
+        VZFDispatchMain(0, ^{
 //        VZF_MainCall(^{
             
             for(VZFNode* node in nodes){

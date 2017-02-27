@@ -17,7 +17,6 @@ it, simply add the following line to your Podfile:
 source 'https://github.com/Vizzle/Specs.git'
 
 target YourAwesomeTarget do
-  use_frameworks!
   pod 'VZFlexLayout'
 end
 ```

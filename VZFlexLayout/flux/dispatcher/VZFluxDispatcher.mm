@@ -9,9 +9,9 @@
 #import "VZFluxDispatcher.h"
 #import "VZFunctor.h"
 #import "VZFMacros.h"
+#import "VZFDispatch.h"
 #import <libkern/OSAtomic.h>
 #import <unordered_map>
-#import "ExternalSupport.h"
 
 const NSString* gFluxTokenPrefix = @"ID_";
 
@@ -132,8 +132,7 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
                 [self dispatch:action mode:m];
             });
         }else{
-            dispatch_queue_t queue = m==VZFStateUpdateModeAsynchronous?_serialDispatchQueue:dispatch_get_main_queue();
-            dispatch_async(queue, block);
+            VZFDispatchMain(0, block);
         }
         
 //        _invariant(!_isDispatching, @"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.");

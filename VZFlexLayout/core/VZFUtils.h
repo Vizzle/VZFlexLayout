@@ -8,14 +8,19 @@
 
 #ifndef VZFUtils_h
 #define VZFUtils_h
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
+#import "VZFDispatch.h"
+
 #include <stdio.h>
 #import <algorithm>
 #import <functional>
 #import <type_traits>
 #import <vector>
 #import <string>
+
 
 @class VZFNode;
 namespace VZ {
@@ -138,6 +143,17 @@ namespace VZ {
             return obj1 == obj2 ? YES : [obj1 isEqual:obj2];
         }
         
+//        inline NSUInteger ScopeHashValue(Class clz, id identifier){
+//            
+//            NSUInteger clzHash = [clz hash];
+//            NSUInteger idHash = [identifier hash];
+//            return clzHash + idHash;
+//            
+//        }
+//        inline NSString* ScopeHashKey(Class clz, id identifier){
+//            
+//            return [NSString stringWithFormat:@"%@^%@",NSStringFromClass(clz),identifier?:@"(undefined)"];
+//        }
     }
     
     namespace UIKit{

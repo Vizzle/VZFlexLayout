@@ -206,4 +206,24 @@
     [self setNeedsLayout];
 }
 
+- (void)born{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+- (void)dead{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+- (void)resetState{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+- (void)prepareForReuse{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+- (void)willEnterReusePool{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+}
+- (void)didLeaveReusePool{
+    NSLog(@"%s",__PRETTY_FUNCTION__);
+
+}
+
 @end

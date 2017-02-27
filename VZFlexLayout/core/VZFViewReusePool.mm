@@ -87,13 +87,13 @@ static const void* g_unapplicatorId = &g_unapplicatorId;
 
 }
 - (void)reset{
+
     for(auto itor = _reusePool.begin(); itor != _nextUsableViewPos; ++itor){
         
         UIView* view = *itor;
         VZ::Mounting::unhide(view);
         [view setHidden:NO];
     }
-    
     for(auto itor = _nextUsableViewPos; itor != _reusePool.end(); ++itor){
         UIView* view = *itor;
         VZ::Mounting::hide(view);

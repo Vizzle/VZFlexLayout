@@ -34,6 +34,7 @@
 {
     BOOL _calculated;
     CGSize _textSize;
+    CGSize _postLayoutSize;
     NSArray<VZFTextLine *> *_lines;
     NSAttributedString *_unfixedText;
 }
@@ -124,6 +125,11 @@
 - (CGSize)textSize {
     [self _calculate];
     return _textSize;
+}
+
+- (NSUInteger)linesCount {
+    [self _calculate];
+    return _lines.count;
 }
 
 CGFloat vz_getAscentCallback(void *context) {
@@ -275,20 +281,11 @@ CGFloat vz_getWidthCallback(void *context) {
         
         BOOL isLastLine = maxRemainLines == 0 || start + count >= textLength;
         BOOL needsToTruncate = _truncatingMode != VZFTextTruncatingClip && maxRemainLines == 0 && start + count < textLength && !adjustsFontSizeToFitWidth;
-        BOOL needsToJustify = _alignment == NSTextAlignmentJustified && start + count < textLength;
         
         CTLineRef line = CTTypesetterCreateLine(typesetter, CFRangeMake(start, count));
         
         if (needsToTruncate) {
             line = [self truncateLine:line text:self.text typesetter:typesetter start:start];
-        }
-        
-        if (needsToJustify) {
-            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1, self.maxSize.width);
-            if (justifiedLine) {
-                CFRelease(line);
-                line = justifiedLine;
-            }
         }
         
         VZFTextLine *textLine = [VZFTextLine new];
@@ -297,6 +294,11 @@ CGFloat vz_getWidthCallback(void *context) {
         __block CGFloat maxAscent = 0;
         __block CGFloat maxDescent = 0;
         CFRange range = CTLineGetStringRange(line);
+        // CTLineGetStringRange 可能获取不到 range
+        if (range.length == 0) {
+            range.location = start;
+            range.length = count ?: self.text.string.length - start;
+        }
         [_unfixedText enumerateAttributesInRange:NSMakeRange(range.location, range.length) options:0 usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
             NSTextAttachment *attachment = attrs[NSAttachmentAttributeName];
             if (attachment.image) {
@@ -415,6 +417,31 @@ CGFloat vz_getWidthCallback(void *context) {
     //    NSLog(@"%.3f/%.3f ms", (t2 - t1) * 1000, (t3 - t2) * 1000);
 }
 
+- (void)postLayout:(CGSize)size {
+    if (CGSizeEqualToSize(size, _postLayoutSize)) {
+        return;
+    }
+    
+    [self _calculate];
+    
+    if (_alignment == NSTextAlignmentJustified && _lines.count > 1) {
+        for (int i=0;i<_lines.count-1;i++) {
+            if (fabs(_lines[i].width - size.width) < 1e-5) {
+                continue;
+            }
+            
+            CTLineRef line = (__bridge CTLineRef)_lines[i].line;
+            CTLineRef justifiedLine = CTLineCreateJustifiedLine(line, 1, size.width);
+            if (justifiedLine) {
+                _lines[i].line = (__bridge_transfer id)(justifiedLine);
+                _lines[i].width = size.width;
+            }
+        }
+    }
+    
+    _postLayoutSize = size;
+}
+
 - (CGFloat)offsetYWithBounds:(CGRect)bounds {
     switch (_verticalAlignment) {
         case VZFTextVerticalAlignmentTop:
@@ -453,7 +480,7 @@ CGFloat vz_getWidthCallback(void *context) {
     
     CGContextSaveGState(context);
     
-    [self _calculate];
+    [self postLayout:bounds.size];
     
     CGContextSetTextMatrix(context, CGAffineTransformIdentity);
     
@@ -528,7 +555,9 @@ CGFloat vz_getWidthCallback(void *context) {
                 CGFloat width = CTRunGetTypographicBounds(run, CFRangeMake(0, 0), NULL, NULL, NULL);
                 CGContextSetStrokeColorWithColor(context, strikeColor.CGColor);
                 UIFont *font = attributes[NSFontAttributeName] ?: [UIFont systemFontOfSize:[UIFont systemFontSize]];
-                CGFloat strikeThickness = CTFontGetUnderlineThickness((CTFontRef)font);
+                // CTFontGetUnderlineThickness 在 iOS 7 上可能crash，原因不明。这里自己计算线条粗细，因数是测试出来的。
+                // CGFloat strikeThickness = CTFontGetUnderlineThickness((CTFontRef)font);
+                CGFloat strikeThickness = font.pointSize * 0.05859375;
                 CGFloat strikeX = x + point.x;
                 CGFloat strikeY = y + point.y - textLine.offsetY + font.xHeight / 2; // TODO: snap to pixels
                 CGContextSetLineWidth(context, strikeThickness);

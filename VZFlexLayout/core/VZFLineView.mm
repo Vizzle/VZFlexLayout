@@ -7,6 +7,8 @@
 //
 
 #import "VZFLineView.h"
+#import "UIView+VZAttributes.h"
+#import "VZFLineNode.h"
 
 @implementation VZFLineView
 
@@ -54,6 +56,13 @@
     CGContextStrokePath(context);
     
     CGContextFillPath(context);
+}
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    LineNodeSpecs specs = ((VZFLineNode *)node).lineSpecs;
+    self.color = specs.color;
+    self.dashLength = specs.dashLength;
+    self.spaceLength = specs.spaceLength;
 }
 
 @end

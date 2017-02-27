@@ -29,18 +29,18 @@
     if (!VZFUseRasterize) {
         return nil;
     }
-    
+    // TODO 确认合并
     NodeSpecs specs = node.specs;
     if (specs.gesture ||
         specs.highlightBackgroundColor ||
         specs.borderWidth > 0 ||
-        //(specs.clip && ([node isKindOfClass:[VZFStackNode class]] || [node  isMemberOfClass:[VZFNode class]]) ) ||
+        specs.clip ||
         specs.alpha < 1 ||
         specs.tag > 0 ||
-        specs.applicator
-//        ||(specs.isAccessibilityElement != VZF_BOOL_UNDEFINED && specs.isAccessibilityElement) ||
-//        specs.accessibilityLabel
-        ) {
+        specs.applicator ||
+        specs.unapplicator ||
+        (specs.isAccessibilityElement != VZF_BOOL_UNDEFINED && specs.isAccessibilityElement) ||
+        specs.accessibilityLabel) {
         return nil;
     }
     
@@ -82,7 +82,7 @@
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{} ;
     int animateCount = [ctx[@"animate-count"] intValue]?:0;
     
-    if (animateCount > 1) {
+    if (animateCount > 1 || imageSpec.imageUrl.length > 0) {
         return nil;
     }
     

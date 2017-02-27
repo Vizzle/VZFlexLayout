@@ -10,11 +10,15 @@
 #import "VZFTextNodeBackingLayer.h"
 #import "VZFTextNodeRenderer.h"
 #import "VZFUtils.h"
+#import "VZFTextNode.h"
+#import "UIView+VZAttributes.h"
+#import "VZFNodeInternal.h"
+#import "VZFlexNode.h"
 
 @implementation VZFTextNodeBackingView
 
 + (Class)layerClass{
-        return [VZFTextNodeBackingLayer class];
+    return [VZFTextNodeBackingLayer class];
 }
 
 - (VZFTextNodeBackingLayer* )textLayer{
@@ -111,6 +115,15 @@
         return [[self renderer] compositeAccessibilityLabel];
     }
     return [super accessibilityLabel];
+}
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    VZFTextNode *textNode = (VZFTextNode* )node;
+    TextNodeSpecs specs = textNode.textSpecs;
+    self.edgeInsets = textNode.flexNode.resultPadding;
+    self.textRenderer = textNode.renderer;
+    self.textRenderer.maxSize = CGSizeMake(self.bounds.size.width - self.edgeInsets.left - self.edgeInsets.right, self.bounds.size.height - self.edgeInsets.top - self.edgeInsets.bottom);
+    
 }
 
 @end

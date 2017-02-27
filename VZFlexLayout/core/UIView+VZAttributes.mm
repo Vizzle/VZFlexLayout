@@ -36,12 +36,21 @@
 #import "VZFStackNode.h"
 #import "VZFStackNodeSpecs.h"
 #import "VZFStackView.h"
+#import "VZFTextFieldNodeSpecs.h"
+#import "VZFTextFieldNode.h"
+#import "VZFTextField.h"
 #import "VZFViewReusePool.h"
 #import <objc/runtime.h>
 #import "VZFImageNodeBackingView.h"
 #import "VZFImageNodeRenderer.h"
 #import "VZFButtonNodeBackingView.h"
 #import "VZFBackingViewProtocol.h"
+#import "VZFSwitchNode.h"
+#import "VZFSwitch.h"
+#import "VZFPickerNode.h"
+#import "VZFPickerView.h"
+#import "VZFSegmentedControlNode.h"
+#import "VZFSegmentedControl.h"
 #import "UIBezierPath+extension.h"
 
 @implementation UIView (VZAttributes)
@@ -54,6 +63,7 @@
     
     [self _applyGestures:node.specs];
     
+    // TODO: 待 async display 的代码合入再做优化
     if ([node isKindOfClass:[VZFImageNode class]])
     {
         [self _applyImageAttributes:((VZFImageNode* )node).imageSpecs];
@@ -62,29 +72,13 @@
     {
         [self _applyButtonAttributes:((VZFButtonNode* )node).buttonSpecs];
     }
-    else if ([node isKindOfClass:[VZFTextNode class]])
-    {
-        [self _applyTextAttributes:((VZFTextNode* )node).textSpecs];
-    }
-    else if ([node isKindOfClass:[VZFScrollNode class]])
-    {
-        [self _applyScrollAttributes:((VZFScrollNode* )node).scrollNodeSpecs];
-    }
-    else if ([node isKindOfClass:[VZFPagingNode class]])
-    {
-        [self _applyPagingAttributes:((VZFPagingNode* )node).pagingNodeSpecs];
-    }
-    else if ([node isKindOfClass:[VZFIndicatorNode class]])
-    {
-        [self _applyIndicatorAttributes:((VZFIndicatorNode* )node).indicatorSpecs];
-    }
-    else if ([node isKindOfClass:[VZFLineNode class]])
-    {
-        [self _applyLineAttributes:((VZFLineNode* )node).lineSpecs];
-    }
-    
+    [self vz_applyNodeAttributes:self.node];
     [self _applyRendererAttributes:node.specs];
 
+}
+
+- (void)vz_applyNodeAttributes:(VZFNode *)node {
+    // Backing views implement ...
 }
 
 - (UIBezierPath *)_roundRectPathWithWidth:(CGFloat)width
@@ -165,10 +159,7 @@
         stackView.highlightColor = vs.highlightBackgroundColor;
     }
     
-    if (vs.unapplicator) {
-        vs.unapplicator(self);
-    }
-    
+    self.unapplicator = vs.unapplicator;
     if (vs.applicator) {
         vs.applicator(self);
     }
@@ -323,42 +314,13 @@
     }else{
         btn.titleLabel.font = buttonNodeSpecs.getFont();
     }
-
-}
-
-- (void)_applyTextAttributes:(const TextNodeSpecs& )textNodeSpecs{
-    VZFTextNodeBackingView *label = (VZFTextNodeBackingView *)self;
-    VZFTextNode* textNode = (VZFTextNode* )self.node;
-    label.edgeInsets = textNode.flexNode.resultPadding;
-    label.textRenderer = textNode.renderer;
-    label.textRenderer.maxSize = CGSizeMake(self.bounds.size.width - label.edgeInsets.left - label.edgeInsets.right, self.bounds.size.height - label.edgeInsets.top - label.edgeInsets.bottom);
-    
-//    UILabel* label = (UILabel* )self;
-//    label.font = nil;
-//    label.textColor = nil;
-//    if (textNodeSpecs.attributedString) {
-//        label.attributedText = textNodeSpecs.attributedString;
-//    }
-//    else {
-//        label.attributedText = textNodeSpecs.getAttributedString();
-//    }
-//    label.lineBreakMode = textNodeSpecs.lineBreakMode;
-//    label.numberOfLines = textNodeSpecs.lines;
-//    label.adjustsFontSizeToFitWidth = textNodeSpecs.adjustsFontSize;
-//    label.minimumScaleFactor = textNodeSpecs.miniScaleFactor;
-//    
-//    // 有时 UILabel 尺寸为 0 时，仍会绘制出一部分文字，这里做个处理。由于 hidden 属性被用于复用，所以这里把文本置空
-//    if (self.bounds.size.width <= 0 || self.bounds.size.height <= 0) {
-//        label.text = nil;
-//        label.attributedText = nil;
-//    }
 }
 
 - (void)_applyImageAttributes:(const ImageNodeSpecs& )imageSpec{
     
     id<VZFNetworkImageDownloadProtocol> networkImageView = nil;
     
-    //gif重复次数，context里拿到设置给imageView
+    //gif重复次数，context里拿到设置给imageView。setImage: 中会使用 animationRepeatCount，因此要先设置。
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{};
     int animateCount = [ctx[@"animate-count"] intValue]?:0;
     
@@ -387,102 +349,28 @@
         }
     } else {
         UIImageView<VZFNetworkImageDownloadProtocol>* view = (UIImageView<VZFNetworkImageDownloadProtocol>* )self;
+        view.animationRepeatCount = animateCount;
         view.image = imageSpec.image;
         view.contentMode = imageSpec.contentMode;
-        view.animationRepeatCount = animateCount;
 
         networkImageView = view;
     }
     
+    // 这里不做判空，可能会在方法内做清理操作，避免复用可能会导致的图片错乱
+    //just call protocol
+    
+    //FIXED
+    NSAssert(!imageSpec.imageUrl ||[imageSpec.imageUrl isKindOfClass:[NSString class]], @"ImageNodeSpecs imageUrl should be a string");
+
     if ([imageSpec.imageUrl isKindOfClass:[NSString class]]){
         
         [networkImageView vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl]
-                                    size:self.bounds.size
-                        placeholderImage:imageSpec.image
-                              errorImage:imageSpec.errorImage
-                                 context:imageSpec.context
-                         completionBlock:imageSpec.completion];
+                                        size:self.bounds.size
+                            placeholderImage:imageSpec.image
+                                  errorImage:imageSpec.errorImage
+                                     context:imageSpec.context
+                             completionBlock:imageSpec.completion];
     }
-}
-
-- (void)_applyIndicatorAttributes:(const IndicatorNodeSpecs& )indicatorSpecs{
-    
-    UIActivityIndicatorView *indicatorView = (UIActivityIndicatorView *)self;
-    indicatorView.color = indicatorSpecs.color;
-    indicatorView.transform = CGAffineTransformMakeScale(indicatorView.frame.size.width / 20, indicatorView.frame.size.height / 20);
-    [indicatorView startAnimating];
-    
-}
-
-- (void)_applyLineAttributes:(const LineNodeSpecs& )lineSpecs{
-    
-    VZFLineView *lineView = (VZFLineView *)self;
-    lineView.color = lineSpecs.color;
-    lineView.dashLength = lineSpecs.dashLength;
-    lineView.spaceLength = lineSpecs.spaceLength;
-    
-}
-
-- (void)_applyScrollAttributes:(const VZ::ScrollNodeSpecs& )scrollSpecs{
-    
-    UIScrollView* scrollView = (UIScrollView* )self;
-    scrollView.scrollEnabled = scrollSpecs.scrollEnabled;
-    scrollView.pagingEnabled = scrollSpecs.paging;
-    scrollView.showsVerticalScrollIndicator = NO;
-    scrollView.showsHorizontalScrollIndicator = NO;
-    scrollView.scrollsToTop = NO;
-    VZFScrollNode* scrollNode = (VZFScrollNode* )scrollView.node;
-    scrollView.contentSize = scrollNode.contentSize;
-    [scrollView setNeedsLayout];
-    
-}
-
-- (void)_applyPagingAttributes:(const VZ::PagingNodeSpecs& )pagingSpecs{
-    
-    VZFPagingView* pagingView = (VZFPagingView* )self;
-    VZFPagingNode* pagingNode = (VZFPagingNode* )self.node;
-    pagingView.scroll = pagingSpecs.scrollEnabled;
-    pagingView.autoScroll = pagingSpecs.autoScroll;
-    pagingView.loopScroll = pagingSpecs.infiniteLoop;
-    pagingView.vertical = pagingSpecs.direction == PagingVertical;
-    pagingView.pagingEnabled = pagingSpecs.paging;
-    
-    pagingView.pageControlEnabled = pagingSpecs.paging && pagingSpecs.pageControl;
-    if (pagingSpecs.pageControl) {
-        UIPageControl *pageControl = pagingView.pageControl;
-        pageControl.backgroundColor = [UIColor clearColor];
-        pageControl.userInteractionEnabled = NO;
-        pageControl.hidesForSinglePage = YES;
-        pageControl.frame = pagingNode.pageControlNode.flexNode.resultFrame;
-        pageControl.transform = CGAffineTransformMakeScale(pagingSpecs.pageControlScale, pagingSpecs.pageControlScale);
-        pageControl.pageIndicatorTintColor = pagingSpecs.pageControlColor;
-        pageControl.currentPageIndicatorTintColor = pagingSpecs.pageControlSelectedColor;
-        pageControl.numberOfPages = pagingNode.children.size();
-    }
-    
-    if (pagingNode.viewsCache) {
-        // 这里是为了重新 apply attributes 避免 GIF 动画停止播放
-        for (int i=0;i<pagingNode.childrenLayout.size();i++) {
-            layoutRootNodeInContainer(pagingNode.childrenLayout[i], pagingNode.viewsCache[i], nil, nil);
-        }
-        [pagingView setChildrenViews:pagingNode.viewsCache];
-    }
-    else {
-        NSMutableArray *subviews = [NSMutableArray array];
-        for (const auto& layout : pagingNode.childrenLayout) {
-            
-            UIView* view = viewForRootNode(layout, self.frame.size);
-            
-            [subviews addObject:view];
-        }
-        [pagingView setChildrenViews:subviews];
-        pagingNode.viewsCache = subviews;
-    }
-    
-    pagingView.switched = pagingSpecs.switched;
-    
-    [pagingView setNeedsLayout];
-    
 }
 
 @end

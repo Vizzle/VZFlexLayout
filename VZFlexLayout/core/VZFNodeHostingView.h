@@ -40,7 +40,6 @@
 - (void)updateState;
 - (void)reset;
 
-
 - (instancetype)init __attribute__((unavailable("Not the designated initializer")));
 - (instancetype)initWithFrame:(CGRect)frame __attribute__((unavailable("Not the designated initializer")));
 

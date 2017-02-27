@@ -39,9 +39,9 @@ namespace VZ{
     
         //在主线程执行释放
         void performDeallocOnMainThread(void(^block)()){
-        
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
+        VZFDispatchMain(0, ^{
+//            dispatch_async(dispatch_get_main_queue(), ^{
+            
                 if (block) {
                     block();
                 }

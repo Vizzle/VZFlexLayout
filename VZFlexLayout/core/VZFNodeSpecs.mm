@@ -13,6 +13,11 @@
 
 namespace VZ {
     
+    namespace DefaultControlAttrValue {
+        BOOL able = YES;
+        BOOL disable = NO;
+    }
+    
     namespace DefaultAttributesValue{
         UIColor* backgroundColor = [UIColor clearColor];
         UIColor* highlightBackgroundColor = nil;
@@ -44,6 +49,8 @@ namespace VZ {
         
         VZFlexLayoutAlignment alignSelf = VZFlexInherit;
         int isAccessibilityElement = VZF_BOOL_UNDEFINED;
+        
+        NSUInteger uintMax = NSUIntegerMax;
     }
     
 }
