@@ -103,18 +103,23 @@
 
 
 - (void)drawContentInContext:(CGContextRef)context bounds:(CGRect)bounds {
-    if (_backgroundImageRenderer) {
-        [_backgroundImageRenderer drawInContext:context bounds:bounds];
+    // avoid being dealloced
+    VZFImageNodeRenderer *backgroundImageRenderer = _backgroundImageRenderer;
+    VZFImageNodeRenderer *imageRenderer = _imageRenderer;
+    VZFTextNodeRenderer *textRenderer =  _textRenderer;
+
+    if (backgroundImageRenderer) {
+        [backgroundImageRenderer drawInContext:context bounds:bounds];
     }
-    CGFloat w = MIN(_imageRenderer.image.size.width + _textRenderer.textSize.width,CGRectGetWidth(bounds));
-    if(_imageRenderer){
-        [_imageRenderer drawInContext:context bounds:CGRectMake( (CGRectGetWidth(bounds)-w)/2, 0, w - _textRenderer.textSize.width, CGRectGetHeight(bounds))];
+    CGFloat w = MIN(imageRenderer.image.size.width + textRenderer.textSize.width,CGRectGetWidth(bounds));
+    if(imageRenderer){
+        [imageRenderer drawInContext:context bounds:CGRectMake( (CGRectGetWidth(bounds)-w)/2, 0, w - textRenderer.textSize.width, CGRectGetHeight(bounds))];
     }
-    if (_textRenderer) {
-        [_textRenderer drawInContext:context bounds:CGRectMake(
-                                                               (CGRectGetWidth(bounds)+w)/2 - _textRenderer.textSize.width,
-                                                                (CGRectGetHeight(bounds)- _textRenderer.textSize.height)/2,
-                                                                _textRenderer.textSize.width, _textRenderer.textSize.height) ];
+    if (textRenderer) {
+        [textRenderer drawInContext:context bounds:CGRectMake(
+                                                               (CGRectGetWidth(bounds)+w)/2 - textRenderer.textSize.width,
+                                                                (CGRectGetHeight(bounds)- textRenderer.textSize.height)/2,
+                                                                textRenderer.textSize.width, textRenderer.textSize.height) ];
     }
 }
 

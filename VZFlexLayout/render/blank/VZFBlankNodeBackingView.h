@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNodeBackingViewInterface.h"
-#import "VZFBankNodeRenderer.h"
+#import "VZFBlankNodeRenderer.h"
 #import "VZFBackingViewProtocol.h"
 
 @interface VZFBlankNodeBackingView : UIView<VZFNodeBackingViewInterface, VZFBackingViewProtocol>
 
-@property(nonatomic,strong) VZFBankNodeRenderer* blankRenderer;
+@property(nonatomic,strong) VZFBlankNodeRenderer* blankRenderer;
 
 @end

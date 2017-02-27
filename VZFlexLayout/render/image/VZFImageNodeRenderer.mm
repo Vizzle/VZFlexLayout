@@ -20,16 +20,7 @@
     
     CGRect rect = [[self class] getDrawRect:bounds imageSize:self.image.size contentMode:self.contentMode scale:scale];
 
-    
-    CGContextSaveGState(context);
-    
-    CGContextTranslateCTM(context, 0, bounds.size.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
-
-    CGContextDrawImage(context, rect, self.image.CGImage);
-    
-
-    CGContextRestoreGState(context);
+    [self.image drawInRect:rect];
 }
 
 

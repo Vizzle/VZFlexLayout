@@ -21,14 +21,19 @@
 #import "VZFNodeViewClass.h"
 #import "UIView+VZAttributes.h"
 #import "VZFNodeBackingViewInterface.h"
+#import "VZFRenderer.h"
+#import "VZFRasterizeNodeTool.h"
+#import "VZFBackingViewProtocol.h"
 
 struct VZFNodeMountedInfo{
   
     __weak VZFNode* parentNode;
     __weak UIView* mountedView;
+    __weak VZFRenderer* mountedRenderer;
     
     struct {
         __weak UIView* v;
+        __weak VZFRenderer* r;
         CGRect frame;
     } mountedContext;
 };
@@ -164,62 +169,123 @@ using namespace VZ::UIKit;
     
     _mountedInfo -> parentNode =  parentNode;
     
-    //获取一个reuse view
-    UIView* view = [context.viewManager viewForNode:self];
     
-    //说明reusepool中有view
-    if (view) {
+    //If renderer is nil, it means the node can't be rasterized
+    //@discussion reuse?
+    VZFRenderer *renderer = [VZFRasterizeNodeTool getRenderer4RasterizedNode:self size:size];
+    VZFRenderer *parentRenderer = nil;
+    
+    if (parentNode != nil && parentNode -> _mountedInfo != nullptr) {
+        parentRenderer = parentNode -> _mountedInfo -> mountedRenderer;
+    }
+
+    if (renderer && parentRenderer) {
+        //当自己能被光栅化，且父节点也被光栅化的，renderer添加到父节点上
+        
+        //to rasterize
         //不是当前的backingview
-        if (view != _mountedInfo -> mountedView) {
-            
+        if (renderer != _mountedInfo -> mountedRenderer) {
             //释放当前mountedView绑定的node
-            [view.node unmount];
-            view.node = self;
-            _mountedInfo -> mountedView = view;
-            [self didAquireBackingView:view];
+            [renderer.node unmount];
+            renderer.node = self;
+            _mountedInfo -> mountedRenderer = renderer;
+            //[self didAquireBackingView];
         }
         else{
-            VZFAssert(view.node == self, @"");
+            VZFAssert(renderer.node == self, @"");
         }
         
-
-
         //计算公式:
         //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
         //position.y = frame.origin.y + anchorPoint.y * bounds.size.height；
- /*       const CGPoint anchorPoint = view.layer.anchorPoint;
-        view.center = context.position + CGPoint({anchorPoint.x * size.width, anchorPoint.y * size.height});
-        view.bounds = {view.bounds.origin,size};
-  */
+        /*       const CGPoint anchorPoint = view.layer.anchorPoint;
+         view.center = context.position + CGPoint({anchorPoint.x * size.width, anchorPoint.y * size.height});
+         view.bounds = {view.bounds.origin,size};
+         */
         //apply frame
-        view.frame  = {context.position, size};
+        renderer.frame  = {context.position, size};
         
-        //apply attributes
-        [view applyAttributes];
-
+        [parentRenderer addSubRenderer:renderer];
+        
         //update mountedInfo
-        _mountedInfo -> mountedContext = {view,{context.position,size}};
-        
-        return {.hasChildren = YES, .childContext = context.childContextForSubview(view)};
-        
-
-    }
-    else{
-        //这种情况对应于没有viewclass的node，例如compositeNode，他没有backingview，mount过程中使用的是view的是上一个view
-        _mountedInfo -> mountedView = nil;
-        _mountedInfo -> mountedContext = {context.viewManager.managedView,{context.position,size}};
+        _mountedInfo -> mountedContext = {nil,renderer,{context.position,size}};
         
         return {.hasChildren = YES, .childContext = context};
+    } else {
         
+        CGPoint origin = context.position;
+        
+        if (!renderer) {
+            //如果当前node不能被光栅化，但是super node被光栅化了，那么当前node对应的view在添加到上级view的时候，origin需要进行转换
+            VZFRenderer *superRenderer = parentRenderer;
+            if (superRenderer) {
+                while (superRenderer) {
+                    origin = {origin.x + superRenderer.frame.origin.x, origin.y + superRenderer.frame.origin.y};
+                    superRenderer = superRenderer.superRenderer;
+                }
+            }
+        }
+        
+        
+        //获取一个reuse view
+        UIView* view = [context.viewManager viewForNode:self];
+        
+        //说明reusepool中有view
+        if (view) {
+            //不是当前的backingview
+            if (view != _mountedInfo -> mountedView) {
+                
+                //释放当前mountedView绑定的node
+                [view.node unmount];
+                view.node = self;
+                _mountedInfo -> mountedView = view;
+                _mountedInfo -> mountedRenderer = renderer;
+                [self didAquireBackingView:view];
+            }
+            else{
+                VZFAssert(view.node == self, @"");
+            }
+                        
+            if ([view conformsToProtocol:@protocol(VZFBackingViewProtocol)]) {
+                id<VZFBackingViewProtocol> backingView = (id<VZFBackingViewProtocol>)view;
+                [backingView setRenderer:renderer];
+                renderer = [backingView renderer];
+            }
+            
+            //计算公式:
+            //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
+            //position.y = frame.origin.y + anchorPoint.y * bounds.size.height；
+            /*       const CGPoint anchorPoint = view.layer.anchorPoint;
+             view.center = context.position + CGPoint({anchorPoint.x * size.width, anchorPoint.y * size.height});
+             view.bounds = {view.bounds.origin,size};
+             */
+            //apply frame
+            view.frame  = {origin, size};
+            
+            //apply attributes
+            [view applyAttributes];
+            
+            //update mountedInfo
+            _mountedInfo -> mountedContext = {view,renderer,{context.position,size}};
+            
+            return {.hasChildren = YES, .childContext = context.childContextForSubview(view)};
+        }
+        else{
+            //这种情况对应于没有viewclass的node，例如compositeNode，他没有backingview，mount过程中使用的是view的是上一个view
+            _mountedInfo -> mountedView = nil;
+            _mountedInfo -> mountedRenderer = nil;
+            _mountedInfo -> mountedContext = {context.viewManager.managedView, parentRenderer, {context.position,size}};
+            
+            return {.hasChildren = YES, .childContext = context};
+        }
     }
-    
-
 }
+
 
 
 -(void)unmount{
     
-    VZF_LOG_THREAD(@"unmount");
+    //VZF_LOG_THREAD(@"unmount");
     
     if (_mountedInfo != nullptr)
     {
@@ -246,6 +312,14 @@ using namespace VZ::UIKit;
         _mountedInfo -> mountedView = nil;
 
     }
+    
+    VZFRenderer* renderer = _mountedInfo -> mountedRenderer;
+    
+    if (renderer) {
+        renderer.node = nil;
+        _mountedInfo -> mountedRenderer = nil;
+        
+    }
 
 }
 
@@ -254,7 +328,6 @@ using namespace VZ::UIKit;
 
 -(void)willMount{
 
-    VZF_LOG_THREAD(@"willMount");
     VZFAssertMainThread();
     
     switch (_state) {
@@ -280,14 +353,12 @@ using namespace VZ::UIKit;
 - (void)willRemount{
 
     VZFAssertMainThread();
-    VZF_LOG_THREAD(@"willRemount");
 
 }
 
 -(void)didMount{
 
     VZFAssertMainThread();
-    VZF_LOG_THREAD(@"didMount");
     
     switch (_state) {
         case VZFNodeStateMounting:
@@ -311,15 +382,11 @@ using namespace VZ::UIKit;
 - (void)didRemount{
 
     VZFAssertMainThread();
-    
-    VZF_LOG_THREAD(@"didRemount");
 }
 
 - (void)willUnmount{
 
     VZFAssertMainThread();
-    
-    VZF_LOG_THREAD(@"willUnmount");
     
     switch (_state) {
         case VZFNodeStateMounted:
@@ -340,8 +407,6 @@ using namespace VZ::UIKit;
 - (void)didUnmount{
 
     VZFAssertMainThread();
-    
-    VZF_LOG_THREAD(@"didUnmount");
     
     switch (_state) {
         case VZFNodeStateUnmounting:

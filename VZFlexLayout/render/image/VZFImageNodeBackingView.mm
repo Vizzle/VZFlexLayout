@@ -43,9 +43,19 @@
     return [self imageLayer].renderer;
 }
 
-- (VZFBaseRenderer *)renderer {
+- (VZFRenderer *)renderer {
     return self.imageRenderer;
 }
+
+- (void)setRenderer:(__kindof VZFRenderer *)renderer {
+    if ([renderer isKindOfClass:[VZFImageNodeRenderer class]]) {
+        [self imageLayer].renderer = (VZFImageNodeRenderer *)renderer;
+    } else {
+        [self imageLayer].renderer = nil;
+    }
+}
+
+
 -(void)setLayerNeedsAsyncDisplay{
     [self.imageLayer setNeedsAsyncDisplay];
 }

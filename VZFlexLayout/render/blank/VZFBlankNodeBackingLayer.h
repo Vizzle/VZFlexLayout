@@ -7,10 +7,10 @@
 //
 
 #import "VZFAsyncLayer.h"
-#import "VZFBankNodeRenderer.h"
+#import "VZFBlankNodeRenderer.h"
 
 @interface VZFBlankNodeBackingLayer : VZFAsyncLayer
 
-@property(nonatomic,strong) VZFBankNodeRenderer* renderer;
+@property(nonatomic,strong) VZFBlankNodeRenderer* renderer;
 
 @end

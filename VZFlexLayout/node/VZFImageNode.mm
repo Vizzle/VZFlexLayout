@@ -31,7 +31,7 @@
                              NodeSpecs:(const NodeSpecs& )nodeSpecs{
 
     
-    return [VZFImageNode newWithImageAttributes:imageSpecs NodeSpecs:nodeSpecs BackingImageViewClass:[VZFImageNodeBackingView class]];
+    return [VZFImageNode newWithImageAttributes:imageSpecs NodeSpecs:nodeSpecs BackingImageViewClass:[VZFNetworkImageView class]];
 
 }
 

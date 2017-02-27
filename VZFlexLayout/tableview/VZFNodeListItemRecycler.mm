@@ -222,6 +222,7 @@ struct VZItemRecyclerState{
     _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil) copy];
 
 }
+
 -(void)hideVZFNodeView:(UIView *)v hidden:(BOOL)hidden{
     NSArray *subView = [v.subviews copy];
     for (UIView *v in subView) {

@@ -80,14 +80,12 @@
 - (void)drawInContext:(CGContextRef)context parameters:(VZFTextNodeRenderer *)renderer{
 
     CGRect boundsRect = CGContextGetClipBoundingBox(context);
-    boundsRect.origin.x += _edgeInsets.left;
-    boundsRect.origin.y += _edgeInsets.top;
-    boundsRect.size.width -= _edgeInsets.left + _edgeInsets.right;
-    boundsRect.size.height -= _edgeInsets.top + _edgeInsets.bottom;
-    
-    UIGraphicsPushContext(context);
+//    boundsRect.origin.x += _edgeInsets.left;
+//    boundsRect.origin.y += _edgeInsets.top;
+//    boundsRect.size.width -= _edgeInsets.left + _edgeInsets.right;
+//    boundsRect.size.height -= _edgeInsets.top + _edgeInsets.bottom;
     [renderer drawInContext:context bounds:boundsRect];
-    UIGraphicsPopContext();
+
 }
 
 - (void)drawInContext:(CGContextRef)ctx{

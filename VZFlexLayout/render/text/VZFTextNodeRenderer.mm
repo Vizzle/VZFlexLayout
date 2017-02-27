@@ -98,6 +98,7 @@
     _maxSize = maxSize;
 }
 
+
 - (void)setText:(NSAttributedString *)text {
     _unfixedText = text;
     // https://openradar.appspot.com/28522327
@@ -220,9 +221,9 @@ CGFloat vz_getWidthCallback(void *context) {
     
     BOOL adjustsFontSizeToFitWidth = _adjustsFontSizeToFitWidth && _maxNumberOfLines == 1 && _minimumScaleFactor < 1;
     
-//    CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
-//    [self.text boundingRectWithSize:CGSizeMake(_maxWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
-//    CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
+    //    CFAbsoluteTime t1 = CFAbsoluteTimeGetCurrent();
+    //    [self.text boundingRectWithSize:CGSizeMake(_maxWidth, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    //    CFAbsoluteTime t2 = CFAbsoluteTimeGetCurrent();
     
     NSMutableAttributedString *mutableText = self.text.mutableCopy;
     CFMutableAttributedStringRef attrString = (__bridge CFMutableAttributedStringRef)mutableText;
@@ -325,7 +326,7 @@ CGFloat vz_getWidthCallback(void *context) {
         CGFloat usedLineHeight = VZF_CEIL_PIXEL(maxAscent + maxDescent);
         
         height += usedLineHeight;
-        if (lines.count > 0 && height - self.maxSize.height > 1e-5) {
+        if (lines.count > 0 && height > self.maxSize.height) {
             // 如果高度超出最大高度，则重置相关属性，然后重新计算最后一行
             VZFTextLine *lineBeforelastLine = lines.count - 2 < lines.count ? [lines objectAtIndex:lines.count - 2] : nil;
             if (lineBeforelastLine) {
@@ -412,8 +413,8 @@ CGFloat vz_getWidthCallback(void *context) {
     _calculated = YES;
     CFRelease(typesetter);
     
-//    CFAbsoluteTime t3 = CFAbsoluteTimeGetCurrent();
-//    NSLog(@"%.3f/%.3f ms", (t2 - t1) * 1000, (t3 - t2) * 1000);
+    //    CFAbsoluteTime t3 = CFAbsoluteTimeGetCurrent();
+    //    NSLog(@"%.3f/%.3f ms", (t2 - t1) * 1000, (t3 - t2) * 1000);
 }
 
 - (void)postLayout:(CGSize)size {
@@ -476,6 +477,8 @@ CGFloat vz_getWidthCallback(void *context) {
     if (self.text.length == 0) {
         return;
     }
+    
+    CGContextSaveGState(context);
     
     [self postLayout:bounds.size];
     
@@ -573,6 +576,9 @@ CGFloat vz_getWidthCallback(void *context) {
 //        CGContextAddLineToPoint(context, x + textLine.width, baseline);
 //        CGContextStrokePath(context);
     }
+    
+    CGContextRestoreGState(context);
+
 }
 
 @end

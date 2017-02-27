@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "VZFBaseRenderer.h"
+#import "VZFRenderer.h"
 
-@interface VZFImageNodeRenderer : VZFBaseRenderer
+@interface VZFImageNodeRenderer : VZFRenderer
 
 @property (nonatomic, strong) UIImage* image;
 @property (nonatomic, assign) UIViewContentMode contentMode;

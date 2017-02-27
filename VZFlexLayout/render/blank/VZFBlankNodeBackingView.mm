@@ -31,13 +31,22 @@
 }
 
 
--(VZFBankNodeRenderer *)blankRenderer{
+-(VZFBlankNodeRenderer *)blankRenderer{
     return [self blankLayer].renderer;
 }
 
-- (__kindof VZFBaseRenderer *)renderer {
+- (__kindof VZFRenderer *)renderer {
     return [self blankRenderer];
 }
+
+- (void)setRenderer:(__kindof VZFRenderer *)renderer {
+    if ([renderer isKindOfClass:[VZFBlankNodeRenderer class]]) {
+        [self blankLayer].renderer = renderer;
+    } else {
+        [self blankLayer].renderer = nil;
+    }
+}
+
 -(void)setLayerNeedsAsyncDisplay{
     [self.blankLayer setNeedsAsyncDisplay];
 }
@@ -58,7 +67,7 @@
     }
     self.blankRenderer.borderColor = [UIColor colorWithCGColor:color];
     self.blankRenderer.borderWidth = borderWidth;
-    self.blankRenderer.cornerRadius = cornerRadius;
+    self.blankRenderer.customCorner = vzfRoundedCorner(cornerRadius);
     [[self blankLayer] setNeedsDisplay];
 }
 @end
