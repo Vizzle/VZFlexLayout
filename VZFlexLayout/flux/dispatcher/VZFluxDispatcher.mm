@@ -132,8 +132,6 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
                 [self dispatch:action mode:m];
             });
         }else{
-            dispatch_queue_t queue = m==VZFStateUpdateModeAsynchronous?_serialDispatchQueue:dispatch_get_main_queue();
-            dispatch_async(queue, block);
             VZFDispatchMain(0, block);
         }
         
