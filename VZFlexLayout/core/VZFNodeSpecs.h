@@ -96,7 +96,7 @@ namespace VZ {
         
         //view attributes
 //        BOOL hidden;
-        NSInteger tag;
+        NSString *tag;
         BOOL clip;
         Value<float, DefaultAttributesValue::alpha> alpha;
         Value<int, DefaultAttributesValue::userInteractionEnabled> userInteractionEnabled;
