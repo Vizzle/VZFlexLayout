@@ -7,3 +7,9 @@
 //
 
 #import "VZFSegmentedControlNodeSpecs.h"
+
+namespace VZ {
+    namespace DefaultAttributesValue {
+        NSInteger noSegment = UISegmentedControlNoSegment;
+    }
+}

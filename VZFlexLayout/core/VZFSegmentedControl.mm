@@ -40,7 +40,7 @@
     SegmentedControlNodeSpecs specs = ((VZFSegmentedControlNode *)node).segmentedControlSpecs;
     self.items = specs.items;
     self.onChange = specs.onChange;
-    self.selectedSegmentIndex = specs.selectedSegmentedIndex;
+    self.selectedSegmentIndex = specs.selectedSegmentedIndex.value;
     self.enabled = specs.enabled.value;
 }
 

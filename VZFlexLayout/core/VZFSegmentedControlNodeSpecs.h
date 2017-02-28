@@ -12,11 +12,16 @@
 
 namespace VZ {
     
+    namespace DefaultAttributesValue {
+        extern NSInteger noSegment;
+    }
+    
     struct SegmentedControlNodeSpecs {
+        
         NSArray<NSString *> *items;
         /// Selected segmented index changed event. Event body: {"selectedSegmentedIndex": index}
         VZFEventBlock onChange;
-        NSInteger selectedSegmentedIndex;
+        Value<NSInteger, DefaultAttributesValue::noSegment> selectedSegmentedIndex;
         Value<BOOL, DefaultControlAttrValue::able> enabled;
         
         SegmentedControlNodeSpecs copy() const {
