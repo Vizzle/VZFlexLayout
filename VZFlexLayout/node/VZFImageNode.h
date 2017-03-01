@@ -23,6 +23,8 @@ using namespace VZ;
 @property(nonatomic,strong,readonly) id<VZFNetworkImageDownloadProtocol> imageDownloader;
 @property(nonatomic, copy, readonly) UIImage*(^imageProcessingBlock)(UIImage* );
 @property(nonatomic,strong,readonly) VZFImageNodeRenderer *renderer;
+@property(nonatomic,strong) NSString *downloadImageUrl;
+@property(nonatomic,strong) UIImage *downloadImage;
 
 
 + (instancetype)newWithImageAttributes:(const ImageNodeSpecs& )imageSpecs

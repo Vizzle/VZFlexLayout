@@ -27,6 +27,11 @@ using namespace VZ;
 +(instancetype)newWithView:(const ViewClass &)viewClass
                  NodeSpecs:(const NodeSpecs& )specs;
 
++(Class)defaultClass;
+
 - (BOOL)hasCustomView;
+
+- (UIView* )mountedView;
+
 
 @end

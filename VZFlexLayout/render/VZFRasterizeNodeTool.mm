@@ -29,18 +29,18 @@
     if (!VZFUseRasterize) {
         return nil;
     }
-    // TODO 确认合并
+    
     NodeSpecs specs = node.specs;
     if (specs.gesture ||
         specs.highlightBackgroundColor ||
         specs.borderWidth > 0 ||
-        specs.clip ||
+        //(specs.clip && ([node isKindOfClass:[VZFStackNode class]] || [node  isMemberOfClass:[VZFNode class]]) ) ||
         specs.alpha < 1 ||
         specs.tag > 0 ||
-        specs.applicator ||
-        specs.unapplicator ||
-        (specs.isAccessibilityElement != VZF_BOOL_UNDEFINED && specs.isAccessibilityElement) ||
-        specs.accessibilityLabel) {
+        specs.applicator
+//        ||(specs.isAccessibilityElement != VZF_BOOL_UNDEFINED && specs.isAccessibilityElement) ||
+//        specs.accessibilityLabel
+        ) {
         return nil;
     }
     
@@ -50,9 +50,10 @@
         
     if ([node isKindOfClass:[VZFImageNode class]])
     {
-        return [self getImageRenderer:((VZFImageNode* )node).imageSpecs node:(VZFImageNode *)node];
+        return [self getImageRenderer:((VZFImageNode* )node).imageSpecs node:(VZFImageNode *)node size:size];
     }
-    else if ([node isKindOfClass:[VZFTextNode class]])
+    else
+        if ([node isKindOfClass:[VZFTextNode class]])
     {
         return [self getTextRenderer:((VZFTextNode* )node).textSpecs node:(VZFTextNode *)node size:size];
     }
@@ -67,7 +68,6 @@
 +(VZFTextNodeRenderer *)getTextRenderer:(const TextNodeSpecs& )textNodeSpecs node:(VZFTextNode* )node size:(CGSize)size{
     VZFTextNodeRenderer *renderer = node.renderer;
     UIEdgeInsets edgeInsets = node.flexNode.resultPadding;
-    renderer.edgeInsets = edgeInsets;
     renderer.maxSize = CGSizeMake(size.width - edgeInsets.left - edgeInsets.right,size.height - edgeInsets.top - edgeInsets.bottom);
     [self setRenderer:renderer specs:node.specs];
     return renderer;
@@ -79,11 +79,15 @@
     return renderer;
 }
 
-+(VZFImageNodeRenderer *)getImageRenderer:(const ImageNodeSpecs& )imageSpec node:(VZFImageNode* )node{
++(VZFImageNodeRenderer *)getImageRenderer:(const ImageNodeSpecs& )imageSpec node:(VZFImageNode* )node size:(CGSize)size{
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{} ;
     int animateCount = [ctx[@"animate-count"] intValue]?:0;
     
-    if (animateCount > 1 || imageSpec.imageUrl.length > 0) {
+    if (animateCount > 1) {
+        return nil;
+    }
+    //这个情况需要一个view
+    if(imageSpec.imageUrl.length && !node.imageDownloader){
         return nil;
     }
     
@@ -95,7 +99,23 @@
     renderer.scale = VZ::Helper::screenScale();
     renderer.contentMode = imageSpec.contentMode;
     renderer.image = imageSpec.image;
+//    renderer.node = node;
+    
     [self setRenderer:renderer specs:node.specs];
+
+    if (imageSpec.imageUrl.length) {
+        if (node.downloadImage && [node.downloadImageUrl isEqualToString:imageSpec.imageUrl]) {
+            renderer.image = node.downloadImage;
+        }else{
+            [node.imageDownloader vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl] size:size contentMode:renderer.contentMode  placeholderImage:imageSpec.image errorImage:imageSpec.errorImage context:imageSpec.context completionBlock:renderer];
+            if([renderer.downloadImageUrl isEqualToString:imageSpec.imageUrl]){
+                //同步回调 在node缓存image
+                node.downloadImageUrl = renderer.downloadImageUrl;
+                node.downloadImage = renderer.image;
+            }
+        }
+    }
+    
     return renderer;
 }
 
