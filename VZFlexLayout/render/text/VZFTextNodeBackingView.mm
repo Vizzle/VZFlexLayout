@@ -10,6 +10,10 @@
 #import "VZFTextNodeBackingLayer.h"
 #import "VZFTextNodeRenderer.h"
 #import "VZFUtils.h"
+#import "VZFTextNode.h"
+#import "VZFTextNodeSpecs.h"
+#import "VZFNodeInternal.h"
+#import "VZFlexNode.h"
 
 @implementation VZFTextNodeBackingView
 
@@ -113,4 +117,10 @@
     return [super accessibilityLabel];
 }
 
+- (void)vz_applyNodeAttributes:(VZFTextNode *)textNode{
+    TextNodeSpecs textNodeSpecs =textNode.textSpecs;
+    self.edgeInsets = textNode.flexNode.resultPadding;
+    self.textRenderer = textNode.renderer;
+    self.textRenderer.maxSize = CGSizeMake(self.bounds.size.width - self.edgeInsets.left - self.edgeInsets.right, self.bounds.size.height - self.edgeInsets.top - self.edgeInsets.bottom);
+}
 @end
