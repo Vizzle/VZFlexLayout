@@ -68,6 +68,7 @@
 +(VZFTextNodeRenderer *)getTextRenderer:(const TextNodeSpecs& )textNodeSpecs node:(VZFTextNode* )node size:(CGSize)size{
     VZFTextNodeRenderer *renderer = node.renderer;
     UIEdgeInsets edgeInsets = node.flexNode.resultPadding;
+    renderer.edgeInsets = edgeInsets;
     renderer.maxSize = CGSizeMake(size.width - edgeInsets.left - edgeInsets.right,size.height - edgeInsets.top - edgeInsets.bottom);
     [self setRenderer:renderer specs:node.specs];
     return renderer;
