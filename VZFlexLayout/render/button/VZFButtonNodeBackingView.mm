@@ -35,7 +35,9 @@
 
 -(void)setButtonStatus:(UIControlState)state{
     [[self buttonNodeBackingLayer].renderer updateRenderer:state maxSize:self.frame.size scale:self.layer.contentsScale];
+    [self.buttonNodeBackingLayer setNeedsDisplay];
 }
+
 -(void)setTitleFont:(UIFont *)font{
     [self buttonNodeBackingLayer].renderer.titleFont = font;
 }
