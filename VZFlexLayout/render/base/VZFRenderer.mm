@@ -63,6 +63,8 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 //can not override by sub class
 - (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds {
     CGContextSaveGState(context);
+    bounds.origin.x = round(bounds.origin.x * VZ::Helper::screenScale())/VZ::Helper::screenScale();
+    bounds.origin.y = round(bounds.origin.y * VZ::Helper::screenScale())/VZ::Helper::screenScale();
     
     UIBezierPath *borderPath = [self borderPathForBounds:bounds corner:self.customCorner];
     
