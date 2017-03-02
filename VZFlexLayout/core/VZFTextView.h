@@ -16,6 +16,7 @@
 @property (nonatomic, assign) NSUInteger maxLength;
 @property (nonatomic, assign) UIEdgeInsets contentInset;
 @property (nonatomic, assign) BOOL blurOnSubmit;
+@property (nonatomic, assign) BOOL autoFocus;
 @property (nonatomic, copy) VZFEventBlock onFocus;
 @property (nonatomic, copy) VZFEventBlock onBlur;
 @property (nonatomic, copy) VZFEventBlock onChange;

@@ -75,6 +75,13 @@
     [self layoutPlaceholder];
 }
 
+- (void)didMoveToWindow {
+    [super didMoveToWindow];
+    if (self.window && self.autoFocus) {
+        [self.textView becomeFirstResponder];
+    }
+}
+
 - (NSMutableDictionary *)baseEvent {
     return [@{@"sender": self.textView} mutableCopy];
 }
@@ -166,12 +173,13 @@
 - (void)vz_applyNodeAttributes:(VZFNode *)node {
     TextViewNodeSpecs specs = ((VZFTextViewNode *)node).textViewNodeSpecs;
     self.textView.text = specs.text;
-    self.textView.font = specs.font;
+    self.textView.font = specs.font ?: [UIFont systemFontOfSize:14];
     self.textView.textColor = specs.color;
     self.textView.textAlignment = specs.alignment;
     self.placeholder = specs.placeholder;
     self.placeholderColor = specs.placeholderColor ?: [UIColor colorWithWhite:0.7 alpha:1.0];
     self.textView.editable = specs.editable.value;
+    self.autoFocus = specs.autoFocus;
     self.textView.secureTextEntry = specs.secureTextEntry;
     self.textView.keyboardType = specs.keyboardType;
     self.textView.keyboardAppearance = specs.keyboardAppearance;
