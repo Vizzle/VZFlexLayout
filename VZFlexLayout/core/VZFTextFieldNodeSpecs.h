@@ -28,7 +28,7 @@ namespace VZ {
         UITextFieldViewMode clearButtonMode;
         Value<NSUInteger, DefaultAttributesValue::uintMax> maxLength;
         Value<BOOL, DefaultControlAttrValue::able> blurOnSubmit;
-        Value<BOOL, DefaultControlAttrValue::able> enablesReturnKeyAutomatically;
+        Value<BOOL, DefaultControlAttrValue::disable> autoFocus;
         VZFEventBlock onFocus;
         VZFEventBlock onBlur;
         VZFEventBlock onChange;
@@ -51,7 +51,7 @@ namespace VZ {
                 clearButtonMode,
                 maxLength,
                 blurOnSubmit,
-                enablesReturnKeyAutomatically,
+                autoFocus,
                 [onFocus copy],
                 [onBlur copy],
                 [onChange copy],

@@ -89,6 +89,13 @@
     }
 }
 
+- (void)didMoveToWindow {
+    [super didMoveToWindow];
+    if (self.autoFocus && self.window) {
+        [self becomeFirstResponder];
+    }
+}
+
 #pragma mark - Events
 
 - (NSMutableDictionary *)baseEvent {
@@ -194,7 +201,7 @@
     self.clearButtonMode = specs.clearButtonMode;
     self.maxLength = specs.maxLength.value;
     self.blurOnSubmit = specs.blurOnSubmit;
-    self.enablesReturnKeyAutomatically = specs.enablesReturnKeyAutomatically.value;
+    self.autoFocus = specs.autoFocus.value;
     self.contentInset = node.flexNode.resultPadding;
     self.onFocus = specs.onFocus;
     self.onBlur = specs.onBlur;
