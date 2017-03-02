@@ -6,7 +6,7 @@
 //
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 @class VZFNode;
 
 @interface UIImageView (VZAttributes)

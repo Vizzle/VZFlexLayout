@@ -8,6 +8,7 @@
 
 #import "VZFImageNodeRenderer.h"
 #import "VZFImageNode.h"
+#import "VZFNodeListItemRecycler.h"
 @implementation VZFImageNodeRenderer
 
 //图片下载成功回调
@@ -34,6 +35,18 @@
         }
         UIView *v = [render.node mountedView];
         if(v){
+            UIView *superview = v;
+            while (!superview.vz_recycler || !superview.superview) {
+                superview = superview.superview;
+            }
+            VZFNodeListItemRecycler *recyler = superview.vz_recycler;
+            if (recyler) {
+                VZFDispatchMain(0, ^{
+                    [recyler attachToView:superview];
+                });
+                return;
+            }
+            
             [v.layer setNeedsDisplay];
         }else{
             

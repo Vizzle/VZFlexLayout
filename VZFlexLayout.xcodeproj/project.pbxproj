@@ -209,6 +209,8 @@
 		525198F21E6455B800EBC82E /* VZFRasterizeNodeTool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 525198EF1E6455B800EBC82E /* VZFRasterizeNodeTool.mm */; };
 		525198F51E64561100EBC82E /* VZFRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 525198F31E64561100EBC82E /* VZFRenderer.h */; };
 		525198F61E64561100EBC82E /* VZFRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 525198F41E64561100EBC82E /* VZFRenderer.mm */; };
+		73039DE51E6811190041937A /* VZFIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73039DE31E6811190041937A /* VZFIndicatorView.m */; };
+		73039DE61E6811190041937A /* VZFLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73039DE41E6811190041937A /* VZFLineView.m */; };
 		73998A2D1E66C515004CE352 /* UIImageView+VZAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 73998A2B1E66C515004CE352 /* UIImageView+VZAttributes.h */; };
 		73998A2E1E66C515004CE352 /* UIImageView+VZAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73998A2C1E66C515004CE352 /* UIImageView+VZAttributes.mm */; };
 		B1A532DD1E5EBF2E007E5D0C /* VZFDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A532DC1E5EBF2E007E5D0C /* VZFDispatch.m */; };
@@ -421,6 +423,8 @@
 		525198EF1E6455B800EBC82E /* VZFRasterizeNodeTool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFRasterizeNodeTool.mm; sourceTree = "<group>"; };
 		525198F31E64561100EBC82E /* VZFRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFRenderer.h; sourceTree = "<group>"; };
 		525198F41E64561100EBC82E /* VZFRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFRenderer.mm; sourceTree = "<group>"; };
+		73039DE31E6811190041937A /* VZFIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFIndicatorView.m; sourceTree = "<group>"; };
+		73039DE41E6811190041937A /* VZFLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFLineView.m; sourceTree = "<group>"; };
 		73998A2B1E66C515004CE352 /* UIImageView+VZAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+VZAttributes.h"; sourceTree = "<group>"; };
 		73998A2C1E66C515004CE352 /* UIImageView+VZAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImageView+VZAttributes.mm"; sourceTree = "<group>"; };
 		B1A532DA1E5EBF0B007E5D0C /* VZFDispatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFDispatch.h; sourceTree = "<group>"; };
@@ -545,6 +549,7 @@
 				1EEC19C41E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.h */,
 				1EEC19C51E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.mm */,
 				1EEC19C61E27BFAD00EBF0CC /* VZFIndicatorView.h */,
+				73039DE31E6811190041937A /* VZFIndicatorView.m */,
 				1EEC19C71E27BFAD00EBF0CC /* VZFIndicatorView.mm */,
 				1EEC19C81E27BFAD00EBF0CC /* VZFLength.h */,
 				1EEC19C91E27BFAD00EBF0CC /* VZFLength.mm */,
@@ -555,6 +560,7 @@
 				1EEC19CE1E27BFAD00EBF0CC /* VZFLineNodeSpecs.h */,
 				1EEC19CF1E27BFAD00EBF0CC /* VZFLineNodeSpecs.mm */,
 				1EEC19D01E27BFAD00EBF0CC /* VZFLineView.h */,
+				73039DE41E6811190041937A /* VZFLineView.m */,
 				1EAC535E1E5D8EBA009C4C57 /* VZFLineView.mm */,
 				1EEC19D21E27BFAD00EBF0CC /* VZFLocker.h */,
 				1EEC19D31E27BFAD00EBF0CC /* VZFMacros.h */,
@@ -1012,6 +1018,7 @@
 				1EEC1AC91E27BFAD00EBF0CC /* VZFAsyncLayer.mm in Sources */,
 				1EEC1AB01E27BFAD00EBF0CC /* VZFIndicatorNode.mm in Sources */,
 				1EEC1AA21E27BFAD00EBF0CC /* VZFluxDispatcher.mm in Sources */,
+				73039DE61E6811190041937A /* VZFLineView.m in Sources */,
 				1E414B701E54782C00F84302 /* VZFPickerView.mm in Sources */,
 				1EEC1ABD1E27BFAD00EBF0CC /* VZFTextFieldNode.mm in Sources */,
 				1EEC1A5D1E27BFAD00EBF0CC /* VZFlexNode+VZFNode.mm in Sources */,
@@ -1063,6 +1070,7 @@
 				1EEC1A571E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.mm in Sources */,
 				1EEC1AC41E27BFAD00EBF0CC /* VZFAsyncDrawingTransactionContainer.m in Sources */,
 				1E414B921E55AADB00F84302 /* VZFWebView.mm in Sources */,
+				73039DE51E6811190041937A /* VZFIndicatorView.m in Sources */,
 				1EEC1AB71E27BFAD00EBF0CC /* VZFPagingNode.mm in Sources */,
 				1EEC1A801E27BFAD00EBF0CC /* VZFScrollNodeSpecs.mm in Sources */,
 				525198E81E6455A300EBC82E /* UIBezierPath+extension.mm in Sources */,

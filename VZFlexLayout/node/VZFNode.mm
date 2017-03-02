@@ -24,12 +24,15 @@
 #import "VZFRenderer.h"
 #import "VZFRasterizeNodeTool.h"
 #import "VZFBackingViewProtocol.h"
+#import "VZFBlankNodeBackingView.h"
 
 struct VZFNodeMountedInfo{
   
     __weak VZFNode* parentNode;
     __weak UIView* mountedView;
     __weak VZFRenderer* mountedRenderer;
+    
+    BOOL hadSubView;
     
     struct {
         __weak UIView* v;
@@ -55,6 +58,9 @@ using namespace VZ::UIKit;
     return [[self alloc] initWithView: viewclass Specs:specs];
 }
 
++(Class)defaultClass{
+    return [VZFBlankNodeBackingView class];
+}
 + (instancetype)new
 {
     return [self newWithView:[UIView class] NodeSpecs:{}];
@@ -172,6 +178,7 @@ using namespace VZ::UIKit;
     }
     
     _mountedInfo -> parentNode =  parentNode;
+    _mountedInfo -> hadSubView = NO;
     
     VZFRenderer *parentRenderer = nil;
     
@@ -187,7 +194,7 @@ using namespace VZ::UIKit;
     
     BOOL canAddToSuperRenderer = NO;
     //当前结点能光栅化，并且parentRenderer存在是先决条件
-    if (parentRenderer) {
+    if (parentRenderer  && !parentNode-> _mountedInfo->hadSubView ) {
         /*
          *判断当前的结点的有效显示区域是否超过了光栅化根结点的frame。如果超过了，并且根结点的clip为NO，那么这个结点不能被加入到这个光栅化树
          *【分析】
@@ -219,6 +226,8 @@ using namespace VZ::UIKit;
         //当自己能被光栅化，且父节点也被光栅化的，renderer添加到父节点上
         VZFRenderer *renderer = [VZFRasterizeNodeTool getRenderer4RasterizedNode:self size:size];
         if (renderer) {
+            [renderer removeAllSubRenderers];//复用，删除子renderers
+
             //to rasterize
             //不是当前的backingview
             if (renderer != _mountedInfo -> mountedRenderer) {
@@ -256,6 +265,9 @@ using namespace VZ::UIKit;
     
     
     //走到这个分支，意味着，当前节点或者作为光栅化的根节点，或者是一个普通的view
+    if (parentNode) {
+        parentNode -> _mountedInfo->hadSubView = YES;
+    }
     
     CGPoint origin = context.position;
     
@@ -307,6 +319,7 @@ using namespace VZ::UIKit;
         if ([view conformsToProtocol:@protocol(VZFBackingViewProtocol)]) {
             renderer = [(id<VZFBackingViewProtocol>)view renderer];;
             renderer.frame = {CGPointMake(0, 0), size};
+            [renderer removeAllSubRenderers];//复用，删除子renderers
         }
         
         _mountedInfo-> mountedRenderer = renderer;

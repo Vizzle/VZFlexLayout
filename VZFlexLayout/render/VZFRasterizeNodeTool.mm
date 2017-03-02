@@ -92,6 +92,21 @@
         return nil;
     }
     
+    //图片已经下载成功
+    UIImage *downLoadImage = nil;
+    if(node.downloadImage && [node.downloadImageUrl isEqualToString:imageSpec.imageUrl]){
+        downLoadImage = node.downloadImage;
+    }
+    
+    NSArray *images = downLoadImage.images;
+    NSTimeInterval duration = downLoadImage.duration;
+    
+    if (images.count && duration) {
+        //gif 图片 需要用view来处理
+        return nil;
+    }
+    
+    
     VZFImageNodeRenderer *renderer = node.renderer;
     if (!renderer) {
         renderer = [VZFImageNodeRenderer new];
@@ -100,19 +115,22 @@
     renderer.scale = VZ::Helper::screenScale();
     renderer.contentMode = imageSpec.contentMode;
     renderer.image = imageSpec.image;
-//    renderer.node = node;
     
     [self setRenderer:renderer specs:node.specs];
 
     if (imageSpec.imageUrl.length) {
-        if (node.downloadImage && [node.downloadImageUrl isEqualToString:imageSpec.imageUrl]) {
-            renderer.image = node.downloadImage;
+        //已经下载成功 并缓存 直接赋值
+        if (downLoadImage) {
+            renderer.image = downLoadImage;
         }else{
             [node.imageDownloader vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl] size:size contentMode:renderer.contentMode  placeholderImage:imageSpec.image errorImage:imageSpec.errorImage context:imageSpec.context completionBlock:renderer];
             if([renderer.downloadImageUrl isEqualToString:imageSpec.imageUrl]){
                 //同步回调 在node缓存image
                 node.downloadImageUrl = renderer.downloadImageUrl;
                 node.downloadImage = renderer.image;
+                if (node.downloadImage.images.count) {
+                    return nil;
+                }
             }
         }
     }
