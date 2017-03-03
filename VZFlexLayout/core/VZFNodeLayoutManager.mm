@@ -64,7 +64,7 @@ namespace VZ {
         std::stack<MountItem> stack = {};
         stack.push({layout,rootContext,superNode,NO});
         
-        BOOL useRasterize = YES;
+        BOOL useRasterize = NO;
         
         //2.3, 每个节点深度优先遍历
         /**

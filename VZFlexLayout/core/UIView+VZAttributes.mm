@@ -41,8 +41,6 @@
 #import "VZFTextField.h"
 #import "VZFViewReusePool.h"
 #import <objc/runtime.h>
-#import "VZFImageNodeBackingView.h"
-#import "VZFImageNodeRenderer.h"
 #import "VZFButtonNodeBackingView.h"
 #import "VZFBackingViewProtocol.h"
 #import "VZFSwitchNode.h"
