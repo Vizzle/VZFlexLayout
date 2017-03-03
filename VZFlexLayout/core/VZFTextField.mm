@@ -61,11 +61,19 @@
     return result;
 }
 
-- (void)willMoveToSuperview:(UIView *)newSuperview {
-    if (!newSuperview) {
+- (BOOL)becomeFirstResponder {
+    BOOL result = [super becomeFirstResponder];
+    if (result) {
+        [self.window addGestureRecognizer:self.tapGesture];
+    }
+    return result;
+}
+
+- (void)willMoveToWindow:(UIWindow *)newWindow {
+    if (!newWindow) {
         [self.window removeGestureRecognizer:self.tapGesture];
     }
-    [super willMoveToSuperview:newSuperview];
+    [super willMoveToWindow:newWindow];
 }
 
 - (void)setPlaceholder:(NSString *)placeholder {

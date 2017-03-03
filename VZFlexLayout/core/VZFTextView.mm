@@ -12,9 +12,19 @@
 #import "VZFlexNode.h"
 #import "VZFNodeInternal.h"
 
+@class VZFUITextView;
+@protocol VZFUITextViewDelegate <NSObject>
+
+@optional
+- (void)didResignFirstResponder:(VZFUITextView *)textView;
+
+@end
+
 @interface VZFUITextView : UITextView
 
 @property (nonatomic, assign) BOOL textWasPasted;
+@property (nonatomic, weak) id<VZFUITextViewDelegate> otherDelegate;
+@property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 
 @end
 
@@ -25,13 +35,42 @@
     [super paste:sender];
 }
 
+- (BOOL)resignFirstResponder {
+    BOOL ret = [super resignFirstResponder];
+    if (ret) {
+        [self.window removeGestureRecognizer:self.tapGesture];
+        if ([self.otherDelegate respondsToSelector:@selector(didResignFirstResponder:)]) {
+            [self.otherDelegate didResignFirstResponder:self];
+        }
+    }
+}
+
+- (BOOL)becomeFirstResponder {
+    BOOL ret = [super becomeFirstResponder];
+    if (ret) {
+        [self.window addGestureRecognizer:self.tapGesture];
+    }
+}
+
+#pragma mark - Gesture
+
+- (UITapGestureRecognizer *)tapGesture {
+    if (!_tapGesture) {
+        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped:)];
+    }
+    return _tapGesture;
+}
+
+- (void)backgroundTapped:(UITapGestureRecognizer *)tap {
+    [self resignFirstResponder];
+}
+
 @end
 
-@interface VZFTextView () <UITextViewDelegate>
+@interface VZFTextView () <UITextViewDelegate, VZFUITextViewDelegate>
 
 @property (nonatomic, strong) VZFUITextView *textView;
 @property (nonatomic, strong) UILabel *placeholderLabel;
-@property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 
 @end
 
@@ -45,6 +84,7 @@
         _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _textView.backgroundColor = [UIColor clearColor];
         _textView.delegate = self;
+        _textView.otherDelegate = self;
         [self addSubview:_textView];
         _placeholderLabel = [[UILabel alloc] init];
         _placeholderLabel.numberOfLines = 0;
@@ -93,22 +133,14 @@
         if (self.onBlur) {
             self.onBlur([self baseEvent]);
         }
-        [self.window removeGestureRecognizer:self.tapGesture];
     }
     return result;
 }
 
-#pragma mark - Gesture
-
-- (UITapGestureRecognizer *)tapGesture {
-    if (!_tapGesture) {
-        _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped:)];
+- (void)didResignFirstResponder:(VZFUITextView *)textView {
+    if (self.onBlur) {
+        self.onBlur([self baseEvent]);
     }
-    return _tapGesture;
-}
-
-- (void)backgroundTapped:(UITapGestureRecognizer *)tap {
-    [self resignFirstResponder];
 }
 
 #pragma mark - UITextViewDelegate
@@ -124,7 +156,6 @@
     if (self.onFocus) {
         self.onFocus([self baseEvent]);
     }
-    [self.window addGestureRecognizer:self.tapGesture];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
@@ -180,7 +211,6 @@
     self.placeholderColor = specs.placeholderColor ?: [UIColor colorWithWhite:0.7 alpha:1.0];
     self.textView.editable = specs.editable.value;
     self.autoFocus = specs.autoFocus;
-    self.textView.secureTextEntry = specs.secureTextEntry;
     self.textView.keyboardType = specs.keyboardType;
     self.textView.keyboardAppearance = specs.keyboardAppearance;
     self.textView.returnKeyType = specs.returnKeyType;

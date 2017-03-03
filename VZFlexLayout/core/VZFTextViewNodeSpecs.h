@@ -20,8 +20,6 @@ namespace VZ {
         UIColor *placeholderColor;
         Value<BOOL, DefaultControlAttrValue::able> editable;
         Value<BOOL, DefaultControlAttrValue::disable> autoFocus;
-
-        BOOL secureTextEntry;
         UIKeyboardType keyboardType;
         UIKeyboardAppearance keyboardAppearance;
         UIReturnKeyType returnKeyType;
@@ -44,7 +42,6 @@ namespace VZ {
                 placeholderColor,
                 editable,
                 autoFocus,
-                secureTextEntry,
                 keyboardType,
                 keyboardAppearance,
                 returnKeyType,
