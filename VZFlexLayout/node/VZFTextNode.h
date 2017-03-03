@@ -20,7 +20,7 @@ using namespace VZ;
 @interface VZFTextNode : VZFNode
 
 @property(nonatomic,assign,readonly) TextNodeSpecs textSpecs;
-@property(nonatomic,assign,readonly) VZFTextNodeRenderer *renderer;
+@property(nonatomic,strong,readonly) VZFTextNodeRenderer *renderer;
 + (instancetype)newWithTextAttributes:(const TextNodeSpecs&) textSpecs NodeSpecs:(const NodeSpecs&) specs;
 
 @end

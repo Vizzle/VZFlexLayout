@@ -10,6 +10,7 @@
 #import "UIBezierPath+extension.h"
 #import "VZFNode.h"
 #import <stack>
+#import "VZFLocker.h"
 
 VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
     return (VZFRendererCustomCorner){cornerRadis, cornerRadis, cornerRadis, cornerRadis};
@@ -20,6 +21,9 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 {
     __weak VZFRenderer *_superRenderer;
     NSMutableArray<__kindof VZFRenderer *> *_subRenderers;
+    
+    VZ::RecursiveMutex _subRenderersLock; //
+
 }
 
 @end
@@ -78,7 +82,7 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
     [self drawBackgroundColor:context path:borderPath];
     [self drawContentInContext:context bounds:bounds];
     
-    NSArray<__kindof VZFRenderer *> *subRenderers = [_subRenderers copy];
+    NSArray<__kindof VZFRenderer *> *subRenderers = [self subRenderers];
     
     for (VZFRenderer *renderer in subRenderers) {
         CGRect frame = renderer.frame;
@@ -169,10 +173,12 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 }
 
 - (nullable NSArray<__kindof VZFRenderer *> *)subRenderers {
+    VZ::MutexLocker l(_subRenderersLock);
     return [_subRenderers copy];
 }
 
 - (BOOL)hasSubRenderers {
+    VZ::MutexLocker l(_subRenderersLock);
     return [_subRenderers count] > 0;
 }
 
@@ -185,6 +191,8 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
     if (![subRenderer isKindOfClass:[VZFRenderer class]]) {
         return;
     }
+    
+    VZ::MutexLocker l(_subRenderersLock);
     [_subRenderers removeObject:subRenderer];
 }
 
@@ -193,6 +201,8 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
         return;
     }
     
+    VZ::MutexLocker l(_subRenderersLock);
+
     if (index < 0 || index > _subRenderers.count){
         return;
     }
@@ -211,6 +221,7 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 }
 
 - (void)exchangeSubRendererAtIndex:(NSInteger)index1 withSubRendererAtIndex:(NSInteger)index2 {
+    VZ::MutexLocker l(_subRenderersLock);
     if (index1 < 0 || index1 > _subRenderers.count
         || index2 < 0 || index2 > _subRenderers.count){
         return;
@@ -224,20 +235,28 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 }
 
 - (void)addSubRenderer:(VZFRenderer *)renderer {
-    if (![renderer isKindOfClass:[VZFRenderer class]]
-        || [_subRenderers containsObject:renderer]) {
-        return;
+    {
+        VZ::MutexLocker l(_subRenderersLock);
+        
+        if (![renderer isKindOfClass:[VZFRenderer class]]
+            || [_subRenderers containsObject:renderer]) {
+            return;
+        }
+        
+        if (!_subRenderers) {
+            _subRenderers = [NSMutableArray array];
+        }
     }
-    
-    if (!_subRenderers) {
-        _subRenderers = [NSMutableArray array];
-    }
+   
     
     if (renderer->_superRenderer && renderer->_superRenderer != self) {
         [renderer removeFromSuperRenderer];
     }
     
-    [_subRenderers addObject:renderer];
+    {
+        VZ::MutexLocker l(_subRenderersLock);
+        [_subRenderers addObject:renderer];
+    }
     renderer->_superRenderer = self;
 }
 
@@ -251,6 +270,8 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 
 
 - (void)insertSubRenderer:(VZFRenderer *)renderer nearSubRenderer:(VZFRenderer *)siblingSubRenderer isAbove:(BOOL)isAbove {
+    
+    VZ::MutexLocker l(_subRenderersLock);
     if (![renderer isKindOfClass:[VZFRenderer class]]
         || ![siblingSubRenderer isKindOfClass:[VZFRenderer class]]
         || [_subRenderers containsObject:renderer]) {
@@ -273,6 +294,7 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 
 
 - (void)bringSubRendererToFront:(VZFRenderer *)renderer {
+    VZ::MutexLocker l(_subRenderersLock);
     if (![renderer isKindOfClass:[VZFRenderer class]]
         || ![_subRenderers containsObject:renderer]) {
         return;
@@ -284,6 +306,7 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 }
 
 - (void)sendSubRendererToBack:(VZFRenderer *)renderer {
+    VZ::MutexLocker l(_subRenderersLock);
     if (![renderer isKindOfClass:[VZFRenderer class]]
         || ![_subRenderers containsObject:renderer]) {
         return;
@@ -303,6 +326,8 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
         return YES;
     }
     
+    VZ::MutexLocker l(_subRenderersLock);
+
     for (VZFRenderer *subRender in _subRenderers) {
         if ([renderer isDescendantOfRenderer:subRender]) {
             return YES;
@@ -313,6 +338,7 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 }
 
 - (void)removeAllSubRenderers {
+    VZ::MutexLocker l(_subRenderersLock);
     [_subRenderers removeAllObjects];
 }
 

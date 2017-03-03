@@ -16,6 +16,9 @@
 
 
 - (void)vz_applyNodeAttributes:(VZFImageNode *)imageNode{
+    if (![imageNode isKindOfClass:[VZFImageNode class]]) {
+        return;
+    }
     
     ImageNodeSpecs imageSpec = imageNode.imageSpecs;
     id<VZFNetworkImageDownloadProtocol> imageDownloader = imageNode.imageDownloader;
