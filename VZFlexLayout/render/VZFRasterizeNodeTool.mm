@@ -19,7 +19,6 @@
 #import "VZFlexNode.h"
 #import "VZFStackNode.h"
 #import "VZFBlankNodeRenderer.h"
-#import "VZFButtonNodeRenderer.h"
 #import "VZFButtonNodeSpecs.h"
 
 @implementation VZFRasterizeNodeTool

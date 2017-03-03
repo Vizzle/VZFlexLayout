@@ -96,13 +96,7 @@
         [btn addTarget:buttonNodeSpecs.action action:@selector(invoke:event:) forControlEvents:action.controlEvents];
     }
     
-    if([btn isKindOfClass:[VZFButtonNodeBackingView class]]){
-        [(VZFButtonNodeBackingView *)btn setTitleFont:buttonNodeSpecs.getFont()];
-        [(VZFButtonNodeBackingView *)btn setButtonStatus:UIControlStateNormal];
-    }else{
-        btn.titleLabel.font = buttonNodeSpecs.getFont();
-    }
-
+    btn.titleLabel.font = buttonNodeSpecs.getFont();
 }
 
 @end
