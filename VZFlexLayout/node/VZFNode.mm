@@ -331,6 +331,7 @@ using namespace VZ::UIKit;
         return {.hasChildren = YES, .childContext = context};
     }
 }
+
 -(VZ::UIKit::MountResult)renderInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
 {
     [self resetParentNode:parentNode];
@@ -349,6 +350,71 @@ using namespace VZ::UIKit;
     
     return [self getViewResult:parentNode context:context parentRenderer:parentRenderer size:size];
 }
+
+
+-(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
+{
+    
+    //VZF_LOG_THREAD(@"mount");
+    
+    if (_mountedInfo == nullptr) {
+        _mountedInfo.reset( new VZFNodeMountedInfo() );
+    }
+    
+    _mountedInfo -> parentNode =  parentNode;
+    
+    //获取一个reuse view
+    UIView* view = [context.viewManager viewForNode:self];
+    
+    //说明reusepool中有view
+    if (view) {
+        //不是当前的backingview
+        if (view != _mountedInfo -> mountedView) {
+            
+            //释放当前mountedView绑定的node
+            [view.node unmount];
+            view.node = self;
+            _mountedInfo -> mountedView = view;
+            [self didAquireBackingView:view];
+        }
+        else{
+            VZFAssert(view.node == self, @"");
+        }
+        
+        
+        
+        //计算公式:
+        //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
+        //position.y = frame.origin.y + anchorPoint.y * bounds.size.height；
+        /*       const CGPoint anchorPoint = view.layer.anchorPoint;
+         view.center = context.position + CGPoint({anchorPoint.x * size.width, anchorPoint.y * size.height});
+         view.bounds = {view.bounds.origin,size};
+         */
+        //apply frame
+        view.frame  = {context.position, size};
+        
+        //apply attributes
+        [view applyAttributes];
+        
+        //update mountedInfo
+        _mountedInfo -> mountedContext = {view,nil,{context.position,size}};
+        
+        return {.hasChildren = YES, .childContext = context.childContextForSubview(view, YES)};
+        
+        
+    }
+    else{
+        //这种情况对应于没有viewclass的node，例如compositeNode，他没有backingview，mount过程中使用的是view的是上一个view
+        _mountedInfo -> mountedView = nil;
+        _mountedInfo -> mountedContext = {context.viewManager.managedView,nil,{context.position,size}};
+        
+        return {.hasChildren = YES, .childContext = context};
+        
+    }
+    
+    
+}
+
 
 //{
 //    

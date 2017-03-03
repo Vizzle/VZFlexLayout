@@ -103,6 +103,12 @@ using namespace VZ;
 - (VZ::UIKit::MountResult)renderInContext:(const VZ::UIKit::MountContext &)context
                                    Size:(CGSize) size
                              ParentNode:(VZFNode* )parentNode;
+
+//这个不会光栅化
+- (VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context
+                                    Size:(CGSize) size
+                              ParentNode:(VZFNode* )parentNode;
+
 - (void)unmount;
 
 
