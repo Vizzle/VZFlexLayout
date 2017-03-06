@@ -27,7 +27,7 @@ using namespace VZ;
  */
 - (instancetype)initWithView:(UIView* )view shouldAutoReset:(BOOL)shouldAutoReset;
 
-- (UIView* )viewForNode:(VZFNode* )node;
+- (UIView* )viewForNode:(VZFNode* )node frame:(CGRect)frame;
 
 @end
 

@@ -54,12 +54,12 @@ static const void* g_unapplicatorId = &g_unapplicatorId;
     }
     return self;
 }
-- (UIView* )viewForClass:(const ViewClass&)viewClass ParentView:(UIView* )container{
+- (UIView* )viewForClass:(const ViewClass&)viewClass ParentView:(UIView* )container Frame:(CGRect)frame {
     
     UIView* v = nil;
     if (_nextUsableViewPos == _reusePool.end()) {
         //push a new one
-        v = viewClass.createView();
+        v = viewClass.createView(frame);
         
         if (v) {
             

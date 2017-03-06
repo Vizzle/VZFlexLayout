@@ -13,6 +13,8 @@
 
 namespace VZ{
     
+    typedef UIView *(^ViewFactory)(CGRect frame);
+    
     /**
      *  ViewClass对应于node的backingview的描述
      */
@@ -20,10 +22,10 @@ namespace VZ{
 
         ViewClass();
         ViewClass(Class clz);
-        ViewClass(UIView *(^factory)(void),NSString* identifier);
+        ViewClass(ViewFactory factory,NSString* identifier);
 
         NSString* identifier() const;
-        UIView* createView() const;
+        UIView* createView(CGRect frame) const;
         bool hasView() const;
         bool isCustom() const;
 
@@ -33,7 +35,7 @@ namespace VZ{
         
     private:
         NSString*  _identifier;
-        UIView *(^_factory)(void);
+        ViewFactory _factory;
         bool _isCustom;
     };
     

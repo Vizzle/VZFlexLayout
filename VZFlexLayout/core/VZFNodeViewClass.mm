@@ -13,10 +13,10 @@
 namespace VZ {
     
     ViewClass::ViewClass():_factory(nil),_identifier(nil),_isCustom(false){}
-    ViewClass::ViewClass(Class clz):_factory([^(void ){return [[clz alloc] init];} copy]),_identifier(NSStringFromClass(clz).copy){
+    ViewClass::ViewClass(Class clz):_factory([^(CGRect frame){return [[clz alloc] init];} copy]),_identifier(NSStringFromClass(clz).copy){
         _isCustom = clz == [UIView class];
     }
-    ViewClass::ViewClass(UIView *(^factory)(void),NSString* identifier):_factory([factory copy]),_identifier(identifier.copy), _isCustom(YES){}
+    ViewClass::ViewClass(ViewFactory factory,NSString* identifier):_factory([factory copy]),_identifier(identifier.copy), _isCustom(YES){}
     
 //    ViewClass(Class clz):ViewClass((), NSStringFromClass(clz)){}
 //    ViewClass(UIView *(^factory)(void),NSString* identifier):_factory([factory copy]),_identifier([[identifier copy]UTF8String]){}
@@ -52,9 +52,9 @@ namespace VZ {
         return _identifier;
     }
 
-    UIView* ViewClass::createView() const{
+    UIView* ViewClass::createView(CGRect frame) const{
         
-        return _factory? _factory():nil;
+        return _factory? _factory(frame):nil;
     }
 
     bool ViewClass::hasView() const{

@@ -51,9 +51,9 @@ using namespace VZ;
     return self;
 }
 
-- (UIView* )viewForNode:(VZFNode* )node{
+- (UIView* )viewForNode:(VZFNode* )node frame:(CGRect)frame {
 
-    UIView* v = [_managerReusePoolManager viewForNode:node ParentView:_managedView];
+    UIView* v = [_managerReusePoolManager viewForNode:node ParentView:_managedView Frame:frame];
     return v;
     
 }

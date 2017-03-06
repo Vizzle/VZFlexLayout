@@ -13,7 +13,7 @@
 @synthesize textFieldSpecs = _textFieldSpecs;
 
 + (instancetype)newWithTextFieldAttributes:(const VZ::TextFieldNodeSpecs &)textFieldSpecs NodeSpecs:(const VZ::NodeSpecs &)specs {
-    ViewClass viewClass = ViewClass(^(void) {
+    ViewClass viewClass = ViewClass(^(CGRect frame) {
         VZFTextField *textFeild = [[VZFTextField alloc] init];
         return textFeild;
     }, @"VZFTextField");

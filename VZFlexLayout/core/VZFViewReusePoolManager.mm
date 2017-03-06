@@ -79,7 +79,7 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     _existedViews.clear();
 }
 
-- (UIView* )viewForNode:(VZFNode* )node ParentView:(UIView* )container{
+- (UIView* )viewForNode:(VZFNode* )node ParentView:(UIView* )container Frame:(CGRect)frame {
     if (!node.viewClass.hasView()) {
         return nil;
     }
@@ -90,7 +90,7 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
         reusePool = [[VZFViewReusePool alloc]init];
         _reusePoolMap[viewKey] = reusePool;
     }
-    UIView* v = [reusePool viewForClass:node.viewClass ParentView:container];
+    UIView* v = [reusePool viewForClass:node.viewClass ParentView:container Frame:frame];
     
     if (v) {
         _existedViews.push_back(v);

@@ -34,7 +34,7 @@ using namespace VZ;
  *
  *  @return view对象
  */
-- (UIView* )viewForClass:(const ViewClass&)viewClass ParentView:(UIView* )container;
+- (UIView* )viewForClass:(const ViewClass&)viewClass ParentView:(UIView* )container Frame:(CGRect)frame;
 - (void)reset;
 - (void)clean;
 

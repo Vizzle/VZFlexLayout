@@ -29,4 +29,6 @@ using namespace VZ;
 
 - (BOOL)hasCustomView;
 
+- (void)applyAttributes;
+
 @end

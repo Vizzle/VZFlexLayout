@@ -158,11 +158,6 @@
         stackView.defaultColor = vs.backgroundColor;
         stackView.highlightColor = vs.highlightBackgroundColor;
     }
-    
-    self.unapplicator = vs.unapplicator;
-    if (vs.applicator) {
-        vs.applicator(self);
-    }
 
 }
 

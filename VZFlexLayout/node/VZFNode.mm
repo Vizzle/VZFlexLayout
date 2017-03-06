@@ -24,6 +24,7 @@
 #import "VZFRenderer.h"
 #import "VZFRasterizeNodeTool.h"
 #import "VZFBackingViewProtocol.h"
+#import "VZFViewReusePool.h"
 
 struct VZFNodeMountedInfo{
   
@@ -263,7 +264,7 @@ using namespace VZ::UIKit;
         }
 
         //获取一个reuse view
-        UIView* view = [context.viewManager viewForNode:self];
+        UIView* view = [context.viewManager viewForNode:self frame:frame];
         
         
         //说明reusepool中有view
@@ -302,7 +303,14 @@ using namespace VZ::UIKit;
             renderer.frame = {CGPointMake(0, 0), size};
             
             //apply attributes
-            [view applyAttributes];
+            [self applyAttributes];
+            
+            // applicator & unapplicator
+            view.unapplicator = _specs.unapplicator;
+            if (_specs.applicator) {
+                _specs.applicator(view);
+            }
+            
             //update mountedInfo
             _mountedInfo -> mountedContext = {view,renderer,{context.position,size}};
             
@@ -319,7 +327,10 @@ using namespace VZ::UIKit;
     }
 }
 
-
+-(void)applyAttributes{
+    UIView *view = [self mountedView];
+    [view applyAttributes];
+}
 
 -(void)unmount{
     

@@ -21,7 +21,7 @@ using namespace VZ;
 
 + (VZFViewReusePoolManager* )viewReusePoolManagerForView:(UIView* )view;
 
-- (UIView* )viewForNode:(VZFNode* )node ParentView:(UIView* )container;
+- (UIView* )viewForNode:(VZFNode* )node ParentView:(UIView* )container Frame:(CGRect)frame;
 //- (UIView* )viewForClass:(const ViewClass&) viewclass Spec:(const NodeSpecs&)spec ParentView:(UIView* )container;
 - (void)reset:(UIView* )containerView;
 
