@@ -27,8 +27,6 @@
 		1E715EDD1E49C83600D76806 /* VZFBlankNodeBackingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E715EC91E49C83600D76806 /* VZFBlankNodeBackingLayer.m */; };
 		1E715EDE1E49C83600D76806 /* VZFBlankNodeBackingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ECA1E49C83600D76806 /* VZFBlankNodeBackingView.h */; };
 		1E715EDF1E49C83600D76806 /* VZFBlankNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ECB1E49C83600D76806 /* VZFBlankNodeBackingView.mm */; };
-		1E715EE01E49C83600D76806 /* VZFButtonNodeBackingLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ECD1E49C83600D76806 /* VZFButtonNodeBackingLayer.h */; };
-		1E715EE11E49C83600D76806 /* VZFButtonNodeBackingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ECE1E49C83600D76806 /* VZFButtonNodeBackingLayer.m */; };
 		1E715EE21E49C83600D76806 /* VZFButtonNodeBackingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ECF1E49C83600D76806 /* VZFButtonNodeBackingView.h */; };
 		1E715EE31E49C83600D76806 /* VZFButtonNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ED01E49C83600D76806 /* VZFButtonNodeBackingView.mm */; };
 		1E715EE41E49C83600D76806 /* VZFButtonNodeRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ED11E49C83600D76806 /* VZFButtonNodeRenderer.h */; };
@@ -236,8 +234,6 @@
 		1E715EC91E49C83600D76806 /* VZFBlankNodeBackingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFBlankNodeBackingLayer.m; sourceTree = "<group>"; };
 		1E715ECA1E49C83600D76806 /* VZFBlankNodeBackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBlankNodeBackingView.h; sourceTree = "<group>"; };
 		1E715ECB1E49C83600D76806 /* VZFBlankNodeBackingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFBlankNodeBackingView.mm; sourceTree = "<group>"; };
-		1E715ECD1E49C83600D76806 /* VZFButtonNodeBackingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFButtonNodeBackingLayer.h; sourceTree = "<group>"; };
-		1E715ECE1E49C83600D76806 /* VZFButtonNodeBackingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFButtonNodeBackingLayer.m; sourceTree = "<group>"; };
 		1E715ECF1E49C83600D76806 /* VZFButtonNodeBackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFButtonNodeBackingView.h; sourceTree = "<group>"; };
 		1E715ED01E49C83600D76806 /* VZFButtonNodeBackingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFButtonNodeBackingView.mm; sourceTree = "<group>"; };
 		1E715ED11E49C83600D76806 /* VZFButtonNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFButtonNodeRenderer.h; sourceTree = "<group>"; };
@@ -457,8 +453,6 @@
 		1E715ECC1E49C83600D76806 /* button */ = {
 			isa = PBXGroup;
 			children = (
-				1E715ECD1E49C83600D76806 /* VZFButtonNodeBackingLayer.h */,
-				1E715ECE1E49C83600D76806 /* VZFButtonNodeBackingLayer.m */,
 				1E715ECF1E49C83600D76806 /* VZFButtonNodeBackingView.h */,
 				1E715ED01E49C83600D76806 /* VZFButtonNodeBackingView.mm */,
 				1E715ED11E49C83600D76806 /* VZFButtonNodeRenderer.h */,
@@ -847,7 +841,6 @@
 				1EEC1A4E1E27BFAD00EBF0CC /* VZFButtonNodeSpecs.h in Headers */,
 				1EEC1AA91E27BFAD00EBF0CC /* VZFButtonNode.h in Headers */,
 				1EEC1ABE1E27BFAD00EBF0CC /* VZFTextNode.h in Headers */,
-				1E715EE01E49C83600D76806 /* VZFButtonNodeBackingLayer.h in Headers */,
 				1EEC1A901E27BFAD00EBF0CC /* VZFTextNodeSpecs.h in Headers */,
 				1EEC1AB11E27BFAD00EBF0CC /* VZFLineNode.h in Headers */,
 				1EAC536C1E5EC043009C4C57 /* VZFTextViewNode.h in Headers */,
@@ -1026,7 +1019,6 @@
 				1E715EE71E49C83600D76806 /* VZFImageNodeBackingLayer.mm in Sources */,
 				1EEC1A881E27BFAD00EBF0CC /* VZFStackView.mm in Sources */,
 				1EEC1A821E27BFAD00EBF0CC /* VZFScrollView.mm in Sources */,
-				1E715EE11E49C83600D76806 /* VZFButtonNodeBackingLayer.m in Sources */,
 				1E414B7C1E547DE500F84302 /* VZFSegmentedControl.mm in Sources */,
 				1EEC1ACB1E27BFAD00EBF0CC /* VZFTextNodeBackingLayer.mm in Sources */,
 				1EEC1A9A1E27BFAD00EBF0CC /* VZFViewReusePoolManager.mm in Sources */,

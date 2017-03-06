@@ -30,6 +30,7 @@
     
     // 这里不做判空，可能会在方法内做清理操作，避免复用可能会导致的图片错乱
     //just call protocol
+
     if ([networkImageView respondsToSelector:@selector(vz_setImageWithURL:size:contentMode:placeholderImage:errorImage:context:completionBlock:)]) {
         [networkImageView vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl]
                                         size:self.bounds.size
@@ -38,7 +39,14 @@
                                   errorImage:imageSpec.errorImage
                                      context:imageSpec.context
                              completionBlock:imageSpec.completion];
+    }else{
+        [networkImageView vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl]
+                                        size:self.bounds.size
+                            placeholderImage:imageSpec.image
+                                  errorImage:imageSpec.errorImage
+                                     context:imageSpec.context
+                             completionBlock:imageSpec.completion];
     }
+    
 }
-
 @end

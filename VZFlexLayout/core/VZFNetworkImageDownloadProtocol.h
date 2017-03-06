@@ -14,7 +14,7 @@ typedef void(^VZFNetworkImageCompletionBlock)(UIImage* img, NSError* err);
 
 @protocol VZFNetworkImageDownloadProtocol <NSObject>
 
-@required
+
 //- (id)downloadImageWithURL:(NSURL *)URL
 //                      size:(CGSize)size
 //             callbackQueue:(dispatch_queue_t)callbackQueue
@@ -24,6 +24,14 @@ typedef void(^VZFNetworkImageCompletionBlock)(UIImage* img, NSError* err);
 //
 //
 //- (void)cancelImageDownload:(id)download;
+@optional
+- (void)vz_setImageWithURL:(NSURL *)url
+                      size:(CGSize)sz
+          placeholderImage:(UIImage *)loadingImage
+                errorImage:(UIImage* )errorImage
+                   context:(id)ctx
+           completionBlock:(id<VZFActionWrapper>) completion;
+
 
 - (void)vz_setImageWithURL:(NSURL *)url
                       size:(CGSize)sz
