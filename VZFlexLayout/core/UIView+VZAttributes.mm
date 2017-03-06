@@ -129,9 +129,7 @@
 }
 
 - (void)_applyAttributes:(const NodeSpecs&)vs {
-    if (vs.tag) {
-        self.tag                = [vs.tag hash];
-    }
+    self.tag                    = vs.tag;
     self.backgroundColor        = vs.backgroundColor;
     self.clipsToBounds          = vs.clip;
     self.alpha                  = vs.alpha;

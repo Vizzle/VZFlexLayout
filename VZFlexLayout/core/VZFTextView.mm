@@ -43,6 +43,7 @@
             [self.otherDelegate didResignFirstResponder:self];
         }
     }
+    return ret;
 }
 
 - (BOOL)becomeFirstResponder {
@@ -50,6 +51,7 @@
     if (ret) {
         [self.window addGestureRecognizer:self.tapGesture];
     }
+    return ret;
 }
 
 #pragma mark - Gesture
