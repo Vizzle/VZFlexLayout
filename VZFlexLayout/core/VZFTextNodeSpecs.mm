@@ -103,8 +103,10 @@ namespace VZ {
                 fontDescriptor = [[UIFontDescriptor alloc] init];
                 fontDescriptor = [fontDescriptor fontDescriptorWithSize:fontSize];
             }
-            fontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:traits];
-            font = [UIFont fontWithDescriptor:fontDescriptor size:fontSize];
+            fontDescriptor = [fontDescriptor fontDescriptorWithSymbolicTraits:traits] ?: fontDescriptor;
+            if (fontDescriptor) {
+                font = [UIFont fontWithDescriptor:fontDescriptor size:fontSize];
+            }
         }
         if (!font) {
             font = [UIFont systemFontOfSize:fontSize];
