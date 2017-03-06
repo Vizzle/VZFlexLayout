@@ -28,9 +28,6 @@ typedef struct {
                              NodeSpecs:(const NodeSpecs& )specs
                               Children:(const std::vector<VZFStackChildNode> &)children;
 
-+ (instancetype)newWithStackAttributes:(const StackNodeSpecs& )stackSpecs
-                             NodeSpecs:(const NodeSpecs& )specs
-                              Children:(const std::vector<VZFStackChildNode> &)children
-                          useRasterize:(BOOL)useRasterize;
+
 
 @end
