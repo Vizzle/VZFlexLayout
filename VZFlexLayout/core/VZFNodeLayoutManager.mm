@@ -96,9 +96,10 @@ namespace VZ {
                 [item.layout.node willMount];
                 
                 
+                VZFNode *node = item.layout.node;
                 //加载node，创建backing view
                 //这个方法必须在主线程调用
-                MountResult mountResult = mountInContext(item.layout.node, item.context, item.layout.size, item.superNode, useRasterize);
+                MountResult mountResult = mountInContext(node, item.context, item.layout.size, item.superNode, node.specs.useRasterize);
                 
                 [mountedNodes addObject:item.layout.node];
                 

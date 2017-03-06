@@ -148,6 +148,8 @@ namespace VZ {
         NSString* accessibilityLabel;
         
         VZFBlockGesture *gesture;
+        
+        BOOL useRasterize;
     };
 
 }

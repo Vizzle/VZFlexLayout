@@ -34,11 +34,11 @@ using namespace VZ;
 + (instancetype)newWithView:(const ViewClass &)viewClass NodeSpecs:(const NodeSpecs &)specs{
     VZ_NOT_DESIGNATED_INITIALIZER();
 }
+
 + (instancetype)newWithStackAttributes:(const StackNodeSpecs& )stackSpecs
                              NodeSpecs:(const NodeSpecs& )specs
                               Children:(const std::vector<VZFStackChildNode> &)children{
-
-    VZFStackNode* stacknode =  [super newWithView:(!VZFUseRasterize && [self shouldFlattenStackView:specs]) ? ViewClass() : [VZFBlankNodeBackingView class] NodeSpecs:specs];
+    VZFStackNode* stacknode =  [super newWithView:specs.useRasterize ? [VZFBlankNodeBackingView class] : ([self shouldFlattenStackView:specs] ? ViewClass() : [UIView class]) NodeSpecs:specs];
     //VZFStackNode* stacknode =  [super newWithView:[VZFStackView class] NodeSpecs:specs];
     if (stacknode)
     {
@@ -55,7 +55,7 @@ using namespace VZ;
     }
     
     return stacknode;
-
+    
 }
 
 //gesture,background-color,border-color,border-width,clip,
