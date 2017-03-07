@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "VZFNodeBackingViewInterface.h"
-#import "VZFButtonNodeBackingView.h"
 
-@interface VZFButtonView : VZFButtonNodeBackingView<VZFNodeBackingViewInterface>
+@interface VZFButtonView : UIButton<VZFNodeBackingViewInterface>
 
 @property(nonatomic,assign) CGSize enlargeTouchSize;
 

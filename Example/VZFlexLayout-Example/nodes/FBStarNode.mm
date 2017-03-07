@@ -21,7 +21,7 @@
 
 + (instancetype)newWithScore:(float)score{
 
-    VZFNode* starNode = [VZFNode newWithView:{^{
+    VZFNode* starNode = [VZFNode newWithView:{^(CGRect frame){
         
         FBO2OStarView* starView  = [[FBO2OStarView alloc] initWithOrigin:CGPointMake(0, 0) viewType:FBO2OStarViewTypeForDisplay starWidth:14 starMargin:2 starNumber:5];
         starView.score = score;

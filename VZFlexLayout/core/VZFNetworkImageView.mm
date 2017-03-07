@@ -14,6 +14,7 @@
 
 - (void)vz_setImageWithURL:(NSURL *)url
                       size:(CGSize)sz
+               contentMode:(UIViewContentMode)contentMode
           placeholderImage:(UIImage *)loadingImage
                 errorImage:(UIImage *)errorImage
                    context:(id)ctx completionBlock:(id<VZFActionWrapper>)completion{

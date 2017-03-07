@@ -7,20 +7,71 @@
 //
 
 #import "VZFImageNodeRenderer.h"
-
+#import "VZFImageNode.h"
+#import "VZFNodeListItemRecycler.h"
 @implementation VZFImageNodeRenderer
+
+//图片下载成功回调
+- (void)invoke:(id)sender withCustomParam:(NSDictionary *)imageDic{
+    
+    if (!self.node && imageDic && imageDic[@"image"]) {
+        self.image =  imageDic[@"image"];
+        self.downloadImageUrl = imageDic[@"url"];
+        return;
+    }
+    
+    if([self.node isKindOfClass:[VZFImageNode class]] && imageDic && imageDic[@"image"]){
+        VZFImageNode *imageNode = (VZFImageNode *)self.node;
+        imageNode.downloadImage =  imageDic[@"image"];
+        imageNode.downloadImageUrl = imageDic[@"url"];
+        
+        self.downloadImageUrl = imageDic[@"url"];
+        self.image = imageDic[@"image"];
+        
+        VZFNode *node = self.node;
+        VZFRenderer *render = self;
+        while (render.superRenderer) {
+            render = render.superRenderer;
+        }
+        UIView *v = [render.node mountedView];
+        if(v){
+            UIView *superview = v;
+            while (!superview.vz_recycler || !superview.superview) {
+                superview = superview.superview;
+            }
+            VZFNodeListItemRecycler *recyler = superview.vz_recycler;
+            if (recyler) {
+                VZFDispatchMain(0, ^{
+                    [recyler attachToView:superview];
+                });
+                return;
+            }
+            
+            [v.layer setNeedsDisplay];
+        }else{
+            
+        }
+    }
+}
 
 - (void)drawContentInContext:(CGContextRef)context bounds:(CGRect)bounds {
     if (self.image == nil) {
         return;
     }
 
+    CGContextSaveGState(context);
+    
+    CGContextBeginPath(context);
+    CGContextAddRect(context, bounds);
+    CGContextClip(context);
+    
     CGFloat scale = self.scale <= 0 ? 1 : self.scale;
-
     
     CGRect rect = [[self class] getDrawRect:bounds imageSize:self.image.size contentMode:self.contentMode scale:scale];
 
     [self.image drawInRect:rect];
+    
+    CGContextRestoreGState(context);
 }
 
 

@@ -20,6 +20,19 @@ using namespace VZ::UIKit;
 
 namespace VZ {
     
+    MountResult mountInContext(VZFNode *node, const VZ::UIKit::MountContext &context, CGSize size, VZFNode* parentNode, BOOL useRasterize) {
+        if (useRasterize) {
+            return [node renderInContext:context
+                                    Size:size
+                              ParentNode:parentNode];
+        } else {
+            return [node mountInContext:context
+                                   Size:size
+                             ParentNode:parentNode];
+        }
+        
+    }
+    
     NSSet<VZFNode*>* layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet<VZFNode* >* previousNodes, VZFNode* superNode){
         //This method should be called on main thread
         VZFCAssertMainThread();
@@ -51,6 +64,8 @@ namespace VZ {
         std::stack<MountItem> stack = {};
         stack.push({layout,rootContext,superNode,NO});
         
+        BOOL useRasterize = NO;
+        
         //2.3, 每个节点深度优先遍历
         /**
          * @discussion:
@@ -80,11 +95,12 @@ namespace VZ {
                 //will mount
                 [item.layout.node willMount];
                 
+                
+                VZFNode *node = item.layout.node;
                 //加载node，创建backing view
                 //这个方法必须在主线程调用
-                MountResult mountResult = [item.layout.node renderInContext:item.context
-                                                                      Size:item.layout.size
-                                                                ParentNode:item.superNode];
+                MountResult mountResult = mountInContext(node, item.context, item.layout.size, item.superNode, node.specs.useRasterize);
+                
                 [mountedNodes addObject:item.layout.node];
                 
                 //VZFNSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);

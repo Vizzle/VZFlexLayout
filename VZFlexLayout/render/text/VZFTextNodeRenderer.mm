@@ -478,6 +478,11 @@ CGFloat vz_getWidthCallback(void *context) {
         return;
     }
     
+    bounds.origin.x += _edgeInsets.left;
+    bounds.origin.y += _edgeInsets.top;
+    bounds.size.width -= _edgeInsets.left + _edgeInsets.right;
+    bounds.size.height -= _edgeInsets.top + _edgeInsets.bottom;
+    
     CGContextSaveGState(context);
     
     [self postLayout:bounds.size];

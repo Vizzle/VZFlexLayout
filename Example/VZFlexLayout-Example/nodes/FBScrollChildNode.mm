@@ -52,7 +52,7 @@
     } ];
     
     VZFNode* spinnerNode = [VZFNode newWithView:{
-        ^{
+        ^(CGRect frame){
             UIActivityIndicatorView *loadingIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
             loadingIndicator.transform = CGAffineTransformMakeScale(0.75f, 0.75f);
             loadingIndicator.color = [UIColor redColor];

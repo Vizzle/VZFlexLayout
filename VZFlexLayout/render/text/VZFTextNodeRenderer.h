@@ -22,6 +22,7 @@
 @property (nonatomic, assign) BOOL adjustsFontSizeToFitWidth;
 @property (nonatomic, assign) CGFloat minimumScaleFactor;
 @property (nonatomic, assign) UIBaselineAdjustment baselineAdjustment;
+@property (nonatomic, assign) UIEdgeInsets edgeInsets;
 
 - (CGSize)textSize;
 // 目前主要做两端对齐，需要有真正显示的尺寸才能计算。为了把计算从主线程剥离，所以不在绘制时计算。
