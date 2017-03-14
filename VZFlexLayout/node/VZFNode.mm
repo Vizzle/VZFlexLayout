@@ -25,6 +25,7 @@
 #import "VZFRasterizeNodeTool.h"
 #import "VZFBackingViewProtocol.h"
 #import "VZFBlankNodeBackingView.h"
+#import "VZFViewReusePool.h"
 
 struct VZFNodeMountedInfo{
   
@@ -508,7 +509,13 @@ using namespace VZ::UIKit;
         
         
         //apply attributes
-        [view applyAttributes];
+        [self applyAttributes];
+        
+        // applicator & unapplicator
+        view.unapplicator = _specs.unapplicator;
+        if (_specs.applicator) {
+            _specs.applicator(view);
+        }
         
         VZFRenderer *renderer = nil;
         if ([view conformsToProtocol:@protocol(VZFBackingViewProtocol)]) {
@@ -579,7 +586,13 @@ using namespace VZ::UIKit;
         view.frame  = {context.position, size};
         
         //apply attributes
-        [view applyAttributes];
+        [self applyAttributes];
+        
+        // applicator & unapplicator
+        view.unapplicator = _specs.unapplicator;
+        if (_specs.applicator) {
+            _specs.applicator(view);
+        }
         
         //update mountedInfo
         _mountedInfo -> mountedContext = {view,nil,{context.position,size}};
@@ -598,7 +611,10 @@ using namespace VZ::UIKit;
     }
 }
 
-
+-(void)applyAttributes{
+    UIView *view = [self mountedView];
+    [view applyAttributes];
+}
 
 -(void)unmount{
     
