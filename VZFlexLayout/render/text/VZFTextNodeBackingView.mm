@@ -121,6 +121,6 @@
     TextNodeSpecs textNodeSpecs =textNode.textSpecs;
     self.textRenderer = textNode.renderer;
     self.edgeInsets = textNode.flexNode.resultPadding;
-    self.textRenderer.maxSize = CGSizeMake(self.bounds.size.width - self.edgeInsets.left - self.edgeInsets.right, self.bounds.size.height - self.edgeInsets.top - self.edgeInsets.bottom);
 }
+
 @end

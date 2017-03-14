@@ -326,7 +326,7 @@ CGFloat vz_getWidthCallback(void *context) {
         CGFloat usedLineHeight = VZF_CEIL_PIXEL(maxAscent + maxDescent);
         
         height += usedLineHeight;
-        if (lines.count > 0 && height > self.maxSize.height) {
+        if (lines.count > 0 && height - self.maxSize.height > 1e-5) {
             // 如果高度超出最大高度，则重置相关属性，然后重新计算最后一行
             VZFTextLine *lineBeforelastLine = lines.count - 2 < lines.count ? [lines objectAtIndex:lines.count - 2] : nil;
             if (lineBeforelastLine) {
