@@ -119,4 +119,11 @@ using namespace VZ;
 @end
 
 
+@interface VZFNode(Rasterize)
+
+@property (nonatomic, weak) UIImage *cachedContents;
+
+@end
+
+
 #endif /* VZFNodeInternal_h */

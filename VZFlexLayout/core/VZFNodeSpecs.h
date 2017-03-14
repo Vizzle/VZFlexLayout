@@ -1,4 +1,4 @@
-/* 
+/*
  */
 //  VZFNodeAttributes.h
 //  VZFlexLayout
@@ -96,7 +96,7 @@ namespace VZ {
         
         //view attributes
 //        BOOL hidden;
-        NSUInteger tag;
+        NSInteger tag;
         BOOL clip;
         Value<float, DefaultAttributesValue::alpha> alpha;
         Value<int, DefaultAttributesValue::userInteractionEnabled> userInteractionEnabled;

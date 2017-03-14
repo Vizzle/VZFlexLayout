@@ -13,6 +13,8 @@
 
 @interface VZFBlankNodeBackingView : UIView<VZFNodeBackingViewInterface, VZFBackingViewProtocol>
 
+@property(nonatomic,strong) UIColor* defaultColor;
+@property(nonatomic,strong) UIColor* highlightColor;
 @property(nonatomic,strong) VZFBlankNodeRenderer* blankRenderer;
 
 @end

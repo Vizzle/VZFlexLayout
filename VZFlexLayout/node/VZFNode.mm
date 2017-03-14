@@ -24,7 +24,6 @@
 #import "VZFRenderer.h"
 #import "VZFRasterizeNodeTool.h"
 #import "VZFBackingViewProtocol.h"
-#import "VZFViewReusePool.h"
 #import "VZFBlankNodeBackingView.h"
 
 struct VZFNodeMountedInfo{
@@ -51,6 +50,7 @@ using namespace VZ::UIKit;
     
     VZFNodeLifeCycleState _lifeCycleState;
     std::unique_ptr<VZFNodeMountedInfo> _mountedInfo;
+    __weak UIImage *_cachedContents;
 }
 
 
@@ -98,6 +98,15 @@ using namespace VZ::UIKit;
     _mountedInfo.reset();
     _mountedInfo = nullptr;
 }
+
+- (UIImage *)cachedContents {
+    return _cachedContents;
+}
+
+- (void)setCachedContents:(UIImage *)cachedContents {
+    _cachedContents = cachedContents;
+}
+
 
 - (UIView* )mountedView{
 

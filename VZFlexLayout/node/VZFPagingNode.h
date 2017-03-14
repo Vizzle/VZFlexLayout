@@ -19,7 +19,7 @@ using namespace VZ;
 @property(nonatomic,strong,readonly)VZFNode* pageControlNode;
 @property(nonatomic,assign,readonly)std::vector<NodeLayout> childrenLayout;
 
-@property(nonatomic,assign) NSArray<UIView*>* viewsCache;
+@property(nonatomic,strong) NSArray<UIView*>* viewsCache;
 
 + (instancetype)newWithPagingAttributes:(const PagingNodeSpecs &)pagingSpecs
                               NodeSpecs:(const NodeSpecs &)nodeSpecs

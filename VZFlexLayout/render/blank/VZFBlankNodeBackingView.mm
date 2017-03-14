@@ -9,6 +9,8 @@
 #import "VZFBlankNodeBackingView.h"
 #import "VZFBlankNodeBackingLayer.h"
 #import "VZFUtils.h"
+#import "VZFStackNode.h"
+#import "VZFNodeInternal.h"
 
 @implementation VZFBlankNodeBackingView
 
@@ -61,9 +63,12 @@
 //        NSLog(@"%@",backgroundColor);
 //        NSLog(@"1");
 //    }
-//    self.blankRenderer.backgroundColor = backgroundColor;
-//    [[self blankLayer] setNeedsDisplay];
+    self.blankRenderer.backgroundColor = backgroundColor;
+    [[self blankLayer] setNeedsDisplay];
 }
+
+
+
 
 -(void)setLayerBorder:(CGColorRef)color borderWidth:(CGFloat)borderWidth cornerRadius:(CGFloat)cornerRadius{
     if (cornerRadius>0) {
@@ -88,5 +93,77 @@
     }
     return [super accessibilityLabel];
 }
+
+- (void)vz_applyNodeAttributes:(VZFStackNode *)node {
+    if (![node isKindOfClass:[VZFStackNode class]]) {
+        return;
+    }
+    
+    self.defaultColor = node.specs.backgroundColor;
+    self.highlightColor = node.specs.highlightBackgroundColor;
+}
+
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
+    [super touchesBegan:touches withEvent:event];
+    
+    if (!self.userInteractionEnabled) {
+        return;
+    }
+    
+    if(self.highlightColor){
+        [self setBackgroundColorSynchronously:self.highlightColor];
+    }else{
+        [self setBackgroundColorSynchronously:self.defaultColor];
+    }
+}
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
+    [super touchesMoved:touches withEvent:event];
+    
+}
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
+    [super touchesEnded:touches withEvent:event];
+    
+    if (!self.userInteractionEnabled) {
+        return;
+    }
+    
+    // 过一会儿再把背景颜色改回去，让用户能看到点击反馈
+    VZF_MainCall(__FUNCTION__, 0.1, NSOperationQueuePriorityNormal, ^{
+        //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self setBackgroundColorSynchronously:self.defaultColor];
+    });
+    
+}
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
+    
+    [super touchesCancelled:touches withEvent:event];
+    
+    if (!self.userInteractionEnabled) {
+        return;
+    }
+    
+    [self setBackgroundColorSynchronously:self.defaultColor];
+}
+
+- (void)setBackgroundColorSynchronously:(UIColor *)backgroundColor {
+    if (backgroundColor == self.backgroundColor
+        || [backgroundColor isEqual:self.backgroundColor]) {
+        return;
+    }
+    
+    [self.blankLayer resetNextSyncDisplay];
+    self.backgroundColor = backgroundColor;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - backing view interface
+
+- (void)resetState
+{
+    self.backgroundColor = self.defaultColor;
+}
+
 
 @end

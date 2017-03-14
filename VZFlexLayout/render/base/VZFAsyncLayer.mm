@@ -14,6 +14,8 @@
 #import "VZFAsyncDrawingTransactionContainer+Private.h"
 #import <libkern/OSAtomic.h>
 #import <UIKit/UIKit.h>
+#import "VZFNodeInternal.h"
+#import "VZFImageCacheManager.h"
 
 @interface VZFAsyncLayer()<VZFAsyncLayerDrawingDelegate>
 
@@ -25,6 +27,13 @@
     BOOL _needsAsyncDisplayOnly;
 
     NSNumber *_nextSyncDisplay;
+    
+    struct {
+        BOOL valid;
+        
+        NSString *contentsGravity;
+        BOOL masksToBounds;
+    } _stashState;
 }
 
 
@@ -92,6 +101,16 @@
 
 - (void)setMasksToBounds:(BOOL)masksToBounds {
     [super setMasksToBounds:masksToBounds];
+    if (_stashState.valid) {
+        _stashState.masksToBounds = masksToBounds;
+    }
+}
+
+- (void)setContentsGravity:(NSString *)contentsGravity {
+    [super setContentsGravity:contentsGravity];
+    if (_stashState.valid) {
+        _stashState.contentsGravity = contentsGravity;
+    }
 }
 
 - (void)display{
@@ -125,10 +144,23 @@
         
         // Reset needsDisplay to NO and remove any old content; otherwise it might appear stretched until rendering completes
         // 解决图片拉伸
-        self.contents = nil;
+        //self.contents = nil;
+        
+        UIImage *cache = self.drawParameters.node.cachedContents;
+        if (cache) {
+            self.contents = (__bridge id)(cache.CGImage);
+        } else if(self.contents) {
+            _stashState = {.valid = NO, .contentsGravity = self.contentsGravity, .masksToBounds = self.masksToBounds};
+            
+            self.contentsGravity = kCAGravityBottomLeft;
+            self.masksToBounds = YES;
+            
+            _stashState.valid = YES;//这一行必须放在最后，因为在contentsGravity和masksToBounds的set方法里会用到他
+        }
     }
     CGRect bounds = self.bounds;
     if(CGRectIsEmpty(bounds)) {
+        [self tryToRecoverState];
         return ;
     }
     
@@ -137,6 +169,7 @@
         id preloadContent = [self willDisplayAsynchronouslyWithDrawParameters:drawParameters];
         if (preloadContent) {
             self.contents = preloadContent;
+            [self tryToRecoverState];
             return ;
         }
     }
@@ -156,10 +189,13 @@
     vz_async_completion_block_t completionBlock = ^(id<NSObject> value, BOOL cancelled){
     
         VZFAssertMainThread();
+        [self tryToRecoverState];
         if (!cancelled && (_displaySentinel == displaySentinelValue)) {
             [self didDisplayAsynchronously:value withDrawParameters:drawParameters];
             UIImage *image = [UIImage imageWithCGImage:(CGImageRef)value];
             self.contents = value;
+            [[VZFImageCacheManager sharedInstance] storeContentsCache:image];
+            self.drawParameters.node.cachedContents = image;
         }
     
     };
@@ -186,6 +222,13 @@
 
 }
 
+- (void)tryToRecoverState {
+    if (_stashState.valid) {
+        _stashState.valid = NO;//必须放在第一个，因为在contentsGravity和masksToBounds中的set方法依赖这个
+        self.contentsGravity = _stashState.contentsGravity;
+        self.masksToBounds = _stashState.masksToBounds;
+    }
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - public methods
@@ -212,6 +255,7 @@
 {
     VZFAssertMainThread();
     OSAtomicIncrement32(&_displaySentinel);
+    [self tryToRecoverState];
 }
 
 
@@ -293,9 +337,6 @@
         
         return CFBridgingRelease(image);
     } copy];
-
-    
-
 }
 
 
