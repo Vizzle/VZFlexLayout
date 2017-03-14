@@ -6,7 +6,7 @@
 //  Copyright © 2017年 Vizlab. All rights reserved.
 //
 
-#import "UIBezierPath+extension.h"
+#import "UIBezierPath+vzextension.h"
 #import <algorithm>
 
 @implementation UIBezierPath (extension)

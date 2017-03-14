@@ -48,7 +48,7 @@
 #import "VZFPickerView.h"
 #import "VZFSegmentedControlNode.h"
 #import "VZFSegmentedControl.h"
-#import "UIBezierPath+extension.h"
+#import "UIBezierPath+vzextension.h"
 
 @implementation UIView (VZAttributes)
 
@@ -76,7 +76,7 @@
                          bottomLeftRadius:(CGFloat)bottomLeftRadius
                         bottomRightRadius:(CGFloat)bottomRightRadius
 {
-    return [UIBezierPath roundRectPathWithWidth:width height:height topLeftRadius:topLeftRadius topRightRadius:topRightRadius bottomLeftRadius:bottomLeftRadius bottomRightRadius:bottomRightRadius];
+    return [UIBezierPath vz_roundRectPathWithWidth:width height:height topLeftRadius:topLeftRadius topRightRadius:topRightRadius bottomLeftRadius:bottomLeftRadius bottomRightRadius:bottomRightRadius];
 }
 
 - (void)_applyRendererAttributes:(const NodeSpecs&)vs {

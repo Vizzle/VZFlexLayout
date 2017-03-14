@@ -1,5 +1,5 @@
 //
-//  UIBezierPath+extension.h
+//  UIBezierPath+vzextension.h
 //  VZFlexLayout
 //
 //  Created by pep on 2017/2/14.
@@ -10,7 +10,7 @@
 
 @interface UIBezierPath (extension)
 
-+ (UIBezierPath *)roundRectPathWithWidth:(CGFloat)width
++ (UIBezierPath *)vz_roundRectPathWithWidth:(CGFloat)width
                                   height:(CGFloat)height
                            topLeftRadius:(CGFloat)topLeftRadius
                           topRightRadius:(CGFloat)topRightRadius

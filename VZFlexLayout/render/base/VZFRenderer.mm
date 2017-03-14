@@ -7,7 +7,7 @@
 //
 
 #import "VZFRenderer.h"
-#import "UIBezierPath+extension.h"
+#import "UIBezierPath+vzextension.h"
 #import "VZFNode.h"
 #import <stack>
 #import "VZFLocker.h"
@@ -147,7 +147,7 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
         if (corner.topLeft != corner.topRight
             || corner.topRight != corner.bottomLeft
             || corner.bottomLeft != corner.bottomRight) {
-            return [UIBezierPath roundRectPathWithWidth:bounds.size.width height:bounds.size.height topLeftRadius:corner.topLeft topRightRadius:corner.topRight bottomLeftRadius:corner.bottomLeft bottomRightRadius:corner.bottomRight];
+            return [UIBezierPath vz_roundRectPathWithWidth:bounds.size.width height:bounds.size.height topLeftRadius:corner.topLeft topRightRadius:corner.topRight bottomLeftRadius:corner.bottomLeft bottomRightRadius:corner.bottomRight];
         } else {
             //about corner
             //http://stackoverflow.com/questions/22453095/why-does-applying-a-bezierpathwithroundedrect-mask-yield-a-different-result-from
