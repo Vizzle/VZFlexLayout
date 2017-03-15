@@ -22,19 +22,13 @@
 		1E414B8B1E559A1000F84302 /* VZFWebViewNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B891E559A1000F84302 /* VZFWebViewNode.mm */; };
 		1E414B911E55AADB00F84302 /* VZFWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E414B8F1E55AADB00F84302 /* VZFWebView.h */; };
 		1E414B921E55AADB00F84302 /* VZFWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E414B901E55AADB00F84302 /* VZFWebView.mm */; };
+		1E6D6C611E792A3E00E341DA /* UIBezierPath+vzextension.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E6D6C5F1E792A3E00E341DA /* UIBezierPath+vzextension.h */; };
+		1E6D6C621E792A3E00E341DA /* UIBezierPath+vzextension.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E6D6C601E792A3E00E341DA /* UIBezierPath+vzextension.mm */; };
 		1E715EC21E49C81100D76806 /* VZFBackingViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715EBF1E49C81100D76806 /* VZFBackingViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E715EDC1E49C83600D76806 /* VZFBlankNodeBackingLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715EC81E49C83600D76806 /* VZFBlankNodeBackingLayer.h */; };
 		1E715EDD1E49C83600D76806 /* VZFBlankNodeBackingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E715EC91E49C83600D76806 /* VZFBlankNodeBackingLayer.m */; };
 		1E715EDE1E49C83600D76806 /* VZFBlankNodeBackingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ECA1E49C83600D76806 /* VZFBlankNodeBackingView.h */; };
 		1E715EDF1E49C83600D76806 /* VZFBlankNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ECB1E49C83600D76806 /* VZFBlankNodeBackingView.mm */; };
-		1E715EE21E49C83600D76806 /* VZFButtonNodeBackingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ECF1E49C83600D76806 /* VZFButtonNodeBackingView.h */; };
-		1E715EE31E49C83600D76806 /* VZFButtonNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ED01E49C83600D76806 /* VZFButtonNodeBackingView.mm */; };
-		1E715EE41E49C83600D76806 /* VZFButtonNodeRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ED11E49C83600D76806 /* VZFButtonNodeRenderer.h */; };
-		1E715EE51E49C83600D76806 /* VZFButtonNodeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ED21E49C83600D76806 /* VZFButtonNodeRenderer.mm */; };
-		1E715EE61E49C83600D76806 /* VZFImageNodeBackingLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ED41E49C83600D76806 /* VZFImageNodeBackingLayer.h */; };
-		1E715EE71E49C83600D76806 /* VZFImageNodeBackingLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ED51E49C83600D76806 /* VZFImageNodeBackingLayer.mm */; };
-		1E715EE81E49C83600D76806 /* VZFImageNodeBackingView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ED61E49C83600D76806 /* VZFImageNodeBackingView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E715EE91E49C83600D76806 /* VZFImageNodeBackingView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ED71E49C83600D76806 /* VZFImageNodeBackingView.mm */; };
 		1E715EEA1E49C83600D76806 /* VZFImageNodeRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E715ED81E49C83600D76806 /* VZFImageNodeRenderer.h */; };
 		1E715EEB1E49C83600D76806 /* VZFImageNodeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1E715ED91E49C83600D76806 /* VZFImageNodeRenderer.mm */; };
 		1EAC53021E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EAC53001E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -198,8 +192,6 @@
 		1EEE54F31E52D87100585DF8 /* VZFPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEE54F11E52D87100585DF8 /* VZFPickerView.h */; };
 		1EEE54F71E52D89300585DF8 /* VZFPickerNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EEE54F51E52D89300585DF8 /* VZFPickerNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EEE54F81E52D89300585DF8 /* VZFPickerNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EEE54F61E52D89300585DF8 /* VZFPickerNode.mm */; };
-		525198E71E6455A300EBC82E /* UIBezierPath+extension.h in Headers */ = {isa = PBXBuildFile; fileRef = 525198E51E6455A300EBC82E /* UIBezierPath+extension.h */; };
-		525198E81E6455A300EBC82E /* UIBezierPath+extension.mm in Sources */ = {isa = PBXBuildFile; fileRef = 525198E61E6455A300EBC82E /* UIBezierPath+extension.mm */; };
 		525198EB1E6455B100EBC82E /* VZFBlankNodeRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 525198E91E6455B100EBC82E /* VZFBlankNodeRenderer.h */; };
 		525198EC1E6455B100EBC82E /* VZFBlankNodeRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 525198EA1E6455B100EBC82E /* VZFBlankNodeRenderer.m */; };
 		525198F01E6455B800EBC82E /* VZFAsyncConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 525198ED1E6455B800EBC82E /* VZFAsyncConfig.h */; };
@@ -229,19 +221,13 @@
 		1E414B891E559A1000F84302 /* VZFWebViewNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFWebViewNode.mm; sourceTree = "<group>"; };
 		1E414B8F1E55AADB00F84302 /* VZFWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFWebView.h; sourceTree = "<group>"; };
 		1E414B901E55AADB00F84302 /* VZFWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFWebView.mm; sourceTree = "<group>"; };
+		1E6D6C5F1E792A3E00E341DA /* UIBezierPath+vzextension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+vzextension.h"; sourceTree = "<group>"; };
+		1E6D6C601E792A3E00E341DA /* UIBezierPath+vzextension.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIBezierPath+vzextension.mm"; sourceTree = "<group>"; };
 		1E715EBF1E49C81100D76806 /* VZFBackingViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBackingViewProtocol.h; sourceTree = "<group>"; };
 		1E715EC81E49C83600D76806 /* VZFBlankNodeBackingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBlankNodeBackingLayer.h; sourceTree = "<group>"; };
 		1E715EC91E49C83600D76806 /* VZFBlankNodeBackingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFBlankNodeBackingLayer.m; sourceTree = "<group>"; };
 		1E715ECA1E49C83600D76806 /* VZFBlankNodeBackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBlankNodeBackingView.h; sourceTree = "<group>"; };
 		1E715ECB1E49C83600D76806 /* VZFBlankNodeBackingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFBlankNodeBackingView.mm; sourceTree = "<group>"; };
-		1E715ECF1E49C83600D76806 /* VZFButtonNodeBackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFButtonNodeBackingView.h; sourceTree = "<group>"; };
-		1E715ED01E49C83600D76806 /* VZFButtonNodeBackingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFButtonNodeBackingView.mm; sourceTree = "<group>"; };
-		1E715ED11E49C83600D76806 /* VZFButtonNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFButtonNodeRenderer.h; sourceTree = "<group>"; };
-		1E715ED21E49C83600D76806 /* VZFButtonNodeRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFButtonNodeRenderer.mm; sourceTree = "<group>"; };
-		1E715ED41E49C83600D76806 /* VZFImageNodeBackingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeBackingLayer.h; sourceTree = "<group>"; };
-		1E715ED51E49C83600D76806 /* VZFImageNodeBackingLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFImageNodeBackingLayer.mm; sourceTree = "<group>"; };
-		1E715ED61E49C83600D76806 /* VZFImageNodeBackingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeBackingView.h; sourceTree = "<group>"; };
-		1E715ED71E49C83600D76806 /* VZFImageNodeBackingView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFImageNodeBackingView.mm; sourceTree = "<group>"; };
 		1E715ED81E49C83600D76806 /* VZFImageNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeRenderer.h; sourceTree = "<group>"; };
 		1E715ED91E49C83600D76806 /* VZFImageNodeRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFImageNodeRenderer.mm; sourceTree = "<group>"; };
 		1EAC53001E5AEE93009C4C57 /* VZFMapViewNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFMapViewNodeSpecs.h; sourceTree = "<group>"; };
@@ -408,8 +394,6 @@
 		1EEE54F11E52D87100585DF8 /* VZFPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFPickerView.h; sourceTree = "<group>"; };
 		1EEE54F51E52D89300585DF8 /* VZFPickerNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFPickerNode.h; sourceTree = "<group>"; };
 		1EEE54F61E52D89300585DF8 /* VZFPickerNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFPickerNode.mm; sourceTree = "<group>"; };
-		525198E51E6455A300EBC82E /* UIBezierPath+extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+extension.h"; sourceTree = "<group>"; };
-		525198E61E6455A300EBC82E /* UIBezierPath+extension.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIBezierPath+extension.mm"; sourceTree = "<group>"; };
 		525198E91E6455B100EBC82E /* VZFBlankNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFBlankNodeRenderer.h; sourceTree = "<group>"; };
 		525198EA1E6455B100EBC82E /* VZFBlankNodeRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFBlankNodeRenderer.m; sourceTree = "<group>"; };
 		525198ED1E6455B800EBC82E /* VZFAsyncConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFAsyncConfig.h; sourceTree = "<group>"; };
@@ -450,24 +434,9 @@
 			path = blank;
 			sourceTree = "<group>";
 		};
-		1E715ECC1E49C83600D76806 /* button */ = {
-			isa = PBXGroup;
-			children = (
-				1E715ECF1E49C83600D76806 /* VZFButtonNodeBackingView.h */,
-				1E715ED01E49C83600D76806 /* VZFButtonNodeBackingView.mm */,
-				1E715ED11E49C83600D76806 /* VZFButtonNodeRenderer.h */,
-				1E715ED21E49C83600D76806 /* VZFButtonNodeRenderer.mm */,
-			);
-			path = button;
-			sourceTree = "<group>";
-		};
 		1E715ED31E49C83600D76806 /* image */ = {
 			isa = PBXGroup;
 			children = (
-				1E715ED41E49C83600D76806 /* VZFImageNodeBackingLayer.h */,
-				1E715ED51E49C83600D76806 /* VZFImageNodeBackingLayer.mm */,
-				1E715ED61E49C83600D76806 /* VZFImageNodeBackingView.h */,
-				1E715ED71E49C83600D76806 /* VZFImageNodeBackingView.mm */,
 				1E715ED81E49C83600D76806 /* VZFImageNodeRenderer.h */,
 				1E715ED91E49C83600D76806 /* VZFImageNodeRenderer.mm */,
 			);
@@ -519,8 +488,8 @@
 		1EEC19B71E27BFAD00EBF0CC /* core */ = {
 			isa = PBXGroup;
 			children = (
-				525198E51E6455A300EBC82E /* UIBezierPath+extension.h */,
-				525198E61E6455A300EBC82E /* UIBezierPath+extension.mm */,
+				1E6D6C5F1E792A3E00E341DA /* UIBezierPath+vzextension.h */,
+				1E6D6C601E792A3E00E341DA /* UIBezierPath+vzextension.mm */,
 				73998A2B1E66C515004CE352 /* UIImageView+VZAttributes.h */,
 				73998A2C1E66C515004CE352 /* UIImageView+VZAttributes.mm */,
 				1EEC19B81E27BFAD00EBF0CC /* UIView+VZAttributes.h */,
@@ -736,7 +705,6 @@
 				525198EE1E6455B800EBC82E /* VZFRasterizeNodeTool.h */,
 				525198EF1E6455B800EBC82E /* VZFRasterizeNodeTool.mm */,
 				1E715EC51E49C83600D76806 /* blank */,
-				1E715ECC1E49C83600D76806 /* button */,
 				1E715ED31E49C83600D76806 /* image */,
 				1EEC1A351E27BFAD00EBF0CC /* base */,
 				1EEC1A401E27BFAD00EBF0CC /* text */,
@@ -795,10 +763,8 @@
 			files = (
 				1EEC1AA31E27BFAD00EBF0CC /* VZFluxStore.h in Headers */,
 				1EEC1AA11E27BFAD00EBF0CC /* VZFluxDispatcher.h in Headers */,
-				1E715EE21E49C83600D76806 /* VZFButtonNodeBackingView.h in Headers */,
 				525198F01E6455B800EBC82E /* VZFAsyncConfig.h in Headers */,
 				1E715EDC1E49C83600D76806 /* VZFBlankNodeBackingLayer.h in Headers */,
-				1E715EE41E49C83600D76806 /* VZFButtonNodeRenderer.h in Headers */,
 				1EEC1A9F1E27BFAD00EBF0CC /* VZFluxAppDispatcher.h in Headers */,
 				1EEC1A9D1E27BFAD00EBF0CC /* VZFluxAction.h in Headers */,
 				1EAC53391E5C1A68009C4C57 /* VZFMapAnnotation.h in Headers */,
@@ -809,7 +775,6 @@
 				1EEC1AA71E27BFAD00EBF0CC /* FlexLayout.h in Headers */,
 				1EEC1A5A1E27BFAD00EBF0CC /* VZFLength.h in Headers */,
 				1E414B911E55AADB00F84302 /* VZFWebView.h in Headers */,
-				1E715EE81E49C83600D76806 /* VZFImageNodeBackingView.h in Headers */,
 				1EEC1A951E27BFAD00EBF0CC /* VZFValue.h in Headers */,
 				1EAC53681E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.h in Headers */,
 				73998A2D1E66C515004CE352 /* UIImageView+VZAttributes.h in Headers */,
@@ -869,7 +834,6 @@
 				1EAC53641E5EBEA7009C4C57 /* VZFTextView.h in Headers */,
 				1EEC1A921E27BFAD00EBF0CC /* VZFunctor.h in Headers */,
 				1EEC1A971E27BFAD00EBF0CC /* VZFViewReusePool.h in Headers */,
-				525198E71E6455A300EBC82E /* UIBezierPath+extension.h in Headers */,
 				1E414B731E5479F100F84302 /* VZFSegmentedControlNodeSpecs.h in Headers */,
 				1EEC1AC71E27BFAD00EBF0CC /* VZFAsyncDrawingTransactionInterface.h in Headers */,
 				1EEC1A7D1E27BFAD00EBF0CC /* VZFPagingView.h in Headers */,
@@ -877,6 +841,7 @@
 				1EEC1A691E27BFAD00EBF0CC /* VZFNodeBackingViewInterface.h in Headers */,
 				525198EB1E6455B100EBC82E /* VZFBlankNodeRenderer.h in Headers */,
 				1EEC1ABC1E27BFAD00EBF0CC /* VZFTextFieldNode.h in Headers */,
+				1E6D6C611E792A3E00E341DA /* UIBezierPath+vzextension.h in Headers */,
 				1EEC1A991E27BFAD00EBF0CC /* VZFViewReusePoolManager.h in Headers */,
 				1EEC1A6C1E27BFAD00EBF0CC /* VZFNodeInternal.h in Headers */,
 				1EEC1AC31E27BFAD00EBF0CC /* VZFAsyncDrawingTransactionContainer.h in Headers */,
@@ -894,7 +859,6 @@
 				1EEC1A501E27BFAD00EBF0CC /* VZFButtonView.h in Headers */,
 				1EEE54EF1E52D79700585DF8 /* VZFPickerNodeSpecs.h in Headers */,
 				1EEC1AA81E27BFAD00EBF0CC /* khash.h in Headers */,
-				1E715EE61E49C83600D76806 /* VZFImageNodeBackingLayer.h in Headers */,
 				1EEE54EB1E52D74900585DF8 /* VZFSwitchNode.h in Headers */,
 				1EEC1A671E27BFAD00EBF0CC /* VZFNetworkImageView.h in Headers */,
 				1E414B821E5557E800F84302 /* VZFSwitch.h in Headers */,
@@ -976,6 +940,7 @@
 			files = (
 				1EEC1A981E27BFAD00EBF0CC /* VZFViewReusePool.mm in Sources */,
 				1EAC532E1E5B1A51009C4C57 /* VZFMapViewNode.mm in Sources */,
+				1E6D6C621E792A3E00E341DA /* UIBezierPath+vzextension.mm in Sources */,
 				525198EC1E6455B100EBC82E /* VZFBlankNodeRenderer.m in Sources */,
 				1EEC1A861E27BFAD00EBF0CC /* VZFStackNodeSpecs.mm in Sources */,
 				1EAC53691E5EBFAF009C4C57 /* VZFTextViewNodeSpecs.mm in Sources */,
@@ -993,8 +958,6 @@
 				1EEC1A5B1E27BFAD00EBF0CC /* VZFLength.mm in Sources */,
 				1EEC1AAA1E27BFAD00EBF0CC /* VZFButtonNode.mm in Sources */,
 				1EEC1ABB1E27BFAD00EBF0CC /* VZFStackNode.mm in Sources */,
-				1E715EE51E49C83600D76806 /* VZFButtonNodeRenderer.mm in Sources */,
-				1E715EE91E49C83600D76806 /* VZFImageNodeBackingView.mm in Sources */,
 				1EAC53651E5EBEA7009C4C57 /* VZFTextView.mm in Sources */,
 				1EEC1AC11E27BFAD00EBF0CC /* VZFAsyncDrawingTransaction.mm in Sources */,
 				1EEC1AB91E27BFAD00EBF0CC /* VZFScrollNode.mm in Sources */,
@@ -1016,7 +979,6 @@
 				1EEC1AD11E27BFAD00EBF0CC /* VZFNodeListItemRecycler.mm in Sources */,
 				1EEE54EC1E52D74900585DF8 /* VZFSwitchNode.mm in Sources */,
 				1EEC1A511E27BFAD00EBF0CC /* VZFButtonView.mm in Sources */,
-				1E715EE71E49C83600D76806 /* VZFImageNodeBackingLayer.mm in Sources */,
 				1EEC1A881E27BFAD00EBF0CC /* VZFStackView.mm in Sources */,
 				1EEC1A821E27BFAD00EBF0CC /* VZFScrollView.mm in Sources */,
 				1E414B7C1E547DE500F84302 /* VZFSegmentedControl.mm in Sources */,
@@ -1049,7 +1011,6 @@
 				1EEC1A4B1E27BFAD00EBF0CC /* UIView+VZAttributes.mm in Sources */,
 				525198F61E64561100EBC82E /* VZFRenderer.mm in Sources */,
 				1EEC1A701E27BFAD00EBF0CC /* VZFNodeLayoutManager.mm in Sources */,
-				1E715EE31E49C83600D76806 /* VZFButtonNodeBackingView.mm in Sources */,
 				1EEC1A941E27BFAD00EBF0CC /* VZFUtils.mm in Sources */,
 				1E715EDD1E49C83600D76806 /* VZFBlankNodeBackingLayer.m in Sources */,
 				1EEC1A571E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.mm in Sources */,
@@ -1057,7 +1018,6 @@
 				1E414B921E55AADB00F84302 /* VZFWebView.mm in Sources */,
 				1EEC1AB71E27BFAD00EBF0CC /* VZFPagingNode.mm in Sources */,
 				1EEC1A801E27BFAD00EBF0CC /* VZFScrollNodeSpecs.mm in Sources */,
-				525198E81E6455A300EBC82E /* UIBezierPath+extension.mm in Sources */,
 				1E715EEB1E49C83600D76806 /* VZFImageNodeRenderer.mm in Sources */,
 				1EEC1A4F1E27BFAD00EBF0CC /* VZFButtonNodeSpecs.mm in Sources */,
 				1EEC1A911E27BFAD00EBF0CC /* VZFTextNodeSpecs.mm in Sources */,
