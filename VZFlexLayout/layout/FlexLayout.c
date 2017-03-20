@@ -358,7 +358,10 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
             FlexLength oldMainSize = item->size[mainAxis];
             item->size[mainAxis] = item->flexBasis;
 //            _layoutFlexNode(item, context, availableSize, mainAxis == FlexHorizontal ? FlexLayoutFlagMeasureWidth : FlexLayoutFlagMeasureHeight, false);
-            _layoutFlexNode(item, context, availableSize, flags, false);
+            FlexSize childConstrainedSize;
+            childConstrainedSize.size[FLEX_WIDTH] = availableSize.size[FLEX_WIDTH] - flex_inset(item->resolvedMargin, FLEX_WIDTH);
+            childConstrainedSize.size[FLEX_HEIGHT] = availableSize.size[FLEX_HEIGHT] - flex_inset(item->resolvedMargin, FLEX_HEIGHT);
+            _layoutFlexNode(item, context, childConstrainedSize, flags, false);
             item->size[mainAxis] = oldMainSize;
             item->flexBaseSize = item->result.size[mainAxis];
         }
