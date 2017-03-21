@@ -154,11 +154,11 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     return _flex_node -> fixed;
 }
 
-- (void)setWrap:(BOOL)wrap {
+- (void)setWrap:(FlexWrapMode)wrap {
     _flex_node -> wrap = wrap;
 }
 
-- (BOOL)wrap {
+- (FlexWrapMode)wrap {
     return _flex_node -> wrap;
 }
 

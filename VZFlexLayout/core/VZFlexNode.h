@@ -57,7 +57,7 @@ typedef NS_OPTIONS(NSUInteger, VZFlexNodeDescriptionOption) {
 @property (nonatomic,assign) FlexLength paddingBottom;
 @property (nonatomic,assign) FlexLength paddingRight;
 @property (nonatomic,assign) BOOL fixed;
-@property (nonatomic,assign) BOOL wrap;
+@property (nonatomic,assign) FlexWrapMode wrap;
 
 - (void)layout:(CGSize)constrainedSize;
 

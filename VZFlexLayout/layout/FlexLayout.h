@@ -28,6 +28,12 @@ static const FlexDirection FLEX_WIDTH = FlexHorizontal;
 static const FlexDirection FLEX_HEIGHT = FlexVertical;
 
 typedef enum {
+    FlexNoWrap,
+    FlexWrap,
+    FlexWrapReverse,
+} FlexWrapMode;
+
+typedef enum {
     FlexInherit,
     FlexStretch,
     FlexStart,
@@ -99,7 +105,7 @@ extern const float FlexUndefined;
 
 typedef struct FlexNode {
     bool fixed;
-    bool wrap;
+    FlexWrapMode wrap;
     FlexDirection direction;
     FlexAlign alignItems;
     FlexAlign alignSelf;

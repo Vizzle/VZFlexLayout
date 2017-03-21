@@ -285,6 +285,7 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
     // layout flex container
     
     bool isReverse = node->direction == FlexHorizontalReverse || node->direction == FlexVerticalReverse;
+    bool isWrapReverse = node->wrap == FlexWrapReverse;
     FlexDirection mainAxis = flex_dim[node->direction];
     FlexDirection crossAxis = mainAxis == FlexHorizontal ? FlexVertical : FlexHorizontal;
     
@@ -847,7 +848,7 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
                     flex_assert(false);
                     break;
             }
-            item->result.position[flex_start[crossAxis]] = itemResultCrossPosition;
+            item->result.position[flex_start[crossAxis]] = isWrapReverse ? lines[i].itemsSize - itemResultCrossPosition - item->result.size[crossAxis] : itemResultCrossPosition;
         }
         
         lineStart = lineEnd;
@@ -902,7 +903,7 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
         int lineEnd = lineStart + lines[i].itemsCount;
         for (j=lineStart;j<lineEnd;j++) {
             FlexNode *item = items[j];
-            item->result.position[flex_start[crossAxis]] += lineCrossPositionStart;
+            item->result.position[flex_start[crossAxis]] += isWrapReverse ? node->result.size[crossAxis] - lines[i].itemsSize - lineCrossPositionStart : lineCrossPositionStart;
         }
         lineCrossPositionStart += offsetStep + lines[i].itemsSize + lineSpacing;
         lineStart = lineEnd;

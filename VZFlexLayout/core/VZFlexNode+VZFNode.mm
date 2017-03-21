@@ -46,7 +46,7 @@ const void* g_flexNode = &g_flexNode;
     node.flexGrow           = attrs.flexGrow;
     node.flexShrink         = attrs.flexShrink;
     node.flexBasis          = attrs.flexBasis;
-    node.wrap               = attrs.wrap;
+    node.wrap               = (FlexWrapMode)((int)attrs.wrap);
     node.fixed              = attrs.fixed;
     node.alignSelf          = (FlexAlign)((int)attrs.alignSelf);
 

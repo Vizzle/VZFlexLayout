@@ -53,6 +53,14 @@ typedef NS_ENUM(int, VZFlexLayoutAlignment){
     
 };
 
+typedef NS_ENUM(int, VZFlexLayoutWrapMode) {
+    
+    VZFlexNoWrap,
+    VZFlexWrap,
+    VZFlexWrapReverse,
+    
+};
+
 namespace VZ{
     
     //moxin:自定义一组抽象的数据类型
