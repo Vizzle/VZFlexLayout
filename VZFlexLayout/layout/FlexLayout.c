@@ -34,8 +34,9 @@ KHASH_INIT(FlexSize, FlexSize, FlexSize, 1, kh_FlexSize_hash_func, kh_FlexSize_h
 #endif
 
 
- const float FlexUndefined = 999999;
- const float FlexAuto = 999998;
+const float FlexUndefined = 999999;
+const float FlexAuto = 999998;
+const float FlexContent = 999997;
 
 typedef struct {
     float viewportWidth;
@@ -991,8 +992,11 @@ void setupProperties(FlexNode* node) {
     for (int i=0;i<node->childrenCount;i++) {
         FlexNode *item = node->childAt(node->context, i);
         
-        if (item->flexBasis.value == FlexUndefined) {
+        if (item->flexBasis.value == FlexAuto) {
             item->flexBasis = item->size[flex_dim[node->direction]];
+        }
+        else if (item->flexBasis.value == FlexContent) {
+            item->flexBasis = FlexLengthAuto;
         }
         
         if (item->alignSelf == FlexInherit) {

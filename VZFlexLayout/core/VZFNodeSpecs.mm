@@ -42,7 +42,7 @@ namespace VZ {
         FlexLength padding = FlexLengthZero;
         float flexGrow = 0;
         float flexShrink = 1;
-        FlexLength flexBasis = FlexLengthUndefined;
+        FlexLength flexBasis = FlexLengthAuto;
         bool fixed = 0;
         VZFlexLayoutWrapMode wrap = VZFlexNoWrap;
         float alpha = 1;

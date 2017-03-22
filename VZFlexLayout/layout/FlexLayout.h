@@ -98,9 +98,11 @@ inline FlexLength flexLength(float value, FlexLengthType type) {
 
 extern const float FlexAuto;
 extern const float FlexUndefined;
+extern const float FlexContent;
 
 #define FlexLengthZero      flexLength(0, FlexLengthTypeDefault)
 #define FlexLengthAuto      flexLength(FlexAuto, FlexLengthTypeDefault)
+#define FlexLengthContent   flexLength(FlexContent, FlexLengthTypeDefault)
 #define FlexLengthUndefined flexLength(FlexUndefined, FlexLengthTypeDefault)
 
 typedef struct FlexNode {
