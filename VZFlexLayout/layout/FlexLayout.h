@@ -106,7 +106,6 @@ extern const float FlexContent;
 #define FlexLengthUndefined flexLength(FlexUndefined, FlexLengthTypeDefault)
 
 typedef struct FlexNode {
-    bool fixed;
     FlexWrapMode wrap;
     FlexDirection direction;
     FlexAlign alignItems;
@@ -122,8 +121,13 @@ typedef struct FlexNode {
     FlexLength margin[6];       // length, percentage(relative to the flex container's inner width), auto
     FlexLength padding[6];      // length, percentage(relative to the flex container's inner width)
     FlexLength border[6];       // length
-    FlexLength spacing;         // length, percentage(relative to its inner main size)
-    FlexLength lineSpacing;     // length, percentage(relative to its inner cross size)
+    
+    // extension
+    bool fixed;
+    FlexLength spacing;         // the spacing between each two items. length, percentage(relative to its inner main size)
+    FlexLength lineSpacing;     // the spacing between each two lines. length, percentage(relative to its inner cross size)
+    unsigned int lines;         // the maximum number of lines, 0 means no limit
+    unsigned int itemsPerLine;  // the maximum number of items per line, 0 means no limit
     
     FlexResult result;
     

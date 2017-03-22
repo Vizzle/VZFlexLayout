@@ -11,6 +11,7 @@
 namespace VZ {
     namespace DefaultStackAttributesValue {
         
+        VZFlexLayoutWrapMode wrap = VZFlexNoWrap;
         VZFlexLayoutDirection direction = VZFlexHorizontal;
         VZFlexLayoutAlignment justifyContent = VZFlexStart;
         VZFlexLayoutAlignment alignItems = VZFlexStretch;

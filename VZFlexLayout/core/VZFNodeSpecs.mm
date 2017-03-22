@@ -44,7 +44,6 @@ namespace VZ {
         float flexShrink = 1;
         FlexLength flexBasis = FlexLengthAuto;
         bool fixed = 0;
-        VZFlexLayoutWrapMode wrap = VZFlexNoWrap;
         float alpha = 1;
         
         VZFlexLayoutAlignment alignSelf = VZFlexInherit;

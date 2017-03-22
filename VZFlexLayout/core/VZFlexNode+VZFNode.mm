@@ -46,7 +46,6 @@ const void* g_flexNode = &g_flexNode;
     node.flexGrow           = attrs.flexGrow;
     node.flexShrink         = attrs.flexShrink;
     node.flexBasis          = attrs.flexBasis;
-    node.wrap               = (FlexWrapMode)((int)attrs.wrap);
     node.fixed              = attrs.fixed;
     node.alignSelf          = (FlexAlign)((int)attrs.alignSelf);
 
@@ -64,6 +63,9 @@ const void* g_flexNode = &g_flexNode;
     self.alignContent       = (FlexAlign)((int)stackSpecs.alignContent);
     self.spacing            = stackSpecs.spacing;
     self.lineSpacing        = stackSpecs.lineSpacing;
+    self.wrap               = (FlexWrapMode)((int)stackSpecs.wrap);
+    self.lines              = stackSpecs.lines;
+    self.itemsPerLine       = stackSpecs.itemsPerLine;
 
 }
 @end

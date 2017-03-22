@@ -384,7 +384,20 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
         //       > Note that the "collect as many" line will collect zero-sized flex items onto the end of the previous line even if the last non-zero item exactly "filled up" the line.
         else {
             if (lines[linesCount - 1].itemsCount > 0) outerItemHypotheticalMainSize += spacing;
-            if (lines[linesCount - 1].itemsSize + outerItemHypotheticalMainSize > availableSize.size[mainAxis]) {
+            // line break
+            if ((node->itemsPerLine > 0 && lines[linesCount - 1].itemsCount >= node->itemsPerLine) ||
+                lines[linesCount - 1].itemsSize + outerItemHypotheticalMainSize > availableSize.size[mainAxis]) {
+                if (node->lines > 0 && linesCount >= node->lines) {
+                    for (int j=i;j<flexItemsCount;j++) {
+                        FlexNode *item = items[j];
+                        item->result.position[0] = 0;
+                        item->result.position[1] = 0;
+                        item->result.size[0] = -1;
+                        item->result.size[1] = -1;
+                    }
+                    break;
+                }
+                
                 if (lines[linesCount - 1].itemsCount == 0) {
                     lines[linesCount - 1].itemsCount = 1;
                     lines[linesCount - 1].itemsSize = outerItemHypotheticalMainSize;

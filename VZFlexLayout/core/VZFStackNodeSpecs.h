@@ -15,6 +15,7 @@ namespace VZ {
     
     namespace DefaultStackAttributesValue{
         
+        extern VZFlexLayoutWrapMode wrap;
         extern VZFlexLayoutDirection direction;
         extern VZFlexLayoutAlignment justifyContent;
         extern VZFlexLayoutAlignment alignItems;
@@ -22,9 +23,12 @@ namespace VZ {
         extern FlexLength spacing;
         extern FlexLength lineSpacing;
         
-        
     }
+    
     struct StackNodeSpecs{
+        Value<VZFlexLayoutWrapMode, DefaultStackAttributesValue::wrap> wrap;
+        unsigned int lines;
+        unsigned int itemsPerLine;
         Value<VZFlexLayoutDirection, DefaultStackAttributesValue::direction> direction;
         Value<VZFlexLayoutAlignment, DefaultStackAttributesValue::justifyContent> justifyContent;
         Value<VZFlexLayoutAlignment, DefaultStackAttributesValue::alignItems> alignItems;

@@ -78,7 +78,6 @@ namespace VZ {
         extern float flexShrink;
         extern FlexLength flexBasis;
         extern bool fixed;
-        extern VZFlexLayoutWrapMode wrap;
         extern VZFlexLayoutAlignment alignSelf;
         extern float alpha;
         
@@ -141,7 +140,6 @@ namespace VZ {
         Value<FlexLength, DefaultAttributesValue::flexBasis> flexBasis;
         Value<VZFlexLayoutAlignment,  DefaultAttributesValue::alignSelf> alignSelf;
         Value<bool, DefaultAttributesValue::fixed> fixed;
-        Value<VZFlexLayoutWrapMode, DefaultAttributesValue::wrap> wrap;
         
         //blind supporting
         Value<int, DefaultAttributesValue::userInteractionEnabled> isAccessibilityElement;

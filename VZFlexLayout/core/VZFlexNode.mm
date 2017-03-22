@@ -162,6 +162,22 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     return _flex_node -> wrap;
 }
 
+- (void)setLines:(unsigned int)lines {
+    _flex_node->lines = lines;
+}
+
+- (unsigned int)lines {
+    return _flex_node->lines;
+}
+
+- (void)setItemsPerLine:(unsigned int)itemsPerLine {
+    _flex_node->itemsPerLine = itemsPerLine;
+}
+
+- (unsigned int)itemsPerLine {
+    return _flex_node->itemsPerLine;
+}
+
 - (void)setDirection:(FlexDirection)direction {
     _flex_node->direction = direction;
 }
