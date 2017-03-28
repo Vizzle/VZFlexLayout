@@ -386,7 +386,7 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
             if (lines[linesCount - 1].itemsCount > 0) outerItemHypotheticalMainSize += spacing;
             // line break
             if ((node->itemsPerLine > 0 && lines[linesCount - 1].itemsCount >= node->itemsPerLine) ||
-                lines[linesCount - 1].itemsSize + outerItemHypotheticalMainSize > availableSize.size[mainAxis]) {
+                lines[linesCount - 1].itemsSize + outerItemHypotheticalMainSize > availableSize.size[mainAxis] + 0.001) {
                 if (node->lines > 0 && linesCount >= node->lines) {
                     for (int j=i;j<flexItemsCount;j++) {
                         FlexNode *item = items[j];
