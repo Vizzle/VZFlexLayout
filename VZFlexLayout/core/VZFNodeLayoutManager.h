@@ -26,6 +26,7 @@ namespace VZ {
      *  @return layout的结果
      */
     NSSet<VZFNode*>* layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet<VZFNode* >* previousNodes, VZFNode* superNode);
+    NSSet<VZFNode*>* layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet<VZFNode* >* previousNodes, VZFNode* superNode, BOOL rasterizeUseCache);
     
     /**
      *  从根节点layout一颗树，并返回RootNode的container view

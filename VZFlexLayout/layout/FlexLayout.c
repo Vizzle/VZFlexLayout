@@ -24,7 +24,6 @@ KHASH_INIT(FlexSize, FlexSize, FlexSize, 1, kh_FlexSize_hash_func, kh_FlexSize_h
 
 
 #define FLEX_PIXEL_ROUND(value, scale) (roundf((value) * (scale)) / (scale))
-#define FLEX_PIXEL_CEIL(value, scale) (ceilf((value) * (scale)) / (scale))
 
 
 #if DEBUG
@@ -974,8 +973,8 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
         float bottom = item->result.position[FLEX_TOP] + item->result.size[FLEX_HEIGHT];
         item->result.position[FLEX_LEFT] = FLEX_PIXEL_ROUND(item->result.position[FLEX_LEFT], context->scale);
         item->result.position[FLEX_TOP] = FLEX_PIXEL_ROUND(item->result.position[FLEX_TOP], context->scale);
-        item->result.size[FLEX_WIDTH] = FLEX_PIXEL_CEIL(right - item->result.position[FLEX_LEFT], context->scale);
-        item->result.size[FLEX_HEIGHT] = FLEX_PIXEL_CEIL(bottom - item->result.position[FLEX_TOP], context->scale);
+        item->result.size[FLEX_WIDTH] = FLEX_PIXEL_ROUND(item->result.size[FLEX_WIDTH], context->scale);//FLEX_PIXEL_ROUND(right - item->result.position[FLEX_LEFT], context->scale);
+        item->result.size[FLEX_HEIGHT] = FLEX_PIXEL_ROUND(item->result.size[FLEX_HEIGHT], context->scale);//FLEX_PIXEL_ROUND(bottom - item->result.position[FLEX_TOP], context->scale);
     }
     
     free(items);

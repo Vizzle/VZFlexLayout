@@ -9,12 +9,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import "VZFAsyncDrawingTransactionInterface.h"
 #import "VZFRenderer.h"
+#import "VZFRasterizeCacheDefine.h"
 
 typedef NS_ENUM(NSUInteger, VZFAsyncLayerDisplayMode) {
 
     kDisplayModeAsync,
     kDisplayModeSync
 };
+
 
 @protocol VZFAsyncLayerDrawingDelegate
 
@@ -29,6 +31,7 @@ typedef NS_ENUM(NSUInteger, VZFAsyncLayerDisplayMode) {
  设置同步还是异步绘制
  */
 @property(nonatomic,assign) VZFAsyncLayerDisplayMode displayMode;
+@property(nonatomic,assign) VZFRasterizeCachePolicy rasterizeCachePolicy;
 
 /**
  @summary Captures parameters from the receiver on the main thread that will be passed to drawInContext:parameters:
@@ -63,6 +66,7 @@ typedef NS_ENUM(NSUInteger, VZFAsyncLayerDisplayMode) {
 - (void)drawInContext:(CGContextRef)context parameters:(NSObject *)parameters;
 
 - (void)resetNextSyncDisplay;
+
 @end
 
 @interface VZFAsyncLayer(Subclass)

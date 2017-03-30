@@ -47,7 +47,7 @@ namespace VZ {
         float alpha = 1;
         
         VZFlexLayoutAlignment alignSelf = VZFlexInherit;
-        BOOL useRasterize = NO;
+        BOOL asyncDisplay = NO;
         int isAccessibilityElement = VZF_BOOL_UNDEFINED;
         
         NSUInteger uintMax = NSUIntegerMax;

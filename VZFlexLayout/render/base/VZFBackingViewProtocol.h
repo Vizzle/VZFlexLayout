@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "VZFRenderer.h"
+#import "VZFRasterizeCacheDefine.h"
 
 @protocol VZFBackingViewProtocol <NSObject>
 
@@ -15,5 +16,6 @@
 - (__kindof VZFRenderer *)renderer;
 - (void)setRenderer:(__kindof VZFRenderer *)renderer;
 - (void)setLayerNeedsAsyncDisplay;
+- (void)setCachePolicy:(VZFRasterizeCachePolicy)cachePolicy;
 
 @end

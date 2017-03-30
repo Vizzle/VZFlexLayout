@@ -42,6 +42,10 @@
     return [self blankRenderer];
 }
 
+- (void)setCachePolicy:(VZFRasterizeCachePolicy)cachePolicy {
+    self.blankLayer.rasterizeCachePolicy = cachePolicy;
+}
+
 - (void)setRenderer:(__kindof VZFRenderer *)renderer {
     if ([renderer isKindOfClass:[VZFBlankNodeRenderer class]]) {
         [self blankLayer].renderer = renderer;

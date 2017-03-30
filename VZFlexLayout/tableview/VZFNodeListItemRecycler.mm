@@ -159,7 +159,7 @@ struct VZItemRecyclerState{
 }
 
 - (void)attachToView:(UIView *)view {
-    [self attachToView:view asyncDisplay:NO];
+    [self attachToView:view asyncDisplay:NO rasterizeUseCache:NO];
 }
 
 //为了替换这个方法 单独抽离出来
@@ -168,6 +168,10 @@ struct VZItemRecyclerState{
 }
 
 - (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay {
+    [self attachToView:view asyncDisplay:asyncDisplay rasterizeUseCache:NO];
+}
+
+- (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay rasterizeUseCache:(BOOL)rasterizeUseCache {
     
     VZFAssertMainThread();
     
@@ -219,10 +223,9 @@ struct VZItemRecyclerState{
         //        VZFNSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
     }
     
-    _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil) copy];
-
+    _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil, rasterizeUseCache) copy];
+    //不使用异步渲染////////
 }
-
 -(void)hideVZFNodeView:(UIView *)v hidden:(BOOL)hidden{
     NSArray *subView = [v.subviews copy];
     for (UIView *v in subView) {

@@ -38,7 +38,7 @@ using namespace VZ;
 + (instancetype)newWithStackAttributes:(const StackNodeSpecs& )stackSpecs
                              NodeSpecs:(const NodeSpecs& )specs
                               Children:(const std::vector<VZFStackChildNode> &)children{
-    VZFStackNode* stacknode =  [super newWithView:specs.useRasterize ? [VZFBlankNodeBackingView class] : ([self shouldFlattenStackView:specs] ? ViewClass() : [VZFStackView class]) NodeSpecs:specs];
+    VZFStackNode* stacknode =  [super newWithView:specs.asyncDisplay ? [VZFBlankNodeBackingView class] : ([self shouldFlattenStackView:specs] ? ViewClass() : [VZFStackView class]) NodeSpecs:specs];
     //VZFStackNode* stacknode =  [super newWithView:[VZFStackView class] NodeSpecs:specs];
     if (stacknode)
     {
@@ -62,6 +62,7 @@ using namespace VZ;
 + (BOOL)shouldFlattenStackView:(const NodeSpecs&)specs{
     
     if(specs.gesture ||
+       specs.display ||
        specs.highlightBackgroundColor ||
        specs.borderWidth > 0 ||
        specs.clip ||

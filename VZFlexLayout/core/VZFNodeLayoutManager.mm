@@ -20,11 +20,12 @@ using namespace VZ::UIKit;
 
 namespace VZ {
     
-    MountResult mountInContext(VZFNode *node, const VZ::UIKit::MountContext &context, CGSize size, VZFNode* parentNode, BOOL useRasterize) {
-        if (useRasterize) {
+    MountResult mountInContext(VZFNode *node, const VZ::UIKit::MountContext &context, CGSize size, VZFNode* parentNode, BOOL asyncDisplay, VZFRasterizeCachePolicy rasterizeCachePolicy) {
+        if (asyncDisplay) {
             return [node renderInContext:context
                                     Size:size
-                              ParentNode:parentNode];
+                              ParentNode:parentNode
+                    rasterizeCachePolicy:rasterizeCachePolicy];
         } else {
             return [node mountInContext:context
                                    Size:size
@@ -33,7 +34,11 @@ namespace VZ {
         
     }
     
-    NSSet<VZFNode*>* layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet<VZFNode* >* previousNodes, VZFNode* superNode){
+    NSSet<VZFNode*>* layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet<VZFNode* >* previousNodes, VZFNode* superNode) {
+        return layoutRootNodeInContainer(layout, container, previousNodes, superNode, NO);
+    }
+    
+    NSSet<VZFNode*>* layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet<VZFNode* >* previousNodes, VZFNode* superNode, BOOL rasterizeUseCache){
         //This method should be called on main thread
         VZFCAssertMainThread();
 
@@ -63,8 +68,6 @@ namespace VZ {
         //2.2, 创建一个stack用来递归
         std::stack<MountItem> stack = {};
         stack.push({layout,rootContext,superNode,NO});
-        
-        BOOL useRasterize = NO;
         
         //2.3, 每个节点深度优先遍历
         /**
@@ -97,9 +100,18 @@ namespace VZ {
                 
                 
                 VZFNode *node = item.layout.node;
+                
+                BOOL asyncDisplay = node.specs.asyncDisplay;
+                
+                VZFRasterizeCachePolicy cachePolicy = VZFRasterizeCachePolicyNode;
+                
+                if (asyncDisplay && rasterizeUseCache) {
+                    cachePolicy |= VZFRasterizeCachePolicyLayer;
+                }
+                
                 //加载node，创建backing view
                 //这个方法必须在主线程调用
-                MountResult mountResult = mountInContext(node, item.context, item.layout.size, item.superNode, node.specs.useRasterize);
+                MountResult mountResult = mountInContext(node, item.context, item.layout.size, item.superNode, asyncDisplay, cachePolicy);
                 
                 [mountedNodes addObject:item.layout.node];
                 

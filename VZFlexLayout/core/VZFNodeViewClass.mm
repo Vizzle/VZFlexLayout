@@ -14,7 +14,7 @@ namespace VZ {
     
     ViewClass::ViewClass():_factory(nil),_identifier(nil),_isCustom(false){}
     ViewClass::ViewClass(Class clz):_factory([^(CGRect frame){return [[clz alloc] init];} copy]),_identifier(NSStringFromClass(clz).copy){
-        _isCustom = clz == [UIView class];
+        _isCustom = clz != [UIView class];
     }
     ViewClass::ViewClass(ViewFactory factory,NSString* identifier):_factory([factory copy]),_identifier(identifier.copy), _isCustom(YES){}
     

@@ -33,7 +33,7 @@
     
     if (!_cache) {
         _cache = [[NSCache alloc] init];
-        _cache.countLimit = 30;
+        _cache.countLimit = 50;
     }
     
     NSString *key = [NSString stringWithFormat:@"%p", contents];

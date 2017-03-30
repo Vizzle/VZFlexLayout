@@ -28,7 +28,6 @@
         self.downloadImageUrl = imageDic[@"url"];
         self.image = imageDic[@"image"];
         
-        VZFNode *node = self.node;
         VZFRenderer *render = self;
         while (render.superRenderer) {
             render = render.superRenderer;
@@ -36,9 +35,10 @@
         UIView *v = [render.node mountedView];
         if(v){
             UIView *superview = v;
-            while (!superview.vz_recycler || !superview.superview) {
+            while (!superview.vz_recycler && superview.superview) {
                 superview = superview.superview;
             }
+     
             VZFNodeListItemRecycler *recyler = superview.vz_recycler;
             if (recyler) {
                 VZFDispatchMain(0, ^{

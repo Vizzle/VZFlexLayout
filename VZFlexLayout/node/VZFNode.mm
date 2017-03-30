@@ -362,7 +362,7 @@ using namespace VZ::UIKit;
 //    return [self getViewResult:parentNode context:context parentRenderer:parentRenderer size:size];
 //}
 
--(VZ::UIKit::MountResult)renderInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
+-(VZ::UIKit::MountResult)renderInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode rasterizeCachePolicy:(VZFRasterizeCachePolicy)rasterizeCachePolicy
 {
     
     //VZF_LOG_THREAD(@"mount");
@@ -519,6 +519,9 @@ using namespace VZ::UIKit;
         
         VZFRenderer *renderer = nil;
         if ([view conformsToProtocol:@protocol(VZFBackingViewProtocol)]) {
+            
+            [(id<VZFBackingViewProtocol>)view setCachePolicy:rasterizeCachePolicy];
+            
             renderer = [(id<VZFBackingViewProtocol>)view renderer];;
             renderer.frame = {CGPointMake(0, 0), size};
             renderer.node = self;
@@ -709,6 +712,10 @@ using namespace VZ::UIKit;
             VZFAssert(NO, @"State:[%@] Error: didmount -> '%@' ",[self class],VZFNodeStateName(_state));
             break;
         }
+    }
+    
+    if (_specs.display) {
+        [_specs.display invoke:self withCustomParam:_mountedInfo->mountedView];
     }
 }
 

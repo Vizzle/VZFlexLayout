@@ -93,14 +93,33 @@
 
 - (void)setBorderWidth:(CGFloat)borderWidth {
     [super setBorderWidth:0];
+    VZFRenderer *renderer = self.drawParameters;
+    if (borderWidth != renderer.borderWidth) {
+        renderer.borderWidth = borderWidth;
+        [self setNeedsDisplay];
+    }
+}
+
+- (void)setBorderColor:(CGColorRef)borderColor {
+    VZFRenderer *renderer = self.drawParameters;
+    if (!CGColorEqualToColor(borderColor, renderer.borderColor.CGColor)) {
+        renderer.borderColor = borderColor != NULL ? [UIColor colorWithCGColor:borderColor] : nil;
+        [self setNeedsDisplay];
+    }
 }
 
 - (void)setBackgroundColor:(CGColorRef)backgroundColor {
     [super setBackgroundColor:nil];
+    VZFRenderer *renderer = self.drawParameters;
+    if (!CGColorEqualToColor(backgroundColor, renderer.backgroundColor.CGColor)) {
+        renderer.backgroundColor = backgroundColor != NULL ? [UIColor colorWithCGColor:backgroundColor] : nil;
+        [self setNeedsDisplay];
+    }
 }
 
 - (void)setMasksToBounds:(BOOL)masksToBounds {
     [super setMasksToBounds:masksToBounds];
+    self.drawParameters.clip = masksToBounds;
     if (_stashState.valid) {
         _stashState.masksToBounds = masksToBounds;
     }
@@ -147,9 +166,23 @@
         //self.contents = nil;
         
         UIImage *cache = self.drawParameters.node.cachedContents;
-        if (cache) {
+        BOOL needSetSontentsGravity = NO;
+        if (cache && ((self.rasterizeCachePolicy & VZFRasterizeCachePolicyNode) > 0)) {
             self.contents = (__bridge id)(cache.CGImage);
-        } else if(self.contents) {
+            
+            CGFloat scale = cache.scale;
+            if (cache.size.width != self.bounds.size.width * scale
+                || cache.size.height != self.bounds.size.height * scale) {
+                needSetSontentsGravity = YES;
+            }
+            
+        } else if(self.contents && ((self.rasterizeCachePolicy & VZFRasterizeCachePolicyLayer) > 0)) {
+            needSetSontentsGravity = YES;
+        } else {
+            self.contents = nil;
+        }
+        
+        if (needSetSontentsGravity) {
             _stashState = {.valid = NO, .contentsGravity = self.contentsGravity, .masksToBounds = self.masksToBounds};
             
             self.contentsGravity = kCAGravityBottomLeft;
@@ -160,6 +193,7 @@
     }
     CGRect bounds = self.bounds;
     if(CGRectIsEmpty(bounds)) {
+        self.contents = nil;
         [self tryToRecoverState];
         return ;
     }

@@ -31,9 +31,10 @@
     
     NodeSpecs specs = node.specs;
     if (specs.gesture ||
+        specs.display ||
         specs.highlightBackgroundColor ||
         //specs.borderWidth > 0 ||
-        (specs.clip && ([node isKindOfClass:[VZFStackNode class]] || [node  isMemberOfClass:[VZFNode class]]) ) ||
+        //(specs.clip && ([node isKindOfClass:[VZFStackNode class]] || [node  isMemberOfClass:[VZFNode class]]) ) ||
         specs.alpha < 1 ||
         specs.tag > 0 ||
         specs.applicator

@@ -58,6 +58,10 @@
     }
 }
 
+- (void)setCachePolicy:(VZFRasterizeCachePolicy)cachePolicy {
+    self.textLayer.rasterizeCachePolicy = cachePolicy;
+}
+
 
 -(void)setLayerNeedsAsyncDisplay{
     [self.textLayer setNeedsAsyncDisplay];
@@ -121,6 +125,7 @@
     TextNodeSpecs textNodeSpecs =textNode.textSpecs;
     self.textRenderer = textNode.renderer;
     self.edgeInsets = textNode.flexNode.resultPadding;
+    [self textLayer].displayMode = kDisplayModeSync;//text node不会有子结点，暂时一定同步绘制
 }
 
 @end

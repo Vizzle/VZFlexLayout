@@ -12,9 +12,7 @@
 #import <UIKit/UIKit.h>
 #import "VZFNode.h"
 #import "VZFNodeLifeCycle.h"
-
-
-
+#import "VZFRasterizeCacheDefine.h"
 
 /**
  *  前项声明
@@ -102,7 +100,10 @@ using namespace VZ;
  */
 - (VZ::UIKit::MountResult)renderInContext:(const VZ::UIKit::MountContext &)context
                                    Size:(CGSize) size
-                             ParentNode:(VZFNode* )parentNode;
+                             ParentNode:(VZFNode* )parentNode
+                   rasterizeCachePolicy:(VZFRasterizeCachePolicy)rasterizeCachePolicy;
+
+
 
 //这个不会光栅化
 - (VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context

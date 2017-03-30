@@ -14,6 +14,9 @@
 
 @implementation VZFTextNodeBackingLayer
 
+-(BOOL)asyncDisplay{
+    return NO;//text node不会有子结点，暂时一定同步绘制
+}
 
 + (nullable id)defaultValueForKey:(NSString *)key{
     

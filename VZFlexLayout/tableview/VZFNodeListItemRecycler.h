@@ -59,8 +59,10 @@ using namespace VZ;
  主线程异步渲染Root Node
  @discussion 如果asyncDisplay设为true，那么默认光栅化整个根节点
  @param view 根RootView
+ @param rasterizeUseCache 异步渲染的时候是否要使用缓存
  */
 - (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay;
+- (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay rasterizeUseCache:(BOOL)rasterizeUseCache;
 
 /**
  从RootView中移除node
