@@ -203,6 +203,9 @@
 		73998A2E1E66C515004CE352 /* UIImageView+VZAttributes.mm in Sources */ = {isa = PBXBuildFile; fileRef = 73998A2C1E66C515004CE352 /* UIImageView+VZAttributes.mm */; };
 		B1A532DD1E5EBF2E007E5D0C /* VZFDispatch.m in Sources */ = {isa = PBXBuildFile; fileRef = B1A532DC1E5EBF2E007E5D0C /* VZFDispatch.m */; };
 		B1A532DE1E5ED0E0007E5D0C /* VZFDispatch.h in Headers */ = {isa = PBXBuildFile; fileRef = B1A532DA1E5EBF0B007E5D0C /* VZFDispatch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B34E7B591E8CBC3300C86FF7 /* VZFImageCacheManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B34E7B561E8CBC3300C86FF7 /* VZFImageCacheManager.h */; };
+		B34E7B5A1E8CBC3300C86FF7 /* VZFImageCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B34E7B571E8CBC3300C86FF7 /* VZFImageCacheManager.m */; };
+		B34E7B5B1E8CBC3300C86FF7 /* VZFRasterizeCacheDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = B34E7B581E8CBC3300C86FF7 /* VZFRasterizeCacheDefine.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -405,6 +408,9 @@
 		73998A2C1E66C515004CE352 /* UIImageView+VZAttributes.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImageView+VZAttributes.mm"; sourceTree = "<group>"; };
 		B1A532DA1E5EBF0B007E5D0C /* VZFDispatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFDispatch.h; sourceTree = "<group>"; };
 		B1A532DC1E5EBF2E007E5D0C /* VZFDispatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFDispatch.m; sourceTree = "<group>"; };
+		B34E7B561E8CBC3300C86FF7 /* VZFImageCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFImageCacheManager.h; sourceTree = "<group>"; };
+		B34E7B571E8CBC3300C86FF7 /* VZFImageCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VZFImageCacheManager.m; sourceTree = "<group>"; };
+		B34E7B581E8CBC3300C86FF7 /* VZFRasterizeCacheDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFRasterizeCacheDefine.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -715,6 +721,9 @@
 		1EEC1A351E27BFAD00EBF0CC /* base */ = {
 			isa = PBXGroup;
 			children = (
+				B34E7B561E8CBC3300C86FF7 /* VZFImageCacheManager.h */,
+				B34E7B571E8CBC3300C86FF7 /* VZFImageCacheManager.m */,
+				B34E7B581E8CBC3300C86FF7 /* VZFRasterizeCacheDefine.h */,
 				525198F31E64561100EBC82E /* VZFRenderer.h */,
 				525198F41E64561100EBC82E /* VZFRenderer.mm */,
 				1E715EBF1E49C81100D76806 /* VZFBackingViewProtocol.h */,
@@ -762,6 +771,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EEC1AA31E27BFAD00EBF0CC /* VZFluxStore.h in Headers */,
+				B34E7B5B1E8CBC3300C86FF7 /* VZFRasterizeCacheDefine.h in Headers */,
 				1EEC1AA11E27BFAD00EBF0CC /* VZFluxDispatcher.h in Headers */,
 				525198F01E6455B800EBC82E /* VZFAsyncConfig.h in Headers */,
 				1E715EDC1E49C83600D76806 /* VZFBlankNodeBackingLayer.h in Headers */,
@@ -820,6 +830,7 @@
 				1EEC1AB51E27BFAD00EBF0CC /* VZFNodeRequiredMethods.h in Headers */,
 				1EEC1A6A1E27BFAD00EBF0CC /* VZFNodeHostingView.h in Headers */,
 				525198F11E6455B800EBC82E /* VZFRasterizeNodeTool.h in Headers */,
+				B34E7B591E8CBC3300C86FF7 /* VZFImageCacheManager.h in Headers */,
 				1EEC1A731E27BFAD00EBF0CC /* VZFNodeProvider.h in Headers */,
 				1EAC53291E5B1A1E009C4C57 /* VZFMapView.h in Headers */,
 				1EEC1A711E27BFAD00EBF0CC /* VZFNodeLifeCycle.h in Headers */,
@@ -1011,6 +1022,7 @@
 				1EEC1A4B1E27BFAD00EBF0CC /* UIView+VZAttributes.mm in Sources */,
 				525198F61E64561100EBC82E /* VZFRenderer.mm in Sources */,
 				1EEC1A701E27BFAD00EBF0CC /* VZFNodeLayoutManager.mm in Sources */,
+				B34E7B5A1E8CBC3300C86FF7 /* VZFImageCacheManager.m in Sources */,
 				1EEC1A941E27BFAD00EBF0CC /* VZFUtils.mm in Sources */,
 				1E715EDD1E49C83600D76806 /* VZFBlankNodeBackingLayer.m in Sources */,
 				1EEC1A571E27BFAD00EBF0CC /* VZFIndicatorNodeSpecs.mm in Sources */,
