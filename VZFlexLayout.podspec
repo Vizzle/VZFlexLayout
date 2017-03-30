@@ -14,6 +14,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.requires_arc = true
   s.frameworks = 'UIKit', 'MapKit', 'CoreLocation'
-
+  s.xcconfig = {
+    'OTHER_LDFLAGS' => '-lc++'
+  }
   s.source_files = 'VZFlexLayout/**/*'
 end
