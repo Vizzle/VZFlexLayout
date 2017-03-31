@@ -263,7 +263,7 @@ CGFloat vz_getWidthCallback(void *context) {
         }
         
         if (!isFirstLine) {
-            height += lineSpacing / 2;
+            height += lineSpacing;
         }
         
         CFIndex count;
@@ -341,9 +341,6 @@ CGFloat vz_getWidthCallback(void *context) {
             [lines removeLastObject];
             maxRemainLines = 1;
             continue;
-        }
-        if (!isLastLine) {
-            height += lineSpacing / 2;
         }
         
         // 第一种方式得到的行高，在纯英文的时候，小了许多
