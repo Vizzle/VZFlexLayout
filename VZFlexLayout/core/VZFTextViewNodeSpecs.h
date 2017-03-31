@@ -11,6 +11,9 @@
 #import "VZFNodeSpecs.h"
 
 namespace VZ {
+    namespace DefaultTextViewAttrValue {
+        extern NSUInteger defaultMaxLength;
+    }
     struct TextViewNodeSpecs {
         NSString *text;
         UIColor *color;
@@ -23,7 +26,7 @@ namespace VZ {
         UIKeyboardType keyboardType;
         UIKeyboardAppearance keyboardAppearance;
         UIReturnKeyType returnKeyType;
-        Value<NSUInteger, DefaultAttributesValue::uintMax> maxLength;
+        Value<NSUInteger, DefaultTextViewAttrValue::defaultMaxLength> maxLength;
         Value<BOOL, DefaultControlAttrValue::disable> blurOnSubmit;
         VZFEventBlock onFocus;
         VZFEventBlock onBlur;

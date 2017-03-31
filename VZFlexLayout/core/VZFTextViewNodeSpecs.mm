@@ -8,3 +8,8 @@
 
 #import "VZFTextViewNodeSpecs.h"
 
+namespace VZ {
+    namespace DefaultTextViewAttrValue {
+        NSUInteger defaultMaxLength = NSUIntegerMax;
+    }
+}

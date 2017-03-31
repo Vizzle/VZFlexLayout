@@ -7,3 +7,9 @@
 //
 
 #import "VZFTextFieldNodeSpecs.h"
+
+namespace VZ {
+    namespace DefaultTextFieldAttrValue {
+        NSUInteger defaultMaxLength = NSUIntegerMax;
+    }
+}

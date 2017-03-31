@@ -82,9 +82,6 @@ namespace VZ {
         extern float alpha;
         
         extern int isAccessibilityElement;
-        
-        extern NSUInteger uintMax;
-
     };
     
 
