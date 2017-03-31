@@ -9,6 +9,8 @@
 #import "VZFImageNodeRenderer.h"
 #import "VZFImageNode.h"
 #import "VZFNodeListItemRecycler.h"
+#import "VZFNodeInternal.h"
+
 @implementation VZFImageNodeRenderer
 
 //图片下载成功回调

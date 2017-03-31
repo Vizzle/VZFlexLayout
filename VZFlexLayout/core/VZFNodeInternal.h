@@ -64,6 +64,16 @@ using namespace VZ;
  */
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz;
 
++ (Class)defaultClass;
+
+//关联的view是否是自定义的view
+- (BOOL)hasCustomView;
+
+//将属性应用到对应的view到
+- (void)applyAttributes;
+
+- (UIView* )mountedView;
+
 @end
 
 @interface VZFNode(Layout)
@@ -111,9 +121,6 @@ using namespace VZ;
                               ParentNode:(VZFNode* )parentNode;
 
 - (void)unmount;
-
-
-
 
 
 
