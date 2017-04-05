@@ -10,6 +10,7 @@
 #import "VZFUtils.h"
 #import "VZFEvent.h"
 #import "VZFNodeSpecs.h"
+#import "VZFTextNodeSpecs.h"
 
 namespace VZ {
     namespace DefaultTextFieldAttrValue {
@@ -18,7 +19,9 @@ namespace VZ {
     struct TextFieldNodeSpecs {
         NSString *text;
         UIColor *color;
-        UIFont *font;
+        float fontSize;
+        NSString *fontName;
+        VZFFontStyle fontStyle;
         NSTextAlignment alignment;
         NSString *placeholder;
         UIColor *placeholderColor;
@@ -37,11 +40,22 @@ namespace VZ {
         VZFEventBlock onSubmit;
         VZFEventBlock onEnd;
         
+        mutable UIFont *_font;
+        
+        UIFont *getFont() const {
+            if (!_font) {
+                _font = createFont(fontName, fontSize, fontStyle);
+            }
+            return _font;
+        }
+        
         TextFieldNodeSpecs copy() const {
             return {
                 [text copy],
                 color,
-                font,
+                fontSize,
+                [fontName copy],
+                fontStyle,
                 alignment,
                 [placeholder copy],
                 placeholderColor,
@@ -58,7 +72,8 @@ namespace VZ {
                 [onBlur copy],
                 [onChange copy],
                 [onSubmit copy],
-                [onEnd copy]
+                [onEnd copy],
+                _font,
             };
         }
     };

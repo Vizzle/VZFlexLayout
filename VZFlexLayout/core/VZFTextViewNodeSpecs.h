@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "VZFEvent.h"
 #import "VZFNodeSpecs.h"
+#import "VZFTextNodeSpecs.h"
 
 namespace VZ {
     namespace DefaultTextViewAttrValue {
@@ -17,7 +18,9 @@ namespace VZ {
     struct TextViewNodeSpecs {
         NSString *text;
         UIColor *color;
-        UIFont *font;
+        float fontSize;
+        NSString *fontName;
+        VZFFontStyle fontStyle;
         NSTextAlignment alignment;
         NSString *placeholder;
         UIColor *placeholderColor;
@@ -35,11 +38,22 @@ namespace VZ {
         VZFEventBlock onEnd;
         VZFEventBlock onScroll;
         
+        mutable UIFont *_font;
+        
+        UIFont *getFont() const {
+            if (!_font) {
+                _font = createFont(fontName, fontSize, fontStyle);
+            }
+            return _font;
+        }
+        
         TextViewNodeSpecs copy() const {
             return {
                 [text copy],
                 color,
-                font,
+                fontSize,
+                [fontName copy],
+                fontStyle,
                 alignment,
                 [placeholder copy],
                 placeholderColor,
@@ -55,7 +69,8 @@ namespace VZ {
                 [onChange copy],
                 [onSubmit copy],
                 [onEnd copy],
-                [onScroll copy]
+                [onScroll copy],
+                _font,
             };
         }
 
