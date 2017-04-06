@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1EEC19AB1E27BF9600EBF0CC"
+               BlueprintIdentifier = "45C4996D1E94EA84009BD7AA"
                BuildableName = "VZFlexLayout.framework"
                BlueprintName = "VZFlexLayout"
                ReferencedContainer = "container:VZFlexLayout.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1EEC19AB1E27BF9600EBF0CC"
+            BlueprintIdentifier = "45C4996D1E94EA84009BD7AA"
             BuildableName = "VZFlexLayout.framework"
             BlueprintName = "VZFlexLayout"
             ReferencedContainer = "container:VZFlexLayout.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1EEC19AB1E27BF9600EBF0CC"
+            BlueprintIdentifier = "45C4996D1E94EA84009BD7AA"
             BuildableName = "VZFlexLayout.framework"
             BlueprintName = "VZFlexLayout"
             ReferencedContainer = "container:VZFlexLayout.xcodeproj">

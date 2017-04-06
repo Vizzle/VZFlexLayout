@@ -2,7 +2,7 @@
 //  VZFlexLayout.h
 //  VZFlexLayout
 //
-//  Created by wuwen on 2017/1/12.
+//  Created by moxin on 2017/4/5.
 //  Copyright © 2017年 Vizlab. All rights reserved.
 //
 
@@ -15,6 +15,7 @@ FOUNDATION_EXPORT double VZFlexLayoutVersionNumber;
 FOUNDATION_EXPORT const unsigned char VZFlexLayoutVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <VZFlexLayout/PublicHeader.h>
+
 
 
 #import <VZFlexlayout/VZFNode.h>
@@ -66,8 +67,9 @@ FOUNDATION_EXPORT const unsigned char VZFlexLayoutVersionString[];
 #import <VZFlexlayout/VZFSizeRange.h>
 #import <VZFlexlayout/VZFValue.h>
 #import <VZFlexlayout/VZFLength.h>
-#import <VZFlexlayout/FlexLayout.h>
 #import <VZFlexlayout/VZFActionWrapper.h>
 #import <VZFlexlayout/VZFlux.h>
 #import <VZFlexlayout/VZFNodeRequiredMethods.h>
 #import <VZFlexlayout/VZFNodeLifeCycle.h>
+
+
