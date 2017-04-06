@@ -206,7 +206,7 @@
 - (void)vz_applyNodeAttributes:(VZFNode *)node {
     TextViewNodeSpecs specs = ((VZFTextViewNode *)node).textViewNodeSpecs;
     self.textView.text = specs.text;
-    self.textView.font = specs.font ?: [UIFont systemFontOfSize:14];
+    self.textView.font = specs.getFont();
     self.textView.textColor = specs.color;
     self.textView.textAlignment = specs.alignment;
     self.placeholder = specs.placeholder;

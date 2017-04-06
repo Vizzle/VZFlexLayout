@@ -56,11 +56,11 @@ namespace VZ {
         NSString *text;
         UIColor *color;
         float fontSize;
+        NSString *fontName;
+        VZFFontStyle fontStyle;
         float miniScaleFactor;
         BOOL adjustsFontSize;
         UIBaselineAdjustment baselineAdjustment;
-        NSString *fontName;
-        VZFFontStyle fontStyle;
         NSTextAlignment alignment;
         VZFTextVerticalAlignment verticalAlignment;
         VZFTextLineBreakMode lineBreakMode;
@@ -79,11 +79,11 @@ namespace VZ {
                 [text copy],
                 color,
                 fontSize,
+                [fontName copy],
+                fontStyle,
                 miniScaleFactor,
                 adjustsFontSize,
                 baselineAdjustment,
-                [fontName copy],
-                fontStyle,
                 alignment,
                 verticalAlignment,
                 lineBreakMode,

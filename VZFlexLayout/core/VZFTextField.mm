@@ -196,7 +196,7 @@
 - (void)vz_applyNodeAttributes:(VZFNode *)node {
     TextFieldNodeSpecs specs = ((VZFTextFieldNode *)node).textFieldSpecs;
     self.text = specs.text;
-    self.font = specs.font;
+    self.font = specs.getFont();
     self.textColor = specs.color;
     self.textAlignment = specs.alignment;
     self.placeholder = specs.placeholder;
