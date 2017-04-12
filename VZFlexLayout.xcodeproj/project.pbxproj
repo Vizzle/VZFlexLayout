@@ -46,7 +46,7 @@
 		458FEBBC1E9DD270004A44DB /* VZFSizeRange.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB151E9DD270004A44DB /* VZFSizeRange.mm */; };
 		458FEBBD1E9DD270004A44DB /* VZFStateUpdateMode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB161E9DD270004A44DB /* VZFStateUpdateMode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEBBE1E9DD270004A44DB /* VZFunctor.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB171E9DD270004A44DB /* VZFunctor.h */; };
-		458FEBBF1E9DD270004A44DB /* VZFUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB181E9DD270004A44DB /* VZFUtils.h */; };
+		458FEBBF1E9DD270004A44DB /* VZFUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB181E9DD270004A44DB /* VZFUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEBC01E9DD270004A44DB /* VZFUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB191E9DD270004A44DB /* VZFUtils.mm */; };
 		458FEBC11E9DD270004A44DB /* VZFValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB1A1E9DD270004A44DB /* VZFValue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEBC21E9DD270004A44DB /* VZFValue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB1B1E9DD270004A44DB /* VZFValue.mm */; };
@@ -957,6 +957,7 @@
 				458FEBB11E9DD270004A44DB /* VZFNodeLayoutManager.h in Headers */,
 				45C49AC41E94F678009BD7AA /* VZFlux.h in Headers */,
 				45C49AC61E94F678009BD7AA /* FlexLayout.h in Headers */,
+				458FEBBF1E9DD270004A44DB /* VZFUtils.h in Headers */,
 				458FEBF81E9DD270004A44DB /* VZFPickerNode.h in Headers */,
 				45C49AEB1E94F678009BD7AA /* VZFAsyncDrawingTransaction.h in Headers */,
 				45C49B031E94F678009BD7AA /* VZFTextNodeBackingLayer.h in Headers */,
@@ -1008,7 +1009,6 @@
 				458FEBCF1E9DD270004A44DB /* VZFCompositeNode.h in Headers */,
 				458FEBAE1E9DD270004A44DB /* VZFNodeInternal.h in Headers */,
 				45C49AC71E94F678009BD7AA /* khash.h in Headers */,
-				458FEBBF1E9DD270004A44DB /* VZFUtils.h in Headers */,
 				458FEC271E9DD270004A44DB /* VZFWebView.h in Headers */,
 				458FEBBE1E9DD270004A44DB /* VZFunctor.h in Headers */,
 				45C49AF01E94F678009BD7AA /* VZFAsyncDrawingTransactionGroup.h in Headers */,
