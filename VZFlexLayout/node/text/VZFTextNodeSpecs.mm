@@ -114,6 +114,86 @@ namespace VZ {
         return font;
     }
     
+    UIFont* TextNodeSpecs::getFont() const{
+        
+        if (!_font) {
+            _font = createFont(fontName, fontSize, fontStyle);
+        }
+        return _font;
+    }
+    
+    NSDictionary* TextNodeSpecs::getAttributes()const{
+    
+        NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+        if (lineSpacing != 0) {
+            style.lineSpacing = lineSpacing;
+        }
+        NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+        dict[NSParagraphStyleAttributeName] = style;
+        dict[NSForegroundColorAttributeName] = color;
+        if (kern != 0) {
+            dict[NSKernAttributeName] = @(kern);
+            dict[NSLigatureAttributeName] = @0;
+        }
+        dict[NSFontAttributeName] = getFont();
+        return dict;
+    }
+    
+    NSAttributedString* TextNodeSpecs::getAttributedString() const{
+    
+        if (_attributedString) {
+            NSMutableAttributedString *str = _attributedString.mutableCopy;
+            [_attributedString enumerateAttributesInRange:NSMakeRange(0,_attributedString.length) options:0 usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
+                NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+                if (![attrs objectForKey:NSFontAttributeName]) {
+                    if (getFont()) dict[NSFontAttributeName] = getFont();
+                }
+                if (![attrs objectForKey:NSForegroundColorAttributeName]) {
+                    dict[NSForegroundColorAttributeName] = color;
+                }
+                if (![attrs objectForKey:NSParagraphStyleAttributeName]) {
+                    NSMutableParagraphStyle *style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+                    style.lineSpacing = lineSpacing;
+                    dict[NSParagraphStyleAttributeName] = style;
+                }
+                if (dict.count) {
+                    [str addAttributes:dict range:range];
+                }
+            }];
+            return str;
+        }
+        else if (text) {
+            return [[NSAttributedString alloc] initWithString:text attributes:getAttributes()];
+        }
+        else {
+            return nil;
+        }
+    }
+    
+    TextNodeSpecs TextNodeSpecs::copy() const{
+        
+        return {
+            [text copy],
+            color,
+            fontSize,
+            [fontName copy],
+            fontStyle,
+            miniScaleFactor,
+            adjustsFontSize,
+            baselineAdjustment,
+            alignment,
+            verticalAlignment,
+            lineBreakMode,
+            truncationMode,
+            [_attributedString copy],
+            lines,
+            kern,
+            lineSpacing,
+            _font,    // _font
+        
+        };
+    }
+    
     size_t TextNodeSpecs::hash() const
     {
         NSUInteger subhashes[] = {
@@ -124,14 +204,29 @@ namespace VZ {
             std::hash<NSInteger>()(fontStyle),
             std::hash<CGFloat>()(fontSize),
             std::hash<NSInteger>()(alignment),
-            [attributedString hash],
-//            [truncationAttributedString hash],
+            [_attributedString hash],
             std::hash<NSInteger>()(lineBreakMode),
             std::hash<NSInteger>()(lines),
             std::hash<float>()(kern),
             std::hash<float>()(lineSpacing),
         };
         return VZ::Hash::IntegerArrayHash(subhashes, sizeof(subhashes) / sizeof(subhashes[0]));
+    }
+    
+    
+    bool TextNodeSpecs::operator==(const VZ::TextNodeSpecs &other) const{
+    
+        return lineBreakMode == other.lineBreakMode
+        && Hash::_ObjectsEqual(text, other.text)
+        && Hash::_ObjectsEqual(color, other.color)
+        && Hash::_ObjectsEqual(fontName, other.fontName)
+        && fontSize == other.fontSize
+        && fontStyle == other.fontStyle
+        && alignment == other.alignment
+        && lines == other.lines
+        && kern == other.kern
+        && lineSpacing == other.lineSpacing
+        && Hash::_ObjectsEqual(_attributedString, other._attributedString);
     }
 
 }

@@ -10,6 +10,8 @@
 #import <UIKit/UIKit.h>
 #import "VZFRenderer.h"
 #import "VZFActionWrapper.h"
+#import "VZFImageNode.h"
+
 
 @interface VZFImageNodeRenderer : VZFRenderer <VZFActionWrapper>
 
@@ -17,6 +19,14 @@
 @property (nonatomic, assign) UIViewContentMode contentMode;
 @property (nonatomic, assign) CGFloat scale;
 @property (nonatomic, assign) NSInteger animateCount;
-
 @property (nonatomic, strong) NSString *downloadImageUrl;
+
+@end
+
+
+@interface VZFImageNode()
+
+@property(nonatomic,strong) NSString *downloadImageUrl;
+@property(nonatomic,strong) UIImage *downloadImage;
+
 @end

@@ -110,6 +110,9 @@ namespace VZ {
         UIImage* contents;
         void(^unapplicator)(UIView* view);
         void(^applicator)(UIView* view);
+        struct style{
+        
+        };
         
         //flex attributes
         Value<FlexLength, DefaultAttributesValue::width> width;

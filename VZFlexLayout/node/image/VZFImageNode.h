@@ -7,14 +7,12 @@
 //
 
 #import "VZFNode.h"
+#import "VZFNodeSpecs.h"
+#import "VZFImageNodeSpecs.h"
 #import "VZFNetworkImageDownloadProtocol.h"
 
-namespace VZ {
-    class NodeSpecs;
-    class ImageNodeSpecs;
-}
-using namespace VZ;
 
+using namespace VZ;
 @class VZFImageNodeRenderer;
 
 @interface VZFImageNode : VZFNode
@@ -23,8 +21,7 @@ using namespace VZ;
 @property(nonatomic,strong,readonly) id<VZFNetworkImageDownloadProtocol> imageDownloader;
 @property(nonatomic, copy, readonly) UIImage*(^imageProcessingBlock)(UIImage* );
 @property(nonatomic,strong,readonly) VZFImageNodeRenderer *renderer;
-@property(nonatomic,strong) NSString *downloadImageUrl;
-@property(nonatomic,strong) UIImage *downloadImage;
+
 
 
 + (instancetype)newWithImageAttributes:(const ImageNodeSpecs& )imageSpecs
@@ -33,8 +30,7 @@ using namespace VZ;
 + (instancetype)newWithImageAttributes:(const ImageNodeSpecs& )imageSpecs
                              NodeSpecs:(const NodeSpecs& )nodeSpecs
                  BackingImageViewClass:(Class<VZFNetworkImageDownloadProtocol>)backingImageViewClass;
-//                    ImageDownloader:(id<VZFNetworkImageDownloadProtocol>)imagedownloader
-//                ImageProcessingBlock:(UIImage*(^)(UIImage* rawImage)) imageProcessingBlock;
+
 + (instancetype)newWithImageAttributes:(const VZ::ImageNodeSpecs &)imageSpecs
                              NodeSpecs:(const NodeSpecs &)nodeSpecs
                  BackingImageViewClass:(Class<VZFNetworkImageDownloadProtocol>)backingImageViewClass

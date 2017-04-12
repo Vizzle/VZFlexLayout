@@ -15,6 +15,7 @@ typedef void(^UIControlActionBlock)(id sender);
 
 @protocol VZFActionWrapper <NSObject>
 
+@optional
 // for control action
 - (void)invoke:(id)sender event:(UIEvent *)event;
 
