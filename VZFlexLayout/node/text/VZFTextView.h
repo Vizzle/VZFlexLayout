@@ -11,6 +11,7 @@
 
 @interface VZFTextView : UIView
 
+@property (nonatomic, strong, readonly) UITextView *textView;
 @property (nonatomic, copy) NSString *placeholder;
 @property (nonatomic, strong) UIColor *placeholderColor;
 @property (nonatomic, assign) NSUInteger maxLength;
