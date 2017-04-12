@@ -167,7 +167,7 @@
 		45C49AC31E94F678009BD7AA /* VZFluxStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C499F71E94F678009BD7AA /* VZFluxStore.mm */; };
 		45C49AC41E94F678009BD7AA /* VZFlux.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C499F81E94F678009BD7AA /* VZFlux.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45C49AC51E94F678009BD7AA /* FlexLayout.c in Sources */ = {isa = PBXBuildFile; fileRef = 45C499FA1E94F678009BD7AA /* FlexLayout.c */; };
-		45C49AC61E94F678009BD7AA /* FlexLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C499FB1E94F678009BD7AA /* FlexLayout.h */; };
+		45C49AC61E94F678009BD7AA /* FlexLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C499FB1E94F678009BD7AA /* FlexLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45C49AC71E94F678009BD7AA /* khash.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C499FC1E94F678009BD7AA /* khash.h */; };
 		45C49AEB1E94F678009BD7AA /* VZFAsyncDrawingTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C49A231E94F678009BD7AA /* VZFAsyncDrawingTransaction.h */; };
 		45C49AEC1E94F678009BD7AA /* VZFAsyncDrawingTransaction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C49A241E94F678009BD7AA /* VZFAsyncDrawingTransaction.mm */; };
@@ -956,6 +956,7 @@
 				458FEBA01E9DD270004A44DB /* VZFDispatch.h in Headers */,
 				458FEBB11E9DD270004A44DB /* VZFNodeLayoutManager.h in Headers */,
 				45C49AC41E94F678009BD7AA /* VZFlux.h in Headers */,
+				45C49AC61E94F678009BD7AA /* FlexLayout.h in Headers */,
 				458FEBF81E9DD270004A44DB /* VZFPickerNode.h in Headers */,
 				45C49AEB1E94F678009BD7AA /* VZFAsyncDrawingTransaction.h in Headers */,
 				45C49B031E94F678009BD7AA /* VZFTextNodeBackingLayer.h in Headers */,
@@ -1007,7 +1008,6 @@
 				458FEBCF1E9DD270004A44DB /* VZFCompositeNode.h in Headers */,
 				458FEBAE1E9DD270004A44DB /* VZFNodeInternal.h in Headers */,
 				45C49AC71E94F678009BD7AA /* khash.h in Headers */,
-				45C49AC61E94F678009BD7AA /* FlexLayout.h in Headers */,
 				458FEBBF1E9DD270004A44DB /* VZFUtils.h in Headers */,
 				458FEC271E9DD270004A44DB /* VZFWebView.h in Headers */,
 				458FEBBE1E9DD270004A44DB /* VZFunctor.h in Headers */,

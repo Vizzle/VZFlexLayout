@@ -24,6 +24,7 @@
 #import <VZFlexLayout/VZFStateUpdateMode.h>
 #import <VZFlexLayout/VZFUtils.h> 
 #import <VZFlexLayout/VZFValue.h>
+#import <VZFlexLayout/FlexLayout.h>
 
 //node
 #import <VZFlexLayout/VZFNode.h>
