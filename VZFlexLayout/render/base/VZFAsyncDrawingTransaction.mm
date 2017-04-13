@@ -116,9 +116,9 @@
 
 - (void)addCompletionBlock:(vz_async_transaction_completion_block_t)completion
 {
-    __weak typeof(self) weakSelf = self;
+    __weak VZFAsyncDrawingTransaction* weakSelf = self;
     [self addOperationWithBlock:^(){return (id<NSObject>)nil;} queue:_callbackQueue completion:^(id<NSObject> value, BOOL canceled) {
-        typeof(self) strongSelf = weakSelf;
+        __strong VZFAsyncDrawingTransaction* strongSelf = weakSelf;
         completion(strongSelf, canceled);
     }];
     

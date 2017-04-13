@@ -30,8 +30,6 @@ namespace VZ {
 using namespace VZ;
 
 @class VZFlexNode;
-@class VZFNodeHostingView;
-
 @interface VZFNode()
 
 /**
@@ -57,10 +55,6 @@ using namespace VZ;
 @property(nonatomic,weak)VZFNode* superNode;
 /**
  *  计算Node的layout
- *
- *  @param sz
- *
- *  @return
  */
 - (NodeLayout)computeLayoutThatFits:(CGSize)sz;
 
@@ -81,20 +75,6 @@ using namespace VZ;
 //- (BOOL)shouldMemoizeLayout;
 
 - (NodeLayout)nodeDidLayout;
-
-@end
-
-
-@interface VZFNode(ResponderChain)
-/**
- *  response响应事件的方法
- *
- *  @param action 事件名
- *  @param sender sender
- *
- *  @return object
- */
-- (id)targetForAction:(SEL)action withSender:(id)sender;
 
 @end
 
