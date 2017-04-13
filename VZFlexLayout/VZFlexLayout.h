@@ -39,8 +39,8 @@
 #import <VZFlexLayout/VZFIndicatorNodeSpecs.h>
 #import <VZFlexLayout/VZFLineNode.h>
 #import <VZFlexLayout/VZFLineNodeSpecs.h>
-#import <VZFlexLayout/VZFMapNode.h>
-#import <VZFlexLayout/VZFMapNodeSpecs.h>
+#import <VZFlexLayout/VZFMapViewNode.h>
+#import <VZFlexLayout/VZFMapViewNodeSpecs.h>
 #import <VZFlexLayout/VZFPagingNode.h>
 #import <VZFlexLayout/VZFPagingNodeSpecs.h>
 #import <VZFlexLayout/VZFPickerNode.h>
