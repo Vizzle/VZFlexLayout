@@ -14,6 +14,7 @@
 #import "VZFTextNodeSpecs.h"
 #import "VZFNodeInternal.h"
 #import "VZFlexNode.h"
+#import "VZFTextNodeInternal.h"
 
 @implementation VZFTextNodeBackingView
 

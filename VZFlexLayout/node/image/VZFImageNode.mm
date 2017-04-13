@@ -15,6 +15,7 @@
 #import "VZFNodeLayout.h"
 #import "VZFImageNodeSpecs.h"
 #import "VZFImageNodeRenderer.h"
+#import "VZFImageNodeInternal.h"
 
 @implementation VZFImageNode
 {

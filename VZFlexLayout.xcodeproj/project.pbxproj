@@ -206,6 +206,8 @@
 		45C49B0D1E94F678009BD7AA /* VZFNodeListItemRecycler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C49A491E94F678009BD7AA /* VZFNodeListItemRecycler.mm */; };
 		45C49B101E94FEEE009BD7AA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C49B0F1E94FEEE009BD7AA /* MapKit.framework */; };
 		45C49B121E95004B009BD7AA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C49B111E95004B009BD7AA /* CoreLocation.framework */; };
+		B3D062361E9F6D340062C1A1 /* VZFImageNodeInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D062351E9F6D010062C1A1 /* VZFImageNodeInternal.h */; };
+		B3D062381E9F6E0A0062C1A1 /* VZFTextNodeInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D062371E9F6E060062C1A1 /* VZFTextNodeInternal.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -410,6 +412,8 @@
 		45C49A491E94F678009BD7AA /* VZFNodeListItemRecycler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeListItemRecycler.mm; sourceTree = "<group>"; };
 		45C49B0F1E94FEEE009BD7AA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		45C49B111E95004B009BD7AA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B3D062351E9F6D010062C1A1 /* VZFImageNodeInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeInternal.h; sourceTree = "<group>"; };
+		B3D062371E9F6E060062C1A1 /* VZFTextNodeInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeInternal.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -532,6 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				458FEB2E1E9DD270004A44DB /* VZFImageNode.h */,
+				B3D062351E9F6D010062C1A1 /* VZFImageNodeInternal.h */,
 				458FEB2F1E9DD270004A44DB /* VZFImageNode.mm */,
 				458FEB301E9DD270004A44DB /* VZFImageNodeSpecs.h */,
 				458FEB311E9DD270004A44DB /* VZFImageNodeSpecs.mm */,
@@ -678,6 +683,7 @@
 			isa = PBXGroup;
 			children = (
 				458FEB7E1E9DD270004A44DB /* VZFTextNode.h */,
+				B3D062371E9F6E060062C1A1 /* VZFTextNodeInternal.h */,
 				458FEB7F1E9DD270004A44DB /* VZFTextNode.mm */,
 				458FEB801E9DD270004A44DB /* VZFTextNodeSpecs.h */,
 				458FEB811E9DD270004A44DB /* VZFTextNodeSpecs.mm */,
@@ -915,6 +921,7 @@
 				458FEBEC1E9DD270004A44DB /* VZFMapViewNodeSpecs.h in Headers */,
 				458FEC1E1E9DD270004A44DB /* VZFTextFieldNode.h in Headers */,
 				458FEBD51E9DD270004A44DB /* VZFNetworkImageDownloadProtocol.h in Headers */,
+				B3D062361E9F6D340062C1A1 /* VZFImageNodeInternal.h in Headers */,
 				458FEC0A1E9DD270004A44DB /* VZFStackNode.h in Headers */,
 				458FEBAA1E9DD270004A44DB /* VZFMacros.h in Headers */,
 				45C49B0C1E94F678009BD7AA /* VZFNodeListItemRecycler.h in Headers */,
@@ -972,6 +979,7 @@
 				45C49B031E94F678009BD7AA /* VZFTextNodeBackingLayer.h in Headers */,
 				45C49AEE1E94F678009BD7AA /* VZFAsyncDrawingTransactionContainer.h in Headers */,
 				45C49B091E94F678009BD7AA /* VZFAsyncConfig.h in Headers */,
+				B3D062381E9F6E0A0062C1A1 /* VZFTextNodeInternal.h in Headers */,
 				458FEBDC1E9DD270004A44DB /* VZFIndicatorView.h in Headers */,
 				458FEBE61E9DD270004A44DB /* VZFMapOverlay.h in Headers */,
 				458FEB9C1E9DD270004A44DB /* UIView+VZAttributes.h in Headers */,

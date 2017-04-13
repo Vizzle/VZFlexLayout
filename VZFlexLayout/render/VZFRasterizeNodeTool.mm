@@ -20,6 +20,8 @@
 #import "VZFStackNode.h"
 #import "VZFBlankNodeRenderer.h"
 #import "VZFButtonNodeSpecs.h"
+#import "VZFImageNodeInternal.h"
+#import "VZFTextNodeInternal.h"
 
 @implementation VZFRasterizeNodeTool
 
