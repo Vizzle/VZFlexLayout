@@ -26,9 +26,10 @@
         _changed = false;
         _changeEvent = @"change";
         _dispatcher = dispatcher;
-        __weak typeof(self) weakSelf = self;
+        
+        __weak VZFluxStore* weakSelf = self;
         _dispatchToken = [dispatcher registerWithCallback:^(VZ::FluxAction action) {
-            __strong typeof(weakSelf) strongSelf = weakSelf;
+            __strong VZFluxStore* strongSelf = weakSelf;
             if (strongSelf) {
                 [strongSelf invokeOnDispatch:action];
             }

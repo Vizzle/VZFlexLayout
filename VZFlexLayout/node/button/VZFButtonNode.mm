@@ -31,9 +31,9 @@
 //        buttonNode -> _specs = specs;
         buttonNode -> _buttonSpecs = buttonSepcs.copy();
         
-        __weak typeof(buttonNode) weakNode = buttonNode;
+        __weak VZFButtonNode* weakNode = buttonNode;
         buttonNode.flexNode.measure = ^(CGSize constrainedSize) {
-            __strong typeof(weakNode) strongNode = weakNode;
+            __strong VZFButtonNode*  strongNode = weakNode;
             if (!strongNode) return CGSizeZero;
             
             VZ::ButtonNodeSpecs& buttonSpecs = strongNode->_buttonSpecs;

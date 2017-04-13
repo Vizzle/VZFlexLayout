@@ -31,12 +31,8 @@
     if (textNode) {
         textNode -> _textSpecs = textSpecs.copy();
         VZFTextNodeRenderer *renderer = [VZFTextNodeRenderer new];
-//        if (textSpecs.attributedString) {
-//            renderer.text = textSpecs.attributedString;
-//        }
-//        else {
-            renderer.text = textSpecs.getAttributedString();
-//        }
+
+        renderer.text = textSpecs.getAttributedString();
         renderer.alignment = textSpecs.alignment;
         renderer.verticalAlignment = textSpecs.verticalAlignment;
         renderer.lineBreakMode = textSpecs.lineBreakMode;
@@ -48,10 +44,10 @@
         
         textNode -> _renderer = renderer;
         
-        __weak typeof(textNode) weakNode = textNode;
+        __weak VZFTextNode* weakNode = textNode;
         textNode.flexNode.measure = ^(CGSize constrainedSize) {
             
-            __strong typeof(weakNode) strongNode = weakNode;
+            __strong VZFTextNode* strongNode = weakNode;
             
             if (!strongNode) {
                 return CGSizeZero;

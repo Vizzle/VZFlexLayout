@@ -25,10 +25,10 @@
     if (indicatorNode) {
         indicatorNode -> _indicatorSpecs = indicatorSpecs.copy();
         
-        __weak typeof(indicatorNode) weakNode = indicatorNode;
+        __weak VZFIndicatorNode* weakNode = indicatorNode;
         indicatorNode.flexNode.measure = ^(CGSize constrainedSize) {
             
-            __strong typeof(weakNode) strongNode = weakNode;
+            __strong VZFIndicatorNode* strongNode = weakNode;
             
             if (!strongNode) {
                 return CGSizeZero;

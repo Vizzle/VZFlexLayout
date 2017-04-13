@@ -51,9 +51,9 @@
         imageNode -> _renderer = renderer;
         
         
-        __weak typeof(imageNode) weakNode = imageNode;
+        __weak VZFImageNode* weakNode = imageNode;
         imageNode.flexNode.measure = ^(CGSize constrainedSize) {
-            __strong typeof(weakNode) strongNode = weakNode;
+            __strong VZFImageNode* strongNode = weakNode;
             if (!strongNode) return CGSizeZero;
             
             const VZ::ImageNodeSpecs& imageSpecs = strongNode->_imageSpecs;
@@ -75,9 +75,9 @@
         networkImageNode -> _imageProcessingBlock = imageProcessingBlock;
         
         
-        __weak typeof(networkImageNode) weakNode = networkImageNode;
+        __weak VZFImageNode* weakNode = networkImageNode;
         networkImageNode.flexNode.measure = ^(CGSize constrainedSize) {
-            __strong typeof(weakNode) strongNode = weakNode;
+            __strong VZFImageNode* strongNode = weakNode;
             if (!strongNode) return CGSizeZero;
             
             VZ::ImageNodeSpecs imageSpecs = strongNode->_imageSpecs;
