@@ -22,7 +22,7 @@
 		458FEBA41E9DD270004A44DB /* VZFLength.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEAFD1E9DD270004A44DB /* VZFLength.mm */; };
 		458FEBA51E9DD270004A44DB /* VZFlexNode+VZFNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEAFE1E9DD270004A44DB /* VZFlexNode+VZFNode.h */; };
 		458FEBA61E9DD270004A44DB /* VZFlexNode+VZFNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEAFF1E9DD270004A44DB /* VZFlexNode+VZFNode.mm */; };
-		458FEBA71E9DD270004A44DB /* VZFlexNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB001E9DD270004A44DB /* VZFlexNode.h */; };
+		458FEBA71E9DD270004A44DB /* VZFlexNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB001E9DD270004A44DB /* VZFlexNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEBA81E9DD270004A44DB /* VZFlexNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB011E9DD270004A44DB /* VZFlexNode.mm */; };
 		458FEBA91E9DD270004A44DB /* VZFLocker.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB021E9DD270004A44DB /* VZFLocker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEBAA1E9DD270004A44DB /* VZFMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB031E9DD270004A44DB /* VZFMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -62,9 +62,9 @@
 		458FEBCC1E9DD270004A44DB /* VZFButtonNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB271E9DD270004A44DB /* VZFButtonNodeSpecs.mm */; };
 		458FEBCD1E9DD270004A44DB /* VZFButtonView.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB281E9DD270004A44DB /* VZFButtonView.h */; };
 		458FEBCE1E9DD270004A44DB /* VZFButtonView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB291E9DD270004A44DB /* VZFButtonView.mm */; };
-		458FEBCF1E9DD270004A44DB /* VZFCompositeNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB2B1E9DD270004A44DB /* VZFCompositeNode.h */; };
+		458FEBCF1E9DD270004A44DB /* VZFCompositeNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB2B1E9DD270004A44DB /* VZFCompositeNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEBD01E9DD270004A44DB /* VZFCompositeNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB2C1E9DD270004A44DB /* VZFCompositeNode.mm */; };
-		458FEBD11E9DD270004A44DB /* VZFImageNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB2E1E9DD270004A44DB /* VZFImageNode.h */; };
+		458FEBD11E9DD270004A44DB /* VZFImageNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB2E1E9DD270004A44DB /* VZFImageNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEBD21E9DD270004A44DB /* VZFImageNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB2F1E9DD270004A44DB /* VZFImageNode.mm */; };
 		458FEBD31E9DD270004A44DB /* VZFImageNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB301E9DD270004A44DB /* VZFImageNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEBD41E9DD270004A44DB /* VZFImageNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB311E9DD270004A44DB /* VZFImageNodeSpecs.mm */; };
@@ -958,6 +958,9 @@
 				45C49AC41E94F678009BD7AA /* VZFlux.h in Headers */,
 				45C49AC61E94F678009BD7AA /* FlexLayout.h in Headers */,
 				458FEBBF1E9DD270004A44DB /* VZFUtils.h in Headers */,
+				458FEBA71E9DD270004A44DB /* VZFlexNode.h in Headers */,
+				458FEBD11E9DD270004A44DB /* VZFImageNode.h in Headers */,
+				458FEBCF1E9DD270004A44DB /* VZFCompositeNode.h in Headers */,
 				458FEBF81E9DD270004A44DB /* VZFPickerNode.h in Headers */,
 				45C49AEB1E94F678009BD7AA /* VZFAsyncDrawingTransaction.h in Headers */,
 				45C49B031E94F678009BD7AA /* VZFTextNodeBackingLayer.h in Headers */,
@@ -970,7 +973,6 @@
 				458FEC021E9DD270004A44DB /* VZFScrollView.h in Headers */,
 				45C49B0A1E94F678009BD7AA /* VZFRasterizeNodeTool.h in Headers */,
 				458FEC141E9DD270004A44DB /* VZFSwitchNodeSpecs.h in Headers */,
-				458FEBA71E9DD270004A44DB /* VZFlexNode.h in Headers */,
 				458FEC041E9DD270004A44DB /* VZFSegmentedControl.h in Headers */,
 				458FEBC71E9DD270004A44DB /* VZFWeakObjectWrapper.h in Headers */,
 				458FEC061E9DD270004A44DB /* VZFSegmentedControlNode.h in Headers */,
@@ -989,7 +991,6 @@
 				458FEB981E9DD270004A44DB /* UIBezierPath+vzextension.h in Headers */,
 				45C49AF21E94F678009BD7AA /* VZFAsyncDrawingTransactionInterface.h in Headers */,
 				458FEC101E9DD270004A44DB /* VZFSwitch.h in Headers */,
-				458FEBD11E9DD270004A44DB /* VZFImageNode.h in Headers */,
 				45C49AF81E94F678009BD7AA /* VZFRasterizeCacheDefine.h in Headers */,
 				458FEBB41E9DD270004A44DB /* VZFNodeMountContext.h in Headers */,
 				45C49B011E94F678009BD7AA /* VZFImageNodeRenderer.h in Headers */,
@@ -1006,7 +1007,6 @@
 				458FEBE81E9DD270004A44DB /* VZFMapView.h in Headers */,
 				45C49AFB1E94F678009BD7AA /* VZFBlankNodeBackingLayer.h in Headers */,
 				45C499731E94EA84009BD7AA /* VZFlexLayout.h in Headers */,
-				458FEBCF1E9DD270004A44DB /* VZFCompositeNode.h in Headers */,
 				458FEBAE1E9DD270004A44DB /* VZFNodeInternal.h in Headers */,
 				45C49AC71E94F678009BD7AA /* khash.h in Headers */,
 				458FEC271E9DD270004A44DB /* VZFWebView.h in Headers */,
