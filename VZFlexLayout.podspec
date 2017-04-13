@@ -15,7 +15,9 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.frameworks = 'UIKit', 'MapKit', 'CoreLocation'
   s.xcconfig = {
-    'OTHER_LDFLAGS' => '-lc++'
+    'CLANG_CXX_LANGUAGE_STANDARD' => 'c++11',
+    'CLANG_CXX_LIBRARY' => 'libc++'
   }
+  s.library = 'c++'
   s.source_files = 'VZFlexLayout/**/*'
 end

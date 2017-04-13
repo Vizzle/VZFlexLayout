@@ -69,7 +69,7 @@
 		458FEBD31E9DD270004A44DB /* VZFImageNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB301E9DD270004A44DB /* VZFImageNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEBD41E9DD270004A44DB /* VZFImageNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB311E9DD270004A44DB /* VZFImageNodeSpecs.mm */; };
 		458FEBD51E9DD270004A44DB /* VZFNetworkImageDownloadProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB321E9DD270004A44DB /* VZFNetworkImageDownloadProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		458FEBD61E9DD270004A44DB /* VZFNetworkImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB331E9DD270004A44DB /* VZFNetworkImageView.h */; };
+		458FEBD61E9DD270004A44DB /* VZFNetworkImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB331E9DD270004A44DB /* VZFNetworkImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEBD71E9DD270004A44DB /* VZFNetworkImageView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB341E9DD270004A44DB /* VZFNetworkImageView.mm */; };
 		458FEBD81E9DD270004A44DB /* VZFIndicatorNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB361E9DD270004A44DB /* VZFIndicatorNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEBD91E9DD270004A44DB /* VZFIndicatorNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB371E9DD270004A44DB /* VZFIndicatorNode.mm */; };
@@ -904,6 +904,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				458FEC081E9DD270004A44DB /* VZFSegmentedControlNodeSpecs.h in Headers */,
+				458FEBD61E9DD270004A44DB /* VZFNetworkImageView.h in Headers */,
 				458FEC141E9DD270004A44DB /* VZFSwitchNodeSpecs.h in Headers */,
 				458FEC061E9DD270004A44DB /* VZFSegmentedControlNode.h in Headers */,
 				458FEBE41E9DD270004A44DB /* VZFMapAnnotation.h in Headers */,
@@ -984,7 +985,6 @@
 				458FEBA51E9DD270004A44DB /* VZFlexNode+VZFNode.h in Headers */,
 				458FEBE21E9DD270004A44DB /* VZFLineView.h in Headers */,
 				45C49AF31E94F678009BD7AA /* VZFAsyncLayer.h in Headers */,
-				458FEBD61E9DD270004A44DB /* VZFNetworkImageView.h in Headers */,
 				458FEB9A1E9DD270004A44DB /* UIImageView+VZAttributes.h in Headers */,
 				45C49AF61E94F678009BD7AA /* VZFImageCacheManager.h in Headers */,
 				458FEBF61E9DD270004A44DB /* VZFPagingView.h in Headers */,
