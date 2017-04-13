@@ -47,8 +47,8 @@
 #import <VZFlexLayout/VZFPickerNodeSpecs.h>
 #import <VZFlexLayout/VZFScrollNode.h>
 #import <VZFlexLayout/VZFScrollNodeSpecs.h>
-#import <VZFlexLayout/VZFSegmentControlNode.h>
-#import <VZFlexLayout/VZFSegmentControlNodeSpecs.h>
+#import <VZFlexLayout/VZFSegmentedControlNode.h>
+#import <VZFlexLayout/VZFSegmentedControlNodeSpecs.h>
 #import <VZFlexLayout/VZFStackNode.h>
 #import <VZFlexLayout/VZFStackNodeSpecs.h>
 #import <VZFlexLayout/VZFSwitchNode.h>
