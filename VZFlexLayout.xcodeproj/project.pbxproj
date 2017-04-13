@@ -131,7 +131,7 @@
 		458FEC111E9DD270004A44DB /* VZFSwitch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB781E9DD270004A44DB /* VZFSwitch.mm */; };
 		458FEC121E9DD270004A44DB /* VZFSwitchNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB791E9DD270004A44DB /* VZFSwitchNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEC131E9DD270004A44DB /* VZFSwitchNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB7A1E9DD270004A44DB /* VZFSwitchNode.mm */; };
-		458FEC141E9DD270004A44DB /* VZFSwitchNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB7B1E9DD270004A44DB /* VZFSwitchNodeSpecs.h */; };
+		458FEC141E9DD270004A44DB /* VZFSwitchNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB7B1E9DD270004A44DB /* VZFSwitchNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEC151E9DD270004A44DB /* VZFSwitchNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB7C1E9DD270004A44DB /* VZFSwitchNodeSpecs.mm */; };
 		458FEC161E9DD270004A44DB /* VZFTextNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB7E1E9DD270004A44DB /* VZFTextNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEC171E9DD270004A44DB /* VZFTextNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB7F1E9DD270004A44DB /* VZFTextNode.mm */; };
@@ -904,6 +904,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				458FEC081E9DD270004A44DB /* VZFSegmentedControlNodeSpecs.h in Headers */,
+				458FEC141E9DD270004A44DB /* VZFSwitchNodeSpecs.h in Headers */,
 				458FEC061E9DD270004A44DB /* VZFSegmentedControlNode.h in Headers */,
 				458FEBE41E9DD270004A44DB /* VZFMapAnnotation.h in Headers */,
 				458FEBF21E9DD270004A44DB /* VZFPagingNode.h in Headers */,
@@ -976,7 +977,6 @@
 				45C49AFD1E94F678009BD7AA /* VZFBlankNodeBackingView.h in Headers */,
 				458FEC021E9DD270004A44DB /* VZFScrollView.h in Headers */,
 				45C49B0A1E94F678009BD7AA /* VZFRasterizeNodeTool.h in Headers */,
-				458FEC141E9DD270004A44DB /* VZFSwitchNodeSpecs.h in Headers */,
 				458FEBC71E9DD270004A44DB /* VZFWeakObjectWrapper.h in Headers */,
 				458FEC1A1E9DD270004A44DB /* VZFTextView.h in Headers */,
 				45C49B051E94F678009BD7AA /* VZFTextNodeBackingView.h in Headers */,
