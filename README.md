@@ -14,8 +14,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-VZFlexLayout is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+### Cocoapods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects. which automates and simplifies the process of using 3rd-party libraries in your projects. See the [Get Started](https://cocoapods.org/#get_started) section for more details.
+
+**Podfile**
 
 ```ruby
 source 'https://github.com/Vizzle/Specs.git'
@@ -23,7 +26,22 @@ source 'https://github.com/Vizzle/Specs.git'
 target YourAwesomeTarget do
   pod 'VZFlexLayout'
 end
+
 ```
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+**Cartfile**
+
+```ruby
+
+github "Vizzle/VZFlexLayout" "master"
+
+```
+
+
 
 ## License
 
