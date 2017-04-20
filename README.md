@@ -21,7 +21,6 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 **Podfile**
 
 ```ruby
-source 'https://github.com/Vizzle/Specs.git'
 
 target YourAwesomeTarget do
   pod 'VZFlexLayout'
