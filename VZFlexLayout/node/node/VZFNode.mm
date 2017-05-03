@@ -32,7 +32,8 @@ struct VZFNodeMountedInfo{
     __weak VZFNode* parentNode;
     __weak UIView* mountedView;
     __weak VZFRenderer* mountedRenderer;
-    
+    __weak VZFNode* rasterizeRootNode; //光栅化根节点node
+
     BOOL hadSubView;
     
     struct {
@@ -362,7 +363,7 @@ using namespace VZ::UIKit;
 //    return [self getViewResult:parentNode context:context parentRenderer:parentRenderer size:size];
 //}
 
--(VZ::UIKit::MountResult)renderInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode rasterizeCachePolicy:(VZFRasterizeCachePolicy)rasterizeCachePolicy
+-(VZ::UIKit::MountResult)renderInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode cannotBeRasterized:(BOOL)cannotBeRasterized rasterizeCachePolicy:(VZFRasterizeCachePolicy)rasterizeCachePolicy
 {
     
     //VZF_LOG_THREAD(@"mount");
@@ -375,9 +376,11 @@ using namespace VZ::UIKit;
     _mountedInfo -> hadSubView = NO;
     
     VZFRenderer *parentRenderer = nil;
-    
+    VZFNode *rasterizeRootNode = nil;
+
     if (parentNode != nil && parentNode -> _mountedInfo != nullptr) {
         parentRenderer = parentNode -> _mountedInfo -> mountedContext.r;
+        rasterizeRootNode = parentNode -> _mountedInfo -> rasterizeRootNode;
     }
     
     //If renderer is nil, it means the node can't be rasterized
@@ -388,7 +391,9 @@ using namespace VZ::UIKit;
     
     BOOL canAddToSuperRenderer = NO;
     //当前结点能光栅化，并且parentRenderer存在是先决条件
-    if (parentRenderer  && !parentNode-> _mountedInfo->hadSubView ) {
+    if (parentRenderer
+        && (rasterizeRootNode && rasterizeRootNode -> _mountedInfo && !rasterizeRootNode -> _mountedInfo -> hadSubView)
+        && !cannotBeRasterized) {
         /*
          *判断当前的结点的有效显示区域是否超过了光栅化根结点的frame。如果超过了，并且根结点的clip为NO，那么这个结点不能被加入到这个光栅化树
          *【分析】
@@ -436,6 +441,7 @@ using namespace VZ::UIKit;
             }
             
             _mountedInfo -> mountedView = nil;
+            _mountedInfo -> rasterizeRootNode = parentNode -> _mountedInfo -> rasterizeRootNode;
             //计算公式:
             //position.x = frame.origin.x + anchorPoint.x * bounds.size.width；
             //position.y = frame.origin.y + anchorPoint.y * bounds.size.height；
@@ -459,8 +465,8 @@ using namespace VZ::UIKit;
     
     
     //走到这个分支，意味着，当前节点或者作为光栅化的根节点，或者是一个普通的view
-    if (parentNode) {
-        parentNode -> _mountedInfo->hadSubView = YES;
+    if (rasterizeRootNode && rasterizeRootNode -> _mountedInfo) {
+        rasterizeRootNode -> _mountedInfo -> hadSubView = YES;
     }
     
     CGPoint origin = context.position;
@@ -526,6 +532,8 @@ using namespace VZ::UIKit;
             renderer.frame = {CGPointMake(0, 0), size};
             renderer.node = self;
             [renderer removeAllSubRenderers];//复用，删除子renderers
+            _mountedInfo -> rasterizeRootNode = self;
+
         }
         
         _mountedInfo-> mountedRenderer = renderer;

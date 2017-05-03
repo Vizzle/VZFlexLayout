@@ -22,7 +22,8 @@
 @property (nonatomic) BOOL loopScroll;
 @property (nonatomic) BOOL vertical;
 
-@property (nonatomic) NSInteger currentPage;
+@property (nonatomic, readonly) NSInteger currentPage;
+@property (nonatomic, readonly) NSInteger numberOfPages;
 @property (nonatomic, strong) id<VZFActionWrapper> switched;
 
 

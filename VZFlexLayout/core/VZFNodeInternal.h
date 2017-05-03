@@ -30,6 +30,7 @@ namespace VZ {
 using namespace VZ;
 
 @class VZFlexNode;
+
 @interface VZFNode()
 
 /**
@@ -91,6 +92,7 @@ using namespace VZ;
 - (VZ::UIKit::MountResult)renderInContext:(const VZ::UIKit::MountContext &)context
                                    Size:(CGSize) size
                              ParentNode:(VZFNode* )parentNode
+                     cannotBeRasterized:(BOOL)cannotBeRasterized
                    rasterizeCachePolicy:(VZFRasterizeCachePolicy)rasterizeCachePolicy;
 
 

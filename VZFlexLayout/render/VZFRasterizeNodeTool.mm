@@ -22,13 +22,29 @@
 #import "VZFButtonNodeSpecs.h"
 #import "VZFImageNodeInternal.h"
 #import "VZFTextNodeInternal.h"
+#import <stack>
+
+
+
+@interface VZFLayoutCheckResult : NSObject
+
+@property (nonatomic, assign) BOOL hasOutOfBoundsChildren; //子孙中是否包含不能被光栅化的结点,并且这个结点与最近的clip为YES的祖先结点之间存在不能被光栅化的结点（不包括那个祖先结点，包括超出的子结点）
+@property (nonatomic, assign) BOOL selfCanBeRasterized; //当前结点是否能被光栅化
+
+@end
+
+@implementation VZFLayoutCheckResult
+
+
+@end
+
 
 @implementation VZFRasterizeNodeTool
 
-+(VZFRenderer *)getRenderer4RasterizedNode:(VZFNode *)node size:(CGSize)size {
++ (BOOL)canBeRasterized:(VZFNode *)node {
     //判断光栅化开关
     if (!VZFUseRasterize) {
-        return nil;
+        return NO;
     }
     
     NodeSpecs specs = node.specs;
@@ -40,16 +56,40 @@
         specs.alpha < 1 ||
         specs.tag > 0 ||
         specs.applicator
-//        ||(specs.isAccessibilityElement != VZF_BOOL_UNDEFINED && specs.isAccessibilityElement) ||
-//        specs.accessibilityLabel
+        //        ||(specs.isAccessibilityElement != VZF_BOOL_UNDEFINED && specs.isAccessibilityElement) ||
+        //        specs.accessibilityLabel
         ) {
-        return nil;
+        return NO;
     }
     
     if (!node.viewClass.hasView()) {
+        return NO;
+    }
+    
+    if ([node isKindOfClass:[VZFImageNode class]])
+    {
+        return YES;
+    }
+    else if ([node isKindOfClass:[VZFTextNode class]])
+    {
+        return YES;
+    }
+    else if([node  isKindOfClass:[VZFStackNode class]] || ([node  isMemberOfClass:[VZFNode class]] && ([@"VZFBlankNodeBackingView" isEqualToString:node.viewClass.identifier()] || [@"UIView" isEqualToString:node.viewClass.identifier()])) ){
+        return YES;
+    }
+    //button需要独立处理事件 需要view不做光栅化处理
+    
+    return NO;
+}
+
+
+
++(VZFRenderer *)getRenderer4RasterizedNode:(VZFNode *)node size:(CGSize)size {
+    //判断光栅化开关
+    if (![self canBeRasterized:node]) {
         return nil;
     }
-        
+    
     if ([node isKindOfClass:[VZFImageNode class]])
     {
         return [self getImageRenderer:((VZFImageNode* )node).imageSpecs node:(VZFImageNode *)node size:size];
@@ -59,7 +99,7 @@
     {
         return [self getTextRenderer:((VZFTextNode* )node).textSpecs node:(VZFTextNode *)node size:size];
     }
-    else if([node  isKindOfClass:[VZFStackNode class]] || ([node  isMemberOfClass:[VZFNode class]] && ![node hasCustomView])){
+    else if([node  isKindOfClass:[VZFStackNode class]] || ([node  isMemberOfClass:[VZFNode class]] && ([@"VZFBlankNodeBackingView" isEqualToString:node.viewClass.identifier()] || [@"UIView" isEqualToString:node.viewClass.identifier()]))){
         return [self getBlankRenderer:(VZFStackNode *)node];
     }
     //button需要独立处理事件 需要view不做光栅化处理
@@ -164,4 +204,98 @@
     }
 }
 
+//获取clip为YES并且不能被光栅化的nodes
++ (NSSet<VZFNode *> *)getClipAndCannotBeRasterizedNodes:(NodeLayout)rootLayout {
+    NSMutableSet *resultNodes = [NSMutableSet set];
+    
+    //深度优先遍历rootLayout对应node tree
+    /*
+     * 定义虚"根",指根结点或者clip为YES并且存在结点的结点
+     * 显然，一棵树中存在多个这样的虚"根"
+     * 深度优先遍历，并且优先遍历子孙再遍历当前结点，即从下往上遍历树，检测所有的虚”根“是否能够被光栅化
+     * 一个虚”根“不能被光栅化，当存在这样的子孙结点：
+     * 1.显示内容超过了自己的bounds
+     * 2.这个子孙结点与虚”根“之间（包括这个子孙结点，但不包括虚”根“），存在至少一个结点不能被光栅化
+     */
+    
+    struct CheckItem{
+        const NodeLayout& layout;
+        BOOL isVisited;
+        CGRect clipBounds;       //虚"根"的bounds
+        CGPoint baseOrigin;      //父结点相对虚”根“的偏移，结合clipBounds计算当前结点是否超过了虚根的bounds
+        BOOL hasUnrasterizedSuper; //从“根”到自己之间是否存在不能光栅化的结点，不包括“根”,不包括自己
+        __weak VZFLayoutCheckResult *superCheckResult;        //super node传进来的，把检测结果保存在这里,相当于发挥结果
+        __strong VZFLayoutCheckResult *selfCheckResult; //这个是自己的，深度优先遍历自己点，这里保存的子节点遍历后返回的结果
+    };
+    
+    std::stack<CheckItem> stack = {};
+    stack.push({rootLayout, NO, {CGPointZero, rootLayout.size}, CGPointZero, NO, nil, [[VZFLayoutCheckResult alloc] init]});
+    while (!stack.empty()) {
+        CheckItem& item = stack.top();
+        const NodeLayout& layout = item.layout;
+        VZFNode* node = layout.node;
+        
+        if (item.isVisited) {//子孙结点已经被访问过了
+         
+            VZFLayoutCheckResult *superResult = item.superCheckResult; //相当于返回结果，返回给父节点使用
+            VZFLayoutCheckResult *selfResult = item.selfCheckResult; //保存了自己的信息，和子节点返回的信息
+            
+            if (layout.children->size() > 0) {
+                //如果一个clip的结点没有子节点，那么他是否能光栅化，完全由[self canBeRasterized:node]决定，不用额外的判断
+                if (layout.node.specs.clip) {
+                    //对于clip的结点,selfResult.hasOutOfBoundsChildren不影响superResult.hasOutOfBoundsChildren，因为子的内容都被clip了
+                    if (selfResult.hasOutOfBoundsChildren
+                        && node) {
+                        [resultNodes addObject:node];
+                        selfResult.selfCanBeRasterized = NO; //当前结点不能被光栅化
+                    }
+                } else {
+                    superResult.hasOutOfBoundsChildren |= selfResult.hasOutOfBoundsChildren;
+                }
+            }
+            
+            
+            if (!superResult.hasOutOfBoundsChildren) {
+                //再检测自己是否有超过
+                CGRect frame = {layout.origin, layout.size};
+                frame.origin.x += item.baseOrigin.x;
+                frame.origin.y += item.baseOrigin.y;
+                //判断自己是否超过了“根”的bounds，并且在自己和根之间是否有结点不能被光栅化（不包括“根”，包括自己）
+                superResult.hasOutOfBoundsChildren |= !CGRectContainsRect(item.clipBounds, frame) && (item.hasUnrasterizedSuper || !selfResult.selfCanBeRasterized);
+            }
+            
+            stack.pop();
+        } else {
+            item.isVisited = YES;
+            
+            BOOL canBeRasterized = [self canBeRasterized:node];
+            item.selfCheckResult.selfCanBeRasterized = canBeRasterized;
+            
+            if (layout.children->size() > 0) {
+                BOOL hasUnrasterizedSuper = NO;
+                CGPoint baseOrigin = item.baseOrigin;
+                CGRect clipBounds = item.clipBounds;
+                
+                if (node.specs.clip) {
+                    baseOrigin = CGPointZero;
+                    clipBounds = {CGPointZero, layout.size};
+                    //clip为YES的结点作为一个新的“根”，因为hasUnrasterizedSuper不包括“根”，所以hasUnrasterizedSuper一定为NO，
+                    hasUnrasterizedSuper = NO;
+                } else {
+                    baseOrigin.x += layout.origin.x;
+                    baseOrigin.y += layout.origin.y;
+                    hasUnrasterizedSuper = item.hasUnrasterizedSuper || !canBeRasterized;
+                }
+                
+                for(auto reverseItor = layout.children->rbegin(); reverseItor != layout.children->rend(); reverseItor ++){
+                    stack.push({*reverseItor, NO, clipBounds, baseOrigin, hasUnrasterizedSuper, item.selfCheckResult, [[VZFLayoutCheckResult alloc] init]});
+                }
+            }
+        }
+    }
+    
+    return [resultNodes copy];
+}
+
 @end
+

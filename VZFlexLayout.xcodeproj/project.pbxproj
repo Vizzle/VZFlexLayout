@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1EBE99B41EB9B35400E977AB /* VZFTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1EBE99B21EB9B35400E977AB /* VZFTextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1EBE99B51EB9B35400E977AB /* VZFTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EBE99B31EB9B35400E977AB /* VZFTextView.mm */; };
 		458FEB981E9DD270004A44DB /* UIBezierPath+vzextension.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEAF11E9DD270004A44DB /* UIBezierPath+vzextension.h */; };
 		458FEB991E9DD270004A44DB /* UIBezierPath+vzextension.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEAF21E9DD270004A44DB /* UIBezierPath+vzextension.mm */; };
 		458FEB9A1E9DD270004A44DB /* UIImageView+VZAttributes.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEAF31E9DD270004A44DB /* UIImageView+VZAttributes.h */; };
@@ -137,8 +139,6 @@
 		458FEC171E9DD270004A44DB /* VZFTextNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB7F1E9DD270004A44DB /* VZFTextNode.mm */; };
 		458FEC181E9DD270004A44DB /* VZFTextNodeSpecs.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB801E9DD270004A44DB /* VZFTextNodeSpecs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		458FEC191E9DD270004A44DB /* VZFTextNodeSpecs.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB811E9DD270004A44DB /* VZFTextNodeSpecs.mm */; };
-		458FEC1A1E9DD270004A44DB /* VZFTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB821E9DD270004A44DB /* VZFTextView.h */; };
-		458FEC1B1E9DD270004A44DB /* VZFTextView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB831E9DD270004A44DB /* VZFTextView.mm */; };
 		458FEC1C1E9DD270004A44DB /* VZFTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB851E9DD270004A44DB /* VZFTextField.h */; };
 		458FEC1D1E9DD270004A44DB /* VZFTextField.mm in Sources */ = {isa = PBXBuildFile; fileRef = 458FEB861E9DD270004A44DB /* VZFTextField.mm */; };
 		458FEC1E1E9DD270004A44DB /* VZFTextFieldNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 458FEB871E9DD270004A44DB /* VZFTextFieldNode.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -211,6 +211,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1EBE99B21EB9B35400E977AB /* VZFTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextView.h; sourceTree = "<group>"; };
+		1EBE99B31EB9B35400E977AB /* VZFTextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextView.mm; sourceTree = "<group>"; };
 		458FEAF11E9DD270004A44DB /* UIBezierPath+vzextension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+vzextension.h"; sourceTree = "<group>"; };
 		458FEAF21E9DD270004A44DB /* UIBezierPath+vzextension.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIBezierPath+vzextension.mm"; sourceTree = "<group>"; };
 		458FEAF31E9DD270004A44DB /* UIImageView+VZAttributes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+VZAttributes.h"; sourceTree = "<group>"; };
@@ -341,8 +343,6 @@
 		458FEB7F1E9DD270004A44DB /* VZFTextNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextNode.mm; sourceTree = "<group>"; };
 		458FEB801E9DD270004A44DB /* VZFTextNodeSpecs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeSpecs.h; sourceTree = "<group>"; };
 		458FEB811E9DD270004A44DB /* VZFTextNodeSpecs.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextNodeSpecs.mm; sourceTree = "<group>"; };
-		458FEB821E9DD270004A44DB /* VZFTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextView.h; sourceTree = "<group>"; };
-		458FEB831E9DD270004A44DB /* VZFTextView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextView.mm; sourceTree = "<group>"; };
 		458FEB851E9DD270004A44DB /* VZFTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextField.h; sourceTree = "<group>"; };
 		458FEB861E9DD270004A44DB /* VZFTextField.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFTextField.mm; sourceTree = "<group>"; };
 		458FEB871E9DD270004A44DB /* VZFTextFieldNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextFieldNode.h; sourceTree = "<group>"; };
@@ -687,8 +687,6 @@
 				458FEB7F1E9DD270004A44DB /* VZFTextNode.mm */,
 				458FEB801E9DD270004A44DB /* VZFTextNodeSpecs.h */,
 				458FEB811E9DD270004A44DB /* VZFTextNodeSpecs.mm */,
-				458FEB821E9DD270004A44DB /* VZFTextView.h */,
-				458FEB831E9DD270004A44DB /* VZFTextView.mm */,
 			);
 			path = text;
 			sourceTree = "<group>";
@@ -709,6 +707,8 @@
 		458FEB8B1E9DD270004A44DB /* textview */ = {
 			isa = PBXGroup;
 			children = (
+				1EBE99B21EB9B35400E977AB /* VZFTextView.h */,
+				1EBE99B31EB9B35400E977AB /* VZFTextView.mm */,
 				458FEB8C1E9DD270004A44DB /* VZFTextViewNode.h */,
 				458FEB8D1E9DD270004A44DB /* VZFTextViewNode.mm */,
 				458FEB8E1E9DD270004A44DB /* VZFTextViewNodeSpecs.h */,
@@ -987,7 +987,6 @@
 				458FEC021E9DD270004A44DB /* VZFScrollView.h in Headers */,
 				45C49B0A1E94F678009BD7AA /* VZFRasterizeNodeTool.h in Headers */,
 				458FEBC71E9DD270004A44DB /* VZFWeakObjectWrapper.h in Headers */,
-				458FEC1A1E9DD270004A44DB /* VZFTextView.h in Headers */,
 				45C49B051E94F678009BD7AA /* VZFTextNodeBackingView.h in Headers */,
 				45C49AF91E94F678009BD7AA /* VZFRenderer.h in Headers */,
 				458FEBA51E9DD270004A44DB /* VZFlexNode+VZFNode.h in Headers */,
@@ -1001,6 +1000,7 @@
 				458FEC101E9DD270004A44DB /* VZFSwitch.h in Headers */,
 				45C49AF81E94F678009BD7AA /* VZFRasterizeCacheDefine.h in Headers */,
 				458FEBB41E9DD270004A44DB /* VZFNodeMountContext.h in Headers */,
+				1EBE99B41EB9B35400E977AB /* VZFTextView.h in Headers */,
 				45C49B011E94F678009BD7AA /* VZFImageNodeRenderer.h in Headers */,
 				458FEBCD1E9DD270004A44DB /* VZFButtonView.h in Headers */,
 				45C49AFF1E94F678009BD7AA /* VZFBlankNodeRenderer.h in Headers */,
@@ -1142,7 +1142,6 @@
 				45C49ABF1E94F678009BD7AA /* VZFluxAppDispatcher.mm in Sources */,
 				458FEBE91E9DD270004A44DB /* VZFMapView.mm in Sources */,
 				45C49B001E94F678009BD7AA /* VZFBlankNodeRenderer.m in Sources */,
-				458FEC1B1E9DD270004A44DB /* VZFTextView.mm in Sources */,
 				458FEBC81E9DD270004A44DB /* VZFWeakObjectWrapper.m in Sources */,
 				458FEBD71E9DD270004A44DB /* VZFNetworkImageView.mm in Sources */,
 				458FEC1D1E9DD270004A44DB /* VZFTextField.mm in Sources */,
@@ -1153,6 +1152,7 @@
 				458FEC0D1E9DD270004A44DB /* VZFStackNodeSpecs.mm in Sources */,
 				458FEC011E9DD270004A44DB /* VZFScrollNodeSpecs.mm in Sources */,
 				458FEBDD1E9DD270004A44DB /* VZFIndicatorView.mm in Sources */,
+				1EBE99B51EB9B35400E977AB /* VZFTextView.mm in Sources */,
 				458FEBA81E9DD270004A44DB /* VZFlexNode.mm in Sources */,
 				45C49B081E94F678009BD7AA /* VZFTextNodeRenderer.mm in Sources */,
 				458FEBC21E9DD270004A44DB /* VZFValue.mm in Sources */,

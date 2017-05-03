@@ -260,6 +260,10 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     return rect;
 }
 
+- (NSInteger)numberOfPages {
+    return _childViews.count;
+}
+
 - (void)setChildrenViews:(NSArray *)childrenViews {
     _childViews = childrenViews;
     _scrollView.scrollEnabled = [self scrollEnabled];
@@ -360,7 +364,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 - (void)setCurrentPage:(NSInteger)currentPage
 {
     
-    if (![self autoScrollEnabled] && _currentPage != currentPage) {
+    if (_currentPage != currentPage) {
         _currentPage = currentPage;
         [self.switched invoke:self withCustomParam:self];
     }

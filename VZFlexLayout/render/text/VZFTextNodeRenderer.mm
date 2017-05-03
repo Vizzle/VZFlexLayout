@@ -101,11 +101,11 @@
 
 - (void)setText:(NSAttributedString *)text {
     _unfixedText = text;
+    NSMutableAttributedString *mutText = text.mutableCopy;
     // https://openradar.appspot.com/28522327
     // https://github.com/ibireme/YYText/issues/548#issuecomment-260231194
     BOOL isIOS10OrGreater = [[UIDevice currentDevice].systemVersion floatValue] >= 10;
     if (isIOS10OrGreater) {
-        NSMutableAttributedString *mutText = text.mutableCopy;
         [mutText fixAttributesInRange:NSMakeRange(0, mutText.length)];
         [mutText enumerateAttribute:NSFontAttributeName inRange:NSMakeRange(0, mutText.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
             UIFont *font = (UIFont *)value;
@@ -113,8 +113,10 @@
                 [mutText addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"AppleColorEmoji" size:font.pointSize] range:range];
             }
         }];
-        text = mutText;
     }
+    [mutText.mutableString replaceOccurrencesOfString:@"\r\n" withString:@"\n" options:0 range:NSMakeRange(0, mutText.length)];
+    [mutText.mutableString replaceOccurrencesOfString:@"\r" withString:@"\n" options:0 range:NSMakeRange(0, mutText.length)];
+    text = mutText;
     
     if (_text != text && ![_text isEqualToAttributedString:text]) {
         _calculated = NO;
@@ -208,12 +210,16 @@ CGFloat vz_getWidthCallback(void *context) {
     return result;
 }
 
+- (BOOL)isLineSeparator:(unichar)c {
+    return c == '\n' || c == 0x2028 || c == 0x2029;
+}
+
 - (void)_calculate {
     if (_calculated) {
         return;
     }
     
-    if (self.text.length == 0 || self.maxSize.width <= 0) {
+    if (self.text.length == 0 || self.maxSize.width <= 0 || self.maxSize.height <= 0) {
         _calculated = YES;
         _textSize = CGSizeZero;
         return;
@@ -240,8 +246,11 @@ CGFloat vz_getWidthCallback(void *context) {
         callbacks.getWidth = vz_getWidthCallback;
         callbacks.dealloc = NULL;
         CTRunDelegateRef delegate = CTRunDelegateCreate(&callbacks, (__bridge void *)(attachment.image));
-        CFAttributedStringSetAttribute(attrString, CFRangeMake(range.location, range.length), kCTRunDelegateAttributeName, delegate);
-        CFRelease(delegate);
+        NSAssert(delegate, @"CTRunDelegateCreate(callbacks, %@) returns NULL", attachment.image);
+        if (delegate) {
+            CFAttributedStringSetAttribute(attrString, CFRangeMake(range.location, range.length), kCTRunDelegateAttributeName, delegate);
+            CFRelease(delegate);
+        }
     }];
     
     CTTypesetterRef typesetter = CTTypesetterCreateWithAttributedString(attrString);
@@ -267,8 +276,18 @@ CGFloat vz_getWidthCallback(void *context) {
         }
         
         CFIndex count;
+        CFIndex showCount = 0;  // 本行显示的长度（去除换行符）
+        BOOL needsAppendEllipse = NO;
         if (maxRemainLines == 0 && (_truncatingMode != VZFTextTruncatingNone || adjustsFontSizeToFitWidth)) {
-            count = 0;
+            count = CTTypesetterSuggestClusterBreak(typesetter, start, self.maxSize.width);
+            // 遇到换行符主动换行的
+            if ([self isLineSeparator:[plainString characterAtIndex:start+count-1]]) {
+                showCount = count - 1;
+                needsAppendEllipse = YES;
+            }
+            else {
+                count = 0;
+            }
         }
         else {
             if (_lineBreakMode == VZFTextLineBreakByChar) {
@@ -277,12 +296,25 @@ CGFloat vz_getWidthCallback(void *context) {
             else {
                 count = CTTypesetterSuggestLineBreak(typesetter, start, self.maxSize.width);
             }
+            showCount = count;
+            // 遇到换行符主动换行的，把换行符去掉，避免右边多一个空白字符
+            if ([self isLineSeparator:[plainString characterAtIndex:start+count-1]]) {
+                showCount -= 1;
+            }
         }
         
         BOOL isLastLine = maxRemainLines == 0 || start + count >= textLength;
         BOOL needsToTruncate = _truncatingMode != VZFTextTruncatingClip && maxRemainLines == 0 && start + count < textLength && !adjustsFontSizeToFitWidth;
         
-        CTLineRef line = CTTypesetterCreateLine(typesetter, CFRangeMake(start, count));
+        CTLineRef line;
+        if (needsAppendEllipse) {
+            // 最后一行因为是换行符换行的，所以需要手动追加一个省略号
+            [mutableText replaceCharactersInRange:NSMakeRange(start + showCount, mutableText.length - start - showCount) withString:@"…"];
+            line = CTLineCreateWithAttributedString((__bridge CFMutableAttributedStringRef)[mutableText attributedSubstringFromRange:NSMakeRange(start, showCount + 1)]);
+        }
+        else {
+            line = CTTypesetterCreateLine(typesetter, CFRangeMake(start, showCount));
+        }
         
         if (needsToTruncate) {
             line = [self truncateLine:line text:self.text typesetter:typesetter start:start];
@@ -297,7 +329,7 @@ CGFloat vz_getWidthCallback(void *context) {
         // CTLineGetStringRange 可能获取不到 range
         if (range.length == 0) {
             range.location = start;
-            range.length = count ?: self.text.string.length - start;
+            range.length = showCount ?: self.text.string.length - start;
         }
         [_unfixedText enumerateAttributesInRange:NSMakeRange(range.location, range.length) options:0 usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
             NSTextAttachment *attachment = attrs[NSAttachmentAttributeName];
@@ -475,14 +507,26 @@ CGFloat vz_getWidthCallback(void *context) {
         return;
     }
     
+    CGRect originalBounds = bounds;
+    
     bounds.origin.x += _edgeInsets.left;
     bounds.origin.y += _edgeInsets.top;
     bounds.size.width -= _edgeInsets.left + _edgeInsets.right;
     bounds.size.height -= _edgeInsets.top + _edgeInsets.bottom;
     
-    CGContextSaveGState(context);
+    if (bounds.size.width <= 0 || bounds.size.height <= 0) {
+        return;
+    }
     
     [self postLayout:bounds.size];
+    
+    if (_textSize.width <= 0 || _textSize.height <= 0) {
+        return;
+    }
+    
+    CGContextSaveGState(context);
+    
+    CGContextClipToRect(context, originalBounds);
     
     CGContextSetTextMatrix(context, CGAffineTransformIdentity);
     
@@ -549,7 +593,7 @@ CGFloat vz_getWidthCallback(void *context) {
             
             UIImage *image = ((NSTextAttachment *)attributes[NSAttachmentAttributeName]).image;
             if (image) {
-                CGContextDrawImage(context, CGRectMake(x + point.x, y + point.y - textLine.offsetY, image.size.width, image.size.height), image.CGImage);
+                CGContextDrawImage(context, CGRectMake(VZF_ROUND_PIXEL(x + point.x), VZF_ROUND_PIXEL(y + point.y - textLine.offsetY), image.size.width, image.size.height), image.CGImage);
             }
             
             if ([attributes[NSStrikethroughStyleAttributeName] intValue] != 0) {
@@ -560,8 +604,10 @@ CGFloat vz_getWidthCallback(void *context) {
                 // CTFontGetUnderlineThickness 在 iOS 7 上可能crash，原因不明。这里自己计算线条粗细，因数是测试出来的。
                 // CGFloat strikeThickness = CTFontGetUnderlineThickness((CTFontRef)font);
                 CGFloat strikeThickness = font.pointSize * 0.05859375;
+                strikeThickness = MAX(1/[UIScreen mainScreen].scale, VZF_ROUND_PIXEL(strikeThickness)); // snap to pixels
                 CGFloat strikeX = x + point.x;
-                CGFloat strikeY = y + point.y - textLine.offsetY + font.xHeight / 2; // TODO: snap to pixels
+                CGFloat strikeY = y + point.y - textLine.offsetY + font.xHeight / 2;
+                strikeY = VZF_ROUND_PIXEL(strikeY - strikeThickness / 2) + strikeThickness / 2; // snap to pixels
                 CGContextSetLineWidth(context, strikeThickness);
                 CGContextMoveToPoint(context, strikeX, strikeY);
                 CGContextAddLineToPoint(context, MIN(strikeX + width, bounds.origin.x + bounds.size.width / scale), strikeY);

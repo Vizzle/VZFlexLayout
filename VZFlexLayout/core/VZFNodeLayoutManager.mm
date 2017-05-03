@@ -15,16 +15,18 @@
 #import "VZFMacros.h"
 #import <stack>
 #import "VZFAsyncDrawingTransactionContainer.h"
+#import "VZFRasterizeNodeTool.h"
 
 using namespace VZ::UIKit;
 
 namespace VZ {
     
-    MountResult mountInContext(VZFNode *node, const VZ::UIKit::MountContext &context, CGSize size, VZFNode* parentNode, BOOL asyncDisplay, VZFRasterizeCachePolicy rasterizeCachePolicy) {
+    MountResult mountInContext(VZFNode *node, const VZ::UIKit::MountContext &context, CGSize size, VZFNode* parentNode, BOOL asyncDisplay, VZFRasterizeCachePolicy rasterizeCachePolicy, BOOL cannotBeRasterized) {
         if (asyncDisplay) {
             return [node renderInContext:context
                                     Size:size
                               ParentNode:parentNode
+                      cannotBeRasterized:cannotBeRasterized
                     rasterizeCachePolicy:rasterizeCachePolicy];
         } else {
             return [node mountInContext:context
@@ -46,6 +48,12 @@ namespace VZ {
         
         //设置根节点layer 作为异步渲染的管理节点
         container.layer.isAsyncTransactionContainer = YES;
+        
+        NSSet<VZFNode *> *clipAndCannotBeRasterizedNodes = nil;
+        
+        if (layout.node.specs.asyncDisplay) {
+            clipAndCannotBeRasterizedNodes = [VZFRasterizeNodeTool getClipAndCannotBeRasterizedNodes:layout];
+        }
         
         //0, 计算出Root Node的layout
         struct MountItem{
@@ -102,6 +110,7 @@ namespace VZ {
                 VZFNode *node = item.layout.node;
                 
                 BOOL asyncDisplay = node.specs.asyncDisplay;
+                BOOL cannotBeRasterized = [clipAndCannotBeRasterizedNodes containsObject:node];
                 
                 VZFRasterizeCachePolicy cachePolicy = VZFRasterizeCachePolicyNode;
                 
@@ -111,7 +120,7 @@ namespace VZ {
                 
                 //加载node，创建backing view
                 //这个方法必须在主线程调用
-                MountResult mountResult = mountInContext(node, item.context, item.layout.size, item.superNode, asyncDisplay, cachePolicy);
+                MountResult mountResult = mountInContext(node, item.context, item.layout.size, item.superNode, asyncDisplay, cachePolicy, cannotBeRasterized);
                 
                 [mountedNodes addObject:item.layout.node];
                 
