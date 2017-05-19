@@ -19,6 +19,7 @@
 @property (nonatomic) BOOL pagingEnabled;
 @property (nonatomic) BOOL scroll;
 @property (nonatomic) NSTimeInterval autoScroll;
+@property (nonatomic) NSTimeInterval animationDuration;
 @property (nonatomic) BOOL loopScroll;
 @property (nonatomic) BOOL vertical;
 

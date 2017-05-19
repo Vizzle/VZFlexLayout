@@ -118,7 +118,15 @@ float flex_resolve(FlexLength length, FlexLayoutContext *context, float relative
     return FlexAuto;
 }
 
+float flex_auto_to_0(float value) {
+    return value == FlexAuto ? 0 : value;
+}
+
 float clamp(float value, float minValue, float maxValue) {
+    if (value == FlexAuto) {
+        return value;
+    }
+    
     if (maxValue == FlexAuto || maxValue == FlexUndefined) {
         return fmaxf(value, minValue);
     } else {
@@ -127,6 +135,10 @@ float clamp(float value, float minValue, float maxValue) {
 }
 
 float clampMax(float value, float maxValue) {
+    if (value == FlexAuto) {
+        return value;
+    }
+    
     if (maxValue == FlexAuto || maxValue == FlexUndefined) {
         return value;
     } else {
@@ -228,6 +240,8 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
     float resolvedHeight = flex_resolve(node->size[FLEX_HEIGHT], context, constrainedHeight);
     if (isRoot && resolvedWidth == FlexAuto && constrainedWidth != FlexAuto) resolvedWidth = constrainedWidth;
     if (isRoot && resolvedHeight == FlexAuto && constrainedHeight != FlexAuto) resolvedHeight = constrainedHeight;
+    resolvedWidth = clamp(resolvedWidth, flex_resolve(node->minSize[FLEX_WIDTH], context, constrainedWidth), flex_resolve(node->maxSize[FLEX_WIDTH], context, constrainedWidth));
+    resolvedHeight = clamp(resolvedHeight, flex_resolve(node->minSize[FLEX_HEIGHT], context, constrainedHeight), flex_resolve(node->maxSize[FLEX_HEIGHT], context, constrainedHeight));
     FlexSize resolvedSize = flex_size(resolvedWidth, resolvedHeight);
     FlexSize resolvedInnerSize = flex_size(resolvedWidth == FlexAuto ? FlexAuto : resolvedWidth - flex_inset(node->resolvedPadding, FLEX_WIDTH), 
                                            resolvedHeight == FlexAuto ? FlexAuto : resolvedHeight - flex_inset(node->resolvedPadding, FLEX_HEIGHT));
@@ -321,6 +335,8 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
     
     float resolvedMinCrossSize = flex_resolve(node->minSize[crossAxis], context, constrainedSize.size[crossAxis]);
     float resolvedMaxCrossSize = flex_resolve(node->maxSize[crossAxis], context, constrainedSize.size[crossAxis]);
+    float resolvedMinMainSize = flex_resolve(node->minSize[mainAxis], context, constrainedSize.size[mainAxis]);
+    float resolvedMaxMainSize = flex_resolve(node->maxSize[mainAxis], context, constrainedSize.size[mainAxis]);
     FlexSize resolvedMarginSize = flex_size(resolvedMarginWidth, resolvedMarginHeight);
     FlexSize resolvedPaddingSize = flex_size(resolvedPaddingWidth, resolvedPaddingHeight);
     
@@ -329,8 +345,8 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
     lines[0].itemsSize = 0;
     int linesCount = 1;
     
-    float spacing = flex_resolve(node->spacing, context, resolvedInnerSize.size[mainAxis]);
-    float lineSpacing = flex_resolve(node->lineSpacing, context, resolvedInnerSize.size[crossAxis]);
+    float spacing = flex_auto_to_0(flex_resolve(node->spacing, context, resolvedInnerSize.size[mainAxis]));
+    float lineSpacing = flex_auto_to_0(flex_resolve(node->lineSpacing, context, resolvedInnerSize.size[crossAxis]));
     
     // 3. Determine the flex base size and hypothetical main size of each item:
     for (i=0;i<flexItemsCount;i++) {
@@ -427,6 +443,8 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
     
     // 4. Determine the main size of the flex container using the rules of the formatting context in which it participates. For this computation, auto margins on flex items are treated as 0.
     node->result.size[mainAxis] = resolvedSize.size[mainAxis] != FlexAuto ? resolvedSize.size[mainAxis] : clampMax(itemsMainSize + resolvedPaddingSize.size[mainAxis], constrainedSize.size[mainAxis] != FlexAuto ? constrainedSize.size[mainAxis] - resolvedMarginSize.size[mainAxis] : FlexAuto);
+    node->result.size[mainAxis] = clamp(node->result.size[mainAxis], resolvedMinMainSize, resolvedMaxMainSize);
+    itemsMainSize = node->result.size[mainAxis] - resolvedPaddingSize.size[mainAxis];
     
     if ((flags == FlexLayoutFlagMeasureWidth && mainAxis == FLEX_WIDTH)
         || (flags == FlexLayoutFlagMeasureHeight && mainAxis == FLEX_HEIGHT)) {
@@ -861,7 +879,7 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
     // 15. Determine the flex container’s used cross size:
     //       * If the cross size property is a definite size, use that, clamped by the min and max cross size properties of the flex container.
     if (resolvedSize.size[crossAxis] != FlexAuto) {
-        node->result.size[crossAxis] = resolvedSize.size[crossAxis];
+        node->result.size[crossAxis] = clamp(resolvedSize.size[crossAxis], resolvedMinCrossSize, resolvedMaxCrossSize);
     }
     //       * Otherwise, use the sum of the flex lines' cross sizes, clamped by the min and max cross size properties of the flex container.
     else {

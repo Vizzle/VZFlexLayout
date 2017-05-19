@@ -12,7 +12,7 @@
 
 @interface VZFTextNodeRenderer : VZFRenderer
 
-@property (nonatomic, strong) NSAttributedString *text;
+@property (nonatomic, copy) NSAttributedString *text;
 @property (nonatomic, assign) VZFTextLineBreakMode lineBreakMode;
 @property (nonatomic, assign) VZFTextTruncationMode truncatingMode;
 @property (nonatomic, assign) VZFTextVerticalAlignment verticalAlignment;

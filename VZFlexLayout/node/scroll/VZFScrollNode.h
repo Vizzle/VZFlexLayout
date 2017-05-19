@@ -10,6 +10,7 @@
 #import "VZFNode.h"
 #import "VZFScrollNodeSpecs.h"
 #import "VZFStackNodeSpecs.h"
+#import "VZFNodeBackingViewInterface.h"
 
 using namespace VZ;
 @interface VZFScrollNode : VZFNode
@@ -22,6 +23,12 @@ using namespace VZ;
 + (instancetype)newWithScrollAttributes:(const ScrollNodeSpecs &)scrollSpecs
                         StackAttributes:(const StackNodeSpecs &)stackSpecs
                               NodeSpecs:(const NodeSpecs &)nodeSpecs
+                               Children:(std::vector<VZFNode*>)children;
+
++ (instancetype)newWithScrollAttributes:(const ScrollNodeSpecs &)scrollSpecs
+                        StackAttributes:(const StackNodeSpecs &)stackSpecs
+                              NodeSpecs:(const NodeSpecs &)nodeSpecs
+                       BackingViewClass:(Class<VZFNodeBackingViewInterface>)backingViewClass
                                Children:(std::vector<VZFNode*>)children;
 
 @end

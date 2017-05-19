@@ -25,10 +25,23 @@
 + (instancetype)newWithScrollAttributes:(const ScrollNodeSpecs &)scrollSpecs
                         StackAttributes:(const StackNodeSpecs &)stackSpecs
                               NodeSpecs:(const NodeSpecs &)nodeSpecs
-                               Children:(std::vector<VZFNode*>)children{
+                               Children:(std::vector<VZFNode*>)children
+{
+    return [self newWithScrollAttributes:scrollSpecs
+                         StackAttributes:stackSpecs
+                               NodeSpecs:nodeSpecs
+                        BackingViewClass:[VZFScrollView class]
+                                Children:children];
+}
+
++ (instancetype)newWithScrollAttributes:(const ScrollNodeSpecs &)scrollSpecs
+                        StackAttributes:(const StackNodeSpecs &)stackSpecs
+                              NodeSpecs:(const NodeSpecs &)nodeSpecs
+                       BackingViewClass:(Class<VZFNodeBackingViewInterface>)backingViewClass
+                               Children:(std::vector<VZFNode*>)children {
 
 
-    VZFScrollNode* scrollNode = [VZFScrollNode newWithView:{[VZFScrollView class]}NodeSpecs:nodeSpecs];
+    VZFScrollNode* scrollNode = [VZFScrollNode newWithView:backingViewClass NodeSpecs:nodeSpecs];
     
     if (scrollNode) {
         

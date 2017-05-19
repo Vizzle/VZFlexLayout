@@ -15,6 +15,7 @@ namespace VZ {
         bool paging = true;
         FlexLength margin = FlexLengthAuto;
         float pageControlScale = 1;
+        float animationDuration = 0.3;
     }
     
     size_t PagingNodeSpecs::hash() const{

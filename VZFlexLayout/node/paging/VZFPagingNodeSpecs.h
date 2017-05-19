@@ -23,6 +23,7 @@ namespace VZ {
         extern bool paging;
         extern FlexLength margin;
         extern float pageControlScale;
+        extern float animationDuration;
     }
     
     struct PagingNodeSpecs{
@@ -31,6 +32,7 @@ namespace VZ {
         Value<bool, PagingNodeSpecsDefault::scrollEnabled> paging;
         float autoScroll;   // 自动滚动的时间间隔，为 0 表示不自动滚动
         bool infiniteLoop;  // 是否循环滚动
+        Value<float, PagingNodeSpecsDefault::animationDuration> animationDuration;  // 自动滚动的动画时长
         
         bool pageControl;
         Value<FlexLength, PagingNodeSpecsDefault::margin> pageControlMarginLeft;
@@ -44,7 +46,7 @@ namespace VZ {
         VZFBlockAction* switched;
         
         const PagingNodeSpecs copy() const{
-            return {direction, scrollEnabled,paging,autoScroll,infiniteLoop,pageControl,pageControlMarginLeft,pageControlMarginRight,pageControlMarginTop,pageControlMarginBottom,pageControlScale,pageControlColor,pageControlSelectedColor };
+            return {direction, scrollEnabled,paging,autoScroll,infiniteLoop,animationDuration,pageControl,pageControlMarginLeft,pageControlMarginRight,pageControlMarginTop,pageControlMarginBottom,pageControlScale,pageControlColor,pageControlSelectedColor };
         }
         
         bool operator == (const PagingNodeSpecs &other) const {

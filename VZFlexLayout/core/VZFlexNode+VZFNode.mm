@@ -34,7 +34,7 @@ const void* g_flexNode = &g_flexNode;
     node.maxWidth           = attrs.maxWidth;
     node.minWidth           = attrs.minWidth;
     node.maxHeight          = attrs.maxHeight;
-    node.minWidth           = attrs.minWidth;
+    node.minHeight          = attrs.minHeight;
     node.marginTop          = attrs.marginTop != FlexLengthUndefined ? (FlexLength)attrs.marginTop : (FlexLength)attrs.margin;
     node.marginLeft         = attrs.marginLeft != FlexLengthUndefined ? (FlexLength)attrs.marginLeft : (FlexLength)attrs.margin;
     node.marginRight        = attrs.marginRight != FlexLengthUndefined ? (FlexLength)attrs.marginRight : (FlexLength)attrs.margin;

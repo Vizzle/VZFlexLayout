@@ -253,7 +253,11 @@ CGFloat vz_getWidthCallback(void *context) {
         }
     }];
     
-    CTTypesetterRef typesetter = CTTypesetterCreateWithAttributedString(attrString);
+    // 尝试修复多线程同时调用 CTTypesetterCreateWithAttributedString 时导致的 crash
+    CTTypesetterRef typesetter = NULL;
+    @synchronized (self.class) {
+        typesetter = CTTypesetterCreateWithAttributedString(attrString);
+    }
     
     CFIndex start = 0;
     NSUInteger textLength = self.text.length;

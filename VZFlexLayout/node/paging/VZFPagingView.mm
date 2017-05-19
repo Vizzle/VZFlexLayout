@@ -18,6 +18,238 @@
 static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 
 
+#pragma mark timingfunction
+
+typedef NSInteger VZFAnimationID;
+
+typedef CGFloat (^VZFPagingEasingFunction)(CGFloat);
+
+VZFPagingEasingFunction VZFTimingFunctionLinear = ^CGFloat (CGFloat p){
+    return p;
+};
+
+//Modeled after the parabola y = x^2
+VZFPagingEasingFunction VZFTimingFunctionEaseIn = ^CGFloat (CGFloat p){
+    return p * p;
+};
+
+// Modeled after the parabola y = -x^2 + 2x
+VZFPagingEasingFunction VZFTimingFunctionEaseOut = ^CGFloat (CGFloat p){
+    return -(p * (p - 2));
+};
+
+// Modeled after the piecewise quadratic
+// y = (1/2)((2x)^2)             ; [0, 0.5)
+// y = -(1/2)((2x-1)*(2x-3) - 1) ; [0.5, 1]
+VZFPagingEasingFunction VZFTimingFunctionEaseInOut = ^CGFloat (CGFloat p){
+    if(p < 0.5)
+    {
+        return 2 * p * p;
+    }
+    else
+    {
+        return (-2 * p * p) + (4 * p) - 1;
+    }
+};
+
+
+#pragma mark VZFPagingViewAnimation
+@interface VZFPagingViewAnimation : NSObject
+
+@property (nonatomic, readonly) VZFAnimationID animationID;
+
+@property (nonatomic, assign) NSTimeInterval duration;
+
+@property (nonatomic, assign) VZFPagingEasingFunction timingFunction;
+
+@property (nonatomic, copy) void (^animations)(CGFloat);
+
+@property (nonatomic, copy) void (^completion)(BOOL);
+
+@property (nonatomic, assign) CFTimeInterval startTime;
+
+@property (nonatomic, readonly) CGFloat percentComplete;
+
+@property (nonatomic, readonly) CGFloat progress;
+
+- (void)tick;
+- (void)complete:(BOOL)finished;
+
+
+@end
+
+@implementation VZFPagingViewAnimation
+
+static  VZFAnimationID _nextAnimationID = 0;
+
++ (VZFAnimationID)getNextAnimationID
+{
+    NSAssert([NSThread isMainThread], @"VZFPagingViewAnimation should only be called from the main thread.");
+    _nextAnimationID++;
+    return _nextAnimationID;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _animationID = [[self class] getNextAnimationID];
+    }
+    return self;
+}
+
+- (CGFloat)percentComplete
+{
+    CGFloat percent = (CACurrentMediaTime() - self.startTime) / self.duration;
+    return MAX(0.0, MIN(1.0, percent));
+}
+
+- (CGFloat)progress
+{
+    if (self.timingFunction) {
+        return self.timingFunction(self.percentComplete);
+    } else {
+        return self.percentComplete;
+    }
+    return self.percentComplete;
+    
+}
+
+- (void)tick
+{
+    if (self.animations) {
+        self.animations(self.progress);
+    }
+}
+
+- (void)complete:(BOOL)finished
+{
+    if (self.completion) {
+        self.completion(finished);
+    }
+}
+
+
+@end
+
+#pragma mark VZFPagingViewAnimationEngine
+
+
+
+@interface VZFPagingViewAnimationEngine : NSObject
+
+@property (nonatomic, strong) CADisplayLink *displayLink;
+
+@property (nonatomic, strong) NSMutableDictionary *activeAnimations;
+
++ (VZFAnimationID)animateWithDuration:(NSTimeInterval)duration
+                       timingFunction:(VZFPagingEasingFunction)timingFunction
+                           animations:(void (^)(CGFloat progress))animations
+                           completion:(void (^)(BOOL finished))completion;
+
++ (VZFAnimationID)animateWithDuration:(NSTimeInterval)duration
+                           animations:(void (^)(CGFloat progress))animations
+                           completion:(void (^)(BOOL finished))completion;
+
++ (void)cancelAnimationWithID:(VZFAnimationID)animationID;
+
+
+@end
+
+
+@implementation VZFPagingViewAnimationEngine
+
+static id _sharedInstance;
+
++ (instancetype)sharedInstance
+{
+    static dispatch_once_t _onceToken;
+    dispatch_once(&_onceToken, ^{
+        _sharedInstance = [[self alloc] init];
+    });
+    return _sharedInstance;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(tickActiveAnimations)];
+        _displayLink.paused = YES;
+        [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+    }
+    return self;
+}
+
+- (void)tickActiveAnimations
+{
+    for (VZFPagingViewAnimation *animation in [[self.activeAnimations copy] objectEnumerator]) {
+        [animation tick];
+        if (animation.percentComplete >= 1.0) {
+            [self removeAnimationWithID:animation.animationID didFinish:YES];
+        }
+    }
+}
+
+- (NSMutableDictionary *)activeAnimations{
+    if(!_activeAnimations){
+        _activeAnimations = [[NSMutableDictionary alloc]init];
+    }
+    return _activeAnimations;
+}
+
++ (VZFAnimationID)animateWithDuration:(NSTimeInterval)duration
+                       timingFunction:(VZFPagingEasingFunction)timingFunction
+                           animations:(void (^)(CGFloat))animations
+                           completion:(void (^)(BOOL))completion{
+    
+    VZFPagingViewAnimation *animation = [VZFPagingViewAnimation new];
+    animation.duration = duration;
+    animation.timingFunction = timingFunction;
+    animation.animations = animations;
+    animation.completion = completion;
+    [[self sharedInstance] addAnimation:animation];
+    return animation.animationID;
+    
+}
+
++ (VZFAnimationID)animateWithDuration:(NSTimeInterval)duration
+                           animations:(void (^)(CGFloat))animations
+                           completion:(void (^)(BOOL))completion{
+    return [self animateWithDuration:duration timingFunction:VZFTimingFunctionEaseInOut animations:animations completion:completion];
+}
+
+
+- (void)addAnimation:(VZFPagingViewAnimation *)animation
+{
+    if ([self.activeAnimations count] == 0) {
+        self.displayLink.paused = NO;
+    }
+    animation.startTime = CACurrentMediaTime();
+    [self.activeAnimations setObject:animation forKey:@(animation.animationID)];
+}
+
++ (void)cancelAnimationWithID:(VZFAnimationID)animationID
+{
+    NSAssert([NSThread isMainThread], @"VZFPagingViewAnimationEngine should only be called from the main thread.");
+    [[self sharedInstance] removeAnimationWithID:animationID didFinish:NO];
+}
+
+- (void)removeAnimationWithID:(VZFAnimationID)animationID didFinish:(BOOL)finished
+{
+    VZFPagingViewAnimation *animation = [self.activeAnimations objectForKey:@(animationID)];
+    [animation complete:finished];
+    [self.activeAnimations removeObjectForKey:@(animationID)];
+    if ([self.activeAnimations count] == 0) {
+        self.displayLink.paused = YES;
+    }
+}
+
+@end
+
+
+#pragma mark VZFPagingTimerWrapper
+
 @interface VZFPagingTimerWrapper : NSObject
 @end
 @implementation VZFPagingTimerWrapper
@@ -66,7 +298,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 
 //这两个方法是可以不复写的, 也能满足需求。实践并验证是以下两个方式有默认的内容
 - (nullable id)accessibilityElementAtIndex:(NSInteger)index{
-    return self.subviews[index];
+    return index < self.subviews.count ? self.subviews[index] : nil;
 };
 
 - (NSInteger)indexOfAccessibilityElement:(id)element{
@@ -128,6 +360,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        
         _isActive = YES;
         _lastContentOffset = FLT_MIN;
         _scroll = YES;
@@ -265,6 +498,9 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 }
 
 - (void)setChildrenViews:(NSArray *)childrenViews {
+    if (_childViews == childrenViews) {
+        return;
+    }
     _childViews = childrenViews;
     _scrollView.scrollEnabled = [self scrollEnabled];
     [self reloadViews];
@@ -326,7 +562,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
         preIndex = _childViews.count - 1;
     }
     
-    [_scrollView scrollRectToVisible:[self rectForIndex:preIndex] animated:_autoScrollAnimated];
+    [self scrollRectToVisible:[self rectForIndex:preIndex] animated:_autoScrollAnimated];
 }
 
 - (void)scrollToNextItem
@@ -342,7 +578,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
         nextIndex = 0;
     }
     
-    [_scrollView scrollRectToVisible:[self rectForIndex:nextIndex] animated:_autoScrollAnimated];
+    [self scrollRectToVisible:[self rectForIndex:nextIndex] animated:_autoScrollAnimated];
 }
 
 - (void)scrollToPage:(NSInteger)pageIndex {
@@ -358,7 +594,7 @@ static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
     } else if (targetPageIndex == _childViews.count) {
         targetPageIndex = 0;
     }
-    [_scrollView scrollRectToVisible:[self rectForIndex:targetPageIndex] animated:_autoScrollAnimated];
+    [self scrollRectToVisible:[self rectForIndex:targetPageIndex] animated:_autoScrollAnimated];
 }
 
 - (void)setCurrentPage:(NSInteger)currentPage
@@ -447,12 +683,13 @@ Virtual Index       0       1       2       3       4
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    
     CGFloat currentOffsetX = scrollView.contentOffset.x;
     CGFloat currentOffsetY = scrollView.contentOffset.y;
     
     CGFloat *currentOffset = _vertical ? &currentOffsetY : &currentOffsetX;
     
-    if (_lastContentOffset == *currentOffset) {
+    if (fabs(_lastContentOffset - *currentOffset) < FLT_EPSILON) {
         return;
     }
     
@@ -508,7 +745,9 @@ Virtual Index       0       1       2       3       4
     PagingNodeSpecs specs = pagingNode.pagingNodeSpecs;
     self.scroll = specs.scrollEnabled;
     self.autoScroll = specs.autoScroll;
-    self.loopScroll = specs.infiniteLoop;
+    self.animationDuration = specs.animationDuration;
+    // 不调用loopScroll的setter，避免重复reloadViews。下面的setChildrenViews保证会调用
+    _loopScroll = specs.infiniteLoop;
     self.vertical = specs.direction == PagingVertical;
     self.pagingEnabled = specs.paging;
     
@@ -526,9 +765,10 @@ Virtual Index       0       1       2       3       4
     }
     
     if (pagingNode.viewsCache) {
-        for (int i=0;i<pagingNode.childrenLayout.size();i++) {
-            layoutRootNodeInContainer(pagingNode.childrenLayout[i], pagingNode.viewsCache[i], nil, nil);
-        }
+        // 采用collection view的版本会复用导致gif停掉需要如下代码。目前采用scroll view不再需要
+//        for (int i=0;i<pagingNode.childrenLayout.size();i++) {
+//            layoutRootNodeInContainer(pagingNode.childrenLayout[i], pagingNode.viewsCache[i], nil, nil);
+//        }
         [self setChildrenViews:pagingNode.viewsCache];
     }
     else {
@@ -547,5 +787,31 @@ Virtual Index       0       1       2       3       4
     
     [self setNeedsLayout];
 }
+
+- (void)scrollRectToVisible:(CGRect)rect animated:(BOOL)animated{
+    //如果 duration 为 0.3，则采用系统的动画，否则采用自定义的动画方式
+    if (animated && fabs(self.animationDuration - 0.3) > 0.0001) {
+        CGPoint nextPoint = rect.origin;
+        CGPoint currentPoint = _scrollView.contentOffset;
+        [VZFPagingViewAnimationEngine animateWithDuration:self.animationDuration timingFunction:VZFTimingFunctionEaseInOut animations:^(CGFloat progress) {
+            CGPoint progressPoint;
+            if(self.vertical){
+                progressPoint = CGPointMake(currentPoint.x, currentPoint.y + (nextPoint.y - currentPoint.y) * progress);
+            }else{
+                progressPoint = CGPointMake(currentPoint.x + (nextPoint.x - currentPoint.x) * progress, currentPoint.y);
+            }
+            _scrollView.contentOffset = progressPoint;
+            
+        } completion:^(BOOL finished) {
+            _scrollView.contentOffset = nextPoint;
+            [self updateCurrentPage:_scrollView];
+        }];
+    }
+    else {
+        [_scrollView scrollRectToVisible:rect animated:animated];
+    }
+}
+
+
 
 @end
