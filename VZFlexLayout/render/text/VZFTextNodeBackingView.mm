@@ -104,6 +104,29 @@
     return self.textRenderer.text.string;
 }
 
+- (void)setText:(NSString *)text {
+    NSAttributedString *oldText = self.textRenderer.text;
+    if (!text) {
+        self.textRenderer.text = nil;
+    }
+    else if (oldText.length == 0) {
+        self.textRenderer.text = [[NSAttributedString alloc] initWithString:text];
+    }
+    else {
+        self.textRenderer.text = [[NSAttributedString alloc] initWithString:text attributes:[oldText attributesAtIndex:0 effectiveRange:nil]];
+    }
+    [self setNeedsDisplay];
+}
+
+- (NSAttributedString *)attributedText {
+    return self.textRenderer.text;
+}
+
+- (void)setAttributedText:(NSAttributedString *)attributedText {
+    self.textRenderer.text = attributedText;
+    [self setNeedsDisplay];
+}
+
 -(void)drawTextInRect:(CGRect)rect{
     
 }

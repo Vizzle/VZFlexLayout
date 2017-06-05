@@ -440,6 +440,7 @@ CGFloat vz_getWidthCallback(void *context) {
     width = MIN(width, self.maxSize.width);
     _textSize = CGSizeMake(VZF_CEIL_PIXEL(width), VZF_CEIL_PIXEL(height));
     _calculated = YES;
+    _postLayoutSize = CGSizeMake(-1, -1);
     CFRelease(typesetter);
     
     //    CFAbsoluteTime t3 = CFAbsoluteTimeGetCurrent();
@@ -447,11 +448,11 @@ CGFloat vz_getWidthCallback(void *context) {
 }
 
 - (void)postLayout:(CGSize)size {
+    [self _calculate];
+    
     if (CGSizeEqualToSize(size, _postLayoutSize)) {
         return;
     }
-    
-    [self _calculate];
     
     if (_alignment == NSTextAlignmentJustified && _lines.count > 1) {
         for (int i=0;i<_lines.count-1;i++) {

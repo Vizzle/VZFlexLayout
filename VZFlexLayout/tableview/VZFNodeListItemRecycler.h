@@ -61,8 +61,7 @@ using namespace VZ;
  @param view 根RootView
  @param rasterizeUseCache 异步渲染的时候是否要使用缓存
  */
-- (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay;
-- (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay rasterizeUseCache:(BOOL)rasterizeUseCache;
+- (void)attachToView:(UIView *)view rasterizeUseCache:(BOOL)rasterizeUseCache;
 
 /**
  从RootView中移除node

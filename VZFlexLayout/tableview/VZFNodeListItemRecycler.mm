@@ -159,7 +159,7 @@ struct VZItemRecyclerState{
 }
 
 - (void)attachToView:(UIView *)view {
-    [self attachToView:view asyncDisplay:NO rasterizeUseCache:NO];
+    [self attachToView:view rasterizeUseCache:NO];
 }
 
 //为了替换这个方法 单独抽离出来
@@ -167,11 +167,7 @@ struct VZItemRecyclerState{
     return asyncDisplay;
 }
 
-- (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay {
-    [self attachToView:view asyncDisplay:asyncDisplay rasterizeUseCache:NO];
-}
-
-- (void)attachToView:(UIView *)view asyncDisplay:(BOOL)asyncDisplay rasterizeUseCache:(BOOL)rasterizeUseCache {
+- (void)attachToView:(UIView *)view rasterizeUseCache:(BOOL)rasterizeUseCache {
     
     VZFAssertMainThread();
     
