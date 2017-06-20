@@ -31,6 +31,9 @@
 @property (nonatomic, assign) BOOL hasOutOfBoundsChildren; //子孙中是否包含不能被光栅化的结点,并且这个结点与最近的clip为YES的祖先结点之间存在不能被光栅化的结点（不包括那个祖先结点，包括超出的子结点）
 @property (nonatomic, assign) BOOL selfCanBeRasterized; //当前结点是否能被光栅化
 
+@property (nonatomic, assign) BOOL childrenCannotBeRasterized; //父类如果有一个子节点不能被光栅化，那么从这个子节点往后都不能被光栅化
+
+
 @end
 
 @implementation VZFLayoutCheckResult
@@ -68,6 +71,10 @@
     
     if ([node isKindOfClass:[VZFImageNode class]])
     {
+        VZFImageNode *imageNode = (VZFImageNode *)node;
+        if (imageNode.imageSpecs.completion) {
+            return NO;
+        }
         return YES;
     }
     else if ([node isKindOfClass:[VZFTextNode class]])
@@ -123,6 +130,10 @@
 }
 
 +(VZFImageNodeRenderer *)getImageRenderer:(const ImageNodeSpecs& )imageSpec node:(VZFImageNode* )node size:(CGSize)size{
+    if (imageSpec.completion) {
+        return nil;
+    }
+    
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{} ;
     int animateCount = [ctx[@"animate-count"] intValue]?:0;
     
@@ -269,7 +280,17 @@
             item.isVisited = YES;
             
             BOOL canBeRasterized = [self canBeRasterized:node];
-            item.selfCheckResult.selfCanBeRasterized = canBeRasterized;
+            
+            if (item.superCheckResult) {
+                //父类如果有一个子节点不能被光栅化，那么从这个子节点往后都不能被光栅化
+                item.selfCheckResult.selfCanBeRasterized = canBeRasterized && !item.superCheckResult.childrenCannotBeRasterized;
+                
+                if (!item.superCheckResult.childrenCannotBeRasterized) {
+                    item.superCheckResult.childrenCannotBeRasterized = !canBeRasterized;
+                }
+            } else {
+                item.selfCheckResult.selfCanBeRasterized = canBeRasterized;
+            }
             
             if (layout.children->size() > 0) {
                 BOOL hasUnrasterizedSuper = NO;

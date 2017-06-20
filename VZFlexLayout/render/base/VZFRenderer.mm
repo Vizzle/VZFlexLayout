@@ -117,9 +117,13 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 
 - (void)drawBorder:(CGContextRef)context path:(UIBezierPath *)borderPath {
     if (self.borderWidth <= 0
-        || !self.borderColor
         || !borderPath) {
         return;
+    }
+    
+    UIColor *borderColor = self.borderColor;
+    if (!borderColor) {
+        borderColor = [UIColor blackColor];
     }
     
     CGContextSaveGState(context);
@@ -129,7 +133,7 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
     CGContextClip(context);//clip and cealr current path
     CGContextAddPath(context, borderPath.CGPath);
 
-    CGContextSetStrokeColorWithColor(context, self.borderColor.CGColor);
+    CGContextSetStrokeColorWithColor(context, borderColor.CGColor);
     //we have set bounds as the clip path.So we set 2 times line width, and clip 1 time width lefting 1 time width;
     CGContextSetLineWidth(context, self.borderWidth * 2);
     CGContextDrawPath(context, kCGPathStroke);
@@ -348,7 +352,7 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 - (BOOL)checkIsAccessibilityElement {
     __block BOOL isAccessibilityElement = NO;
     
-    [self dfsVisitSelfTree:^(VZFRenderer *renderer, BOOL *stop) {
+    [self dfsVisitSelfTree:^(VZFRenderer *renderer, BOOL *stop, BOOL *ignoreChildren) {
         if ([renderer isKindOfClass:[VZFRenderer class]]
             && [renderer isAccessibilityElement]) {
             isAccessibilityElement = YES;
@@ -364,7 +368,7 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 - (NSString *)compositeAccessibilityLabel {
     NSMutableString *accessibilityLabel = [NSMutableString string];
     
-    [self dfsVisitSelfTree:^(VZFRenderer *renderer, BOOL *stop) {
+    [self dfsVisitSelfTree:^(VZFRenderer *renderer, BOOL *stop, BOOL *ignoreChildren) {
         if ([renderer isKindOfClass:[VZFRenderer class]]
             && [renderer isAccessibilityElement]
             && renderer.accessibilityLabel.length > 0) {
@@ -372,6 +376,9 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
                 [accessibilityLabel appendString:@" "];
             }
             [accessibilityLabel appendString:renderer.accessibilityLabel];
+            if (ignoreChildren) {
+                *ignoreChildren = YES;
+            }
         }
     }];
     
@@ -379,7 +386,7 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
 }
 
 //深度优先遍历当前结点为根的树,包括自己
-- (void)dfsVisitSelfTree:(void (^)(VZFRenderer *renderer, BOOL *stop))action {
+- (void)dfsVisitSelfTree:(void (^)(VZFRenderer *renderer, BOOL *stop, BOOL *ignoreChildren))action {
     
     if (action == NULL) {
         return;
@@ -399,8 +406,9 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
         VisitedItem& item = stack.top();
             
         BOOL stop = NO;
+        BOOL ignoreChildren = NO;
         
-        action(item.renderer, &stop);
+        action(item.renderer, &stop, &ignoreChildren);
         
         if (stop) {
             break;
@@ -410,7 +418,7 @@ VZFRendererCustomCorner vzfRoundedCorner(CGFloat cornerRadis) {
         NSArray<__kindof VZFRenderer *> *subRenderers = [item.renderer subRenderers];
         stack.pop();
         
-        if ([subRenderers count] > 0) {
+        if ([subRenderers count] > 0 && !ignoreChildren) {
             //倒序
             for (NSInteger index = [subRenderers count] - 1; index >= 0; --index) {
                 VZFRenderer *subRenderer = [subRenderers objectAtIndex:index];
