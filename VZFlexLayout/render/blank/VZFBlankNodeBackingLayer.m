@@ -23,10 +23,9 @@
     return _renderer;
 }
 
-- (void)drawInContext:(CGContextRef)context parameters:(VZFBlankNodeRenderer *)renderer{
+- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds parameters:(VZFBlankNodeRenderer *)renderer{
     
-    CGRect boundsRect = CGContextGetClipBoundingBox(context);
-    [_renderer drawInContext:context bounds:boundsRect];
+    [_renderer drawInContext:context bounds:bounds];
 }
 
 - (void)drawInContext:(CGContextRef)ctx{

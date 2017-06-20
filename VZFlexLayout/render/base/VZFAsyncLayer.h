@@ -20,7 +20,7 @@ typedef NS_ENUM(NSUInteger, VZFAsyncLayerDisplayMode) {
 
 @protocol VZFAsyncLayerDrawingDelegate
 
-- (void)drawAsyncLayerInContext:(CGContextRef)context parameters:(NSObject *)parameters;
+- (void)drawAsyncLayerInContext:(CGContextRef)context bounds:(CGRect)bounds parameters:(NSObject *)parameters;
 
 @end
 
@@ -63,7 +63,7 @@ typedef NS_ENUM(NSUInteger, VZFAsyncLayerDisplayMode) {
  */
 - (void)setNeedsAsyncDisplay;
 
-- (void)drawInContext:(CGContextRef)context parameters:(NSObject *)parameters;
+- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds parameters:(NSObject *)parameters;
 
 - (void)resetNextSyncDisplay;
 

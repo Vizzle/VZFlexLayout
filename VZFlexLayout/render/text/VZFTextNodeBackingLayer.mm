@@ -85,11 +85,9 @@
     return _renderer;
 }
 
-- (void)drawInContext:(CGContextRef)context parameters:(VZFTextNodeRenderer *)renderer{
+- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds parameters:(VZFTextNodeRenderer *)renderer{
 
-    CGRect boundsRect = CGContextGetClipBoundingBox(context);
-
-    [renderer drawInContext:context bounds:boundsRect];
+    [renderer drawInContext:context bounds:bounds];
 
 }
 

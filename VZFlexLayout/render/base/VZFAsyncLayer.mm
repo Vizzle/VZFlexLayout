@@ -251,7 +251,8 @@
     [super drawInContext:ctx];
     
     VZFAssertMainThread();
-    [self drawInContext:ctx parameters:[self drawParameters]];
+
+    [self drawInContext:ctx bounds:self.bounds parameters:[self drawParameters]];
 //    [self drawBorder:ctx];
 
 }
@@ -302,9 +303,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - protocol methods
 
-- (void)drawAsyncLayerInContext:(CGContextRef)context parameters:(NSObject *)parameters{
+- (void)drawAsyncLayerInContext:(CGContextRef)context bounds:(CGRect)bounds parameters:(NSObject *)parameters{
     
-    [self drawInContext:context parameters:parameters];
+    [self drawInContext:context bounds:bounds parameters:parameters];
 
 }
 
@@ -323,7 +324,7 @@
     
 }
 
-- (void)drawInContext:(CGContextRef)context parameters:(NSObject *)parameters{
+- (void)drawInContext:(CGContextRef)context bounds:(CGRect)bounds parameters:(NSObject *)parameters{
 
 
 
@@ -364,7 +365,7 @@
             CGContextFillRect(bitmapContext, bounds);
         }
         
-        [drawingDelegate drawAsyncLayerInContext:bitmapContext parameters:drawParameters];
+        [drawingDelegate drawAsyncLayerInContext:bitmapContext bounds:bounds parameters:drawParameters];
         
         CGImageRef image = CGBitmapContextCreateImage(bitmapContext);
         UIGraphicsEndImageContext();
