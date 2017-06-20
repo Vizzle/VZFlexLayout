@@ -11,6 +11,7 @@
 #import "VZFNodeListItemRecycler.h"
 #import "VZFNodeInternal.h"
 
+#import "VZFImageNodeSpecs.h"
 
 @implementation VZFImageNodeRenderer
 
@@ -47,12 +48,21 @@
                 VZFDispatchMain(0, ^{
                     [recyler attachToView:superview];
                 });
-                return;
+            } else {
+                [v.layer setNeedsDisplay];
             }
             
-            [v.layer setNeedsDisplay];
         }else{
             
+        }
+    }
+    
+    if ([self.node isKindOfClass:[VZFImageNode class]]) {
+        VZFBlockAction *completion = [(VZFImageNode *)self.node imageSpecs].completion;
+        if (completion) {
+            VZFDispatchMain(0, ^{
+                [completion invoke:sender withCustomParam:imageDic];
+            });
         }
     }
 }

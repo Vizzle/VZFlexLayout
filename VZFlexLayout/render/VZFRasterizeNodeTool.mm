@@ -71,10 +71,6 @@
     
     if ([node isKindOfClass:[VZFImageNode class]])
     {
-        VZFImageNode *imageNode = (VZFImageNode *)node;
-        if (imageNode.imageSpecs.completion) {
-            return NO;
-        }
         return YES;
     }
     else if ([node isKindOfClass:[VZFTextNode class]])
@@ -130,10 +126,7 @@
 }
 
 +(VZFImageNodeRenderer *)getImageRenderer:(const ImageNodeSpecs& )imageSpec node:(VZFImageNode* )node size:(CGSize)size{
-    if (imageSpec.completion) {
-        return nil;
-    }
-    
+
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{} ;
     int animateCount = [ctx[@"animate-count"] intValue]?:0;
     
