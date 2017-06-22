@@ -266,6 +266,7 @@ CGFloat vz_getWidthCallback(void *context) {
     CGFloat height = 0;
     
     NSMutableArray *lines = [NSMutableArray array];
+    BOOL needsAppendNewLineAtLast = NO;
     while (start < textLength && maxRemainLines-- > 0) {
         BOOL isFirstLine = start == 0;
         
@@ -282,7 +283,7 @@ CGFloat vz_getWidthCallback(void *context) {
         CFIndex count;
         CFIndex showCount = 0;  // 本行显示的长度（去除换行符）
         BOOL needsAppendEllipse = NO;
-        if (maxRemainLines == 0 && (_truncatingMode != VZFTextTruncatingNone || adjustsFontSizeToFitWidth)) {
+        if (maxRemainLines == 0 && !needsAppendNewLineAtLast && (_truncatingMode != VZFTextTruncatingNone || adjustsFontSizeToFitWidth)) {
             count = CTTypesetterSuggestClusterBreak(typesetter, start, self.maxSize.width);
             // 遇到换行符主动换行的
             if ([self isLineSeparator:[plainString characterAtIndex:start+count-1]]) {
@@ -304,6 +305,19 @@ CGFloat vz_getWidthCallback(void *context) {
             // 遇到换行符主动换行的，把换行符去掉，避免右边多一个空白字符
             if ([self isLineSeparator:[plainString characterAtIndex:start+count-1]]) {
                 showCount -= 1;
+                
+                // 最后一个字符是换行符时，补上一行
+                if (start + count == textLength) {
+                    if (!needsAppendNewLineAtLast) {
+                        needsAppendNewLineAtLast = YES;
+                        count -= 1;
+                    }
+                }
+                
+                // CTTypesetterCreateLine 把 0 当做不限长度
+                if (showCount == 0) {
+                    showCount = 1;
+                }
             }
         }
         
