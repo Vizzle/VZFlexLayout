@@ -372,6 +372,10 @@ CGFloat vz_getWidthCallback(void *context) {
         
         CGFloat ascent, descent, leading;
         CGFloat lineWidth = CTLineGetTypographicBounds(line, &ascent, &descent, &leading);
+        // 只有换行符时，设置宽度为 0
+        if (showCount == 1 && [self isLineSeparator:[plainString characterAtIndex:start]]) {
+            lineWidth = 0;
+        }
         
         CGFloat usedLineHeight = VZF_CEIL_PIXEL(maxAscent + maxDescent);
         
