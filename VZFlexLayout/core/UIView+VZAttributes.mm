@@ -227,7 +227,7 @@
         [gestureRecognizer addTarget:gesture action:@selector(invoke:)];
         
         // 使 stack 在轻按的时候有点击效果
-        if (gesture.gestureClass == [UITapGestureRecognizer class] && [self isKindOfClass:[VZFStackView class]]) {
+        if (gesture.gestureClass == [UITapGestureRecognizer class] && [self.node isKindOfClass:[VZFStackNode class]]) {
             gestureRecognizer.cancelsTouchesInView = NO;
         }
         
