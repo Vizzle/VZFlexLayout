@@ -1072,7 +1072,7 @@ void initFlexNode(FlexNode* node) {
     node->alignSelf = FlexInherit;
     node->alignContent = FlexStretch;
     node->justifyContent = FlexStart;
-    node->flexBasis = FlexLengthUndefined;
+    node->flexBasis = FlexLengthAuto;
     node->flexGrow  = 0;
     node->flexShrink = 1;
     node->size[FLEX_WIDTH] = FlexLengthAuto;
