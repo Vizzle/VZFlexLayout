@@ -357,7 +357,20 @@
             return nil;
         }
         
-        UIGraphicsBeginImageContextWithOptions(bounds.size, opaque, contentsScale);
+        CGSize size = bounds.size;
+        
+        if (contentsScale == 3) {
+            //UIGraphicsBeginImageContextWithOptions创建的画布会把width和height向上取整像素，如果width或height是非整数，比如0.33333的时候，由于精度问题，会导致实际值比1/3大，向上取整会导致最终结果大出一个像素，所以这里做一个处理，稍微减小一点值
+            if (fabs(size.width - floor(size.width)) > FLT_EPSILON) {
+                size.width -= 0.0001;
+            }
+            
+            if (fabs(size.height - floor(size.height)) > FLT_EPSILON) {
+                size.height -= 0.0001;
+            }
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(size, opaque, contentsScale);
         CGContextRef bitmapContext = UIGraphicsGetCurrentContext();
         
         if (backgroundColorObject != NULL) {
