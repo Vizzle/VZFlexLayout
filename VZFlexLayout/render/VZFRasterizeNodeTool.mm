@@ -190,7 +190,12 @@
     renderer.backgroundColor = vs.backgroundColor;
     renderer.borderWidth = vs.borderWidth;
     renderer.borderColor = vs.borderColor;
-    renderer.customCorner = vzfRoundedCorner(vs.cornerRadius);
+    
+    CGFloat cornerRadiusTopLeft = vs.cornerRadiusTopLeft != VZ::FlexValue::Undefined() ? vs.cornerRadiusTopLeft.value : vs.cornerRadius;
+    CGFloat cornerRadiusTopRight = vs.cornerRadiusTopRight != VZ::FlexValue::Undefined() ? vs.cornerRadiusTopRight.value : vs.cornerRadius;
+    CGFloat cornerRadiusBottomLeft = vs.cornerRadiusBottomLeft != VZ::FlexValue::Undefined() ? vs.cornerRadiusBottomLeft.value : vs.cornerRadius;
+    CGFloat cornerRadiusBottomRight = vs.cornerRadiusBottomRight != VZ::FlexValue::Undefined() ? vs.cornerRadiusBottomRight.value : vs.cornerRadius;
+    renderer.customCorner = {cornerRadiusTopLeft, cornerRadiusTopRight, cornerRadiusBottomLeft, cornerRadiusBottomRight};
     renderer.clip = vs.clip;
   
     BOOL isTextRenderer = [renderer isKindOfClass:[VZFTextNodeRenderer class]];
