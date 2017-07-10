@@ -382,16 +382,9 @@ CGFloat vz_getWidthCallback(void *context) {
         height += usedLineHeight;
         if (lines.count > 0 && height - self.maxSize.height > 1e-4) {
             // 如果高度超出最大高度，则重置相关属性，然后重新计算最后一行
-            VZFTextLine *lineBeforelastLine = lines.count - 2 < lines.count ? [lines objectAtIndex:lines.count - 2] : nil;
-            if (lineBeforelastLine) {
-                CFRange range = CTLineGetStringRange((__bridge CTLineRef)lineBeforelastLine.line);
-                start = range.location + range.length;
-                height = lineBeforelastLine.top + lineBeforelastLine.height;
-            }
-            else {
-                start = 0;
-                height = 0;
-            }
+            VZFTextLine *lastLine = lines.lastObject;
+            start = CTLineGetStringRange((__bridge CTLineRef)lastLine.line).location;
+            height = lines.count > 1 ? lastLine.top - lineSpacing : lastLine.top;
             [lines removeLastObject];
             maxRemainLines = 1;
             continue;
