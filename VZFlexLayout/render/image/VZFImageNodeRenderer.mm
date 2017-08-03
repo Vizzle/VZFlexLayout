@@ -18,19 +18,35 @@
 //图片下载成功回调
 - (void)invoke:(id)sender withCustomParam:(NSDictionary *)imageDic{
     
-    if (!self.node && imageDic && imageDic[@"image"]) {
-        self.image =  imageDic[@"image"];
+    UIImage *errorImage = [imageDic objectForKey:@"errorImage"];
+    UIImage *image = [imageDic objectForKey:@"image"];
+    
+    if (!self.node && imageDic && (image || errorImage)) {
+        self.image = image;
         self.downloadImageUrl = imageDic[@"url"];
+        if (!self.image && errorImage) {
+            self.image = errorImage;
+            self.isErrorImage = YES;
+        } else {
+            self.isErrorImage = NO;
+        }
         return;
     }
     
-    if([self.node isKindOfClass:[VZFImageNode class]] && imageDic && imageDic[@"image"]){
+    if([self.node isKindOfClass:[VZFImageNode class]] && imageDic && (image || errorImage)){
         VZFImageNode *imageNode = (VZFImageNode *)self.node;
-        imageNode.downloadImage =  imageDic[@"image"];
+        imageNode.downloadImage =  image;
+        imageNode.errorImage = errorImage;
         imageNode.downloadImageUrl = imageDic[@"url"];
         
         self.downloadImageUrl = imageDic[@"url"];
-        self.image = imageDic[@"image"];
+        self.image = image;
+        if (!self.image && errorImage) {
+            self.isErrorImage = YES;
+            self.image = errorImage;
+        } else {
+            self.isErrorImage = NO;
+        }
         
         VZFRenderer *render = self;
         while (render.superRenderer) {
