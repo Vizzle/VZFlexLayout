@@ -140,8 +140,12 @@
     
     //图片已经下载成功
     UIImage *downLoadImage = nil;
+    BOOL isErrorImage = NO;
     if(node.downloadImage && [node.downloadImageUrl isEqualToString:imageSpec.imageUrl]){
         downLoadImage = node.downloadImage;
+    } else if (node.errorImage) {
+        downLoadImage = node.errorImage;
+        isErrorImage = YES;
     }
     
     NSArray *images = downLoadImage.images;
@@ -168,16 +172,38 @@
         //已经下载成功 并缓存 直接赋值
         if (downLoadImage) {
             renderer.image = downLoadImage;
+            renderer.isErrorImage = isErrorImage;
         }else{
             [node.imageDownloader vz_setImageWithURL:[NSURL URLWithString:imageSpec.imageUrl] size:size contentMode:renderer.contentMode  placeholderImage:imageSpec.image errorImage:imageSpec.errorImage context:imageSpec.context completionBlock:renderer];
             if([renderer.downloadImageUrl isEqualToString:imageSpec.imageUrl]){
                 //同步回调 在node缓存image
                 node.downloadImageUrl = renderer.downloadImageUrl;
-                node.downloadImage = renderer.image;
-                if (node.downloadImage.images.count) {
-                    return nil;
+                if (!renderer.isErrorImage) {
+                    node.downloadImage = renderer.image;
+                    node.errorImage = nil;
+                    
+                    if (node.downloadImage.images.count) {
+                        return nil;
+                    }
+                    
+                } else {
+                    node.downloadImage = nil;
+                    node.errorImage = renderer.image;
+                    
+                    if (node.errorImage.images.count) {
+                        return nil;
+                    }
                 }
+                
             }
+        }
+    } else {
+        NSArray *images = renderer.image.images;
+        NSTimeInterval duration = renderer.image.duration;
+        
+        if (images.count && duration) {
+            //gif 图片 需要用view来处理
+            return nil;
         }
     }
     
