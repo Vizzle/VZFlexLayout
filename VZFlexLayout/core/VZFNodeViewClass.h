@@ -27,7 +27,7 @@ namespace VZ{
         NSString* identifier() const;
         UIView* createView(CGRect frame) const;
         bool hasView() const;
-        bool isCustom() const;
+        
 
         
         bool operator==(const ViewClass &other) const { return [other.identifier() isEqualToString:_identifier]; }
@@ -36,9 +36,7 @@ namespace VZ{
     private:
         NSString*  _identifier;
         ViewFactory _factory;
-        bool _isCustom;
     };
-    
 }
 
 

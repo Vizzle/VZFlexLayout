@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'VZFlexLayout'
-  s.version          = '0.2.5'
+  s.version          = '0.2.7'
   s.summary          = 'A modern layout engine for iOS.'
   s.description      = <<-DESC
                        A modern layout engine inspired by React.

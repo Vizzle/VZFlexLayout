@@ -69,9 +69,7 @@ using namespace VZ::UIKit;
     return [self newWithView:[UIView class] NodeSpecs:{}];
 }
 
-- (BOOL)hasCustomView {
-    return _viewClass.isCustom() == true;
-}
+
 
 - (instancetype)initWithView:(const ViewClass& )viewclass Specs:(const NodeSpecs& )specs{
     self = [super init];

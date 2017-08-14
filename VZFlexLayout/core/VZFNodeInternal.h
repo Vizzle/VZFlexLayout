@@ -61,9 +61,6 @@ using namespace VZ;
 
 + (Class)defaultClass;
 
-//关联的view是否是自定义的view
-- (BOOL)hasCustomView;
-
 //将属性应用到对应的view到
 - (void)applyAttributes;
 

@@ -57,8 +57,6 @@ struct VZItemRecyclerState{
 };
 @interface VZFNodeListItemRecycler()
 
-//@property (nonatomic, strong) VZFAsync4ReactBridge *asyncBridge;
-
 @end
 
 @implementation VZFNodeListItemRecycler{
@@ -73,15 +71,6 @@ struct VZItemRecyclerState{
     SpinLock _lock;
 
 }
-//异步渲染逻辑处理对象
-//-(VZFAsync4ReactBridge *)asyncBridge{
-//    if (!_asyncBridge) {
-//        _asyncBridge = [[VZFAsync4ReactBridge alloc] init];
-//    }
-//    return _asyncBridge;
-//}
-
-
 - (CGSize)layoutSize{
 
     return (CGSize){
@@ -162,52 +151,9 @@ struct VZItemRecyclerState{
     [self attachToView:view rasterizeUseCache:NO];
 }
 
-//为了替换这个方法 单独抽离出来
--(BOOL)asyncDisplayLogic:(BOOL)asyncDisplay{
-    return asyncDisplay;
-}
-
 - (void)attachToView:(UIView *)view rasterizeUseCache:(BOOL)rasterizeUseCache {
     
     VZFAssertMainThread();
-    
-    
-    //    Item        -----> Recycler -----> Bridge
-    //    ContentView -----> VZANode  -----> _view
-    
-    //    ContentView - - -> Bridge
-    //    Bridge      - - -> ContentView
-    //这个建议从模板中传过来
-    //
-    
-    //处理前先判断是否支持异步渲染
-//    BOOL useAsyncDisplay = [self asyncDisplayLogic:asyncDisplay] && [self.asyncBridge supportAsync:_state.layout];
-    
-    
-    //使用异步渲染/////////////////
-//    if (useAsyncDisplay) {
-//        //使用异步渲染
-//        if (!view.useVZAsyncDisplayFlag) {
-//            //隐藏vz_recycler里的view
-//            [self hideVZFNodeView:view hidden:YES];
-//            view.useVZAsyncDisplayFlag = [NSObject new];
-//        }
-//        
-//        [self.asyncBridge attachToView:view];
-//        return;
-//    }
-    //使用异步渲染////////////////
-    
-    
-    //不使用异步渲染////////
-//    if (view.useVZAsyncDisplayFlag) {
-//        //上一次使用的是异步渲染
-//        
-//        //不使用异步渲染  需要清除一些view和属性 在交叉复用的时候回用到
-//        [self hideVZFNodeView:view hidden:NO];
-//        [VZFAsync4ReactBridge cleanVZANodeView:view];
-//        view.useVZAsyncDisplayFlag = nil;
-//    }
     
     if(view.vz_recycler != self){
         
@@ -216,21 +162,10 @@ struct VZItemRecyclerState{
         _mountedView = view;
         view.vz_recycler = self;
         
-        //        VZFNSLog(@"[%@]--->attach:<%ld,%p>",self.class,self.indexPath.row,view);
     }
-    
     _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil, rasterizeUseCache) copy];
-    //不使用异步渲染////////
 }
--(void)hideVZFNodeView:(UIView *)v hidden:(BOOL)hidden{
-    NSArray *subView = [v.subviews copy];
-    for (UIView *v in subView) {
-        NSString *className = [NSString stringWithUTF8String:class_getName([v class])];
-        if (![@"_VZAView" isEqualToString:className]){
-            v.hidden = hidden;
-        }
-    }
-}
+
 
 - (void)detachFromView{
     

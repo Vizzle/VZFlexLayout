@@ -1,0 +1,16 @@
+PODS:
+  - VZFlexLayout (0.2.7)
+
+DEPENDENCIES:
+  - VZFlexLayout (from `../`)
+
+EXTERNAL SOURCES:
+  VZFlexLayout:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  VZFlexLayout: 3dd6c2aefe1aea1d2ddd6024732bff5b6f35412c
+
+PODFILE CHECKSUM: 75200f231cc759a9d46a1ddb2aa7506ffe630f96
+
+COCOAPODS: 1.2.1
