@@ -21,6 +21,7 @@
 @property (nonatomic, assign) CGFloat scale;
 @property (nonatomic, assign) NSInteger animateCount;
 @property (nonatomic, strong) NSString *downloadImageUrl;
+@property(nonatomic, strong) VZFBlockAction* completion;
 
 @end
 

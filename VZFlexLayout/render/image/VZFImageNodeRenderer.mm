@@ -18,10 +18,12 @@
 //图片下载成功回调
 - (void)invoke:(id)sender withCustomParam:(NSDictionary *)imageDic{
     
+    //同步调进来的时候self.node没有
     UIImage *errorImage = [imageDic objectForKey:@"errorImage"];
     UIImage *image = [imageDic objectForKey:@"image"];
     
     if (!self.node && imageDic && (image || errorImage)) {
+        //同步调进来的时候self.node为空
         self.image = image;
         self.downloadImageUrl = imageDic[@"url"];
         if (!self.image && errorImage) {
@@ -30,10 +32,8 @@
         } else {
             self.isErrorImage = NO;
         }
-        return;
-    }
-    
-    if([self.node isKindOfClass:[VZFImageNode class]] && imageDic && (image || errorImage)){
+    } else if ([self.node isKindOfClass:[VZFImageNode class]] && imageDic && (image || errorImage)){
+        //异步调进来
         VZFImageNode *imageNode = (VZFImageNode *)self.node;
         imageNode.downloadImage =  image;
         imageNode.errorImage = errorImage;
@@ -73,7 +73,11 @@
         }
     }
     
-    if ([self.node isKindOfClass:[VZFImageNode class]]) {
+    if (self.completion) {
+        VZFDispatchMain(0, ^{
+            [self.completion invoke:sender withCustomParam:imageDic];
+        });
+    } else if ([self.node isKindOfClass:[VZFImageNode class]]) {
         VZFBlockAction *completion = [(VZFImageNode *)self.node imageSpecs].completion;
         if (completion) {
             VZFDispatchMain(0, ^{

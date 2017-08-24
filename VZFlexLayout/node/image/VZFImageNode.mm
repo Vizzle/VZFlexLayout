@@ -48,6 +48,7 @@
         
         VZFImageNodeRenderer *renderer = [[VZFImageNodeRenderer alloc] init];
         renderer.contentMode = imageSpecs.contentMode;
+        renderer.completion = imageSpecs.completion;
 
         imageNode -> _renderer = renderer;
         

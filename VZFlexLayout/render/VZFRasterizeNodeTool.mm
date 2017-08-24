@@ -165,6 +165,7 @@
     renderer.scale = VZ::Helper::screenScale();
     renderer.contentMode = imageSpec.contentMode;
     renderer.image = imageSpec.image;
+    renderer.completion = imageSpec.completion;
     
     [self setRenderer:renderer specs:node.specs];
 
