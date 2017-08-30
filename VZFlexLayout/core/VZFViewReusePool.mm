@@ -75,13 +75,22 @@ static const void* g_unapplicatorId = &g_unapplicatorId;
     else{
         //return an existing one
          v = *_nextUsableViewPos;
+        _nextUsableViewPos ++;
         
-        // 重用前调用 unapplicator，避免残留脏数据
-        [v unapply];
+        if (viewClass.identifier()) {
+        
+            // 重用前调用 unapplicator，避免残留脏数据
+            [v unapply];
         
          VZ::Mounting::prepareForReuse(v);
 //         VZFNSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
-        _nextUsableViewPos ++;
+        }
+        else {
+            // 如果 identifier 为空，不重用
+            [v removeFromSuperview];
+            v = [self viewForClass:viewClass ParentView:container Frame:frame];
+        }
+        
     }
     return v;
 
