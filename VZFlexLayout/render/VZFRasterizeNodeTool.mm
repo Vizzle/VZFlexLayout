@@ -52,6 +52,7 @@
     
     NodeSpecs specs = node.specs;
     if (specs.gesture ||
+        !specs.gestures.empty() ||
         specs.display ||
         specs.highlightBackgroundColor ||
         //specs.borderWidth > 0 ||

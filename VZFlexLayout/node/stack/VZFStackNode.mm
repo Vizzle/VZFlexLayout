@@ -62,6 +62,7 @@ using namespace VZ;
 + (BOOL)shouldFlattenStackView:(const NodeSpecs&)specs{
     
     if(specs.gesture ||
+       !specs.gestures.empty() ||
        specs.display ||
        specs.highlightBackgroundColor ||
        specs.borderWidth > 0 ||

@@ -204,13 +204,7 @@
 }
 
 - (void)_applyGestures:(const NodeSpecs&)vs{
-    
-    VZFBlockGesture *gesture = vs.gesture;
-    
-    if (gesture && vs.userInteractionEnabled == INT_MIN) {
-        self.userInteractionEnabled = YES;
-    }
-    
+
     static const void* _id = &_id;
     // 移除重用的view上的recognizer
     [self.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -218,10 +212,21 @@
             [self removeGestureRecognizer:obj];
         }
     }];
-    
-    NSMutableArray *gestureArray = [NSMutableArray array];
-    objc_setAssociatedObject(self, _id, gestureArray, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    if (gesture) {
+
+    auto gestures = vs.gestures;
+    if (vs.gesture) {
+        gestures.push_back(vs.gesture);
+    }
+
+    if (!gestures.empty() && vs.userInteractionEnabled == INT_MIN) {
+        self.userInteractionEnabled = YES;
+    }
+
+    for (VZFBlockGesture *gesture : gestures) {
+
+        NSMutableArray *gestureArray = [NSMutableArray array];
+        objc_setAssociatedObject(self, _id, gestureArray, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
         UIGestureRecognizer *gestureRecognizer = [[gesture.gestureClass alloc] initWithTarget:nil action:nil];
         [gestureArray addObject:gesture];
         [gestureRecognizer addTarget:gesture action:@selector(invoke:)];
