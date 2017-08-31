@@ -145,7 +145,8 @@ namespace VZ {
         Value<int, DefaultAttributesValue::userInteractionEnabled> isAccessibilityElement;
         NSString* accessibilityLabel;
         
-        VZFBlockGesture *gesture;
+        VZFBlockGesture *gesture; // deprecated, use `gestures` instead
+        std::vector<VZFBlockGesture *> gestures;
         VZFBlockAction *display;
         
         BOOL asyncDisplay;

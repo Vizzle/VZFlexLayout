@@ -45,7 +45,9 @@
 }
 
 - (void)invoke:(UIGestureRecognizer *)sender {
-    
+    if (sender.class == UILongPressGestureRecognizer.class && sender.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
     if (self.block) {
         self.block(sender.view);
     }
@@ -90,6 +92,10 @@
 
 + (instancetype)tapGesture:(UIControlActionBlock)block {
     return [self gestureWithClass:[UITapGestureRecognizer class] block:block];
+}
+
++ (instancetype)longPressGesture:(UIControlActionBlock)block {
+    return [self gestureWithClass:[UILongPressGestureRecognizer class] block:block];
 }
 
 @end

@@ -53,6 +53,7 @@ typedef void(^UIControlActionBlock)(id sender);
 - (instancetype)initWithClass:(Class)gestureClass block:(UIControlActionBlock)block;
 
 + (instancetype)tapGesture:(UIControlActionBlock)block;
++ (instancetype)longPressGesture:(UIControlActionBlock)block;
 + (instancetype)gestureWithClass:(Class)gestureClass block:(UIControlActionBlock)block;
 
 @end
