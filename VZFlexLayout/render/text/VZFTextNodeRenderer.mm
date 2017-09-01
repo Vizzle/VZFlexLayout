@@ -104,8 +104,8 @@
     NSMutableAttributedString *mutText = text.mutableCopy;
     // https://openradar.appspot.com/28522327
     // https://github.com/ibireme/YYText/issues/548#issuecomment-260231194
-    BOOL isIOS10OrGreater = [[UIDevice currentDevice].systemVersion floatValue] >= 10;
-    if (isIOS10OrGreater) {
+    CGFloat version = [[UIDevice currentDevice].systemVersion floatValue];
+    if (version >= 10 && version < 10.2) {  // fixed in iOS 10.2
         [mutText fixAttributesInRange:NSMakeRange(0, mutText.length)];
         [mutText enumerateAttribute:NSFontAttributeName inRange:NSMakeRange(0, mutText.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {
             UIFont *font = (UIFont *)value;
