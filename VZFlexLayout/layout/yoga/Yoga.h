@@ -208,6 +208,10 @@ YG_NODE_STYLE_PROPERTY_UNIT(YGValue, MaxHeight, maxHeight);
 // - Aspect ratio takes min/max dimensions into account
 YG_NODE_STYLE_PROPERTY(float, AspectRatio, aspectRatio);
 
+// VZFlexLayout specific properties
+YG_NODE_STYLE_PROPERTY_UNIT(YGValue, Spacing, spacing);
+YG_NODE_STYLE_PROPERTY_UNIT(YGValue, LineSpacing, lineSpacing);
+
 YG_NODE_LAYOUT_PROPERTY(float, Left);
 YG_NODE_LAYOUT_PROPERTY(float, Top);
 YG_NODE_LAYOUT_PROPERTY(float, Right);

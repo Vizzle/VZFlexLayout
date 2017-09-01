@@ -149,6 +149,9 @@ YGNodeRef convertToYogaNode(FlexNode* flexNode, YGConfigRef config) {
     YGNodeStyleSetBorder(node, YGEdgeRight, flexNode->border[FLEX_RIGHT].value);
     YGNodeStyleSetBorder(node, YGEdgeBottom, flexNode->border[FLEX_BOTTOM].value);
 
+    SET_LENGTH(flexNode->spacing, Spacing);
+    SET_LENGTH(flexNode->lineSpacing, LineSpacing);
+
     if (flexNode->fixed) {
         YGNodeStyleSetPositionType(node, YGPositionTypeAbsolute);
         if (flexNode->margin[FLEX_TOP].value != FlexAuto) {SET_LENGTH_EDGE(flexNode->margin[FLEX_TOP], Position, YGEdgeTop)}

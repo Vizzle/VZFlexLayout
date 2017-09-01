@@ -94,6 +94,10 @@ typedef struct YGStyle {
 
   // Yoga specific properties, not compatible with flexbox specification
   float aspectRatio;
+
+  // VZFlexLayout specific properties
+  YGValue spacing;
+  YGValue lineSpacing;
 } YGStyle;
 
 typedef struct YGConfig {
@@ -186,6 +190,8 @@ static const YGNode gYGNodeDefaults = {
             .padding = YG_DEFAULT_EDGE_VALUES_UNIT,
             .border = YG_DEFAULT_EDGE_VALUES_UNIT,
             .aspectRatio = YGUndefined,
+            .spacing = { .unit = YGUnitPoint, .value = 0 },
+            .lineSpacing = { .unit = YGUnitPoint, .value = 0 },
         },
 
     .layout =
@@ -777,6 +783,10 @@ YG_NODE_STYLE_PROPERTY_UNIT_IMPL(YGValue, MaxHeight, maxHeight, maxDimensions[YG
 
 // Yoga specific properties, not compatible with flexbox specification
 YG_NODE_STYLE_PROPERTY_IMPL(float, AspectRatio, aspectRatio, aspectRatio);
+
+// VZFlexLayout specific properties
+YG_NODE_STYLE_PROPERTY_UNIT_AUTO_IMPL(YGValue, Spacing, spacing, spacing);
+YG_NODE_STYLE_PROPERTY_UNIT_AUTO_IMPL(YGValue, LineSpacing, lineSpacing, lineSpacing);
 
 YG_NODE_LAYOUT_PROPERTY_IMPL(float, Left, position[YGEdgeLeft]);
 YG_NODE_LAYOUT_PROPERTY_IMPL(float, Top, position[YGEdgeTop]);
@@ -2142,6 +2152,9 @@ static void YGNodelayoutImpl(const YGNodeRef node,
 
   float totalOuterFlexBasis = 0;
 
+  float spacing = YGResolveValue(&node->style.spacing, mainAxisParentSize);
+  float lineSpacing = YGResolveValue(&node->style.spacing, mainAxisParentSize);
+
   // STEP 3: DETERMINE FLEX BASIS FOR EACH ITEM
   for (uint32_t i = 0; i < childCount; i++) {
     const YGNodeRef child = YGNodeListGet(node->children, i);
@@ -2195,7 +2208,7 @@ static void YGNodelayoutImpl(const YGNodeRef node,
 
     totalOuterFlexBasis +=
         child->layout.computedFlexBasis + YGNodeMarginForAxis(child, mainAxis, availableInnerWidth);
-    ;
+    if (i > 0) totalOuterFlexBasis += spacing;
   }
 
   const bool flexBasisOverflows = measureModeMainDim == YGMeasureModeUndefined
@@ -2274,6 +2287,9 @@ static void YGNodelayoutImpl(const YGNodeRef node,
         sizeConsumedOnCurrentLine += flexBasisWithMinAndMaxConstraints + childMarginMainAxis;
         itemsOnLine++;
 
+        sizeConsumedOnCurrentLineIncludingMinConstraint += spacing;
+        sizeConsumedOnCurrentLine += spacing;
+
         if (YGNodeIsFlex(child)) {
           totalFlexGrowFactors += YGResolveFlexGrow(child);
 
@@ -2293,6 +2309,8 @@ static void YGNodelayoutImpl(const YGNodeRef node,
         child->nextChild = NULL;
       }
     }
+
+    sizeConsumedOnCurrentLine -= spacing;
 
     // The total flex factor needs to be floored to 1.
     if (totalFlexGrowFactors > 0 && totalFlexGrowFactors < 1) {
@@ -2702,6 +2720,7 @@ static void YGNodelayoutImpl(const YGNodeRef node,
             // there can only be one element in that cross dimension.
             crossDim = fmaxf(crossDim, YGNodeDimWithMargin(child, crossAxis, availableInnerWidth));
           }
+          mainDim += spacing;
         } else if (performLayout) {
           child->layout.position[pos[mainAxis]] +=
               YGNodeLeadingBorder(node, mainAxis) + leadingMainDim;
@@ -2709,6 +2728,7 @@ static void YGNodelayoutImpl(const YGNodeRef node,
       }
     }
 
+    mainDim -= spacing;
     mainDim += trailingPaddingAndBorderMain;
 
     float containerCrossAxis = availableInnerCrossDim;
@@ -2848,8 +2868,10 @@ static void YGNodelayoutImpl(const YGNodeRef node,
     }
 
     totalLineCrossDim += crossDim;
+    totalLineCrossDim += lineSpacing;
     maxLineMainDim = fmaxf(maxLineMainDim, mainDim);
   }
+  totalLineCrossDim -= lineSpacing;
 
   // STEP 8: MULTI-LINE CONTENT ALIGNMENT
   if (performLayout && (lineCount > 1 || YGIsBaselineLayout(node)) &&
@@ -3009,6 +3031,7 @@ static void YGNodelayoutImpl(const YGNodeRef node,
       }
 
       currentLead += lineHeight;
+      currentLead += lineSpacing;
     }
   }
 
