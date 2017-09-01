@@ -2263,7 +2263,7 @@ static void YGNodelayoutImpl(const YGNodeRef node,
         // hit the end of the current line. Break out of the loop and lay out
         // the current line.
         if (sizeConsumedOnCurrentLineIncludingMinConstraint + flexBasisWithMinAndMaxConstraints +
-                    childMarginMainAxis >
+                    childMarginMainAxis - 1e-3 >
                 availableInnerMainDim &&
             isNodeFlexWrap && itemsOnLine > 0) {
           break;
