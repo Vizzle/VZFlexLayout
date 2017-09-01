@@ -594,6 +594,8 @@ using namespace VZ::UIKit;
          view.bounds = {view.bounds.origin,size};
          */
         //apply frame
+        if (isnan(size.width)) size.width = 0;
+        if (isnan(size.height)) size.height = 0;
         view.frame  = {context.position, size};
         
         //apply attributes

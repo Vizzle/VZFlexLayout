@@ -206,9 +206,41 @@
 		45C49B0D1E94F678009BD7AA /* VZFNodeListItemRecycler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C49A491E94F678009BD7AA /* VZFNodeListItemRecycler.mm */; };
 		45C49B101E94FEEE009BD7AA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C49B0F1E94FEEE009BD7AA /* MapKit.framework */; };
 		45C49B121E95004B009BD7AA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C49B111E95004B009BD7AA /* CoreLocation.framework */; };
+		B16604F31F39546000442893 /* MarginTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B16604F21F39546000442893 /* MarginTests.mm */; };
+		B16604F51F39546000442893 /* VZFlexLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C4996E1E94EA84009BD7AA /* VZFlexLayout.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		B16604FE1F39A17500442893 /* XCTestCase+Helper.mm in Sources */ = {isa = PBXBuildFile; fileRef = B16604FD1F39A17500442893 /* XCTestCase+Helper.mm */; };
+		B16605001F39A2BB00442893 /* SimpleTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B16604FF1F39A2BB00442893 /* SimpleTests.mm */; };
+		B16605281F3C4D8A00442893 /* PaddingTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B16605271F3C4D8A00442893 /* PaddingTests.mm */; };
+		B166052F1F3D973400442893 /* FlexGrowTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B166052E1F3D973400442893 /* FlexGrowTests.mm */; };
+		B1F9FF1C1F4148210045973E /* FlexShrinkTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF1B1F4148210045973E /* FlexShrinkTests.mm */; };
+		B1F9FF1E1F417AC60045973E /* FlexBasisTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF1D1F417AC60045973E /* FlexBasisTests.mm */; };
+		B1F9FF251F454BDA0045973E /* CSSFlexboxTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF241F454BDA0045973E /* CSSFlexboxTests.mm */; };
+		B1F9FF291F53F0610045973E /* PercentageTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF281F53F0610045973E /* PercentageTests.mm */; };
+		B1F9FF2B1F53F7EE0045973E /* MinMaxTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF2A1F53F7EE0045973E /* MinMaxTests.mm */; };
+		B1F9FF2D1F540B890045973E /* YogaTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF2C1F540B890045973E /* YogaTests.mm */; };
+		B1F9FF591F56E6AE0045973E /* YGEnums.c in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF4F1F56E6AE0045973E /* YGEnums.c */; };
+		B1F9FF5A1F56E6AE0045973E /* YGEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F9FF501F56E6AE0045973E /* YGEnums.h */; };
+		B1F9FF5B1F56E6AE0045973E /* YGMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F9FF511F56E6AE0045973E /* YGMacros.h */; };
+		B1F9FF5C1F56E6AE0045973E /* YGNodeList.c in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF521F56E6AE0045973E /* YGNodeList.c */; };
+		B1F9FF5D1F56E6AE0045973E /* YGNodeList.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F9FF531F56E6AE0045973E /* YGNodeList.h */; };
+		B1F9FF5E1F56E6AE0045973E /* Yoga-internal.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F9FF541F56E6AE0045973E /* Yoga-internal.h */; };
+		B1F9FF5F1F56E6AE0045973E /* Yoga.c in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF551F56E6AE0045973E /* Yoga.c */; };
+		B1F9FF601F56E6AE0045973E /* Yoga.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F9FF561F56E6AE0045973E /* Yoga.h */; };
+		B1F9FF611F56E6AE0045973E /* YogaBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F9FF571F56E6AE0045973E /* YogaBridge.h */; };
+		B1F9FF621F56E6AE0045973E /* YogaBridge.c in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF581F56E6AE0045973E /* YogaBridge.c */; };
 		B3D062361E9F6D340062C1A1 /* VZFImageNodeInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D062351E9F6D010062C1A1 /* VZFImageNodeInternal.h */; };
 		B3D062381E9F6E0A0062C1A1 /* VZFTextNodeInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D062371E9F6E060062C1A1 /* VZFTextNodeInternal.h */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B16604F61F39546000442893 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45C499651E94EA84009BD7AA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 45C4996D1E94EA84009BD7AA;
+			remoteInfo = VZFlexLayout;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1EBE99B21EB9B35400E977AB /* VZFTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFTextView.h; sourceTree = "<group>"; };
@@ -412,6 +444,31 @@
 		45C49A491E94F678009BD7AA /* VZFNodeListItemRecycler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeListItemRecycler.mm; sourceTree = "<group>"; };
 		45C49B0F1E94FEEE009BD7AA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		45C49B111E95004B009BD7AA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B16604F01F39546000442893 /* VZFlexLayoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VZFlexLayoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B16604F21F39546000442893 /* MarginTests.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MarginTests.mm; sourceTree = "<group>"; };
+		B16604F41F39546000442893 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B16604FC1F39A17500442893 /* XCTestCase+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XCTestCase+Helper.h"; sourceTree = "<group>"; };
+		B16604FD1F39A17500442893 /* XCTestCase+Helper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "XCTestCase+Helper.mm"; sourceTree = "<group>"; };
+		B16604FF1F39A2BB00442893 /* SimpleTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimpleTests.mm; sourceTree = "<group>"; };
+		B16605011F39A38C00442893 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		B16605271F3C4D8A00442893 /* PaddingTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PaddingTests.mm; sourceTree = "<group>"; };
+		B166052E1F3D973400442893 /* FlexGrowTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FlexGrowTests.mm; sourceTree = "<group>"; };
+		B1F9FF1B1F4148210045973E /* FlexShrinkTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FlexShrinkTests.mm; sourceTree = "<group>"; };
+		B1F9FF1D1F417AC60045973E /* FlexBasisTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FlexBasisTests.mm; sourceTree = "<group>"; };
+		B1F9FF241F454BDA0045973E /* CSSFlexboxTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CSSFlexboxTests.mm; sourceTree = "<group>"; };
+		B1F9FF281F53F0610045973E /* PercentageTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PercentageTests.mm; sourceTree = "<group>"; };
+		B1F9FF2A1F53F7EE0045973E /* MinMaxTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MinMaxTests.mm; sourceTree = "<group>"; };
+		B1F9FF2C1F540B890045973E /* YogaTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = YogaTests.mm; sourceTree = "<group>"; };
+		B1F9FF4F1F56E6AE0045973E /* YGEnums.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = YGEnums.c; sourceTree = "<group>"; };
+		B1F9FF501F56E6AE0045973E /* YGEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGEnums.h; sourceTree = "<group>"; };
+		B1F9FF511F56E6AE0045973E /* YGMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGMacros.h; sourceTree = "<group>"; };
+		B1F9FF521F56E6AE0045973E /* YGNodeList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = YGNodeList.c; sourceTree = "<group>"; };
+		B1F9FF531F56E6AE0045973E /* YGNodeList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGNodeList.h; sourceTree = "<group>"; };
+		B1F9FF541F56E6AE0045973E /* Yoga-internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Yoga-internal.h"; sourceTree = "<group>"; };
+		B1F9FF551F56E6AE0045973E /* Yoga.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Yoga.c; sourceTree = "<group>"; };
+		B1F9FF561F56E6AE0045973E /* Yoga.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Yoga.h; sourceTree = "<group>"; };
+		B1F9FF571F56E6AE0045973E /* YogaBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YogaBridge.h; sourceTree = "<group>"; };
+		B1F9FF581F56E6AE0045973E /* YogaBridge.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = YogaBridge.c; sourceTree = "<group>"; };
 		B3D062351E9F6D010062C1A1 /* VZFImageNodeInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeInternal.h; sourceTree = "<group>"; };
 		B3D062371E9F6E060062C1A1 /* VZFTextNodeInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeInternal.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -423,6 +480,14 @@
 			files = (
 				45C49B121E95004B009BD7AA /* CoreLocation.framework in Frameworks */,
 				45C49B101E94FEEE009BD7AA /* MapKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B16604ED1F39546000442893 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B16604F51F39546000442893 /* VZFlexLayout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,6 +799,7 @@
 			isa = PBXGroup;
 			children = (
 				45C499701E94EA84009BD7AA /* VZFlexLayout */,
+				B16604F11F39546000442893 /* VZFlexLayoutTests */,
 				45C4996F1E94EA84009BD7AA /* Products */,
 				45C49B0E1E94FEEE009BD7AA /* Frameworks */,
 			);
@@ -743,6 +809,7 @@
 			isa = PBXGroup;
 			children = (
 				45C4996E1E94EA84009BD7AA /* VZFlexLayout.framework */,
+				B16604F01F39546000442893 /* VZFlexLayoutTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -805,6 +872,9 @@
 		45C499F91E94F678009BD7AA /* layout */ = {
 			isa = PBXGroup;
 			children = (
+				B1F9FF4E1F56E6AE0045973E /* yoga */,
+				B1F9FF571F56E6AE0045973E /* YogaBridge.h */,
+				B1F9FF581F56E6AE0045973E /* YogaBridge.c */,
 				45C499FA1E94F678009BD7AA /* FlexLayout.c */,
 				45C499FB1E94F678009BD7AA /* FlexLayout.h */,
 				45C499FC1E94F678009BD7AA /* khash.h */,
@@ -902,6 +972,50 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B16604F11F39546000442893 /* VZFlexLayoutTests */ = {
+			isa = PBXGroup;
+			children = (
+				B1F9FF231F454BBC0045973E /* generated */,
+				B16604FF1F39A2BB00442893 /* SimpleTests.mm */,
+				B16604F21F39546000442893 /* MarginTests.mm */,
+				B16605271F3C4D8A00442893 /* PaddingTests.mm */,
+				B166052E1F3D973400442893 /* FlexGrowTests.mm */,
+				B1F9FF1B1F4148210045973E /* FlexShrinkTests.mm */,
+				B1F9FF1D1F417AC60045973E /* FlexBasisTests.mm */,
+				B1F9FF281F53F0610045973E /* PercentageTests.mm */,
+				B1F9FF2A1F53F7EE0045973E /* MinMaxTests.mm */,
+				B16604F41F39546000442893 /* Info.plist */,
+				B16604FC1F39A17500442893 /* XCTestCase+Helper.h */,
+				B16604FD1F39A17500442893 /* XCTestCase+Helper.mm */,
+				B16605011F39A38C00442893 /* PrefixHeader.pch */,
+			);
+			path = VZFlexLayoutTests;
+			sourceTree = "<group>";
+		};
+		B1F9FF231F454BBC0045973E /* generated */ = {
+			isa = PBXGroup;
+			children = (
+				B1F9FF241F454BDA0045973E /* CSSFlexboxTests.mm */,
+				B1F9FF2C1F540B890045973E /* YogaTests.mm */,
+			);
+			name = generated;
+			sourceTree = "<group>";
+		};
+		B1F9FF4E1F56E6AE0045973E /* yoga */ = {
+			isa = PBXGroup;
+			children = (
+				B1F9FF4F1F56E6AE0045973E /* YGEnums.c */,
+				B1F9FF501F56E6AE0045973E /* YGEnums.h */,
+				B1F9FF511F56E6AE0045973E /* YGMacros.h */,
+				B1F9FF521F56E6AE0045973E /* YGNodeList.c */,
+				B1F9FF531F56E6AE0045973E /* YGNodeList.h */,
+				B1F9FF541F56E6AE0045973E /* Yoga-internal.h */,
+				B1F9FF551F56E6AE0045973E /* Yoga.c */,
+				B1F9FF561F56E6AE0045973E /* Yoga.h */,
+			);
+			path = yoga;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -917,6 +1031,7 @@
 				458FEBF21E9DD270004A44DB /* VZFPagingNode.h in Headers */,
 				458FEBB61E9DD270004A44DB /* VZFNodeSubClass.h in Headers */,
 				458FEBBB1E9DD270004A44DB /* VZFSizeRange.h in Headers */,
+				B1F9FF611F56E6AE0045973E /* YogaBridge.h in Headers */,
 				458FEBD31E9DD270004A44DB /* VZFImageNodeSpecs.h in Headers */,
 				458FEBEC1E9DD270004A44DB /* VZFMapViewNodeSpecs.h in Headers */,
 				458FEC1E1E9DD270004A44DB /* VZFTextFieldNode.h in Headers */,
@@ -932,6 +1047,7 @@
 				458FEBB51E9DD270004A44DB /* VZFNodeProvider.h in Headers */,
 				458FEC221E9DD270004A44DB /* VZFTextViewNode.h in Headers */,
 				458FEC181E9DD270004A44DB /* VZFTextNodeSpecs.h in Headers */,
+				B1F9FF5A1F56E6AE0045973E /* YGEnums.h in Headers */,
 				458FEBB31E9DD270004A44DB /* VZFNodeLifeCycle.h in Headers */,
 				458FEC161E9DD270004A44DB /* VZFTextNode.h in Headers */,
 				458FEBFA1E9DD270004A44DB /* VZFPickerNodeSpecs.h in Headers */,
@@ -958,6 +1074,7 @@
 				458FEBFE1E9DD270004A44DB /* VZFScrollNode.h in Headers */,
 				458FEC121E9DD270004A44DB /* VZFSwitchNode.h in Headers */,
 				458FEB9E1E9DD270004A44DB /* VZFActionWrapper.h in Headers */,
+				B1F9FF5B1F56E6AE0045973E /* YGMacros.h in Headers */,
 				458FEBEA1E9DD270004A44DB /* VZFMapViewNode.h in Headers */,
 				458FEBDA1E9DD270004A44DB /* VZFIndicatorNodeSpecs.h in Headers */,
 				458FEBA31E9DD270004A44DB /* VZFLength.h in Headers */,
@@ -971,6 +1088,7 @@
 				45C49AC61E94F678009BD7AA /* FlexLayout.h in Headers */,
 				458FEBBF1E9DD270004A44DB /* VZFUtils.h in Headers */,
 				458FEBA71E9DD270004A44DB /* VZFlexNode.h in Headers */,
+				B1F9FF601F56E6AE0045973E /* Yoga.h in Headers */,
 				458FEBD11E9DD270004A44DB /* VZFImageNode.h in Headers */,
 				458FEBCF1E9DD270004A44DB /* VZFCompositeNode.h in Headers */,
 				458FEBF81E9DD270004A44DB /* VZFPickerNode.h in Headers */,
@@ -979,6 +1097,7 @@
 				45C49B031E94F678009BD7AA /* VZFTextNodeBackingLayer.h in Headers */,
 				45C49AEE1E94F678009BD7AA /* VZFAsyncDrawingTransactionContainer.h in Headers */,
 				45C49B091E94F678009BD7AA /* VZFAsyncConfig.h in Headers */,
+				B1F9FF5D1F56E6AE0045973E /* YGNodeList.h in Headers */,
 				B3D062381E9F6E0A0062C1A1 /* VZFTextNodeInternal.h in Headers */,
 				458FEBDC1E9DD270004A44DB /* VZFIndicatorView.h in Headers */,
 				458FEBE61E9DD270004A44DB /* VZFMapOverlay.h in Headers */,
@@ -1006,6 +1125,7 @@
 				45C49AFF1E94F678009BD7AA /* VZFBlankNodeRenderer.h in Headers */,
 				458FEC0E1E9DD270004A44DB /* VZFStackView.h in Headers */,
 				45C49AF51E94F678009BD7AA /* VZFBackingViewProtocol.h in Headers */,
+				B1F9FF5E1F56E6AE0045973E /* Yoga-internal.h in Headers */,
 				45C49B071E94F678009BD7AA /* VZFTextNodeRenderer.h in Headers */,
 				458FEBFC1E9DD270004A44DB /* VZFPickerView.h in Headers */,
 				458FEBC51E9DD270004A44DB /* VZFViewReusePoolManager.h in Headers */,
@@ -1044,6 +1164,24 @@
 			productReference = 45C4996E1E94EA84009BD7AA /* VZFlexLayout.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		B16604EF1F39546000442893 /* VZFlexLayoutTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B16604FA1F39546000442893 /* Build configuration list for PBXNativeTarget "VZFlexLayoutTests" */;
+			buildPhases = (
+				B16604EC1F39546000442893 /* Sources */,
+				B16604ED1F39546000442893 /* Frameworks */,
+				B16604EE1F39546000442893 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B16604F71F39546000442893 /* PBXTargetDependency */,
+			);
+			name = VZFlexLayoutTests;
+			productName = VZFlexLayoutTests;
+			productReference = B16604F01F39546000442893 /* VZFlexLayoutTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1056,6 +1194,11 @@
 					45C4996D1E94EA84009BD7AA = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = RMP5PV6R6N;
+						ProvisioningStyle = Automatic;
+					};
+					B16604EF1F39546000442893 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 8EZ24DBNN4;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -1073,12 +1216,20 @@
 			projectRoot = "";
 			targets = (
 				45C4996D1E94EA84009BD7AA /* VZFlexLayout */,
+				B16604EF1F39546000442893 /* VZFlexLayoutTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		45C4996C1E94EA84009BD7AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B16604EE1F39546000442893 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1144,7 +1295,9 @@
 				45C49B001E94F678009BD7AA /* VZFBlankNodeRenderer.m in Sources */,
 				458FEBC81E9DD270004A44DB /* VZFWeakObjectWrapper.m in Sources */,
 				458FEBD71E9DD270004A44DB /* VZFNetworkImageView.mm in Sources */,
+				B1F9FF5F1F56E6AE0045973E /* Yoga.c in Sources */,
 				458FEC1D1E9DD270004A44DB /* VZFTextField.mm in Sources */,
+				B1F9FF5C1F56E6AE0045973E /* YGNodeList.c in Sources */,
 				458FEBED1E9DD270004A44DB /* VZFMapViewNodeSpecs.mm in Sources */,
 				458FEBC01E9DD270004A44DB /* VZFUtils.mm in Sources */,
 				458FEC131E9DD270004A44DB /* VZFSwitchNode.mm in Sources */,
@@ -1164,12 +1317,14 @@
 				458FEC171E9DD270004A44DB /* VZFTextNode.mm in Sources */,
 				45C49AF11E94F678009BD7AA /* VZFAsyncDrawingTransactionGroup.mm in Sources */,
 				458FEBC41E9DD270004A44DB /* VZFViewReusePool.mm in Sources */,
+				B1F9FF621F56E6AE0045973E /* YogaBridge.c in Sources */,
 				458FEBF91E9DD270004A44DB /* VZFPickerNode.mm in Sources */,
 				458FEB9F1E9DD270004A44DB /* VZFActionWrapper.mm in Sources */,
 				458FEBA11E9DD270004A44DB /* VZFDispatch.m in Sources */,
 				458FEBFB1E9DD270004A44DB /* VZFPickerNodeSpecs.mm in Sources */,
 				45C49ABD1E94F678009BD7AA /* VZFluxAction.mm in Sources */,
 				45C49B021E94F678009BD7AA /* VZFImageNodeRenderer.mm in Sources */,
+				B1F9FF591F56E6AE0045973E /* YGEnums.c in Sources */,
 				45C49B0B1E94F678009BD7AA /* VZFRasterizeNodeTool.mm in Sources */,
 				45C49AFE1E94F678009BD7AA /* VZFBlankNodeBackingView.mm in Sources */,
 				45C49AC31E94F678009BD7AA /* VZFluxStore.mm in Sources */,
@@ -1183,7 +1338,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B16604EC1F39546000442893 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1F9FF291F53F0610045973E /* PercentageTests.mm in Sources */,
+				B1F9FF251F454BDA0045973E /* CSSFlexboxTests.mm in Sources */,
+				B16604FE1F39A17500442893 /* XCTestCase+Helper.mm in Sources */,
+				B1F9FF1C1F4148210045973E /* FlexShrinkTests.mm in Sources */,
+				B1F9FF1E1F417AC60045973E /* FlexBasisTests.mm in Sources */,
+				B1F9FF2B1F53F7EE0045973E /* MinMaxTests.mm in Sources */,
+				B166052F1F3D973400442893 /* FlexGrowTests.mm in Sources */,
+				B1F9FF2D1F540B890045973E /* YogaTests.mm in Sources */,
+				B16605001F39A2BB00442893 /* SimpleTests.mm in Sources */,
+				B16604F31F39546000442893 /* MarginTests.mm in Sources */,
+				B16605281F3C4D8A00442893 /* PaddingTests.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B16604F71F39546000442893 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 45C4996D1E94EA84009BD7AA /* VZFlexLayout */;
+			targetProxy = B16604F61F39546000442893 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		45C499741E94EA84009BD7AA /* Debug */ = {
@@ -1318,6 +1499,34 @@
 			};
 			name = Release;
 		};
+		B16604F81F39546000442893 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = 8EZ24DBNN4;
+				GCC_PREFIX_HEADER = VZFlexLayoutTests/PrefixHeader.pch;
+				INFOPLIST_FILE = VZFlexLayoutTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vizlab.MIST.VZFlexLayoutTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B16604F91F39546000442893 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = 8EZ24DBNN4;
+				GCC_PREFIX_HEADER = VZFlexLayoutTests/PrefixHeader.pch;
+				INFOPLIST_FILE = VZFlexLayoutTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vizlab.MIST.VZFlexLayoutTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1335,6 +1544,15 @@
 			buildConfigurations = (
 				45C499771E94EA84009BD7AA /* Debug */,
 				45C499781E94EA84009BD7AA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B16604FA1F39546000442893 /* Build configuration list for PBXNativeTarget "VZFlexLayoutTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B16604F81F39546000442893 /* Debug */,
+				B16604F91F39546000442893 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

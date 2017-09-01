@@ -13,6 +13,8 @@
 #import "VZFNode.h"
 #import <libkern/OSAtomic.h>
 
+#import "YogaBridge.h"
+
 NSString *vz_boolToNSString(BOOL value) {
     return value ? @"true" : @"false";
 }
