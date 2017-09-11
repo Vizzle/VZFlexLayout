@@ -101,4 +101,70 @@
     )");
 }
 
+- (void)testAspectRatio {
+    XCTAssertLayout(@R"(
+    {
+        "width": 100,
+        "_height": 50,
+        "children": [
+            {
+                "flex-grow": 1,
+                "_width": 50,
+                "_height": 50,
+                "children": [
+                    {
+                        "padding-top": "100%",
+                        "_height": 50
+                    }
+                ]
+            },
+            {
+                "flex-grow": 1,
+                "_width": 50,
+                "_height": 50,
+                "_x": 50,
+                "children": [
+                    {
+                        "padding-top": "100%",
+                        "_height": 50
+                    }
+                ]
+            }
+        ]
+    }
+    )");
+
+    XCTAssertLayoutWithConfig(100, FlexAuto, 1, @R"(
+    {
+        "_width": 100,
+        "_height": 50,
+        "children": [
+            {
+                "flex-grow": 1,
+                "_width": 50,
+                "_height": 50,
+                "children": [
+                    {
+                        "padding-top": "100%",
+                        "_height": 50
+                    }
+                ]
+            },
+            {
+                "flex-grow": 1,
+                "_width": 50,
+                "_height": 50,
+                "_x": 50,
+                "children": [
+                    {
+                        "padding-top": "100%",
+                        "_height": 50
+                    }
+                ]
+            }
+        ]
+    }
+    )");
+}
+
 @end
