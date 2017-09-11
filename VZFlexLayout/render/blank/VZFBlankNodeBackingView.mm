@@ -12,6 +12,7 @@
 #import "VZFStackNode.h"
 #import "VZFNodeInternal.h"
 #import "VZFDispatch.h"
+#import <objc/runtime.h>
 
 @implementation VZFBlankNodeBackingView
 
@@ -109,46 +110,92 @@
 }
 
 
+- (NSString *)handlerForTouch:(UITouch *)touch {
+    if (!touch) {
+        return nil;
+    }
+    return objc_getAssociatedObject(touch, @selector(handlerForTouch:));
+}
+
+- (BOOL)checkSelfHandleTheTouch:(UITouch *)touch {
+    NSString *handler =[self handlerForTouch:touch];
+    NSString *selfStr = [NSString stringWithFormat:@"%p", self];
+    return selfStr && [selfStr isEqualToString:handler];
+}
+
+- (void)setSelfHandleTheTouch:(UITouch *)touch {
+    if (!touch) {
+        return ;
+    }
+    objc_setAssociatedObject(touch, @selector(handlerForTouch:), [NSString stringWithFormat:@"%p", self], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
+    do {
+        if (!self.userInteractionEnabled) {
+            break;
+        }
+        
+        if(self.highlightColor){
+            UITouch *touch = [touches anyObject];
+            if ([self handlerForTouch:touch]) {
+                break;
+            }
+            
+            [self setSelfHandleTheTouch:touch];
+            
+            [self setBackgroundColorSynchronously:self.highlightColor];
+        }else{
+            [self setBackgroundColorSynchronously:self.defaultColor];
+        }
+    } while (NO);
+    
     [super touchesBegan:touches withEvent:event];
-    
-    if (!self.userInteractionEnabled) {
-        return;
-    }
-    
-    if(self.highlightColor){
-        [self setBackgroundColorSynchronously:self.highlightColor];
-    }else{
-        [self setBackgroundColorSynchronously:self.defaultColor];
-    }
 }
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
     [super touchesMoved:touches withEvent:event];
     
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
+    
+    do {
+        if (!self.userInteractionEnabled) {
+            break;
+        }
+        
+        UITouch *touch = [touches anyObject];
+        if (![self checkSelfHandleTheTouch:touch]) {
+            break;
+        }
+        
+        __weak typeof(self) weakSelf = self;
+        // 过一会儿再把背景颜色改回去，让用户能看到点击反馈
+        VZFDispatchMain(0.1, ^{
+            //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf setBackgroundColorSynchronously:self.defaultColor];
+        });
+    } while (NO);
+    
     [super touchesEnded:touches withEvent:event];
-    
-    if (!self.userInteractionEnabled) {
-        return;
-    }
-    
-    // 过一会儿再把背景颜色改回去，让用户能看到点击反馈
-    VZFDispatchMain(0.1, ^{
-        //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self setBackgroundColorSynchronously:self.defaultColor];
-    });
-    
 }
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(nullable UIEvent *)event{
     
+    do {
+        if (!self.userInteractionEnabled) {
+            break;
+        }
+        
+        UITouch *touch = [touches anyObject];
+        if (![self checkSelfHandleTheTouch:touch]) {
+            break;
+        }
+        
+        
+        [self setBackgroundColorSynchronously:self.defaultColor];
+        
+    } while (NO);
+    
     [super touchesCancelled:touches withEvent:event];
-    
-    if (!self.userInteractionEnabled) {
-        return;
-    }
-    
-    [self setBackgroundColorSynchronously:self.defaultColor];
 }
 
 - (void)setBackgroundColorSynchronously:(UIColor *)backgroundColor {
