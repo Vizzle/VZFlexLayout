@@ -263,8 +263,8 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
     float resolvedPaddingWidth = flex_inset(node->resolvedPadding, FLEX_WIDTH);
     float resolvedPaddingHeight = flex_inset(node->resolvedPadding, FLEX_HEIGHT);
     FlexSize availableSize;
-    availableSize.size[FLEX_WIDTH] =  resolvedWidth != FlexAuto ? resolvedWidth - resolvedPaddingWidth : constrainedWidth == FlexAuto ? FlexAuto : (constrainedWidth - resolvedMarginWidth - resolvedPaddingWidth);
-    availableSize.size[FLEX_HEIGHT] =  resolvedHeight != FlexAuto ? resolvedHeight - resolvedPaddingHeight : constrainedHeight == FlexAuto ? FlexAuto : (constrainedHeight - resolvedMarginHeight - resolvedPaddingHeight);
+    availableSize.size[FLEX_WIDTH] = constrainedWidth == FlexAuto ? FlexAuto : (constrainedWidth - resolvedMarginWidth - resolvedPaddingWidth);
+    availableSize.size[FLEX_HEIGHT] = constrainedHeight == FlexAuto ? FlexAuto : (constrainedHeight - resolvedMarginHeight - resolvedPaddingHeight);
     
     // measure non-container element
     if (node->childrenCount == 0) {
@@ -299,7 +299,15 @@ void _layoutFlexNode(FlexNode* node, FlexLayoutContext *context, FlexSize constr
         
         return;
     }
-    
+
+
+    if (resolvedWidth != FlexAuto) {
+        availableSize.size[FLEX_WIDTH] = resolvedWidth - resolvedPaddingWidth;
+    }
+    if (resolvedHeight != FlexAuto) {
+        availableSize.size[FLEX_HEIGHT] = resolvedHeight - resolvedPaddingHeight;
+    }
+
     // layout flex container
     
     bool isReverse = node->direction == FlexHorizontalReverse || node->direction == FlexVerticalReverse;
