@@ -206,6 +206,7 @@
 		45C49B0D1E94F678009BD7AA /* VZFNodeListItemRecycler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C49A491E94F678009BD7AA /* VZFNodeListItemRecycler.mm */; };
 		45C49B101E94FEEE009BD7AA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C49B0F1E94FEEE009BD7AA /* MapKit.framework */; };
 		45C49B121E95004B009BD7AA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C49B111E95004B009BD7AA /* CoreLocation.framework */; };
+		B1CFE8441F6FA68F00C1A9FA /* FlexProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = B1CFE8431F6FA68F00C1A9FA /* FlexProperties.h */; };
 		B3D062361E9F6D340062C1A1 /* VZFImageNodeInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D062351E9F6D010062C1A1 /* VZFImageNodeInternal.h */; };
 		B3D062381E9F6E0A0062C1A1 /* VZFTextNodeInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D062371E9F6E060062C1A1 /* VZFTextNodeInternal.h */; };
 /* End PBXBuildFile section */
@@ -412,6 +413,7 @@
 		45C49A491E94F678009BD7AA /* VZFNodeListItemRecycler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeListItemRecycler.mm; sourceTree = "<group>"; };
 		45C49B0F1E94FEEE009BD7AA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		45C49B111E95004B009BD7AA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B1CFE8431F6FA68F00C1A9FA /* FlexProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlexProperties.h; sourceTree = "<group>"; };
 		B3D062351E9F6D010062C1A1 /* VZFImageNodeInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeInternal.h; sourceTree = "<group>"; };
 		B3D062371E9F6E060062C1A1 /* VZFTextNodeInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeInternal.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -805,6 +807,7 @@
 		45C499F91E94F678009BD7AA /* layout */ = {
 			isa = PBXGroup;
 			children = (
+				B1CFE8431F6FA68F00C1A9FA /* FlexProperties.h */,
 				45C499FA1E94F678009BD7AA /* FlexLayout.c */,
 				45C499FB1E94F678009BD7AA /* FlexLayout.h */,
 				45C499FC1E94F678009BD7AA /* khash.h */,
@@ -957,6 +960,7 @@
 				458FEBA91E9DD270004A44DB /* VZFLocker.h in Headers */,
 				458FEBFE1E9DD270004A44DB /* VZFScrollNode.h in Headers */,
 				458FEC121E9DD270004A44DB /* VZFSwitchNode.h in Headers */,
+				B1CFE8441F6FA68F00C1A9FA /* FlexProperties.h in Headers */,
 				458FEB9E1E9DD270004A44DB /* VZFActionWrapper.h in Headers */,
 				458FEBEA1E9DD270004A44DB /* VZFMapViewNode.h in Headers */,
 				458FEBDA1E9DD270004A44DB /* VZFIndicatorNodeSpecs.h in Headers */,

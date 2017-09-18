@@ -17,15 +17,14 @@ extern "C"{
 #   include <stdbool.h>
 #endif
 
+#include "FlexProperties.h"
+
 typedef enum {
     FlexHorizontal,
     FlexVertical,
     FlexHorizontalReverse,
     FlexVerticalReverse
 } FlexDirection;
-
-static const FlexDirection FLEX_WIDTH = FlexHorizontal;
-static const FlexDirection FLEX_HEIGHT = FlexVertical;
 
 typedef enum {
     FlexNoWrap,
@@ -44,10 +43,6 @@ typedef enum {
     FlexBaseline,
 } FlexAlign;
 
-typedef struct {
-    float size[2];
-} FlexSize;
-
 typedef enum {
     FLEX_LEFT = 0,
     FLEX_TOP,
@@ -56,13 +51,6 @@ typedef enum {
     FLEX_START,
     FLEX_END
 } FlexPositionIndex;
-
-typedef struct {
-    float position[2];
-    float size[2];
-    float margin[4];
-    float border[4];
-} FlexResult;
 
 typedef enum {
     FlexLengthTypeDefault,
@@ -89,6 +77,21 @@ typedef struct {
     FlexLengthType type;
 } FlexLength;
 
+typedef union {
+    struct {
+        float width;
+        float height;
+    };
+    float size[2];
+} FlexSize;
+
+
+typedef struct FlexNode * FlexNodeRef;
+
+typedef FlexSize (*FlexMeasureFunc)(void* context, FlexSize constrainedSize);
+typedef float (*FlexBaselineFunc)(void* context, FlexSize constrainedSize);
+typedef FlexNodeRef (*FlexChildAtFunc)(void* context, size_t index);
+
 inline FlexLength flexLength(float value, FlexLengthType type) {
     FlexLength r;
     r.value = value;
@@ -105,54 +108,26 @@ extern const float FlexContent;
 #define FlexLengthContent   flexLength(FlexContent, FlexLengthTypeDefault)
 #define FlexLengthUndefined flexLength(FlexUndefined, FlexLengthTypeDefault)
 
-typedef struct FlexNode {
-    FlexWrapMode wrap;
-    FlexDirection direction;
-    FlexAlign alignItems;
-    FlexAlign alignSelf;
-    FlexAlign alignContent;
-    FlexAlign justifyContent;
-    FlexLength flexBasis;       // length, percentage(relative to the flex container's inner main size), auto, content
-    float flexGrow;
-    float flexShrink;
-    FlexLength size[2];         // length, percentage(relative to the flex container's inner size), auto
-    FlexLength minSize[2];      // length, percentage(relative to the flex container's inner size)
-    FlexLength maxSize[2];      // length, percentage(relative to the flex container's inner size), none
-    FlexLength margin[6];       // length, percentage(relative to the flex container's inner width), auto
-    FlexLength padding[6];      // length, percentage(relative to the flex container's inner width)
-    FlexLength border[6];       // length
-    
-    // extension
-    bool fixed;
-    FlexLength spacing;         // the spacing between each two items. length, percentage(relative to its inner main size)
-    FlexLength lineSpacing;     // the spacing between each two lines. length, percentage(relative to its inner cross size)
-    unsigned int lines;         // the maximum number of lines, 0 means no limit
-    unsigned int itemsPerLine;  // the maximum number of items per line, 0 means no limit
-    
-    FlexResult result;
-    
-    // internal fields
-    float flexBaseSize;
-    float resolvedMargin[4];
-    float resolvedPadding[4];
-    float ascender;
-    
-    // cache measure results
-    void* measuredSizeCache;
-    FlexSize lastConstrainedSize;
-    FlexLength lastSize[2];
-    
-    void* context;
-    size_t childrenCount;
-    FlexSize (*measure)(void* context, FlexSize constrainedSize);
-    float (*baseline)(void* context, FlexSize constrainedSize);
-    struct FlexNode* (*childAt)(void* context, size_t index);
-} FlexNode;
 
-FlexNode* newFlexNode();
-void initFlexNode(FlexNode* node);
-void freeFlexNode(FlexNode* node);
-void layoutFlexNode(FlexNode* node, float constrainedWidth, float constrainedHeight, float scale);
+#define FLEX_GETTER(type, Name, field) type Flex_get##Name(FlexNodeRef node);
+#define FLEX_SETTER(type, Name, field) void Flex_set##Name(FlexNodeRef node, type Name);
+#define FLEX_SETTER_LENGTH_VALUE(Name, field, Type) void Flex_set##Name(FlexNodeRef node, float Name);
+#define FLEX_SETTER_LENGTH_TYPE(Name, field, Type) void Flex_set##Name##Type(FlexNodeRef node);
+
+FLEX_PROPERTYES()
+FLEX_EXT_PROPERTYES()
+FLEX_RESULT_PROPERTYES()
+
+#undef FLEX_GETTER
+#undef FLEX_SETTER
+#undef FLEX_SETTER_LENGTH_VALUE
+#undef FLEX_SETTER_LENGTH_TYPE
+
+
+FlexNodeRef newFlexNode();
+void initFlexNode(FlexNodeRef node);
+void freeFlexNode(FlexNodeRef node);
+void layoutFlexNode(FlexNodeRef node, float constrainedWidth, float constrainedHeight, float scale);
 
 #ifdef __cplusplus
 }
