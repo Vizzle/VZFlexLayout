@@ -139,6 +139,8 @@ typedef struct FlexNode {
     
     // cache measure results
     void* measuredSizeCache;
+    FlexSize lastConstrainedSize;
+    FlexLength lastSize[2];
     
     void* context;
     size_t childrenCount;
