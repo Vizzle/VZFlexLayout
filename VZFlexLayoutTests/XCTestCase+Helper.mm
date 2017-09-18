@@ -20,18 +20,23 @@
 
 
 struct Node {
-    FlexNode flexNode;
-    std::vector<Node> children;
+    FlexNodeRef flexNode;
+    std::vector<std::shared_ptr<Node>> children;
     float measureWidth;
     float measureHeight;
     
     Node() {
-        initFlexNode(&flexNode);
+        flexNode = newFlexNode();
+        initFlexNode(flexNode);
+    }
+
+    ~Node() {
+        freeFlexNode(flexNode);
     }
     
-    static FlexNode* childAt(void* context, size_t index) {
+    static FlexNodeRef childAt(void* context, size_t index) {
         Node *node = (Node *)context;
-        return &node->children[index].flexNode;
+        return node->children[index]->flexNode;
     }
     
     static FlexSize measure(void *context, FlexSize constraintedSize) {
@@ -44,20 +49,20 @@ struct Node {
     }
 
     void createTree() {
-        flexNode.context = this;
+        Flex_setContext(flexNode, this);
         if (measureWidth > 0 || measureHeight > 0) {
-            flexNode.measure = Node::measure;
+            Flex_setMeasureFunc(flexNode, Node::measure);
         }
-        flexNode.childAt = Node::childAt;
-        flexNode.childrenCount = children.size();
-        for (Node& child : children) {
-            child.createTree();
+        Flex_setChildAtFunc(flexNode, Node::childAt);
+        Flex_setChildrenCount(flexNode, children.size());
+        for (auto child : children) {
+            child->createTree();
         }
     }
     
     void layout(float width = FlexAuto, float height = FlexAuto, float scale = 1) {
         createTree();
-        LAYOUT(&flexNode, width, height, scale);
+        LAYOUT(flexNode, width, height, scale);
     }
 
     void print(int indent = 0) {
@@ -65,12 +70,12 @@ struct Node {
             printf("  ");
         }
         printf("%.1f, %.1f - %.1f x %.1f\n",
-               flexNode.result.position[FLEX_LEFT],
-               flexNode.result.position[FLEX_TOP],
-               flexNode.result.size[FLEX_WIDTH],
-               flexNode.result.size[FLEX_HEIGHT]);
-        for (Node child : children) {
-            child.print(indent + 1);
+               Flex_getResultLeft(flexNode),
+               Flex_getResultTop(flexNode),
+               Flex_getResultWidth(flexNode),
+               Flex_getResultHeight(flexNode));
+        for (auto child : children) {
+            child->print(indent + 1);
         }
     }
 };
@@ -202,61 +207,60 @@ FlexLength _length(id obj, FlexLength defaultValue = {0, FlexLengthTypeDefault})
     return defaultValue;
 }
 
-Node _nodeFromDictionary(NSDictionary *dict) {
-    Node node;
-    node.measureWidth = _float(dict[@"measure-width"], 0);
-    node.measureHeight = _float(dict[@"measure-height"], 0);
-    node.flexNode.size[FLEX_WIDTH] = _length(dict[@"width"], FlexLengthAuto);
-    node.flexNode.size[FLEX_HEIGHT] = _length(dict[@"height"], FlexLengthAuto);
-    node.flexNode.minSize[FLEX_WIDTH] = _length(dict[@"min-width"], FlexLengthZero);
-    node.flexNode.minSize[FLEX_HEIGHT] = _length(dict[@"min-height"], FlexLengthZero);
-    node.flexNode.maxSize[FLEX_WIDTH] = _length(dict[@"max-width"], FlexLengthUndefined);
-    node.flexNode.maxSize[FLEX_HEIGHT] = _length(dict[@"max-height"], FlexLengthUndefined);
-    node.flexNode.margin[FLEX_LEFT] = _length(dict[@"margin-left"], _length(dict[@"margin"], FlexLengthZero));
-    node.flexNode.margin[FLEX_TOP] = _length(dict[@"margin-top"], _length(dict[@"margin"], FlexLengthZero));
-    node.flexNode.margin[FLEX_RIGHT] = _length(dict[@"margin-right"], _length(dict[@"margin"], FlexLengthZero));
-    node.flexNode.margin[FLEX_BOTTOM] = _length(dict[@"margin-bottom"], _length(dict[@"margin"], FlexLengthZero));
-//    node.flexNode.margin[FLEX_START] = _length(dict[@"margin-start"], _length(dict[@"margin"], FlexLengthZero));
-//    node.flexNode.margin[FLEX_END] = _length(dict[@"margin-end"], _length(dict[@"margin"], FlexLengthZero));
-    node.flexNode.padding[FLEX_LEFT] = _length(dict[@"padding-left"], _length(dict[@"padding"], FlexLengthZero));
-    node.flexNode.padding[FLEX_TOP] = _length(dict[@"padding-top"], _length(dict[@"padding"], FlexLengthZero));
-    node.flexNode.padding[FLEX_RIGHT] = _length(dict[@"padding-right"], _length(dict[@"padding"], FlexLengthZero));
-    node.flexNode.padding[FLEX_BOTTOM] = _length(dict[@"padding-bottom"], _length(dict[@"padding"], FlexLengthZero));
-//    node.flexNode.padding[FLEX_START] = _length(dict[@"padding-start"], _length(dict[@"padding"], FlexLengthZero));
-//    node.flexNode.padding[FLEX_END] = _length(dict[@"padding-end"], _length(dict[@"padding"], FlexLengthZero));
-    node.flexNode.border[FLEX_LEFT] = _length(dict[@"border-left"], _length(dict[@"border"], FlexLengthZero));
-    node.flexNode.border[FLEX_TOP] = _length(dict[@"border-top"], _length(dict[@"border"], FlexLengthZero));
-    node.flexNode.border[FLEX_RIGHT] = _length(dict[@"border-right"], _length(dict[@"border"], FlexLengthZero));
-    node.flexNode.border[FLEX_BOTTOM] = _length(dict[@"border-bottom"], _length(dict[@"border"], FlexLengthZero));
-//    node.flexNode.border[FLEX_START] = _length(dict[@"border-start"], _length(dict[@"border"], FlexLengthZero));
-//    node.flexNode.border[FLEX_END] = _length(dict[@"border-end"], _length(dict[@"border"], FlexLengthZero));
-    node.flexNode.wrap = _wrapMode(dict[@"wrap"]);
-    node.flexNode.direction = _direction(dict[@"direction"]);
-    node.flexNode.alignItems = _align(dict[@"align-items"], FlexStretch);
-    node.flexNode.alignSelf = _align(dict[@"align-self"], FlexInherit);
-    node.flexNode.alignContent = _align(dict[@"align-content"], FlexStretch);
-    node.flexNode.justifyContent = _align(dict[@"justify-content"], FlexStart);
-    node.flexNode.flexBasis = _length(dict[@"flex-basis"], FlexLengthAuto);
-    node.flexNode.flexGrow = _float(dict[@"flex-grow"], 0);
-    node.flexNode.flexShrink = _float(dict[@"flex-shrink"], 1);
-    
-    node.flexNode.fixed = _bool(dict[@"fixed"]);
-    node.flexNode.spacing = _length(dict[@"spacing"]);
-    node.flexNode.lineSpacing = _length(dict[@"line-spacing"]);
-    node.flexNode.lines = _int(dict[@"lines"]);
-    node.flexNode.itemsPerLine = _int(dict[@"items-per-line"]);
+std::shared_ptr<Node> _nodeFromDictionary(NSDictionary *dict) {
+    std::shared_ptr<Node> node = std::shared_ptr<Node>(new Node);
+    node->measureWidth = _float(dict[@"measure-width"], 0);
+    node->measureHeight = _float(dict[@"measure-height"], 0);
+    Flex_setWidth_Length(node->flexNode, _length(dict[@"width"], FlexLengthAuto));
+    Flex_setHeight_Length(node->flexNode, _length(dict[@"height"], FlexLengthAuto));
+    Flex_setMinWidth_Length(node->flexNode, _length(dict[@"min-width"], FlexLengthZero));
+    Flex_setMinHeight_Length(node->flexNode, _length(dict[@"min-height"], FlexLengthZero));
+    Flex_setMaxWidth_Length(node->flexNode, _length(dict[@"max-width"], FlexLengthUndefined));
+    Flex_setMaxHeight_Length(node->flexNode, _length(dict[@"max-height"], FlexLengthUndefined));
+    Flex_setMarginLeft_Length(node->flexNode, _length(dict[@"margin-left"], _length(dict[@"margin"], FlexLengthZero)));
+    Flex_setMarginTop_Length(node->flexNode, _length(dict[@"margin-top"], _length(dict[@"margin"], FlexLengthZero)));
+    Flex_setMarginRight_Length(node->flexNode, _length(dict[@"margin-right"], _length(dict[@"margin"], FlexLengthZero)));
+    Flex_setMarginBottom_Length(node->flexNode, _length(dict[@"margin-bottom"], _length(dict[@"margin"], FlexLengthZero)));
+//    Flex_setMarginStart_Length(node->flexNode, _length(dict[@"margin-start"], _length(dict[@"margin"], FlexLengthZero)));
+//    Flex_setMarginEnd_Length(node->flexNode, _length(dict[@"margin-end"], _length(dict[@"margin"], FlexLengthZero)));
+    Flex_setPaddingLeft_Length(node->flexNode, _length(dict[@"padding-left"], _length(dict[@"padding"], FlexLengthZero)));
+    Flex_setPaddingTop_Length(node->flexNode, _length(dict[@"padding-top"], _length(dict[@"padding"], FlexLengthZero)));
+    Flex_setPaddingRight_Length(node->flexNode, _length(dict[@"padding-right"], _length(dict[@"padding"], FlexLengthZero)));
+    Flex_setPaddingBottom_Length(node->flexNode, _length(dict[@"padding-bottom"], _length(dict[@"padding"], FlexLengthZero)));
+//    Flex_setPaddingStart_Length(node->flexNode, _length(dict[@"padding-start"], _length(dict[@"padding"], FlexLengthZero)));
+//    Flex_setPaddingEnd_Length(node->flexNode, _length(dict[@"padding-end"], _length(dict[@"padding"], FlexLengthZero)));
+    Flex_setBorderLeft(node->flexNode, _float(dict[@"border-left"], _float(dict[@"border"], 0)));
+    Flex_setBorderTop(node->flexNode, _float(dict[@"border-top"], _float(dict[@"border"], 0)));
+    Flex_setBorderRight(node->flexNode, _float(dict[@"border-right"], _float(dict[@"border"], 0)));
+    Flex_setBorderBottom(node->flexNode, _float(dict[@"border-bottom"], _float(dict[@"border"], 0)));
+//    Flex_setBorderStart_Length(node->flexNode, _float(dict[@"border-start"], _float(dict[@"border"], 0)));
+//    Flex_setBorderEnd_Length(node->flexNode, _float(dict[@"border-end"], _float(dict[@"border"], 0)));
+    Flex_setWrap(node->flexNode, _wrapMode(dict[@"wrap"]));
+    Flex_setDirection(node->flexNode, _direction(dict[@"direction"]));
+    Flex_setAlignItems(node->flexNode, _align(dict[@"align-items"], FlexStretch));
+    Flex_setAlignSelf(node->flexNode, _align(dict[@"align-self"], FlexInherit));
+    Flex_setAlignContent(node->flexNode, _align(dict[@"align-content"], FlexStretch));
+    Flex_setJustifyContent(node->flexNode, _align(dict[@"justify-content"], FlexStart));
+    Flex_setFlexBasis_Length(node->flexNode, _length(dict[@"flex-basis"], FlexLengthAuto));
+    Flex_setFlexGrow(node->flexNode, _float(dict[@"flex-grow"], 0));
+    Flex_setFlexShrink(node->flexNode, _float(dict[@"flex-shrink"], 1));
+
+    Flex_setFixed(node->flexNode, _bool(dict[@"fixed"]));
+    Flex_setSpacing_Length(node->flexNode, _length(dict[@"spacing"]));
+    Flex_setLineSpacing_Length(node->flexNode, _length(dict[@"line-spacing"]));
+    Flex_setLines(node->flexNode, _int(dict[@"lines"]));
+    Flex_setItemsPerLine(node->flexNode, _int(dict[@"items-per-line"]));
     
     NSArray *children = dict[@"children"];
     if ([children isKindOfClass:[NSArray class]]) {
         for (NSDictionary *child in children) {
-            Node childNode = _nodeFromDictionary(child);
-            node.children.push_back(childNode);
+            node->children.push_back(_nodeFromDictionary(child));
         }
     }
     return node;
 }
 
-Node readLayout(NSString *layout) {
+std::shared_ptr<Node> readLayout(NSString *layout) {
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:[layout dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     return _nodeFromDictionary(dict);
 }
@@ -264,7 +268,7 @@ Node readLayout(NSString *layout) {
 
 @implementation XCTestCase (Helper)
 
-- (void)_checkNode:(const FlexNode&)node withDict:(NSDictionary *)result error:(NSMutableString *)error {
+- (void)_checkNode:(FlexNodeRef)node withDict:(NSDictionary *)result error:(NSMutableString *)error {
     XCTAssertNotNil(result);
     if (!result) {
         [error appendString:@"result should not be nil."];
@@ -278,15 +282,15 @@ Node readLayout(NSString *layout) {
             [error appendFormat:@"%@: %@ != %@; ", VALUE, @(RESULT), @(v)]; \
         }                                                                   \
     } while (0)
-    CHECK_RESULT(node.result.size[FLEX_WIDTH], @"width");
-    CHECK_RESULT(node.result.size[FLEX_HEIGHT], @"height");
-    CHECK_RESULT(node.result.position[FLEX_LEFT], @"x");
-    CHECK_RESULT(node.result.position[FLEX_TOP], @"y");
+    CHECK_RESULT(Flex_getResultWidth(node), @"width");
+    CHECK_RESULT(Flex_getResultHeight(node), @"height");
+    CHECK_RESULT(Flex_getResultLeft(node), @"x");
+    CHECK_RESULT(Flex_getResultTop(node), @"y");
     
     NSArray *children = result[@"children"];
-    XCTAssertEqual(node.childrenCount, children.count);
-    for (int i = 0; i < node.childrenCount; i++) {
-        [self _checkNode:*node.childAt(node.context, i) withDict:children[i] error:error];
+    XCTAssertEqual(Flex_getChildrenCount(node), children.count);
+    for (int i = 0; i < Flex_getChildrenCount(node); i++) {
+        [self _checkNode:Flex_getChildAtFunc(node)(Flex_getContext(node), i) withDict:children[i] error:error];
     }
 }
 
@@ -314,23 +318,23 @@ Node readLayout(NSString *layout) {
 
 - (NSString *)checkLayout:(NSString *)layoutWithResult withWidth:(float)width height:(float)height scale:(float)scale {
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:[layoutWithResult dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-    Node node = _nodeFromDictionary(dict);
-    node.layout(width, height, scale);
+    auto node = _nodeFromDictionary(dict);
+    node->layout(width, height, scale);
     NSDictionary *resultDict = [self getResultDictInLayout:dict];
 
     NSMutableString *error = [NSMutableString new];
-    [self _checkNode: node.flexNode withDict:resultDict error:error];
+    [self _checkNode: node->flexNode withDict:resultDict error:error];
     return error.length > 0 ? error : nil;
 }
 
 - (NSString *)checkLayout:(NSString *)layoutWithResult {
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:[layoutWithResult dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-    Node node = _nodeFromDictionary(dict);
-    node.layout();
+    auto node = _nodeFromDictionary(dict);
+    node->layout();
     NSDictionary *resultDict = [self getResultDictInLayout:dict];
 
     NSMutableString *error = [NSMutableString new];
-    [self _checkNode:node.flexNode withDict:resultDict error:error];
+    [self _checkNode:node->flexNode withDict:resultDict error:error];
     return error.length > 0 ? error : nil;
 }
 

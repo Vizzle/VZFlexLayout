@@ -126,16 +126,16 @@ VZFlexNode *vz_defaultVZFlexNode() {
 
 FlexSize flexNodeMeasure(void* context, FlexSize constrainedSize) {
     VZFlexNode* node = (__bridge VZFlexNode*)context;
-    CGSize size = node.measure ? node.measure(CGSizeMake(constrainedSize.size[FLEX_WIDTH], constrainedSize.size[FLEX_HEIGHT])) : CGSizeZero;
-    FlexSize ret;
-    ret.size[FLEX_WIDTH] = size.width;
-    ret.size[FLEX_HEIGHT] = size.height;
+    CGSize size = node.measure ? node.measure(CGSizeMake(constrainedSize.width, constrainedSize.height)) : CGSizeZero;
+    FlexSize ret = {};
+    ret.width = size.width;
+    ret.height = size.height;
     return ret;
 }
 
 float flexNodeBaseline(void* context, FlexSize constrainedSize) {
     VZFlexNode* node = (__bridge VZFlexNode*)context;
-    return node.baseline ? node.baseline(CGSizeMake(constrainedSize.size[FLEX_WIDTH], constrainedSize.size[FLEX_HEIGHT])) : 0;
+    return node.baseline ? node.baseline(CGSizeMake(constrainedSize.width, constrainedSize.height)) : 0;
 }
 
 FlexNode* flexNodeChildAt(void* context, size_t index) {
@@ -149,195 +149,195 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - setters
 - (void)setFixed:(BOOL)fixed {
-    _flex_node->fixed = fixed;
+    Flex_setFixed(_flex_node, fixed);
 }
 
 - (BOOL)fixed {
-    return _flex_node -> fixed;
+    return Flex_getFixed(_flex_node);
 }
 
 - (void)setWrap:(FlexWrapMode)wrap {
-    _flex_node -> wrap = wrap;
+    Flex_setWrap(_flex_node, wrap);
 }
 
 - (FlexWrapMode)wrap {
-    return _flex_node -> wrap;
+    return Flex_getWrap(_flex_node);
 }
 
 - (void)setLines:(unsigned int)lines {
-    _flex_node->lines = lines;
+    Flex_setLines(_flex_node, lines);
 }
 
 - (unsigned int)lines {
-    return _flex_node->lines;
+    return Flex_getLines(_flex_node);
 }
 
 - (void)setItemsPerLine:(unsigned int)itemsPerLine {
-    _flex_node->itemsPerLine = itemsPerLine;
+    Flex_setItemsPerLine(_flex_node, itemsPerLine);
 }
 
 - (unsigned int)itemsPerLine {
-    return _flex_node->itemsPerLine;
+    return Flex_getItemsPerLine(_flex_node);
 }
 
 - (void)setDirection:(FlexDirection)direction {
-    _flex_node->direction = direction;
+    Flex_setDirection(_flex_node, direction);
 }
 
 - (FlexDirection)direction {
-    return _flex_node->direction;
+    return Flex_getDirection(_flex_node);
 }
 
 - (void)setAlignItems:(FlexAlign)alignItems {
-    _flex_node->alignItems = alignItems;
+    Flex_setAlignItems(_flex_node, alignItems);
 }
 
 - (FlexAlign)alignItems {
-    return _flex_node->alignItems;
+    return Flex_getAlignItems(_flex_node);
 }
 
 - (void)setAlignSelf:(FlexAlign)alignSelf {
-    _flex_node->alignSelf = alignSelf;
+    Flex_setAlignSelf(_flex_node, alignSelf);
 }
 
 - (FlexAlign)alignSelf {
-    return _flex_node->alignSelf;
+    return Flex_getAlignSelf(_flex_node);
 }
 
 - (void)setAlignContent:(FlexAlign)alignContent {
-    _flex_node->alignContent = alignContent;
+    Flex_setAlignContent(_flex_node, alignContent);
 }
 
 - (FlexAlign)alignContent {
-    return _flex_node->alignContent;
+    return Flex_getAlignContent(_flex_node);
 }
 
 - (void)setJustifyContent:(FlexAlign)justifyContent {
-    _flex_node->justifyContent = justifyContent;
+    Flex_setJustifyContent(_flex_node, justifyContent);
 }
 
 - (FlexAlign)justifyContent {
-    return _flex_node->justifyContent;
+    return Flex_getJustifyContent(_flex_node);
 }
 
 - (void)setFlexBasis:(FlexLength)flexBasis {
-    _flex_node->flexBasis = flexBasis;
+    Flex_setFlexBasis_Length(_flex_node, flexBasis);
 }
 
 - (FlexLength)flexBasis {
-    return _flex_node->flexBasis;
+    return Flex_getFlexBasis(_flex_node);
 }
 
 - (void)setFlexGrow:(CGFloat)flexGrow {
-    _flex_node->flexGrow = flexGrow;
+    Flex_setFlexGrow(_flex_node, flexGrow);
 }
 
 - (CGFloat)flexGrow {
-    return _flex_node->flexGrow;
+    return Flex_getFlexGrow(_flex_node);
 }
 
 - (void)setFlexShrink:(CGFloat)flexShrink {
-    _flex_node->flexShrink = flexShrink;
+    Flex_setFlexShrink(_flex_node, flexShrink);
 }
 
 - (CGFloat)flexShrink {
-    return _flex_node->flexShrink;
+    return Flex_getFlexShrink(_flex_node);
 }
 
 - (void)setSpacing:(FlexLength)spacing {
-    _flex_node->spacing = spacing;
+    Flex_setSpacing_Length(_flex_node, spacing);
 }
 
 - (FlexLength)spacing {
-    return _flex_node->spacing;
+    return Flex_getSpacing(_flex_node);
 }
 
 - (void)setLineSpacing:(FlexLength)lineSpacing {
-    _flex_node->lineSpacing = lineSpacing;
+    Flex_setLineSpacing_Length(_flex_node, lineSpacing);
 }
 
 - (FlexLength)lineSpacing {
-    return _flex_node->lineSpacing;
+    return Flex_getLineSpacing(_flex_node);
 }
 
 - (void)setWidth:(FlexLength)width {
-    _flex_node->size[FLEX_WIDTH] = width;
+    Flex_setWidth_Length(_flex_node, width);
 }
 
 - (FlexLength)width {
-    return _flex_node->size[FLEX_WIDTH];
+    return Flex_getWidth(_flex_node);
 }
 
 - (void)setHeight:(FlexLength)height {
-    _flex_node->size[FLEX_HEIGHT] = height;
+    Flex_setHeight_Length(_flex_node, height);
 }
 
 - (FlexLength)height {
-    return _flex_node->size[FLEX_HEIGHT];
+    return Flex_getHeight(_flex_node);
 }
 
 - (void)setMinWidth:(FlexLength)minWidth {
-    _flex_node->minSize[FLEX_WIDTH] = minWidth;
+    Flex_setMinWidth_Length(_flex_node, minWidth);
 }
 
 - (FlexLength)minWidth {
-    return _flex_node->minSize[FLEX_WIDTH];
+    return Flex_getMinWidth(_flex_node);
 }
 
 - (void)setMinHeight:(FlexLength)minHeight {
-    _flex_node->minSize[FLEX_HEIGHT] = minHeight;
+    Flex_setMinHeight_Length(_flex_node, minHeight);
 }
 
 - (FlexLength)minHeight {
-    return _flex_node->minSize[FLEX_HEIGHT];
+    return Flex_getMinHeight(_flex_node);
 }
 
 - (void)setMaxWidth:(FlexLength)maxWidth {
-    _flex_node->maxSize[FLEX_WIDTH] = maxWidth;
+    Flex_setMaxWidth_Length(_flex_node, maxWidth);
 }
 
 - (FlexLength)maxWidth {
-    return _flex_node->maxSize[FLEX_WIDTH];
+    return Flex_getMaxWidth(_flex_node);
 }
 
 - (void)setMaxHeight:(FlexLength)maxHeight {
-    _flex_node->maxSize[FLEX_HEIGHT] = maxHeight;
+    Flex_setMaxHeight_Length(_flex_node, maxHeight);
 }
 
 - (FlexLength)maxHeight {
-    return _flex_node->maxSize[FLEX_HEIGHT];
+    return Flex_getMaxHeight(_flex_node);
 }
 
 - (void)setMarginTop:(FlexLength)marginTop {
-    _flex_node->margin[FLEX_TOP] = marginTop;
+    Flex_setMarginTop_Length(_flex_node, marginTop);
 }
 
 - (FlexLength)marginTop {
-    return _flex_node->margin[FLEX_TOP];
+    return Flex_getMarginTop(_flex_node);
 }
 
 - (void)setMarginLeft:(FlexLength)marginLeft {
-    _flex_node->margin[FLEX_LEFT] = marginLeft;
+    Flex_setMarginLeft_Length(_flex_node, marginLeft);
 }
 
 - (FlexLength)marginLeft {
-    return _flex_node->margin[FLEX_LEFT];
+    return Flex_getMarginLeft(_flex_node);
 }
 
 - (void)setMarginBottom:(FlexLength)marginBottom {
-    _flex_node->margin[FLEX_BOTTOM] = marginBottom;
+    Flex_setMarginBottom_Length(_flex_node, marginBottom);
 }
 
 - (FlexLength)marginBottom {
-    return _flex_node->margin[FLEX_BOTTOM];
+    return Flex_getMarginBottom(_flex_node);
 }
 
 - (void)setMarginRight:(FlexLength)marginRight {
-    _flex_node->margin[FLEX_RIGHT] = marginRight;
+    Flex_setMarginRight_Length(_flex_node, marginRight);
 }
 
 - (FlexLength)marginRight {
-    return _flex_node->margin[FLEX_RIGHT];
+    return Flex_getMarginRight(_flex_node);
 }
 
 - (void)setMargin:(FlexLength)margin {
@@ -353,35 +353,35 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 }
 
 - (void)setPaddingTop:(FlexLength)paddingTop {
-    _flex_node->padding[FLEX_TOP] = paddingTop;
+    Flex_setPaddingTop_Length(_flex_node, paddingTop);
 }
 
 - (FlexLength)paddingTop {
-    return _flex_node->padding[FLEX_TOP];
+    return Flex_getPaddingTop(_flex_node);
 }
 
 - (void)setPaddingLeft:(FlexLength)paddingLeft {
-    _flex_node->padding[FLEX_LEFT] = paddingLeft;
+    Flex_setPaddingLeft_Length(_flex_node, paddingLeft);
 }
 
 - (FlexLength)paddingLeft {
-    return _flex_node->padding[FLEX_LEFT];
+    return Flex_getPaddingLeft(_flex_node);
 }
 
 - (void)setPaddingBottom:(FlexLength)paddingBottom {
-    _flex_node->padding[FLEX_BOTTOM] = paddingBottom;
+    Flex_setPaddingBottom_Length(_flex_node, paddingBottom);
 }
 
 - (FlexLength)paddingBottom {
-    return _flex_node->padding[FLEX_BOTTOM];
+    return Flex_getPaddingBottom(_flex_node);
 }
 
 - (void)setPaddingRight:(FlexLength)paddingRight {
-    _flex_node->padding[FLEX_RIGHT] = paddingRight;
+    Flex_setPaddingRight_Length(_flex_node, paddingRight);
 }
 
 - (FlexLength)paddingRight {
-    return _flex_node->padding[FLEX_RIGHT];
+    return Flex_getPaddingRight(_flex_node);
 }
 
 - (void)setPadding:(FlexLength)padding {
@@ -398,12 +398,16 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 
 - (void)setMeasure:(CGSize (^)(CGSize))measure {
     _measure = measure;
-    _flex_node->measure = measure ? flexNodeMeasure : NULL;
+    if (measure) {
+        Flex_setMeasureFunc(_flex_node, flexNodeMeasure);
+    }
 }
 
 - (void)setBaseline:(CGFloat (^)(CGSize))baseline {
     _baseline = baseline;
-    _flex_node->baseline = baseline ? flexNodeBaseline : NULL;
+    if (baseline) {
+        Flex_setBaselineFunc(_flex_node, flexNodeBaseline);
+    }
 }
 
 
@@ -416,13 +420,13 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     self = [super init];
     if (self) {
         
-        _flex_node = (FlexNode* )calloc(1, sizeof(*_flex_node));
-       
+        _flex_node = newFlexNode();
+
         if (_flex_node != NULL) {
             
             initFlexNode(_flex_node);
-            _flex_node->context = (__bridge void* )self;
-            _flex_node->childAt = flexNodeChildAt;
+            Flex_setContext(_flex_node, (__bridge void* )self);
+            Flex_setChildAtFunc(_flex_node, flexNodeChildAt);
             _childNodes = [NSMutableArray new];
             
             //使用一个spinlock来保护 _childNodes的多线程读写情况
@@ -446,10 +450,10 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 {
     return (CGRect) {
         
-        .origin.x       = _flex_node -> result.position[0],
-        .origin.y       = _flex_node -> result.position[1],
-        .size.width     = _flex_node -> result.size[FLEX_WIDTH],
-        .size.height    = _flex_node -> result.size[FLEX_HEIGHT]
+        .origin.x       = Flex_getResultLeft(_flex_node),
+        .origin.y       = Flex_getResultTop(_flex_node),
+        .size.width     = Flex_getResultWidth(_flex_node),
+        .size.height    = Flex_getResultHeight(_flex_node)
     };
 }
 
@@ -457,10 +461,10 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 
     return (UIEdgeInsets){
     
-        .top    = _flex_node -> result.margin[FLEX_TOP],
-        .bottom = _flex_node -> result.margin[FLEX_BOTTOM],
-        .left   = _flex_node -> result.margin[FLEX_LEFT],
-        .right  = _flex_node -> result.margin[FLEX_RIGHT]
+        .top    = Flex_getResultMarginTop(_flex_node),
+        .bottom = Flex_getResultMarginBottom(_flex_node),
+        .left   = Flex_getResultMarginLeft(_flex_node),
+        .right  = Flex_getResultMarginRight(_flex_node)
 
     };
 }
@@ -468,31 +472,22 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 - (UIEdgeInsets)resultPadding{
     
     return (UIEdgeInsets){
-        
-        .top    = _flex_node -> resolvedPadding[FLEX_TOP],
-        .bottom = _flex_node -> resolvedPadding[FLEX_BOTTOM],
-        .left   = _flex_node -> resolvedPadding[FLEX_LEFT],
-        .right  = _flex_node -> resolvedPadding[FLEX_RIGHT]
+
+        .top    = Flex_getResultPaddingTop(_flex_node),
+        .bottom = Flex_getResultPaddingBottom(_flex_node),
+        .left   = Flex_getResultPaddingLeft(_flex_node),
+        .right  = Flex_getResultPaddingRight(_flex_node)
         
     };
 }
 
 - (void)prepareLayout
 {
-    _flex_node -> childrenCount = (int)self.childNodes.count;
+    Flex_setChildrenCount(_flex_node, (int)self.childNodes.count);
     for(VZFlexNode* node in self.childNodes)
     {
         [node prepareLayout];
     }
-    
-    _flex_node -> result.size[0] = 0;
-    _flex_node -> result.size[1] = 0;
-    _flex_node -> result.position[0] = 0;
-    _flex_node -> result.position[1] = 0;
-    _flex_node -> result.margin[0] = 0;
-    _flex_node -> result.margin[1] = 0;
-    _flex_node -> result.margin[2] = 0;
-    _flex_node -> result.margin[3] = 0;
     
 }
 
@@ -511,7 +506,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     [_childNodes addObject:node];
     OSSpinLockUnlock(&_lock);
     
-    _flex_node -> childrenCount = (int)self.childNodes.count;
+    Flex_setChildrenCount(_flex_node, (int)self.childNodes.count);
 }
 
 - (void)removeSubNode:(VZFlexNode* )node{
@@ -520,7 +515,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     [_childNodes removeObject:node];
     OSSpinLockUnlock(&_lock);
     
-    _flex_node -> childrenCount = (int)self.childNodes.count;
+    Flex_setChildrenCount(_flex_node, (int)self.childNodes.count);
 
 }
 

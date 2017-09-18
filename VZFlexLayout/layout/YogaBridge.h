@@ -18,9 +18,9 @@ extern "C"{
 void setUseYoga(bool useYoga);
 bool isUseYoga();
 
-void layoutYoga(FlexNode* node, float constrainedWidth, float constrainedHeight, float scale);
+void layoutYoga(FlexNodeRef node, float constrainedWidth, float constrainedHeight, float scale);
 
-inline void layout_bridge(FlexNode* node, float constrainedWidth, float constrainedHeight, float scale) {
+inline void layout_bridge(FlexNodeRef node, float constrainedWidth, float constrainedHeight, float scale) {
     if (isUseYoga()) {
         layoutYoga(node, constrainedWidth, constrainedHeight, scale);
     }
