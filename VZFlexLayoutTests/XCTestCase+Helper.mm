@@ -33,12 +33,7 @@ struct Node {
     ~Node() {
         Flex_freeNode(flexNode);
     }
-    
-    static FlexNodeRef childAt(void* context, size_t index) {
-        Node *node = (Node *)context;
-        return node->children[index]->flexNode;
-    }
-    
+
     static FlexSize measure(void *context, FlexSize constraintedSize) {
         struct Node *node = (struct Node *)context;
 //        const struct timespec sleeptime = {0, 1000000};
@@ -53,9 +48,8 @@ struct Node {
         if (measureWidth > 0 || measureHeight > 0) {
             Flex_setMeasureFunc(flexNode, Node::measure);
         }
-        Flex_setChildAtFunc(flexNode, Node::childAt);
-        Flex_setChildrenCount(flexNode, children.size());
         for (auto child : children) {
+            Flex_insertChild(flexNode, child->flexNode, Flex_getChildrenCount(flexNode));
             child->createTree();
         }
     }
@@ -259,7 +253,7 @@ std::shared_ptr<Node> readLayout(NSString *layout) {
     NSArray *children = result[@"children"];
     XCTAssertEqual(Flex_getChildrenCount(node), children.count);
     for (int i = 0; i < Flex_getChildrenCount(node); i++) {
-        [self _checkNode:Flex_getChildAtFunc(node)(Flex_getContext(node), i) withDict:children[i] error:error];
+        [self _checkNode:Flex_getChild(node, i) withDict:children[i] error:error];
     }
 }
 

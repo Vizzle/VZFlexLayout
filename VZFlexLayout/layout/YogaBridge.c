@@ -171,7 +171,7 @@ YGNodeRef convertToYogaNode(FlexNodeRef flexNode, YGConfigRef config) {
     }
 
     for (int i=0;i<Flex_getChildrenCount(flexNode);i++) {
-        YGNodeRef childNode = convertToYogaNode(Flex_getChildAtFunc(flexNode)(Flex_getContext(flexNode), i), config);
+        YGNodeRef childNode = convertToYogaNode(Flex_getChild(flexNode, i), config);
         YGNodeInsertChild(node, childNode, i);
     }
 
@@ -196,7 +196,7 @@ void copyLayoutResult(FlexNodeRef flexNode, YGNodeRef node) {
     Flex_setResultPaddingRight(flexNode, YGNodeLayoutGetPadding(node, YGEdgeRight));
     Flex_setResultPaddingBottom(flexNode, YGNodeLayoutGetPadding(node, YGEdgeBottom));
     for (int i=0;i<Flex_getChildrenCount(flexNode);i++) {
-        copyLayoutResult(Flex_getChildAtFunc(flexNode)(Flex_getContext(flexNode), i), YGNodeGetChild(node, i));
+        copyLayoutResult(Flex_getChild(flexNode, i), YGNodeGetChild(node, i));
     }
 }
 

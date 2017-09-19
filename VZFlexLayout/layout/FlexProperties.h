@@ -65,10 +65,8 @@
     FLEX_FLOAT_PROPERTY                 (                   BorderStart,    border[FLEX_START]          ); \
     FLEX_FLOAT_PROPERTY                 (                   BorderEnd,      border[FLEX_END]            ); \
     FLEX_PROPERTY                       ( void*,            Context,        context                     ); \
-    FLEX_PROPERTY                       ( size_t,           ChildrenCount,  childrenCount               ); \
     FLEX_PROPERTY                       ( FlexMeasureFunc,  MeasureFunc,    measure                     ); \
     FLEX_PROPERTY                       ( FlexBaselineFunc, BaselineFunc,   baseline                    ); \
-    FLEX_PROPERTY                       ( FlexChildAtFunc,  ChildAtFunc,    childAt                     ); \
 
 #define FLEX_EXT_PROPERTYES() \
     FLEX_PROPERTY                       ( bool,             Fixed,          fixed                       ); \
