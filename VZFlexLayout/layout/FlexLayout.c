@@ -77,6 +77,60 @@ typedef struct {
     float padding[4];
 } FlexResult;
 
+typedef struct {
+    size_t size;
+    size_t capacity;
+    FlexNodeRef *data;
+} FlexVector;
+
+typedef FlexVector *FlexVectorRef;
+
+FlexVectorRef FlexVector_new(size_t initialCapacity) {
+    flex_assert(initialCapacity > 0);
+    FlexVectorRef vector = (FlexVectorRef)malloc(sizeof(FlexVector));
+    vector->size = 0;
+    vector->capacity = initialCapacity;
+    vector->data = (FlexNodeRef *)malloc(sizeof(FlexNodeRef) * vector->capacity);
+    return vector;
+}
+
+void FlexVector_free(FlexVectorRef vector) {
+    free(vector->data);
+    free(vector);
+}
+
+void FlexVector_insert(FlexVectorRef vector, FlexNodeRef value, size_t index) {
+    if (vector->size == vector->capacity) {
+        vector->capacity *= 2;
+        vector->data = (FlexNodeRef *)realloc(vector->data, sizeof(FlexNodeRef) * vector->capacity);
+    }
+    for (size_t i = index; i < vector->size; i++) {
+        vector->data[i + 1] = vector->data[i];
+    }
+    vector->data[index] = value;
+    vector->size++;
+}
+
+void FlexVector_removeAt(FlexVectorRef vector, size_t index) {
+    for (size_t i = index + 1; i < vector->size; i++) {
+        vector->data[i - 1] = vector->data[i];
+    }
+    vector->size--;
+}
+
+void FlexVector_remove(FlexVectorRef vector, FlexNodeRef value) {
+    for (size_t i = 0; i < vector->size; i++) {
+        if (vector->data[i] == value) {
+            FlexVector_removeAt(vector, i);
+            return;
+        }
+    }
+}
+
+size_t FlexVector_size(FlexVectorRef vector) {
+    return vector ? vector->size : 0;
+}
+
 typedef struct FlexNode {
     FlexWrapMode wrap;
     FlexDirection direction;
@@ -92,9 +146,9 @@ typedef struct FlexNode {
     FlexLength maxSize[2];      // length, percentage(relative to the flex container's inner size), none
     FlexLength margin[6];       // length, percentage(relative to the flex container's inner width), auto
     FlexLength padding[6];      // length, percentage(relative to the flex container's inner width)
-    float border[6];       // length
+    float border[6];            // length
 
-        // extension
+    // extension
     bool fixed;
     FlexLength spacing;         // the spacing between each two items. length, percentage(relative to its inner main size)
     FlexLength lineSpacing;     // the spacing between each two lines. length, percentage(relative to its inner cross size)
@@ -103,21 +157,22 @@ typedef struct FlexNode {
 
     FlexResult result;
 
-        // internal fields
+    void* context;
+    FlexMeasureFunc measure;
+    FlexBaselineFunc baseline;
+
+    FlexVectorRef children;
+    
+    // internal fields
     float flexBaseSize;
     float resolvedMargin[4];
     float ascender;
 
-        // cache measure results
+    // cache measure results
     void* measuredSizeCache;
     FlexSize lastConstrainedSize;
     FlexLength lastSize[2];
 
-    void* context;
-    size_t childrenCount;
-    FlexMeasureFunc measure;
-    FlexBaselineFunc baseline;
-    FlexChildAtFunc childAt;
 } FlexNode;
 
 
@@ -151,13 +206,13 @@ static const FlexNode defaultFlexNode = {
         .padding = { 0, 0, 0, 0 },
     },
 
-    .lastConstrainedSize = { FlexUndefined, FlexUndefined },
-
     .context = NULL,
     .measure = NULL,
     .baseline = NULL,
-    .childAt = NULL,
-    .childrenCount = 0,
+
+    .children = NULL,
+
+    .lastConstrainedSize = { FlexUndefined, FlexUndefined },
 };
 
 
@@ -296,8 +351,8 @@ void flex_baseline(FlexNodeRef node, float *ascender, float *descender) {
     }
     else {
         _ascender = node->result.size[crossAxis];
-        for (int i=0;i<node->childrenCount;i++) {
-            FlexNodeRef child = node->childAt(node->context, i);
+        for (int i=0;i<Flex_getChildrenCount(node);i++) {
+            FlexNodeRef child = Flex_getChild(node, i);
             if (!child->fixed) {
                 flex_baseline(child, NULL, NULL);
                 _ascender = child->ascender + (isnan(child->result.position[flex_start[crossAxis]]) ? 0 : child->result.position[flex_start[crossAxis]]);
@@ -404,7 +459,7 @@ void _layoutFlexNode(FlexNodeRef node, FlexLayoutContext *context, FlexSize cons
     node->lastSize[FLEX_HEIGHT] = node->size[FLEX_HEIGHT];
 
     // measure non-container element
-    if (node->childrenCount == 0) {
+    if (Flex_getChildrenCount(node) == 0) {
         if (!FlexIsResolved(resolvedWidth) || !FlexIsResolved(resolvedHeight)) {
             FlexSize measuredSize = _measureNdoe(node, availableSize);
             
@@ -428,16 +483,16 @@ void _layoutFlexNode(FlexNodeRef node, FlexLayoutContext *context, FlexSize cons
     int i, j;
     
     //  [flex items ----------->|<----------- fixed items]
-    FlexNodeRef* items = (FlexNodeRef*)malloc(sizeof(FlexNode) * node->childrenCount);
+    FlexNodeRef* items = (FlexNodeRef*)malloc(sizeof(FlexNode) * Flex_getChildrenCount(node));
     int flexItemsCount = 0;
     int fixedItemsCount = 0;
     
-    for (i=0;i<node->childrenCount;i++) {
-        FlexNodeRef item = node->childAt(node->context, i);
+    for (i=0;i<Flex_getChildrenCount(node);i++) {
+        FlexNodeRef item = Flex_getChild(node, i);
         // resolve margin and padding for each items
         flex_resolveMarginAndPadding(item, context, resolvedInnerSize.width, node->direction);
         if (item->fixed) {
-            items[node->childrenCount - ++fixedItemsCount] = item;
+            items[Flex_getChildrenCount(node) - ++fixedItemsCount] = item;
         }
         else {
             items[flexItemsCount++] = item;
@@ -1050,7 +1105,7 @@ void _layoutFlexNode(FlexNodeRef node, FlexLayoutContext *context, FlexSize cons
     
     // layout fixed items
     for (i=0;i<fixedItemsCount;i++) {
-        FlexNodeRef item = items[node->childrenCount - 1 - i];
+        FlexNodeRef item = items[Flex_getChildrenCount(node) - 1 - i];
         
         FlexSize childConstrainedSize;
         childConstrainedSize.width = node->result.size[FLEX_WIDTH];
@@ -1103,7 +1158,7 @@ void _layoutFlexNode(FlexNodeRef node, FlexLayoutContext *context, FlexSize cons
     }
     
     // pixel snapping
-    for (i=0;i<node->childrenCount;i++) {
+    for (i=0;i<Flex_getChildrenCount(node);i++) {
         FlexNodeRef item = items[i];
         float right = item->result.position[FLEX_LEFT] + item->result.size[FLEX_WIDTH];
         float bottom = item->result.position[FLEX_TOP] + item->result.size[FLEX_HEIGHT];
@@ -1137,8 +1192,8 @@ void setupProperties(FlexNodeRef node) {
     node->result.size[FLEX_HEIGHT] = NAN;
 #endif
     
-    for (int i=0;i<node->childrenCount;i++) {
-        FlexNodeRef item = node->childAt(node->context, i);
+    for (int i=0;i<Flex_getChildrenCount(node);i++) {
+        FlexNodeRef item = Flex_getChild(node, i);
         
         if (item->flexBasis.type == FlexLengthTypeAuto) {
             item->flexBasis = item->size[flex_dim[node->direction]];
@@ -1187,7 +1242,29 @@ void Flex_initNode(FlexNodeRef node) {
 
 void Flex_freeNode(FlexNodeRef node) {
     kh_destroy(FlexSize, node->measuredSizeCache);
+    if (node->children) {
+        FlexVector_free(node->children);
+    }
     free(node);
+}
+
+void Flex_insertChild(FlexNodeRef node, FlexNodeRef child, size_t index) {
+    if (!node->children) {
+        node->children = FlexVector_new(4);
+    }
+    FlexVector_insert(node->children, child, index);
+}
+
+void Flex_removeChild(FlexNodeRef node, FlexNodeRef child) {
+    FlexVector_remove(node->children, child);
+}
+
+FlexNodeRef Flex_getChild(FlexNodeRef node, size_t index) {
+    return node->children->data[index];
+}
+
+size_t Flex_getChildrenCount(FlexNodeRef node) {
+    return FlexVector_size(node->children);
 }
 
 
@@ -1352,10 +1429,10 @@ void _flex_print(FlexNodeRef node, FlexPrintOptions options, int indent) {
         FLEX_PRINT_INSET(float, "result-margin", result.margin);
         FLEX_PRINT_INSET(float, "result-padding", result.padding);
     }
-    if ((options & FlexPrintChildren) && node->childrenCount > 0) {
+    if ((options & FlexPrintChildren) && Flex_getChildrenCount(node) > 0) {
         printIndent(indent); printf("children: [\n");
-        for (int i=0;i<node->childrenCount;i++) {
-            _flex_print(node->childAt(node->context, i), options, indent + 1);
+        for (int i=0;i<Flex_getChildrenCount(node);i++) {
+            _flex_print(Flex_getChild(node, i), options, indent + 1);
         }
         printIndent(indent); printf("]\n");
     }

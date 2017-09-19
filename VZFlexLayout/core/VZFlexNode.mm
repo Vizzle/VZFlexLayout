@@ -122,12 +122,6 @@ float flexNodeBaseline(void* context, FlexSize constrainedSize) {
     return node.baseline ? node.baseline(CGSizeMake(constrainedSize.width, constrainedSize.height)) : 0;
 }
 
-FlexNode* flexNodeChildAt(void* context, size_t index) {
-    VZFlexNode* node = (__bridge VZFlexNode*)context;
-    VZFlexNode* child = node.childNodes[index];
-    return child -> _flex_node;
-}
-
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -410,7 +404,6 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
             
             Flex_initNode(_flex_node);
             Flex_setContext(_flex_node, (__bridge void* )self);
-            Flex_setChildAtFunc(_flex_node, flexNodeChildAt);
             _childNodes = [NSMutableArray new];
             
             //使用一个spinlock来保护 _childNodes的多线程读写情况
@@ -467,7 +460,6 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 
 - (void)prepareLayout
 {
-    Flex_setChildrenCount(_flex_node, (int)self.childNodes.count);
     for(VZFlexNode* node in self.childNodes)
     {
         [node prepareLayout];
@@ -489,8 +481,8 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     OSSpinLockLock(&_lock);
     [_childNodes addObject:node];
     OSSpinLockUnlock(&_lock);
-    
-    Flex_setChildrenCount(_flex_node, (int)self.childNodes.count);
+
+    Flex_insertChild(_flex_node, node->_flex_node, Flex_getChildrenCount(_flex_node));
 }
 
 - (void)removeSubNode:(VZFlexNode* )node{
@@ -499,7 +491,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     [_childNodes removeObject:node];
     OSSpinLockUnlock(&_lock);
     
-    Flex_setChildrenCount(_flex_node, (int)self.childNodes.count);
+    Flex_removeChild(_flex_node, node->_flex_node);
 
 }
 
