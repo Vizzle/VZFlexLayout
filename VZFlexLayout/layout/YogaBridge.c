@@ -27,14 +27,10 @@ bool isUseYoga() {
 
 
 typedef struct {
-    float viewportWidth;
-    float viewportHeight;
     float scale;
 } _FlexLayoutContext;
 
 typedef struct FlexLayoutContext* FlexLayoutContextRef;
-
-extern float flex_absoluteValue(FlexLength length, FlexLayoutContextRef context);
 
 YGSize yg_measure(YGNodeRef node,
                   float width,
@@ -105,30 +101,30 @@ YGNodeRef convertToYogaNode(FlexNodeRef flexNode, YGConfigRef config) {
     YGNodeStyleSetFlexShrink(node, Flex_getFlexShrink(flexNode));
 
 #define SET_LENGTH(name) \
-    if (Flex_get##name(flexNode).value == FlexUndefined) { \
+    if (Flex_get##name(flexNode).type == FlexLengthTypeUndefined) { \
     } \
     else if (Flex_get##name(flexNode).type == FlexLengthTypePercent) { \
         YGNodeStyleSet##name##Percent(node, Flex_get##name(flexNode).value); \
     } \
     else { \
-        YGNodeStyleSet##name(node, flex_absoluteValue(Flex_get##name(flexNode), YGConfigGetContext(config))); \
+        YGNodeStyleSet##name(node, Flex_get##name(flexNode).value); \
     }
 #define SET_LENGTH_AUTO(name) \
-    if (Flex_get##name(flexNode).value == FlexAuto) { \
+    if (Flex_get##name(flexNode).type == FlexLengthTypeAuto) { \
         YGNodeStyleSet##name##Auto(node); \
     } \
     else SET_LENGTH(name)
 #define SET_LENGTH_EDGE(flex, yoga, edge) \
-    if (flex.value == FlexUndefined) { \
+    if (flex.type == FlexLengthTypeUndefined) { \
     } \
     else if (flex.type == FlexLengthTypePercent) { \
         YGNodeStyleSet##yoga##Percent(node, edge, flex.value); \
     } \
     else { \
-        YGNodeStyleSet##yoga(node, edge, flex_absoluteValue(flex, YGConfigGetContext(config))); \
+        YGNodeStyleSet##yoga(node, edge, flex.value); \
     }
 #define SET_LENGTH_EDGE_AUTO(flex, yoga, edge) \
-    if (flex.value == FlexAuto) { \
+    if (flex.type == FlexLengthTypeAuto) { \
         YGNodeStyleSet##yoga##Auto(node, edge); \
     } \
     else SET_LENGTH_EDGE(flex, yoga, edge)
@@ -154,10 +150,10 @@ YGNodeRef convertToYogaNode(FlexNodeRef flexNode, YGConfigRef config) {
 
     if (Flex_getFixed(flexNode)) {
         YGNodeStyleSetPositionType(node, YGPositionTypeAbsolute);
-        if (Flex_getMarginTop(flexNode).value != FlexAuto) {SET_LENGTH_EDGE(Flex_getMarginTop(flexNode), Position, YGEdgeTop)}
-        if (Flex_getMarginLeft(flexNode).value != FlexAuto) {SET_LENGTH_EDGE(Flex_getMarginLeft(flexNode), Position, YGEdgeLeft)}
-        if (Flex_getMarginRight(flexNode).value != FlexAuto) {SET_LENGTH_EDGE(Flex_getMarginRight(flexNode), Position, YGEdgeRight)}
-        if (Flex_getMarginBottom(flexNode).value != FlexAuto) {SET_LENGTH_EDGE(Flex_getMarginBottom(flexNode), Position, YGEdgeBottom)}
+        if (!FlexIsUndefined(Flex_getMarginTop(flexNode).value)) {SET_LENGTH_EDGE(Flex_getMarginTop(flexNode), Position, YGEdgeTop)}
+        if (!FlexIsUndefined(Flex_getMarginLeft(flexNode).value)) {SET_LENGTH_EDGE(Flex_getMarginLeft(flexNode), Position, YGEdgeLeft)}
+        if (!FlexIsUndefined(Flex_getMarginRight(flexNode).value)) {SET_LENGTH_EDGE(Flex_getMarginRight(flexNode), Position, YGEdgeRight)}
+        if (!FlexIsUndefined(Flex_getMarginBottom(flexNode).value)) {SET_LENGTH_EDGE(Flex_getMarginBottom(flexNode), Position, YGEdgeBottom)}
     }
     else {
         SET_LENGTH_EDGE_AUTO(Flex_getMarginTop(flexNode), Margin, YGEdgeTop)
@@ -205,16 +201,7 @@ void copyLayoutResult(FlexNodeRef flexNode, YGNodeRef node) {
 }
 
 void layoutYoga(FlexNodeRef node, float constrainedWidth, float constrainedHeight, float scale) {
-    if (constrainedWidth == FlexAuto || constrainedWidth == FlexUndefined) {
-        constrainedWidth = YGUndefined;
-    }
-    if (constrainedHeight == FlexAuto || constrainedHeight == FlexUndefined) {
-        constrainedHeight = YGUndefined;
-    }
-
     _FlexLayoutContext context;
-    context.viewportWidth = constrainedWidth != FlexAuto ? constrainedWidth : 0;
-    context.viewportHeight = constrainedHeight != FlexAuto ? constrainedHeight : 0;
     context.scale = scale;
 
     YGConfigRef config = YGConfigNew();

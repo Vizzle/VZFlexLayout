@@ -17,7 +17,7 @@ namespace VZ {
         struct _Value <FlexLength, defaultValue, true> : public FlexLength {
             _Value() : FlexLength(defaultValue) {}
             _Value(FlexLength value) : FlexLength(value) {}
-            _Value(double value) : FlexLength{static_cast<float>(value), FlexLengthTypeDefault} {}
+            _Value(double value) : FlexLength{static_cast<float>(value), FlexLengthTypePoint} {}
             bool isDefault() const { return *this == defaultValue; }
         };
 
@@ -39,7 +39,7 @@ namespace std {
 
 // comparasion between FlexLengths
 inline bool operator == (const FlexLength& l1, const FlexLength& l2) {
-    return l1.type == l2.type && l1.value == l2.value;
+    return l1.type == l2.type && (l1.type != FlexLengthTypePoint || l1.value == l2.value);
 }
 
 inline bool operator != (const FlexLength& l1, const FlexLength& l2) {
@@ -47,7 +47,7 @@ inline bool operator != (const FlexLength& l1, const FlexLength& l2) {
 }
 
 inline FlexLength vzf_dim(float dim) {
-    return flexLength(dim, FlexLengthTypeDefault);
+    return (FlexLength){dim, FlexLengthTypePoint};
 }
 
 #define DEFINE_UNIT_LITERAL_OPERATOR(suffix, unitType) \
@@ -58,20 +58,5 @@ inline FlexLength operator "" suffix(long double value) { \
     return { (float)value, unitType }; \
 }
 
-DEFINE_UNIT_LITERAL_OPERATOR(_d, FlexLengthTypeDefault)
+DEFINE_UNIT_LITERAL_OPERATOR(_d, FlexLengthTypePoint)
 DEFINE_UNIT_LITERAL_OPERATOR(_percent, FlexLengthTypePercent)
-DEFINE_UNIT_LITERAL_OPERATOR(_px, FlexLengthTypePx)
-DEFINE_UNIT_LITERAL_OPERATOR(_cm, FlexLengthTypeCm)
-DEFINE_UNIT_LITERAL_OPERATOR(_mm, FlexLengthTypeMm)
-DEFINE_UNIT_LITERAL_OPERATOR(_q, FlexLengthTypeQ)
-DEFINE_UNIT_LITERAL_OPERATOR(_in, FlexLengthTypeIn)
-DEFINE_UNIT_LITERAL_OPERATOR(_pc, FlexLengthTypePc)
-DEFINE_UNIT_LITERAL_OPERATOR(_pt, FlexLengthTypePt)
-DEFINE_UNIT_LITERAL_OPERATOR(_em, FlexLengthTypeEm)
-//DEFINE_UNIT_LITERAL_OPERATOR(_ex, FlexLengthTypeEx)
-//DEFINE_UNIT_LITERAL_OPERATOR(_ch, FlexLengthTypeCh)
-//DEFINE_UNIT_LITERAL_OPERATOR(_rem, FlexLengthTypeRem)
-DEFINE_UNIT_LITERAL_OPERATOR(_vw, FlexLengthTypeVw)
-DEFINE_UNIT_LITERAL_OPERATOR(_vh, FlexLengthTypeVh)
-DEFINE_UNIT_LITERAL_OPERATOR(_vmin, FlexLengthTypeVmin)
-DEFINE_UNIT_LITERAL_OPERATOR(_vmax, FlexLengthTypeVmax)

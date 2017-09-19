@@ -67,8 +67,8 @@
         [self.flexNode addSubNode:child.flexNode];
     }
     
-    self.flexNode.width = self.scrollNodeSpecs.scrollDirection & VZ::ScrollHorizontal ? FlexLengthAuto : FlexLength{static_cast<float>(layout.size.width),FlexLengthTypeDefault};
-    self.flexNode.height = self.scrollNodeSpecs.scrollDirection & VZ::ScrollVertical ? FlexLengthAuto : FlexLength{static_cast<float>(layout.size.height),FlexLengthTypeDefault};
+    self.flexNode.width = self.scrollNodeSpecs.scrollDirection & VZ::ScrollHorizontal ? FlexLengthAuto : FlexLength{static_cast<float>(layout.size.width),FlexLengthTypePoint};
+    self.flexNode.height = self.scrollNodeSpecs.scrollDirection & VZ::ScrollVertical ? FlexLengthAuto : FlexLength{static_cast<float>(layout.size.height),FlexLengthTypePoint};
     
     [self.flexNode layout:(CGSize){self.flexNode.width.value, self.flexNode.height.value}];
     

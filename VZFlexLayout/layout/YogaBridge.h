@@ -25,11 +25,11 @@ inline void layout_bridge(FlexNodeRef node, float constrainedWidth, float constr
         layoutYoga(node, constrainedWidth, constrainedHeight, scale);
     }
     else {
-        layoutFlexNode(node, constrainedWidth, constrainedHeight, scale);
+        Flex_layout(node, constrainedWidth, constrainedHeight, scale);
     }
 }
 
-#define layoutFlexNode(node, constrainedWidth, constrainedHeight, scale) layout_bridge(node, constrainedWidth, constrainedHeight, scale)
+#define Flex_layout(node, constrainedWidth, constrainedHeight, scale) layout_bridge(node, constrainedWidth, constrainedHeight, scale)
 
 #ifdef __cplusplus
 }

@@ -52,8 +52,8 @@
 - (NodeLayout)nodeDidLayout{
     NodeLayout layout = [super nodeDidLayout];
     
-    self.flexNode.width = FlexLength{(float)layout.size.width,FlexLengthTypeDefault};
-    self.flexNode.height = FlexLength{(float)layout.size.height,FlexLengthTypeDefault};
+    self.flexNode.width = FlexLength{(float)layout.size.width,FlexLengthTypePoint};
+    self.flexNode.height = FlexLength{(float)layout.size.height,FlexLengthTypePoint};
     
     for (const auto &child : _children) {
         [child.flexNode layout:layout.size];

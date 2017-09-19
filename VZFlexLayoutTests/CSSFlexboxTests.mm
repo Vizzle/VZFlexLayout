@@ -16,7 +16,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content-001.htm
 - (void)test_align_content_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -52,7 +52,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content-002.htm
 - (void)test_align_content_002 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -86,7 +86,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content-003.htm
 - (void)test_align_content_003 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -122,7 +122,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content-004.htm
 - (void)test_align_content_004 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -167,7 +167,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content-005.htm
 - (void)test_align_content_005 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -203,7 +203,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content-006.htm
 - (void)test_align_content_006 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -237,7 +237,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content_center.html
 - (void)test_align_content_center {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 80,
         "height": 200,
@@ -272,7 +272,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content_flex-end.html
 - (void)test_align_content_flex_end {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 80,
         "height": 200,
@@ -307,7 +307,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content_flex-start.html
 - (void)test_align_content_flex_start {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 80,
         "height": 200,
@@ -341,7 +341,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content_space-around.html
 - (void)test_align_content_space_around {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 80,
         "height": 200,
@@ -376,7 +376,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content_space-between.html
 - (void)test_align_content_space_between {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 80,
         "height": 200,
@@ -410,7 +410,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-content_stretch.html
 - (void)test_align_content_stretch {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 80,
         "height": 200,
@@ -444,7 +444,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-items-001.htm
 - (void)test_align_items_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -468,7 +468,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-items-002.htm
 - (void)test_align_items_002 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -490,7 +490,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-items-003.htm
 - (void)test_align_items_003 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -515,7 +515,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-items-004.htm
 - (void)test_align_items_004 {
     // TODO 'baseline' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "width": 300,
 //        "height": 100,
@@ -590,7 +590,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-items-005.htm
 - (void)test_align_items_005 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -612,7 +612,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-items-006.html
 - (void)test_align_items_006 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -632,7 +632,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-001.html
 - (void)test_align_self_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -667,7 +667,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-002.html
 - (void)test_align_self_002 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -706,7 +706,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-003.html
 - (void)test_align_self_003 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -745,7 +745,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-004.html
 - (void)test_align_self_004 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -781,7 +781,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-005.html
 - (void)test_align_self_005 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -817,7 +817,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-006.html
 - (void)test_align_self_006 {
     // TODO 'baseline' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "children": [
 //            {
@@ -887,7 +887,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-007.html
 - (void)test_align_self_007 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -923,7 +923,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-008.html
 - (void)test_align_self_008 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -963,7 +963,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-009.html
 - (void)test_align_self_009 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -1004,7 +1004,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-010.html
 - (void)test_align_self_010 {
     // TODO 'baseline' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "align-items": "baseline",
 //        "children": [
@@ -1075,7 +1075,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-011.html
 - (void)test_align_self_011 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -1111,7 +1111,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-012.html
 - (void)test_align_self_012 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -1145,7 +1145,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/align-self-013.html
 - (void)test_align_self_013 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -1178,7 +1178,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-box-justify-content.html
 - (void)test_css_box_justify_content {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 40,
@@ -1229,7 +1229,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-column-reverse-wrap-reverse.html
 - (void)test_css_flexbox_column_reverse_wrap_reverse {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "width": 144,
@@ -1382,7 +1382,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-column-reverse-wrap.html
 - (void)test_css_flexbox_column_reverse_wrap {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "width": 144,
@@ -1535,7 +1535,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-column-reverse.html
 - (void)test_css_flexbox_column_reverse {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "width": 144,
@@ -1592,7 +1592,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-column-wrap-reverse.html
 - (void)test_css_flexbox_column_wrap_reverse {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "width": 144,
@@ -1745,7 +1745,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-column-wrap.html
 - (void)test_css_flexbox_column_wrap {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "width": 144,
@@ -1898,7 +1898,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-column.html
 - (void)test_css_flexbox_column {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "width": 144,
@@ -1959,7 +1959,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-img-expand-evenly.html
 - (void)test_css_flexbox_img_expand_evenly {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 50,
@@ -1992,7 +1992,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-row-reverse-wrap-reverse.html
 - (void)test_css_flexbox_row_reverse_wrap_reverse {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "height": 144,
@@ -2051,7 +2051,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-row-reverse-wrap.html
 - (void)test_css_flexbox_row_reverse_wrap {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "height": 144,
@@ -2110,7 +2110,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-row-reverse.html
 - (void)test_css_flexbox_row_reverse {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "wrap": "initial",
@@ -2164,7 +2164,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-row-wrap-reverse.html
 - (void)test_css_flexbox_row_wrap_reverse {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "height": 144,
@@ -2223,7 +2223,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-row-wrap.html
 - (void)test_css_flexbox_row_wrap {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "height": 144,
@@ -2282,7 +2282,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-row.html
 - (void)test_css_flexbox_row {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "wrap": "initial",
@@ -2336,7 +2336,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/css-flexbox-test1.html
 - (void)test_css_flexbox_test1 {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "wrap": "initial",
@@ -2389,7 +2389,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/display-flex-001.htm
 - (void)test_display_flex_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -2410,7 +2410,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-001.htm
 - (void)test_flex_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "children": [
@@ -2437,7 +2437,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-002.htm
 - (void)test_flex_002 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 50,
@@ -2463,7 +2463,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-003.htm
 - (void)test_flex_003 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 50,
@@ -2492,7 +2492,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-004.htm
 - (void)test_flex_004 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 50,
@@ -2521,7 +2521,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-align-items-center.html
 - (void)test_flex_align_items_center {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 600,
         "height": 200,
@@ -2580,7 +2580,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-basis-001.html
 - (void)test_flex_basis_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -2602,7 +2602,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-basis-002.html
 - (void)test_flex_basis_002 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -2625,7 +2625,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-basis-003.html
 - (void)test_flex_basis_003 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -2645,7 +2645,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-basis-004.html
 - (void)test_flex_basis_004 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -2666,7 +2666,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-basis-005.html
 - (void)test_flex_basis_005 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -2684,7 +2684,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-basis-006.html
 - (void)test_flex_basis_006 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -2702,7 +2702,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-basis-007.html
 - (void)test_flex_basis_007 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -2724,7 +2724,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-basis-008.html
 - (void)test_flex_basis_008 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -2746,7 +2746,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-box-wrap.html
 - (void)test_flex_box_wrap {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "wrap": "wrap",
@@ -2772,7 +2772,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-container-margin.html
 - (void)test_flex_container_margin {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 20,
         "margin-right": 20,
@@ -2820,7 +2820,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-direction-column-reverse.html
 - (void)test_flex_direction_column_reverse {
-    XCTAssertLayoutWithConfig(FlexAuto, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(FlexUndefined, FlexUndefined, 1, @R"(
     {
         "height": 48,
         "direction": "vertical",
@@ -2850,7 +2850,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(FlexAuto, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(FlexUndefined, FlexUndefined, 1, @R"(
     {
         "height": 48,
         "direction": "vertical-reverse",
@@ -2883,7 +2883,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-direction-modify.html
 - (void)test_flex_direction_modify {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 20,
         "margin-right": 20,
@@ -2938,7 +2938,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-direction-row-reverse.html
 - (void)test_flex_direction_row_reverse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 48,
         "direction": "horizontal",
@@ -2968,7 +2968,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 48,
         "direction": "horizontal-reverse",
@@ -3006,7 +3006,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-direction-with-element-insert.html
 - (void)test_flex_direction_with_element_insert {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 20,
         "margin-right": 20,
@@ -3070,7 +3070,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 20,
         "margin-right": 20,
@@ -3134,7 +3134,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 20,
         "margin-right": 20,
@@ -3198,7 +3198,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 20,
         "margin-right": 20,
@@ -3265,7 +3265,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-direction.html
 - (void)test_flex_direction {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 20,
         "margin-right": 20,
@@ -3317,7 +3317,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 20,
         "margin-right": 20,
@@ -3369,7 +3369,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 20,
         "margin-right": 20,
@@ -3421,7 +3421,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 20,
         "margin-right": 20,
@@ -3476,7 +3476,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-direction_column-reverse.html
 - (void)test_flex_direction_column_reverse_1 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 200,
@@ -3510,7 +3510,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-direction_column.html
 - (void)test_flex_direction_column {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 200,
@@ -3543,7 +3543,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-direction_row-reverse.html
 - (void)test_flex_direction_row_reverse_1 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 200,
@@ -3577,7 +3577,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-direction_row.html
 - (void)test_flex_direction_row {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 200,
@@ -3610,7 +3610,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flexitem-childmargin.html
 - (void)test_flex_flexitem_childmargin {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "height": 300,
         "children": [
@@ -3654,7 +3654,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flexitem-percentage-prescation.html
 - (void)test_flex_flexitem_percentage_prescation {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 101,
         "height": 300,
@@ -3685,7 +3685,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-001.html
 - (void)test_flex_flow_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "wrap": "nowrap",
@@ -3730,7 +3730,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-002.html
 - (void)test_flex_flow_002 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -3772,7 +3772,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-003.html
 - (void)test_flex_flow_003 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -3814,7 +3814,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-004.html
 - (void)test_flex_flow_004 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "wrap": "nowrap",
@@ -3859,7 +3859,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-005.html
 - (void)test_flex_flow_005 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -3901,7 +3901,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-006.html
 - (void)test_flex_flow_006 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -3943,7 +3943,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-007.html
 - (void)test_flex_flow_007 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -3988,7 +3988,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-008.html
 - (void)test_flex_flow_008 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4030,7 +4030,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-009.html
 - (void)test_flex_flow_009 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4072,7 +4072,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-010.html
 - (void)test_flex_flow_010 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4117,7 +4117,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-011.html
 - (void)test_flex_flow_011 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4159,7 +4159,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-flow-012.html
 - (void)test_flex_flow_012 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4201,7 +4201,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-grow-001.xht
 - (void)test_flex_grow_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 240,
         "height": 60,
@@ -4235,7 +4235,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-grow-002.html
 - (void)test_flex_grow_002 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4264,7 +4264,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-grow-003.html
 - (void)test_flex_grow_003 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4285,7 +4285,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-grow-004.html
 - (void)test_flex_grow_004 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4308,7 +4308,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-grow-005.html
 - (void)test_flex_grow_005 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4330,7 +4330,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-grow-006.html
 - (void)test_flex_grow_006 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 50,
@@ -4345,7 +4345,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 50,
@@ -4368,7 +4368,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-items-flexibility.html
 - (void)test_flex_items_flexibility {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 600,
         "height": 200,
@@ -4430,7 +4430,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-margin-no-collapse.html
 - (void)test_flex_margin_no_collapse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 300,
@@ -4465,7 +4465,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-shrink-001.html
 - (void)test_flex_shrink_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4490,7 +4490,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-shrink-002.html
 - (void)test_flex_shrink_002 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4513,7 +4513,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-shrink-003.html
 - (void)test_flex_shrink_003 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4537,7 +4537,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-shrink-004.html
 - (void)test_flex_shrink_004 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4560,7 +4560,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-shrink-005.html
 - (void)test_flex_shrink_005 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 50,
         "height": 100,
@@ -4583,7 +4583,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-shrink-006.html
 - (void)test_flex_shrink_006 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4620,7 +4620,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-shrink-007.html
 - (void)test_flex_shrink_007 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -4649,7 +4649,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-wrap-001.htm
 - (void)test_flex_wrap_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -4682,7 +4682,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-wrap_nowrap.html
 - (void)test_flex_wrap_nowrap {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 120,
         "wrap": "nowrap",
@@ -4718,7 +4718,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-wrap_wrap-reverse.html
 - (void)test_flex_wrap_wrap_reverse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 120,
         "wrap": "wrap-reverse",
@@ -4752,7 +4752,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flex-wrap_wrap.html
 - (void)test_flex_wrap_wrap {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 120,
         "wrap": "wrap",
@@ -4786,7 +4786,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox-flex-direction-column-reverse.htm
 - (void)test_flexbox_flex_direction_column_reverse {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "horizontal-tb",
 //        "width": 120,
@@ -4871,7 +4871,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox-flex-direction-column.htm
 - (void)test_flexbox_flex_direction_column {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "horizontal-tb",
 //        "width": 120,
@@ -4953,7 +4953,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox-flex-direction-default.htm
 - (void)test_flexbox_flex_direction_default {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "horizontal-tb",
 //        "width": 120,
@@ -5034,7 +5034,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox-flex-direction-row-reverse.htm
 - (void)test_flexbox_flex_direction_row_reverse {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "horizontal-tb",
 //        "width": 120,
@@ -5119,7 +5119,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox-flex-direction-row.htm
 - (void)test_flexbox_flex_direction_row {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "horizontal-tb",
 //        "width": 120,
@@ -5200,7 +5200,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox-flex-wrap-default.htm
 - (void)test_flexbox_flex_wrap_default {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 60,
         "height": 120,
@@ -5227,7 +5227,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox-flex-wrap-flexing.html
 - (void)test_flexbox_flex_wrap_flexing {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 150,
         "height": 100,
@@ -5257,7 +5257,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox-flex-wrap-nowrap.htm
 - (void)test_flexbox_flex_wrap_nowrap {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 60,
         "height": 120,
@@ -5286,7 +5286,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox-flex-wrap-wrap-reverse.htm
 - (void)test_flexbox_flex_wrap_wrap_reverse {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "horizontal-tb",
 //        "width": 120,
@@ -5370,7 +5370,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox-flex-wrap-wrap.htm
 - (void)test_flexbox_flex_wrap_wrap {
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "horizontal-tb",
 //        "width": 120,
@@ -5455,7 +5455,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_absolute-atomic.html
 - (void)test_flexbox_absolute_atomic {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "justify-content": "space-around",
         "children": [
@@ -5492,7 +5492,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-content-center.html
 - (void)test_flexbox_align_content_center {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 96,
@@ -5548,7 +5548,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-content-flexend.html
 - (void)test_flexbox_align_content_flexend {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 96,
@@ -5604,7 +5604,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-content-flexstart.html
 - (void)test_flexbox_align_content_flexstart {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 96,
@@ -5658,7 +5658,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-content-spacearound.html
 - (void)test_flexbox_align_content_spacearound {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 96,
@@ -5714,7 +5714,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-content-spacebetween.html
 - (void)test_flexbox_align_content_spacebetween {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 96,
@@ -5768,7 +5768,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-content-stretch-2.html
 - (void)test_flexbox_align_content_stretch_2 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 96,
@@ -5822,7 +5822,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-content-stretch.html
 - (void)test_flexbox_align_content_stretch {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 96,
@@ -5877,7 +5877,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-items-baseline.html
 - (void)test_flexbox_align_items_baseline {
     // TODO 'baseline' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "width": 480,
 //        "height": 96,
@@ -5933,7 +5933,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-items-center-2.html
 - (void)test_flexbox_align_items_center_2 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -5988,7 +5988,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-items-center.html
 - (void)test_flexbox_align_items_center {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6043,7 +6043,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-items-flexend-2.html
 - (void)test_flexbox_align_items_flexend_2 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6098,7 +6098,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-items-flexend.html
 - (void)test_flexbox_align_items_flexend {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6153,7 +6153,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-items-flexstart-2.html
 - (void)test_flexbox_align_items_flexstart_2 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6205,7 +6205,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-items-flexstart.html
 - (void)test_flexbox_align_items_flexstart {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6257,7 +6257,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-items-stretch-2.html
 - (void)test_flexbox_align_items_stretch_2 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6302,7 +6302,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-items-stretch.html
 - (void)test_flexbox_align_items_stretch {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6356,7 +6356,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-self-auto.html
 - (void)test_flexbox_align_self_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6413,7 +6413,7 @@
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-self-baseline.html
 - (void)test_flexbox_align_self_baseline {
     // TODO 'baseline' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "width": 480,
 //        "height": 96,
@@ -6468,7 +6468,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-self-center.html
 - (void)test_flexbox_align_self_center {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6522,7 +6522,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-self-flexend.html
 - (void)test_flexbox_align_self_flexend {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6576,7 +6576,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-self-flexstart.html
 - (void)test_flexbox_align_self_flexstart {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6631,7 +6631,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_align-self-stretch.html
 - (void)test_flexbox_align_self_stretch {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 96,
@@ -6687,7 +6687,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_box-clear.html
 - (void)test_flexbox_box_clear {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "children": [
             {
@@ -6711,7 +6711,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_columns.html
 - (void)test_flexbox_columns {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "justify-content": "space-around",
         "children": [
@@ -6759,7 +6759,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_direction-column-reverse.html
 - (void)test_flexbox_direction_column_reverse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 16,
         "margin-bottom": 16,
@@ -6823,7 +6823,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_direction-column.html
 - (void)test_flexbox_direction_column {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 16,
         "margin-bottom": 16,
@@ -6887,7 +6887,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_direction-row-reverse.html
 - (void)test_flexbox_direction_row_reverse {
-    XCTAssertLayoutWithConfig(130, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(130, FlexUndefined, 1, @R"(
     {
         "direction": "horizontal-reverse",
         "children": [
@@ -6928,7 +6928,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_fbfc.html
 - (void)test_flexbox_fbfc {
-    XCTAssertLayoutWithConfig(600, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(600, FlexUndefined, 1, @R"(
     {
         "width": "80%",
         "children": [
@@ -6953,7 +6953,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_fbfc2.html
 - (void)test_flexbox_fbfc2 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 400,
         "margin-left": -200,
@@ -6979,7 +6979,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_first-line.html
 - (void)test_flexbox_first_line {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 900,
         "wrap": "wrap",
@@ -7088,7 +7088,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-0-0-unitless.html
 - (void)test_flexbox_flex_0_0_0_unitless {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -7155,7 +7155,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-0-0.html
 - (void)test_flexbox_flex_0_0_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -7222,7 +7222,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-0-1-unitless-basis.html
 - (void)test_flexbox_flex_0_0_1_unitless_basis {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -7276,7 +7276,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-0-N-shrink.html
 - (void)test_flexbox_flex_0_0_N_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -7346,7 +7346,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-0-N-unitless-basis.html
 - (void)test_flexbox_flex_0_0_N_unitless_basis {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -7400,7 +7400,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-0-N.html
 - (void)test_flexbox_flex_0_0_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -7470,7 +7470,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-0-Npercent-shrink.html
 - (void)test_flexbox_flex_0_0_Npercent_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -7540,7 +7540,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-0-Npercent.html
 - (void)test_flexbox_flex_0_0_Npercent {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -7610,7 +7610,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-0-auto-shrink.html
 - (void)test_flexbox_flex_0_0_auto_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 256,
         "height": 128,
@@ -7676,7 +7676,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-0-auto.html
 - (void)test_flexbox_flex_0_0_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -7742,7 +7742,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-0.html
 - (void)test_flexbox_flex_0_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -7809,7 +7809,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-1-0-unitless.html
 - (void)test_flexbox_flex_0_1_0_unitless {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -7876,7 +7876,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-1-0.html
 - (void)test_flexbox_flex_0_1_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -7943,7 +7943,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-1-1-unitless-basis.html
 - (void)test_flexbox_flex_0_1_1_unitless_basis {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -7997,7 +7997,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-1-N-shrink.html
 - (void)test_flexbox_flex_0_1_N_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -8067,7 +8067,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-1-N-unitless-basis.html
 - (void)test_flexbox_flex_0_1_N_unitless_basis {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -8121,7 +8121,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-1-N.html
 - (void)test_flexbox_flex_0_1_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -8191,7 +8191,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-1-Npercent-shrink.html
 - (void)test_flexbox_flex_0_1_Npercent_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -8261,7 +8261,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-1-Npercent.html
 - (void)test_flexbox_flex_0_1_Npercent {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -8331,7 +8331,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-1-auto-shrink.html
 - (void)test_flexbox_flex_0_1_auto_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 256,
         "height": 128,
@@ -8401,7 +8401,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-1-auto.html
 - (void)test_flexbox_flex_0_1_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -8467,7 +8467,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-1.html
 - (void)test_flexbox_flex_0_1 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -8534,7 +8534,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-N-0-unitless.html
 - (void)test_flexbox_flex_0_N_0_unitless {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -8601,7 +8601,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-N-0.html
 - (void)test_flexbox_flex_0_N_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -8668,7 +8668,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-N-N-shrink.html
 - (void)test_flexbox_flex_0_N_N_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -8738,7 +8738,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-N-N.html
 - (void)test_flexbox_flex_0_N_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -8808,7 +8808,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-N-Npercent-shrink.html
 - (void)test_flexbox_flex_0_N_Npercent_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -8878,7 +8878,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-N-Npercent.html
 - (void)test_flexbox_flex_0_N_Npercent {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -8948,7 +8948,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-N-auto-shrink.html
 - (void)test_flexbox_flex_0_N_auto_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 256,
         "height": 128,
@@ -9018,7 +9018,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-N-auto.html
 - (void)test_flexbox_flex_0_N_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -9084,7 +9084,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-N.html
 - (void)test_flexbox_flex_0_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -9151,7 +9151,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-0-auto.html
 - (void)test_flexbox_flex_0_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 352,
         "height": 128,
@@ -9227,7 +9227,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 352,
         "height": 128,
@@ -9306,7 +9306,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-0-0-unitless.html
 - (void)test_flexbox_flex_1_0_0_unitless {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -9376,7 +9376,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-0-0.html
 - (void)test_flexbox_flex_1_0_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -9446,7 +9446,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-0-N-shrink.html
 - (void)test_flexbox_flex_1_0_N_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -9516,7 +9516,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-0-N.html
 - (void)test_flexbox_flex_1_0_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -9586,7 +9586,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-0-Npercent-shrink.html
 - (void)test_flexbox_flex_1_0_Npercent_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -9656,7 +9656,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-0-Npercent.html
 - (void)test_flexbox_flex_1_0_Npercent {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -9726,7 +9726,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-0-auto-shrink.html
 - (void)test_flexbox_flex_1_0_auto_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 256,
         "height": 128,
@@ -9792,7 +9792,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-0-auto.html
 - (void)test_flexbox_flex_1_0_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -9862,7 +9862,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-0.html
 - (void)test_flexbox_flex_1_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -9932,7 +9932,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-1-0-unitless.html
 - (void)test_flexbox_flex_1_1_0_unitless {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -10002,7 +10002,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-1-0.html
 - (void)test_flexbox_flex_1_1_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -10072,7 +10072,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-1-N-shrink.html
 - (void)test_flexbox_flex_1_1_N_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -10142,7 +10142,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-1-N.html
 - (void)test_flexbox_flex_1_1_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -10212,7 +10212,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-1-Npercent-shrink.html
 - (void)test_flexbox_flex_1_1_Npercent_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -10282,7 +10282,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-1-Npercent.html
 - (void)test_flexbox_flex_1_1_Npercent {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -10352,7 +10352,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-1-auto-shrink.html
 - (void)test_flexbox_flex_1_1_auto_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 256,
         "height": 128,
@@ -10422,7 +10422,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-1-auto.html
 - (void)test_flexbox_flex_1_1_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -10492,7 +10492,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-1.html
 - (void)test_flexbox_flex_1_1 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -10562,7 +10562,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-N-0-unitless.html
 - (void)test_flexbox_flex_1_N_0_unitless {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -10632,7 +10632,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-N-0.html
 - (void)test_flexbox_flex_1_N_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -10702,7 +10702,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-N-N-shrink.html
 - (void)test_flexbox_flex_1_N_N_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -10772,7 +10772,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-N-N.html
 - (void)test_flexbox_flex_1_N_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -10842,7 +10842,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-N-Npercent-shrink.html
 - (void)test_flexbox_flex_1_N_Npercent_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -10912,7 +10912,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-N-Npercent.html
 - (void)test_flexbox_flex_1_N_Npercent {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -10982,7 +10982,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-N-auto-shrink.html
 - (void)test_flexbox_flex_1_N_auto_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 256,
         "height": 128,
@@ -11052,7 +11052,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-N-auto.html
 - (void)test_flexbox_flex_1_N_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -11122,7 +11122,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-1-N.html
 - (void)test_flexbox_flex_1_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -11192,7 +11192,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-0-0-unitless.html
 - (void)test_flexbox_flex_N_0_0_unitless {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -11262,7 +11262,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-0-0.html
 - (void)test_flexbox_flex_N_0_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -11332,7 +11332,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-0-N-shrink.html
 - (void)test_flexbox_flex_N_0_N_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -11402,7 +11402,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-0-N.html
 - (void)test_flexbox_flex_N_0_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -11472,7 +11472,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-0-Npercent-shrink.html
 - (void)test_flexbox_flex_N_0_Npercent_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -11542,7 +11542,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-0-Npercent.html
 - (void)test_flexbox_flex_N_0_Npercent {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -11612,7 +11612,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-0-auto-shrink.html
 - (void)test_flexbox_flex_N_0_auto_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -11678,7 +11678,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-0-auto.html
 - (void)test_flexbox_flex_N_0_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -11748,7 +11748,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-0.html
 - (void)test_flexbox_flex_N_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -11818,7 +11818,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-1-0-unitless.html
 - (void)test_flexbox_flex_N_1_0_unitless {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -11888,7 +11888,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-1-0.html
 - (void)test_flexbox_flex_N_1_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -11958,7 +11958,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-1-N-shrink.html
 - (void)test_flexbox_flex_N_1_N_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -12028,7 +12028,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-1-N.html
 - (void)test_flexbox_flex_N_1_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -12098,7 +12098,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-1-Npercent-shrink.html
 - (void)test_flexbox_flex_N_1_Npercent_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -12168,7 +12168,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-1-Npercent.html
 - (void)test_flexbox_flex_N_1_Npercent {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -12238,7 +12238,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-1-auto-shrink.html
 - (void)test_flexbox_flex_N_1_auto_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 256,
         "height": 128,
@@ -12308,7 +12308,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-1-auto.html
 - (void)test_flexbox_flex_N_1_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -12378,7 +12378,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-1.html
 - (void)test_flexbox_flex_N_1 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -12448,7 +12448,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-N-0-unitless.html
 - (void)test_flexbox_flex_N_N_0_unitless {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -12518,7 +12518,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-N-0.html
 - (void)test_flexbox_flex_N_N_0 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -12588,7 +12588,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-N-N-shrink.html
 - (void)test_flexbox_flex_N_N_N_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -12658,7 +12658,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-N-N.html
 - (void)test_flexbox_flex_N_N_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -12728,7 +12728,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-N-Npercent-shrink.html
 - (void)test_flexbox_flex_N_N_Npercent_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 192,
         "height": 128,
@@ -12798,7 +12798,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-N-Npercent.html
 - (void)test_flexbox_flex_N_N_Npercent {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -12868,7 +12868,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-N-auto-shrink.html
 - (void)test_flexbox_flex_N_N_auto_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 256,
         "height": 128,
@@ -12938,7 +12938,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-N-auto.html
 - (void)test_flexbox_flex_N_N_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -13008,7 +13008,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-N-N.html
 - (void)test_flexbox_flex_N_N {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -13078,7 +13078,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-auto.html
 - (void)test_flexbox_flex_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 512,
         "height": 128,
@@ -13154,7 +13154,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 512,
         "height": 128,
@@ -13233,7 +13233,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-basis-shrink.html
 - (void)test_flexbox_flex_basis_shrink {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 384,
         "height": 128,
@@ -13303,7 +13303,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-basis.html
 - (void)test_flexbox_flex_basis {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 128,
         "height": 128,
@@ -13373,7 +13373,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-formatting-interop.html
 - (void)test_flexbox_flex_formatting_interop {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "margin-left": -200,
@@ -13400,7 +13400,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-initial-2.html
 - (void)test_flexbox_flex_initial_2 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -13472,7 +13472,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 640,
         "height": 128,
@@ -13547,7 +13547,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-initial.html
 - (void)test_flexbox_flex_initial {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 352,
         "height": 128,
@@ -13623,7 +13623,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 352,
         "height": 128,
@@ -13702,7 +13702,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-natural-mixed-basis-auto.html
 - (void)test_flexbox_flex_natural_mixed_basis_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 560,
         "height": 128,
@@ -13753,7 +13753,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-natural-mixed-basis.html
 - (void)test_flexbox_flex_natural_mixed_basis {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 560,
         "height": 128,
@@ -13807,7 +13807,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-natural-variable-auto-basis.html
 - (void)test_flexbox_flex_natural_variable_auto_basis {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 512,
         "height": 128,
@@ -13862,7 +13862,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-natural-variable-zero-basis.html
 - (void)test_flexbox_flex_natural_variable_zero_basis {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 576,
         "height": 128,
@@ -13914,7 +13914,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-natural.html
 - (void)test_flexbox_flex_natural {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 800,
         "height": 128,
@@ -13981,7 +13981,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 800,
         "height": 128,
@@ -14051,7 +14051,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flex-none.html
 - (void)test_flexbox_flex_none {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 512,
         "height": 128,
@@ -14123,7 +14123,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 512,
         "height": 128,
@@ -14198,7 +14198,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flow-column-reverse-wrap-reverse.html
 - (void)test_flexbox_flow_column_reverse_wrap_reverse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 128,
@@ -14263,7 +14263,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flow-column-reverse-wrap.html
 - (void)test_flexbox_flow_column_reverse_wrap {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 128,
@@ -14328,7 +14328,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flow-column-wrap-reverse.html
 - (void)test_flexbox_flow_column_wrap_reverse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 128,
@@ -14393,7 +14393,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flow-column-wrap.html
 - (void)test_flexbox_flow_column_wrap {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 128,
@@ -14458,7 +14458,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flow-row-wrap-reverse.html
 - (void)test_flexbox_flow_row_wrap_reverse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "margin-top": 16,
@@ -14523,7 +14523,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_flow-row-wrap.html
 - (void)test_flexbox_flow_row_wrap {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "margin-top": 16,
@@ -14588,7 +14588,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_item-bottom-float.html
 - (void)test_flexbox_item_bottom_float {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 400,
         "height": 96,
@@ -14646,7 +14646,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_item-float.html
 - (void)test_flexbox_item_float {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 16,
         "margin-right": 16,
@@ -14704,7 +14704,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_item-top-float.html
 - (void)test_flexbox_item_top_float {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 400,
         "margin-top": 16,
@@ -14762,7 +14762,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_item-vertical-align.html
 - (void)test_flexbox_item_vertical_align {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 600,
         "children": [
@@ -14824,7 +14824,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_justifycontent-center-overflow.html
 - (void)test_flexbox_justifycontent_center_overflow {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 52,
         "height": 104,
@@ -14891,7 +14891,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_justifycontent-center.html
 - (void)test_flexbox_justifycontent_center {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 128,
@@ -14958,7 +14958,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_justifycontent-flex-end.html
 - (void)test_flexbox_justifycontent_flex_end {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 128,
@@ -15025,7 +15025,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_justifycontent-flex-start.html
 - (void)test_flexbox_justifycontent_flex_start {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 128,
@@ -15092,7 +15092,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_justifycontent-spacearound-negative.html
 - (void)test_flexbox_justifycontent_spacearound_negative {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 272,
         "height": 128,
@@ -15153,7 +15153,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_justifycontent-spacearound-only.html
 - (void)test_flexbox_justifycontent_spacearound_only {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 128,
@@ -15186,7 +15186,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_justifycontent-spacearound.html
 - (void)test_flexbox_justifycontent_spacearound {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 128,
@@ -15253,7 +15253,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_justifycontent-spacebetween-negative.html
 - (void)test_flexbox_justifycontent_spacebetween_negative {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 272,
         "height": 128,
@@ -15314,7 +15314,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_justifycontent-spacebetween-only.html
 - (void)test_flexbox_justifycontent_spacebetween_only {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 128,
@@ -15347,7 +15347,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_justifycontent-spacebetween.html
 - (void)test_flexbox_justifycontent_spacebetween {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 480,
         "height": 128,
@@ -15414,7 +15414,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_margin-auto-overflow-2.html
 - (void)test_flexbox_margin_auto_overflow_2 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 512,
         "height": 128,
@@ -15458,7 +15458,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_margin-auto-overflow.html
 - (void)test_flexbox_margin_auto_overflow {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 512,
         "height": 128,
@@ -15502,7 +15502,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_margin-auto.html
 - (void)test_flexbox_margin_auto {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 512,
         "height": 128,
@@ -15541,7 +15541,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_margin-collapse.html
 - (void)test_flexbox_margin_collapse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "direction": "vertical",
         "children": [
@@ -15572,7 +15572,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_margin-left-ex.html
 - (void)test_flexbox_margin_left_ex {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 512,
         "height": 128,
@@ -15635,7 +15635,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_nested-flex.html
 - (void)test_flexbox_nested_flex {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "children": [
             {
@@ -15659,7 +15659,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_object.html
 - (void)test_flexbox_object {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "justify-content": "space-around",
         "children": [
@@ -15686,7 +15686,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_order-abspos-space-around.html
 - (void)test_flexbox_order_abspos_space_around {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 432,
         "height": 128,
@@ -15729,7 +15729,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_order-noninteger-invalid.html
 - (void)test_flexbox_order_noninteger_invalid {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 64,
@@ -15831,7 +15831,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_visibility-collapse-line-wrapping.html
 - (void)test_flexbox_visibility_collapse_line_wrapping {
-    XCTAssertLayoutWithConfig(602, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(602, FlexUndefined, 1, @R"(
     {
         "wrap": "wrap",
         "children": [
@@ -15901,7 +15901,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_visibility-collapse.html
 - (void)test_flexbox_visibility_collapse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "children": [
             {
@@ -15949,7 +15949,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_wrap-long.html
 - (void)test_flexbox_wrap_long {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "margin-top": 16,
@@ -16014,7 +16014,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_wrap-reverse.html
 - (void)test_flexbox_wrap_reverse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "margin-top": 16,
@@ -16078,7 +16078,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexbox_wrap.html
 - (void)test_flexbox_wrap {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "margin-top": 16,
@@ -16147,7 +16147,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/flexible-box-float.html
 - (void)test_flexible_box_float {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "align-content": "space-between",
         "wrap": "wrap",
@@ -16171,7 +16171,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/justify-content-001.htm
 - (void)test_justify_content_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -16194,7 +16194,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/justify-content-002.htm
 - (void)test_justify_content_002 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -16216,7 +16216,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/justify-content-003.htm
 - (void)test_justify_content_003 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -16239,7 +16239,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/justify-content-004.htm
 - (void)test_justify_content_004 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -16261,7 +16261,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/justify-content-005.htm
 - (void)test_justify_content_005 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -16284,7 +16284,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/justify-content_center.html
 - (void)test_justify_content_center {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 200,
@@ -16318,7 +16318,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/justify-content_flex-end.html
 - (void)test_justify_content_flex_end {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 200,
@@ -16352,7 +16352,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/justify-content_flex-start.html
 - (void)test_justify_content_flex_start {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 200,
@@ -16385,7 +16385,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/justify-content_space-around.html
 - (void)test_justify_content_space_around {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 200,
@@ -16419,7 +16419,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/justify-content_space-between.html
 - (void)test_justify_content_space_between {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 200,
@@ -16452,7 +16452,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/layout-algorithm_algo-cross-line-001.html
 - (void)test_layout_algorithm_algo_cross_line_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "children": [
@@ -16479,7 +16479,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/layout-algorithm_algo-cross-line-002.html
 - (void)test_layout_algorithm_algo_cross_line_002 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 200,
         "height": 200,
@@ -16506,7 +16506,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/percentage-heights-000.html
 - (void)test_percentage_heights_000 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -16538,7 +16538,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -16573,7 +16573,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 100,
@@ -16610,7 +16610,7 @@
     )");
 
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "width": 100,
@@ -16646,7 +16646,7 @@
 //    )");
 
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "width": 100,
@@ -16684,7 +16684,7 @@
 //    )");
 
     // TODO 'writing-mode' not supported
-//XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+//XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
 //    {
 //        "writing-mode": "vertical-rl",
 //        "width": 100,
@@ -16724,7 +16724,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/percentage-heights-001.html
 - (void)test_percentage_heights_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 50,
         "children": [
@@ -16750,7 +16750,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 50,
         "wrap": "wrap",
@@ -16777,7 +16777,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 50,
         "height": 50,
@@ -16805,7 +16805,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 50,
         "height": 50,
@@ -16831,7 +16831,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 50,
         "height": 50,
@@ -16863,7 +16863,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 50,
         "height": 50,
@@ -16899,7 +16899,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 50,
         "height": 50,
@@ -16926,7 +16926,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 50,
         "children": [
@@ -16952,7 +16952,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 50,
         "height": "10%",
@@ -16979,7 +16979,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 100,
         "height": 50,
@@ -17008,7 +17008,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/percentage-heights-002.html
 - (void)test_percentage_heights_002 {
-    XCTAssertLayoutWithConfig(800, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(800, FlexUndefined, 1, @R"(
     {
         "top": 0,
         "right": 0,
@@ -17040,7 +17040,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/percentage-widths-001.html
 - (void)test_percentage_widths_001 {
-    XCTAssertLayoutWithConfig(600, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(600, FlexUndefined, 1, @R"(
     {
         "top": 0,
         "right": 0,
@@ -17072,7 +17072,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/ttwf-reftest-flex-align-content-center.html
 - (void)test_ttwf_reftest_flex_align_content_center {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 96,
@@ -17150,7 +17150,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/ttwf-reftest-flex-align-content-end.html
 - (void)test_ttwf_reftest_flex_align_content_end {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 224,
@@ -17230,7 +17230,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/ttwf-reftest-flex-align-content-space-around.html
 - (void)test_ttwf_reftest_flex_align_content_space_around {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 224,
@@ -17310,7 +17310,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/ttwf-reftest-flex-align-content-space-between.html
 - (void)test_ttwf_reftest_flex_align_content_space_between {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 224,
@@ -17390,7 +17390,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/ttwf-reftest-flex-align-content-start.html
 - (void)test_ttwf_reftest_flex_align_content_start {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 224,
@@ -17470,7 +17470,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/ttwf-reftest-flex-base.html
 - (void)test_ttwf_reftest_flex_base {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 48,
         "height": 96,
@@ -17494,7 +17494,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/ttwf-reftest-flex-direction-column-reverse.html
 - (void)test_ttwf_reftest_flex_direction_column_reverse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 16,
         "margin-bottom": 16,
@@ -17558,7 +17558,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/ttwf-reftest-flex-direction-column.html
 - (void)test_ttwf_reftest_flex_direction_column {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 16,
         "margin-bottom": 16,
@@ -17622,7 +17622,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/ttwf-reftest-flex-direction-row-reverse.html
 - (void)test_ttwf_reftest_flex_direction_row_reverse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "margin-top": 16,
         "margin-bottom": 16,
@@ -17691,7 +17691,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/ttwf-reftest-flex-wrap-reverse.html
 - (void)test_ttwf_reftest_flex_wrap_reverse {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 104,
@@ -17755,7 +17755,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/ttwf-reftest-flex-wrap.html
 - (void)test_ttwf_reftest_flex_wrap {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 320,
         "height": 104,
@@ -17819,7 +17819,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/visibility-collapse-001.htm
 - (void)test_visibility_collapse_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "wrap": "initial",
@@ -17847,7 +17847,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/visibility-collapse-002.htm
 - (void)test_visibility_collapse_002 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "width": 300,
         "height": 100,
@@ -17876,7 +17876,7 @@
 
 // https://github.com/w3c/web-platform-tests/blob/master/css/css-flexbox-1/whitespace-in-flexitem-001.html
 - (void)test_whitespace_in_flexitem_001 {
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "justify-content": "space-around",
         "children": [
@@ -17894,7 +17894,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(1000, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(1000, FlexUndefined, 1, @R"(
     {
         "children": [
             {

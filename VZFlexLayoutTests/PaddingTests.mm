@@ -134,7 +134,7 @@
     }
     )");
 
-    XCTAssertLayoutWithConfig(100, FlexAuto, 1, @R"(
+    XCTAssertLayoutWithConfig(100, FlexUndefined, 1, @R"(
     {
         "_width": 100,
         "_height": 50,

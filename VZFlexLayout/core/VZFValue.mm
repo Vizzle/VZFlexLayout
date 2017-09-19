@@ -9,18 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "VZFValue.h"
 
-extern float FlexUndefined;
-extern float FlexAuto;
-
 namespace VZ {
     namespace FlexValue{
         
         float Undefined() {
-            return FlexUndefined;
+            return NAN;
         }
         
         float Auto() {
-            return FlexAuto;
+            return NAN;
         }
     }
     

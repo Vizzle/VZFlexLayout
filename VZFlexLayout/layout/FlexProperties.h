@@ -20,7 +20,7 @@
 #define FLEX_LENGTH_PROPERTY(Name, field) \
     FLEX_GETTER(FlexLength, Name, field) \
     FLEX_SETTER(FlexLength, Name##_Length, field) \
-    FLEX_SETTER_LENGTH_VALUE(Name, field, Default) \
+    FLEX_SETTER_LENGTH_VALUE(Name, field, Point) \
     FLEX_SETTER_LENGTH_VALUE(Name##Percent, field, Percent)
 #define FLEX_LENGTH_PROPERTY_AUTO(Name, field) \
     FLEX_LENGTH_PROPERTY(Name, field) \

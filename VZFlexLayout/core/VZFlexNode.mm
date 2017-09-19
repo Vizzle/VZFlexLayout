@@ -33,10 +33,7 @@ NSString *vz_directionToNSString(FlexDirection value) {
 }
 
 NSString *vz_floatToNSString(CGFloat value) {
-    if (value == VZ::FlexValue::Auto()) {
-        return @"auto";
-    }
-    else if (value == VZ::FlexValue::Undefined()) {
+    if (FlexIsUndefined(value)) {
         return @"undefined";
     }
     
@@ -52,32 +49,21 @@ NSString *vz_floatToNSString(CGFloat value) {
 }
 
 NSString *vz_FlexLengthToNSString(FlexLength length) {
-    if (length.value == VZ::FlexValue::Auto()) {
+    if (length.type == FlexLengthTypeAuto) {
         return @"auto";
     }
-    else if (length.value == VZ::FlexValue::Undefined()) {
+    else if (length.type == FlexLengthTypeUndefined) {
         return @"undefined";
+    }
+    else if (length.type == FlexLengthTypeContent) {
+        return @"content";
     }
     else {
         NSString *number = vz_floatToNSString(length.value);
-        NSString *suffix = length.type == FlexLengthTypePercent ? @"%"
-                            : length.type == FlexLengthTypePx ? @"px"
-                            : length.type == FlexLengthTypeCm ? @"cm"
-                            : length.type == FlexLengthTypeMm ? @"mm"
-                            : length.type == FlexLengthTypeCm ? @"cm"
-                            : length.type == FlexLengthTypeQ ? @"q"
-                            : length.type == FlexLengthTypeIn ? @"in"
-                            : length.type == FlexLengthTypePc ? @"pc"
-                            : length.type == FlexLengthTypePt ? @"pt"
-                            : length.type == FlexLengthTypeEm ? @"em"
-//                            : length.type == FlexLengthTypeEx ? @"ex"
-//                            : length.type == FlexLengthTypeCh ? @"ch"
-//                            : length.type == FlexLengthTypeRem ? @"rem"
-                            : length.type == FlexLengthTypeVw ? @"vw"
-                            : length.type == FlexLengthTypeVh ? @"vh"
-                            : length.type == FlexLengthTypeVmin ? @"vmin"
-                            : length.type == FlexLengthTypeVmax ? @"vmax" : @"";
-        return [number stringByAppendingString:suffix];
+        if (length.type == FlexLengthTypePercent) {
+            number = [number stringByAppendingString:@"%"];
+        }
+        return number;
     }
 }
 
@@ -420,11 +406,11 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     self = [super init];
     if (self) {
         
-        _flex_node = newFlexNode();
+        _flex_node = Flex_newNode();
 
         if (_flex_node != NULL) {
             
-            initFlexNode(_flex_node);
+            Flex_initNode(_flex_node);
             Flex_setContext(_flex_node, (__bridge void* )self);
             Flex_setChildAtFunc(_flex_node, flexNodeChildAt);
             _childNodes = [NSMutableArray new];
@@ -440,7 +426,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
 
 - (void)dealloc{
     
-    freeFlexNode(_flex_node);
+    Flex_freeNode(_flex_node);
     _flex_node = NULL;
 }
 
@@ -496,7 +482,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
     //prepare layout递归
     [self prepareLayout];
     
-    layoutFlexNode(_flex_node, constrainedSize.width, constrainedSize.height, [UIScreen mainScreen].scale);
+    Flex_layout(_flex_node, constrainedSize.width, constrainedSize.height, [UIScreen mainScreen].scale);
     
 }
 
@@ -580,6 +566,7 @@ FlexNode* flexNodeChildAt(void* context, size_t index) {
         
         [ret appendFormat:@"    frame = %@\n", NSStringFromCGRect(self.resultFrame)];
         [ret appendFormat:@"    margin = %@\n", NSStringFromUIEdgeInsets(self.resultMargin)];
+        [ret appendFormat:@"    padding = %@\n", NSStringFromUIEdgeInsets(self.resultPadding)];
         
         [ret appendString:@"  }\n"];
     }

@@ -15,7 +15,7 @@
 #if YOGA
 #   define LAYOUT layoutYoga
 #else
-#   define LAYOUT layoutFlexNode
+#   define LAYOUT Flex_layout
 #endif
 
 
@@ -26,12 +26,12 @@ struct Node {
     float measureHeight;
     
     Node() {
-        flexNode = newFlexNode();
-        initFlexNode(flexNode);
+        flexNode = Flex_newNode();
+        Flex_initNode(flexNode);
     }
 
     ~Node() {
-        freeFlexNode(flexNode);
+        Flex_freeNode(flexNode);
     }
     
     static FlexNodeRef childAt(void* context, size_t index) {
@@ -60,7 +60,7 @@ struct Node {
         }
     }
     
-    void layout(float width = FlexAuto, float height = FlexAuto, float scale = 1) {
+    void layout(float width = FlexUndefined, float height = FlexUndefined, float scale = 1) {
         createTree();
         LAYOUT(flexNode, width, height, scale);
     }
@@ -149,7 +149,7 @@ FlexAlign _align(id obj, FlexAlign defaultValue) {
     return defaultValue;
 }
 
-FlexLength _length(id obj, FlexLength defaultValue = {0, FlexLengthTypeDefault}) {
+FlexLength _length(id obj, FlexLength defaultValue = {0, FlexLengthTypePoint}) {
     if ([obj isKindOfClass:[NSString class]]) {
         if ([@"auto" isEqualToString:obj]) {
             return FlexLengthAuto;
@@ -159,50 +159,18 @@ FlexLength _length(id obj, FlexLength defaultValue = {0, FlexLengthTypeDefault})
             static NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"^-?(0|[1-9]\\d*)(\\.\\d+)?([eE][+-]?\\d+)?" options:0 error:nil];
             NSTextCheckingResult *result = [regex firstMatchInString:obj options:0 range:NSMakeRange(0, [obj length])];
             if (result) {
+                float value = [[obj substringWithRange:result.range] floatValue];
                 NSString *suffix = [obj substringFromIndex:result.range.length];
-                FlexLengthType type;
                 if ([@"%" isEqualToString:suffix]) {
-                    type = FlexLengthTypePercent;
-                } else if ([@"px" isEqualToString:suffix]) {
-                    type = FlexLengthTypePx;
-                } else if ([@"cm" isEqualToString:suffix]) {
-                    type = FlexLengthTypeCm;
-                } else if ([@"mm" isEqualToString:suffix]) {
-                    type = FlexLengthTypeMm;
-                } else if ([@"q" isEqualToString:suffix]) {
-                    type = FlexLengthTypeQ;
-                } else if ([@"in" isEqualToString:suffix]) {
-                    type = FlexLengthTypeIn;
-                } else if ([@"pc" isEqualToString:suffix]) {
-                    type = FlexLengthTypePc;
-                } else if ([@"pt" isEqualToString:suffix]) {
-                    type = FlexLengthTypePt;
-//                } else if ([@"em" isEqualToString:suffix]) {
-//                    type = FlexLengthTypeEm;
-//                } else if ([@"ex" isEqualToString:suffix]) {
-//                    type = FlexLengthTypeEx;
-//                } else if ([@"ch" isEqualToString:suffix]) {
-//                    type = FlexLengthTypeCh;
-//                } else if ([@"rem" isEqualToString:suffix]) {
-//                    type = FlexLengthTypeRem;
-                } else if ([@"vw" isEqualToString:suffix]) {
-                    type = FlexLengthTypeVw;
-                } else if ([@"vh" isEqualToString:suffix]) {
-                    type = FlexLengthTypeVh;
-                } else if ([@"vmin" isEqualToString:suffix]) {
-                    type = FlexLengthTypeVmin;
-                } else if ([@"vmax" isEqualToString:suffix]) {
-                    type = FlexLengthTypeVmax;
-                } else {
-                    type = FlexLengthTypeDefault;
+                    return (FlexLength){value, FlexLengthTypePercent};
                 }
                 
-                return flexLength([[obj substringWithRange:result.range] doubleValue], type);
+                return (FlexLength){value, FlexLengthTypePoint};
             }
         }
     }
     if ([obj isKindOfClass:[NSNumber class]]) {
-        return flexLength([obj floatValue], FlexLengthTypeDefault);
+        return (FlexLength){[obj floatValue], FlexLengthTypePoint};
     }
     return defaultValue;
 }
@@ -276,6 +244,7 @@ std::shared_ptr<Node> readLayout(NSString *layout) {
     }
 #define FLOAT_EQUAL(a, b) (a == b)
 #define CHECK_RESULT(RESULT, VALUE)                                         \
+    assert(!isnan(RESULT));                                                 \
     do {                                                                    \
         float v = [result[VALUE] floatValue];                               \
         if (!FLOAT_EQUAL(RESULT, v)) {                                      \
