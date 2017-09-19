@@ -13,6 +13,7 @@
 #include <assert.h>
 #include <float.h>
 #include <math.h>
+#include <stdio.h>
 
 
 #if DEBUG
@@ -118,6 +119,46 @@ typedef struct FlexNode {
     FlexBaselineFunc baseline;
     FlexChildAtFunc childAt;
 } FlexNode;
+
+
+static const FlexNode defaultFlexNode = {
+    .wrap = FlexNoWrap,
+    .direction = FlexHorizontal,
+    .alignItems = FlexStretch,
+    .alignSelf = FlexInherit,
+    .alignContent = FlexStretch,
+    .justifyContent = FlexStart,
+    .flexBasis = FlexLengthAuto,
+    .flexGrow  = 0,
+    .flexShrink = 1,
+    .size = { FlexLengthAuto, FlexLengthAuto },
+    .minSize = { FlexLengthZero, FlexLengthZero },
+    .maxSize = { FlexLengthUndefined, FlexLengthUndefined },
+    .margin = { FlexLengthZero, FlexLengthZero, FlexLengthZero, FlexLengthZero, FlexLengthUndefined, FlexLengthUndefined },
+    .padding = { FlexLengthZero, FlexLengthZero, FlexLengthZero, FlexLengthZero, FlexLengthUndefined, FlexLengthUndefined },
+    .border = { 0, 0, 0, 0, FlexUndefined, FlexUndefined },
+
+    .fixed = false,
+    .spacing = FlexLengthZero,
+    .lineSpacing = FlexLengthZero,
+    .lines = 0,
+    .itemsPerLine = 0,
+
+    .result = {
+        .position = { 0, 0 },
+        .size = { 0, 0 },
+        .margin = { 0, 0, 0, 0 },
+        .padding = { 0, 0, 0, 0 },
+    },
+
+    .lastConstrainedSize = { FlexUndefined, FlexUndefined },
+
+    .context = NULL,
+    .measure = NULL,
+    .baseline = NULL,
+    .childAt = NULL,
+    .childrenCount = 0,
+};
 
 
 // implementation of getters and setters
@@ -1140,67 +1181,188 @@ FlexNodeRef Flex_newNode() {
 }
 
 void Flex_initNode(FlexNodeRef node) {
-    node->fixed = false;
-    node->wrap = false;
-    node->direction = FlexHorizontal;
-    node->alignItems = FlexStretch;
-    node->alignSelf = FlexInherit;
-    node->alignContent = FlexStretch;
-    node->justifyContent = FlexStart;
-    node->flexBasis = FlexLengthAuto;
-    node->flexGrow  = 0;
-    node->flexShrink = 1;
-    node->size[FLEX_WIDTH] = FlexLengthAuto;
-    node->size[FLEX_HEIGHT] = FlexLengthAuto;
-    node->minSize[FLEX_WIDTH] = FlexLengthZero;
-    node->minSize[FLEX_HEIGHT] = FlexLengthZero;
-    node->maxSize[FLEX_WIDTH] = FlexLengthUndefined;
-    node->maxSize[FLEX_HEIGHT] = FlexLengthUndefined;
-    node->margin[FLEX_LEFT] = FlexLengthZero;
-    node->margin[FLEX_TOP] = FlexLengthZero;
-    node->margin[FLEX_RIGHT] = FlexLengthZero;
-    node->margin[FLEX_BOTTOM] = FlexLengthZero;
-    node->margin[FLEX_START] = FlexLengthUndefined;
-    node->margin[FLEX_END] = FlexLengthUndefined;
-    node->padding[FLEX_LEFT] = FlexLengthZero;
-    node->padding[FLEX_TOP] = FlexLengthZero;
-    node->padding[FLEX_RIGHT] = FlexLengthZero;
-    node->padding[FLEX_BOTTOM] = FlexLengthZero;
-    node->padding[FLEX_START] = FlexLengthUndefined;
-    node->padding[FLEX_END] = FlexLengthUndefined;
-    node->border[FLEX_LEFT] = 0;
-    node->border[FLEX_TOP] = 0;
-    node->border[FLEX_RIGHT] = 0;
-    node->border[FLEX_BOTTOM] = 0;
-    node->border[FLEX_START] = NAN;
-    node->border[FLEX_END] = NAN;
-    node->spacing = FlexLengthZero;
-    node->lineSpacing = FlexLengthZero;
-    
-    node->measure = NULL;
-    node->childAt = NULL;
-    node->baseline = NULL;
-    node->childrenCount = 0;
-    
+    memcpy(node, &defaultFlexNode, sizeof(FlexNode));
     node->measuredSizeCache = kh_init(FlexSize);
-    node->lastConstrainedSize.width = NAN;
-    node->lastConstrainedSize.height = NAN;
-
-    node->result.position[FLEX_LEFT] = 0;
-    node->result.position[FLEX_TOP] = 0;
-    node->result.size[FLEX_WIDTH] = 0;
-    node->result.size[FLEX_HEIGHT] = 0;
-    node->result.margin[FLEX_LEFT] = 0;
-    node->result.margin[FLEX_TOP] = 0;
-    node->result.margin[FLEX_RIGHT] = 0;
-    node->result.margin[FLEX_BOTTOM] = 0;
-    node->result.padding[FLEX_LEFT] = 0;
-    node->result.padding[FLEX_TOP] = 0;
-    node->result.padding[FLEX_RIGHT] = 0;
-    node->result.padding[FLEX_BOTTOM] = 0;
 }
 
 void Flex_freeNode(FlexNodeRef node) {
     kh_destroy(FlexSize, node->measuredSizeCache);
     free(node);
+}
+
+
+void print_float(float value) {
+    printf("%.1f", value);
+}
+
+void print_FlexLength(FlexLength value) {
+    switch (value.type) {
+        case FlexLengthTypePoint:
+            printf("%.1f", value.value);
+            break;
+        case FlexLengthTypePercent:
+            printf("%.1f%%", value.value);
+            break;
+        case FlexLengthTypeAuto:
+            printf("auto");
+            break;
+        case FlexLengthTypeContent:
+            printf("content");
+            break;
+        case FlexLengthTypeUndefined:
+            printf("undefined");
+            break;
+    }
+}
+
+void print_FlexWrapMode(FlexWrapMode value) {
+    switch (value) {
+        case FlexWrap:
+            printf("wrap");
+            break;
+        case FlexNoWrap:
+            printf("nowrap");
+            break;
+        case FlexWrapReverse:
+            printf("wrap-reverse");
+            break;
+    }
+}
+
+void print_FlexDirection(FlexDirection value) {
+    switch (value) {
+        case FlexVertical:
+            printf("vertical");
+            break;
+        case FlexHorizontal:
+            printf("horizontal");
+            break;
+        case FlexVerticalReverse:
+            printf("vertical-reverse");
+            break;
+        case FlexHorizontalReverse:
+            printf("horizontal-reverse");
+            break;
+    }
+}
+
+void print_FlexAlign(FlexAlign value) {
+    switch (value) {
+        case FlexEnd:
+            printf("end");
+            break;
+        case FlexStart:
+            printf("start");
+            break;
+        case FlexCenter:
+            printf("center");
+            break;
+        case FlexInherit:
+            printf("auto");
+            break;
+        case FlexStretch:
+            printf("stretch");
+            break;
+        case FlexBaseline:
+            printf("baseline");
+            break;
+        case FlexSpaceAround:
+            printf("space-around");
+            break;
+        case FlexSpaceBetween:
+            printf("space-between");
+            break;
+    }
+}
+
+void print_bool(bool value) {
+    printf("%s", value ? "true" : "false");
+}
+
+void print_int(int value) {
+    printf("%d", value);
+}
+
+void printIndent(int indent) {
+    for (int i=0;i<indent;i++) {
+        printf("  ");
+    }
+}
+
+void _flex_print(FlexNodeRef node, FlexPrintOptions options, int indent) {
+#define FLEX_PRINT(type, name, field) \
+    if (showUnspecified || memcmp(&node->field, &defaultFlexNode.field, sizeof(node->field))){ \
+        printIndent(indent); \
+        printf(name ": "); \
+        print_##type(node->field); \
+        printf("\n"); \
+    }
+#define FLEX_PRINT_INSET(type, name, field) \
+    if (showUnspecified || memcmp(&node->field, &defaultFlexNode.field, sizeof(node->field))){ \
+        printIndent(indent); \
+        printf(name ": "); \
+        print_##type(node->field[FLEX_TOP]); \
+        printf(", "); \
+        print_##type(node->field[FLEX_LEFT]); \
+        printf(", "); \
+        print_##type(node->field[FLEX_BOTTOM]); \
+        printf(", "); \
+        print_##type(node->field[FLEX_RIGHT]); \
+        printf("\n"); \
+    }
+
+    if (options == FlexPrintDefault) {
+        options = 0xffffffff;
+    }
+
+    bool showUnspecified = !(options & FlexPrintHideUnspecified);
+
+    printIndent(indent); printf("{\n");
+    indent++;
+    if (options & FlexPrintStyle) {
+        FLEX_PRINT(FlexWrapMode, "wrap", wrap);
+        FLEX_PRINT(FlexDirection, "direction", direction);
+        FLEX_PRINT(FlexAlign, "align-items", alignItems);
+        FLEX_PRINT(FlexAlign, "align-self", alignSelf);
+        FLEX_PRINT(FlexAlign, "align-content", alignContent);
+        FLEX_PRINT(FlexAlign, "justify-content", justifyContent);
+        FLEX_PRINT(FlexLength, "flex-basis", flexBasis);
+        FLEX_PRINT(float, "flex-grow", flexGrow);
+        FLEX_PRINT(float, "flex-shrink", flexShrink);
+        FLEX_PRINT(FlexLength, "width", size[FLEX_WIDTH]);
+        FLEX_PRINT(FlexLength, "height", size[FLEX_HEIGHT]);
+        FLEX_PRINT(FlexLength, "min-width", minSize[FLEX_WIDTH]);
+        FLEX_PRINT(FlexLength, "min-height", minSize[FLEX_HEIGHT]);
+        FLEX_PRINT(FlexLength, "max-width", maxSize[FLEX_WIDTH]);
+        FLEX_PRINT(FlexLength, "max-height", maxSize[FLEX_HEIGHT]);
+        FLEX_PRINT_INSET(FlexLength, "margin", margin);
+        FLEX_PRINT_INSET(FlexLength, "padding", padding);
+        FLEX_PRINT_INSET(float, "border", border);
+        FLEX_PRINT(bool, "fixed", fixed);
+        FLEX_PRINT(FlexLength, "spacing", spacing);
+        FLEX_PRINT(FlexLength, "line-spacing", lineSpacing);
+        FLEX_PRINT(int, "lines", lines);
+        FLEX_PRINT(int, "items-per-line", itemsPerLine);
+    }
+    if (options & FlexPrintResult) {
+        FLEX_PRINT(float, "result-x", result.position[FLEX_LEFT]);
+        FLEX_PRINT(float, "result-y", result.position[FLEX_TOP]);
+        FLEX_PRINT(float, "result-width", result.size[FLEX_WIDTH]);
+        FLEX_PRINT(float, "result-height", result.size[FLEX_HEIGHT]);
+        FLEX_PRINT_INSET(float, "result-margin", result.margin);
+        FLEX_PRINT_INSET(float, "result-padding", result.padding);
+    }
+    if ((options & FlexPrintChildren) && node->childrenCount > 0) {
+        printIndent(indent); printf("children: [\n");
+        for (int i=0;i<node->childrenCount;i++) {
+            _flex_print(node->childAt(node->context, i), options, indent + 1);
+        }
+        printIndent(indent); printf("]\n");
+    }
+    indent--;
+    printIndent(indent); printf("}\n");
+}
+
+void Flex_print(FlexNodeRef node, FlexPrintOptions options) {
+    _flex_print(node, options, 0);
 }
