@@ -75,6 +75,13 @@ typedef union {
     float size[2];
 } FlexSize;
 
+typedef enum {
+    FlexPrintDefault = 0,
+    FlexPrintStyle = 1 << 0,
+    FlexPrintResult = 1 << 1,
+    FlexPrintChildren = 1 << 2,
+    FlexPrintHideUnspecified = 1 << 3,
+} FlexPrintOptions;
 
 typedef struct FlexNode * FlexNodeRef;
 
@@ -87,6 +94,7 @@ FlexNodeRef Flex_newNode();
 void Flex_initNode(FlexNodeRef node);
 void Flex_freeNode(FlexNodeRef node);
 void Flex_layout  (FlexNodeRef node, float constrainedWidth, float constrainedHeight, float scale);
+void Flex_print   (FlexNodeRef node, FlexPrintOptions options);
 
 
 #define FLEX_GETTER(type, Name, field)                  type Flex_get##Name(FlexNodeRef node);
