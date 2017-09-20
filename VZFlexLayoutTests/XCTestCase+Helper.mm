@@ -27,7 +27,6 @@ struct Node {
     
     Node() {
         flexNode = Flex_newNode();
-        Flex_initNode(flexNode);
     }
 
     ~Node() {

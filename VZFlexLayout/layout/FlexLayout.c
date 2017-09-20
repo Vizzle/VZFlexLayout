@@ -10,7 +10,6 @@
 
 #include <stdlib.h>
 #include <assert.h>
-#include <math.h>
 #include <stdio.h>
 #include <memory.h>
 
@@ -1247,11 +1246,8 @@ void Flex_layout(FlexNodeRef node, float constrainedWidth, float constrainedHeig
 
 FlexNodeRef Flex_newNode() {
     FlexNodeRef flexNode = (FlexNodeRef)malloc(sizeof(FlexNode));
+    memcpy(flexNode, &defaultFlexNode, sizeof(FlexNode));
     return flexNode;
-}
-
-void Flex_initNode(FlexNodeRef node) {
-    memcpy(node, &defaultFlexNode, sizeof(FlexNode));
 }
 
 void Flex_freeNode(FlexNodeRef node) {
@@ -1264,11 +1260,25 @@ void Flex_freeNode(FlexNodeRef node) {
     free(node);
 }
 
+void Flex_freeNodeRecursive(FlexNodeRef node) {
+    for (int i = 0; i < Flex_getChildrenCount(node); i++) {
+        Flex_freeNodeRecursive(Flex_getChild(node, i));
+    }
+    Flex_freeNode(node);
+}
+
 void Flex_insertChild(FlexNodeRef node, FlexNodeRef child, size_t index) {
     if (!node->children) {
         node->children = FlexVector_new(FlexNodeRef, 4);
     }
     FlexVector_insert(FlexNodeRef, node->children, child, index);
+}
+
+void Flex_addChild(FlexNodeRef node, FlexNodeRef child) {
+    if (!node->children) {
+        node->children = FlexVector_new(FlexNodeRef, 4);
+    }
+    FlexVector_add(FlexNodeRef, node->children, child);
 }
 
 void Flex_removeChild(FlexNodeRef node, FlexNodeRef child) {
