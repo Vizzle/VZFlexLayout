@@ -12,6 +12,7 @@
 extern "C"{
 #endif
 
+#include <math.h>
 #include <stddef.h>
 #ifndef __cplusplus
 #   include <stdbool.h>
@@ -181,9 +182,10 @@ FLEX_RESULT_PROPERTYES()
 
 
 FlexNodeRef Flex_newNode();
-void        Flex_initNode          (FlexNodeRef node);
 void        Flex_freeNode          (FlexNodeRef node);
+void        Flex_freeNodeRecursive (FlexNodeRef node);
 void        Flex_insertChild       (FlexNodeRef node, FlexNodeRef child, size_t index);
+void        Flex_addChild          (FlexNodeRef node, FlexNodeRef child);
 void        Flex_removeChild       (FlexNodeRef node, FlexNodeRef child);
 FlexNodeRef Flex_getChild          (FlexNodeRef node, size_t index);
 size_t      Flex_getChildrenCount  (FlexNodeRef node);

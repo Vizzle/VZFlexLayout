@@ -401,8 +401,6 @@ float flexNodeBaseline(void* context, FlexSize constrainedSize) {
         _flex_node = Flex_newNode();
 
         if (_flex_node != NULL) {
-            
-            Flex_initNode(_flex_node);
             Flex_setContext(_flex_node, (__bridge void* )self);
             _childNodes = [NSMutableArray new];
             
