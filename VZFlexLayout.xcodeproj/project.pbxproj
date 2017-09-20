@@ -211,7 +211,6 @@
 		B16605001F39A2BB00442893 /* SimpleTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B16604FF1F39A2BB00442893 /* SimpleTests.mm */; };
 		B16605281F3C4D8A00442893 /* PaddingTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B16605271F3C4D8A00442893 /* PaddingTests.mm */; };
 		B166052F1F3D973400442893 /* FlexGrowTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B166052E1F3D973400442893 /* FlexGrowTests.mm */; };
-		B1CFE8441F6FA68F00C1A9FA /* FlexProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = B1CFE8431F6FA68F00C1A9FA /* FlexProperties.h */; };
 		B1F9FF1C1F4148210045973E /* FlexShrinkTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF1B1F4148210045973E /* FlexShrinkTests.mm */; };
 		B1F9FF1E1F417AC60045973E /* FlexBasisTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF1D1F417AC60045973E /* FlexBasisTests.mm */; };
 		B1F9FF251F454BDA0045973E /* CSSFlexboxTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = B1F9FF241F454BDA0045973E /* CSSFlexboxTests.mm */; };
@@ -452,7 +451,6 @@
 		B16605011F39A38C00442893 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B16605271F3C4D8A00442893 /* PaddingTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PaddingTests.mm; sourceTree = "<group>"; };
 		B166052E1F3D973400442893 /* FlexGrowTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FlexGrowTests.mm; sourceTree = "<group>"; };
-		B1CFE8431F6FA68F00C1A9FA /* FlexProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlexProperties.h; sourceTree = "<group>"; };
 		B1F9FF1B1F4148210045973E /* FlexShrinkTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FlexShrinkTests.mm; sourceTree = "<group>"; };
 		B1F9FF1D1F417AC60045973E /* FlexBasisTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FlexBasisTests.mm; sourceTree = "<group>"; };
 		B1F9FF241F454BDA0045973E /* CSSFlexboxTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CSSFlexboxTests.mm; sourceTree = "<group>"; };
@@ -875,7 +873,6 @@
 				B1F9FF4E1F56E6AE0045973E /* yoga */,
 				B1F9FF571F56E6AE0045973E /* YogaBridge.h */,
 				B1F9FF581F56E6AE0045973E /* YogaBridge.c */,
-				B1CFE8431F6FA68F00C1A9FA /* FlexProperties.h */,
 				45C499FA1E94F678009BD7AA /* FlexLayout.c */,
 				45C499FB1E94F678009BD7AA /* FlexLayout.h */,
 			);
@@ -1073,7 +1070,6 @@
 				458FEBA91E9DD270004A44DB /* VZFLocker.h in Headers */,
 				458FEBFE1E9DD270004A44DB /* VZFScrollNode.h in Headers */,
 				458FEC121E9DD270004A44DB /* VZFSwitchNode.h in Headers */,
-				B1CFE8441F6FA68F00C1A9FA /* FlexProperties.h in Headers */,
 				458FEB9E1E9DD270004A44DB /* VZFActionWrapper.h in Headers */,
 				B1F9FF5B1F56E6AE0045973E /* YGMacros.h in Headers */,
 				458FEBEA1E9DD270004A44DB /* VZFMapViewNode.h in Headers */,
