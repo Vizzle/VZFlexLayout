@@ -168,7 +168,6 @@
 		45C49AC41E94F678009BD7AA /* VZFlux.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C499F81E94F678009BD7AA /* VZFlux.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45C49AC51E94F678009BD7AA /* FlexLayout.c in Sources */ = {isa = PBXBuildFile; fileRef = 45C499FA1E94F678009BD7AA /* FlexLayout.c */; };
 		45C49AC61E94F678009BD7AA /* FlexLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C499FB1E94F678009BD7AA /* FlexLayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45C49AC71E94F678009BD7AA /* khash.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C499FC1E94F678009BD7AA /* khash.h */; };
 		45C49AEB1E94F678009BD7AA /* VZFAsyncDrawingTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C49A231E94F678009BD7AA /* VZFAsyncDrawingTransaction.h */; };
 		45C49AEC1E94F678009BD7AA /* VZFAsyncDrawingTransaction.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C49A241E94F678009BD7AA /* VZFAsyncDrawingTransaction.mm */; };
 		45C49AED1E94F678009BD7AA /* VZFAsyncDrawingTransactionContainer+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C49A251E94F678009BD7AA /* VZFAsyncDrawingTransactionContainer+Private.h */; };
@@ -375,7 +374,6 @@
 		45C499F81E94F678009BD7AA /* VZFlux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFlux.h; sourceTree = "<group>"; };
 		45C499FA1E94F678009BD7AA /* FlexLayout.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = FlexLayout.c; sourceTree = "<group>"; };
 		45C499FB1E94F678009BD7AA /* FlexLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlexLayout.h; sourceTree = "<group>"; };
-		45C499FC1E94F678009BD7AA /* khash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = khash.h; sourceTree = "<group>"; };
 		45C49A231E94F678009BD7AA /* VZFAsyncDrawingTransaction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFAsyncDrawingTransaction.h; sourceTree = "<group>"; };
 		45C49A241E94F678009BD7AA /* VZFAsyncDrawingTransaction.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFAsyncDrawingTransaction.mm; sourceTree = "<group>"; };
 		45C49A251E94F678009BD7AA /* VZFAsyncDrawingTransactionContainer+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "VZFAsyncDrawingTransactionContainer+Private.h"; sourceTree = "<group>"; };
@@ -810,7 +808,6 @@
 				B1CFE8431F6FA68F00C1A9FA /* FlexProperties.h */,
 				45C499FA1E94F678009BD7AA /* FlexLayout.c */,
 				45C499FB1E94F678009BD7AA /* FlexLayout.h */,
-				45C499FC1E94F678009BD7AA /* khash.h */,
 			);
 			path = layout;
 			sourceTree = "<group>";
@@ -1020,7 +1017,6 @@
 				45C49AFB1E94F678009BD7AA /* VZFBlankNodeBackingLayer.h in Headers */,
 				45C499731E94EA84009BD7AA /* VZFlexLayout.h in Headers */,
 				458FEBAE1E9DD270004A44DB /* VZFNodeInternal.h in Headers */,
-				45C49AC71E94F678009BD7AA /* khash.h in Headers */,
 				458FEC271E9DD270004A44DB /* VZFWebView.h in Headers */,
 				458FEBBE1E9DD270004A44DB /* VZFunctor.h in Headers */,
 				45C49AF01E94F678009BD7AA /* VZFAsyncDrawingTransactionGroup.h in Headers */,
