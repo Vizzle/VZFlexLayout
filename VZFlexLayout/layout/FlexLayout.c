@@ -184,6 +184,8 @@ typedef struct FlexNode {
     float flexBaseSize;
     float resolvedMargin[4];
     float ascender;
+    FlexLength calculatedFlexBasis;
+    FlexAlign calculatedAlignSelf;
 
     // measure cache
     FlexVectorRef(FlexMeasureCache) measuredSizeCache;
@@ -540,7 +542,7 @@ void flex_layoutInternal(FlexNodeRef node, FlexLayoutContext *context, FlexSize 
         FlexNodeRef item = items[i];
         
         float itemHypotheticalMainSize;
-        float resolvedFlexBasis = flex_resolve(item->flexBasis, context, resolvedInnerSize.size[mainAxis]);
+        float resolvedFlexBasis = flex_resolve(item->calculatedFlexBasis, context, resolvedInnerSize.size[mainAxis]);
         
         // A. If the item has a definite used flex basis, that’s the flex base size.
         if (FlexIsResolved(resolvedFlexBasis)) {
@@ -557,7 +559,7 @@ void flex_layoutInternal(FlexNodeRef node, FlexLayoutContext *context, FlexSize 
         // E. Otherwise, size the item into the available space using its used flex basis in place of its main size, treating a value of content as max-content. If a cross size is needed to determine the main size (e.g. when the flex item’s main size is in its block axis) and the flex item’s cross size is auto and not definite, in this calculation use fit-content as the flex item’s cross size. The flex base size is the item’s resulting main size.
         else {
             FlexLength oldMainSize = item->size[mainAxis];
-            item->size[mainAxis] = item->flexBasis;
+            item->size[mainAxis] = item->calculatedFlexBasis;
             flex_layoutInternal(item, context, availableSize, mainAxis == FlexHorizontal ? FlexLayoutFlagMeasureWidth : FlexLayoutFlagMeasureHeight, false);
             item->size[mainAxis] = oldMainSize;
             item->flexBaseSize = item->result.size[mainAxis];
@@ -823,7 +825,7 @@ void flex_layoutInternal(FlexNodeRef node, FlexLayoutContext *context, FlexSize 
         float maxAscender = 0;
         for (j=0;j<lines[0].itemsCount;j++) {
             FlexNodeRef item = items[j];
-            if (mainAxis == FlexHorizontal && item->alignSelf == FlexBaseline && !flex_hasAutoMargin(item, crossAxis)) {
+            if (mainAxis == FlexHorizontal && item->calculatedAlignSelf == FlexBaseline && !flex_hasAutoMargin(item, crossAxis)) {
                 float ascender;
                 flex_baseline(item, &ascender, NULL);
                 
@@ -848,7 +850,7 @@ void flex_layoutInternal(FlexNodeRef node, FlexLayoutContext *context, FlexSize 
                 
                 //    1. Collect all the flex items whose inline-axis is parallel to the main-axis, whose align-self is baseline, and whose cross-axis margins are both non-auto. Find the largest of the distances between each item’s baseline and its hypothetical outer cross-start edge, and the largest of the distances between each item’s baseline and its hypothetical outer cross-end edge, and sum these two values.
                 // only the horizontal text layout is supported
-                if (mainAxis == FlexHorizontal && item->alignSelf == FlexBaseline && !flex_hasAutoMargin(item, crossAxis)) {
+                if (mainAxis == FlexHorizontal && item->calculatedAlignSelf == FlexBaseline && !flex_hasAutoMargin(item, crossAxis)) {
                     float ascender, descender;
                     flex_baseline(item, &ascender, &descender);
                     
@@ -908,14 +910,14 @@ void flex_layoutInternal(FlexNodeRef node, FlexLayoutContext *context, FlexSize 
             FlexNodeRef item = items[j];
             
             FlexLength oldCrossSize = item->size[crossAxis];
-            if (item->alignSelf == FlexStretch && item->size[crossAxis].type == FlexLengthTypeAuto && !flex_hasAutoMargin(item, crossAxis)) {
+            if (item->calculatedAlignSelf == FlexStretch && item->size[crossAxis].type == FlexLengthTypeAuto && !flex_hasAutoMargin(item, crossAxis)) {
                 item->size[crossAxis].type = FlexLengthTypePoint;
                 item->size[crossAxis].value = item->result.size[crossAxis] = lines[i].itemsSize - flex_inset(item->resolvedMargin, crossAxis);
             }
             
             item->result.size[crossAxis] = flex_clamp(item->result.size[crossAxis], flex_resolve(item->minSize[crossAxis], context, resolvedInnerSize.size[crossAxis]), flex_resolve(item->maxSize[crossAxis], context, resolvedInnerSize.size[crossAxis]));
             
-            if (item->alignSelf == FlexStretch) {
+            if (item->calculatedAlignSelf == FlexStretch) {
                 FlexLength oldMainSize = item->size[mainAxis];
                 item->size[crossAxis] = (FlexLength){item->result.size[crossAxis], FlexLengthTypePoint};
                 item->size[mainAxis] = (FlexLength){item->result.size[mainAxis], FlexLengthTypePoint};
@@ -1036,7 +1038,7 @@ void flex_layoutInternal(FlexNodeRef node, FlexLayoutContext *context, FlexSize 
             // 14. Align all flex items along the cross-axis per align-self, if neither of the item’s cross-axis margins are auto.
             remindCrossSize = lines[i].itemsSize - (item->result.size[crossAxis] + flex_inset(item->result.margin, crossAxis));
             float itemResultCrossPosition = item->result.margin[flex_start[crossAxis]];
-            switch (item->alignSelf) {
+            switch (item->calculatedAlignSelf) {
                 case FlexStart:
                     break;
                 case FlexCenter:
@@ -1210,14 +1212,20 @@ void flex_setupProperties(FlexNodeRef node) {
         FlexNodeRef item = Flex_getChild(node, i);
         
         if (item->flexBasis.type == FlexLengthTypeAuto) {
-            item->flexBasis = item->size[flex_dim[node->direction]];
+            item->calculatedFlexBasis = item->size[flex_dim[node->direction]];
         }
         else if (item->flexBasis.type == FlexLengthTypeContent) {
-            item->flexBasis = FlexLengthAuto;
+            item->calculatedFlexBasis = FlexLengthAuto;
+        }
+        else {
+            item->calculatedFlexBasis = item->flexBasis;
         }
         
         if (item->alignSelf == FlexInherit) {
-            item->alignSelf = node->alignItems;
+            item->calculatedAlignSelf = node->alignItems;
+        }
+        else {
+            item->calculatedAlignSelf = item->alignSelf;
         }
         
         flex_setupProperties(item);
