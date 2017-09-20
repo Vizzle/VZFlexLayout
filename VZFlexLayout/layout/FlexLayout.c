@@ -7,13 +7,12 @@
 //
 
 #include "FlexLayout.h"
-#include "khash.h"
 
 #include <stdlib.h>
 #include <assert.h>
-#include <float.h>
 #include <math.h>
 #include <stdio.h>
+#include <memory.h>
 
 
 #if DEBUG
@@ -27,15 +26,78 @@
 #define FlexFloatEquals(a, b) ((isnan(a) && isnan(b)) || a == b)
 #define FlexLengthEquals(a, b) (FlexFloatEquals(a.value, b.value) && a.type == b.type)
 #define FlexPixelRound(value, scale) (roundf((value) * (scale)) / (scale))
-
-#define kh_FlexSize_hash_func(key) (uint32_t)(*(uint32_t*)(&key.width) ^ *(uint32_t*)(&key.height))
-#define kh_FlexSize_hash_equal(a, b) (FlexFloatEquals(a.width, b.width) && FlexFloatEquals(a.height, b.height))
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-function"
-KHASH_INIT(FlexSize, FlexSize, FlexSize, 1, kh_FlexSize_hash_func, kh_FlexSize_hash_equal)
-#pragma GCC diagnostic pop
-
 #define FlexIsResolved(n) !FlexIsUndefined(n)
+
+#define FlexVector(type) FlexVector_##type
+#define FlexVectorRef(type) FlexVector(type)*
+#define FlexVector_new(type, initialCapacity) FlexVector_new_##type(initialCapacity)
+#define FlexVector_free(type, vector) FlexVector_free_##type(vector)
+#define FlexVector_insert(type, vector, value, index) FlexVector_insert_##type(vector, value, index)
+#define FlexVector_add(type, vector, value) FlexVector_add_##type(vector, value)
+#define FlexVector_removeAt(type, vector, index) FlexVector_removeAt_##type(vector, index)
+#define FlexVector_remove(type, vector, value) FlexVector_remove_##type(vector, value)
+#define FlexVector_size(type, vector) FlexVector_size_##type(vector)
+
+#define FLEX_VECTOR_INIT_WITH_EQUALS(type, equals)                                      \
+typedef struct {                                                                        \
+    size_t size;                                                                        \
+    size_t capacity;                                                                    \
+    type *data;                                                                         \
+} FlexVector(type);                                                                     \
+                                                                                        \
+ FlexVectorRef(type) FlexVector_new_##type(size_t initialCapacity) {                    \
+    flex_assert(initialCapacity > 0);                                                   \
+    FlexVectorRef(type) vector = (FlexVectorRef(type))malloc(sizeof(FlexVector(type))); \
+    vector->size = 0;                                                                   \
+    vector->capacity = initialCapacity;                                                 \
+    vector->data = (type *)malloc(sizeof(type) * vector->capacity);                     \
+    return vector;                                                                      \
+}                                                                                       \
+                                                                                        \
+void FlexVector_free_##type(FlexVectorRef(type) vector) {                               \
+    free(vector->data);                                                                 \
+    free(vector);                                                                       \
+}                                                                                       \
+                                                                                        \
+void FlexVector_insert_##type(FlexVectorRef(type) vector, type value, size_t index) {   \
+   if (vector->size == vector->capacity) {                                              \
+       vector->capacity *= 2;                                                           \
+       vector->data = (type *)realloc(vector->data, sizeof(type) * vector->capacity);   \
+   }                                                                                    \
+   for (size_t i = index; i < vector->size; i++) {                                      \
+       vector->data[i + 1] = vector->data[i];                                           \
+   }                                                                                    \
+   vector->data[index] = value;                                                         \
+   vector->size++;                                                                      \
+}                                                                                       \
+                                                                                        \
+void FlexVector_add_##type(FlexVectorRef(type) vector, type value) {                    \
+    FlexVector_insert_##type(vector, value, vector->size);                              \
+}                                                                                       \
+                                                                                        \
+void FlexVector_removeAt_##type(FlexVectorRef(type) vector, size_t index) {             \
+    for (size_t i = index + 1; i < vector->size; i++) {                                 \
+        vector->data[i - 1] = vector->data[i];                                          \
+    }                                                                                   \
+    vector->size--;                                                                     \
+}                                                                                       \
+                                                                                        \
+void FlexVector_remove_##type(FlexVectorRef(type) vector, type value) {                 \
+    for (size_t i = 0; i < vector->size; i++) {                                         \
+        if (equals(vector->data[i], value)) {                                           \
+            FlexVector_removeAt_##type(vector, i);                                      \
+            return;                                                                     \
+        }                                                                               \
+    }                                                                                   \
+}                                                                                       \
+                                                                                        \
+size_t FlexVector_size_##type(FlexVectorRef(type) vector) {                             \
+    return vector ? vector->size : 0;                                                   \
+}                                                                                       \
+
+#define FLEX_VECTOR_EQUALS(a, b) (a == b)
+#define FLEX_VECTOR_INIT(type) FLEX_VECTOR_INIT_WITH_EQUALS(type, FLEX_VECTOR_EQUALS)
+
 
 static const FlexDirection FLEX_WIDTH = FlexHorizontal;
 static const FlexDirection FLEX_HEIGHT = FlexVertical;
@@ -78,58 +140,14 @@ typedef struct {
 } FlexResult;
 
 typedef struct {
-    size_t size;
-    size_t capacity;
-    FlexNodeRef *data;
-} FlexVector;
+    FlexSize availableSize;
+    FlexSize measuredSize;
+} FlexMeasureCache;
 
-typedef FlexVector *FlexVectorRef;
-
-FlexVectorRef FlexVector_new(size_t initialCapacity) {
-    flex_assert(initialCapacity > 0);
-    FlexVectorRef vector = (FlexVectorRef)malloc(sizeof(FlexVector));
-    vector->size = 0;
-    vector->capacity = initialCapacity;
-    vector->data = (FlexNodeRef *)malloc(sizeof(FlexNodeRef) * vector->capacity);
-    return vector;
-}
-
-void FlexVector_free(FlexVectorRef vector) {
-    free(vector->data);
-    free(vector);
-}
-
-void FlexVector_insert(FlexVectorRef vector, FlexNodeRef value, size_t index) {
-    if (vector->size == vector->capacity) {
-        vector->capacity *= 2;
-        vector->data = (FlexNodeRef *)realloc(vector->data, sizeof(FlexNodeRef) * vector->capacity);
-    }
-    for (size_t i = index; i < vector->size; i++) {
-        vector->data[i + 1] = vector->data[i];
-    }
-    vector->data[index] = value;
-    vector->size++;
-}
-
-void FlexVector_removeAt(FlexVectorRef vector, size_t index) {
-    for (size_t i = index + 1; i < vector->size; i++) {
-        vector->data[i - 1] = vector->data[i];
-    }
-    vector->size--;
-}
-
-void FlexVector_remove(FlexVectorRef vector, FlexNodeRef value) {
-    for (size_t i = 0; i < vector->size; i++) {
-        if (vector->data[i] == value) {
-            FlexVector_removeAt(vector, i);
-            return;
-        }
-    }
-}
-
-size_t FlexVector_size(FlexVectorRef vector) {
-    return vector ? vector->size : 0;
-}
+FLEX_VECTOR_INIT(FlexNodeRef)
+#define FlexSizeEquals(a, b) (FlexFloatEquals(a.width, b.width) && FlexFloatEquals(a.height, b.height))
+#define FlexMeasureCacheEquals(a, b) (FlexSizeEquals(a.availableSize, b.availableSize) && FlexSizeEquals(a.measuredSize, b.measuredSize))
+FLEX_VECTOR_INIT_WITH_EQUALS(FlexMeasureCache, FlexMeasureCacheEquals)
 
 typedef struct FlexNode {
     FlexWrapMode wrap;
@@ -161,15 +179,17 @@ typedef struct FlexNode {
     FlexMeasureFunc measure;
     FlexBaselineFunc baseline;
 
-    FlexVectorRef children;
+    FlexVectorRef(FlexNodeRef) children;
     
     // internal fields
     float flexBaseSize;
     float resolvedMargin[4];
     float ascender;
 
-    // cache measure results
-    void* measuredSizeCache;
+    // measure cache
+    FlexVectorRef(FlexMeasureCache) measuredSizeCache;
+
+    // layout cache
     FlexSize lastConstrainedSize;
     FlexLength lastSize[2];
 
@@ -212,6 +232,7 @@ static const FlexNode defaultFlexNode = {
 
     .children = NULL,
 
+    .measuredSizeCache = NULL,
     .lastConstrainedSize = { FlexUndefined, FlexUndefined },
 };
 
@@ -372,29 +393,23 @@ void flex_baseline(FlexNodeRef node, float *ascender, float *descender) {
 
 FlexSize _measureNdoe(FlexNodeRef node, FlexSize availableSize) {
     if (node->measure) {
-        khiter_t itr = kh_get(FlexSize, node->measuredSizeCache, availableSize);
-        if (itr != kh_end((khash_t(FlexSize)*)node->measuredSizeCache) && kh_exist((khash_t(FlexSize)*)node->measuredSizeCache, itr)) {
-            return kh_value((khash_t(FlexSize)*)node->measuredSizeCache, itr);
-        }
-        else {
-            for (itr = kh_begin((khash_t(FlexSize)*)node->measuredSizeCache); itr != kh_end((khash_t(FlexSize)*)node->measuredSizeCache); itr++) {
-                FlexSize key = kh_key((khash_t(FlexSize)*)node->measuredSizeCache, itr);
-                FlexSize value = kh_value((khash_t(FlexSize)*)node->measuredSizeCache, itr);
-                if (FlexTreatNanAsInf(availableSize.width) <= FlexTreatNanAsInf(key.width)
-                    && FlexTreatNanAsInf(availableSize.height) <= FlexTreatNanAsInf(key.height)
-                    && FlexTreatNanAsInf(availableSize.width) >= value.width
-                    && FlexTreatNanAsInf(availableSize.height) >= value.height) {
-                    return value;
-                }
+        for (int i = (int)FlexVector_size(FlexMeasureCache, node->measuredSizeCache) - 1; i >= 0; i--) {
+            FlexSize key = node->measuredSizeCache->data[i].availableSize;
+            FlexSize value = node->measuredSizeCache->data[i].measuredSize;
+            if (FlexSizeEquals(availableSize, key)
+                || (FlexTreatNanAsInf(availableSize.width) <= FlexTreatNanAsInf(key.width)
+                && FlexTreatNanAsInf(availableSize.height) <= FlexTreatNanAsInf(key.height)
+                && FlexTreatNanAsInf(availableSize.width) >= value.width
+                && FlexTreatNanAsInf(availableSize.height) >= value.height)) {
+                return value;
             }
-            FlexSize measuredSize = node->measure(node->context, availableSize);
-            int ret;
-            khiter_t itr = kh_put(FlexSize, node->measuredSizeCache, availableSize, &ret);
-            if (ret) {
-                kh_value((khash_t(FlexSize)*)node->measuredSizeCache, itr) = measuredSize;
-            }
-            return measuredSize;
         }
+        FlexSize measuredSize = node->measure(node->context, availableSize);
+        if (!node->measuredSizeCache) {
+            node->measuredSizeCache = FlexVector_new(FlexMeasureCache, 2);
+        }
+        FlexVector_add(FlexMeasureCache, node->measuredSizeCache, ((FlexMeasureCache){availableSize, measuredSize}));
+        return measuredSize;
     }
 
     return (FlexSize){0,0};
@@ -1237,26 +1252,27 @@ FlexNodeRef Flex_newNode() {
 
 void Flex_initNode(FlexNodeRef node) {
     memcpy(node, &defaultFlexNode, sizeof(FlexNode));
-    node->measuredSizeCache = kh_init(FlexSize);
 }
 
 void Flex_freeNode(FlexNodeRef node) {
-    kh_destroy(FlexSize, node->measuredSizeCache);
+    if (node->measuredSizeCache) {
+        FlexVector_free(FlexMeasureCache, node->measuredSizeCache);
+    }
     if (node->children) {
-        FlexVector_free(node->children);
+        FlexVector_free(FlexNodeRef, node->children);
     }
     free(node);
 }
 
 void Flex_insertChild(FlexNodeRef node, FlexNodeRef child, size_t index) {
     if (!node->children) {
-        node->children = FlexVector_new(4);
+        node->children = FlexVector_new(FlexNodeRef, 4);
     }
-    FlexVector_insert(node->children, child, index);
+    FlexVector_insert(FlexNodeRef, node->children, child, index);
 }
 
 void Flex_removeChild(FlexNodeRef node, FlexNodeRef child) {
-    FlexVector_remove(node->children, child);
+    FlexVector_remove(FlexNodeRef, node->children, child);
 }
 
 FlexNodeRef Flex_getChild(FlexNodeRef node, size_t index) {
@@ -1264,7 +1280,7 @@ FlexNodeRef Flex_getChild(FlexNodeRef node, size_t index) {
 }
 
 size_t Flex_getChildrenCount(FlexNodeRef node) {
-    return FlexVector_size(node->children);
+    return FlexVector_size(FlexNodeRef, node->children);
 }
 
 
