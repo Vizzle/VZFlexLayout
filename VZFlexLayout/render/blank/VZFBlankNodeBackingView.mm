@@ -168,7 +168,7 @@
             break;
         }
         
-        __weak typeof(self) weakSelf = self;
+        __weak __typeof(self) weakSelf = self;
         // 过一会儿再把背景颜色改回去，让用户能看到点击反馈
         VZFDispatchMain(0.1, ^{
             //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
