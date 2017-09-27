@@ -179,11 +179,12 @@
         objc_setAssociatedObject(maskLayer, _id, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         [self.layer addSublayer:maskLayer];
         self.layer.mask = maskLayer;
-        if (vs.borderWidth > 0 && vs.borderColor) {
+        if (vs.borderWidth > 0) {
             CAShapeLayer *strokeLayer = [CAShapeLayer layer];
+            strokeLayer.zPosition = MAXFLOAT;
             strokeLayer.path = path.CGPath;
             strokeLayer.fillColor = [UIColor clearColor].CGColor;
-            strokeLayer.strokeColor = vs.borderColor.CGColor;
+            strokeLayer.strokeColor = vs.borderColor.CGColor ?: UIColor.blackColor.CGColor;
             strokeLayer.lineWidth = vs.borderWidth * 2;
             objc_setAssociatedObject(strokeLayer, _id, @YES, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             [self.layer addSublayer:strokeLayer];
