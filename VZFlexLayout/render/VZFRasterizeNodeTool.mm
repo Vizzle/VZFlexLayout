@@ -192,10 +192,10 @@
     renderer.borderWidth = vs.borderWidth;
     renderer.borderColor = vs.borderColor;
     
-    CGFloat cornerRadiusTopLeft = FlexIsUndefined(vs.cornerRadiusTopLeft.value) ? vs.cornerRadiusTopLeft.value : vs.cornerRadius;
-    CGFloat cornerRadiusTopRight = FlexIsUndefined(vs.cornerRadiusTopRight.value) ? vs.cornerRadiusTopRight.value : vs.cornerRadius;
-    CGFloat cornerRadiusBottomLeft = FlexIsUndefined(vs.cornerRadiusBottomLeft.value) ? vs.cornerRadiusBottomLeft.value : vs.cornerRadius;
-    CGFloat cornerRadiusBottomRight = FlexIsUndefined(vs.cornerRadiusBottomRight.value)? vs.cornerRadiusBottomRight.value : vs.cornerRadius;
+    CGFloat cornerRadiusTopLeft = !FlexIsUndefined(vs.cornerRadiusTopLeft.value) ? vs.cornerRadiusTopLeft.value : vs.cornerRadius;
+    CGFloat cornerRadiusTopRight = !FlexIsUndefined(vs.cornerRadiusTopRight.value) ? vs.cornerRadiusTopRight.value : vs.cornerRadius;
+    CGFloat cornerRadiusBottomLeft = !FlexIsUndefined(vs.cornerRadiusBottomLeft.value) ? vs.cornerRadiusBottomLeft.value : vs.cornerRadius;
+    CGFloat cornerRadiusBottomRight = !FlexIsUndefined(vs.cornerRadiusBottomRight.value) ? vs.cornerRadiusBottomRight.value : vs.cornerRadius;
     renderer.customCorner = {cornerRadiusTopLeft, cornerRadiusTopRight, cornerRadiusBottomLeft, cornerRadiusBottomRight};
     renderer.clip = vs.clip;
   
