@@ -167,7 +167,8 @@
     CGFloat cornerRadiusBottomLeft = !FlexIsUndefined(vs.cornerRadiusBottomLeft.value) ? vs.cornerRadiusBottomLeft.value : vs.cornerRadius;
     CGFloat cornerRadiusBottomRight = !FlexIsUndefined(vs.cornerRadiusBottomRight.value) ? vs.cornerRadiusBottomRight.value : vs.cornerRadius;
     if (cornerRadiusTopLeft != cornerRadiusTopRight || cornerRadiusTopLeft != cornerRadiusBottomLeft || cornerRadiusTopLeft != cornerRadiusBottomRight) {
-        self.layer.borderWidth      = 0;
+        self.layer.borderWidth = 0;
+        self.layer.cornerRadius = 0;
         UIBezierPath *path = [self _roundRectPathWithWidth:self.bounds.size.width
                                                     height:self.bounds.size.height
                                              topLeftRadius:cornerRadiusTopLeft
