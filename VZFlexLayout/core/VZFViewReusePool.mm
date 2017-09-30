@@ -54,6 +54,7 @@ static const void* g_unapplicatorId = &g_unapplicatorId;
     }
     return self;
 }
+
 - (UIView* )viewForClass:(const ViewClass&)viewClass ParentView:(UIView* )container Frame:(CGRect)frame {
     
     UIView* v = nil;
@@ -75,26 +76,26 @@ static const void* g_unapplicatorId = &g_unapplicatorId;
     else{
         //return an existing one
          v = *_nextUsableViewPos;
-        _nextUsableViewPos ++;
-        
         if (viewClass.identifier()) {
-        
+            _nextUsableViewPos ++;
+
             // 重用前调用 unapplicator，避免残留脏数据
             [v unapply];
-        
-         VZ::Mounting::prepareForReuse(v);
-//         VZFNSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
+
+            VZ::Mounting::prepareForReuse(v);
+//            VZFNSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
         }
         else {
             // 如果 identifier 为空，不重用
+            _nextUsableViewPos = _reusePool.erase(_nextUsableViewPos);
             [v removeFromSuperview];
             v = [self viewForClass:viewClass ParentView:container Frame:frame];
         }
         
     }
     return v;
-
 }
+
 - (void)reset{
 
     for(auto itor = _reusePool.begin(); itor != _nextUsableViewPos; ++itor){

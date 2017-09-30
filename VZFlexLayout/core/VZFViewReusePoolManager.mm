@@ -83,8 +83,8 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     if (!node.viewClass.hasView()) {
         return nil;
     }
-    
-    NSString* viewKey = [NSStringFromClass(node.class) stringByAppendingString:node.viewClass.identifier()];//[NSString stringWithFormat:@"%@-%@",NSStringFromClass(node.class),node.viewClass.identifier()];
+
+    NSString* viewKey = [NSStringFromClass(node.class) stringByAppendingString:node.viewClass.identifier() ?: @""];
     VZFViewReusePool* reusePool = _reusePoolMap[viewKey];
     if (!reusePool) {
         reusePool = [[VZFViewReusePool alloc]init];
