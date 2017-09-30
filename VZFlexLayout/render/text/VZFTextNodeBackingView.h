@@ -12,7 +12,7 @@
 #import "VZFBackingViewProtocol.h"
 
 @class VZFTextNodeRenderer;
-@interface VZFTextNodeBackingView : UILabel<VZFNodeBackingViewInterface, VZFBackingViewProtocol>
+@interface VZFTextNodeBackingView : UIView<VZFNodeBackingViewInterface, VZFBackingViewProtocol>
 
 @property(nonatomic,strong) VZFTextNodeRenderer* textRenderer;
 @property(nonatomic,assign) UIEdgeInsets edgeInsets;

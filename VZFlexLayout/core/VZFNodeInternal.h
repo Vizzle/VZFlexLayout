@@ -41,10 +41,6 @@ using namespace VZ;
  *  Node对应到UIKit的类型
  */
 @property(nonatomic,assign,readonly)ViewClass viewClass;
-/**
- *  Node的描述文件
- */
-@property(nonatomic,assign,readonly)NodeSpecs specs;
 
 /**
  *  内部引用的Objective-C类型的node
@@ -65,6 +61,12 @@ using namespace VZ;
 - (void)applyAttributes;
 
 - (UIView* )mountedView;
+
+/**
+ *  Node的描述文件
+ */
+- (const NodeSpecs&)specs;
+- (void)setSpecs:(const NodeSpecs&)specs;
 
 @end
 

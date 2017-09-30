@@ -85,64 +85,37 @@ namespace VZ{
         }
         
         void destroyView(UIView* v){
-        
-            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
-                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
-                if ([backingView respondsToSelector:@selector(dead)]) {
-                    [backingView dead];
-                }
+            if ([v respondsToSelector:@selector(dead)] && [v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                [(id<VZFNodeBackingViewInterface>)v dead];
             }
         }
         
         void createView(UIView* v){
-        
-            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
-                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
-                if ([backingView respondsToSelector:@selector(born)]) {
-                    [backingView born];
-                }
+            if ([v respondsToSelector:@selector(born)] && [v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                [(id<VZFNodeBackingViewInterface>)v born];
             }
         }
         
         void reset(UIView* v){
-        
-            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
-                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
-                if ([backingView respondsToSelector:@selector(resetState)]) {
-                    [backingView resetState];
-                }
+            if ([v respondsToSelector:@selector(resetState)] && [v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                [(id<VZFNodeBackingViewInterface>)v resetState];
             }
-        
         }
         
         void prepareForReuse(UIView* v){
-            
-            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
-                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
-                if ([backingView respondsToSelector:@selector(prepareForReuse)]) {
-                    [backingView prepareForReuse];
-                }
-
+            if ([v respondsToSelector:@selector(prepareForReuse)] && [v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                [(id<VZFNodeBackingViewInterface>)v prepareForReuse];
             }
         }
         
         void hide(UIView* v){
-            
-            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
-                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
-                if ([backingView respondsToSelector:@selector(willEnterReusePool)]) {
-                    [backingView willEnterReusePool];
-                }
+            if ([v respondsToSelector:@selector(willEnterReusePool)] && [v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                [(id<VZFNodeBackingViewInterface>)v willEnterReusePool];
             }
         }
         void unhide(UIView* v){
-            
-            if ([v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
-                id<VZFNodeBackingViewInterface> backingView = (id<VZFNodeBackingViewInterface>)v;
-                if ([backingView respondsToSelector:@selector(didLeaveReusePool)]) {
-                    [backingView didLeaveReusePool];
-                }
-
+            if ([v respondsToSelector:@selector(didLeaveReusePool)] && [v.class conformsToProtocol:@protocol(VZFNodeBackingViewInterface)]) {
+                [(id<VZFNodeBackingViewInterface>)v didLeaveReusePool];
             }
         }
 
