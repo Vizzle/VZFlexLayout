@@ -54,7 +54,7 @@
     self.pagingEnabled = specs.paging;
     self.showsVerticalScrollIndicator = NO;
     self.showsHorizontalScrollIndicator = NO;
-    self.scrollsToTop = NO;
+    self.scrollsToTop = specs.scrollsToTop;
     self.contentSize = scrollNode.contentSize;
     [self setNeedsLayout];
 }

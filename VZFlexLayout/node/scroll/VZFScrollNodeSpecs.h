@@ -21,6 +21,7 @@ namespace VZ {
     namespace DefaultFlexAttributesValue{
         extern ScrollDirection scrollDirection;
         extern bool scrollEnabled;
+        extern bool scrollsToTop;
     }
     
     struct ScrollNodeSpecs{
@@ -28,15 +29,17 @@ namespace VZ {
         Value<ScrollDirection, DefaultFlexAttributesValue::scrollDirection> scrollDirection;
         Value<bool, DefaultFlexAttributesValue::scrollEnabled> scrollEnabled;
         bool paging;
+        Value<bool, DefaultFlexAttributesValue::scrollsToTop> scrollsToTop;
 
         const ScrollNodeSpecs copy() const{
-            return {scrollDirection,scrollEnabled,paging};
+            return {scrollDirection,scrollEnabled,paging,scrollsToTop};
         }
         
         bool operator == (const ScrollNodeSpecs &other) const {
             return (scrollDirection == other.scrollDirection
                     && scrollEnabled == other.scrollEnabled
-                    && paging == other.paging);
+                    && paging == other.paging
+                    && scrollsToTop == other.scrollsToTop);
         }
         
         size_t hash() const;
