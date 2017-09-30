@@ -39,6 +39,12 @@
     NSAttributedString *_unfixedText;
 }
 
+static CGFloat VZFTextNodeRenderer_systemVersionFloat;
+
++ (void)load {
+    VZFTextNodeRenderer_systemVersionFloat = [UIDevice currentDevice].systemVersion.floatValue;
+}
+
 - (void)setLineBreakMode:(VZFTextLineBreakMode)lineBreakMode {
     if (_lineBreakMode != lineBreakMode) {
         _calculated = NO;
@@ -104,7 +110,7 @@
     NSMutableAttributedString *mutText = text.mutableCopy;
     // https://openradar.appspot.com/28522327
     // https://github.com/ibireme/YYText/issues/548#issuecomment-260231194
-    CGFloat version = [[UIDevice currentDevice].systemVersion floatValue];
+    CGFloat version = VZFTextNodeRenderer_systemVersionFloat;
     if (version >= 10 && version < 10.2) {  // fixed in iOS 10.2
         [mutText fixAttributesInRange:NSMakeRange(0, mutText.length)];
         [mutText enumerateAttribute:NSFontAttributeName inRange:NSMakeRange(0, mutText.length) options:0 usingBlock:^(id  _Nullable value, NSRange range, BOOL * _Nonnull stop) {

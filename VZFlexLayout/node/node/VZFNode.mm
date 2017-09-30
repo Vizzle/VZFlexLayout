@@ -53,6 +53,7 @@ using namespace VZ::UIKit;
     VZFNodeLifeCycleState _lifeCycleState;
     std::unique_ptr<VZFNodeMountedInfo> _mountedInfo;
     __weak UIImage *_cachedContents;
+    NodeSpecs _specs;
 }
 
 
@@ -85,6 +86,14 @@ using namespace VZ::UIKit;
 
     }
     return self;
+}
+
+- (const VZ::NodeSpecs&)specs {
+    return _specs;
+}
+
+- (void)setSpecs:(const VZ::NodeSpecs&)specs {
+    _specs = specs;
 }
 
 - (instancetype)init

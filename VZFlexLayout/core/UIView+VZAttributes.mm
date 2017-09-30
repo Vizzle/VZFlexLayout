@@ -80,7 +80,8 @@
 }
 
 - (void)_applyRendererAttributes:(const NodeSpecs&)vs {
-    if ([self conformsToProtocol:@protocol(VZFBackingViewProtocol)]) {
+    // 先判断 respondsToSelector，因为 conformsToProtocol 性能比较差
+    if ([self respondsToSelector:@selector(renderer)] && [self conformsToProtocol:@protocol(VZFBackingViewProtocol)]) {
         VZFRenderer *renderer = [(id<VZFBackingViewProtocol>)self renderer];
         if (renderer) {
             renderer.backgroundColor = vs.backgroundColor;
