@@ -205,6 +205,8 @@
 		45C49B0D1E94F678009BD7AA /* VZFNodeListItemRecycler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45C49A491E94F678009BD7AA /* VZFNodeListItemRecycler.mm */; };
 		45C49B101E94FEEE009BD7AA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C49B0F1E94FEEE009BD7AA /* MapKit.framework */; };
 		45C49B121E95004B009BD7AA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45C49B111E95004B009BD7AA /* CoreLocation.framework */; };
+		B3A08F6E1F8364190053F511 /* VZFLineNodeRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = B3A08F6C1F8364180053F511 /* VZFLineNodeRenderer.h */; };
+		B3A08F6F1F8364190053F511 /* VZFLineNodeRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3A08F6D1F8364180053F511 /* VZFLineNodeRenderer.mm */; };
 		B3D062361E9F6D340062C1A1 /* VZFImageNodeInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D062351E9F6D010062C1A1 /* VZFImageNodeInternal.h */; };
 		B3D062381E9F6E0A0062C1A1 /* VZFTextNodeInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = B3D062371E9F6E060062C1A1 /* VZFTextNodeInternal.h */; };
 /* End PBXBuildFile section */
@@ -410,6 +412,8 @@
 		45C49A491E94F678009BD7AA /* VZFNodeListItemRecycler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFNodeListItemRecycler.mm; sourceTree = "<group>"; };
 		45C49B0F1E94FEEE009BD7AA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		45C49B111E95004B009BD7AA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		B3A08F6C1F8364180053F511 /* VZFLineNodeRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VZFLineNodeRenderer.h; sourceTree = "<group>"; };
+		B3A08F6D1F8364180053F511 /* VZFLineNodeRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VZFLineNodeRenderer.mm; sourceTree = "<group>"; };
 		B3D062351E9F6D010062C1A1 /* VZFImageNodeInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFImageNodeInternal.h; sourceTree = "<group>"; };
 		B3D062371E9F6E060062C1A1 /* VZFTextNodeInternal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VZFTextNodeInternal.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -812,6 +816,7 @@
 		45C49A211E94F678009BD7AA /* render */ = {
 			isa = PBXGroup;
 			children = (
+				B3A08F6B1F8364180053F511 /* line */,
 				45C49A221E94F678009BD7AA /* base */,
 				45C49A331E94F678009BD7AA /* blank */,
 				45C49A3A1E94F678009BD7AA /* image */,
@@ -897,6 +902,15 @@
 				45C49B0F1E94FEEE009BD7AA /* MapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B3A08F6B1F8364180053F511 /* line */ = {
+			isa = PBXGroup;
+			children = (
+				B3A08F6C1F8364180053F511 /* VZFLineNodeRenderer.h */,
+				B3A08F6D1F8364180053F511 /* VZFLineNodeRenderer.mm */,
+			);
+			path = line;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -997,6 +1011,7 @@
 				458FEC101E9DD270004A44DB /* VZFSwitch.h in Headers */,
 				45C49AF81E94F678009BD7AA /* VZFRasterizeCacheDefine.h in Headers */,
 				458FEBB41E9DD270004A44DB /* VZFNodeMountContext.h in Headers */,
+				B3A08F6E1F8364190053F511 /* VZFLineNodeRenderer.h in Headers */,
 				1EBE99B41EB9B35400E977AB /* VZFTextView.h in Headers */,
 				45C49B011E94F678009BD7AA /* VZFImageNodeRenderer.h in Headers */,
 				458FEBCD1E9DD270004A44DB /* VZFButtonView.h in Headers */,
@@ -1117,6 +1132,7 @@
 				458FEB991E9DD270004A44DB /* UIBezierPath+vzextension.mm in Sources */,
 				458FEBB81E9DD270004A44DB /* VZFNodeViewClass.mm in Sources */,
 				45C49AFA1E94F678009BD7AA /* VZFRenderer.mm in Sources */,
+				B3A08F6F1F8364190053F511 /* VZFLineNodeRenderer.mm in Sources */,
 				458FEBB21E9DD270004A44DB /* VZFNodeLayoutManager.mm in Sources */,
 				458FEC0F1E9DD270004A44DB /* VZFStackView.mm in Sources */,
 				45C49AEF1E94F678009BD7AA /* VZFAsyncDrawingTransactionContainer.m in Sources */,

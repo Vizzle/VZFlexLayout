@@ -13,7 +13,7 @@
 #import "VZFTextNode.h"
 #import "VZFImageNodeRenderer.h"
 #import "VZFTextNodeRenderer.h"
-#import "VZFTextNodeSpecs.h"
+#import "VZFTextNodeRenderer.h"
 #import "VZFImageNodeSpecs.h"
 #import "VZFNodeInternal.h"
 #import "VZFlexNode.h"
@@ -22,6 +22,10 @@
 #import "VZFButtonNodeSpecs.h"
 #import "VZFImageNodeInternal.h"
 #import "VZFTextNodeInternal.h"
+#import "VZFLineNode.h"
+#import "VZFLineNodeRenderer.h"
+#import "VZFLineNodeSpecs.h"
+
 #import <stack>
 
 
@@ -78,6 +82,10 @@
     {
         return YES;
     }
+    else if ([node isKindOfClass:[VZFLineNode class]])
+    {
+        return YES;
+    }
     else if([node  isKindOfClass:[VZFStackNode class]] || ([node  isMemberOfClass:[VZFNode class]] && ([@"VZFBlankNodeBackingView" isEqualToString:node.viewClass.identifier()] || [@"UIView" isEqualToString:node.viewClass.identifier()])) ){
         return YES;
     }
@@ -100,15 +108,29 @@
     }
     else
         if ([node isKindOfClass:[VZFTextNode class]])
-    {
-        return [self getTextRenderer:((VZFTextNode* )node).textSpecs node:(VZFTextNode *)node size:size];
-    }
-    else if([node  isKindOfClass:[VZFStackNode class]] || ([node  isMemberOfClass:[VZFNode class]] && ([@"VZFBlankNodeBackingView" isEqualToString:node.viewClass.identifier()] || [@"UIView" isEqualToString:node.viewClass.identifier()]))){
-        return [self getBlankRenderer:(VZFStackNode *)node];
-    }
+        {
+            return [self getTextRenderer:((VZFTextNode* )node).textSpecs node:(VZFTextNode *)node size:size];
+        }
+        else if([node  isKindOfClass:[VZFStackNode class]] || ([node  isMemberOfClass:[VZFNode class]] && ([@"VZFBlankNodeBackingView" isEqualToString:node.viewClass.identifier()] || [@"UIView" isEqualToString:node.viewClass.identifier()]))){
+            return [self getBlankRenderer:(VZFStackNode *)node];
+        }
+        else if ([node isKindOfClass:[VZFLineNode class]])
+        {
+            return [self getLineRenderer:[(VZFLineNode *)node lineSpecs] node:(VZFLineNode *)node size:size];
+        }
     //button需要独立处理事件 需要view不做光栅化处理
     
     return nil;
+}
+
++(VZFLineNodeRenderer *)getLineRenderer:(const LineNodeSpecs& )lineNodeSpecs node:(VZFLineNode* )node size:(CGSize)size{
+    VZFLineNodeRenderer *renderer = [VZFLineNodeRenderer new];
+    renderer.color = lineNodeSpecs.color;
+    renderer.dashLength = lineNodeSpecs.dashLength;
+    renderer.spaceLength = lineNodeSpecs.spaceLength;
+    [self setRenderer:renderer specs:node.specs];
+    
+    return renderer;
 }
 
 +(VZFTextNodeRenderer *)getTextRenderer:(const TextNodeSpecs& )textNodeSpecs node:(VZFTextNode* )node size:(CGSize)size{
@@ -127,7 +149,7 @@
 }
 
 +(VZFImageNodeRenderer *)getImageRenderer:(const ImageNodeSpecs& )imageSpec node:(VZFImageNode* )node size:(CGSize)size{
-
+    
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{} ;
     int animateCount = [ctx[@"animate-count"] intValue]?:0;
     
@@ -169,7 +191,7 @@
     renderer.completion = imageSpec.completion;
     
     [self setRenderer:renderer specs:node.specs];
-
+    
     if (imageSpec.imageUrl.length) {
         //已经下载成功 并缓存 直接赋值
         if (downLoadImage) {
@@ -225,7 +247,7 @@
     CGFloat cornerRadiusBottomRight = !FlexIsUndefined(vs.cornerRadiusBottomRight.value) ? vs.cornerRadiusBottomRight.value : vs.cornerRadius;
     renderer.customCorner = {cornerRadiusTopLeft, cornerRadiusTopRight, cornerRadiusBottomLeft, cornerRadiusBottomRight};
     renderer.clip = vs.clip;
-  
+    
     BOOL isTextRenderer = [renderer isKindOfClass:[VZFTextNodeRenderer class]];
     if (vs.isAccessibilityElement != VZF_BOOL_UNDEFINED) {
         renderer.isAccessibilityElement = vs.isAccessibilityElement;
@@ -273,7 +295,7 @@
         VZFNode* node = layout.node;
         
         if (item.isVisited) {//子孙结点已经被访问过了
-         
+            
             VZFLayoutCheckResult *superResult = item.superCheckResult; //相当于返回结果，返回给父节点使用
             VZFLayoutCheckResult *selfResult = item.selfCheckResult; //保存了自己的信息，和子节点返回的信息
             
