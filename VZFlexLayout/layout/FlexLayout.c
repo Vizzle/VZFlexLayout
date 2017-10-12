@@ -421,15 +421,16 @@ void flex_baseline(FlexNodeRef node, float *ascender, float *descender) {
 }
 
 FlexSize flex_measureNode(FlexNodeRef node, FlexSize availableSize) {
+    availableSize = (FlexSize){FlexTreatNanAsInf(availableSize.width), FlexTreatNanAsInf(availableSize.height)};
     if (node->measure) {
         for (int i = (int)FlexVector_size(FlexMeasureCache, node->measuredSizeCache) - 1; i >= 0; i--) {
             FlexSize key = node->measuredSizeCache->data[i].availableSize;
             FlexSize value = node->measuredSizeCache->data[i].measuredSize;
             if (FlexSizeEquals(availableSize, key)
-                || (FlexTreatNanAsInf(availableSize.width) <= FlexTreatNanAsInf(key.width)
-                && FlexTreatNanAsInf(availableSize.height) <= FlexTreatNanAsInf(key.height)
-                && FlexTreatNanAsInf(availableSize.width) >= value.width
-                && FlexTreatNanAsInf(availableSize.height) >= value.height)) {
+                || (availableSize.width <= key.width
+                && availableSize.height <= key.height
+                && availableSize.width >= value.width
+                && availableSize.height >= value.height)) {
                 return value;
             }
         }
