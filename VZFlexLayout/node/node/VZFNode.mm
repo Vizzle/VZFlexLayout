@@ -719,6 +719,7 @@ using namespace VZ::UIKit;
 -(void)willMount{
 
     VZFAssertMainThread();
+    [self.mountedView.layer removeAllAnimations];
     
     switch (_state) {
         case VZFNodeStateUnmounted:
@@ -817,8 +818,7 @@ using namespace VZ::UIKit;
 - (void)willReleaseBackingView:(UIView *)view {
 
     VZFAssertMainThread();
-    
-    [view.layer removeAllAnimations];
+
 }
 
 - (void)didAquireBackingView:(UIView *)view {
