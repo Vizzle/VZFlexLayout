@@ -205,13 +205,18 @@ namespace VZ {
         VZFC_LOG_THREAD(@"LayoutManager",@"unmountNodes");
         
         //会有在非主线程unmount的情况,bounce到Main Thread
-        VZFDispatchMain(0, ^{
-//        VZF_MainCall(^{
-            
+        if (![NSThread isMainThread]) {
+            VZFDispatchMain(0, ^{
+                for(VZFNode* node in nodes){
+                    [node unmount];
+                }
+            });
+        }
+        else {
             for(VZFNode* node in nodes){
                 [node unmount];
             }
-        });
+        }
     }
     
 }
