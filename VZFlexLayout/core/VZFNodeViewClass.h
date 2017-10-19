@@ -25,6 +25,7 @@ namespace VZ{
         ViewClass(ViewFactory factory,NSString* identifier);
 
         NSString* identifier() const;
+        void setIdentifier(NSString *identifier);
         UIView* createView(CGRect frame) const;
         bool hasView() const;
         

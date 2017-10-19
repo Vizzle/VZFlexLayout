@@ -26,6 +26,7 @@ using namespace VZ;
  *  @param shouldAutoReset 是否要自动对view进行reset
  */
 - (instancetype)initWithView:(UIView* )view shouldAutoReset:(BOOL)shouldAutoReset;
+- (instancetype)initWithView:(UIView *)view shouldAutoReset:(BOOL)shouldAutoReset parentManager:(VZFNodeViewManager *)parentManager;
 
 - (UIView* )viewForNode:(VZFNode* )node frame:(CGRect)frame;
 

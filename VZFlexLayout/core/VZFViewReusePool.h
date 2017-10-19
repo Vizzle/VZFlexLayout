@@ -10,9 +10,19 @@
 #import <UIKit/UIKit.h>
 
 
+typedef enum {
+    VZFViewReuseReusltNotReuse, // 不参与重用的 view
+    VZFViewReuseReusltCreate,   // 没有可重用的 view，创建新 view
+    VZFViewReuseReusltShow,     // 找到可重用的 view，并显示出来
+    VZFViewReuseReusltHide,     // 不再需要的 view，隐藏起来以供重用
+    VZFViewReuseReusltReuse,    // 找到可重用的 view，且已为显示状态
+} VZFViewReuseReuslt;
+
 @interface UIView (Unapply)
 
 @property (nonatomic, copy) void(^unapplicator)(UIView* view);
+@property (nonatomic, assign, readonly) VZFViewReuseReuslt reuseResult;
+@property (nonatomic, assign, readonly) BOOL reuseShowing;
 
 - (void)unapply;
 

@@ -22,6 +22,10 @@
 
 #define VZF_BOOL_UNDEFINED INT_MIN
 
+#define VZFAutoAnimationEnabled @"enabled"
+#define VZFAutoAnimationDuration @"duration"
+#define VZFAutoAnimationTimingFunction @"timing-function"
+#define VZFAutoAnimationDelay @"delay"
 
 /**
  *  
@@ -51,6 +55,8 @@ namespace VZ {
         extern UIColor* backgroundColor;
         extern UIColor* highlightBackgroundColor;
         extern CGFloat cornerRadiusUndefined;
+        extern CGFloat anchorX;
+        extern CGFloat anchorY;
         
         //css attributes
         extern CGSize size;
@@ -89,11 +95,13 @@ namespace VZ {
         
         //Id
         std::string identifier;
+        std::string globalIdentifier;
         
         //view attributes
 //        BOOL hidden;
         NSInteger tag;
         BOOL clip;
+        BOOL hidden;
         Value<float, DefaultAttributesValue::alpha> alpha;
         Value<int, DefaultAttributesValue::userInteractionEnabled> userInteractionEnabled;
         Value<UIColor*, DefaultAttributesValue::backgroundColor>backgroundColor;
@@ -107,6 +115,8 @@ namespace VZ {
         Value<CGFloat, DefaultAttributesValue::cornerRadiusUndefined> cornerRadiusBottomRight;
         CGFloat borderWidth;
         UIColor* borderColor;
+        Value<CGFloat, DefaultAttributesValue::anchorX> anchorX;
+        Value<CGFloat, DefaultAttributesValue::anchorY> anchorY;
         UIImage* contents;
         void(^unapplicator)(UIView* view);
         void(^applicator)(UIView* view);
@@ -145,7 +155,11 @@ namespace VZ {
         VZFBlockGesture *gesture; // deprecated, use `gestures` instead
         std::vector<VZFBlockGesture *> gestures;
         VZFBlockAction *display;
-        
+        VZFBlockAction *updateAppear;
+        VZFBlockAction *updateDisappear;
+        VZFBlockAction *updateReuse;
+
+        NSDictionary *autoAnimationAttributes;
         BOOL asyncDisplay;
     };
 

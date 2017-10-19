@@ -65,7 +65,7 @@ using namespace VZ;
 /**
  *  Node的描述文件
  */
-- (const NodeSpecs&)specs;
+- (NodeSpecs&)specs;
 - (void)setSpecs:(const NodeSpecs&)specs;
 
 @end
@@ -99,7 +99,8 @@ using namespace VZ;
 //这个不会光栅化
 - (VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context
                                     Size:(CGSize) size
-                              ParentNode:(VZFNode* )parentNode;
+                              ParentNode:(VZFNode* )parentNode
+                              isUpdating:(BOOL)isUpdating;
 
 - (void)unmount;
 

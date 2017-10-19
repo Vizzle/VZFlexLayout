@@ -86,7 +86,7 @@ using namespace VZ::UIKit;
     return self;
 }
 
-- (const VZ::NodeSpecs&)specs {
+- (VZ::NodeSpecs&)specs {
     return _specs;
 }
 
@@ -561,7 +561,7 @@ using namespace VZ::UIKit;
 
 
 
--(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode
+-(VZ::UIKit::MountResult)mountInContext:(const VZ::UIKit::MountContext &)context Size:(CGSize) size ParentNode:(VZFNode* )parentNode isUpdating:(BOOL)isUpdating
 {
     
     //VZF_LOG_THREAD(@"mount");
@@ -580,6 +580,7 @@ using namespace VZ::UIKit;
     if (view) {
         //不是当前的backingview
         if (view != _mountedInfo -> mountedView) {
+            VZFAssert(view.node != self, @"");
             
             //释放当前mountedView绑定的node
             [view.node unmount];
@@ -600,8 +601,28 @@ using namespace VZ::UIKit;
          view.center = context.position + CGPoint({anchorPoint.x * size.width, anchorPoint.y * size.height});
          view.bounds = {view.bounds.origin,size};
          */
+
+        view.layer.anchorPoint = CGPointMake(_specs.anchorX, _specs.anchorY);
+        
+        BOOL needsAnimation = isUpdating && [_specs.autoAnimationAttributes[VZFAutoAnimationEnabled] boolValue] && view.reuseResult == VZFViewReuseReusltReuse;
+
+        if (needsAnimation) {
+            [UIView beginAnimations:nil context:nil];
+            [UIView setAnimationDuration:[_specs.autoAnimationAttributes[VZFAutoAnimationDuration] doubleValue]];
+            [UIView setAnimationDelay:[_specs.autoAnimationAttributes[VZFAutoAnimationDelay] doubleValue]];
+
+            static NSDictionary *animationCurveDict = @{
+              @"easeIn": @(UIViewAnimationCurveEaseIn),
+              @"easeOut": @(UIViewAnimationCurveEaseOut),
+              @"easeInEaseOut": @(UIViewAnimationCurveEaseInOut),
+              @"linear": @(UIViewAnimationCurveLinear),
+              };
+            UIViewAnimationCurve curve = (UIViewAnimationCurve)[animationCurveDict[_specs.autoAnimationAttributes[VZFAutoAnimationTimingFunction]] intValue];
+            [UIView setAnimationCurve:curve];
+        }
+
         //apply frame
-        view.frame  = {context.position, size};
+        view.frame = {context.position, size};
         
         //apply attributes
         [self applyAttributes];
@@ -611,7 +632,25 @@ using namespace VZ::UIKit;
         if (_specs.applicator) {
             _specs.applicator(view);
         }
-        
+
+        if (needsAnimation) {
+            [UIView commitAnimations];
+        }
+
+        if (isUpdating) {
+            switch (view.reuseResult) {
+                case VZFViewReuseReusltReuse:
+                    [_specs.updateReuse invoke:view withCustomParam:view];
+                    break;
+                case VZFViewReuseReusltShow:
+                case VZFViewReuseReusltCreate:
+                    [_specs.updateAppear invoke:view withCustomParam:view];
+                    break;
+                default:
+                    break;
+            }
+        }
+
         //update mountedInfo
         _mountedInfo -> mountedContext = {view,nil,{context.position,size}};
         
@@ -658,7 +697,7 @@ using namespace VZ::UIKit;
     if (view) {
         
         [self willReleaseBackingView:view];
-        
+        VZFAssert(view.node == self, @"");
         view.node = nil;
         _mountedInfo -> mountedView = nil;
 

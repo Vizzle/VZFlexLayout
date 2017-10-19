@@ -7,19 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VZFViewReusePool.h"
 
 namespace VZ {
     class ViewClass;
     class NodeSpecs;
 }
+using namespace VZ;
+@class VZFNode;
+
+typedef NSMutableDictionary<NSString*, VZFViewReusePool* > VZFViewReusePoolMap;
+
 /**
  *  管理每个view的ReusePool
  */
-using namespace VZ;
-@class VZFNode;
 @interface VZFViewReusePoolManager : NSObject
 
-+ (VZFViewReusePoolManager* )viewReusePoolManagerForView:(UIView* )view;
+@property (strong, readonly) VZFViewReusePoolMap* globalReusePoolMap;
+
++ (VZFViewReusePoolManager* )viewReusePoolManagerForView:(UIView* )view globalReusePoolMap:(VZFViewReusePoolMap*)globalReusePoolMap  isRoot:(BOOL)isRoot;
 
 - (UIView* )viewForNode:(VZFNode* )node ParentView:(UIView* )container Frame:(CGRect)frame;
 //- (UIView* )viewForClass:(const ViewClass&) viewclass Spec:(const NodeSpecs&)spec ParentView:(UIView* )container;

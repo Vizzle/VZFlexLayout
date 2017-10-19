@@ -21,15 +21,17 @@
 static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
 @implementation VZFViewReusePoolManager
 {
-    NSMutableDictionary<NSString*, VZFViewReusePool* >* _reusePoolMap; //<ViewKey, ReusePool>
+    VZFViewReusePoolMap *_reusePoolMap; //<ViewKey, ReusePool>
     std::vector<UIView* > _existedViews; //using vector to boost performance
+    BOOL _isRoot;
 }
-+ (VZFViewReusePoolManager* )viewReusePoolManagerForView:(UIView* )view{
++ (VZFViewReusePoolManager* )viewReusePoolManagerForView:(UIView* )view globalReusePoolMap:(VZFViewReusePoolMap*)globalReusePoolMap isRoot:(BOOL)isRoot {
     
-    id manager = objc_getAssociatedObject(view, g_viewReusePoolManager);
+    VZFViewReusePoolManager *manager = objc_getAssociatedObject(view, g_viewReusePoolManager);
     if (!manager) {
-        
         manager = [[VZFViewReusePoolManager alloc]init];
+        manager->_globalReusePoolMap = globalReusePoolMap;
+        manager->_isRoot = isRoot;
         objc_setAssociatedObject(view, g_viewReusePoolManager, manager, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return manager;
@@ -48,7 +50,12 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
     for(VZFViewReusePool* reusePool in [_reusePoolMap allValues]){
         [reusePool reset];
     }
-    
+    if (_isRoot) {
+        for(VZFViewReusePool* reusePool in [_globalReusePoolMap allValues]){
+            [reusePool reset];
+        }
+    }
+
     NSMutableArray* subviews = [[containerView subviews] mutableCopy];
     std::vector<UIView* >::const_iterator nextExistingViewPos = _existedViews.cbegin();
     
@@ -84,11 +91,21 @@ static const void* g_viewReusePoolManager = &g_viewReusePoolManager;
         return nil;
     }
 
-    NSString* viewKey = [NSStringFromClass(node.class) stringByAppendingString:node.viewClass.identifier() ?: @""];
-    VZFViewReusePool* reusePool = _reusePoolMap[viewKey];
+    NSString* viewKey;
+    VZFViewReusePoolMap* reusePoolMap;
+    if (node.specs.globalIdentifier.empty()) {
+        viewKey = [[NSStringFromClass(node.class) stringByAppendingString:node.viewClass.identifier() ?: @""] stringByAppendingString:[NSString stringWithUTF8String:node.specs.identifier.c_str()]];
+        reusePoolMap = _reusePoolMap;
+    }
+    else {
+        viewKey = [[NSStringFromClass(node.class) stringByAppendingString:node.viewClass.identifier() ?: @""] stringByAppendingString:[NSString stringWithUTF8String:node.specs.globalIdentifier.c_str()]];
+        reusePoolMap = _globalReusePoolMap;
+    }
+    VZFViewReusePool* reusePool = reusePoolMap[viewKey];
+
     if (!reusePool) {
-        reusePool = [[VZFViewReusePool alloc]init];
-        _reusePoolMap[viewKey] = reusePool;
+        reusePool = [[VZFViewReusePool alloc] init];
+        reusePoolMap[viewKey] = reusePool;
     }
     UIView* v = [reusePool viewForClass:node.viewClass ParentView:container Frame:frame];
     

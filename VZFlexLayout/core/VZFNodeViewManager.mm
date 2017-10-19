@@ -11,6 +11,8 @@
 #import <objc/runtime.h>
 #import "VZFViewReusePoolManager.h"
 #import "VZFWeakObjectWrapper.h"
+#import "VZFNodeInternal.h"
+#import "VZFViewReusePool.h"
 
 @implementation UIView(VZFNode)
 
@@ -45,17 +47,25 @@ using namespace VZ;
     self = [super init];
     if (self) {
         _managedView = view;
-        _managerReusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view];
+        _managerReusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view globalReusePoolMap:[NSMutableDictionary<NSString*, VZFViewReusePool* > new] isRoot:true];
+        _shouldAutoReset = shouldAutoReset;
+    }
+    return self;
+}
+
+- (instancetype)initWithView:(UIView *)view shouldAutoReset:(BOOL)shouldAutoReset parentManager:(VZFNodeViewManager *)parentManager {
+
+    self = [super init];
+    if (self) {
+        _managedView = view;
+        _managerReusePoolManager = [VZFViewReusePoolManager viewReusePoolManagerForView:view globalReusePoolMap:parentManager->_managerReusePoolManager.globalReusePoolMap isRoot:false];
         _shouldAutoReset = shouldAutoReset;
     }
     return self;
 }
 
 - (UIView* )viewForNode:(VZFNode* )node frame:(CGRect)frame {
-
-    UIView* v = [_managerReusePoolManager viewForNode:node ParentView:_managedView Frame:frame];
-    return v;
-    
+    return [_managerReusePoolManager viewForNode:node ParentView:_managedView Frame:frame];
 }
 
 - (void)dealloc{

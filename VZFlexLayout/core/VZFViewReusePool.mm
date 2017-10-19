@@ -12,6 +12,8 @@
 
 #import "VZFMacros.h"
 #import "VZFNodeBackingViewInterface.h"
+#import "VZFNodeViewManager.h"
+#import "VZFNodeInternal.h"
 
 #import <objc/runtime.h>
 #include <vector>
@@ -20,6 +22,8 @@
 @implementation UIView (Unapply)
 
 static const void* g_unapplicatorId = &g_unapplicatorId;
+static const void* g_reuseResultId = &g_reuseResultId;
+static const void* g_reuseShowingId = &g_reuseShowingId;
 
 - (void (^)(UIView *))unapplicator {
     return objc_getAssociatedObject(self, g_unapplicatorId);
@@ -35,6 +39,22 @@ static const void* g_unapplicatorId = &g_unapplicatorId;
         unapplicator(self);
         self.unapplicator = nil;
     }
+}
+
+- (VZFViewReuseReuslt)reuseResult {
+    return (VZFViewReuseReuslt)[objc_getAssociatedObject(self, g_reuseResultId) intValue];
+}
+
+- (void)setReuseResult:(VZFViewReuseReuslt)reuseResult {
+    objc_setAssociatedObject(self, g_reuseResultId, @(reuseResult), OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
+- (BOOL)reuseShowing {
+    return [objc_getAssociatedObject(self, g_reuseShowingId) boolValue];
+}
+
+- (void)setReuseShowing:(BOOL)reuseShowing {
+    objc_setAssociatedObject(self, g_reuseShowingId, @(reuseShowing), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 @end
@@ -63,7 +83,7 @@ static const void* g_unapplicatorId = &g_unapplicatorId;
         v = viewClass.createView(frame);
         
         if (v) {
-            
+            v.reuseResult = VZFViewReuseReusltCreate;
             if (container) {
                 [container addSubview:v];
                 //            VZFNSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
@@ -79,8 +99,20 @@ static const void* g_unapplicatorId = &g_unapplicatorId;
         if (viewClass.identifier()) {
             _nextUsableViewPos ++;
 
+            if (!v.reuseShowing) {
+                v.reuseResult = VZFViewReuseReusltShow;
+            }
+            else {
+                v.reuseResult = VZFViewReuseReusltReuse;
+            }
+
             // 重用前调用 unapplicator，避免残留脏数据
             [v unapply];
+
+            if (v.superview != container) {
+                v.frame = [v convertRect:v.bounds toView:container];
+                [container addSubview:v];
+            }
 
             VZ::Mounting::prepareForReuse(v);
 //            VZFNSLog(@"[%@]-->create:<%@,%p> container:<%@,%p>",self.class,v.class,v,container.class,container);
@@ -90,6 +122,7 @@ static const void* g_unapplicatorId = &g_unapplicatorId;
             _nextUsableViewPos = _reusePool.erase(_nextUsableViewPos);
             [v removeFromSuperview];
             v = [self viewForClass:viewClass ParentView:container Frame:frame];
+            v.reuseResult = VZFViewReuseReusltNotReuse;
         }
         
     }
@@ -102,12 +135,19 @@ static const void* g_unapplicatorId = &g_unapplicatorId;
         
         UIView* view = *itor;
         VZ::Mounting::unhide(view);
-        [view setHidden:NO];
+        view.reuseShowing = YES;
     }
     for(auto itor = _nextUsableViewPos; itor != _reusePool.end(); ++itor){
         UIView* view = *itor;
         VZ::Mounting::hide(view);
-        [view setHidden:YES];
+        if (!view.hidden) {
+            [view setHidden:YES];
+            view.reuseResult = VZFViewReuseReusltHide;
+            if (view.node) {
+                [view.node.specs.updateDisappear invoke:view withCustomParam:view];
+            }
+        }
+        view.reuseShowing = NO;
     }
     _nextUsableViewPos = _reusePool.begin();
 }

@@ -23,6 +23,8 @@ namespace VZ {
         UIColor* highlightBackgroundColor = nil;
         int userInteractionEnabled = VZF_BOOL_UNDEFINED;
         CGFloat cornerRadiusUndefined = VZ::FlexValue::Undefined();
+        CGFloat anchorX = 0.5;
+        CGFloat anchorY = 0.5;
         
         FlexLength width = FlexLengthAuto;
         FlexLength height = FlexLengthAuto;

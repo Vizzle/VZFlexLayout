@@ -21,7 +21,7 @@ using namespace VZ::UIKit;
 
 namespace VZ {
     
-    MountResult mountInContext(VZFNode *node, const VZ::UIKit::MountContext &context, CGSize size, VZFNode* parentNode, BOOL asyncDisplay, VZFRasterizeCachePolicy rasterizeCachePolicy, BOOL cannotBeRasterized) {
+    MountResult mountInContext(VZFNode *node, const VZ::UIKit::MountContext &context, CGSize size, VZFNode* parentNode, BOOL asyncDisplay, VZFRasterizeCachePolicy rasterizeCachePolicy, BOOL cannotBeRasterized, BOOL isUpdating) {
         if (asyncDisplay) {
             return [node renderInContext:context
                                     Size:size
@@ -31,16 +31,17 @@ namespace VZ {
         } else {
             return [node mountInContext:context
                                    Size:size
-                             ParentNode:parentNode];
+                             ParentNode:parentNode
+                             isUpdating:isUpdating];
         }
         
     }
     
     NSSet<VZFNode*>* layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet<VZFNode* >* previousNodes, VZFNode* superNode) {
-        return layoutRootNodeInContainer(layout, container, previousNodes, superNode, NO);
+        return layoutRootNodeInContainer(layout, container, previousNodes, superNode, NO, NO);
     }
     
-    NSSet<VZFNode*>* layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet<VZFNode* >* previousNodes, VZFNode* superNode, BOOL rasterizeUseCache){
+    NSSet<VZFNode*>* layoutRootNodeInContainer(NodeLayout layout, UIView* container, NSSet<VZFNode* >* previousNodes, VZFNode* superNode, BOOL rasterizeUseCache, BOOL isUpdating){
         //This method should be called on main thread
         VZFCAssertMainThread();
 
@@ -51,7 +52,7 @@ namespace VZ {
         
         NSSet<VZFNode *> *clipAndCannotBeRasterizedNodes = nil;
         
-        if (layout.node.specs.asyncDisplay) {
+        if (layout.node && layout.node.specs.asyncDisplay) {
             clipAndCannotBeRasterizedNodes = [VZFRasterizeNodeTool getClipAndCannotBeRasterizedNodes:layout];
         }
         
@@ -75,7 +76,22 @@ namespace VZ {
         
         //2.2, 创建一个stack用来递归
         std::stack<MountItem> stack = {};
+
         stack.push({layout,rootContext,superNode,NO});
+
+        static NSDictionary *defaultAutoAnimationAttributes = @{
+                                                         VZFAutoAnimationEnabled: @NO,
+                                                         VZFAutoAnimationDuration: @0.2,
+                                                         };
+
+        if (layout.node.specs.autoAnimationAttributes) {
+            NSMutableDictionary *newDict = defaultAutoAnimationAttributes.mutableCopy;
+            [newDict addEntriesFromDictionary:layout.node.specs.autoAnimationAttributes];
+            layout.node.specs.autoAnimationAttributes = newDict;
+        }
+        else {
+            layout.node.specs.autoAnimationAttributes = defaultAutoAnimationAttributes;
+        }
         
         //2.3, 每个节点深度优先遍历
         /**
@@ -120,7 +136,7 @@ namespace VZ {
                 
                 //加载node，创建backing view
                 //这个方法必须在主线程调用
-                MountResult mountResult = mountInContext(node, item.context, item.layout.size, item.superNode, asyncDisplay, cachePolicy, cannotBeRasterized);
+                MountResult mountResult = mountInContext(node, item.context, item.layout.size, item.superNode, asyncDisplay, cachePolicy, cannotBeRasterized, isUpdating);
                 
                 [mountedNodes addObject:item.layout.node];
                 
@@ -137,13 +153,23 @@ namespace VZ {
                      */
                     
                     for(auto reverseItor = item.layout.children->rbegin(); reverseItor != item.layout.children->rend(); reverseItor ++){
-                        
+                        // 隐式动画属性
+                        if (reverseItor->node.specs.autoAnimationAttributes) {
+                            NSMutableDictionary *newDict = item.layout.node.specs.autoAnimationAttributes.mutableCopy;
+                            [newDict addEntriesFromDictionary:reverseItor->node.specs.autoAnimationAttributes];
+                            reverseItor->node.specs.autoAnimationAttributes = newDict;
+                        }
+                        else {
+                            reverseItor->node.specs.autoAnimationAttributes = item.layout.node.specs.autoAnimationAttributes;
+                        }
+
                         stack.push(
                                    {*reverseItor,
 //                                       mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size),
                                        mountResult.childContext.rootOffset((*reverseItor).origin, item.layout.size),
                                        item.layout.node,
-                                       NO});
+                                       NO
+                                   });
                     }
                 }
                 

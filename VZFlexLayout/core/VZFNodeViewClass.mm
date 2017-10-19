@@ -56,6 +56,10 @@ namespace VZ {
         return _identifier;
     }
 
+    void ViewClass::setIdentifier(NSString *identifier) {
+        _identifier = identifier;
+    }
+
     UIView* ViewClass::createView(CGRect frame) const{
         
         return _factory? _factory(frame):nil;

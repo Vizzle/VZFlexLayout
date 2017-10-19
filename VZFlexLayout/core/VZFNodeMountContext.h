@@ -58,7 +58,7 @@ namespace VZ
              *  @param isCorrespondingView 传入subview是否是当前node所对应的node，如果是，会在合适的时机负责对该view进行reset
              */
             MountContext childContextForSubview(UIView *subview, BOOL isCorrespondingView) const {
-                return MountContext([[ VZFNodeViewManager alloc ] initWithView:subview shouldAutoReset:isCorrespondingView] , {0,0});
+                return MountContext([[ VZFNodeViewManager alloc ] initWithView:subview shouldAutoReset:isCorrespondingView parentManager:viewManager] , {0,0});
             };
             
             

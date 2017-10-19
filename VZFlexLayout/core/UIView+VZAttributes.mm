@@ -122,6 +122,7 @@
     self.backgroundColor        = vs.backgroundColor;
     self.clipsToBounds          = vs.clip;
     self.alpha                  = vs.alpha;
+    self.hidden                 = vs.hidden;
     
     if (vs.isAccessibilityElement != VZF_BOOL_UNDEFINED) {
         self.isAccessibilityElement = vs.isAccessibilityElement;

@@ -20,6 +20,7 @@
 //#import "VZFAsync4ReactBridge.h"
 #import "VZFNodeInternal.h"
 #import "VZFWeakObjectWrapper.h"
+#import "VZFNodeViewManager.h"
 
 const void* g_recycleId = &g_recycleId;
 const void* g_useVZAsyncDisplay = &g_useVZAsyncDisplay;
@@ -154,16 +155,19 @@ struct VZItemRecyclerState{
 - (void)attachToView:(UIView *)view rasterizeUseCache:(BOOL)rasterizeUseCache {
     
     VZFAssertMainThread();
-    
+
+    BOOL isUpdating = YES;
+
     if(view.vz_recycler != self){
         
         [self detachFromView];
         [view.vz_recycler detachFromView];
+        isUpdating = _mountedView == view;
         _mountedView = view;
         view.vz_recycler = self;
         
     }
-    _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil, rasterizeUseCache) copy];
+    _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil, rasterizeUseCache, isUpdating) copy];
 }
 
 
