@@ -69,112 +69,115 @@ namespace VZ {
         
         //保存mount出来的nodes
         NSMutableSet* mountedNodes = [NSMutableSet set];
-        
-        //2.1, 创建rootContext
-        MountContext rootContext = MountContext::RootContext(container);
-        rootContext.position = layout.origin;
-        
-        //2.2, 创建一个stack用来递归
-        std::stack<MountItem> stack = {};
 
-        stack.push({layout,rootContext,superNode,NO});
+        // 确保 unmount 前 rootContext 被释放，否则有些 node 的 on-update-disappear 事件不会回调
+        {
+            //2.1, 创建rootContext
+            MountContext rootContext = MountContext::RootContext(container);
+            rootContext.position = layout.origin;
 
-        static NSDictionary *defaultAutoAnimationAttributes = @{
-                                                         VZFAutoAnimationEnabled: @NO,
-                                                         VZFAutoAnimationDuration: @0.2,
-                                                         };
+            //2.2, 创建一个stack用来递归
+            std::stack<MountItem> stack = {};
 
-        if (layout.node.specs.autoAnimationAttributes) {
-            NSMutableDictionary *newDict = defaultAutoAnimationAttributes.mutableCopy;
-            [newDict addEntriesFromDictionary:layout.node.specs.autoAnimationAttributes];
-            layout.node.specs.autoAnimationAttributes = newDict;
-        }
-        else {
-            layout.node.specs.autoAnimationAttributes = defaultAutoAnimationAttributes;
-        }
-        
-        //2.3, 每个节点深度优先遍历
-        /**
-         * @discussion:
-         * 这里从根节点开始遍历每一个子节点，会产生频繁的递归调用
-         * 可以使用lambda表达式做函数式递归，但考虑这个过程很频繁，这里使用while+stack的递归方式，减少栈空间的频繁开销
-         */
-        while (!stack.empty()) {
-            
-            //这里面取引用，因为要改变它的状态
-            MountItem& item = stack.top();
-            if(item.isVisited){
-                
-                //@discussion:所有child mount完再通知
-                [item.layout.node didMount];
-                stack.pop();
-                
+            stack.push({layout,rootContext,superNode,NO});
+
+            static NSDictionary *defaultAutoAnimationAttributes = @{
+                                                             VZFAutoAnimationEnabled: @NO,
+                                                             VZFAutoAnimationDuration: @0.2,
+                                                             };
+
+            if (layout.node.specs.autoAnimationAttributes) {
+                NSMutableDictionary *newDict = defaultAutoAnimationAttributes.mutableCopy;
+                [newDict addEntriesFromDictionary:layout.node.specs.autoAnimationAttributes];
+                layout.node.specs.autoAnimationAttributes = newDict;
             }
-            else{
-                
-                //创建一个mark
-                item.isVisited = YES;
-                
-                if(item.layout.node == nil){
-                    continue;
-                }
-                
-                //will mount
-                [item.layout.node willMount];
-                
-                
-                VZFNode *node = item.layout.node;
-                
-                BOOL asyncDisplay = node.specs.asyncDisplay;
-                BOOL cannotBeRasterized = [clipAndCannotBeRasterizedNodes containsObject:node];
-                
-                VZFRasterizeCachePolicy cachePolicy = VZFRasterizeCachePolicyNode;
-                
-                if (asyncDisplay && rasterizeUseCache) {
-                    cachePolicy |= VZFRasterizeCachePolicyLayer;
-                }
-                
-                //加载node，创建backing view
-                //这个方法必须在主线程调用
-                MountResult mountResult = mountInContext(node, item.context, item.layout.size, item.superNode, asyncDisplay, cachePolicy, cannotBeRasterized, isUpdating);
-                
-                [mountedNodes addObject:item.layout.node];
-                
-                //VZFNSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
-                
-                if (mountResult.hasChildren) {
-                    
-                    /**
-                     *  @discussion：注意两点:
-                     *
-                     *  1, 理论上使用FlexNode layout出来的 node🌲和应该和FNode🌲严格一一对应
-                     *
-                     *  2, 使用反向迭代器，保证最底部的FNode先被mount
-                     */
-                    
-                    for(auto reverseItor = item.layout.children->rbegin(); reverseItor != item.layout.children->rend(); reverseItor ++){
-                        // 隐式动画属性
-                        if (reverseItor->node.specs.autoAnimationAttributes) {
-                            NSMutableDictionary *newDict = item.layout.node.specs.autoAnimationAttributes.mutableCopy;
-                            [newDict addEntriesFromDictionary:reverseItor->node.specs.autoAnimationAttributes];
-                            reverseItor->node.specs.autoAnimationAttributes = newDict;
-                        }
-                        else {
-                            reverseItor->node.specs.autoAnimationAttributes = item.layout.node.specs.autoAnimationAttributes;
-                        }
+            else {
+                layout.node.specs.autoAnimationAttributes = defaultAutoAnimationAttributes;
+            }
 
-                        stack.push(
-                                   {*reverseItor,
-//                                       mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size),
-                                       mountResult.childContext.rootOffset((*reverseItor).origin, item.layout.size),
-                                       item.layout.node,
-                                       NO
-                                   });
+            //2.3, 每个节点深度优先遍历
+            /**
+             * @discussion:
+             * 这里从根节点开始遍历每一个子节点，会产生频繁的递归调用
+             * 可以使用lambda表达式做函数式递归，但考虑这个过程很频繁，这里使用while+stack的递归方式，减少栈空间的频繁开销
+             */
+            while (!stack.empty()) {
+
+                //这里面取引用，因为要改变它的状态
+                MountItem& item = stack.top();
+                if(item.isVisited){
+
+                    //@discussion:所有child mount完再通知
+                    [item.layout.node didMount];
+                    stack.pop();
+
+                }
+                else{
+
+                    //创建一个mark
+                    item.isVisited = YES;
+
+                    if(item.layout.node == nil){
+                        continue;
                     }
+
+                    //will mount
+                    [item.layout.node willMount];
+
+
+                    VZFNode *node = item.layout.node;
+
+                    BOOL asyncDisplay = node.specs.asyncDisplay;
+                    BOOL cannotBeRasterized = [clipAndCannotBeRasterizedNodes containsObject:node];
+
+                    VZFRasterizeCachePolicy cachePolicy = VZFRasterizeCachePolicyNode;
+
+                    if (asyncDisplay && rasterizeUseCache) {
+                        cachePolicy |= VZFRasterizeCachePolicyLayer;
+                    }
+
+                    //加载node，创建backing view
+                    //这个方法必须在主线程调用
+                    MountResult mountResult = mountInContext(node, item.context, item.layout.size, item.superNode, asyncDisplay, cachePolicy, cannotBeRasterized, isUpdating);
+
+                    [mountedNodes addObject:item.layout.node];
+
+                    //VZFNSLog(@"<Mounted:%@ -> %@>",item.layout.node.class,item.layout.node.superNode.class);
+
+                    if (mountResult.hasChildren) {
+
+                        /**
+                         *  @discussion：注意两点:
+                         *
+                         *  1, 理论上使用FlexNode layout出来的 node🌲和应该和FNode🌲严格一一对应
+                         *
+                         *  2, 使用反向迭代器，保证最底部的FNode先被mount
+                         */
+
+                        for(auto reverseItor = item.layout.children->rbegin(); reverseItor != item.layout.children->rend(); reverseItor ++){
+                            // 隐式动画属性
+                            if (reverseItor->node.specs.autoAnimationAttributes) {
+                                NSMutableDictionary *newDict = item.layout.node.specs.autoAnimationAttributes.mutableCopy;
+                                [newDict addEntriesFromDictionary:reverseItor->node.specs.autoAnimationAttributes];
+                                reverseItor->node.specs.autoAnimationAttributes = newDict;
+                            }
+                            else {
+                                reverseItor->node.specs.autoAnimationAttributes = item.layout.node.specs.autoAnimationAttributes;
+                            }
+
+                            stack.push(
+                                       {*reverseItor,
+    //                                       mountResult.childContext.parentOffset((*reverseItor).origin, item.layout.size),
+                                           mountResult.childContext.rootOffset((*reverseItor).origin, item.layout.size),
+                                           item.layout.node,
+                                           NO
+                                       });
+                        }
+                    }
+
                 }
-                
+
             }
-            
         }
         
         //3, unmount原来的nodes
