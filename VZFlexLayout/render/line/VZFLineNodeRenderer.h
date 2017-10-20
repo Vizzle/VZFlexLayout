@@ -6,7 +6,6 @@
 //  Copyright © 2017年 Alipay. All rights reserved.
 //
 
-#import <O2OReact/O2OReact.h>
 #import "VZFRenderer.h"
 
 @interface VZFLineNodeRenderer : VZFRenderer
