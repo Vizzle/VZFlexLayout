@@ -23,7 +23,7 @@
     if ([key isEqualToString:@"contentsScale"]) {
         return @(VZ::Helper::screenScale());
     } else if ([key isEqualToString:@"backgroundColor"]) {
-        return (id)[UIColor whiteColor].CGColor;
+        return (id)[UIColor clearColor].CGColor;
     } else if ([key isEqualToString:@"opaque"]) {
         return (id)kCFBooleanTrue;
     } else if ([key isEqualToString:@"userInteractionEnabled"]) {
