@@ -129,14 +129,16 @@ struct VZItemRecyclerState{
     VZFNode* node = [_nodeProvider nodeForItem:item Store:_store Context:context];
     if (node) {
         const VZ::NodeLayout layout = [node computeLayoutThatFits:constrainedSize];
-        
-        //alloc stack object, will cause the old state object dealloc
-        _state = {
-            .props = item,
-            .layout = layout,
-            .constrainedSize = constrainedSize,
-            .context = context
-        };
+
+        @synchronized(self) {
+            //alloc stack object, will cause the old state object dealloc
+            _state = {
+                .props = item,
+                .layout = layout,
+                .constrainedSize = constrainedSize,
+                .context = context
+            };
+        }
             
     }
 }
@@ -167,7 +169,9 @@ struct VZItemRecyclerState{
         view.vz_recycler = self;
         
     }
-    _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil, rasterizeUseCache, isUpdating) copy];
+    @synchronized(self) {
+        _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil, rasterizeUseCache, isUpdating) copy];
+    }
 }
 
 
