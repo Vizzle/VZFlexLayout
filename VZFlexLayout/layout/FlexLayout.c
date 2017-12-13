@@ -270,7 +270,7 @@ void flex_markDirty(FlexNodeRef node) {
     }
 #define FLEX_SETTER_LENGTH_VALUE(Name, field, Type) \
     void Flex_set##Name(FlexNodeRef node, float Name) { \
-        FlexLength value = {FlexLengthType##Type, Name}; \
+        FlexLength value = {Name, FlexLengthType##Type}; \
         if (!FlexLengthEquals(node->field, value)) { \
             node->field = value; \
             flex_markDirty(node); \
@@ -557,8 +557,8 @@ void flex_layoutInternal(FlexNodeRef node, FlexLayoutContext *context, FlexSize 
     float resolvedMaxMainSize = flex_resolve(node->maxSize[mainAxis], context, constrainedSize.size[mainAxis]);
     FlexSize resolvedMarginSize = {resolvedMarginWidth, resolvedMarginHeight};
     FlexSize resolvedPaddingSize = {resolvedPaddingWidth, resolvedPaddingHeight};
-    
-    FlexLine* lines = malloc(sizeof(FlexLine) * flexItemsCount);
+
+    FlexLine* lines = malloc(sizeof(FlexLine) * (flexItemsCount > 0 ? flexItemsCount : 1));
     lines[0].itemsCount = 0;
     lines[0].itemsSize = 0;
     int linesCount = 1;
