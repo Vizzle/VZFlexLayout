@@ -127,19 +127,24 @@ struct VZItemRecyclerState{
     SpinLocker locker(_lock);
     
     VZFNode* node = [_nodeProvider nodeForItem:item Store:_store Context:context];
+    VZ::NodeLayout layout;
     if (node) {
-        const VZ::NodeLayout layout = [node computeLayoutThatFits:constrainedSize];
+        layout = [node computeLayoutThatFits:constrainedSize];
+    }
+    else {
+        // 创建一个空node，避免attach时出错
+        layout.node = [VZFNode newWithView:[UIView class] NodeSpecs:NodeSpecs()];
+    }
 
-        @synchronized(self) {
-            //alloc stack object, will cause the old state object dealloc
-            _state = {
-                .props = item,
-                .layout = layout,
-                .constrainedSize = constrainedSize,
-                .context = context
-            };
-        }
-            
+    @synchronized(self) {
+        
+        //alloc stack object, will cause the old state object dealloc
+        _state = {
+            .props = item,
+            .layout = layout,
+            .constrainedSize = constrainedSize,
+            .context = context
+        };
     }
 }
 
