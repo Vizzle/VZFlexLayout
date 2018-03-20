@@ -190,7 +190,7 @@ namespace VZ {
             kern,
             lineSpacing,
             _font,    // _font
-        
+            linkAction,
         };
     }
     

@@ -259,11 +259,7 @@ CGFloat vz_getWidthCallback(void *context) {
         }
     }];
     
-    // 尝试修复多线程同时调用 CTTypesetterCreateWithAttributedString 时导致的 crash
-    CTTypesetterRef typesetter = NULL;
-    @synchronized (self.class) {
-        typesetter = CTTypesetterCreateWithAttributedString(attrString);
-    }
+    CTTypesetterRef typesetter = CTTypesetterCreateWithAttributedString(attrString);
     
     CFIndex start = 0;
     NSUInteger textLength = self.text.length;
@@ -649,6 +645,23 @@ CGFloat vz_getWidthCallback(void *context) {
     
     CGContextRestoreGState(context);
 
+}
+
+- (NSInteger)characterIndexAtPoint:(CGPoint)point {
+    CGRect rect = (CGRect){CGPointZero, self.textSize};
+    if (!CGRectContainsPoint(rect, point)) {
+        return -1;
+    }
+    for (VZFTextLine *line in _lines) {
+        CGRect lineRect = CGRectMake(0, line.top, line.width, line.height);
+        if (CGRectContainsPoint(lineRect, point)) {
+            CFIndex index = CTLineGetStringIndexForPosition((__bridge CTLineRef)line.line, CGPointMake(point.x, line.height / 2));
+            if (index != kCFNotFound) {
+                return index;
+            }
+        }
+    }
+    return -1;
 }
 
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "VZFUtils.h"
 #import "VZFValue.h"
+#import "VZFActionWrapper.h"
 
 typedef NS_ENUM(NSUInteger, VZFFontStyle) {
     VZFFontStyleNormal,
@@ -73,7 +74,7 @@ namespace VZ {
     
         mutable UIFont *_font; //
         
-    
+        VZFBlockAction* linkAction;
     
     
         

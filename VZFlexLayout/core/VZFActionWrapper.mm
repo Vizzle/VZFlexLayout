@@ -9,6 +9,7 @@
 #import "VZFActionWrapper.h"
 #import "VZFNodeViewManager.h"
 #import "VZFNodeSubClass.h"
+#import "VZFTextNodeBackingView.h"
 #import <libkern/OSAtomic.h>
 
 @implementation VZFBlockWrapper
@@ -48,6 +49,17 @@
     if (sender.class == UILongPressGestureRecognizer.class && sender.state != UIGestureRecognizerStateBegan) {
         return;
     }
+
+    // 点击文本中的链接时不触发 tap gesture
+    if ([sender isKindOfClass:[UITapGestureRecognizer class]]) {
+        UIView *view = [sender.view hitTest:[sender locationInView:sender.view] withEvent:nil];
+        if ([view isKindOfClass:[VZFTextNodeBackingView class]]) {
+            if ([(VZFTextNodeBackingView *)view containsLinkAtPoint:[sender locationInView:view]]) {
+                return;
+            }
+        }
+    }
+
     if (self.block) {
         self.block(sender.view);
     }

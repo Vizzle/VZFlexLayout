@@ -11,10 +11,15 @@
 #import "VZFTextNodeBackingLayer.h"
 #import "VZFBackingViewProtocol.h"
 
+@protocol VZFActionWrapper;
+
 @class VZFTextNodeRenderer;
 @interface VZFTextNodeBackingView : UIView<VZFNodeBackingViewInterface, VZFBackingViewProtocol>
 
 @property(nonatomic,strong) VZFTextNodeRenderer* textRenderer;
 @property(nonatomic,assign) UIEdgeInsets edgeInsets;
+@property (nonatomic, strong) id<VZFActionWrapper> linkAction;
+
+- (BOOL)containsLinkAtPoint:(CGPoint)point;
 
 @end

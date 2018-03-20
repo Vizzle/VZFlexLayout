@@ -17,6 +17,9 @@
 #import "VZFTextNodeInternal.h"
 
 @implementation VZFTextNodeBackingView
+{
+    NSString *_activeLink;
+}
 
 + (Class)layerClass{
         return [VZFTextNodeBackingLayer class];
@@ -149,7 +152,70 @@
     TextNodeSpecs textNodeSpecs =textNode.textSpecs;
     self.textRenderer = textNode.renderer;
     self.edgeInsets = textNode.flexNode.resultPadding;
+    self.linkAction = textNode.textSpecs.linkAction;
     [self textLayer].displayMode = kDisplayModeSync;//text node不会有子结点，暂时一定同步绘制
+    if (textNode.textSpecs.linkAction && textNode.specs.userInteractionEnabled == INT_MIN) {
+        self.userInteractionEnabled = YES;
+    }
+}
+
+- (NSString *)linkAtPoint:(CGPoint)point {
+    NSInteger index = [self.textRenderer characterIndexAtPoint:point];
+    if (index < 0) {
+        return nil;
+    }
+    index = MIN(index, self.textRenderer.text.length - 1);
+    return [self.textRenderer.text attribute:NSLinkAttributeName atIndex:index effectiveRange:nil];
+}
+
+- (BOOL)containsLinkAtPoint:(CGPoint)point {
+    point.x -= self.edgeInsets.left;
+    point.y -= self.edgeInsets.top;
+    return !![self linkAtPoint:point];
+}
+
+- (CGPoint)getTouchPoint:(NSSet *)touches {
+    UITouch *touch = [touches anyObject];
+    CGPoint point = [touch locationInView:self];
+    point.x -= self.edgeInsets.left;
+    point.y -= self.edgeInsets.top;
+    return point;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    _activeLink = [self linkAtPoint:[self getTouchPoint:touches]];
+    if (!_activeLink) {
+        [super touchesBegan:touches withEvent:event];
+    }
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (_activeLink) {
+        if (_activeLink != [self linkAtPoint:[self getTouchPoint:touches]]) {
+            _activeLink = nil;
+        }
+    } else {
+        [super touchesMoved:touches withEvent:event];
+    }
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (_activeLink) {
+        _activeLink = nil;
+    } else {
+        [super touchesCancelled:touches withEvent:event];
+    }
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if (_activeLink) {
+        if (self.linkAction) {
+            [self.linkAction invoke:self withCustomParam:_activeLink];
+        }
+    }
+    else {
+        [super touchesEnded:touches withEvent:event];
+    }
 }
 
 @end
