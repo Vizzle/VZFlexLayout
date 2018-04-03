@@ -498,7 +498,7 @@ static id _sharedInstance;
 }
 
 - (void)setChildrenViews:(NSArray *)childrenViews {
-    if (_childViews == childrenViews) {
+    if (_childViews == childrenViews && _scrollView.subviews.count > 0) {
         return;
     }
     _childViews = childrenViews;
