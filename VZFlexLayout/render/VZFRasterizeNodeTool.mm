@@ -80,7 +80,7 @@
     }
     else if ([node isKindOfClass:[VZFTextNode class]])
     {
-        return YES;
+        return !((VZFTextNode *)node).textSpecs.linkAction;
     }
     else if ([node isKindOfClass:[VZFLineNode class]])
     {
