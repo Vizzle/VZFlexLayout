@@ -620,22 +620,22 @@ void flex_layoutInternal(FlexNodeRef node, FlexLayoutContext *context, FlexSize 
             // line break
             if ((node->itemsPerLine > 0 && lines[linesCount - 1].itemsCount >= node->itemsPerLine) ||
                 lines[linesCount - 1].itemsSize + outerItemHypotheticalMainSize > FlexTreatNanAsInf(availableSize.size[mainAxis]) + 0.001) {
-                if (node->lines > 0 && linesCount >= node->lines) {
-                    for (int j=i;j<flexItemsCount;j++) {
-                        FlexNodeRef item = items[j];
-                        item->result.position[0] = 0;
-                        item->result.position[1] = 0;
-                        item->result.size[0] = -1;
-                        item->result.size[1] = -1;
-                    }
-                    break;
-                }
-                
                 if (lines[linesCount - 1].itemsCount == 0) {
                     lines[linesCount - 1].itemsCount = 1;
                     lines[linesCount - 1].itemsSize = outerItemHypotheticalMainSize;
                 }
                 else {
+                    if (node->lines > 0 && linesCount >= node->lines) {
+                        for (int j=i;j<flexItemsCount;j++) {
+                            FlexNodeRef item = items[j];
+                            item->result.position[0] = 0;
+                            item->result.position[1] = 0;
+                            item->result.size[0] = -1;
+                            item->result.size[1] = -1;
+                        }
+                        break;
+                    }
+
                     if (lines[linesCount - 1].itemsCount > 0) outerItemHypotheticalMainSize -= spacing;
                     lines[linesCount].itemsCount = 1;
                     lines[linesCount].itemsSize = outerItemHypotheticalMainSize;
