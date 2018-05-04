@@ -689,7 +689,7 @@ Virtual Index       0       1       2       3       4
     
     CGFloat *currentOffset = _vertical ? &currentOffsetY : &currentOffsetX;
     
-    if (fabs(_lastContentOffset - *currentOffset) < FLT_EPSILON) {
+    if (fabs(_lastContentOffset - *currentOffset) < 0.001) {
         return;
     }
     
