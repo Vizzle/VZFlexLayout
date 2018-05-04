@@ -70,4 +70,12 @@
     return layout;
 }
 
+- (void)willUnmount {
+    if ([self.mountedView isKindOfClass:[VZFPagingView class]]) {
+//        [(VZFPagingView *)self.mountedView setChildrenViews:nil];
+        ((VZFPagingView *)self.mountedView).autoScroll = 0;
+    }
+    [super willUnmount];
+}
+
 @end
