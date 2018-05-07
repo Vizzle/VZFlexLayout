@@ -15,6 +15,11 @@
 #import "VZFlexNode.h"
 #import "VZFMacros.h"
 
+#define VZ_FLOAT_EPSILON        0.001
+#define VZ_FLOAT_EQUAL(a, b)    (fabs(a - b) < VZ_FLOAT_EPSILON)
+#define VZ_FLOAT_GREATER(a, b)  (a - b > VZ_FLOAT_EPSILON)
+#define VZ_FLOAT_LESS(a, b)     VZ_FLOAT_GREATER(b, a)
+
 static NSString *const kO2OPagingNodeReuseId = @"VZFPagingViewCell";
 
 
@@ -688,8 +693,8 @@ Virtual Index       0       1       2       3       4
     CGFloat currentOffsetY = scrollView.contentOffset.y;
     
     CGFloat *currentOffset = _vertical ? &currentOffsetY : &currentOffsetX;
-    
-    if (fabs(_lastContentOffset - *currentOffset) < 0.001) {
+
+    if (VZ_FLOAT_EQUAL(_lastContentOffset, *currentOffset)) {
         return;
     }
     
@@ -705,12 +710,12 @@ Virtual Index       0       1       2       3       4
     
     if ([self loopScrollEnabled]) {
         // the first page(showing the last item) is visible and user's finger is still scrolling to the right
-        if (*currentOffset < pageLength && _lastContentOffset > *currentOffset) {
+        if (VZ_FLOAT_LESS(*currentOffset, pageLength) && VZ_FLOAT_GREATER(_lastContentOffset, *currentOffset)) {
             _lastContentOffset = *currentOffset += offset;
             scrollView.contentOffset = (CGPoint){currentOffsetX, currentOffsetY};
         }
         // the last page (showing the first item) is visible and the user's finger is still scrolling to the left
-        else if (*currentOffset > offset && _lastContentOffset < *currentOffset) {
+        else if (VZ_FLOAT_GREATER(*currentOffset, offset) && VZ_FLOAT_LESS(_lastContentOffset, *currentOffset)) {
             _lastContentOffset = *currentOffset -= offset;
             scrollView.contentOffset = (CGPoint){currentOffsetX, currentOffsetY};
         } else {
