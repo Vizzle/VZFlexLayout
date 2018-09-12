@@ -14,22 +14,24 @@ FlexLayout is an iOS declaretive UI framework in Objective-C++ inspired by Faceb
 - CSS like properties for UI decoration
 - FlexBox Layout Algorithm
             
-> FlexLayout is designed to be the core engine of the [MIST framework](https://github.com/Vizzle/MIST). We implemented our own version of Flexbox algorithm instead of using the open sourced [css layout(now is called 'yoga')](https://github.com/facebook/yoga). Together with MIST, VZFlexLayout has been heavily used to implement O2O services in Alipay Wallet since 2016. It has been battle-tested and proven stable for more than two years with millions of users visit per day
+> FlexLayout is designed to be the core engine of the [MIST framework](https://github.com/Vizzle/MIST). We implemented our own version of Flexbox algorithm instead of using the open sourced [css layout(now is called 'yoga')](https://github.com/facebook/yoga). Together with MIST, VZFlexLayout has been heavily used to implement O2O services in [Alibaba Alipay Wallet](https://www.alipay.com/) since 2016. It has been battle-tested and proven stable for more than two years with millions of users visit per day
 
 ### Example
+
+Let's say we have a `UITableViewCell` like this:
+
+![](https://xta0.me/assets/images/2016/03/flex002.png)
 
 Here is an example of how to define a UI component using FlexLayout syntax
 
 ```objc
 - (FlexLayout )titleLayout:(NSString* )name Time:(NSString* )time Score:(float)score{
     return FlexLayout
-        //children元素之间的间隔
         .direction = FlexDirection::Horizontal,
         .spacing = 5,
-        .alignItems = FlexAlign::Center,//children元素垂直居中
+        .alignItems = FlexAlign::Center,
         .children = {
             {
-                //姓名
                 .content = TextNode{
                     .text = name,
                     .font = [UIFont systemFontOfSize:14.0f],
@@ -37,7 +39,6 @@ Here is an example of how to define a UI component using FlexLayout syntax
                 }
             },
             {
-                //星星
                 .viewBuilder = ^{
 
                     O2OStarView* starView  = [[O2OStarView alloc] initWithOrigin:CGPointMake(0, 0) viewType:O2OStarViewTypeForDisplay starWidth:14 starMargin:0 starNumber:5];
@@ -50,7 +51,6 @@ Here is an example of how to define a UI component using FlexLayout syntax
                 .flexShrink = 0,
             },
             {
-                //时间
                 .content = TextNode{
                     .text = time,
                     .font = [UIFont systemFontOfSize:12.0f],
