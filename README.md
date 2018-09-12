@@ -22,7 +22,7 @@ Let's say we have a `UITableViewCell` like this:
 
 ![](https://xta0.me/assets/images/2016/03/flex002.png)
 
-Here is an example of how to define a UI component using FlexLayout syntax
+Here is an example of how to define a declaretive UI component using FlexLayout syntax
 
 ```objc
 - (FlexLayout )titleLayout:(NSString* )name Time:(NSString* )time Score:(float)score{
