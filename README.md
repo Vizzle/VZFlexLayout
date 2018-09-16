@@ -1,6 +1,6 @@
-# VZFlexLayout
+## VZFlexLayout
 
-A modern layout engine inspired by [React](https://github.com/facebook/react)
+FlexLayout is an iOS declaretive UI framework in Objective-C++ inspired by Facebook [ComponentKit](https://componentkit.org/)
 
 [![Build Status](https://travis-ci.org/Vizzle/VZFlexLayout.svg?branch=master)](https://travis-ci.org/Vizzle/VZFlexLayout)
 [![Version](https://img.shields.io/cocoapods/v/VZFlexLayout.svg?style=flat)](http://cocoapods.org/pods/VZFlexLayout)
@@ -8,24 +8,72 @@ A modern layout engine inspired by [React](https://github.com/facebook/react)
 [![Platform](https://img.shields.io/cocoapods/p/VZFlexLayout.svg?style=flat)](http://cocoapods.org/pods/VZFlexLayout)
 
 
-## Example
+### Features
+    
+- C++11 aggreate initializer for declaretive APIs
+- CSS like properties for UI decoration
+- FlexBox Layout Algorithm
+            
+> FlexLayout is designed to be the core engine of the [MIST framework](https://github.com/Vizzle/MIST). We implemented our own version of Flexbox algorithm instead of using the open sourced [css layout(now is called 'yoga')](https://github.com/facebook/yoga). Together with MIST, VZFlexLayout has been heavily used to implement O2O services in [Alibaba Alipay Wallet](https://www.alipay.com/) since 2016. It has been battle-tested and proven stable for more than two years with millions of users visit per day
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+### Example
+
+Let's say we have a `UITableViewCell` like this:
+
+![](https://xta0.me/assets/images/2016/03/flex002.png)
+
+Here is an example of how to define a declaretive UI component using FlexLayout syntax
+
+```objc
+- (FlexLayout )titleLayout:(NSString* )name Time:(NSString* )time Score:(float)score{
+    return FlexLayout
+        .direction = FlexDirection::Horizontal,
+        .spacing = 5,
+        .alignItems = FlexAlign::Center,
+        .children = {
+            {
+                .content = TextNode{
+                    .text = name,
+                    .font = [UIFont systemFontOfSize:14.0f],
+                    .color = [UIColor blackColor],
+                }
+            },
+            {
+                .viewBuilder = ^{
+
+                    O2OStarView* starView  = [[O2OStarView alloc] initWithOrigin:CGPointMake(0, 0) viewType:O2OStarViewTypeForDisplay starWidth:14 starMargin:0 starNumber:5];
+                    starView.score = score;
+                    return starView;
+
+                },
+                .width = 70,
+                .height = 12,
+                .flexShrink = 0,
+            },
+            {
+                .content = TextNode{
+                    .text = time,
+                    .font = [UIFont systemFontOfSize:12.0f],
+                    .color = [UIColor grayColor],
+                },
+                .flexShrink = 0,
+                .marginLeft = Auto
+            }
+        }
+    };
+}
+```
 
 ## Installation
-
-### Cocoapods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects. which automates and simplifies the process of using 3rd-party libraries in your projects. See the [Get Started](https://cocoapods.org/#get_started) section for more details.
 
 **Podfile**
 
 ```ruby
-
 target YourAwesomeTarget do
   pod 'VZFlexLayout'
 end
-
 ```
 
 ### Carthage
@@ -35,12 +83,8 @@ end
 **Cartfile**
 
 ```ruby
-
 github "Vizzle/VZFlexLayout" "master"
-
 ```
-
-
 
 ## License
 
