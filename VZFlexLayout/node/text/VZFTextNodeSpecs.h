@@ -75,9 +75,7 @@ namespace VZ {
         mutable UIFont *_font; //
         
         VZFBlockAction* linkAction;
-    
-    
-        
+
         //get font
         UIFont *getFont() const;
         

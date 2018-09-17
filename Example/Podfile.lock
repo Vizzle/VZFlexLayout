@@ -1,16 +1,51 @@
 PODS:
-  - VZFlexLayout (0.2.7)
+  - AFNetworking (3.0.0):
+    - AFNetworking/NSURLSession (= 3.0.0)
+    - AFNetworking/Reachability (= 3.0.0)
+    - AFNetworking/Security (= 3.0.0)
+    - AFNetworking/Serialization (= 3.0.0)
+    - AFNetworking/UIKit (= 3.0.0)
+  - AFNetworking/NSURLSession (3.0.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.0.0)
+  - AFNetworking/Security (3.0.0)
+  - AFNetworking/Serialization (3.0.0)
+  - AFNetworking/UIKit (3.0.0):
+    - AFNetworking/NSURLSession
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
+  - Vizzle (0.0.5):
+    - AFNetworking (= 3.0.0)
+  - VZFlexLayout (0.3.4)
+  - VZInspector (0.1.8)
 
 DEPENDENCIES:
+  - SDWebImage
+  - Vizzle
   - VZFlexLayout (from `../`)
+  - VZInspector
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AFNetworking
+    - SDWebImage
+    - Vizzle
+    - VZInspector
 
 EXTERNAL SOURCES:
   VZFlexLayout:
     :path: "../"
 
 SPEC CHECKSUMS:
-  VZFlexLayout: 3dd6c2aefe1aea1d2ddd6024732bff5b6f35412c
+  AFNetworking: 932ff751f9d6fb1dad0b3af58b7e3ffba0a4e7fd
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  Vizzle: dc4eea3ae3b8711fba5e74a2a8fb61a91c17c0b5
+  VZFlexLayout: 9971f4d5521d4b9f5d3d3eb15701642a38dcc631
+  VZInspector: 3d95c67d8a7fe07dafae85b1bfb42a8afafbd613
 
-PODFILE CHECKSUM: 75200f231cc759a9d46a1ddb2aa7506ffe630f96
+PODFILE CHECKSUM: 18537ee418c7730fa27493146dce35c20f6185d9
 
-COCOAPODS: 1.2.1
+COCOAPODS: 1.5.3

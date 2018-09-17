@@ -51,7 +51,7 @@ const void* g_useVZAsyncDisplay = &g_useVZAsyncDisplay;
 
 
 struct VZItemRecyclerState{
-    __strong id props;
+    __weak id props;
     __strong id context;
     CGSize constrainedSize;
     NodeLayout layout;
@@ -125,7 +125,6 @@ struct VZItemRecyclerState{
     
     //这里会有非主线程调用的情况
     SpinLocker locker(_lock);
-    
     VZFNode* node = [_nodeProvider nodeForItem:item Store:_store Context:context];
     VZ::NodeLayout layout;
     if (node) {

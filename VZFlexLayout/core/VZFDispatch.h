@@ -15,11 +15,11 @@ extern "C"{
 
 #import <UIKit/UIKit.h>
 
-typedef void (^VZFDispatchBlock)();
+typedef void (^VZFDispatchBlock)(void);
 typedef void (*VZFDispatchMainFunc)(CGFloat delayTime, VZFDispatchBlock block);
 
 void VZFSetDispatchFunc(VZFDispatchMainFunc dispatchMain);
-VZFDispatchMainFunc VZFGetDispatchMainFunc();
+VZFDispatchMainFunc VZFGetDispatchMainFunc(void);
 
 #define VZFDispatchMain(delayTime, block) VZFGetDispatchMainFunc()(delayTime, block)
 

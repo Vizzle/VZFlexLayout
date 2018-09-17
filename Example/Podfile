@@ -4,5 +4,7 @@
 target 'VZFlexlayout-Demo' do
 	pod 'Vizzle'
 	pod 'SDWebImage'
+	pod 'VZInspector'
+	pod 'VZFlexLayout', :path=>'../'
 
 end

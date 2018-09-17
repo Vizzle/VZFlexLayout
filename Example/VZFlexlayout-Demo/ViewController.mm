@@ -7,56 +7,65 @@
 //
 
 #import "ViewController.h"
+#import "PostListModel.h"
+#import "PostListDataSource.h"
+#import "PostListDelegate.h"
 
 
-struct PortalItem{
-    
-    NSString* title;
-    NSString* subtitle;
-    __strong void(^block)();
-    
-};
+@interface ViewController ()
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
-
-@property(nonatomic,strong) UITableView* tableView;
+@property(nonatomic,strong) PostListDataSource* ds;
+@property(nonatomic,strong) PostListDelegate* dl;
+@property(nonatomic,strong) PostListModel* model;
 
 @end
 
 @implementation ViewController
 
+- (PostListDelegate* )dl{
+    if(!_dl){
+        _dl = [PostListDelegate new];
+    }
+    return _dl;
+}
+- (PostListDataSource* )ds{
+    if(!_ds){
+        _ds = [PostListDataSource new];
+    }
+    return _ds;
+}
+- (PostListModel* )model{
+    if(!_model){
+        _model = [[PostListModel alloc]init];
+        _model.key = @"post_list";
+    }
+    return _model;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
-    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _tableView.rowHeight = 52.0f;
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    _tableView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.showsVerticalScrollIndicator = YES;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    
+    self.needPullRefresh = YES;
+    self.dataSource = self.ds;
+    self.delegate = self.dl;
+    
+    [self registerModel:self.model];
+    self.keyModel = self.model;
+    
+    [self load];
+}
+
+- (void)showModel:(VZModel *)model{
+    [super showModel:model];
     
 }
 
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
-- (UITableViewCell* )tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    static NSString *identifier = @"PortalCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-    }
-    
-    return cell;
-}
 
 
 @end

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ViewController : UIViewController
+#import <Vizzle/VZListViewController.h>
+@interface ViewController : VZListViewController;
 
 
 @end
