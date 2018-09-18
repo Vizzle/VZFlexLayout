@@ -8,8 +8,6 @@
 
 #import "PostItem.h"
 #import "PostNode.h"
-#import <VZFlexLayout/VZFNodeListItemRecycler.h>
-#import <VZFlexLayout/VZFStackNode.h>
 
 @interface PostItem()
 @property(nonatomic,strong) VZFNodeListItemRecycler* recycler;

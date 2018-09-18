@@ -7,47 +7,48 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		45380A821F383D3300B963EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45380A811F383D3300B963EB /* AppDelegate.m */; };
+		45380A821F383D3300B963EB /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45380A811F383D3300B963EB /* AppDelegate.mm */; };
 		45380A851F383D3300B963EB /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45380A841F383D3300B963EB /* ViewController.mm */; };
 		45380A881F383D3300B963EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45380A861F383D3300B963EB /* Main.storyboard */; };
 		45380A8A1F383D3300B963EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45380A891F383D3300B963EB /* Assets.xcassets */; };
 		45380A8D1F383D3300B963EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45380A8B1F383D3300B963EB /* LaunchScreen.storyboard */; };
-		45380A901F383D3300B963EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45380A8F1F383D3300B963EB /* main.m */; };
-		781F9F5F2150125F0049F7A0 /* PostListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 781F9F5E2150125F0049F7A0 /* PostListModel.m */; };
+		45380A901F383D3300B963EB /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 45380A8F1F383D3300B963EB /* main.mm */; };
+		72B4C47BE1F78DD5125C4FF4 /* libPods-VZFlexlayout-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 973F562D33C491A3C0ED2E9F /* libPods-VZFlexlayout-Demo.a */; };
+		781F9F5F2150125F0049F7A0 /* PostListModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 781F9F5E2150125F0049F7A0 /* PostListModel.mm */; };
 		781F9F62215019EF0049F7A0 /* PostItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 781F9F61215019EF0049F7A0 /* PostItem.mm */; };
-		781F9F6621501C180049F7A0 /* PostListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 781F9F6521501C180049F7A0 /* PostListCell.m */; };
-		781F9F6A21501C940049F7A0 /* PostListDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 781F9F6921501C940049F7A0 /* PostListDelegate.m */; };
-		781F9F6D21501CA40049F7A0 /* PostListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 781F9F6C21501CA40049F7A0 /* PostListDataSource.m */; };
+		781F9F6621501C180049F7A0 /* PostListCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 781F9F6521501C180049F7A0 /* PostListCell.mm */; };
+		781F9F6A21501C940049F7A0 /* PostListDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 781F9F6921501C940049F7A0 /* PostListDelegate.mm */; };
+		781F9F6D21501CA40049F7A0 /* PostListDataSource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 781F9F6C21501CA40049F7A0 /* PostListDataSource.mm */; };
 		781F9F70215038330049F7A0 /* PostNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 781F9F6F215038330049F7A0 /* PostNode.mm */; };
-		F9D7C08F4073B0E8119A1ED5 /* libPods-VZFlexlayout-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FBD0EDD0195C9E175F0AC89E /* libPods-VZFlexlayout-Demo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		45380A7D1F383D3300B963EB /* VZFlexlayout-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VZFlexlayout-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45380A801F383D3300B963EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		45380A811F383D3300B963EB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		45380A811F383D3300B963EB /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		45380A831F383D3300B963EB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		45380A841F383D3300B963EB /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		45380A871F383D3300B963EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		45380A891F383D3300B963EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45380A8C1F383D3300B963EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		45380A8E1F383D3300B963EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		45380A8F1F383D3300B963EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		4D9B11ECFC1E5C2A1F01F6BD /* Pods-VZFlexlayout-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexlayout-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexlayout-Demo/Pods-VZFlexlayout-Demo.debug.xcconfig"; sourceTree = "<group>"; };
+		45380A8F1F383D3300B963EB /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		459144522150BBF700F97846 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = SOURCE_ROOT; };
+		480487DB77BABF43C51C1789 /* Pods-VZFlexlayout-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexlayout-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexlayout-Demo/Pods-VZFlexlayout-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		781F9F5D2150125F0049F7A0 /* PostListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostListModel.h; sourceTree = "<group>"; };
-		781F9F5E2150125F0049F7A0 /* PostListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostListModel.m; sourceTree = "<group>"; };
+		781F9F5E2150125F0049F7A0 /* PostListModel.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PostListModel.mm; sourceTree = "<group>"; };
 		781F9F60215019EF0049F7A0 /* PostItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostItem.h; sourceTree = "<group>"; };
 		781F9F61215019EF0049F7A0 /* PostItem.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PostItem.mm; sourceTree = "<group>"; };
 		781F9F6421501C180049F7A0 /* PostListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostListCell.h; sourceTree = "<group>"; };
-		781F9F6521501C180049F7A0 /* PostListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostListCell.m; sourceTree = "<group>"; };
+		781F9F6521501C180049F7A0 /* PostListCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PostListCell.mm; sourceTree = "<group>"; };
 		781F9F6821501C940049F7A0 /* PostListDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostListDelegate.h; sourceTree = "<group>"; };
-		781F9F6921501C940049F7A0 /* PostListDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostListDelegate.m; sourceTree = "<group>"; };
+		781F9F6921501C940049F7A0 /* PostListDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PostListDelegate.mm; sourceTree = "<group>"; };
 		781F9F6B21501CA40049F7A0 /* PostListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostListDataSource.h; sourceTree = "<group>"; };
-		781F9F6C21501CA40049F7A0 /* PostListDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostListDataSource.m; sourceTree = "<group>"; };
+		781F9F6C21501CA40049F7A0 /* PostListDataSource.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PostListDataSource.mm; sourceTree = "<group>"; };
 		781F9F6E215038330049F7A0 /* PostNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PostNode.h; sourceTree = "<group>"; };
 		781F9F6F215038330049F7A0 /* PostNode.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PostNode.mm; sourceTree = "<group>"; };
-		E9EB3F9E05FA5271D0D3BA8D /* Pods-VZFlexlayout-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexlayout-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexlayout-Demo/Pods-VZFlexlayout-Demo.release.xcconfig"; sourceTree = "<group>"; };
-		FBD0EDD0195C9E175F0AC89E /* libPods-VZFlexlayout-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VZFlexlayout-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		935EE8CDF4611D03A0C85CE5 /* Pods-VZFlexlayout-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VZFlexlayout-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-VZFlexlayout-Demo/Pods-VZFlexlayout-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		973F562D33C491A3C0ED2E9F /* libPods-VZFlexlayout-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VZFlexlayout-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,28 +56,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9D7C08F4073B0E8119A1ED5 /* libPods-VZFlexlayout-Demo.a in Frameworks */,
+				72B4C47BE1F78DD5125C4FF4 /* libPods-VZFlexlayout-Demo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1C02027D5273DDA77F7C98D4 /* Frameworks */ = {
+		0B11E39FEB5FA21A7B4661B2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FBD0EDD0195C9E175F0AC89E /* libPods-VZFlexlayout-Demo.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		42B6717A16010B77B67CD758 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4D9B11ECFC1E5C2A1F01F6BD /* Pods-VZFlexlayout-Demo.debug.xcconfig */,
-				E9EB3F9E05FA5271D0D3BA8D /* Pods-VZFlexlayout-Demo.release.xcconfig */,
+				480487DB77BABF43C51C1789 /* Pods-VZFlexlayout-Demo.debug.xcconfig */,
+				935EE8CDF4611D03A0C85CE5 /* Pods-VZFlexlayout-Demo.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		44E964D9663F4F9A74269E1E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				973F562D33C491A3C0ED2E9F /* libPods-VZFlexlayout-Demo.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		45380A741F383D3300B963EB = {
@@ -84,8 +85,8 @@
 			children = (
 				45380A7F1F383D3300B963EB /* VZFlexlayout-Demo */,
 				45380A7E1F383D3300B963EB /* Products */,
-				42B6717A16010B77B67CD758 /* Pods */,
-				1C02027D5273DDA77F7C98D4 /* Frameworks */,
+				0B11E39FEB5FA21A7B4661B2 /* Pods */,
+				44E964D9663F4F9A74269E1E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,18 +101,19 @@
 		45380A7F1F383D3300B963EB /* VZFlexlayout-Demo */ = {
 			isa = PBXGroup;
 			children = (
+				459144522150BBF700F97846 /* PrefixHeader.pch */,
 				781F9F6721501C600049F7A0 /* controller */,
 				781F9F6321501BF90049F7A0 /* view */,
 				781F9F5C2150123E0049F7A0 /* model */,
 				45380A801F383D3300B963EB /* AppDelegate.h */,
-				45380A811F383D3300B963EB /* AppDelegate.m */,
+				45380A811F383D3300B963EB /* AppDelegate.mm */,
 				45380A831F383D3300B963EB /* ViewController.h */,
 				45380A841F383D3300B963EB /* ViewController.mm */,
 				45380A861F383D3300B963EB /* Main.storyboard */,
 				45380A891F383D3300B963EB /* Assets.xcassets */,
 				45380A8B1F383D3300B963EB /* LaunchScreen.storyboard */,
 				45380A8E1F383D3300B963EB /* Info.plist */,
-				45380A8F1F383D3300B963EB /* main.m */,
+				45380A8F1F383D3300B963EB /* main.mm */,
 			);
 			path = "VZFlexlayout-Demo";
 			sourceTree = "<group>";
@@ -120,7 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				781F9F5D2150125F0049F7A0 /* PostListModel.h */,
-				781F9F5E2150125F0049F7A0 /* PostListModel.m */,
+				781F9F5E2150125F0049F7A0 /* PostListModel.mm */,
 				781F9F60215019EF0049F7A0 /* PostItem.h */,
 				781F9F61215019EF0049F7A0 /* PostItem.mm */,
 				781F9F6E215038330049F7A0 /* PostNode.h */,
@@ -133,7 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				781F9F6421501C180049F7A0 /* PostListCell.h */,
-				781F9F6521501C180049F7A0 /* PostListCell.m */,
+				781F9F6521501C180049F7A0 /* PostListCell.mm */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -142,9 +144,9 @@
 			isa = PBXGroup;
 			children = (
 				781F9F6821501C940049F7A0 /* PostListDelegate.h */,
-				781F9F6921501C940049F7A0 /* PostListDelegate.m */,
+				781F9F6921501C940049F7A0 /* PostListDelegate.mm */,
 				781F9F6B21501CA40049F7A0 /* PostListDataSource.h */,
-				781F9F6C21501CA40049F7A0 /* PostListDataSource.m */,
+				781F9F6C21501CA40049F7A0 /* PostListDataSource.mm */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -156,7 +158,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45380A931F383D3300B963EB /* Build configuration list for PBXNativeTarget "VZFlexlayout-Demo" */;
 			buildPhases = (
-				45118C1FFE5DE22D57D760FA /* [CP] Check Pods Manifest.lock */,
+				398C538A2F576A790A31EE7F /* [CP] Check Pods Manifest.lock */,
 				45380A791F383D3300B963EB /* Sources */,
 				45380A7A1F383D3300B963EB /* Frameworks */,
 				45380A7B1F383D3300B963EB /* Resources */,
@@ -216,7 +218,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		45118C1FFE5DE22D57D760FA /* [CP] Check Pods Manifest.lock */ = {
+		398C538A2F576A790A31EE7F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -242,13 +244,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				45380A851F383D3300B963EB /* ViewController.mm in Sources */,
-				45380A901F383D3300B963EB /* main.m in Sources */,
+				45380A901F383D3300B963EB /* main.mm in Sources */,
 				781F9F70215038330049F7A0 /* PostNode.mm in Sources */,
-				45380A821F383D3300B963EB /* AppDelegate.m in Sources */,
-				781F9F6A21501C940049F7A0 /* PostListDelegate.m in Sources */,
-				781F9F6D21501CA40049F7A0 /* PostListDataSource.m in Sources */,
-				781F9F6621501C180049F7A0 /* PostListCell.m in Sources */,
-				781F9F5F2150125F0049F7A0 /* PostListModel.m in Sources */,
+				45380A821F383D3300B963EB /* AppDelegate.mm in Sources */,
+				781F9F6A21501C940049F7A0 /* PostListDelegate.mm in Sources */,
+				781F9F6D21501CA40049F7A0 /* PostListDataSource.mm in Sources */,
+				781F9F6621501C180049F7A0 /* PostListCell.mm in Sources */,
+				781F9F5F2150125F0049F7A0 /* PostListModel.mm in Sources */,
 				781F9F62215019EF0049F7A0 /* PostItem.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -377,10 +379,12 @@
 		};
 		45380A941F383D3300B963EB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D9B11ECFC1E5C2A1F01F6BD /* Pods-VZFlexlayout-Demo.debug.xcconfig */;
+			baseConfigurationReference = 480487DB77BABF43C51C1789 /* Pods-VZFlexlayout-Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = RMP5PV6R6N;
+				DEVELOPMENT_TEAM = GW8XWHWQR7;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PrefixHeader.pch;
 				INFOPLIST_FILE = "VZFlexlayout-Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vizlab.VZFlexlayout-Demo";
@@ -391,10 +395,12 @@
 		};
 		45380A951F383D3300B963EB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E9EB3F9E05FA5271D0D3BA8D /* Pods-VZFlexlayout-Demo.release.xcconfig */;
+			baseConfigurationReference = 935EE8CDF4611D03A0C85CE5 /* Pods-VZFlexlayout-Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = RMP5PV6R6N;
+				DEVELOPMENT_TEAM = GW8XWHWQR7;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PrefixHeader.pch;
 				INFOPLIST_FILE = "VZFlexlayout-Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.vizlab.VZFlexlayout-Demo";

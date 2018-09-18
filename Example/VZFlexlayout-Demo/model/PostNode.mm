@@ -7,38 +7,31 @@
 //
 
 #import "PostNode.h"
-#import <VZFlexLayout/VZFStackNode.h>
-#import <VZFlexLayout/VZFTextNode.h>
 #import "PostItem.h"
+
 @implementation PostNode
 
 + (id)newWithProps:(PostItem* )props Store:(VZFluxStore *)store Context:(id)ctx{
     
     return [PostNode newWithNode:
-            [VZFStackNode newWithStackAttributes:{.direction = VZFlexVertical}
-                                       NodeSpecs:{}
+            [VZFStackNode newWithStackAttributes:{.direction = VZFlexVertical, .justifyContent = VZFlexStart}
+                                       NodeSpecs:{.margin = 12}
                                         Children:{
                                                      {[VZFTextNode newWithTextAttributes:{
                                                          .text = props.title,
                                                          .color = [UIColor blackColor],
                                                          .fontSize = 16,
                                                          .fontStyle= VZFFontStyleBold,
+                                                         .lineBreakMode = VZFTextLineBreakByWord,
                                                          .lines = 0
-                                                     } NodeSpecs:{
-                                                         .marginLeft = 12,
-                                                         .marginTop = 10
-                                                     }]},
+                                                     } NodeSpecs:{}]},
                                                      {[VZFTextNode newWithTextAttributes:{
                                                          .text = props.body,
                                                          .color = [UIColor darkGrayColor],
                                                          .fontSize = 12,
                                                          .fontStyle= VZFFontStyleNormal,
                                                          .lines = 0
-                                                     } NodeSpecs:{
-                                                         .marginLeft = 12,
-                                                         .marginTop = 10,
-                                                         .marginBottom = 10
-                                                     }]}
+                                                     } NodeSpecs:{.marginTop = 10,}]}
                                                  }]
             ];
 }

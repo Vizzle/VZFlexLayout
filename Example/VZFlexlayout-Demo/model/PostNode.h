@@ -7,9 +7,6 @@
 //
 
 #import "VZFNode.h"
-#import <VZFlexLayout/VZFCompositeNode.h>
-#import <VZFlexLayout/VZFNodeRequiredMethods.h>
-
 @interface PostNode : VZFCompositeNode<VZFNodeRequiredMethods>
 
 @end

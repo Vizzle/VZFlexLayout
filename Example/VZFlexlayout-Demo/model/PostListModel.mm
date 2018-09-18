@@ -9,6 +9,7 @@
 #import "PostListModel.h"
 #import "PostItem.h"
 
+
 @implementation PostListModel
 
 - (NSString *)methodName {
@@ -22,11 +23,9 @@
     for (NSDictionary* dict in JSON) {
         
         PostItem* item = [PostItem new];
-//        [item autoKVCBinding:dict];
-        item.title = dict[@"title"];
-        item.body = dict[@"body"];
-        CGSize containerSz = (CGSize){CGRectGetWidth([UIScreen mainScreen].bounds),CGFLOAT_MAX};
-        [item updateModelWithConstrainedSize:containerSz context:nil];
+        [item autoKVCBinding:dict];
+        CGSize flexContainer = VZ::containerSize(VZFlexibleSizeHeight,(CGSize){CGRectGetWidth([UIScreen mainScreen].bounds)-20,CGFLOAT_MAX});
+        [item updateModelWithConstrainedSize:flexContainer context:nil];
         [ret addObject:item];
     }
     

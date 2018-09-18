@@ -7,9 +7,6 @@
 //
 
 #import "VZListItem.h"
-#import <VZFlexLayout/VZFNodeProvider.h>
-#import <UIKit/UIKit.h>
-
 @interface PostItem : VZListItem<VZFNodeProvider>
 
 @property(nonatomic,strong) NSNumber* userId;

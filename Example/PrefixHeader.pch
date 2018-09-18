@@ -1,0 +1,18 @@
+//
+//  PrefixHeader.pch
+//  VZFlexlayout-Demo
+//
+//  Created by moxin on 9/18/18.
+//  Copyright © 2018 Vizlab. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <Vizzle/Vizzle.h>
+#import <VZFlexLayout/VZFlexLayout.h>
+#endif /* PrefixHeader_pch */

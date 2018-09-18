@@ -17,7 +17,7 @@ PODS:
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
-  - Vizzle (0.0.5):
+  - Vizzle (0.0.6):
     - AFNetworking (= 3.0.0)
   - VZFlexLayout (0.3.4)
   - VZInspector (0.1.8)
@@ -29,7 +29,7 @@ DEPENDENCIES:
   - VZInspector
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - SDWebImage
     - Vizzle
@@ -42,10 +42,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AFNetworking: 932ff751f9d6fb1dad0b3af58b7e3ffba0a4e7fd
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
-  Vizzle: dc4eea3ae3b8711fba5e74a2a8fb61a91c17c0b5
+  Vizzle: c0cec641a825c0ec778f2584b408c882c1854427
   VZFlexLayout: 9971f4d5521d4b9f5d3d3eb15701642a38dcc631
   VZInspector: 3d95c67d8a7fe07dafae85b1bfb42a8afafbd613
 
 PODFILE CHECKSUM: 18537ee418c7730fa27493146dce35c20f6185d9
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.0
