@@ -17,6 +17,9 @@ using namespace VZ;
     VZFluxStoreListener _listener;
 }
 
++ (id)initialState{
+    return nil;
+}
 
 - (id)initWithDispatcher:(VZFluxDispatcher *)dispatcher{
     
@@ -24,7 +27,7 @@ using namespace VZ;
     if (self) {
     
         _dispatcher = dispatcher;
-        _state = [self inittialState];
+        _state = [[self class] initialState];
         
     }
     return self;

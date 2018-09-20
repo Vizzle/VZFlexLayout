@@ -10,10 +10,8 @@
 using namespace VZ;
 @implementation PostItemStore
 
-
-
-- (id)inittialState{
-    return @{@"TITLE_COLOR":[UIColor blackColor],@(EXPEND_TEXT):@(FALSE),@"BODY_COLOR":[UIColor darkGrayColor]};
++ (id)initialState{
+    return @{@"TITLE_COLOR":[UIColor blackColor],@"BODY_COLOR":[UIColor darkGrayColor]};
 }
 
 - (id)reducer:(NSDictionary* )state action:(const VZ::FluxAction &)action{
@@ -31,9 +29,6 @@ using namespace VZ;
     }else{
         return state;
     }
-}
-- (void)dealloc{
-    NSLog(@"dealloc");
 }
 
 @end

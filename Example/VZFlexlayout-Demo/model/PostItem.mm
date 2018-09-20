@@ -35,7 +35,6 @@
     if (self) {
         _recycler = [[VZFNodeListItemRecycler alloc] initWithNodeProvider:[self class]];
         _store = [[PostItemStore alloc]initWithDispatcher:[PostListContext globalDispatcher]];
-        _store.item = self;
         __weak __typeof(self) weakSelf = self;
         [_store addListener:^(int32_t eventId, BOOL stateChanged) {
             if(stateChanged){

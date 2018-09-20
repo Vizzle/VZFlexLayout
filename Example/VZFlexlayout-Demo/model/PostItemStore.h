@@ -19,6 +19,4 @@ typedef NS_ENUM(NSUInteger,ACTION_ID){
 
 @interface PostItemStore : VZFluxStore
 
-@property(nonatomic,weak) PostItem* item;
-
 @end

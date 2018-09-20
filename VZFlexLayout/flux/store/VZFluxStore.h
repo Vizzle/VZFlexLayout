@@ -46,7 +46,7 @@ typedef void(^VZFluxStoreListener)(int32_t eventId, BOOL stateChanged);
 
 @interface VZFluxStore(Subclasses)
 
-- (id)inittialState;
++ (id)initialState;
 /*
  * (old_state, action) => new_state
  */
