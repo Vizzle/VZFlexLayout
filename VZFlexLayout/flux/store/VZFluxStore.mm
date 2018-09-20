@@ -10,10 +10,10 @@
 #import "VZFluxDispatcher.h"
 #import "VZFMacros.h"
 
+using namespace VZ;
 @implementation VZFluxStore
 {
-    NSString* _dispatchToken;
-    NSString* _changeEvent;
+    __weak VZFluxDispatcher* _dispatcher;
     VZFluxStoreListener _listener;
 }
 
@@ -22,23 +22,21 @@
     
     self = [super init];
     if (self) {
-        
-        _changed = false;
-        _changeEvent = @"change";
+    
         _dispatcher = dispatcher;
-        
-        __weak VZFluxStore* weakSelf = self;
-        _dispatchToken = [dispatcher registerWithCallback:^(VZ::FluxAction action) {
-            __strong VZFluxStore* strongSelf = weakSelf;
-            if (strongSelf) {
-                [strongSelf invokeOnDispatch:action];
-            }
-        }];
+        _state = [self inittialState];
         
     }
     return self;
 }
-
+- (void)setState:(id)state{
+    if(_state != state){
+        _state = state;
+        if(_listener){
+            _listener(-1,TRUE);
+        }
+    }
+}
 - (void)addListener:(VZFluxStoreListener)listener{
     _listener  = [listener copy];
 }
@@ -47,32 +45,19 @@
     _listener = nil;
     
 }
-- (void)emitChange{
-    [self emitChange:_changeEvent];
+
+- (id)reducer:(id)state action:(const FluxAction& )action{
+    return _state;
 }
 
-- (void)emitChange:(NSString* )evenType{
-
-    _invariant(_dispatcher.isDispatching, @"%@.emitChange(): Must be invoked while dispatching.",[self class]);
-    _changed = true;
-    _changeEvent = evenType;
-}
-
-- (void)invokeOnDispatch:(const FluxAction& )action{
-
-    _changed = NO;
-    //sub class override
-    [self onDispatch:action];
-    if (_changed) {
-        if (_listener) {
-            _listener(_changeEvent,action.payload);
-        }
+- (void)onDispatch:(const FluxAction&)action{
+    if(action.actionType == ActionType::state){
+        id newState = [self reducer:_state action: action];
+        [self setState:newState];
+    }else{
+        [_dispatcher dispatch:action mode:(VZFStateUpdateMode)action.mode];
     }
     
-}
-
-- (void)onDispatch:(const FluxAction&)payload{
-    _invariant(false, @"%@ has not overridden FluxStore.__onDispatch(), which is required",[self class]);
 }
 
 

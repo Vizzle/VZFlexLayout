@@ -172,9 +172,7 @@ struct VZItemRecyclerState{
         view.vz_recycler = self;
         
     }
-    @synchronized(self) {
-        _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil, rasterizeUseCache, isUpdating) copy];
-    }
+    _mountedNodes = [layoutRootNodeInContainer(_state.layout, _mountedView, _mountedNodes, nil, rasterizeUseCache, isUpdating) copy];
 }
 
 

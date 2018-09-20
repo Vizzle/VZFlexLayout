@@ -118,40 +118,46 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
 }
 
 - (void)dispatch:(VZ::FluxAction)action mode:(VZFStateUpdateMode)m{
-    
-    if (_isDispatching) {
-        
-        dispatch_block_t block =  ^{
-            [self dispatch:action mode:m];
-        };
-        if (m==VZFStateUpdateModeAsynchronous) {
-            dispatch_async(_serialDispatchQueue, ^{
-                [self dispatch:action mode:m];
-            });
-        }else{
-            VZFDispatchMain(0, block);
+    [_callbacks enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, DispatchPayload  _Nonnull obj, BOOL * _Nonnull stop) {
+        if(obj){
+            obj(action);
+            *stop = true;
         }
-        
-        //        _invariant(!_isDispatching, @"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.");
-        //        dispatch_queue_t queue = m==VZFStateUpdateModeAsynchronous?_serialDispatchQueue:dispatch_get_main_queue();
-        //        dispatch_async(queue, ^{
-        //             [self dispatch:action mode:m];
-        //        });
-        return;
-    }
+    }];
     
-    [self _startDispathcing:action];
-    
-    
-    for (NSString* token in [_callbacks allKeys]) {
-        if(_pendingMap[token]){
-            continue;
-        }
-        NSLog(@"invoke dispatch");
-        [self _invokeCallback:token mode:m];
-    }
-    
-    [self _stopDispatching];
+//    if (_isDispatching) {
+//
+//        dispatch_block_t block =  ^{
+//            [self dispatch:action mode:m];
+//        };
+//        if (m==VZFStateUpdateModeAsynchronous) {
+//            dispatch_async(_serialDispatchQueue, ^{
+//                [self dispatch:action mode:m];
+//            });
+//        }else{
+//            VZFDispatchMain(0, block);
+//        }
+//
+//        //        _invariant(!_isDispatching, @"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.");
+//        //        dispatch_queue_t queue = m==VZFStateUpdateModeAsynchronous?_serialDispatchQueue:dispatch_get_main_queue();
+//        //        dispatch_async(queue, ^{
+//        //             [self dispatch:action mode:m];
+//        //        });
+//        return;
+//    }
+//
+//    [self _startDispathcing:action];
+//
+//
+//    for (NSString* token in [_callbacks allKeys]) {
+//        if(_pendingMap[token]){
+//            continue;
+//        }
+//        NSLog(@"invoke dispatch");
+//        [self _invokeCallback:token mode:m];
+//    }
+//
+//    [self _stopDispatching];
     
 }
 

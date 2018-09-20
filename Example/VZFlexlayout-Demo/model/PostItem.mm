@@ -15,7 +15,6 @@
 
 @interface PostItem()
 @property(nonatomic,strong) VZFNodeListItemRecycler* recycler;
-@property(nonatomic,strong) PostItemStore* store;
 @end
 
 @implementation PostItem
@@ -38,28 +37,24 @@
         _store = [[PostItemStore alloc]initWithDispatcher:[PostListContext globalDispatcher]];
         _store.item = self;
         __weak __typeof(self) weakSelf = self;
-        [_store addListener:^(NSString *eventType, id data) {
-                      __strong __typeof(self) strongSelf = weakSelf;
-            if([eventType isEqualToString:@"left"]){
-      
+        [_store addListener:^(int32_t eventId, BOOL stateChanged) {
+            if(stateChanged){
+                __strong __typeof(self) strongSelf = weakSelf;
                 if(strongSelf){
                     [strongSelf->_recycler updateState];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         UITableView* tableView = [PostListContext globalTableView];
                         NSIndexPath* indexPath = strongSelf.indexPath;
                         UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
-                        [strongSelf->_recycler attachToView:cell.contentView];
-                    });   
+                        if(cell){
+                            [strongSelf->_recycler attachToView:cell.contentView];
+                        }
+                        
+                    });
                 }
-            }else{
-                //eventType == right
-                dispatch_async(dispatch_get_main_queue(),^{
-                    UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"%d",strongSelf.indexPath.row] message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alertView show];
-                });
-                
             }
         }];
+
     }
     return self;
 }

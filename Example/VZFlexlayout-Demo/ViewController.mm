@@ -12,6 +12,7 @@
 #import "PostListDelegate.h"
 #import "PostListContext.h"
 
+
 @interface ViewController ()
 
 @property(nonatomic,strong) PostListDataSource* ds;
@@ -21,8 +22,6 @@
 @end
 
 @implementation ViewController
-
-
 
 - (PostListDelegate* )dl{
     if(!_dl){
@@ -43,11 +42,29 @@
     }
     return _model;
 }
+- (id)init{
+    self = [super init];
+    if(self){
+        [[PostListContext sharedInstance] setRootViewController:self];
+    }
+    return self;
+}
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super initWithCoder: aDecoder];
+    if(self){
+        [[PostListContext sharedInstance] setRootViewController:self];
+    }
+    return self;
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(push)];
+    
+    
     self.tableView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.showsVerticalScrollIndicator = YES;
@@ -59,20 +76,12 @@
     
     [self registerModel:self.model];
     self.keyModel = self.model;
-    
     [self load];
-    [[PostListContext sharedInstance] setRootViewController:self];
 }
 
-
-
-- (void)showModel:(VZModel *)model{
-    [super showModel:model];
+- (void)push{
+    
     
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%d",indexPath.row);
-}
-
 
 @end

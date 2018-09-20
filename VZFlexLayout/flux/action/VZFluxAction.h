@@ -11,20 +11,20 @@
 namespace VZ {
     
     enum ActionType{
-        view_state,
-        view_action
+        state,
+        action
+    };
+    enum ActionMode{
+        sync,
+        async
     };
     
     struct FluxAction{
-        
-        static void send(FluxAction);
-        
-        ActionType source;
-        int32_t actionType;
+        ActionType actionType;
+        int32_t eventId;
+        ActionMode mode;
         __strong id payload;
-        
-        //指定投递的dispatcher，如果不指定默认投递到全局单例对象
-        __weak id dispatcher;
+
     };
 }
 

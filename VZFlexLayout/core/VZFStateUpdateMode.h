@@ -11,8 +11,9 @@
 
 typedef NS_ENUM(NSUInteger,VZFStateUpdateMode){
     
+    VZFStateUpdateModeSynchronous,
     VZFStateUpdateModeAsynchronous,
-    VZFStateUpdateModeSynchronous
+    
 };
 
 #endif /* VZFStateUpdateMode_h */

@@ -8,7 +8,17 @@
 
 #import "VZFluxStore.h"
 #import "PostItem.h"
+
+typedef NS_ENUM(NSUInteger,ACTION_ID){
+    CHANGE_TITLE_COLOR,
+    CHANGE_BODY_COLOR,
+    EXPEND_TEXT,
+    ALERT
+};
+
+
 @interface PostItemStore : VZFluxStore
+
 @property(nonatomic,weak) PostItem* item;
 
 @end

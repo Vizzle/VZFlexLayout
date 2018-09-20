@@ -9,7 +9,14 @@
 #import "PostListDataSource.h"
 #import "PostListCell.h"
 #import "PostItem.h"
+
+
+
+
+
 @implementation PostListDataSource
+
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -21,7 +28,7 @@
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     PostItem* item = (PostItem* )[self itemForCellAtIndexPath:indexPath];
     [item attachToView:cell.contentView];
-    NSLog(@"%d",item.indexPath.row);
+    
     return cell;
 }
 

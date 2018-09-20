@@ -14,7 +14,9 @@ using namespace VZ;
 @class VZFluxDispatcher;
 @class VZFluxEventEmitter;
 
-typedef void(^VZFluxStoreListener)(NSString* eventType, id data);
+typedef void(^VZFluxStoreListener)(int32_t eventId, BOOL stateChanged);
+
+
 
 /**
  *
@@ -28,20 +30,15 @@ typedef void(^VZFluxStoreListener)(NSString* eventType, id data);
  */
 
 @interface VZFluxStore : NSObject{
-@protected
-    BOOL _changed;
-    id _state;
 }
 
 @property(nonatomic,strong,readonly) id state;
-@property(nonatomic,strong,readonly) VZFluxDispatcher* dispatcher;
 @property(nonatomic,strong,readonly) NSString* dispatchToken;
 
 - (id)initWithDispatcher:(VZFluxDispatcher* )dispatcher;
 - (void)addListener:(VZFluxStoreListener)listener;
+- (void)setState:(id)state;
 - (void)removeListener;
-- (void)emitChange;
-- (void)emitChange:(NSString* )evenType;
 
 
 
@@ -49,13 +46,11 @@ typedef void(^VZFluxStoreListener)(NSString* eventType, id data);
 
 @interface VZFluxStore(Subclasses)
 
-/**
- * This method encapsulates all logic for invoking onDispatch. It should
- * be used for things like catching changes and emitting them after the
- * subclass has handled a payload.
+- (id)inittialState;
+/*
+ * (old_state, action) => new_state
  */
-- (void)invokeOnDispatch:(const FluxAction&)action;
-
+- (id)reducer:(id)state action:(const FluxAction& )action;
 /**
  * The callback that will be registered with the dispatcher during
  * instantiation. Subclasses must override this method. This callback is the

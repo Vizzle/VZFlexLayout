@@ -35,7 +35,6 @@ typedef void(^DispatchPayload) (FluxAction payload);
  *  @return registered token
  */
 - (NSString* )registerWithCallback:(DispatchPayload)callback;
-- (void) registerCacllback:(DispatchPayload)callback forKey:(NSString* )key;
 /**
  *  Removes a callback based on its token.
  *

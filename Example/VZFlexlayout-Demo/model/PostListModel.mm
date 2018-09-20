@@ -12,6 +12,7 @@
 
 @implementation PostListModel
 
+
 - (NSString *)methodName {
     
     return @"https://jsonplaceholder.typicode.com/posts/";

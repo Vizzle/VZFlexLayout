@@ -12,14 +12,14 @@
 
 namespace VZ {
 
-    void FluxAction::send(FluxAction action) {
-        
-        if ([action.dispatcher isKindOfClass:[VZFluxDispatcher class]]) {
-            VZFluxDispatcher* dispatcher = (VZFluxDispatcher* )action.dispatcher;
-            [dispatcher dispatch:action mode:VZFStateUpdateModeSynchronous];
-        }
-        else{
-            [[VZFluxAppDispatcher sharedInstance] handleAction:action];
-        }
-    }
+//    void FluxAction::send(FluxAction action) {
+//        
+//        if ([action.dispatcher isKindOfClass:[VZFluxDispatcher class]]) {
+//            VZFluxDispatcher* dispatcher = (VZFluxDispatcher* )action.dispatcher;
+//            [dispatcher dispatch:action mode:VZFStateUpdateModeSynchronous];
+//        }
+//        else{
+//            [[VZFluxAppDispatcher sharedInstance] handleAction:action];
+//        }
+//    }
 }

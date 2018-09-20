@@ -11,59 +11,73 @@
 #import "PostItemStore.h"
 #import <string>
 
+using namespace VZ;
 @implementation PostNode
-+ (id)initialState{
-    return nil;
-}
+
 + (id)newWithProps:(PostItem* )props Store:(PostItemStore *)store Context:(id)ctx{
-
-    NSDictionary* state = store.state;
-    BOOL left = [state[@"left"] boolValue];
-    return [PostNode newWithNode:
-            [VZFStackNode newWithStackAttributes:{.direction = VZFlexVertical, .justifyContent = VZFlexStart}
-                                       NodeSpecs:{.margin = 12,}
-                                        Children:{
-                                                     {[VZFTextNode newWithTextAttributes:{
-                                                         .text = props.title,
-                                                         .color = left?[UIColor orangeColor]:[UIColor blackColor],
-                                                         .fontSize = 16,
-                                                         .fontStyle= VZFFontStyleBold,
-                                                         .lineBreakMode = VZFTextLineBreakByWord,
-                                                         .lines = 0
-                                                     } NodeSpecs:{}]},
-                                                     {[VZFTextNode newWithTextAttributes:{
-                                                         .text = props.body,
-                                                         .color = [UIColor darkGrayColor],
-                                                         .fontSize = 12,
-                                                         .fontStyle= VZFFontStyleNormal,
-                                                         .lines = 0
-                                                     } NodeSpecs:{.marginTop = 10,}]},
-                                                     {
-                                                         [VZFStackNode newWithStackAttributes:{.justifyContent=VZFlexStart}
-                                                                                    NodeSpecs:{.marginTop = 10}
-                                                                                     Children:{
-                                                                                         {[[self class] LeftButtonNodeWithProps:props State:left FluxStore:store]},
-                                                                                         {[[self class] RightButtonNodeWithProps:props FluxStore:store]}
-                                                                                         
-                                                         }]
-                                                     }
-                                                 }]
-            ];
+    
+    VZFStackNode* container = [VZFStackNode newWithStackAttributes:{.direction = VZFlexVertical, .justifyContent = VZFlexStart}
+                                                         NodeSpecs:{.margin = 12,}
+                                                          Children:{
+                                                              {[[self class] titleNodeWithProprs:props Store:store]},
+                                                              {[[self class] bodyNodeWithProprs:props Store:store]},
+                                                              {[[self class] buttonContainerWithProps:props Store:store]}
+                                                          }];
+    return [PostNode newWithNode:container];
 }
 
-+ (VZFButtonNode* )LeftButtonNodeWithProps:(PostItem* )props State:(BOOL)left FluxStore:(VZFluxStore* )store{
-    
++ (VZFTextNode* )titleNodeWithProprs:(PostItem* )props Store:(PostItemStore* )store {
+ 
+    return [VZFTextNode newWithTextAttributes:{
+        .text = props.title,
+        .color = store.state[@"TITLE_COLOR"],
+        .fontSize = 16,
+        .fontStyle= VZFFontStyleBold,
+        .lineBreakMode = VZFTextLineBreakByWord,
+        .lines = 0
+    } NodeSpecs:{}];
+}
 
++ (VZFTextNode* )bodyNodeWithProprs:(PostItem* )props Store:(PostItemStore* )store{
+    return [VZFTextNode newWithTextAttributes:{
+        .text = props.body,
+        .color = store.state[@"BODY_COLOR"],
+        .fontSize = 12,
+        .fontStyle= VZFFontStyleNormal,
+        .lines = 0
+    } NodeSpecs:{.marginTop = 10,}];
+}
+
+/*
+ <div>
+    <button />
+    <button/>
+</div>
+ */
++ (VZFStackNode* )buttonContainerWithProps:(PostItem* )props Store:(VZFluxStore*) store{
+    
+    return  [VZFStackNode newWithStackAttributes:{.justifyContent=VZFlexStart}
+                                       NodeSpecs:{.marginTop = 10}
+                                        Children:{
+                                            {[[self class] LeftButtonNodeWithProps:props Store:store]},
+                                            {[[self class] RightButtonNodeWithProps:props Store:store]}
+                                            
+                                        }];
+}
+
++ (VZFButtonNode* )LeftButtonNodeWithProps:(PostItem* )props Store:(VZFluxStore* )store{
+    
+    
     return [VZFButtonNode newWithButtonAttributes:{
         .title = @"Change Title Color",
         .titleColor = [UIColor whiteColor],
-        .fontSize = 16,
+        .fontSize = 12,
         .action = [VZFBlockAction action:^(id sender) {
             //change state
-            [store.dispatcher dispatch:{
-                .source =VZ::ActionType::view_state,
-                .payload = @{@"left":@(!left),@"index":props.indexPath}
-            } mode:VZFStateUpdateModeAsynchronous];
+            [store onDispatch:{
+                .actionType = ActionType::state,
+                .eventId = CHANGE_TITLE_COLOR
+            }];
         }]
         
     } NodeSpecs:{
@@ -74,17 +88,19 @@
         .height = 24,
     }];
 }
-+ (VZFButtonNode* )RightButtonNodeWithProps:(PostItem* )props FluxStore:(VZFluxStore* )store{
++ (VZFButtonNode* )RightButtonNodeWithProps:(PostItem* )props Store:(VZFluxStore* )store{
     return [VZFButtonNode newWithButtonAttributes:{
-        .title = @"Alert",
+        .title = @"Change Next Item's Text Color",
         .titleColor = [UIColor whiteColor],
-        .fontSize = 16,
+        .fontSize = 12,
         .action = [VZFBlockAction action:^(id sender) {
-            //change state
-            [store.dispatcher dispatch:{
-                .source =VZ::ActionType::view_action,
-                .payload = @{@"index":props.indexPath}
-            } mode:VZFStateUpdateModeAsynchronous];
+            //action
+            [store onDispatch:{
+                .actionType = ActionType::action,
+                .eventId = CHANGE_BODY_COLOR,
+                .payload = @{@"index":@(props.indexPath.row+1)}
+            }];
+            
         }]
     } NodeSpecs:{
         .userInteractionEnabled = 1,
