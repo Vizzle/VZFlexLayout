@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <Vizzle/VZListViewController.h>
-@interface ViewController : VZListViewController;
 
+@interface ViewController : VZListViewController
 
 @end
 

@@ -39,7 +39,7 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
 
 
 - (id)init{
-
+    
     self = [super init];
     if (self) {
         
@@ -63,23 +63,20 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
 #pragma mark - public APIs
 
 - (NSString* )registerWithCallback:(DispatchPayload)payload{
-
+    
     if (self.isDispatching) {
         _invariant(!self.isDispatching, @"Dispatcher.register(...): Cannot register in the middle of a dispatch.");
         return nil;
     }
-    
-    
     NSString* token = [gFluxTokenPrefix stringByAppendingString:[NSString stringWithFormat:@"%d",OSAtomicIncrement32(&_lastId)]];
-    
     OSSpinLockLock(&_lock);
     _callbacks[token] = [payload copy];
     OSSpinLockUnlock(&_lock);
-    
-    
     return token;
 }
-
+- (void) registerCacllback:(DispatchPayload)callback forKey:(NSString* )key{
+    _callbacks[key] = callback;
+}
 - (void)unregister:(NSString *)token{
     if (self.isDispatching) {
         _invariant(!self.isDispatching, @"Dispatcher.unregister(...): Cannot unregister in the middle of a dispatch.");
@@ -96,7 +93,7 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
 }
 
 - (void)waitFor:(NSArray<NSString *> *)list mode:(VZFStateUpdateMode)m{
-   
+    
     if(self.isDispatching){
         _invariant(!self.isDispatching, @"Dispatcher.waitFor(...): Must be invoked while dispatching.");
         return ;
@@ -121,9 +118,9 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
 }
 
 - (void)dispatch:(VZ::FluxAction)action mode:(VZFStateUpdateMode)m{
-
+    
     if (_isDispatching) {
-
+        
         dispatch_block_t block =  ^{
             [self dispatch:action mode:m];
         };
@@ -135,32 +132,33 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
             VZFDispatchMain(0, block);
         }
         
-//        _invariant(!_isDispatching, @"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.");
-//        dispatch_queue_t queue = m==VZFStateUpdateModeAsynchronous?_serialDispatchQueue:dispatch_get_main_queue();
-//        dispatch_async(queue, ^{
-//             [self dispatch:action mode:m];
-//        });
+        //        _invariant(!_isDispatching, @"Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.");
+        //        dispatch_queue_t queue = m==VZFStateUpdateModeAsynchronous?_serialDispatchQueue:dispatch_get_main_queue();
+        //        dispatch_async(queue, ^{
+        //             [self dispatch:action mode:m];
+        //        });
         return;
     }
     
     [self _startDispathcing:action];
     
-
+    
     for (NSString* token in [_callbacks allKeys]) {
         if(_pendingMap[token]){
             continue;
         }
+        NSLog(@"invoke dispatch");
         [self _invokeCallback:token mode:m];
     }
     
     [self _stopDispatching];
-
+    
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - private APIs
 
-- (void)_startDispathcing:(const FluxAction& )payload{
+- (void)_startDispathcing:(const FluxAction )payload{
     
     OSSpinLockLock(&_lock);
     for (NSString* token in [_callbacks allKeys]) {
@@ -186,15 +184,18 @@ typedef std::unordered_map<NSString* , bool, NSStringHashFunctor, NSStringEqualF
     OSSpinLockUnlock(&_lock);
     
     if (m == VZFStateUpdateModeAsynchronous) {
-       
+        
         dispatch_async(_serialDispatchQueue, ^{
             
-            DispatchPayload payload = _callbacks[token];
-            payload(*_pendingPayload);
+            DispatchPayload payload = self->_callbacks[token];
+            if(self->_pendingPayload){
+                payload(*self->_pendingPayload);
+            }
+            
         });
     }
     else{
-    
+        
         DispatchPayload payload = _callbacks[token];
         payload(*_pendingPayload);
     }

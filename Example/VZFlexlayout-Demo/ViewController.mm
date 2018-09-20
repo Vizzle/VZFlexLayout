@@ -10,7 +10,7 @@
 #import "PostListModel.h"
 #import "PostListDataSource.h"
 #import "PostListDelegate.h"
-
+#import "PostListContext.h"
 
 @interface ViewController ()
 
@@ -21,6 +21,8 @@
 @end
 
 @implementation ViewController
+
+
 
 - (PostListDelegate* )dl{
     if(!_dl){
@@ -59,13 +61,18 @@
     self.keyModel = self.model;
     
     [self load];
+    [[PostListContext sharedInstance] setRootViewController:self];
 }
+
+
 
 - (void)showModel:(VZModel *)model{
     [super showModel:model];
     
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"%d",indexPath.row);
+}
 
 
 @end

@@ -61,14 +61,9 @@
 - (void)invokeOnDispatch:(const FluxAction& )action{
 
     _changed = NO;
-  
-    
     //sub class override
     [self onDispatch:action];
-    
-
     if (_changed) {
-        
         if (_listener) {
             _listener(_changeEvent,action.payload);
         }
@@ -77,7 +72,6 @@
 }
 
 - (void)onDispatch:(const FluxAction&)payload{
-
     _invariant(false, @"%@ has not overridden FluxStore.__onDispatch(), which is required",[self class]);
 }
 

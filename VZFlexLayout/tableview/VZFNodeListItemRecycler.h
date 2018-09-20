@@ -19,7 +19,7 @@ using namespace VZ;
  */
 @interface VZFNodeListItemRecycler : NSObject
 
-@property(nonatomic,weak)VZFluxStore* store;
+@property(nonatomic,strong)VZFluxStore* store;
 @property(nonatomic,strong) NSIndexPath* indexPath;
 @property(nonatomic,assign,readonly) CGSize layoutSize;
 

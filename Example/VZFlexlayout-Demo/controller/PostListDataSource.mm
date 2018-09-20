@@ -21,6 +21,7 @@
     UITableViewCell* cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
     PostItem* item = (PostItem* )[self itemForCellAtIndexPath:indexPath];
     [item attachToView:cell.contentView];
+    NSLog(@"%d",item.indexPath.row);
     return cell;
 }
 

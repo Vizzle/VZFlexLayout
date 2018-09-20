@@ -136,7 +136,6 @@ struct VZItemRecyclerState{
     }
 
     @synchronized(self) {
-        
         //alloc stack object, will cause the old state object dealloc
         _state = {
             .props = item,

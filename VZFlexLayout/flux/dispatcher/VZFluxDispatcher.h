@@ -35,6 +35,7 @@ typedef void(^DispatchPayload) (FluxAction payload);
  *  @return registered token
  */
 - (NSString* )registerWithCallback:(DispatchPayload)callback;
+- (void) registerCacllback:(DispatchPayload)callback forKey:(NSString* )key;
 /**
  *  Removes a callback based on its token.
  *
@@ -51,9 +52,6 @@ typedef void(^DispatchPayload) (FluxAction payload);
 - (void)waitFor:(NSArray<NSString* > *)list mode:(VZFStateUpdateMode)m;
 /**
  *  Dispatches a payload to all registered callbacks.
- *
- *  @param action, this will create a copy of FluxAction
- *  @param m      
  */
 - (void)dispatch:(FluxAction)action mode:(VZFStateUpdateMode)m;
 

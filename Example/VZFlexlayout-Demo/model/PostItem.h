@@ -14,7 +14,7 @@
 @property(nonatomic,strong) NSString* body;
 @property(nonatomic,assign) float contentWidth;
 @property(nonatomic,assign) float contentHeight;
-@property(nonatomic,readonly,weak) UIView* attachedView;
+@property(nonatomic,readonly,strong) UIView* attachedView;
 
 - (void)updateModelWithConstrainedSize:(CGSize)sz context:(id)context;
 - (void)updateState;

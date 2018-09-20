@@ -8,9 +8,14 @@
 
 #import "PostItem.h"
 #import "PostNode.h"
+#import "PostItemStore.h"
+#import "ViewController.h"
+#import "PostListContext.h"
+
 
 @interface PostItem()
 @property(nonatomic,strong) VZFNodeListItemRecycler* recycler;
+@property(nonatomic,strong) PostItemStore* store;
 @end
 
 @implementation PostItem
@@ -30,6 +35,31 @@
     self = [super init];
     if (self) {
         _recycler = [[VZFNodeListItemRecycler alloc] initWithNodeProvider:[self class]];
+        _store = [[PostItemStore alloc]initWithDispatcher:[PostListContext globalDispatcher]];
+        _store.item = self;
+        __weak __typeof(self) weakSelf = self;
+        [_store addListener:^(NSString *eventType, id data) {
+                      __strong __typeof(self) strongSelf = weakSelf;
+            if([eventType isEqualToString:@"left"]){
+      
+                if(strongSelf){
+                    [strongSelf->_recycler updateState];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UITableView* tableView = [PostListContext globalTableView];
+                        NSIndexPath* indexPath = strongSelf.indexPath;
+                        UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
+                        [strongSelf->_recycler attachToView:cell.contentView];
+                    });   
+                }
+            }else{
+                //eventType == right
+                dispatch_async(dispatch_get_main_queue(),^{
+                    UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"%d",strongSelf.indexPath.row] message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alertView show];
+                });
+                
+            }
+        }];
     }
     return self;
 }
@@ -53,8 +83,8 @@
     NSLog(@"%s",__func__);
 }
 
-+ (VZFNode<VZFNodeRequiredMethods>* )nodeForItem:(id)item Store:(VZFluxStore* )store Context:(id)ctx{
-    return [PostNode newWithProps:item Store:store Context:ctx];
++ (VZFNode<VZFNodeRequiredMethods>* )nodeForItem:(PostItem* )item Store:(VZFluxStore* )store Context:(id)ctx{
+    return [PostNode newWithProps:item Store:item.store Context:ctx];
 }
 
 @end
