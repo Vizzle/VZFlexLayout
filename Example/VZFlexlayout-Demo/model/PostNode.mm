@@ -49,10 +49,10 @@ using namespace VZ;
 }
 
 /*
- <div>
+ <stack>
     <button />
     <button/>
-</div>
+</stack>
  */
 + (VZFStackNode* )buttonContainerWithProps:(PostItem* )props Store:(VZFluxStore*) store{
     
