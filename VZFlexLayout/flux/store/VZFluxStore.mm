@@ -20,15 +20,22 @@ using namespace VZ;
 + (id)initialState{
     return nil;
 }
-
++ (dispatch_queue_t)_stateUpdateQueue
+{
+    static dispatch_queue_t serialQueue = NULL;
+    static dispatch_once_t onceToken = 0;
+    dispatch_once(&onceToken, ^{
+        serialQueue = dispatch_queue_create("com.fluxstore.state-update", DISPATCH_QUEUE_SERIAL);
+        
+    });
+    return serialQueue;
+}
 - (id)initWithDispatcher:(VZFluxDispatcher *)dispatcher{
     
     self = [super init];
     if (self) {
-    
         _dispatcher = dispatcher;
         _state = [[self class] initialState];
-        
     }
     return self;
 }
@@ -49,18 +56,31 @@ using namespace VZ;
     
 }
 
-- (id)reducer:(id)state action:(const FluxAction& )action{
+- (id)reduce:(id)state action:(const FluxAction& )action{
     return _state;
 }
 
 - (void)onDispatch:(const FluxAction&)action{
-    if(action.actionType == ActionType::state){
-        id newState = [self reducer:_state action: action];
-        [self setState:newState];
-    }else{
-        [_dispatcher dispatch:action mode:(VZFStateUpdateMode)action.mode];
-    }
-    
+//    if(action.actionType == ActionType::state){
+//        if(action.mode == async){
+//            dispatch_async(_stateUpdateQueue, ^{
+//                id newState = [self reduce:self->_state action: action];
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self setState:newState];
+//                });
+//            });
+//        }else{
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                id newState = [self reduce:self->_state action: action];
+//                [self setState:newState];
+//            });
+//        }
+//    
+//        
+//        
+//    }else{
+//        [_dispatcher dispatch:action mode:(VZFStateUpdateMode)action.mode];
+//    }
 }
 
 

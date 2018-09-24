@@ -14,7 +14,7 @@ using namespace VZ;
     return @{@"TITLE_COLOR":[UIColor blackColor],@"BODY_COLOR":[UIColor darkGrayColor]};
 }
 
-- (id)reducer:(NSDictionary* )state action:(const VZ::FluxAction &)action{
+- (id)reduce:(NSDictionary* )state action:(const VZ::FluxAction &)action{
     
     if(action.eventId == CHANGE_TITLE_COLOR){
         

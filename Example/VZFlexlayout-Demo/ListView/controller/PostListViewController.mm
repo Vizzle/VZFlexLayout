@@ -6,14 +6,14 @@
 //  Copyright © 2017年 Vizlab. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "PostListViewController.h"
 #import "PostListModel.h"
 #import "PostListDataSource.h"
 #import "PostListDelegate.h"
 #import "PostListContext.h"
 
 
-@interface ViewController ()
+@interface PostListViewController ()
 
 @property(nonatomic,strong) PostListDataSource* ds;
 @property(nonatomic,strong) PostListDelegate* dl;
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation ViewController
+@implementation PostListViewController
 
 - (PostListDelegate* )dl{
     if(!_dl){

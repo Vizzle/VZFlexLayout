@@ -9,7 +9,6 @@
 #import "PostItem.h"
 #import "PostNode.h"
 #import "PostItemStore.h"
-#import "ViewController.h"
 #import "PostListContext.h"
 
 

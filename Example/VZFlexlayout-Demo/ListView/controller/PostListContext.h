@@ -7,10 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class VZListViewController;
 @class VZFluxDispatcher;
+@class VZFluxStore;
+
 @interface PostListContext : NSObject
+
+- (id)initWithRootViewController:(UIViewController* )vc FluxStore:(VZFluxStore* )store;
+
 
 + (instancetype)sharedInstance;
 

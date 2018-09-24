@@ -76,7 +76,8 @@ using namespace VZ;
             //change state
             [store onDispatch:{
                 .actionType = ActionType::state,
-                .eventId = CHANGE_TITLE_COLOR
+                .eventId = CHANGE_TITLE_COLOR,
+                .payload = @{@"index" : props.indexPath}
             }];
         }]
         

@@ -12,23 +12,8 @@
 
 using namespace VZ;
 @class VZFluxDispatcher;
-@class VZFluxEventEmitter;
 
 typedef void(^VZFluxStoreListener)(int32_t eventId, BOOL stateChanged);
-
-
-
-/**
- *
- * This class represents the most basic functionality for a FluxStore. Do not
- * extend this store directly; instead extend FluxReduceStore when creating a
- * new store.
- *
- * Implementation based on  FluxStore.js
- * See:"https://github.com/facebook/flux/blob/master/src/stores/FluxStore.js"
- *
- */
-
 @interface VZFluxStore : NSObject{
 }
 
@@ -47,15 +32,8 @@ typedef void(^VZFluxStoreListener)(int32_t eventId, BOOL stateChanged);
 @interface VZFluxStore(Subclasses)
 
 + (id)initialState;
-/*
- * (old_state, action) => new_state
- */
-- (id)reducer:(id)state action:(const FluxAction& )action;
-/**
- * The callback that will be registered with the dispatcher during
- * instantiation. Subclasses must override this method. This callback is the
- * only way the store receives new data.
- */
+
+- (id)reduce:(id)state action:(const FluxAction& )action;
 - (void)onDispatch:(const FluxAction&)action;
 
 @end

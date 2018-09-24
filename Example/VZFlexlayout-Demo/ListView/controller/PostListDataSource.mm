@@ -10,10 +10,6 @@
 #import "PostListCell.h"
 #import "PostItem.h"
 
-
-
-
-
 @implementation PostListDataSource
 
 

@@ -29,7 +29,7 @@ DEPENDENCIES:
   - VZInspector
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AFNetworking
     - SDWebImage
     - Vizzle
@@ -48,4 +48,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 18537ee418c7730fa27493146dce35c20f6185d9
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.0

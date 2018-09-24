@@ -105,8 +105,6 @@ struct VZItemRecyclerState{
      
         __block NSSet* copiedNodes = _mountedNodes;
         VZFDispatchMain(0, ^{
-//        VZF_MainCall(^{
-            
             for(VZFNode* node in copiedNodes){
                 VZ::Mounting::reset(node.mountedView);
                 [node unmount];

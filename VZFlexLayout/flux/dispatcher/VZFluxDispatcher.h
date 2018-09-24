@@ -15,7 +15,7 @@
  *  Implementation based on Dispatcher.js
  */
 using namespace VZ;
-typedef void(^DispatchPayload) (FluxAction payload);
+typedef void(^DispatchCallback) (FluxAction payload);
 
 /**
  Dispatcher is used to broadcast payloads to registered callbacks. This is different from generic pub-sub systems in two ways:
@@ -34,7 +34,7 @@ typedef void(^DispatchPayload) (FluxAction payload);
  *
  *  @return registered token
  */
-- (NSString* )registerWithCallback:(DispatchPayload)callback;
+- (NSString* )registerWithCallback:(DispatchCallback)callback;
 /**
  *  Removes a callback based on its token.
  *
