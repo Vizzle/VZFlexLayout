@@ -126,14 +126,14 @@
 		451A418321585D5C00AC33AE /* model */ = {
 			isa = PBXGroup;
 			children = (
-				451A418421585D5C00AC33AE /* PostListModel.h */,
-				451A418521585D5C00AC33AE /* PostItemStore.mm */,
-				451A418621585D5C00AC33AE /* PostListModel.mm */,
-				451A418721585D5C00AC33AE /* PostNode.mm */,
-				451A418821585D5C00AC33AE /* PostItem.mm */,
 				451A418921585D5C00AC33AE /* PostItem.h */,
+				451A418821585D5C00AC33AE /* PostItem.mm */,
 				451A418A21585D5C00AC33AE /* PostNode.h */,
+				451A418721585D5C00AC33AE /* PostNode.mm */,
 				451A418B21585D5C00AC33AE /* PostItemStore.h */,
+				451A418521585D5C00AC33AE /* PostItemStore.mm */,
+				451A418421585D5C00AC33AE /* PostListModel.h */,
+				451A418621585D5C00AC33AE /* PostListModel.mm */,
 			);
 			path = model;
 			sourceTree = "<group>";

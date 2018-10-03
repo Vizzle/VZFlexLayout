@@ -31,8 +31,7 @@ typedef void(^VZFluxStoreListener)(int32_t eventId, BOOL stateChanged);
 
 @interface VZFluxStore(Subclasses)
 
-+ (id)initialState;
-
+- (id)initialState;
 - (id)reduce:(id)state action:(const FluxAction& )action;
 - (void)onDispatch:(const FluxAction&)action;
 
