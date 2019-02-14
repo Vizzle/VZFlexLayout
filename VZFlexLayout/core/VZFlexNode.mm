@@ -456,19 +456,7 @@ float flexNodeBaseline(void* context, FlexSize constrainedSize) {
     };
 }
 
-- (void)prepareLayout
-{
-    for(VZFlexNode* node in self.childNodes)
-    {
-        [node prepareLayout];
-    }
-    
-}
-
 - (void)layout:(CGSize)constrainedSize{
-    
-    //prepare layout递归
-    [self prepareLayout];
     
     Flex_layout(_flex_node, constrainedSize.width, constrainedSize.height, [UIScreen mainScreen].scale);
     
