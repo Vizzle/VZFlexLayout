@@ -151,7 +151,7 @@
 +(VZFImageNodeRenderer *)getImageRenderer:(const ImageNodeSpecs& )imageSpec node:(VZFImageNode* )node size:(CGSize)size{
     
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{} ;
-    int animateCount = [ctx[@"animate-count"] intValue]?:0;
+    int animateCount = [ctx[@"style"][@"animate-count"] intValue]?:0;
     
     if (animateCount > 1) {
         return nil;

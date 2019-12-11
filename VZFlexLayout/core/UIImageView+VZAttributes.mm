@@ -23,7 +23,7 @@
     
     //gif重复次数，context里拿到设置给imageView。setImage: 中会使用 animationRepeatCount，因此要先设置。
     NSDictionary *ctx = [imageSpec.context isKindOfClass:[NSDictionary class]] ? (NSDictionary *)imageSpec.context : @{};
-    int animateCount = [ctx[@"animate-count"] intValue]?:0;
+    int animateCount = [ctx[@"style"][@"animate-count"] intValue]?:0;
     networkImageView.animationRepeatCount = animateCount;
     networkImageView.image = imageSpec.image;
     networkImageView.contentMode = imageSpec.contentMode;
